@@ -13,6 +13,7 @@ collections:
     - label: "Home"
       name: "home"
       file: "content/home.md"
+      preview_path: home
       fields:
         - { label: "Title", name: "title", widget: "string"}
         - { label: "Publish Date", name: "date", widget: "datetime" }
@@ -23,3 +24,13 @@ collections:
           fields:
             - { label: "Name", name: "name", widget: "string"}
             - { label: "Description", name: "description", widget: "text"}
+  - name: posts
+    label: "Posts"
+    create: true
+    preview_path: posts/{{year}}/{{month}}/{{title}}
+    folder: "content/posts"
+    fields:
+      - { name: title, label: Title }
+      - { name: date, label: Date, widget: datetime }
+      - { name: body, label: Body, widget: markdown }
+# This collection requires `path_preview_date_field` because

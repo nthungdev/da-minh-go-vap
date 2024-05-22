@@ -17,24 +17,6 @@ const nextConfig = {
         destination: '/admin/index.html',
         permanent: false,
       },
-      // {
-      //   source: '/',
-      //   has: [{ type: 'query', key: '#invite_token' }],
-      //   destination: '/admin/index.html',
-      //   permanent: true,
-      // },
-      // {
-      //   source: '/#',
-      //   has: [{ type: 'query', key: 'confirmation_token' }],
-      //   destination: '/admin/index.html',
-      //   permanent: true,
-      // },
-      // {
-      //   source: '/#',
-      //   has: [{ type: 'query', key: 'invite_token' }],
-      //   destination: '/admin/index.html',
-      //   permanent: true,
-      // },
     ]
   },
 };
