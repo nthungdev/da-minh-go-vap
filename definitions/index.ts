@@ -1,4 +1,4 @@
-type CmsHome = {
+type Home = {
   title: string,
   cats: string,
 }

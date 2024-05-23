@@ -1,36 +1,133 @@
+# run npx decap-server
 local_backend: true
 
 backend:
   name: git-gateway
   branch: decapcms # Branch to update (optional; defaults to master)
+  squash_merges: true
+
+# only works with remote backend
+publish_mode: editorial_workflow
+
+locale: "vi"
+
+media_library:
+  name: cloudinary
+  config:
+    cloud_name: dxtb6rv7y
+    api_key: 897111389275384
 
 media_folder: public/img
 public_folder: img
 collections:
   - name: "pages"
-    label: "Pages"
+    label: "Trang"
     files:
-    - label: "Home"
-      name: "home"
-      file: "content/home.md"
-      preview_path: home
-      fields:
-        - { label: "Title", name: "title", widget: "string"}
-        - { label: "Publish Date", name: "date", widget: "datetime" }
-        - { label: "Body", name: "body", widget: "markdown"}
-        - label: 'Cats'
-          name: "cats"
-          widget: list
-          fields:
-            - { label: "Name", name: "name", widget: "string"}
-            - { label: "Description", name: "description", widget: "text"}
+      - name: "congregation"
+        label: "Hội dòng"
+        file: "content/settings/congregration.md"
+        fields:
+          - name: "submenu"
+            label: "Menu con"
+            widget: "object"
+            fields:
+              - name: "introduction"
+                label: "Gioi thieu"
+                widget: object
+                fields:
+                  - name: body
+                    label: Than trang
+                    widget: markdown
+              - name: "history"
+                label: "Lich su"
+                widget: object
+                fields:
+                  - name: body
+                    label: Than trang
+                    widget: markdown
+      - name: "contact"
+        label: "Liên hệ"
+        file: "content/pages/contact.md"
+        fields:
+          - name: "body"
+            label: "Thân trang"
+            widget: markdown
+  - name: "settings"
+    label: "Cài đặt"
+    editor:
+      preview: false
+    files:
+      - name: "site"
+        label: "Cài đặt website"
+        file: "content/settings/site.md"
+        fields:
+          - name: "logo"
+            label: "Logo"
+            widget: "image"
+            allow_multiple: false
+      - name: "home"
+        label: "Trang chủ"
+        file: "content/settings/home.md"
+        fields:
+          - { name: "hidden", label: "Ẩn", widget: "boolean", default: false }
+      - name: "congregation"
+        label: "Hội dòng"
+        file: "content/settings/congregration.md"
+        fields:
+          - { name: "hidden", label: "Ẩn", widget: "boolean", default: false }
+      - name: "spirituality"
+        label: "Linh đạo"
+        file: "content/settings/spirituality.md"
+        fields:
+          - { name: "hidden", label: "Ẩn", widget: "boolean", default: false }
+      - name: "missions"
+        label: "Sứ vụ"
+        file: "content/settings/missions.md"
+        fields:
+          - { name: "hidden", label: "Ẩn", widget: "boolean", default: false }
+      - name: "prayer"
+        label: "Cầu nguyện"
+        file: "content/settings/prayer.md"
+        fields:
+          - { name: "hidden", label: "Ẩn", widget: "boolean", default: false }
+      - name: "vocation"
+        label: "Ơn gọi"
+        file: "content/settings/invocation.md"
+        fields:
+          - { name: "hidden", label: "Ẩn", widget: "boolean", default: false }
+      - name: "news"
+        label: "Bản tin"
+        file: "content/settings/news.md"
+        fields:
+          - { name: "hidden", label: "Ẩn", widget: "boolean", default: false }
+      - name: "special-topics"
+        label: "Chuyên đề"
+        file: "content/settings/special-topics.md"
+        fields:
+          - { name: "hidden", label: "Ẩn", widget: "boolean", default: false }
+      - name: "footer"
+        label: "Chân trang"
+        file: "content/settings/footer.md"
+        fields:
+          - {
+              name: "name",
+              label: "Tên",
+              widget: "string",
+              default: "HỘI DÒNG NỮ ĐA MINH GÒ VẤP",
+            }
+          - { name: "address", label: "Địa chỉ", widget: "string" }
+          - { name: "email", label: "Email", widget: "string" }
+          - { name: "phone", label: "Điện thoại", widget: "string" }
+          - { name: "facebook", label: "Facebook", widget: "string" }
+          - { name: "youtube", label: "Youtube", widget: "string" }
+          - { name: "zalo", label: "Zalo", widget: "string" }
   - name: posts
-    label: "Posts"
+    label: "Bài viết"
     create: true
     preview_path: posts/{{year}}/{{month}}/{{title}}
     folder: "content/posts"
     fields:
-      - { name: title, label: Title }
+      - { name: title, label: Tiêu đề }
       - { name: date, label: Date, widget: datetime }
       - { name: body, label: Body, widget: markdown }
 # This collection requires `path_preview_date_field` because
