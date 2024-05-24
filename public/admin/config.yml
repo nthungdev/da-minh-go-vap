@@ -25,9 +25,13 @@ collections:
     files:
       - name: "congregation"
         label: "Hội dòng"
-        file: "content/settings/congregration.md"
+        file: "content/pages/congregration.md"
         fields:
-          - name: "submenu"
+          - name: "banner"
+            label: "Banner"
+            widget: image
+            required: false
+          - name: "submenus"
             label: "Menu con"
             widget: "object"
             fields:
@@ -45,6 +49,9 @@ collections:
                   - name: body
                     label: Than trang
                     widget: markdown
+          - name: "body"
+            label: "Thân trang"
+            widget: markdown
       - name: "contact"
         label: "Liên hệ"
         file: "content/pages/contact.md"
@@ -129,5 +136,6 @@ collections:
     fields:
       - { name: title, label: Tiêu đề }
       - { name: date, label: Date, widget: datetime }
+      - { name: videoPost, label: "Bài viết video", widget: boolean }
       - { name: body, label: Body, widget: markdown }
 # This collection requires `path_preview_date_field` because
