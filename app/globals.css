@@ -31,3 +31,12 @@
     text-wrap: balance;
   }
 }
+
+@layer components {
+  .markdown {
+    /* TODO complete this class */
+    h1 {
+      @apply text-3xl;
+    }
+  }
+}
