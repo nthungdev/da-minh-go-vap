@@ -3,7 +3,7 @@ local_backend: true
 
 backend:
   name: git-gateway
-  branch: decapcms # Branch to update (optional; defaults to master)
+  branch: netlify # Branch to update (optional; defaults to master)
   squash_merges: true
 
 # only works with remote backend
