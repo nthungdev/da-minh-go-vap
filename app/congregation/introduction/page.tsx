@@ -2,8 +2,8 @@ import {
   // react as Congregration,
   attributes,
   body
-} from '@/content/pages/congregration.md'
-import { AppMarkdown } from '@/app/components'
+} from '@/content/pages/congregation/introduction.md'
+import AppMarkdown from '@/components/app-markdown'
 
 export default function CongregationIntroduction() {
 
