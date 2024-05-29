@@ -3,7 +3,7 @@ local_backend: true
 
 backend:
   name: git-gateway
-  branch: netlify # Branch to update (optional; defaults to master)
+  branch: netlify # Branch to update
   squash_merges: true
 
 # only works with remote backend
@@ -23,35 +23,71 @@ collections:
   - name: "pages"
     label: "Trang"
     files:
-      - name: "congregation"
-        label: "Hội dòng"
-        file: "content/pages/congregration.md"
+      - name: "congregation-introduction"
+        label: "Giới thiệu hội dòng"
+        file: "content/pages/congregation/introduction.md"
         fields:
-          - name: "banner"
-            label: "Banner"
+          - name: "about-us-banner"
+            label: "Banner giới thiệu hội dòng"
             widget: image
             required: false
-          - name: "submenus"
-            label: "Menu con"
-            widget: "object"
-            fields:
-              - name: "introduction"
-                label: "Gioi thieu"
-                widget: object
-                fields:
-                  - name: body
-                    label: Than trang
-                    widget: markdown
-              - name: "history"
-                label: "Lich su"
-                widget: object
-                fields:
-                  - name: body
-                    label: Than trang
-                    widget: markdown
-          - name: "body"
-            label: "Thân trang"
+            allow_multiple: false
+          - name: "about-us-body"
+            label: "Đôi nét về hội dòng"
             widget: markdown
+          - name: "about-us-general"
+            label: "Đôi nét chính"
+            widget: "markdown"
+          - name: "about-us-training"
+            label: "Chương trình đào tạo"
+            widget: "markdown"
+          - name: "duties"
+            label: "Chúng tôi đã làm gì"
+            widget: "markdown"
+          - name: "introduction-videos"
+            label: "Video giới thiệu"
+            widget: "list"
+            field:
+              { name: "youtube-link", label: "Link youtube", widget: "string" }
+          - name: "mission-banner"
+            label: "Banner sứ mệnh của hội dòng"
+            widget: image
+            required: false
+            allow_multiple: false
+          - name: "body2"
+            label: "Đôi nét về sứ mệnh của hội dòng"
+            widget: markdown
+          - name: "home-for-orphans"
+            label: "Mái ấm cho trẻ mồ côi"
+            widget: "markdown"
+          - name: "care-for-the-disabled"
+            label: "Chăm sóc người khuyết tật"
+            widget: "markdown"
+          - name: "reach-out-to-the-poor"
+            label: "Đến với anh em nghèo"
+            widget: "markdown"
+          - name: "mission-videos"
+            label: "Video hoạt động sứ mệnh"
+            widget: "list"
+            allow_add: true
+            field:
+              { name: "youtube-link", label: "Link youtube", widget: "string" }
+          - name: "where-banner"
+            label: "Banner nơi chúng tôi hiện diện"
+            widget: image
+            required: false
+            allow_multiple: false
+          - name: "locations"
+            label: "Các địa điểm"
+            widget: "list"
+            allow_add: true
+            fields:
+              - { name: "name", label: "Tên địa điểm", widget: "string" }
+              - {
+                  name: "description",
+                  label: "Thông tin về địa điểm",
+                  widget: "markdown",
+                }
       - name: "contact"
         label: "Liên hệ"
         file: "content/pages/contact.md"
