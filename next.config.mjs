@@ -19,6 +19,14 @@ const nextConfig = {
       },
     ]
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'dungtran.it',
+      }
+    ]
+  }
 };
 
 export default nextConfig;
