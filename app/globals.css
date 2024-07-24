@@ -16,6 +16,10 @@
   }
 }
 
+* {
+  @apply text-gray-900
+}
+
 /* body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
@@ -43,6 +47,10 @@
     }
     h3 {
       @apply text-xl;
+    }
+    /* make space between paragraphs */
+    p + p {
+      @apply mt-2;
     }
   }
 }
