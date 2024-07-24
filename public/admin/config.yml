@@ -27,67 +27,101 @@ collections:
         label: "Giới thiệu hội dòng"
         file: "content/pages/congregation/introduction.md"
         fields:
-          - name: "about-us-banner"
-            label: "Banner giới thiệu hội dòng"
-            widget: image
-            required: false
-            allow_multiple: false
-          - name: "about-us-body"
-            label: "Đôi nét về hội dòng"
-            widget: markdown
-          - name: "about-us-general"
-            label: "Đôi nét chính"
-            widget: "markdown"
-          - name: "about-us-training"
-            label: "Chương trình đào tạo"
-            widget: "markdown"
-          - name: "duties"
-            label: "Chúng tôi đã làm gì"
-            widget: "markdown"
-          - name: "introduction-videos"
-            label: "Video giới thiệu"
-            widget: "list"
-            field:
-              { name: "youtube-link", label: "Link youtube", widget: "string" }
-          - name: "mission-banner"
-            label: "Banner sứ mệnh của hội dòng"
-            widget: image
-            required: false
-            allow_multiple: false
-          - name: "body2"
-            label: "Đôi nét về sứ mệnh của hội dòng"
-            widget: markdown
-          - name: "home-for-orphans"
-            label: "Mái ấm cho trẻ mồ côi"
-            widget: "markdown"
-          - name: "care-for-the-disabled"
-            label: "Chăm sóc người khuyết tật"
-            widget: "markdown"
-          - name: "reach-out-to-the-poor"
-            label: "Đến với anh em nghèo"
-            widget: "markdown"
-          - name: "mission-videos"
-            label: "Video hoạt động sứ mệnh"
-            widget: "list"
-            allow_add: true
-            field:
-              { name: "youtube-link", label: "Link youtube", widget: "string" }
-          - name: "where-banner"
-            label: "Banner nơi chúng tôi hiện diện"
-            widget: image
-            required: false
-            allow_multiple: false
-          - name: "locations"
-            label: "Các địa điểm"
-            widget: "list"
-            allow_add: true
+          - name: "aboutUs"
+            label: "Mục chúng tôi là ai"
+            widget: object
             fields:
-              - { name: "name", label: "Tên địa điểm", widget: "string" }
-              - {
-                  name: "description",
-                  label: "Thông tin về địa điểm",
-                  widget: "markdown",
-                }
+              - name: "banner"
+                label: "Banner giới thiệu hội dòng"
+                widget: image
+                required: false
+                allow_multiple: false
+              - name: "title"
+                label: "Tiêu đề"
+                widget: "string"
+              - name: "body"
+                label: "Nội dung"
+                widget: "markdown"
+              - name: tabs
+                label: "Các tab giới thiệu"
+                widget: "list"
+                fields:
+                  - { name: "title", label: "Tiêu đề", widget: "string" }
+                  - { name: "body", label: "Nội dung", widget: "markdown" }
+              - name: videos
+                label: "Video giới thiệu"
+                widget: "object"
+                fields:
+                  - { name: "title", label: "Tiêu đề", widget: "string" }
+                  - name: "videos"
+                    label: "Video giới thiệu"
+                    widget: "list"
+                    fields:
+                      - { name: "title", label: "Tiêu đề video", widget: "string" }
+                      - { name: "thumbnail", label: "Hình thu nhỏ", widget: "image", allow_multiple: false }
+                      - { name: "youtubeUrl", label: "Link youtube", widget: "string" }
+          - name: "mission"
+            label: "Mục sứ mệnh của hội dòng"
+            widget: object
+            fields:
+              - name: "banner"
+                label: "Banner sứ mệnh của hội dòng"
+                widget: image
+                required: false
+                allow_multiple: false
+              - name: "title"
+                label: "Tiêu đề"
+                widget: "string"
+              - name: "body"
+                label: "Nội dung"
+                widget: "markdown"
+              - name: tabs
+                label: "Các tab sứ mệnh"
+                widget: "list"
+                fields:
+                  - { name: "title", label: "Tiêu đề", widget: "string" }
+                  - { name: "body", label: "Nội dung", widget: "markdown" }
+              - name: videos
+                label: "Video hoạt động sứ mệnh"
+                widget: "object"
+                fields:
+                  - name: "title"
+                    label: "Tiêu đề"
+                    widget: "string"
+                    required: false
+                  - name: "videos"
+                    label: "Các videos"
+                    widget: "list"
+                    fields:
+                      - { name: "title", label: "Tiêu đề video", widget: "string" }
+                      - { name: "thumbnail", label: "Hình thu nhỏ", widget: "image", allow_multiple: false }
+                      - { name: "youtubeUrl", label: "Link youtube", widget: "string" }
+          - name: "whereabouts"
+            label: "Mục nơi chúng tôi hiện diện"
+            widget: object
+            fields:
+              - name: "banner"
+                label: "Banner nơi chúng tôi hiện diện"
+                widget: image
+                required: false
+                allow_multiple: false
+              - name: title
+                label: "Tiêu đề"
+                widget: "string"
+              - name: "body"
+                label: "Nội dung"
+                widget: "markdown"
+              - name: "countries"
+                label: "Các nước hiện diện"
+                widget: "list"
+                allow_add: true
+                fields:
+                  - { name: "name", label: "Tên nước", widget: "string" }
+                  - {
+                      name: "body",
+                      label: "Nội dung",
+                      widget: "markdown",
+                    }
       - name: "contact"
         label: "Liên hệ"
         file: "content/pages/contact.md"
