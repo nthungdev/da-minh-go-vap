@@ -9,7 +9,7 @@ export default function AppPage({
   ...props
 }: AppPageProps) {
   return (
-    <main className={`py-8 mx-auto max-w-4xl ${className}`} {...props}>
+    <main className={`py-8 mx-auto max-w-screen-lg ${className}`} {...props}>
       {children}
     </main>
   )

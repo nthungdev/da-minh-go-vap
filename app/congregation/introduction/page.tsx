@@ -138,7 +138,7 @@ export default function CongregationIntroduction() {
   const { aboutUs, mission, whereabouts } = attributes as CongregationAbout
 
   return (
-    <AppPage className="space-y-12">
+    <AppPage className="space-y-12 px-4 bg-gray-300">
       <AboutSection content={aboutUs} />
       <MissionSection content={mission} />
       <WhereaboutsSection content={whereabouts} />
