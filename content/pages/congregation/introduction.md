@@ -50,7 +50,14 @@ aboutUs:
         * công tác giáo dục: dấn thân trong việc giáo dục mầm non, các lớp dạy kèm bán trú, nội trú
       body: Điền nội dung
   videos:
-    title: Video gioi thieu
+    title: Video giới thiệu
+    videos:
+      - youtubeUrl: https://www.youtube.com/watch?v=1Ne1hqOXKKI
+        title: Tieu de video 1
+        thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1721763965/256x144_ctgirg.png
+      - title: Tieu de video 2
+        thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1721763965/256x144_ctgirg.png
+        youtubeUrl: https://www.youtube.com/watch?v=y0sF5xhGreA
   banner: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1721759025/600x200.png
 mission:
   title: NƠI CHÚNG TÔI HIỆN DIỆN
@@ -102,6 +109,16 @@ mission:
         * công tác giáo dục: dấn thân trong việc giáo dục mầm non, các lớp dạy kèm bán trú, nội trú.
       body: Điền nội dung
   banner: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1721759025/600x200.png
-whereabout:
-  title: gvcvnbv
+whereabouts:
+  title: CHÚNG TÔI HIỆN DIỆN Ở TRONG NƯỚC VÀ CẢ NGOẠI QUỐC
+  countries:
+    - name: Việt Nam
+      body: Điền nội dung
+    - name: Mỹ
+      body: Điền nội dung
+    - name: Úc
+      body: Điền nội dung
+  banner: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1721759025/600x200.png
+  body: Chúng tôi hiện đang phục vụ tại 22 cộng đoàn trong đó 19 cộng đoàn thuộc 7
+    giáo phận Việt Nam, 2 cộng đoàn ở Mỹ và 1 cộng đoàn tại Úc.
 ---

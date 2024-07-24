@@ -4,7 +4,7 @@ type Home = {
 }
 
 type AboutUsSection = {
-  banner: string
+  banner?: string
   title: string
   body: string
   tabs: {
@@ -15,6 +15,7 @@ type AboutUsSection = {
     title: string
     videos: {
       title: string
+      thumbnail: string
       youtubeUrl: string
     }[]
   }
@@ -23,8 +24,9 @@ type AboutUsSection = {
 type MissionSection = AboutUsSection
 
 type WhereaboutsSection = {
-  banner: string
+  banner?: string
   title: string
+  body: string
   countries: {
     name: string
     body: string

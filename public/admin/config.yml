@@ -56,8 +56,10 @@ collections:
                   - name: "videos"
                     label: "Video giới thiệu"
                     widget: "list"
-                    field:
-                      { name: "youtubeUrl", label: "Link youtube", widget: "string" }
+                    fields:
+                      - { name: "title", label: "Tiêu đề video", widget: "string" }
+                      - { name: "thumbnail", label: "Hình thu nhỏ", widget: "image", allow_multiple: false }
+                      - { name: "youtubeUrl", label: "Link youtube", widget: "string" }
           - name: "mission"
             label: "Mục sứ mệnh của hội dòng"
             widget: object
@@ -91,9 +93,10 @@ collections:
                     label: "Các videos"
                     widget: "list"
                     fields:
-                      - { name: "title", label: "Tiêu đề", widget: "string" }
+                      - { name: "title", label: "Tiêu đề video", widget: "string" }
+                      - { name: "thumbnail", label: "Hình thu nhỏ", widget: "image", allow_multiple: false }
                       - { name: "youtubeUrl", label: "Link youtube", widget: "string" }
-          - name: "whereabout"
+          - name: "whereabouts"
             label: "Mục nơi chúng tôi hiện diện"
             widget: object
             fields:
@@ -105,6 +108,9 @@ collections:
               - name: title
                 label: "Tiêu đề"
                 widget: "string"
+              - name: "body"
+                label: "Nội dung"
+                widget: "markdown"
               - name: "countries"
                 label: "Các nước hiện diện"
                 widget: "list"
