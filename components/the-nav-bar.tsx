@@ -48,12 +48,12 @@ export default function TheNavBar({className}: TheNavBarProps) {
 
             {link.children && (
               <div className="z-20 hidden peer-hover:block hover:block absolute top-full left-0">
-                <ul className="mt-4 bg-red-400">
+                <ul className="mt-4 bg-primary-400">
                   {link.children.map((child) => (
                     <li key={child.href} className="block">
                       <Link
                         href={`${link.href}${child.href}`}
-                        className="block text-nowrap px-4 py-2 hover:bg-blue-300"
+                        className="block text-nowrap px-4 py-2 hover:bg-primary-700 hover:text-gray-50"
                       >
                         {child.name}
                       </Link>
