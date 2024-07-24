@@ -54,7 +54,7 @@ aboutUs:
     videos:
       - youtubeUrl: https://www.youtube.com/watch?v=1Ne1hqOXKKI
         title: Tieu de video 1
-        thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1721763965/256x144_ctgirg.png
+        thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1721759025/600x200.png
       - title: Tieu de video 2
         thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1721763965/256x144_ctgirg.png
         youtubeUrl: https://www.youtube.com/watch?v=y0sF5xhGreA

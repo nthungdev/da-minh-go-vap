@@ -1,8 +1,8 @@
 import { attributes } from '@/content/pages/congregation/introduction.md'
 import AppMarkdown from '@/components/app-markdown'
 import Image from 'next/image';
-import Link from 'next/link';
 import AppPage from '@/components/app-page';
+import AppVideoTile from '@/components/app-video-tile';
 
 const AboutSection = ({ content }: Readonly<{
   content: AboutUsSection;
@@ -39,22 +39,12 @@ const AboutSection = ({ content }: Readonly<{
             {
               content.videos.videos?.map(({ title, youtubeUrl, thumbnail }, index) => (
                 <li key={index}>
-                  <Link
-                    href={youtubeUrl}
-                    className='inline-block'
-                    target='_blank'
-                  >
-                    <div className='inline-block rounded-lg overflow-hidden border-2 w-[256px] hover:ring-2'>
-                      <Image
-                        className='w-full'
-                        src={thumbnail}
-                        width={256}
-                        height={144}
-                        alt={`${title}'s thumbnail`}
-                      />
-                      <h5 className='text-center py-2 px-2 truncate'>{title}</h5>
-                    </div>
-                  </Link>
+                  <AppVideoTile
+                    thumbnail={thumbnail}
+                    title={title}
+                    videoUrl={youtubeUrl}
+                    titleComponent='h5'
+                  />
                 </li>
               ))
             }
@@ -100,22 +90,12 @@ const MissionSection = ({ content }: Readonly<{
             {
               content.videos.videos?.map(({ title, youtubeUrl, thumbnail }, index) => (
                 <li key={index}>
-                  <Link
-                    href={youtubeUrl}
-                    className='inline-block'
-                    target='_blank'
-                  >
-                    <div className='inline-block rounded-lg overflow-hidden border-2 w-[256px] hover:ring-2'>
-                      <Image
-                        className='w-full'
-                        src={thumbnail}
-                        width={256}
-                        height={144}
-                        alt={`${title}'s thumbnail`}
-                      />
-                      <h5 className='text-center py-2 px-2 truncate'>{title}</h5>
-                    </div>
-                  </Link>
+                  <AppVideoTile
+                    thumbnail={thumbnail}
+                    title={title}
+                    videoUrl={youtubeUrl}
+                    titleComponent='h5'
+                  />
                 </li>
               ))
             }
