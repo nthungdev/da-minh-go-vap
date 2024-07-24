@@ -2,7 +2,11 @@ import Link from 'next/link'
 import { attributes } from '@/content/settings/site.md'
 import Image from 'next/image'
 
-export default function TheNavBar() {
+interface TheNavBarProps {
+  className?: string;
+}
+
+export default function TheNavBar({className}: TheNavBarProps) {
   const links = [
     { href: '/', name: 'Trang chủ' },
     {
@@ -25,10 +29,9 @@ export default function TheNavBar() {
   ]
 
   const { logo } = attributes
-  console.log({ logo })
 
   return (
-    <nav className="relative bg-blue-800 text-gray-100 py-2 flex flex-row flex-wrap justify-center">
+    <nav className={`relative bg-primary text-gray-100 py-2 flex flex-row flex-wrap justify-center ${className}`}>
       <ul className="flex flex-row flex-wrap items-center max-w-screen-xl">
         <div className="relative overflow-auto h-16 w-16">
           <Image src={logo} alt="logo" fill={true} quality={100} />
