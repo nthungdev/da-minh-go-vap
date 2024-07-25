@@ -88,7 +88,6 @@ collections:
                   - name: "title"
                     label: "Tiêu đề"
                     widget: "string"
-                    required: false
                   - name: "videos"
                     label: "Các videos"
                     widget: "list"
@@ -122,6 +121,47 @@ collections:
                       label: "Nội dung",
                       widget: "markdown",
                     }
+      - name: "congregation-history"
+        label: "Lịch sử hội dòng"
+        file: "content/pages/congregation/history.md"
+        fields:
+          - name: "developmentHistory"
+            label: "Mục lịch sử phát triển"
+            widget: object
+            fields:
+              - name: "title"
+                label: "Tiêu đề"
+                widget: "string"
+              - name: "body"
+                label: "Nội dung"
+                widget: "markdown"
+              - name: "timeline"
+                label: "Timeline"
+                widget: "list"
+                fields:
+                  - { name: "title", label: "Tiêu đề", widget: "string" }
+                  - { name: "body", label: "Nội dung", widget: "markdown" }
+              - name: videos
+                label: "Video về lịch sử"
+                widget: "object"
+                fields:
+                  - name: "title"
+                    label: "Tiêu đề"
+                    widget: "string"
+                  - name: "videos"
+                    label: "Các videos"
+                    widget: "list"
+                    fields:
+                      - { name: "title", label: "Tiêu đề video", widget: "string" }
+                      - { name: "thumbnail", label: "Hình thu nhỏ", widget: "image", allow_multiple: false }
+                      - { name: "youtubeUrl", label: "Link youtube", widget: "string" }
+          - name: communityHistory
+            label: "Mục lịch sử cộng đoàn"
+            widget: object
+            fields:
+              - name: "title"
+                label: "Tiêu đề"
+                widget: "string"
       - name: "contact"
         label: "Liên hệ"
         file: "content/pages/contact.md"
