@@ -38,3 +38,25 @@ type CongregationAbout = {
   mission: MissionSection
   whereabouts: WhereaboutsSection
 }
+
+type CongregationHistory = {
+  developmentHistory: {
+    title: string
+    body: string
+    timeline: {
+      title: string
+      body: string
+    }[]
+    videos: {
+      title: string
+      videos: {
+        title: string
+        thumbnail: string
+        youtubeUrl: string
+      }[]
+    }
+  }
+  communityHistory: {
+    title: string
+  }
+}
