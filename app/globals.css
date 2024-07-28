@@ -37,8 +37,10 @@
 }
 
 @layer components {
+  /* TODO complete this class */
   .markdown {
-    /* TODO complete this class */
+    @apply leading-7 whitespace-pre-wrap;
+
     h1 {
       @apply text-3xl;
     }
@@ -47,10 +49,6 @@
     }
     h3 {
       @apply text-xl;
-    }
-    /* make space between paragraphs */
-    p + p {
-      @apply mt-2;
     }
   }
 }
