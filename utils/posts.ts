@@ -21,3 +21,18 @@ export const getAllPostSlugs = () => {
     return fileName.replace(/\.md$/, '')
   })
 }
+
+export const getAllPosts = () => {
+  const fileNames = fs.readdirSync(postsDirectory)
+  return fileNames.map(fileName => {
+    const slug = fileName.replace(/\.md$/, '')
+    const filePath = path.join(postsDirectory, slug + '.md')
+    const fileContents = fs.readFileSync(filePath, 'utf8')
+    const { content, data } = matter(fileContents)
+    return {
+      slug,
+      body: content,
+      ...data,
+    } as PostParams
+  })
+}
