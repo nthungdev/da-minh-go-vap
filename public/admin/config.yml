@@ -19,6 +19,7 @@ media_library:
 
 media_folder: public/img
 public_folder: img
+
 collections:
   - name: "pages"
     label: "Trang"
@@ -162,6 +163,21 @@ collections:
               - name: "title"
                 label: "Tiêu đề"
                 widget: "string"
+      - name: congregationEstablishment
+        label: "Sắc lập Dòng"
+        file: "content/pages/congregation/establishment.md"
+        editor:
+          preview: false
+        fields:
+          - name: "posts"
+            label: "Bài viết"
+            widget: "relation"
+            collection: posts
+            multiple: true
+            value_field: "{{slug}}"
+            display_fields: [title]
+            search_fields: [title]
+
       - name: "contact"
         label: "Liên hệ"
         file: "content/pages/contact.md"
@@ -169,6 +185,7 @@ collections:
           - name: "body"
             label: "Thân trang"
             widget: markdown
+
   - name: "settings"
     label: "Cài đặt"
     editor:
@@ -238,14 +255,46 @@ collections:
           - { name: "facebook", label: "Facebook", widget: "string" }
           - { name: "youtube", label: "Youtube", widget: "string" }
           - { name: "zalo", label: "Zalo", widget: "string" }
+
   - name: posts
     label: "Bài viết"
     create: true
     preview_path: posts/{{year}}/{{month}}/{{title}}
     folder: "content/posts"
+    slug: "{{year}}-{{month}}-{{day}}_{{slug}}"
+    summary: "{{title}} - {{date}}"
+    editor:
+      preview: false
     fields:
-      - { name: title, label: Tiêu đề }
-      - { name: date, label: Date, widget: datetime }
-      - { name: videoPost, label: "Bài viết video", widget: boolean }
-      - { name: body, label: Body, widget: markdown }
-# This collection requires `path_preview_date_field` because
+      - { name: title, label: "Tiêu đề" }
+      - { name: date, label: "Thời gian công bố", widget: datetime }
+      - name: "categories"
+        label: "Danh mục"
+        widget: relation
+        collection: postCategories
+        multiple: true
+        value_field: title
+        search_fields: [title]
+      - name: "thumbnail"
+        label: "Ảnh bìa"
+        widget: image
+        allow_multiple: false
+      - name: "videos"
+        label: "Video"
+        description: "Video của bài viết. Chỉ được thêm tối đa 1 video."
+        required: false
+        widget: "list"
+        max: 1
+        fields:
+          - { name: "title", label: "Tiêu đề video", widget: "string" }
+          - { name: "thumbnail", label: "Hình thu nhỏ", widget: "image", allow_multiple: false }
+          - { name: "youtubeUrl", label: "Link youtube", widget: "string" }
+      - { name: body, label: "Nội dung", widget: markdown }
+
+  - name: "postCategories"
+    label: "Danh mục bài viết"
+    description: "Các danh mục cho bài viết"
+    folder: "content/post-categories"
+    create: true
+    fields:
+      - { name: title, label: "Tên danh mục", widget: string }

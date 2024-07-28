@@ -60,3 +60,24 @@ type CongregationHistory = {
     title: string
   }
 }
+
+type CongregationEstablishment = {
+  posts: string[]
+}
+
+type Post = {
+  title: string
+  date: Date,
+  videos: {
+    title: string
+    thumbnail: string
+    youtubeUrl: string
+  }[]
+  categories: string[]
+  thumbnail: string,
+  body: string
+}
+
+type PostParams = Post & {
+  slug: string
+}
