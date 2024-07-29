@@ -1,9 +1,6 @@
 import AppPage from "@/components/app-page";
 import { attributes } from '@/content/pages/congregation/history.md'
 
-/**
- * History
- */
 export default function CongregationHistory() {
   const { developmentHistory, communityHistory } = attributes as CongregationHistory
 
