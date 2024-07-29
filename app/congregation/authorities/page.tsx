@@ -1,12 +1,11 @@
 import AppPage from '@/components/app-page'
 import AppPostGrid from '@/components/app-post-grid'
-import { getAllPosts } from '@/utils/posts'
+import { attributes } from '@/content/pages/congregation/authorities.md'
+import { getPostsByCategories } from '@/utils/posts'
 
-/**
- * History
- */
 export default function CongregationAuthorities() {
-  const posts = getAllPosts()
+  const { categories } = attributes
+  const posts = getPostsByCategories(categories)
 
   return (
     <AppPage>

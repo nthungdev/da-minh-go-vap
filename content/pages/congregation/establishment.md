@@ -1,6 +1,4 @@
 ---
-posts:
-  - 2024-07-27_tesst-2
-  - 2024-07-27_tesst-4
-  - 2024-07-27_test-1
+categories:
+  - Sắc lập dòng
 ---

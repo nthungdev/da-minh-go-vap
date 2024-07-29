@@ -24,7 +24,7 @@ collections:
   - name: "pages"
     label: "Trang"
     files:
-      - name: "congregationIntroduction"
+      - name: congregationIntroduction
         label: "Giới thiệu hội dòng"
         file: "content/pages/congregation/introduction.md"
         fields:
@@ -122,7 +122,7 @@ collections:
                       label: "Nội dung",
                       widget: "markdown",
                     }
-      - name: "congregationHistory"
+      - name: congregationHistory
         label: "Lịch sử hội dòng"
         file: "content/pages/congregation/history.md"
         fields:
@@ -169,16 +169,30 @@ collections:
         editor:
           preview: false
         fields:
-          - name: "posts"
-            label: "Bài viết"
-            widget: "relation"
-            collection: posts
+          - name: "categories"
+            label: "Danh mục"
+            description: "Các bài viết thuộc các danh mục này sẽ hiển thị ở trang sắc lập dòng"
+            widget: relation
+            collection: postCategories
             multiple: true
-            value_field: "{{slug}}"
-            display_fields: [title]
+            value_field: title
+            search_fields: [title]
+      - name: congregationAuthorities
+        label: Các đấng bản quyền"
+        file: "content/pages/congregation/authorities.md"
+        editor:
+          preview: false
+        fields:
+          - name: "categories"
+            label: "Danh mục"
+            description: "Các bài viết thuộc các danh mục này sẽ hiển thị ở trang các đấng bản quyền"
+            widget: relation
+            collection: postCategories
+            multiple: true
+            value_field: title
             search_fields: [title]
 
-      - name: "contact"
+      - name: contact
         label: "Liên hệ"
         file: "content/pages/contact.md"
         fields:
@@ -186,7 +200,7 @@ collections:
             label: "Thân trang"
             widget: markdown
 
-  - name: "settings"
+  - name: settings
     label: "Cài đặt"
     editor:
       preview: false
