@@ -1,12 +1,12 @@
 import AppPage from '@/components/app-page'
-import { getPostsByCategories } from '@/utils/posts'
+import { getPostsByHiddenTags } from '@/utils/posts'
 import AppPostGrid from '@/components/app-post-grid'
 
 export default function History() {
-  const introductionPosts = getPostsByCategories(['Giới thiệu'], { limit: 4 })
-  const historyPosts = getPostsByCategories(['Lịch sử'], { limit: 4 })
-  const establishmentPosts = getPostsByCategories(['Sắc lập dòng'], { limit: 4 })
-  const authoritiesPosts = getPostsByCategories(['Các đấng bản quyền'], { limit: 4 })
+  const introductionPosts = getPostsByHiddenTags(['Giới thiệu'], { limit: 4 })
+  const historyPosts = getPostsByHiddenTags(['Lịch sử'], { limit: 4 })
+  const establishmentPosts = getPostsByHiddenTags(['Sắc lập dòng'], { limit: 4 })
+  const authoritiesPosts = getPostsByHiddenTags(['Các đấng bản quyền'], { limit: 4 })
 
   const data = [
     {

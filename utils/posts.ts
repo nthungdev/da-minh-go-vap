@@ -39,8 +39,8 @@ export const getAllPosts = ({ limit = undefined }: { limit?: number } = {}) => {
     .slice(0, limit)
 }
 
-export const getPostsByCategories = (
-  categories: string[],
+export const getPostsByHiddenTags = (
+  hiddenTags: string[],
   { limit = undefined }: { limit?: number } = {}
 ) => {
   const fileNames = fs.readdirSync(postsDirectory)
@@ -57,8 +57,8 @@ export const getPostsByCategories = (
   })
   return allPosts
     .filter((post) => {
-      const postCategories = new Set(post.categories)
-      return categories.some((category) => postCategories.has(category))
+      const postHiddenTags = new Set(post.hiddenTags)
+      return hiddenTags.some((tag) => postHiddenTags.has(tag))
     })
     .toSorted((a, b) => b.date.getTime() - a.date.getTime())
     .slice(0, limit)

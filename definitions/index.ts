@@ -1,6 +1,24 @@
 type Home = {
-  title: string
-  cats: string
+  banners: {
+    url: string
+    altText: string
+  }[]
+  bibleVerses: {
+    verse: string
+    reference: string
+  }[]
+  latestNews: {
+    enable: boolean
+    limit: number
+  }
+  newsByCategories: {
+    enable: boolean
+    limit: number
+    categories: {
+      title: string
+      hiddenTags: string[]
+    }[]
+  }
 }
 
 type AboutUsSection = {
@@ -73,7 +91,7 @@ type Post = {
     thumbnail: string
     youtubeUrl: string
   }[]
-  categories: string[]
+  hiddenTags: string[]
   thumbnail: string,
   body: string
 }
