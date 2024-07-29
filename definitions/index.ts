@@ -16,7 +16,10 @@ type Home = {
     limit: number
     categories: {
       title: string
-      hiddenTags: string[]
+      subCategories: {
+        title: string
+        hiddenTags: string[]
+      }[]
     }[]
   }
 }

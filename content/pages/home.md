@@ -3,6 +3,8 @@ banners:
   - image: https://res.cloudinary.com/dxtb6rv7y/video/upload/v1722222604/video-banner_gwdvew.mp4
     url: https://res.cloudinary.com/dxtb6rv7y/video/upload/v1722222604/video-banner_gwdvew.mp4
     alt: Video gioi thieu
+  - url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1722133167/maxresdefault_n0yeqb.jpg
+    alt: Banner test
 bibleVerses:
   - verse: For I know the plans I have for you, declares the Lord, plans for welfare
       and not for evil, to give you a future and a hope.
@@ -19,14 +21,17 @@ latestNews:
   limit: 5
 newsByCategories:
   limit: 5
-  enable: true
+  enable: false
   categories:
     - title: Cầu nguyện
-      hiddenTags:
-        - Giới thiệu
-        - Lịch sử
-    - title: Sứ vụ
-      hiddenTags:
-        - Walking with Jesus
-        - Giới thiệu
+      subCategories:
+        - title: Mùa vọng & Giáng sinh
+          hiddenTags:
+            - Các đấng bản quyền
+        - title: Mùa chay & Phục sinh
+          hiddenTags:
+            - Walking with Jesus
+        - title: Mùa thường niên
+          hiddenTags:
+            - Walking with Jesus
 ---

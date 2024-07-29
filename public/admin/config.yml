@@ -34,6 +34,7 @@ collections:
             allow_add: true
             label_singular: 'Banner'
             min: 1
+            max: 10
             fields:
               - { name: 'url', label: 'Hình ảnh/Video ngắn', widget: 'image' }
               - { name: 'alt', label: 'Mô tả', widget: 'string' }
@@ -43,6 +44,7 @@ collections:
             allow_add: true
             label_singular: 'Câu lời Chúa'
             min: 1
+            max: 100
             fields:
               - name: 'verse'
                 label: 'Câu'
@@ -62,6 +64,7 @@ collections:
                   value_type: 'int',
                   default: 5,
                   min: 1,
+                  max: 100
                 }
           - name: 'newsByCategories'
             label: 'Tin tức theo chuyên mục'
@@ -76,6 +79,7 @@ collections:
                   widget: 'number',
                   default: 5,
                   min: 1,
+                  max: 100,
                   step: 1,
                 }
               - {
@@ -84,7 +88,6 @@ collections:
                   widget: 'list',
                   hint: 'Chọn chuyên mục bài viết',
                   allow_add: true,
-                  label_singular: 'Chuyên mục',
                   fields:
                     [
                       {
@@ -93,14 +96,32 @@ collections:
                         widget: 'string',
                       },
                       {
-                        name: 'hiddenTags',
-                        label: 'Tag ẩn',
-                        widget: 'relation',
-                        hint: 'Những bài viết có các tag ẩn được chọn sẽ hiển thị ở chuyên mục này.',
-                        collection: 'hiddenTags',
-                        multiple: true,
-                        value_field: 'title',
-                        search_fields: ['title'],
+                        name: 'subCategories',
+                        label: 'Chuyên mục con',
+                        widget: 'list',
+                        allow_add: true,
+                        min: 2,
+                        max: 10,
+                        collapsed: true,
+                        label_singular: 'Chuyên mục con',
+                        fields:
+                        [
+                          {
+                            name: 'title',
+                            label: 'Tên hiển thị của chuyên mục con',
+                            widget: 'string',
+                          },
+                          {
+                            name: 'hiddenTags',
+                            label: 'Tag ẩn',
+                            widget: 'relation',
+                            hint: 'Những bài viết có các tag ẩn được chọn sẽ hiển thị ở chuyên mục con này.',
+                            collection: 'hiddenTags',
+                            multiple: true,
+                            value_field: 'title',
+                            search_fields: ['title'],
+                          },
+                        ]
                       },
                     ],
                 }
