@@ -18,10 +18,10 @@ bibleVerses:
     reference: Proverbs 3:5-6
 latestNews:
   enable: true
-  limit: 5
+  limit: 6
 newsByCategories:
-  limit: 5
-  enable: false
+  limit: 6
+  enable: true
   categories:
     - title: Cầu nguyện
       subCategories:

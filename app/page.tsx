@@ -1,5 +1,6 @@
 import AppPage from '@/components/app-page'
 import AppPostGrid from '@/components/app-post-grid'
+import AppPostTabGrid from '@/components/app-post-tab-grid'
 import TheBanner from '@/components/the-banner'
 import { attributes } from '@/content/pages/home.md'
 import { getAllPosts, getPostsByHiddenTags } from '@/utils/posts'
@@ -23,6 +24,7 @@ export default function Home() {
       })),
     })
   )
+
   return (
     <div>
       <div className="space-y-8">
@@ -60,7 +62,7 @@ export default function Home() {
             {newsByCategoriesData.map((newsCategory, index) => (
               <div key={index}>
                 <h3 className="text-2xl mb-2">{newsCategory.title}</h3>
-                {/* <AppPostGrid posts={newsCategory.posts} /> */}
+                <AppPostTabGrid category={newsCategory} />
               </div>
             ))}
           </section>
