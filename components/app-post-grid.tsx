@@ -13,7 +13,6 @@ export default function AppPostGrid({ posts }: AppPostGridProps) {
           <Link
             href={`/posts/${post.slug}`}
             className='w-full'
-            target='_blank'
           >
             <div className='w-full inline-block rounded-lg overflow-hidden border-2 hover:ring-2'>
               <Image
