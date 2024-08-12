@@ -1,7 +1,7 @@
-"use client"
+'use client'
 
-import Image from "next/image";
-import { useEffect, useState } from "react";
+import Image from 'next/image'
+import { useEffect, useState } from 'react'
 
 interface TheBannerProps {
   banners: { url: string }[]
@@ -25,12 +25,19 @@ export default function TheBanner(props: TheBannerProps) {
   }, [banners, bannerIndex])
 
   return (
-    <div className='aspect-[4]'>
-      {
-        isVideo
-          ? <video className='w-full h-full' src={bannerUrl} autoPlay loop muted />
-          : <Image className='w-full h-full object-cover' src={bannerUrl} alt="" sizes='100%' width={256} height={144} />
-      }
+    <div className="aspect-[4]">
+      {isVideo ? (
+        <video className="w-full h-full" src={bannerUrl} autoPlay loop muted />
+      ) : (
+        <Image
+          className="w-full h-full object-cover"
+          src={bannerUrl}
+          alt=""
+          sizes="100%"
+          width={256}
+          height={144}
+        />
+      )}
     </div>
   )
 }

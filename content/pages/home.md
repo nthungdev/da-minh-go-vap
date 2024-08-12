@@ -5,6 +5,9 @@ banners:
     alt: Video gioi thieu
   - url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1722133167/maxresdefault_n0yeqb.jpg
     alt: Banner test
+decorativeGraphic:
+  url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1722620486/site-name_ksvjgd.png
+  alt: Đa Minh Gò Vấp
 bibleVerses:
   - verse: For I know the plans I have for you, declares the Lord, plans for welfare
       and not for evil, to give you a future and a hope.

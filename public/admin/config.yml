@@ -38,6 +38,12 @@ collections:
             fields:
               - { name: 'url', label: 'Hình ảnh/Video ngắn', widget: 'image' }
               - { name: 'alt', label: 'Mô tả', widget: 'string' }
+          - name: 'decorativeGraphic'
+            label: 'Đồ họa trang trí'
+            widget: 'object'
+            fields:
+              - { name: 'url', label: 'Hình ảnh', widget: 'image' }
+              - { name: 'alt', label: 'Mô tả', widget: 'string' }
           - name: 'bibleVerses'
             label: 'Câu lời Chúa'
             widget: 'list'

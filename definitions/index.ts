@@ -1,8 +1,12 @@
 type Home = {
   banners: {
     url: string
-    altText: string
+    alt: string
   }[]
+  decorativeGraphic: {
+    url: string
+    alt: string
+  }
   bibleVerses: {
     verse: string
     reference: string
