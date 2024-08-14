@@ -32,7 +32,10 @@ type Home = {
 }
 
 type AboutUsSection = {
-  banner?: string
+  banner: {
+    url: string
+    alt: string
+  }
   title: string
   body: string
   tabs: {
@@ -52,7 +55,10 @@ type AboutUsSection = {
 type MissionSection = AboutUsSection
 
 type WhereaboutsSection = {
-  banner?: string
+  banner: {
+    url: string
+    alt: string
+  }
   title: string
   body: string
   countries: {

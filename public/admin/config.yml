@@ -147,14 +147,16 @@ collections:
             fields:
               - name: 'banner'
                 label: 'Banner giới thiệu hội dòng'
+                required: true
                 widget: object
                 fields:
                   - name: 'url'
                     label: 'Banner'
                     widget: image
-                    required: false
                     allow_multiple: false
-                  - { name: 'alt', label: 'Mô tả', widget: 'string' }
+                  - name: 'alt'
+                    label: 'Mô tả'
+                    widget: 'string'
               - name: 'title'
                 label: 'Tiêu đề'
                 widget: 'string'

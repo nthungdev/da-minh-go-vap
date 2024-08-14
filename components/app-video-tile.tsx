@@ -18,17 +18,18 @@ export default function AppVideoTile({
   return (
     <Link
       href={videoUrl}
-      className='inline-block'
+      className='inline-block w-full'
       target='_blank'
     >
-      <div className='inline-block rounded-lg overflow-hidden border-2 w-[256px] hover:ring-2'>
-        <Image
-          className='w-full aspect-video object-cover'
-          src={thumbnail}
-          width={256}
-          height={144}
-          alt={`${title}'s thumbnail`}
-        />
+      <div className='w-full inline-block rounded-lg overflow-hidden border-2 hover:ring-2'>
+        <div className='w-full lg:w-[256px] relative aspect-video'>
+          <Image
+            className='w-full object-cover'
+            src={thumbnail}
+            fill
+            alt={`${title}'s thumbnail`}
+          />
+        </div>
         <TitleComponent className='text-center py-2 px-2 truncate block'>{title}</TitleComponent>
       </div>
     </Link>

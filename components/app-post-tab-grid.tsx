@@ -16,7 +16,6 @@ export default function AppPostTabGrid({
   classNames,
 }: AppPostTabGridProps) {
   const { subCategories } = category
-  console.log({ category })
 
   return (
     <div className={`${classNames}`}>
