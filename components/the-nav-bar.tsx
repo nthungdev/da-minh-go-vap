@@ -39,9 +39,9 @@ export default function TheNavBar({ className }: TheNavBarProps) {
           <Image
             src={logo}
             alt="logo"
-            fill={true}
             quality={100}
             sizes="100%"
+            fill
             priority
           />
         </div>
