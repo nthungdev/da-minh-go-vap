@@ -33,7 +33,7 @@ export default function TheLatestPosts(props: TheLatestPostsProps) {
           {/* Post text */}
           <div className="absolute flex flex-col bottom-0 left-0 p-3 lg:p-4 text-gray-100 gap-y-1 lg:gap-y-2">
             <span className="text-lg lg:text-2xl line-clamp-1 lg:line-clamp-2 text-gray-100">{latestPost.title}</span>
-            <span className="text-xs lg:text-sm text-gray-200">Time posted</span>
+            <span className="text-xs lg:text-sm text-gray-200">{latestPost.date.toLocaleDateString('vi-VN')}</span>
           </div>
         </div>
       </Link>
@@ -52,7 +52,7 @@ export default function TheLatestPosts(props: TheLatestPostsProps) {
               </div>
               <div className="flex-1 py-1 md:py-2 lg:py-3 flex flex-col justify-between overflow-hidden">
                 <span className="line-clamp-1 lg:line-clamp-2 text-lg text-gray-900">{post.title}</span>
-                <span className="text-xs lg:text-sm text-gray-800">Time posted</span>
+                <span className="text-xs lg:text-sm text-gray-800">{post.date.toLocaleDateString('vi-VN')}</span>
               </div>
             </div>
           </Link>
