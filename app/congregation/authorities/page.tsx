@@ -4,8 +4,8 @@ import { attributes } from '@/content/pages/congregation/authorities.md'
 import { getPostsByHiddenTags } from '@/utils/posts'
 
 export default function CongregationAuthorities() {
-  const { categories } = attributes
-  const posts = getPostsByHiddenTags(categories)
+  const { hiddenTags } = attributes
+  const posts = getPostsByHiddenTags(hiddenTags)
 
   return (
     <AppPage>
