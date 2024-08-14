@@ -56,7 +56,7 @@ export default function Home() {
 
         <section className="max-w-screen-xl mx-auto px-4">
           <h2 className="sr-only">Câu lời chúa</h2>
-          <TheBibleVerse bibleVerses={bibleVerses} />
+          <TheBibleVerse verses={bibleVerses.verses} />
         </section>
       </div>
 

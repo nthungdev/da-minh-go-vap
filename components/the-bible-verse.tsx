@@ -3,34 +3,34 @@
 import { useEffect, useState } from "react"
 
 interface TheBibleVerseProps {
-  bibleVerses: {
+  verses: {
     verse: string
     reference: string
   }[]
 }
 
 export default function TheBibleVerse(props: TheBibleVerseProps) {
-  const { bibleVerses } = props
+  const { verses } = props
 
   const [currentIndex, setCurrentIndex] = useState(0)
 
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) =>
-        prevIndex === bibleVerses.length - 1 ? 0 : prevIndex + 1
+        prevIndex === verses.length - 1 ? 0 : prevIndex + 1
       )
     }, 5000)
 
     return () => clearInterval(interval)
   })
 
-  const currentVerse = bibleVerses[currentIndex]
+  const currentVerse = verses[currentIndex]
   const verse = currentVerse.verse
   const reference = currentVerse.reference
 
   return (
     // <ul className="space-y-2">
-    //   {bibleVerses.map(({ verse, reference }, index) => (
+    //   {verses.map(({ verse, reference }, index) => (
     //     <li key={index}>
     //       <blockquote>
     //         <p>{verse}</p>

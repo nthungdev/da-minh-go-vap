@@ -8,9 +8,12 @@ type Home = {
     alt: string
   }
   bibleVerses: {
-    verse: string
-    reference: string
-  }[]
+    enable: boolean
+    verses: {
+      verse: string
+      reference: string
+    }[]
+  }
   latestNews: {
     enable: boolean
     limit: number
