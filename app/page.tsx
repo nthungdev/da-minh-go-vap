@@ -63,7 +63,7 @@ export default function Home() {
       <AppPage className="space-y-8">
         {latestNews.enable && (
           <section className='space-y-4'>
-            <h2 className="text-2xl mb-2">Tin mới</h2>
+            <h2 className="text-2xl mb-2 sr-only">Tin mới</h2>
             <TheLatestPosts posts={latestPosts} />
           </section>
         )}
