@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import NavBar from "../components/the-nav-bar";
+import ThePrelineScript from "@/components/the-preline-script";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,6 +21,7 @@ export default function RootLayout({
       <body className={`bg-gray-50 ${inter.className}`}>
         <NavBar />
         {children}
+        <ThePrelineScript />
       </body>
     </html>
   );

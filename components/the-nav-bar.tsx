@@ -3,10 +3,10 @@ import { attributes } from '@/content/settings/site.md'
 import Image from 'next/image'
 
 interface TheNavBarProps {
-  className?: string;
+  className?: string
 }
 
-export default function TheNavBar({className}: TheNavBarProps) {
+export default function TheNavBar({ className }: TheNavBarProps) {
   const links = [
     { href: '/', name: 'Trang chủ' },
     {
@@ -31,18 +31,24 @@ export default function TheNavBar({className}: TheNavBarProps) {
   const { logo } = attributes
 
   return (
-    <nav className={`relative bg-primary text-gray-100 py-2 flex flex-row flex-wrap justify-center ${className}`}>
+    <nav
+      className={`relative bg-primary text-gray-50 py-2 flex flex-row flex-wrap justify-center ${className}`}
+    >
       <ul className="flex flex-row flex-wrap items-center max-w-screen-xl">
         <div className="relative overflow-auto h-16 w-16">
-          <Image src={logo} alt="logo" fill={true} quality={100} sizes="100%" priority />
+          <Image
+            src={logo}
+            alt="logo"
+            quality={100}
+            sizes="100%"
+            fill
+            priority
+          />
         </div>
 
         {links.map((link) => (
           <li key={link.href} className="relative flex flex-row">
-            <Link
-              className="block peer px-3 py-2"
-              href={link.href}
-            >
+            <Link className="block peer px-3 py-2" href={link.href}>
               {link.name.toUpperCase()}
             </Link>
 

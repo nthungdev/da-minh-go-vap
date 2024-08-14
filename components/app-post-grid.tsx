@@ -2,20 +2,20 @@ import Image from "next/image";
 import Link from "next/link";
 
 interface AppPostGridProps {
-  posts: PostParams[]
+  posts: PostParams[],
+  classNames?: string
 }
 
-export default function AppPostGrid({ posts }: AppPostGridProps) {
+export default function AppPostGrid({ posts, classNames }: AppPostGridProps) {
   return (
-    <ul className='relative grid grid-flow-row md:grid-cols-3 lg:grid-cols-4 gap-8'>
+    <ul className={`relative grid grid-flow-row md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-8 ${classNames}`}>
       {posts.map((post, index) => (
         <li className='block w-full' key={index}>
           <Link
             href={`/posts/${post.slug}`}
             className='w-full'
-            target='_blank'
           >
-            <div className='w-full inline-block rounded-lg overflow-hidden border-2 hover:ring-2'>
+            <div className='w-full rounded-lg overflow-hidden border-2 hover:ring-2'>
               <Image
                 className='w-full aspect-video object-cover'
                 src={post.thumbnail}

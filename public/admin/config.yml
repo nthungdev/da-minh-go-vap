@@ -9,7 +9,7 @@ backend:
 # only works with remote backend
 publish_mode: editorial_workflow
 
-locale: "vi"
+locale: 'vi'
 
 media_library:
   name: cloudinary
@@ -21,294 +21,464 @@ media_folder: public/img
 public_folder: img
 
 collections:
-  - name: "pages"
-    label: "Trang"
+  - name: 'pages'
+    label: 'Trang'
     files:
-      - name: congregationIntroduction
-        label: "Giới thiệu hội dòng"
-        file: "content/pages/congregation/introduction.md"
+      - name: 'home'
+        label: 'Trang chủ'
+        file: 'content/pages/home.md'
         fields:
-          - name: "aboutUs"
-            label: "Mục chúng tôi là ai"
+          - name: 'banners'
+            label: 'Banners'
+            widget: 'list'
+            allow_add: true
+            label_singular: 'Banner'
+            min: 1
+            max: 10
+            fields:
+              - { name: 'url', label: 'Hình ảnh/Video ngắn', widget: 'image' }
+              - { name: 'alt', label: 'Mô tả', widget: 'string' }
+          - name: 'decorativeGraphic'
+            label: 'Đồ họa trang trí'
+            hint: 'Hình ảnh này sẽ hiển thị bên dưới banner.'
+            widget: 'object'
+            fields:
+              - { name: 'url', label: 'Hình ảnh', widget: 'image' }
+              - { name: 'alt', label: 'Mô tả', widget: 'string' }
+          - name: 'bibleVerses'
+            label: 'Câu lời Chúa'
+            widget: 'object'
+            fields:
+              - { name: 'enable', label: 'Hiển thị', widget: 'string', default: "Câu lời Chúa" }
+              - name: 'verses'
+                label: 'Các câu'
+                widget: 'list'
+                allow_add: true
+                min: 1
+                max: 100
+                fields:
+                  - name: 'verse'
+                    label: 'Câu'
+                    widget: 'string'
+                  - name: 'reference'
+                    label: 'Trích'
+                    widget: 'string'
+          - name: 'latestNews'
+            label: 'Tin tức mới nhất'
+            widget: 'object'
+            fields:
+              - { name: 'enable', label: 'Hiển thị', widget: 'boolean' }
+              - {
+                  name: 'limit',
+                  label: 'Số lượng bài viết',
+                  widget: 'number',
+                  value_type: 'int',
+                  default: 5,
+                  min: 1,
+                  max: 100
+                }
+          - name: 'newsByCategories'
+            label: 'Tin tức theo chuyên mục'
+            widget: 'object'
+            fields:
+              - { name: 'enable', label: 'Hiển thị', widget: 'boolean' }
+              - {
+                  name: 'limit',
+                  label: 'Số lượng bài viết',
+                  hint: 'Số lượng bài viết để hiển thị cho mỗi chuyên mục',
+                  value_type: 'int',
+                  widget: 'number',
+                  default: 5,
+                  min: 1,
+                  max: 100,
+                  step: 1,
+                }
+              - {
+                  name: 'categories',
+                  label: 'Chuyên mục',
+                  widget: 'list',
+                  hint: 'Chọn chuyên mục bài viết',
+                  allow_add: true,
+                  fields:
+                    [
+                      {
+                        name: 'title',
+                        label: 'Tên hiển thị của chuyên mục',
+                        widget: 'string',
+                      },
+                      {
+                        name: 'subCategories',
+                        label: 'Chuyên mục con',
+                        widget: 'list',
+                        allow_add: true,
+                        min: 2,
+                        max: 10,
+                        collapsed: true,
+                        label_singular: 'Chuyên mục con',
+                        fields:
+                        [
+                          {
+                            name: 'title',
+                            label: 'Tên hiển thị của chuyên mục con',
+                            widget: 'string',
+                          },
+                          {
+                            name: 'hiddenTags',
+                            label: 'Tag ẩn',
+                            widget: 'relation',
+                            hint: 'Những bài viết có các tag ẩn được chọn sẽ hiển thị ở chuyên mục con này.',
+                            collection: 'hiddenTags',
+                            multiple: true,
+                            value_field: 'title',
+                            search_fields: ['title'],
+                          },
+                        ]
+                      },
+                    ],
+                }
+
+      - name: congregationIntroduction
+        label: 'Giới thiệu hội dòng'
+        file: 'content/pages/congregation/introduction.md'
+        fields:
+          - name: 'aboutUs'
+            label: 'Mục chúng tôi là ai'
             widget: object
             fields:
-              - name: "banner"
-                label: "Banner giới thiệu hội dòng"
-                widget: image
-                required: false
-                allow_multiple: false
-              - name: "title"
-                label: "Tiêu đề"
-                widget: "string"
-              - name: "body"
-                label: "Nội dung"
-                widget: "markdown"
+              - name: 'banner'
+                label: 'Banner giới thiệu hội dòng'
+                widget: object
+                fields:
+                  - name: 'url'
+                    label: 'Banner'
+                    widget: image
+                    required: false
+                    allow_multiple: false
+                  - { name: 'alt', label: 'Mô tả', widget: 'string' }
+              - name: 'title'
+                label: 'Tiêu đề'
+                widget: 'string'
+              - name: 'body'
+                label: 'Nội dung'
+                widget: 'markdown'
               - name: tabs
-                label: "Các tab giới thiệu"
-                widget: "list"
+                label: 'Các tab giới thiệu'
+                widget: 'list'
                 fields:
-                  - { name: "title", label: "Tiêu đề", widget: "string" }
-                  - { name: "body", label: "Nội dung", widget: "markdown" }
+                  - { name: 'title', label: 'Tiêu đề', widget: 'string' }
+                  - { name: 'body', label: 'Nội dung', widget: 'markdown' }
               - name: videos
-                label: "Video giới thiệu"
-                widget: "object"
+                label: 'Video giới thiệu'
+                widget: 'object'
                 fields:
-                  - { name: "title", label: "Tiêu đề", widget: "string" }
-                  - name: "videos"
-                    label: "Video giới thiệu"
-                    widget: "list"
+                  - { name: 'title', label: 'Tiêu đề', widget: 'string' }
+                  - name: 'videos'
+                    label: 'Video giới thiệu'
+                    widget: 'list'
                     fields:
-                      - { name: "title", label: "Tiêu đề video", widget: "string" }
-                      - { name: "thumbnail", label: "Hình thu nhỏ", widget: "image", allow_multiple: false }
-                      - { name: "youtubeUrl", label: "Link youtube", widget: "string" }
-          - name: "mission"
-            label: "Mục sứ mệnh của hội dòng"
+                      - {
+                          name: 'title',
+                          label: 'Tiêu đề video',
+                          widget: 'string',
+                        }
+                      - {
+                          name: 'thumbnail',
+                          label: 'Hình thu nhỏ',
+                          widget: 'image',
+                          allow_multiple: false,
+                        }
+                      - {
+                          name: 'youtubeUrl',
+                          label: 'Link youtube',
+                          widget: 'string',
+                        }
+          - name: 'mission'
+            label: 'Mục sứ mệnh của hội dòng'
             widget: object
             fields:
-              - name: "banner"
-                label: "Banner sứ mệnh của hội dòng"
-                widget: image
-                required: false
-                allow_multiple: false
-              - name: "title"
-                label: "Tiêu đề"
-                widget: "string"
-              - name: "body"
-                label: "Nội dung"
-                widget: "markdown"
+              - name: 'banner'
+                label: 'Banner sứ mệnh của hội dòng'
+                widget: object
+                fields:
+                  - {
+                      name: 'url',
+                      label: 'Banner',
+                      widget: 'image',
+                      required: false,
+                      allow_multiple: false,
+                    }
+                  - { name: 'alt', label: 'Mô tả', widget: 'string' }
+              - name: 'title'
+                label: 'Tiêu đề'
+                widget: 'string'
+              - name: 'body'
+                label: 'Nội dung'
+                widget: 'markdown'
               - name: tabs
-                label: "Các tab sứ mệnh"
-                widget: "list"
+                label: 'Các tab sứ mệnh'
+                widget: 'list'
                 fields:
-                  - { name: "title", label: "Tiêu đề", widget: "string" }
-                  - { name: "body", label: "Nội dung", widget: "markdown" }
+                  - { name: 'title', label: 'Tiêu đề', widget: 'string' }
+                  - { name: 'body', label: 'Nội dung', widget: 'markdown' }
               - name: videos
-                label: "Video hoạt động sứ mệnh"
-                widget: "object"
+                label: 'Video hoạt động sứ mệnh'
+                widget: 'object'
                 fields:
-                  - name: "title"
-                    label: "Tiêu đề"
-                    widget: "string"
-                  - name: "videos"
-                    label: "Các videos"
-                    widget: "list"
+                  - name: 'title'
+                    label: 'Tiêu đề'
+                    widget: 'string'
+                  - name: 'videos'
+                    label: 'Các videos'
+                    widget: 'list'
                     fields:
-                      - { name: "title", label: "Tiêu đề video", widget: "string" }
-                      - { name: "thumbnail", label: "Hình thu nhỏ", widget: "image", allow_multiple: false }
-                      - { name: "youtubeUrl", label: "Link youtube", widget: "string" }
-          - name: "whereabouts"
-            label: "Mục nơi chúng tôi hiện diện"
+                      - {
+                          name: 'title',
+                          label: 'Tiêu đề video',
+                          widget: 'string',
+                        }
+                      - {
+                          name: 'thumbnail',
+                          label: 'Hình thu nhỏ',
+                          widget: 'image',
+                          allow_multiple: false,
+                        }
+                      - {
+                          name: 'youtubeUrl',
+                          label: 'Link youtube',
+                          widget: 'string',
+                        }
+          - name: 'whereabouts'
+            label: 'Mục nơi chúng tôi hiện diện'
             widget: object
             fields:
-              - name: "banner"
-                label: "Banner nơi chúng tôi hiện diện"
-                widget: image
-                required: false
-                allow_multiple: false
+              - name: 'banner'
+                label: 'Banner nơi chúng tôi hiện diện'
+                widget: object
+                fields:
+                  - name: 'url'
+                    label: 'Banner'
+                    widget: image
+                    required: false
+                    allow_multiple: false
+                  - { name: 'alt', label: 'Mô tả', widget: 'string' }
               - name: title
-                label: "Tiêu đề"
-                widget: "string"
-              - name: "body"
-                label: "Nội dung"
-                widget: "markdown"
-              - name: "countries"
-                label: "Các nước hiện diện"
-                widget: "list"
+                label: 'Tiêu đề'
+                widget: 'string'
+              - name: 'body'
+                label: 'Nội dung'
+                widget: 'markdown'
+              - name: 'countries'
+                label: 'Các nước hiện diện'
+                widget: 'list'
                 allow_add: true
                 fields:
-                  - { name: "name", label: "Tên nước", widget: "string" }
-                  - {
-                      name: "body",
-                      label: "Nội dung",
-                      widget: "markdown",
-                    }
+                  - { name: 'name', label: 'Tên nước', widget: 'string' }
+                  - { name: 'body', label: 'Nội dung', widget: 'markdown' }
       - name: congregationHistory
-        label: "Lịch sử hội dòng"
-        file: "content/pages/congregation/history.md"
+        label: 'Lịch sử hội dòng'
+        file: 'content/pages/congregation/history.md'
         fields:
-          - name: "developmentHistory"
-            label: "Mục lịch sử phát triển"
+          - name: 'developmentHistory'
+            label: 'Mục lịch sử phát triển'
             widget: object
             fields:
-              - name: "title"
-                label: "Tiêu đề"
-                widget: "string"
-              - name: "body"
-                label: "Nội dung"
-                widget: "markdown"
-              - name: "timeline"
-                label: "Timeline"
-                widget: "list"
+              - name: 'title'
+                label: 'Tiêu đề'
+                widget: 'string'
+              - name: 'body'
+                label: 'Nội dung'
+                widget: 'markdown'
+              - name: 'timeline'
+                label: 'Timeline'
+                widget: 'list'
                 fields:
-                  - { name: "title", label: "Tiêu đề", widget: "string" }
-                  - { name: "body", label: "Nội dung", widget: "markdown" }
+                  - { name: 'title', label: 'Tiêu đề', widget: 'string' }
+                  - { name: 'body', label: 'Nội dung', widget: 'markdown' }
               - name: videos
-                label: "Video về lịch sử"
-                widget: "object"
+                label: 'Video về lịch sử'
+                widget: 'object'
                 fields:
-                  - name: "title"
-                    label: "Tiêu đề"
-                    widget: "string"
-                  - name: "videos"
-                    label: "Các videos"
-                    widget: "list"
+                  - name: 'title'
+                    label: 'Tiêu đề'
+                    widget: 'string'
+                  - name: 'videos'
+                    label: 'Các videos'
+                    widget: 'list'
                     fields:
-                      - { name: "title", label: "Tiêu đề video", widget: "string" }
-                      - { name: "thumbnail", label: "Hình thu nhỏ", widget: "image", allow_multiple: false }
-                      - { name: "youtubeUrl", label: "Link youtube", widget: "string" }
+                      - {
+                          name: 'title',
+                          label: 'Tiêu đề video',
+                          widget: 'string',
+                        }
+                      - {
+                          name: 'thumbnail',
+                          label: 'Hình thu nhỏ',
+                          widget: 'image',
+                          allow_multiple: false,
+                        }
+                      - {
+                          name: 'youtubeUrl',
+                          label: 'Link youtube',
+                          widget: 'string',
+                        }
           - name: communityHistory
-            label: "Mục lịch sử cộng đoàn"
+            label: 'Mục lịch sử cộng đoàn'
             widget: object
             fields:
-              - name: "title"
-                label: "Tiêu đề"
-                widget: "string"
+              - name: 'title'
+                label: 'Tiêu đề'
+                widget: 'string'
       - name: congregationEstablishment
-        label: "Sắc lập Dòng"
-        file: "content/pages/congregation/establishment.md"
+        label: 'Sắc lập Dòng'
+        file: 'content/pages/congregation/establishment.md'
         editor:
           preview: false
         fields:
-          - name: "categories"
-            label: "Danh mục"
-            description: "Các bài viết thuộc các danh mục này sẽ hiển thị ở trang sắc lập dòng"
+          - name: 'hiddenTags'
+            label: 'Tag ẩn'
+            description: 'Các bài viết có các tag ẩn này sẽ hiển thị ở trang sắc lập dòng.'
             widget: relation
-            collection: postCategories
+            collection: hiddenTags
             multiple: true
             value_field: title
             search_fields: [title]
       - name: congregationAuthorities
         label: Các đấng bản quyền"
-        file: "content/pages/congregation/authorities.md"
+        file: 'content/pages/congregation/authorities.md'
         editor:
           preview: false
         fields:
-          - name: "categories"
-            label: "Danh mục"
-            description: "Các bài viết thuộc các danh mục này sẽ hiển thị ở trang các đấng bản quyền"
+          - name: 'hiddenTags'
+            label: 'Tag ẩn'
+            description: 'Các bài viết có các tag ẩn này sẽ hiển thị ở trang các đấng bản quyền.'
             widget: relation
-            collection: postCategories
+            collection: hiddenTags
             multiple: true
             value_field: title
             search_fields: [title]
 
       - name: contact
-        label: "Liên hệ"
-        file: "content/pages/contact.md"
+        label: 'Liên hệ'
+        file: 'content/pages/contact.md'
         fields:
-          - name: "body"
-            label: "Thân trang"
+          - name: 'body'
+            label: 'Thân trang'
             widget: markdown
 
   - name: settings
-    label: "Cài đặt"
+    label: 'Cài đặt'
     editor:
       preview: false
     files:
-      - name: "site"
-        label: "Cài đặt website"
-        file: "content/settings/site.md"
+      - name: 'site'
+        label: 'Cài đặt website'
+        file: 'content/settings/site.md'
         fields:
-          - name: "logo"
-            label: "Logo"
-            widget: "image"
+          - name: 'logo'
+            label: 'Logo'
+            widget: 'image'
             allow_multiple: false
-      - name: "home"
-        label: "Trang chủ"
-        file: "content/settings/home.md"
+      - name: 'home'
+        label: 'Trang chủ'
+        file: 'content/settings/home.md'
         fields:
-          - { name: "hidden", label: "Ẩn", widget: "boolean", default: false }
-      - name: "congregation"
-        label: "Hội dòng"
-        file: "content/settings/congregration.md"
+          - { name: 'hidden', label: 'Ẩn', widget: 'boolean', default: false }
+      - name: 'congregation'
+        label: 'Hội dòng'
+        file: 'content/settings/congregration.md'
         fields:
-          - { name: "hidden", label: "Ẩn", widget: "boolean", default: false }
-      - name: "spirituality"
-        label: "Linh đạo"
-        file: "content/settings/spirituality.md"
+          - { name: 'hidden', label: 'Ẩn', widget: 'boolean', default: false }
+      - name: 'spirituality'
+        label: 'Linh đạo'
+        file: 'content/settings/spirituality.md'
         fields:
-          - { name: "hidden", label: "Ẩn", widget: "boolean", default: false }
-      - name: "missions"
-        label: "Sứ vụ"
-        file: "content/settings/missions.md"
+          - { name: 'hidden', label: 'Ẩn', widget: 'boolean', default: false }
+      - name: 'missions'
+        label: 'Sứ vụ'
+        file: 'content/settings/missions.md'
         fields:
-          - { name: "hidden", label: "Ẩn", widget: "boolean", default: false }
-      - name: "prayer"
-        label: "Cầu nguyện"
-        file: "content/settings/prayer.md"
+          - { name: 'hidden', label: 'Ẩn', widget: 'boolean', default: false }
+      - name: 'prayer'
+        label: 'Cầu nguyện'
+        file: 'content/settings/prayer.md'
         fields:
-          - { name: "hidden", label: "Ẩn", widget: "boolean", default: false }
-      - name: "vocation"
-        label: "Ơn gọi"
-        file: "content/settings/invocation.md"
+          - { name: 'hidden', label: 'Ẩn', widget: 'boolean', default: false }
+      - name: 'vocation'
+        label: 'Ơn gọi'
+        file: 'content/settings/invocation.md'
         fields:
-          - { name: "hidden", label: "Ẩn", widget: "boolean", default: false }
-      - name: "news"
-        label: "Bản tin"
-        file: "content/settings/news.md"
+          - { name: 'hidden', label: 'Ẩn', widget: 'boolean', default: false }
+      - name: 'news'
+        label: 'Bản tin'
+        file: 'content/settings/news.md'
         fields:
-          - { name: "hidden", label: "Ẩn", widget: "boolean", default: false }
-      - name: "special-topics"
-        label: "Chuyên đề"
-        file: "content/settings/special-topics.md"
+          - { name: 'hidden', label: 'Ẩn', widget: 'boolean', default: false }
+      - name: 'special-topics'
+        label: 'Chuyên đề'
+        file: 'content/settings/special-topics.md'
         fields:
-          - { name: "hidden", label: "Ẩn", widget: "boolean", default: false }
-      - name: "footer"
-        label: "Chân trang"
-        file: "content/settings/footer.md"
+          - { name: 'hidden', label: 'Ẩn', widget: 'boolean', default: false }
+      - name: 'footer'
+        label: 'Chân trang'
+        file: 'content/settings/footer.md'
         fields:
           - {
-              name: "name",
-              label: "Tên",
-              widget: "string",
-              default: "HỘI DÒNG NỮ ĐA MINH GÒ VẤP",
+              name: 'name',
+              label: 'Tên',
+              widget: 'string',
+              default: 'HỘI DÒNG NỮ ĐA MINH GÒ VẤP',
             }
-          - { name: "address", label: "Địa chỉ", widget: "string" }
-          - { name: "email", label: "Email", widget: "string" }
-          - { name: "phone", label: "Điện thoại", widget: "string" }
-          - { name: "facebook", label: "Facebook", widget: "string" }
-          - { name: "youtube", label: "Youtube", widget: "string" }
-          - { name: "zalo", label: "Zalo", widget: "string" }
+          - { name: 'address', label: 'Địa chỉ', widget: 'string' }
+          - { name: 'email', label: 'Email', widget: 'string' }
+          - { name: 'phone', label: 'Điện thoại', widget: 'string' }
+          - { name: 'facebook', label: 'Facebook', widget: 'string' }
+          - { name: 'youtube', label: 'Youtube', widget: 'string' }
+          - { name: 'zalo', label: 'Zalo', widget: 'string' }
 
   - name: posts
-    label: "Bài viết"
+    label: 'Bài viết'
     create: true
     preview_path: posts/{{year}}/{{month}}/{{title}}
-    folder: "content/posts"
-    slug: "{{year}}-{{month}}-{{day}}_{{slug}}"
-    summary: "{{title}} - {{date}}"
+    folder: 'content/posts'
+    slug: '{{year}}-{{month}}-{{day}}_{{slug}}'
+    summary: '{{title}} - {{date}}'
     editor:
       preview: false
     fields:
-      - { name: title, label: "Tiêu đề" }
-      - { name: date, label: "Thời gian công bố", widget: datetime }
-      - name: "categories"
-        label: "Danh mục"
+      - { name: title, label: 'Tiêu đề' }
+      - { name: date, label: 'Thời gian công bố', widget: datetime }
+      - name: 'hiddenTags'
+        label: 'Tag ẩn'
         widget: relation
-        collection: postCategories
+        collection: hiddenTags
         multiple: true
         value_field: title
         search_fields: [title]
-      - name: "thumbnail"
-        label: "Ảnh bìa"
+      - name: 'thumbnail'
+        label: 'Ảnh bìa'
         widget: image
         allow_multiple: false
-      - name: "videos"
-        label: "Video"
-        description: "Video của bài viết. Chỉ được thêm tối đa 1 video."
+      - name: 'videos'
+        label: 'Video'
+        description: 'Video của bài viết. Chỉ được thêm tối đa 1 video.'
         required: false
-        widget: "list"
+        widget: 'list'
         max: 1
         fields:
-          - { name: "title", label: "Tiêu đề video", widget: "string" }
-          - { name: "thumbnail", label: "Hình thu nhỏ", widget: "image", allow_multiple: false }
-          - { name: "youtubeUrl", label: "Link youtube", widget: "string" }
-      - { name: body, label: "Nội dung", widget: markdown }
+          - { name: 'title', label: 'Tiêu đề video', widget: 'string' }
+          - {
+              name: 'thumbnail',
+              label: 'Hình thu nhỏ',
+              widget: 'image',
+              allow_multiple: false,
+            }
+          - { name: 'youtubeUrl', label: 'Link youtube', widget: 'string' }
+      - { name: body, label: 'Nội dung', widget: markdown }
 
-  - name: "postCategories"
-    label: "Danh mục bài viết"
-    description: "Các danh mục cho bài viết"
-    folder: "content/post-categories"
+  - name: 'hiddenTags'
+    label: 'Các tag ẩn'
+    description: 'Dùng tag ẩn để tổ chức bài viết. Người dùng sẽ không nhìn thấy các tag ẩn này.'
+    folder: 'content/hidden-tags'
     create: true
     fields:
-      - { name: title, label: "Tên danh mục", widget: string }
+      - { name: title, label: 'Tên tag ẩn', widget: string }

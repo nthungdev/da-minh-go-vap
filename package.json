@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "decap": "npx decap-server",
+    "decap": "decap-server",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -12,6 +12,7 @@
   "dependencies": {
     "gray-matter": "^4.0.3",
     "next": "14.2.3",
+    "preline": "^2.4.1",
     "react": "^18",
     "react-dom": "^18",
     "react-markdown": "^9.0.1",
@@ -21,6 +22,7 @@
   "devDependencies": {
     "@babel/core": "^7.24.5",
     "@babel/preset-react": "^7.24.1",
+    "@tailwindcss/forms": "^0.5.7",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

@@ -1,4 +1,4 @@
 ---
-categories:
+hiddenTags:
   - Sắc lập dòng
 ---
