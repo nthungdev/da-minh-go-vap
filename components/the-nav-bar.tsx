@@ -32,7 +32,7 @@ export default function TheNavBar({ className }: TheNavBarProps) {
 
   return (
     <nav
-      className={`relative bg-primary text-gray-100 py-2 flex flex-row flex-wrap justify-center ${className}`}
+      className={`relative bg-primary text-gray-50 py-2 flex flex-row flex-wrap justify-center ${className}`}
     >
       <ul className="flex flex-row flex-wrap items-center max-w-screen-xl">
         <div className="relative overflow-auto h-16 w-16">

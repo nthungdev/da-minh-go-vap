@@ -3,8 +3,6 @@ banners:
   - image: https://res.cloudinary.com/dxtb6rv7y/video/upload/v1722222604/video-banner_gwdvew.mp4
     url: https://res.cloudinary.com/dxtb6rv7y/video/upload/v1722222604/video-banner_gwdvew.mp4
     alt: Video gioi thieu
-  - url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1722133167/maxresdefault_n0yeqb.jpg
-    alt: Banner test
 decorativeGraphic:
   url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1722620486/site-name_ksvjgd.png
   alt: Đa Minh Gò Vấp
