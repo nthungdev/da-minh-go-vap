@@ -1,6 +1,7 @@
 import AppPage from '@/components/app-page'
 import AppPostTabGrid from '@/components/app-post-tab-grid'
 import TheBanner from '@/components/the-banner'
+import TheBibleVerse from '@/components/the-bible-verse'
 import TheLatestPosts from '@/components/the-latest-posts'
 import { attributes } from '@/content/pages/home.md'
 import { getAllPosts, getPostsByHiddenTags } from '@/utils/posts'
@@ -55,18 +56,7 @@ export default function Home() {
 
         <section className="max-w-screen-xl mx-auto px-4">
           <h2 className="sr-only">Câu lời chúa</h2>
-          <ul className="space-y-2">
-            {bibleVerses.map((verse, index) => (
-              <li key={index}>
-                <blockquote>
-                  <p>{verse.verse}</p>
-                  <cite className="block w-full text-right">
-                    {verse.reference}
-                  </cite>
-                </blockquote>
-              </li>
-            ))}
-          </ul>
+          <TheBibleVerse bibleVerses={bibleVerses} />
         </section>
       </div>
 
