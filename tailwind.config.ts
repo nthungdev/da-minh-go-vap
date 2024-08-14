@@ -1,6 +1,20 @@
 import type { Config } from "tailwindcss";
 
 const colorPalette = {
+  'matisse': {
+    DEFAULT: '#2f689d',
+    '50': '#f3f7fc',
+    '100': '#e7eff7',
+    '200': '#c9dcee',
+    '300': '#9abfdf',
+    '400': '#639dcd',
+    '500': '#3f81b8',
+    '600': '#2f689d',
+    '700': '#27537d',
+    '800': '#234669',
+    '900': '#223c58',
+    '950': '#17273a',
+  },
   'dodger-blue': {
     DEFAULT: '#279af1',
     '50': '#effaff',
@@ -90,7 +104,7 @@ const config: Config = {
       },
       colors: {
         ...colorPalette,
-        primary: colorPalette['dodger-blue'],
+        primary: colorPalette['matisse'],
         secondary: colorPalette['keppel'],
       }
     },
