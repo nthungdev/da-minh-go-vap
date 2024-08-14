@@ -36,5 +36,5 @@ newsByCategories:
             - Walking with Jesus
         - title: Mùa thường niên
           hiddenTags:
-            - Walking with Jesus
+            - Hiểu Để Yêu
 ---

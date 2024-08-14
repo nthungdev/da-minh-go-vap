@@ -30,12 +30,12 @@ export default function AppPostTabGrid({
           <button
             key={index}
             type="button"
-            className={`hs-tab-active:bg-blue-600 hs-tab-active:text-white hs-tab-active:hover:text-white hs-tab-active:dark:text-white py-3 px-4 text-center basis-0 grow inline-flex justify-center items-center gap-x-2 bg-transparent text-sm font-medium text-gray-500 hover:text-blue-600 focus:outline-none focus:text-blue-600 rounded-lg disabled:opacity-50 disabled:pointer-events-none dark:text-neutral-400 dark:hover:text-neutral-300 dark:focus:text-neutral-300 ${index === 0 ? 'active' : ''}`}
+            className={`hs-tab-active:bg-primary-600 hs-tab-active:text-white hs-tab-active:hover:text-white hs-tab-active:dark:text-white py-3 px-4 text-center basis-0 grow inline-flex justify-center items-center gap-x-2 bg-transparent text-sm font-medium text-gray-500 hover:text-primary-600 focus:outline-none focus:text-primary-600 rounded-lg disabled:opacity-50 disabled:pointer-events-none dark:text-neutral-400 dark:hover:text-neutral-300 dark:focus:text-neutral-300 ${index === 0 ? 'active' : ''}`}
             aria-selected={index === 0}
             role="tab"
-            id={`equal-width-elements-item-${index+1}`}
-            data-hs-tab={`#equal-width-elements-${index+1}`}
-            aria-controls={`equal-width-elements-${index+1}`}
+            id={`equal-width-elements-item-${index + 1}`}
+            data-hs-tab={`#equal-width-elements-${index + 1}`}
+            aria-controls={`equal-width-elements-${index + 1}`}
           >
             {title}
           </button>
@@ -46,10 +46,10 @@ export default function AppPostTabGrid({
         {subCategories.map(({ posts }, index) => (
           <div
             key={index}
-            id={`equal-width-elements-${index+1}`}
+            id={`equal-width-elements-${index + 1}`}
             className={index === 0 ? '' : 'hidden'}
             role="tabpanel"
-            aria-labelledby={`equal-width-elements-item-${index+1}`}
+            aria-labelledby={`equal-width-elements-item-${index + 1}`}
           >
             <AppPostGrid classNames='lg:grid-cols-3' posts={posts} />
           </div>

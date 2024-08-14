@@ -1,5 +1,4 @@
 import AppPage from '@/components/app-page'
-import AppPostGrid from '@/components/app-post-grid'
 import AppPostTabGrid from '@/components/app-post-tab-grid'
 import TheBanner from '@/components/the-banner'
 import TheLatestPosts from '@/components/the-latest-posts'
