@@ -266,6 +266,11 @@
     "@babel/helper-validator-identifier" "^7.24.5"
     to-fast-properties "^2.0.0"
 
+"@bitty/pipe@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@bitty/pipe/-/pipe-0.3.0.tgz#91455955fcd586357316799003d56d9aca03a715"
+  integrity sha512-Ft4tmMM8vfuQOD3jpmvCYPEXoLhWLXWh/Mkeql09d3+9FFMaQBdFdo8GBmhQ01z+D6P3NkqNq02rbb4oBkhjLw==
+
 "@eslint-community/eslint-utils@^4.2.0":
   version "4.4.0"
   resolved "https://registry.yarnpkg.com/@eslint-community/eslint-utils/-/eslint-utils-4.4.0.tgz#a23514e8fb9af1269d5f7788aa556798d61c6b59"
@@ -3036,6 +3041,13 @@ normalize-range@^0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/normalize-range/-/normalize-range-0.1.2.tgz#2d10c06bdfd312ea9777695a4d28439456b75942"
   integrity sha512-bdok/XvKII3nUpklnV6P2hxtMNrCboOjAcyBuQnWEhO665FwrSNRxU+AqpsyvO6LgGYPspN+lu5CLtw4jPRKNA==
+
+normalize-text@^2.5.0:
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/normalize-text/-/normalize-text-2.5.0.tgz#d380097cd288d631dafc4797a8f3dda018c61e30"
+  integrity sha512-Pl3DEd6cu6ftiOFNPH2v9mSYVGRDV/d+cl2Xc8LdkJpNiK7YGlt4mE0uJ5q+dlutQCvgIGiBIwlbxlPM51QF/A==
+  dependencies:
+    "@bitty/pipe" "^0.3.0"
 
 object-assign@^4.0.1, object-assign@^4.1.1:
   version "4.1.1"

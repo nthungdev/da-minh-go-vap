@@ -140,7 +140,22 @@ type PageSpirituality = {
   }[]
 }
 
-type PageSpiritualityCharism = {}
+type PageSpiritualityCharism = {
+  title: string
+  banners: {
+    url: string
+    alt: string
+  }[]
+  quote: string
+  categories: {
+    title: string
+    thumbnail: {
+      url: string
+      alt: string
+    }
+    hiddenTags: string[]
+  }[]
+}
 
 type PageSpiritualitySaintDominic = {
   title: string

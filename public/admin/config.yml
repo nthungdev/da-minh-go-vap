@@ -461,6 +461,56 @@ collections:
           - name: 'title'
             label: 'Tiêu đề'
             widget: 'string'
+          - name: banners
+            label: 'Banners'
+            widget: 'list'
+            allow_add: true
+            label_singular: 'banner'
+            min: 1
+            max: 10
+            fields:
+              - { name: 'url', label: 'Hình ảnh/Video ngắn', widget: 'image' }
+              - { name: 'alt', label: 'Mô tả', widget: 'string' }
+          - name: 'quote'
+            label: 'Câu'
+            widget: 'string'
+            required: true
+          - {
+              name: 'categories',
+              label: 'Chuyên mục',
+              widget: 'list',
+              min: 1,
+              max: 10,
+              hint: 'Liệt kê chuyên mục',
+              allow_add: true,
+              fields:
+                [
+                  {
+                    name: 'title',
+                    label: 'Tiêu đề hiển thị của chuyên mục',
+                    widget: 'string',
+                  },
+                  {
+                    name: 'thumbnail',
+                    label: 'Thumbnail',
+                    widget: 'object',
+                    fields: [
+                      { name: 'url', label: 'Hình ảnh', widget: 'image' },
+                      { name: 'alt', label: 'Mô tả', widget: 'string' },
+                    ]
+                  },
+                  {
+                    name: 'hiddenTags',
+                    label: 'Tag ẩn',
+                    widget: 'relation',
+                    hint: 'Những bài viết có các tag ẩn được chọn sẽ hiển thị ở chuyên mục này.',
+                    collection: 'hiddenTags',
+                    multiple: true,
+                    value_field: 'title',
+                    search_fields: ['title'],
+                  },
+                ],
+            }
       - name: spiritualitySaintDominic
         label: 'Thánh Đa Minh'
         file: 'content/pages/spirituality/saint-dominic.md'
