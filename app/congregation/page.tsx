@@ -13,7 +13,7 @@ export default function History() {
 
   return (
     <AppPage>
-      <ul className='space-y-8'>
+      <ul className='space-y-12'>
         {subCategoriesData.map(({ title, posts }, index) => (
           <li key={index}>
             <h2 className='uppercase mb-2 text-2xl'>{title}</h2>

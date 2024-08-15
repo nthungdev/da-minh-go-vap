@@ -1,3 +1,20 @@
+type Post = {
+  title: string
+  date: Date,
+  videos: {
+    title: string
+    thumbnail: string
+    youtubeUrl: string
+  }[]
+  hiddenTags: string[]
+  thumbnail: string,
+  body: string
+}
+
+type PostParams = Post & {
+  slug: string
+}
+
 type PageHome = {
   banners: {
     url: string
@@ -116,19 +133,9 @@ type PageCongregationAuthorities = {
   hiddenTags: string[]
 }
 
-type Post = {
-  title: string
-  date: Date,
-  videos: {
+type PageSpirituality = {
+  subCategories: {
     title: string
-    thumbnail: string
-    youtubeUrl: string
+    hiddenTags: string[]
   }[]
-  hiddenTags: string[]
-  thumbnail: string,
-  body: string
-}
-
-type PostParams = Post & {
-  slug: string
 }
