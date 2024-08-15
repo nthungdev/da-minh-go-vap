@@ -49,7 +49,7 @@ collections:
             label: 'Câu lời Chúa'
             widget: 'object'
             fields:
-              - { name: 'enable', label: 'Hiển thị', widget: 'string', default: "Câu lời Chúa" }
+              - { name: 'enable', label: 'Hiển thị', widget: 'boolean', default: true }
               - name: 'verses'
                 label: 'Các câu'
                 widget: 'list'
@@ -468,6 +468,35 @@ collections:
           - name: 'title'
             label: 'Tiêu đề'
             widget: 'string'
+            required: true
+          - name: 'quotes'
+            label: 'Các câu châm ngôn của cha thánh'
+            widget: 'object'
+            fields:
+              - name: 'title'
+                label: 'Tiêu đề'
+                widget: 'string'
+                required: true
+              - { name: 'enable', label: 'Hiển thị', widget: 'boolean', default: true }
+              - name: 'quotes'
+                label: 'Các câu'
+                widget: 'list'
+                allow_add: true
+                min: 1
+                max: 20
+                label_singular: "Câu"
+                fields:
+                  - name: 'quote'
+                    label: 'Câu'
+                    widget: 'string'
+          - name: 'hiddenTags'
+            label: 'Tag ẩn'
+            description: 'Các bài viết có các tag ẩn này sẽ hiển thị.'
+            widget: relation
+            collection: hiddenTags
+            multiple: true
+            value_field: title
+            search_fields: [title]
       - name: spiritualitySaints
         label: 'Các Thánh dòng'
         file: 'content/pages/spirituality/saints.md'

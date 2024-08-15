@@ -9,7 +9,7 @@ export default function CongregationEstablishment() {
 
   return (
     <AppPage className='space-y-4'>
-      <h2 className='uppercase text-2xl'>{title}</h2>
+      <h1 className='uppercase text-2xl'>{title}</h1>
       <AppPostGrid posts={posts} />
     </AppPage>
   )

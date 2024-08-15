@@ -29,18 +29,6 @@ export default function TheBibleVerse(props: TheBibleVerseProps) {
   const reference = currentVerse.reference
 
   return (
-    // <ul className="space-y-2">
-    //   {verses.map(({ verse, reference }, index) => (
-    //     <li key={index}>
-    //       <blockquote>
-    //         <p>{verse}</p>
-    //         <cite className="block w-full text-right">
-    //           {reference}
-    //         </cite>
-    //       </blockquote>
-    //     </li>
-    //   ))}
-    // </ul>
     <div>
       <blockquote>
         <p>{verse}</p>

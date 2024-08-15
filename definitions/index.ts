@@ -140,6 +140,21 @@ type PageSpirituality = {
   }[]
 }
 
+type PageSpiritualityCharism = {}
+
+type PageSpiritualitySaintDominic = {
+  title: string
+  quotes: {
+    enable: boolean
+    title: string
+    quotes: {
+      quote: string
+      reference: string
+    }[]
+  }
+  hiddenTags: string[]
+}
+
 type PageSpiritualitySaints = {
   title: string
   hiddenTags: string[]
