@@ -27,7 +27,7 @@ export default function TheDominicQuote(props: TheDominicQuoteProps) {
   const quote = currentQuote.quote
 
   return (
-    <div className="h-32">
+    <div className="h-64 md:32">
       <blockquote>
         <p className="text-center font-semibold text-2xl">{quote}</p>
       </blockquote>
