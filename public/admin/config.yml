@@ -475,6 +475,14 @@ collections:
           - name: 'title'
             label: 'Tiêu đề'
             widget: 'string'
+          - name: 'hiddenTags'
+            label: 'Tag ẩn'
+            description: 'Các bài viết có các tag ẩn này sẽ hiển thị.'
+            widget: relation
+            collection: hiddenTags
+            multiple: true
+            value_field: title
+            search_fields: [title]
 
       - name: contact
         label: 'Liên hệ'

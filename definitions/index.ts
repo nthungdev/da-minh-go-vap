@@ -139,3 +139,9 @@ type PageSpirituality = {
     hiddenTags: string[]
   }[]
 }
+
+type PageSpiritualitySaints = {
+  title: string
+  hiddenTags: string[]
+}
+
