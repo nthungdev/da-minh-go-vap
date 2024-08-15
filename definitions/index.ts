@@ -1,4 +1,4 @@
-type Home = {
+type PageHome = {
   banners: {
     url: string
     alt: string
@@ -32,7 +32,10 @@ type Home = {
 }
 
 type AboutUsSection = {
-  banner?: string
+  banner: {
+    url: string
+    alt: string
+  }
   title: string
   body: string
   tabs: {
@@ -52,7 +55,10 @@ type AboutUsSection = {
 type MissionSection = AboutUsSection
 
 type WhereaboutsSection = {
-  banner?: string
+  banner: {
+    url: string
+    alt: string
+  }
   title: string
   body: string
   countries: {
@@ -61,13 +67,20 @@ type WhereaboutsSection = {
   }[]
 }
 
-type CongregationAbout = {
+type PageCongregation = {
+  subCategories: {
+    title: string
+    hiddenTags: string[]
+  }[]
+}
+
+type PageCongregationAbout = {
   aboutUs: AboutUsSection
   mission: MissionSection
   whereabouts: WhereaboutsSection
 }
 
-type CongregationHistory = {
+type PageCongregationHistory = {
   developmentHistory: {
     title: string
     body: string
@@ -86,11 +99,21 @@ type CongregationHistory = {
   }
   communityHistory: {
     title: string
+    subCategories: {
+      title: string
+      hiddenTags: string[]
+    }[]
   }
 }
 
-type CongregationEstablishment = {
-  posts: string[]
+type PageCongregationEstablishment = {
+  title: string
+  hiddenTags: string[]
+}
+
+type PageCongregationAuthorities = {
+  title: string
+  hiddenTags: string[]
 }
 
 type Post = {

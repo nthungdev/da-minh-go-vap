@@ -14,7 +14,7 @@ export default function Home() {
     bibleVerses,
     latestNews,
     newsByCategories,
-  } = attributes as Home
+  } = attributes as PageHome
 
   let latestPosts: PostParams[] = latestNews.enable
     ? getAllPosts({ limit: latestNews.limit })
@@ -63,7 +63,7 @@ export default function Home() {
       <AppPage className="space-y-8">
         {latestNews.enable && (
           <section className='space-y-4'>
-            <h2 className="text-2xl mb-2">Tin mới</h2>
+            <h2 className="text-2xl mb-2 sr-only">Tin mới</h2>
             <TheLatestPosts posts={latestPosts} />
           </section>
         )}
@@ -75,7 +75,7 @@ export default function Home() {
             {newsByCategoriesData.map((newsCategory, index) => (
               <div key={index}>
                 <h3 className="text-2xl mb-2">{newsCategory.title}</h3>
-                <AppPostTabGrid category={newsCategory} />
+                <AppPostTabGrid subCategories={newsCategory.subCategories} />
               </div>
             ))}
           </section>

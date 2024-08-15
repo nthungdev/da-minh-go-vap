@@ -137,6 +137,37 @@ collections:
                     ],
                 }
 
+      - name: congregation
+        label: 'Hội dòng'
+        file: 'content/pages/congregation.md'
+        fields:
+          - {
+              name: 'subCategories',
+              label: 'Chuyên mục con',
+              widget: 'list',
+              allow_add: true,
+              min: 1,
+              max: 10,
+              collapsed: true,
+              fields:
+              [
+                {
+                  name: 'title',
+                  label: 'Tên hiển thị của chuyên mục con',
+                  widget: 'string',
+                },
+                {
+                  name: 'hiddenTags',
+                  label: 'Tag ẩn',
+                  widget: 'relation',
+                  hint: 'Những bài viết có các tag ẩn được chọn sẽ hiển thị ở chuyên mục con này.',
+                  collection: 'hiddenTags',
+                  multiple: true,
+                  value_field: 'title',
+                  search_fields: ['title'],
+                },
+              ]
+            }
       - name: congregationIntroduction
         label: 'Giới thiệu hội dòng'
         file: 'content/pages/congregation/introduction.md'
@@ -147,14 +178,16 @@ collections:
             fields:
               - name: 'banner'
                 label: 'Banner giới thiệu hội dòng'
+                required: true
                 widget: object
                 fields:
                   - name: 'url'
                     label: 'Banner'
                     widget: image
-                    required: false
                     allow_multiple: false
-                  - { name: 'alt', label: 'Mô tả', widget: 'string' }
+                  - name: 'alt'
+                    label: 'Mô tả'
+                    widget: 'string'
               - name: 'title'
                 label: 'Tiêu đề'
                 widget: 'string'
@@ -328,12 +361,42 @@ collections:
               - name: 'title'
                 label: 'Tiêu đề'
                 widget: 'string'
+              - {
+                  name: 'subCategories',
+                  label: 'Chuyên mục con',
+                  widget: 'list',
+                  allow_add: true,
+                  min: 2,
+                  max: 4,
+                  collapsed: true,
+                  fields:
+                  [
+                    {
+                      name: 'title',
+                      label: 'Tên hiển thị của chuyên mục con',
+                      widget: 'string',
+                    },
+                    {
+                      name: 'hiddenTags',
+                      label: 'Tag ẩn',
+                      widget: 'relation',
+                      hint: 'Những bài viết có các tag ẩn được chọn sẽ hiển thị ở chuyên mục con này.',
+                      collection: 'hiddenTags',
+                      multiple: true,
+                      value_field: 'title',
+                      search_fields: ['title'],
+                    },
+                  ]
+                }
       - name: congregationEstablishment
         label: 'Sắc lập Dòng'
         file: 'content/pages/congregation/establishment.md'
         editor:
           preview: false
         fields:
+          - name: 'title'
+            label: 'Tiêu đề'
+            widget: 'string'
           - name: 'hiddenTags'
             label: 'Tag ẩn'
             description: 'Các bài viết có các tag ẩn này sẽ hiển thị ở trang sắc lập dòng.'
@@ -343,11 +406,14 @@ collections:
             value_field: title
             search_fields: [title]
       - name: congregationAuthorities
-        label: Các đấng bản quyền"
+        label: Các đấng bản quyền
         file: 'content/pages/congregation/authorities.md'
         editor:
           preview: false
         fields:
+          - name: 'title'
+            label: 'Tiêu đề'
+            widget: 'string'
           - name: 'hiddenTags'
             label: 'Tag ẩn'
             description: 'Các bài viết có các tag ẩn này sẽ hiển thị ở trang các đấng bản quyền.'

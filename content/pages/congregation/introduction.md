@@ -2,7 +2,8 @@
 aboutUs:
   title: CHÚNG TÔI LÀ NHỮNG NỮ TU ĐA MINH GÒ VẤP
   body: >-
-    Trụ sở chính: 25/2 Lê Đức Thọ, Gò Vấp, Thành phố Hồ Chí Minh
+    Trụ sở chính: <u>[25/2 Lê Đức Thọ, Gò Vấp, Thành phố Hồ Chí
+    Minh](https://maps.app.goo.gl/hnfrCGRCganpZTPS7)</u>
 
 
     Dòng nữ Đa Minh Gò Vấp tên gọi trước đây là Dòng nữ Đa Minh Lạng Sơn, là Dòng địa phận thuộc Tổng Giáo phận Sài Gòn.
@@ -20,7 +21,7 @@ aboutUs:
 
 
         Sống linh đạo Đa Minh: NÓI VỚI CHÚA – NÓI VỀ CHÚA Hoặc “CHIÊM NIỆM VÀ TRUYỀN THÔNG”, Chia sẻ cho tha nhân những gì mình đã chiêm niệm
-      body: Điền nội dung
+      body: Điền nội dung Đôi nét chính
     - title: Chương trình đào tạo
       content: >-
         Đào tạo nữ tu đa minh trở nên môn đệ đích thực của Đức Kito xoay quanh 4
@@ -37,7 +38,7 @@ aboutUs:
 
 
         đào tạo qua các giai đoạn: Thỉnh sinh, tiền tập sinh, tập sinh và Học viện
-      body: Điền nội dung
+      body: Điền nội dung Chương trình đào tạo
     - title: Chúng tôi đã làm gì
       content: >-
         * công việc mực vụ: dạy giáo lý, huấn luyện giáo lý viên, phụ trách các
@@ -48,19 +49,21 @@ aboutUs:
         * công tác xã hội: mở các lớp tình thường, xây nhà cho người nghèo, chăm sóc trẻ khuyết tật, mái ấm tình thương cho các trẻ em mồ côi
 
         * công tác giáo dục: dấn thân trong việc giáo dục mầm non, các lớp dạy kèm bán trú, nội trú
-      body: Điền nội dung
+      body: Điền nội dung Chúng tôi đã làm gì
   videos:
     title: Video giới thiệu
     videos:
       - youtubeUrl: https://www.youtube.com/watch?v=1Ne1hqOXKKI
         title: Tieu de video 1
-        thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1721759025/600x200.png
+        thumbnail: https://i3.ytimg.com/vi/1Ne1hqOXKKI/maxresdefault.jpg
       - title: Tieu de video 2
-        thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1721763965/256x144_ctgirg.png
+        thumbnail: https://i3.ytimg.com/vi/y0sF5xhGreA/maxresdefault.jpg
         youtubeUrl: https://www.youtube.com/watch?v=y0sF5xhGreA
-  banner: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1721759025/600x200.png
+  banner:
+    url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1723670153/hinh-so_jas0ec.jpg
+    alt: Hình chúng tôi
 mission:
-  title: NƠI CHÚNG TÔI HIỆN DIỆN
+  title: SỨ MỆNH
   body: >-
     Sứ vụ đặc biệt của Hội dòng Đa Minh Gò Vấp là LOAN BÁO TIN MỪNG CHO NGƯỜI
     NGHÈO KHÓ: 25/2 Lê Đức Thọ, Gò Vấp, Thành phố Hồ Chí Minh
@@ -69,6 +72,19 @@ mission:
     Xuyên suốt giòng thời gian gần 100 năm, từ rừng Lạng Sơn miền Bắc đến miền đảo Phú Quốc trời Nam, những họat động của chị em đa số tập trung ở các xứ truyền giáo hoặc xứ đạo miền quê. Đơn sơ, giản dị, hội nhập vào cuộc sống người lao động địa phương để khai hóa dân trí, gieo rắc tình thương và giáo dục niềm tin. Cho đi cái mình có. Làm điều mình có thể với một con tim yêu mến và hiến dâng trọn vẹn. Thật bé nhỏ và khiêm tốn! Chị em Đa Minh Lạng Sơn trong hình thành và phát triển, đến hôm nay Dòng đã có một chỗ đứng trong lòng Giáo hội. Hội dòng Đa Minh Lạng Sơn đang cùng nhịp bước với các hội dòng trong lòng Giáo hội Việt Nam và cùng với Giáo hội toàn cầu dấn thân “PHỤC VỤ ƠN CỨU ĐỘ”.
   videos:
     title: Video hoat dong su menh
+    videos:
+      - youtubeUrl: https://www.youtube.com/watch?v=ZgLs4fDr8aI
+        thumbnail: https://i3.ytimg.com/vi/ZgLs4fDr8aI/maxresdefault.jpg
+        title: Video 1
+      - youtubeUrl: https://www.youtube.com/watch?v=U-C0I-Ks14M
+        title: Video 2
+        thumbnail: https://i3.ytimg.com/vi/U-C0I-Ks14M/maxresdefault.jpg
+      - title: Video 3
+        youtubeUrl: https://www.youtube.com/watch?v=x8YM6rln_zI
+        thumbnail: https://i3.ytimg.com/vi/x8YM6rln_zI/maxresdefault.jpg
+      - title: Video 4
+        youtubeUrl: https://www.youtube.com/watch?v=xEz2ITDCH4M
+        thumbnail: https://i3.ytimg.com/vi/xEz2ITDCH4M/maxresdefault.jpg
   tabs:
     - content: >-
         * Danh hiệu dòng Đa Minh Việt nam thánh hiệu Đức mẹ Mân Côi, với tên
@@ -108,7 +124,9 @@ mission:
 
         * công tác giáo dục: dấn thân trong việc giáo dục mầm non, các lớp dạy kèm bán trú, nội trú.
       body: Điền nội dung
-  banner: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1721759025/600x200.png
+  banner:
+    url: https://cdn.ldsliving.com/dims4/default/487476b/2147483647/strip/true/crop/4970x3313+0+0/resize/800x533!/format/jpg/quality/90/?url=http%3A%2F%2Flds-living-brightspot-us-east-2.s3.us-east-2.amazonaws.com%2Fe5%2F3a%2F707892aa42f38c22ac2f01282944%2Fgettyimages-901570232.jpg
+    alt: Banner sứ mệnh
 whereabouts:
   title: CHÚNG TÔI HIỆN DIỆN Ở TRONG NƯỚC VÀ CẢ NGOẠI QUỐC
   countries:
@@ -118,7 +136,9 @@ whereabouts:
       body: Điền nội dung
     - name: Úc
       body: Điền nội dung
-  banner: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1721759025/600x200.png
   body: Chúng tôi hiện đang phục vụ tại 22 cộng đoàn trong đó 19 cộng đoàn thuộc 7
     giáo phận Việt Nam, 2 cộng đoàn ở Mỹ và 1 cộng đoàn tại Úc.
+  banner:
+    url: https://m.media-amazon.com/images/I/71ZVA6QfbOL._AC_UF894,1000_QL80_.jpg
+    alt: Banner nơi hiện diện
 ---
