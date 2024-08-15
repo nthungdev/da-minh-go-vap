@@ -122,7 +122,7 @@ const WhereaboutsSection = ({ content }: Readonly<{
 }
 
 export default function CongregationIntroduction() {
-  const { aboutUs, mission, whereabouts } = attributes as CongregationAbout
+  const { aboutUs, mission, whereabouts } = attributes as PageCongregationAbout
 
   return (
     <AppPage className="space-y-20 px-4">

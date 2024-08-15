@@ -1,4 +1,4 @@
-type Home = {
+type PageHome = {
   banners: {
     url: string
     alt: string
@@ -74,13 +74,13 @@ type PageCongregation = {
   }[]
 }
 
-type CongregationAbout = {
+type PageCongregationAbout = {
   aboutUs: AboutUsSection
   mission: MissionSection
   whereabouts: WhereaboutsSection
 }
 
-type CongregationHistory = {
+type PageCongregationHistory = {
   developmentHistory: {
     title: string
     body: string
@@ -106,8 +106,14 @@ type CongregationHistory = {
   }
 }
 
-type CongregationEstablishment = {
-  posts: string[]
+type PageCongregationEstablishment = {
+  title: string
+  hiddenTags: string[]
+}
+
+type PageCongregationAuthorities = {
+  title: string
+  hiddenTags: string[]
 }
 
 type Post = {

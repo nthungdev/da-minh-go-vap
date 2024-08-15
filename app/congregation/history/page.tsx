@@ -6,7 +6,7 @@ import { attributes } from '@/content/pages/congregation/history.md'
 import { getPostsByHiddenTags } from "@/utils/posts";
 
 export default function CongregationHistory() {
-  const { developmentHistory, communityHistory } = attributes as CongregationHistory
+  const { developmentHistory, communityHistory } = attributes as PageCongregationHistory
 
   const categoriesData = communityHistory.subCategories.map(
     ({ title, hiddenTags }) => ({

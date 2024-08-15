@@ -14,7 +14,7 @@ export default function Home() {
     bibleVerses,
     latestNews,
     newsByCategories,
-  } = attributes as Home
+  } = attributes as PageHome
 
   let latestPosts: PostParams[] = latestNews.enable
     ? getAllPosts({ limit: latestNews.limit })

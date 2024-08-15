@@ -394,6 +394,9 @@ collections:
         editor:
           preview: false
         fields:
+          - name: 'title'
+            label: 'Tiêu đề'
+            widget: 'string'
           - name: 'hiddenTags'
             label: 'Tag ẩn'
             description: 'Các bài viết có các tag ẩn này sẽ hiển thị ở trang sắc lập dòng.'
@@ -403,11 +406,14 @@ collections:
             value_field: title
             search_fields: [title]
       - name: congregationAuthorities
-        label: Các đấng bản quyền"
+        label: Các đấng bản quyền
         file: 'content/pages/congregation/authorities.md'
         editor:
           preview: false
         fields:
+          - name: 'title'
+            label: 'Tiêu đề'
+            widget: 'string'
           - name: 'hiddenTags'
             label: 'Tag ẩn'
             description: 'Các bài viết có các tag ẩn này sẽ hiển thị ở trang các đấng bản quyền.'
