@@ -19,7 +19,15 @@ export default function TheNavBar({ className }: TheNavBarProps) {
         { href: '/authorities', name: 'Các Đấng bản quyền' },
       ],
     },
-    { href: '/linhdao', name: 'Linh đạo' },
+    {
+      href: '/spirituality',
+      name: 'Linh đạo',
+      children: [
+        { href: '/charism', name: 'Tinh thần dòng' },
+        { href: '/saint-dominic', name: 'Thánh Đa Minh' },
+        { href: '/saints', name: 'Các Thánh dòng' },
+      ],
+    },
     { href: '/mission', name: 'Sứ vụ' },
     { href: '/prayer', name: 'Cầu nguyện' },
     { href: '/ongoi', name: 'Ơn gọi' },
