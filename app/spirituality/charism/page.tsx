@@ -24,21 +24,19 @@ export default function SpiritualityCharism() {
           {quote}
         </div>
 
-        <div className='space-y-8'>
+        <div className='gap-y-8 flex flex-col'>
           {categoriesData.map((category, index) => (
-            <div key={index} className='space-y-2'>
-              <Link href={category.url}>
-                <div className='relative aspect-video max-w-sm'>
-                  <Image
-                    src={category.thumbnail.url}
-                    alt={category.thumbnail.alt}
-                    className='w-full rounded-lg object-cover'
-                    fill
-                  />
-                </div>
-              </Link>
-              <h2 className='text-xl font-semibold'>{category.title}</h2>
-            </div>
+            <Link key={index} href={category.url} className={`space-y-2 w-1/2 hover:ring-2 rounded-lg ${index % 2 ? 'self-end' : ''}`}>
+              <div className='relative aspect-video w-full'>
+                <Image
+                  src={category.thumbnail.url}
+                  alt={category.thumbnail.alt}
+                  className='w-full rounded-lg object-cover'
+                  fill
+                />
+              </div>
+              <h2 className='text-xl font-semibold px-2 pb-1 text-center'>{category.title}</h2>
+            </Link>
           ))}
         </div>
       </div>

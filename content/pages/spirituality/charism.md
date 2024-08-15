@@ -24,6 +24,8 @@ categories:
   - title: Doi song cong doan
     hiddenTags:
       - Bé và lời
+      - Sắc lập dòng
+      - Giao phan Phu Cuong
     thumbnail:
       url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1716407576/samples/upscale-face-1.jpg
       alt: Mo ta thumbnail
