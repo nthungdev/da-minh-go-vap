@@ -18,7 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`bg-gray-50 ${inter.className}`}>
+      <body className={`bg-gray-50 h-screen flex flex-col ${inter.className}`}>
         <NavBar />
         {children}
         <ThePrelineScript />

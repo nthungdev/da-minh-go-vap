@@ -1,3 +1,20 @@
+type Post = {
+  title: string
+  date: Date,
+  videos: {
+    title: string
+    thumbnail: string
+    youtubeUrl: string
+  }[]
+  hiddenTags: string[]
+  thumbnail: string,
+  body: string
+}
+
+type PostParams = Post & {
+  slug: string
+}
+
 type PageHome = {
   banners: {
     url: string
@@ -116,19 +133,45 @@ type PageCongregationAuthorities = {
   hiddenTags: string[]
 }
 
-type Post = {
-  title: string
-  date: Date,
-  videos: {
+type PageSpirituality = {
+  subCategories: {
     title: string
-    thumbnail: string
-    youtubeUrl: string
+    hiddenTags: string[]
   }[]
-  hiddenTags: string[]
-  thumbnail: string,
-  body: string
 }
 
-type PostParams = Post & {
-  slug: string
+type PageSpiritualityCharism = {
+  title: string
+  banners: {
+    url: string
+    alt: string
+  }[]
+  quote: string
+  categories: {
+    title: string
+    thumbnail: {
+      url: string
+      alt: string
+    }
+    hiddenTags: string[]
+  }[]
 }
+
+type PageSpiritualitySaintDominic = {
+  title: string
+  quotes: {
+    enable: boolean
+    title: string
+    quotes: {
+      quote: string
+      reference: string
+    }[]
+  }
+  hiddenTags: string[]
+}
+
+type PageSpiritualitySaints = {
+  title: string
+  hiddenTags: string[]
+}
+

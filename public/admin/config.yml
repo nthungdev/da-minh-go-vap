@@ -24,7 +24,7 @@ collections:
   - name: 'pages'
     label: 'Trang'
     files:
-      - name: 'home'
+      - name: home
         label: 'Trang chủ'
         file: 'content/pages/home.md'
         fields:
@@ -49,7 +49,7 @@ collections:
             label: 'Câu lời Chúa'
             widget: 'object'
             fields:
-              - { name: 'enable', label: 'Hiển thị', widget: 'string', default: "Câu lời Chúa" }
+              - { name: 'enable', label: 'Hiển thị', widget: 'boolean', default: true }
               - name: 'verses'
                 label: 'Các câu'
                 widget: 'list'
@@ -417,6 +417,146 @@ collections:
           - name: 'hiddenTags'
             label: 'Tag ẩn'
             description: 'Các bài viết có các tag ẩn này sẽ hiển thị ở trang các đấng bản quyền.'
+            widget: relation
+            collection: hiddenTags
+            multiple: true
+            value_field: title
+            search_fields: [title]
+
+      - name: spirituality
+        label: 'Linh đạo'
+        file: 'content/pages/spirituality.md'
+        fields:
+          - {
+              name: 'subCategories',
+              label: 'Chuyên mục con',
+              widget: 'list',
+              allow_add: true,
+              min: 1,
+              max: 10,
+              collapsed: true,
+              fields:
+              [
+                {
+                  name: 'title',
+                  label: 'Tên hiển thị của chuyên mục con',
+                  widget: 'string',
+                },
+                {
+                  name: 'hiddenTags',
+                  label: 'Tag ẩn',
+                  widget: 'relation',
+                  hint: 'Những bài viết có các tag ẩn được chọn sẽ hiển thị ở chuyên mục con này.',
+                  collection: 'hiddenTags',
+                  multiple: true,
+                  value_field: 'title',
+                  search_fields: ['title'],
+                },
+              ]
+            }
+      - name: spiritualityCharism
+        label: 'Tinh thần dòng'
+        file: 'content/pages/spirituality/charism.md'
+        fields:
+          - name: 'title'
+            label: 'Tiêu đề'
+            widget: 'string'
+          - name: banners
+            label: 'Banners'
+            widget: 'list'
+            allow_add: true
+            label_singular: 'banner'
+            min: 1
+            max: 10
+            fields:
+              - { name: 'url', label: 'Hình ảnh/Video ngắn', widget: 'image' }
+              - { name: 'alt', label: 'Mô tả', widget: 'string' }
+          - name: 'quote'
+            label: 'Câu'
+            widget: 'string'
+            required: true
+          - {
+              name: 'categories',
+              label: 'Chuyên mục',
+              widget: 'list',
+              min: 1,
+              max: 10,
+              hint: 'Liệt kê chuyên mục',
+              allow_add: true,
+              fields:
+                [
+                  {
+                    name: 'title',
+                    label: 'Tiêu đề hiển thị của chuyên mục',
+                    widget: 'string',
+                  },
+                  {
+                    name: 'thumbnail',
+                    label: 'Thumbnail',
+                    widget: 'object',
+                    fields: [
+                      { name: 'url', label: 'Hình ảnh', widget: 'image' },
+                      { name: 'alt', label: 'Mô tả', widget: 'string' },
+                    ]
+                  },
+                  {
+                    name: 'hiddenTags',
+                    label: 'Tag ẩn',
+                    widget: 'relation',
+                    hint: 'Những bài viết có các tag ẩn được chọn sẽ hiển thị ở chuyên mục này.',
+                    collection: 'hiddenTags',
+                    multiple: true,
+                    value_field: 'title',
+                    search_fields: ['title'],
+                  },
+                ],
+            }
+      - name: spiritualitySaintDominic
+        label: 'Thánh Đa Minh'
+        file: 'content/pages/spirituality/saint-dominic.md'
+        fields:
+          - name: 'title'
+            label: 'Tiêu đề'
+            widget: 'string'
+            required: true
+          - name: 'quotes'
+            label: 'Các câu châm ngôn của cha thánh'
+            widget: 'object'
+            fields:
+              - name: 'title'
+                label: 'Tiêu đề'
+                widget: 'string'
+                required: true
+              - { name: 'enable', label: 'Hiển thị', widget: 'boolean', default: true }
+              - name: 'quotes'
+                label: 'Các câu'
+                widget: 'list'
+                allow_add: true
+                min: 1
+                max: 20
+                label_singular: "Câu"
+                fields:
+                  - name: 'quote'
+                    label: 'Câu'
+                    widget: 'string'
+          - name: 'hiddenTags'
+            label: 'Tag ẩn'
+            description: 'Các bài viết có các tag ẩn này sẽ hiển thị.'
+            widget: relation
+            collection: hiddenTags
+            multiple: true
+            value_field: title
+            search_fields: [title]
+      - name: spiritualitySaints
+        label: 'Các Thánh dòng'
+        file: 'content/pages/spirituality/saints.md'
+        fields:
+          - name: 'title'
+            label: 'Tiêu đề'
+            widget: 'string'
+          - name: 'hiddenTags'
+            label: 'Tag ẩn'
+            description: 'Các bài viết có các tag ẩn này sẽ hiển thị.'
             widget: relation
             collection: hiddenTags
             multiple: true
