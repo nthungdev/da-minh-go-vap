@@ -110,12 +110,6 @@ const WhereaboutsSection = ({ content }: Readonly<{
 
       <AppMarkdown >{content.body}</AppMarkdown>
 
-      {(content.countries || []).map(({ name, body }) => (
-        <section key={name}>
-          <h3 className='text-xl'>{name}</h3>
-          <AppMarkdown>{body}</AppMarkdown>
-        </section>
-      ))}
       <AppCardTabs tabs={content.countries.map(c => ({ title: c.name, body: c.body }))} />
     </section>
   )
