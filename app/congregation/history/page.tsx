@@ -1,26 +1,31 @@
+import AppAccordion from "@/components/app-accordion";
+import AppMarkdown from "@/components/app-markdown";
 import AppPage from "@/components/app-page";
+import AppPostTabGrid from "@/components/app-post-tab-grid";
 import { attributes } from '@/content/pages/congregation/history.md'
+import { getPostsByHiddenTags } from "@/utils/posts";
 
 export default function CongregationHistory() {
   const { developmentHistory, communityHistory } = attributes as CongregationHistory
+
+  const categoriesData = communityHistory.subCategories.map(
+    ({ title, hiddenTags }) => ({
+      title,
+      posts: getPostsByHiddenTags(hiddenTags).slice(0, 4),
+    })
+  )
 
   return (
     <AppPage className="space-y-8">
       <section className="space-y-4">
         <h2 className="text-2xl">{developmentHistory.title}</h2>
-
-        <ol className="space-y-4">
-          {developmentHistory.timeline.map(({ title, body }, index) => (
-            <li key={index}>
-              <h3 className="text-lg">{title}</h3>
-              <p>{body}</p>
-            </li>
-          ))}
-        </ol>
+        <AppMarkdown>{developmentHistory.body}</AppMarkdown>
+        <AppAccordion data={developmentHistory.timeline} />
       </section>
 
-      <section>
+      <section className="space-y-4">
         <h2 className="text-2xl">{communityHistory.title}</h2>
+        <AppPostTabGrid subCategories={categoriesData} />
       </section>
     </AppPage>
   )

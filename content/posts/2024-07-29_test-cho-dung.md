@@ -3,6 +3,7 @@ title: Test cho Dung
 date: 2024-12-28T14:18:00.000Z
 hiddenTags:
   - Lịch sử
+  - Giao phan Da Lat
 thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1722133167/maxresdefault_n0yeqb.jpg
 videos:
   - youtubeUrl: https://www.youtube.com/embed/QtC3Bo9B0yI?si=2ogNyd5m0RhNlOGi

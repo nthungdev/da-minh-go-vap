@@ -50,7 +50,7 @@ const AboutSection = ({ content }: Readonly<{
 
       <h2 className="text-2xl">{content.title}</h2>
 
-      <AppMarkdown >{content.body}</AppMarkdown>
+      <AppMarkdown>{content.body}</AppMarkdown>
 
       <AppCardTabs tabs={content.tabs} />
 

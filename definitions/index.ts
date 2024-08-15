@@ -67,6 +67,13 @@ type WhereaboutsSection = {
   }[]
 }
 
+type PageCongregation = {
+  subCategories: {
+    title: string
+    hiddenTags: string[]
+  }[]
+}
+
 type CongregationAbout = {
   aboutUs: AboutUsSection
   mission: MissionSection
@@ -92,6 +99,10 @@ type CongregationHistory = {
   }
   communityHistory: {
     title: string
+    subCategories: {
+      title: string
+      hiddenTags: string[]
+    }[]
   }
 }
 

@@ -75,7 +75,7 @@ export default function Home() {
             {newsByCategoriesData.map((newsCategory, index) => (
               <div key={index}>
                 <h3 className="text-2xl mb-2">{newsCategory.title}</h3>
-                <AppPostTabGrid category={newsCategory} />
+                <AppPostTabGrid subCategories={newsCategory.subCategories} />
               </div>
             ))}
           </section>

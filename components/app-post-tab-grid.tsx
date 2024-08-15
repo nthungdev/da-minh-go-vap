@@ -2,21 +2,16 @@ import AppPostGrid from './app-post-grid'
 
 interface AppPostTabGridProps {
   classNames?: string
-  category: {
+  subCategories: {
     title: string
-    subCategories: {
-      title: string
-      posts: PostParams[]
-    }[]
-  }
+    posts: PostParams[]
+  }[]
 }
 
 export default function AppPostTabGrid({
-  category,
+  subCategories,
   classNames,
 }: AppPostTabGridProps) {
-  const { subCategories } = category
-
   return (
     <div className={`${classNames}`}>
       <nav
@@ -29,7 +24,7 @@ export default function AppPostTabGrid({
           <button
             key={index}
             type="button"
-            className={`hs-tab-active:bg-primary-600 hs-tab-active:text-white hs-tab-active:hover:text-white hs-tab-active:dark:text-white py-3 px-4 text-center basis-0 grow inline-flex justify-center items-center gap-x-2 bg-transparent text-sm font-medium text-gray-500 hover:text-primary-600 focus:outline-none focus:text-primary-600 rounded-lg disabled:opacity-50 disabled:pointer-events-none dark:text-neutral-400 dark:hover:text-neutral-300 dark:focus:text-neutral-300 ${index === 0 ? 'active' : ''}`}
+            className={`hs-tab-active:bg-primary-600 hs-tab-active:text-white hs-tab-active:hover:text-white py-3 px-4 text-center basis-0 grow inline-flex justify-center items-center gap-x-2 bg-transparent text-sm font-medium text-gray-500 hover:text-primary-600 focus:outline-none focus:text-primary-600 rounded-lg disabled:opacity-50 disabled:pointer-events-none ${index === 0 ? 'active' : ''}`}
             aria-selected={index === 0}
             role="tab"
             id={`equal-width-elements-item-${index + 1}`}
