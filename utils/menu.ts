@@ -21,7 +21,16 @@ const menu = [
       { href: '/saints', name: 'Các Thánh dòng' },
     ],
   },
-  { href: '/mission', name: 'Sứ vụ' },
+  {
+    href: '/missions',
+    name: 'Sứ vụ',
+    children: [
+      { href: '/education', name: 'Giáo dục' },
+      { href: '/evangelization', name: 'Truyền giáo' },
+      { href: '/pastoral-care', name: 'Mục vụ' },
+      { href: '/social-activities', name: 'Hoạt động bác ái xã hội' },
+    ]
+  },
   { href: '/prayer', name: 'Cầu nguyện' },
   { href: '/ongoi', name: 'Ơn gọi' },
   { href: '/news', name: 'Bản tin' },
