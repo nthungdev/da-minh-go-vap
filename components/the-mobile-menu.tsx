@@ -21,30 +21,33 @@ export default function TheMobileMenu() {
   }
 
   return (
-    <div>
+    <div >
       {/* Navigation Toggle */}
-      <button
-        type="button"
-        className="fill-gray-50 hover:fill-primary-900 focus:fill-primary-900 p-2 inline-flex justify-center items-center gap-x-2 text-start text-white text-sm font-medium rounded-lg shadow-sm align-middle focus:outline-none"
-        aria-haspopup="dialog"
-        aria-expanded="false"
-        aria-controls={MENU_ID}
-        aria-label="Toggle navigation"
-        data-hs-overlay={`#${MENU_ID}`}
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          role="img"
-          aria-labelledby="a3mj0osd8yblbhwt1scru448yoh362oy"
-          className="crayons-icon"
+      <div className='flex flex-row items-center'>
+        <button
+          type="button"
+          className="fill-gray-50 hover:fill-primary-900 focus:fill-primary-900 p-2 inline-flex justify-center items-center gap-x-2 text-start text-white text-sm font-medium rounded-lg shadow-sm align-middle focus:outline-none"
+          aria-haspopup="dialog"
+          aria-expanded="false"
+          aria-controls={MENU_ID}
+          aria-label="Toggle navigation"
+          data-hs-overlay={`#${MENU_ID}`}
         >
-          <title id="a3mj0osd8yblbhwt1scru448yoh362oy">Navigation menu</title>
-          <path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z"></path>
-        </svg>
-      </button>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            role="img"
+            aria-labelledby="a3mj0osd8yblbhwt1scru448yoh362oy"
+            className="crayons-icon"
+          >
+            <title id="a3mj0osd8yblbhwt1scru448yoh362oy">Navigation menu</title>
+            <path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z"></path>
+          </svg>
+        </button>
+        <p className='ml-auto'>Hội Dòng Đa Minh Gò Vấp</p>
+      </div>
       {/* End Navigation Toggle */}
 
       {/* Sidebar */}
@@ -61,7 +64,7 @@ export default function TheMobileMenu() {
             href="/"
             aria-label="Brand"
           >
-            Đa Minh Gò Vấp
+            Hội Dòng<br/>Đa Minh Gò Vấp
           </Link>
         </div>
 

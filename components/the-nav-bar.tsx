@@ -15,7 +15,7 @@ export default function TheNavBar({ className }: TheNavBarProps) {
     <nav
       className={`relative bg-primary text-gray-50 flex flex-row flex-wrap lg:justify-center ${className}`}
     >
-      <div className='lg:hidden p-2'>
+      <div className='lg:hidden p-2 flex-1'>
         <TheMobileMenu />
       </div>
 
