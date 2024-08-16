@@ -10,6 +10,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@preline/overlay": "^2.4.1",
     "gray-matter": "^4.0.3",
     "next": "14.2.3",
     "normalize-text": "^2.5.0",
