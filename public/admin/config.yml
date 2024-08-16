@@ -428,7 +428,7 @@ collections:
         file: 'content/pages/spirituality.md'
         fields:
           - {
-              name: 'subCategories',
+              name: 'categories',
               label: 'Chuyên mục con',
               widget: 'list',
               allow_add: true,
@@ -593,6 +593,74 @@ collections:
             multiple: true
             value_field: title
             search_fields: [title]
+      - name: missionsSocialActivities
+        label: 'Sứ Vụ / Hoạt động bác ái xã hội'
+        file: 'content/pages/missions/social-activities.md'
+        fields:
+          - name: 'title'
+            label: 'Tiêu đề'
+            widget: 'string'
+          - {
+              name: 'categories',
+              label: 'Chuyên mục con',
+              widget: 'list',
+              allow_add: true,
+              min: 1,
+              max: 10,
+              collapsed: true,
+              fields:
+              [
+                {
+                  name: 'title',
+                  label: 'Tên hiển thị của chuyên mục con',
+                  widget: 'string',
+                },
+                {
+                  name: 'hiddenTags',
+                  label: 'Tag ẩn',
+                  widget: 'relation',
+                  hint: 'Những bài viết có các tag ẩn được chọn sẽ hiển thị ở chuyên mục con này.',
+                  collection: 'hiddenTags',
+                  multiple: true,
+                  value_field: 'title',
+                  search_fields: ['title'],
+                },
+              ]
+            }
+      - name: missionsEducation
+        label: 'Sứ Vụ / Giáo dục'
+        file: 'content/pages/missions/education.md'
+        fields:
+          - name: 'title'
+            label: 'Tiêu đề'
+            widget: 'string'
+          - {
+              name: 'categories',
+              label: 'Chuyên mục con',
+              widget: 'list',
+              allow_add: true,
+              min: 1,
+              max: 10,
+              collapsed: true,
+              fields:
+              [
+                {
+                  name: 'title',
+                  label: 'Tên hiển thị của chuyên mục con',
+                  widget: 'string',
+                },
+                {
+                  name: 'hiddenTags',
+                  label: 'Tag ẩn',
+                  widget: 'relation',
+                  hint: 'Những bài viết có các tag ẩn được chọn sẽ hiển thị ở chuyên mục con này.',
+                  collection: 'hiddenTags',
+                  multiple: true,
+                  value_field: 'title',
+                  search_fields: ['title'],
+                },
+              ]
+            }
 
       - name: contact
         label: 'Liên hệ'

@@ -15,10 +15,19 @@ type PostParams = Post & {
   slug: string
 }
 
+// Reuse page types
 type PostsPage = {
   title: string
   hiddenTags: string[]
 }
+
+type CategoriesPage = {
+  categories: {
+    title: string
+    hiddenTags: string[]
+  }[]
+}
+// END Reuse page types
 
 type PageHome = {
   banners: {
@@ -132,12 +141,7 @@ type PageCongregationEstablishment = PostsPage
 
 type PageCongregationAuthorities = PostsPage
 
-type PageSpirituality = {
-  subCategories: {
-    title: string
-    hiddenTags: string[]
-  }[]
-}
+type PageSpirituality = CategoriesPage
 
 type PageSpiritualityCharism = {
   title: string
@@ -171,6 +175,8 @@ type PageSpiritualitySaintDominic = {
 
 type PageSpiritualitySaints = PostsPage
 
+type PageMissions = {}
 type PageMissionsEvangelization = PostsPage
-
 type PageMissionsPastoralCare = PostsPage
+type PageMissionsSocialActivities = CategoriesPage
+type PageMissionsEducation = CategoriesPage
