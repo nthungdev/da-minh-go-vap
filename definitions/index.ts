@@ -22,6 +22,7 @@ type PostsPage = {
 }
 
 type CategoriesPage = {
+  title: string
   categories: {
     title: string
     hiddenTags: string[]
