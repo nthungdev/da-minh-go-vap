@@ -15,6 +15,11 @@ type PostParams = Post & {
   slug: string
 }
 
+type PostsPage = {
+  title: string
+  hiddenTags: string[]
+}
+
 type PageHome = {
   banners: {
     url: string
@@ -123,15 +128,9 @@ type PageCongregationHistory = {
   }
 }
 
-type PageCongregationEstablishment = {
-  title: string
-  hiddenTags: string[]
-}
+type PageCongregationEstablishment = PostsPage
 
-type PageCongregationAuthorities = {
-  title: string
-  hiddenTags: string[]
-}
+type PageCongregationAuthorities = PostsPage
 
 type PageSpirituality = {
   subCategories: {
@@ -170,8 +169,8 @@ type PageSpiritualitySaintDominic = {
   hiddenTags: string[]
 }
 
-type PageSpiritualitySaints = {
-  title: string
-  hiddenTags: string[]
-}
+type PageSpiritualitySaints = PostsPage
 
+type PageMissionsEvangelization = PostsPage
+
+type PageMissionsPastoralCare = PostsPage
