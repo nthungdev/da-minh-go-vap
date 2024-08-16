@@ -34,14 +34,14 @@ export default function TheNavBar({ className }: TheNavBarProps) {
         </div>
 
         {menu.map((link) => (
-          <li key={link.href} className="relative flex flex-row py-2">
-            <Link className="block peer px-3 py-2" href={link.href}>
+          <li key={link.href} className="relative flex flex-row">
+            <Link className="block peer px-3 py-4" href={link.href}>
               {link.name.toUpperCase()}
             </Link>
 
             {link.children && (
               <div className="z-20 hidden peer-hover:block hover:block absolute top-full left-0">
-                <ul className="mt-4 bg-primary-400">
+                <ul className="bg-primary-400">
                   {link.children.map((child) => (
                     <li key={child.href} className="block">
                       <Link
