@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { attributes } from '@/content/settings/site.md'
 import Image from 'next/image'
+import TheMobileMenu from './the-mobile-menu'
 
 interface TheNavBarProps {
   className?: string
@@ -40,22 +41,28 @@ export default function TheNavBar({ className }: TheNavBarProps) {
 
   return (
     <nav
-      className={`relative bg-primary text-gray-50 py-2 flex flex-row flex-wrap justify-center ${className}`}
+      className={`relative bg-primary text-gray-50 flex flex-row flex-wrap lg:justify-center ${className}`}
     >
-      <ul className="flex flex-row flex-wrap items-center max-w-screen-xl">
-        <div className="relative overflow-auto h-16 w-16">
-          <Image
-            src={logo}
-            alt="logo"
-            quality={100}
-            sizes="100%"
-            fill
-            priority
-          />
+      <div className='lg:hidden p-2'>
+        <TheMobileMenu />
+      </div>
+
+      <ul className="hidden lg:flex flex-row flex-wrap items-center max-w-screen-xl">
+        <div className='relative h-full w-20 self-start'>
+          <div className="absolute top-[20%] left-0 overflow-auto h-20 w-20">
+            <Image
+              src={logo}
+              alt="logo"
+              quality={100}
+              sizes="100%"
+              fill
+              priority
+            />
+          </div>
         </div>
 
         {links.map((link) => (
-          <li key={link.href} className="relative flex flex-row">
+          <li key={link.href} className="relative flex flex-row py-2">
             <Link className="block peer px-3 py-2" href={link.href}>
               {link.name.toUpperCase()}
             </Link>

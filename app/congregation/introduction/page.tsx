@@ -12,6 +12,7 @@ const BannerContainer = ({ url, alt }: Readonly<{ url: string, alt: string }>) =
       className='object-cover'
       sizes="100%"
       alt={alt}
+      priority
       fill
     />
   </div>

@@ -26,6 +26,7 @@ export default function TheLatestPosts(props: TheLatestPostsProps) {
             src={latestPost.thumbnail}
             alt={latestPost.title}
             sizes="100%"
+            priority
             fill
           />
           {/* Gradient overlay */}
