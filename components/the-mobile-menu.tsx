@@ -1,51 +1,15 @@
 'use client'
 
 
+import menu from '@/utils/menu'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { normalizeText } from 'normalize-text'
 import { HSOverlay } from 'preline/preline'
 
 const MENU_ID = 'hs-the-mobile-menu'
 
 export default function TheMobileMenu() {
   const pathname = usePathname()
-
-  const links = [
-    { href: '/', name: 'Trang chủ' },
-    {
-      href: '/congregation',
-      name: 'Hội dòng',
-      children: [
-        { href: '/introduction', name: 'Giới thiệu' },
-        { href: '/history', name: 'Lịch sử' },
-        { href: '/establishment', name: 'Sắc lập dòng' },
-        { href: '/authorities', name: 'Các Đấng bản quyền' },
-      ],
-    },
-    {
-      href: '/spirituality',
-      name: 'Linh đạo',
-      children: [
-        { href: '/charism', name: 'Tinh thần dòng' },
-        { href: '/saint-dominic', name: 'Thánh Đa Minh' },
-        { href: '/saints', name: 'Các Thánh dòng' },
-      ],
-    },
-    { href: '/mission', name: 'Sứ vụ' },
-    { href: '/prayer', name: 'Cầu nguyện' },
-    { href: '/ongoi', name: 'Ơn gọi' },
-    { href: '/news', name: 'Bản tin' },
-    { href: '/topics', name: 'Chuyên đề' },
-    { href: '/contact', name: 'Liên hệ' },
-  ].map((link) => ({
-    ...link,
-    normalizedName: normalizeText(link.href),
-    children: link.children?.map((child) => ({
-      ...child,
-      normalizedName: normalizeText(child.href),
-    })),
-  }))
 
   const closeMenu = async () => {
     const menuElement = document.querySelector<HTMLElement>(`#${MENU_ID}`)
@@ -106,7 +70,7 @@ export default function TheMobileMenu() {
           data-hs-accordion-always-open
         >
           <ul className="space-y-1.5">
-            {links.map((link, index) =>
+            {menu.map((link, index) =>
               link.children ? (
                 <li key={index} className="hs-accordion" id={`${link.normalizedName}-accordion`}>
                   <button

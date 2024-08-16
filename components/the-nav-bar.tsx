@@ -2,41 +2,13 @@ import Link from 'next/link'
 import { attributes } from '@/content/settings/site.md'
 import Image from 'next/image'
 import TheMobileMenu from './the-mobile-menu'
+import menu from '@/utils/menu'
 
 interface TheNavBarProps {
   className?: string
 }
 
 export default function TheNavBar({ className }: TheNavBarProps) {
-  const links = [
-    { href: '/', name: 'Trang chủ' },
-    {
-      href: '/congregation',
-      name: 'Hội dòng',
-      children: [
-        { href: '/introduction', name: 'Giới thiệu' },
-        { href: '/history', name: 'Lịch sử' },
-        { href: '/establishment', name: 'Sắc lập dòng' },
-        { href: '/authorities', name: 'Các Đấng bản quyền' },
-      ],
-    },
-    {
-      href: '/spirituality',
-      name: 'Linh đạo',
-      children: [
-        { href: '/charism', name: 'Tinh thần dòng' },
-        { href: '/saint-dominic', name: 'Thánh Đa Minh' },
-        { href: '/saints', name: 'Các Thánh dòng' },
-      ],
-    },
-    { href: '/mission', name: 'Sứ vụ' },
-    { href: '/prayer', name: 'Cầu nguyện' },
-    { href: '/ongoi', name: 'Ơn gọi' },
-    { href: '/news', name: 'Bản tin' },
-    { href: '/topics', name: 'Chuyên đề' },
-    { href: '/contact', name: 'Liên hệ' },
-  ]
-
   const { logo } = attributes
 
   return (
@@ -61,7 +33,7 @@ export default function TheNavBar({ className }: TheNavBarProps) {
           </div>
         </div>
 
-        {links.map((link) => (
+        {menu.map((link) => (
           <li key={link.href} className="relative flex flex-row py-2">
             <Link className="block peer px-3 py-2" href={link.href}>
               {link.name.toUpperCase()}
