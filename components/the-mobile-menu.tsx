@@ -1,10 +1,8 @@
 'use client'
 
-
 import menu from '@/utils/menu'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { HSOverlay } from 'preline/preline'
 
 const MENU_ID = 'hs-the-mobile-menu'
 
@@ -17,6 +15,8 @@ export default function TheMobileMenu() {
       console.error('Menu element not found')
       return
     }
+    // import preline on the client side
+    const { HSOverlay } = await import('preline/preline')
     HSOverlay.close(menuElement)
   }
 
