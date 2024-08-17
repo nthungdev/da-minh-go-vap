@@ -16,19 +16,22 @@
       "type": "chrome",
       "request": "launch",
       "url": "http://localhost:3000",
-      "resolveSourceMapLocations": ["${workspaceFolder}/", "!/node_modules/**"]
+      "webRoot": "${workspaceFolder}",
     },
     {
       "name": "Next.js: debug full stack",
-      "type": "node-terminal",
+      "type": "node",
       "request": "launch",
-      "command": "yarn dev",
+      "program": "${workspaceFolder}/node_modules/.bin/next",
+      "runtimeArgs": ["--inspect"],
+      "skipFiles": ["<node_internals>/**"],
       "serverReadyAction": {
+        "action": "debugWithChrome",
+        "killOnServerStop": true,
         "pattern": "- Local:.+(https?://.+)",
         "uriFormat": "%s",
-        "action": "debugWithChrome"
-      },
-      "resolveSourceMapLocations": ["${workspaceFolder}/", "!/node_modules/**"]
+        "webRoot": "${workspaceFolder}"
+      }
     }
   ]
 }
