@@ -25,10 +25,10 @@ const menu = [
     href: '/missions',
     name: 'Sứ vụ',
     children: [
-      { href: '/education', name: 'Giáo dục' },
       { href: '/evangelization', name: 'Truyền giáo' },
       { href: '/pastoral-care', name: 'Mục vụ' },
       { href: '/social-activities', name: 'Hoạt động bác ái xã hội' },
+      { href: '/education', name: 'Giáo dục' },
     ]
   },
   { href: '/prayer', name: 'Cầu nguyện' },

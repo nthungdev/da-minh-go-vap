@@ -11,6 +11,28 @@ type Post = {
   body: string
 }
 
+type PostSection = {
+  type: 'postSection'
+  title: string
+  limit: number
+  hiddenTags: string[]
+}
+
+type PostByCategorySection = {
+  type: 'postByCategorySection'
+  title: string
+  limit: number
+  categories: {
+    title: string
+    hiddenTags: string[]
+  }[]
+}
+
+type Image = {
+  url: string
+  alt: string
+}
+
 type PostParams = Post & {
   slug: string
 }
@@ -31,14 +53,8 @@ type CategoriesPage = {
 // END Reuse page types
 
 type PageHome = {
-  banners: {
-    url: string
-    alt: string
-  }[]
-  decorativeGraphic: {
-    url: string
-    alt: string
-  }
+  banners: Image[]
+  decorativeGraphic: Image
   bibleVerses: {
     enable: boolean
     verses: {
@@ -87,10 +103,7 @@ type AboutUsSection = {
 type MissionSection = AboutUsSection
 
 type WhereaboutsSection = {
-  banner: {
-    url: string
-    alt: string
-  }
+  banner: Image
   title: string
   body: string
   countries: {
@@ -176,7 +189,10 @@ type PageSpiritualitySaintDominic = {
 
 type PageSpiritualitySaints = PostsPage
 
-type PageMissions = {}
+type PageMissions = {
+  title: string
+  sections: (PostSection | PostByCategorySection)[]
+}
 type PageMissionsEvangelization = PostsPage
 type PageMissionsPastoralCare = PostsPage
 type PageMissionsSocialActivities = CategoriesPage
