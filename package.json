@@ -12,7 +12,7 @@
   "dependencies": {
     "@preline/overlay": "^2.4.1",
     "gray-matter": "^4.0.3",
-    "next": "14.2.3",
+    "next": "^14.2.5",
     "normalize-text": "^2.5.0",
     "preline": "^2.4.1",
     "react": "^18",

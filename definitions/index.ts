@@ -197,3 +197,11 @@ type PageMissionsEvangelization = PostsPage
 type PageMissionsPastoralCare = PostsPage
 type PageMissionsSocialActivities = CategoriesPage
 type PageMissionsEducation = CategoriesPage
+
+type PagePrayer = {
+  title: string
+  sections: PostSection[]
+}
+type PagePrayerMorning = PostsPage
+type PagePrayerEvening = PostsPage
+type PagePrayerMeditation = PostsPage

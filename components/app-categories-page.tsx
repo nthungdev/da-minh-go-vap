@@ -21,6 +21,7 @@ export default function AppCategoriesPage({
 
   return (
     <AppPage>
+      <h1 className="sr-only">{title}</h1>
       <ul className='space-y-12'>
         {categoriesData.map(({ title, posts }, index) => (
           <li key={index} className="space-y-4">
