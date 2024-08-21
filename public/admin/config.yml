@@ -809,6 +809,100 @@ collections:
             value_field: title
             search_fields: [title]
 
+      - name: news
+        label: 'Bản tin'
+        file: 'content/pages/news/index.md'
+        fields:
+          - name: 'title'
+            label: 'Tiêu đề'
+            widget: 'string'
+          - name: 'sections'
+            label: 'Các mục'
+            widget: 'list'
+            allow_add: true
+            min: 1
+            max: 10
+            label_singular: 'Mục'
+            fields:
+              - name: 'title'
+                label: 'Tiêu đề'
+                widget: 'string'
+              - name: 'limit'
+                label: 'Số lượng bài hiển thị'
+                widget: 'number'
+                value_type: 'int'
+                default: 4
+                min: 0
+                max: 100
+              - name: 'hiddenTags'
+                label: 'Tag ẩn'
+                description: 'Các bài viết có các tag ẩn này sẽ hiển thị.'
+                widget: relation
+                collection: hiddenTags
+                multiple: true
+                value_field: title
+                search_fields: [title]
+      - name: newsChurch
+        label: 'Bản tin / Giáo hội'
+        file: 'content/pages/news/church.md'
+        fields:
+          - name: 'title'
+            label: 'Tiêu đề'
+            widget: 'string'
+          - name: 'hiddenTags'
+            label: 'Tag ẩn'
+            description: 'Các bài viết có các tag ẩn này sẽ hiển thị.'
+            widget: relation
+            collection: hiddenTags
+            multiple: true
+            value_field: title
+            search_fields: [title]
+      - name: newsVietnamChurch
+        label: 'Bản tin / Giáo hội Việt Nam'
+        file: 'content/pages/news/vietnam-church.md'
+        fields:
+          - name: 'title'
+            label: 'Tiêu đề'
+            widget: 'string'
+          - name: 'hiddenTags'
+            label: 'Tag ẩn'
+            description: 'Các bài viết có các tag ẩn này sẽ hiển thị.'
+            widget: relation
+            collection: hiddenTags
+            multiple: true
+            value_field: title
+            search_fields: [title]
+      - name: newsDominicanFamily
+        label: 'Bản tin / Gia đình Đa Minh'
+        file: 'content/pages/news/dominican-family.md'
+        fields:
+          - name: 'title'
+            label: 'Tiêu đề'
+            widget: 'string'
+          - name: 'hiddenTags'
+            label: 'Tag ẩn'
+            description: 'Các bài viết có các tag ẩn này sẽ hiển thị.'
+            widget: relation
+            collection: hiddenTags
+            multiple: true
+            value_field: title
+            search_fields: [title]
+      - name: newsCongregation
+        label: 'Bản tin / Hội dòng'
+        file: 'content/pages/news/congregation.md'
+        fields:
+          - name: 'title'
+            label: 'Tiêu đề'
+            widget: 'string'
+          - name: 'hiddenTags'
+            label: 'Tag ẩn'
+            description: 'Các bài viết có các tag ẩn này sẽ hiển thị.'
+            widget: relation
+            collection: hiddenTags
+            multiple: true
+            value_field: title
+            search_fields: [title]
+
       - name: contact
         label: 'Liên hệ'
         file: 'content/pages/contact.md'

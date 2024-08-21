@@ -41,7 +41,16 @@ const menu = [
     ]
    },
   { href: '/ongoi', name: 'Ơn gọi' },
-  { href: '/news', name: 'Bản tin' },
+  {
+    href: '/news',
+    name: 'Bản tin',
+    children: [
+      { href: '/congregation', name: 'Bản tin Hội dòng' },
+      { href: '/dominican-family', name: 'Bản tin Gia đình Đa Minh' },
+      { href: '/vietnam-church', name: 'Bản tin Giáo Hội Việt Nam' },
+      { href: '/church', name: 'Bản tin Giáo Hội' },
+    ]
+  },
   { href: '/topics', name: 'Chuyên đề' },
   { href: '/contact', name: 'Liên hệ' },
 ].map((link) => ({
