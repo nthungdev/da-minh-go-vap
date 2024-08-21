@@ -205,3 +205,12 @@ type PagePrayer = {
 type PagePrayerMorning = PostsPage
 type PagePrayerEvening = PostsPage
 type PagePrayerMeditation = PostsPage
+
+type PageNews = {
+  title: string
+  sections: PostSection[]
+}
+type PageNewsCongregation = PostsPage
+type PageNewsDominicanFamily = PostsPage
+type PageNewsChurch = PostsPage
+type PageNewsVietnamChurch = PostsPage
