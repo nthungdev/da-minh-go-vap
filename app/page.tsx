@@ -1,5 +1,6 @@
 import AppPage from '@/components/app-page'
 import AppPostTabGrid from '@/components/app-post-tab-grid'
+import AppSectionHeader from '@/components/app-section-header'
 import TheBanner from '@/components/the-banner'
 import TheBibleVerse from '@/components/the-bible-verse'
 import TheLatestPosts from '@/components/the-latest-posts'
@@ -73,8 +74,10 @@ export default function Home() {
             <h2 className="sr-only">Tin tức theo danh mục</h2>
 
             {newsByCategoriesData.map((newsCategory, index) => (
-              <div key={index}>
-                <h3 className="text-2xl mb-2">{newsCategory.title}</h3>
+              <div key={index} className='space-y-2'>
+                <AppSectionHeader>
+                  <h3 className="text-2xl">{newsCategory.title}</h3>
+                </AppSectionHeader>
                 <AppPostTabGrid subCategories={newsCategory.subCategories} />
               </div>
             ))}
