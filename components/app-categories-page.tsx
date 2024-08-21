@@ -23,8 +23,8 @@ export default function AppCategoriesPage({
     <AppPage>
       <ul className='space-y-12'>
         {categoriesData.map(({ title, posts }, index) => (
-          <li key={index}>
-            <h2 className='uppercase mb-2 text-2xl'>{title}</h2>
+          <li key={index} className="space-y-4">
+            <h2 className='uppercase text-2xl'>{title}</h2>
             <AppPostGrid posts={posts} />
           </li>
         ))}

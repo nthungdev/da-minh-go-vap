@@ -1,3 +1,3 @@
 ---
-logo: https://dungtran.it/images/logo-vong-tron-khong-nen.png
+logo: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1723871386/logo-vong-tron-khong-nen_kqquoi.png
 ---

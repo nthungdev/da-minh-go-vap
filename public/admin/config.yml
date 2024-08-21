@@ -563,6 +563,74 @@ collections:
             value_field: title
             search_fields: [title]
 
+      - name: missions
+        label: 'Sứ Vụ'
+        file: 'content/pages/missions/index.md'
+        fields:
+          - name: 'title'
+            label: 'Tiêu đề'
+            widget: 'string'
+          - name: 'sections'
+            label: 'Các mục'
+            widget: 'list'
+            allow_add: true
+            min: 1
+            max: 10
+            label_singular: 'Mục'
+            types:
+              - name: postSection
+                label: 'Mục bài viết'
+                fields:
+                  - name: 'title'
+                    label: 'Tiêu đề'
+                    widget: 'string'
+                  - name: limit
+                    label: 'Số lượng bài hiển thị'
+                    widget: 'number'
+                    value_type: 'int'
+                    default: 4
+                    min: 0
+                    max: 100
+                  - name: 'hiddenTags'
+                    label: 'Tag ẩn'
+                    description: 'Các bài viết có các tag ẩn này sẽ hiển thị.'
+                    widget: relation
+                    collection: hiddenTags
+                    multiple: true
+                    value_field: title
+                    search_fields: [title]
+              - name: 'postByCategorySection'
+                label: 'Mục bài viết theo chuyên mục'
+                fields:
+                  - name: 'title'
+                    label: 'Tiêu đề'
+                    widget: 'string'
+                  - name: limit
+                    label: 'Số lượng bài hiển thị'
+                    widget: 'number'
+                    value_type: 'int'
+                    default: 4
+                    min: 0
+                    max: 100
+                  - name: 'categories'
+                    label: 'Chuyên mục'
+                    widget: 'list'
+                    min: 2
+                    max: 10
+                    hint: 'Liệt kê chuyên mục'
+                    allow_add: true
+                    fields:
+                      - name: 'title'
+                        label: 'Tiêu đề hiển thị của chuyên mục'
+                        widget: 'string'
+                      - name: 'hiddenTags'
+                        label: 'Tag ẩn'
+                        widget: 'relation'
+                        hint: 'Những bài viết có các tag ẩn được chọn sẽ hiển thị ở chuyên mục này.'
+                        collection: 'hiddenTags'
+                        multiple: true
+                        value_field: 'title'
+                        search_fields: ['title']
       - name: missionsEvangelization
         label: 'Sứ Vụ / Truyền giáo'
         file: 'content/pages/missions/evangelization.md'
