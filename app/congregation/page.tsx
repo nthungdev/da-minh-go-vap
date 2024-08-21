@@ -2,6 +2,7 @@ import AppPage from '@/components/app-page'
 import { getPostsByHiddenTags } from '@/utils/posts'
 import AppPostGrid from '@/components/app-post-grid'
 import { attributes } from '@/content/pages/congregation.md'
+import AppSectionHeader from '@/components/app-section-header'
 
 export default function History() {
   const { subCategories } = attributes as PageCongregation
@@ -15,8 +16,10 @@ export default function History() {
     <AppPage>
       <ul className='space-y-12'>
         {subCategoriesData.map(({ title, posts }, index) => (
-          <li key={index}>
-            <h2 className='uppercase mb-2 text-2xl'>{title}</h2>
+          <li key={index} className='space-y-4'>
+            <AppSectionHeader>
+              <h2 className='uppercase text-2xl'>{title}</h2>
+            </AppSectionHeader>
             <AppPostGrid posts={posts} />
           </li>
         ))}

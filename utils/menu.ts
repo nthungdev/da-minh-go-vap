@@ -31,7 +31,15 @@ const menu = [
       { href: '/education', name: 'Giáo dục' },
     ]
   },
-  { href: '/prayer', name: 'Cầu nguyện' },
+  {
+    href: '/prayer',
+    name: 'Cầu nguyện',
+    children: [
+      { href: '/morning', name: 'Cầu nguyện sáng' },
+      { href: '/meditation', name: 'Suy niệm lời chúa' },
+      { href: '/evening', name: 'Cầu nguyện tối' },
+    ]
+   },
   { href: '/ongoi', name: 'Ơn gọi' },
   { href: '/news', name: 'Bản tin' },
   { href: '/topics', name: 'Chuyên đề' },

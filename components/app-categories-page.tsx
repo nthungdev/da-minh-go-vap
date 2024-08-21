@@ -1,6 +1,7 @@
 import { getPostsByHiddenTags } from "@/utils/posts";
 import AppPage from "./app-page";
 import AppPostGrid from "./app-post-grid";
+import AppSectionHeader from "./app-section-header";
 
 interface AppCategoriesPageProps {
   title: string;
@@ -21,10 +22,13 @@ export default function AppCategoriesPage({
 
   return (
     <AppPage>
+      <h1 className="sr-only">{title}</h1>
       <ul className='space-y-12'>
         {categoriesData.map(({ title, posts }, index) => (
           <li key={index} className="space-y-4">
-            <h2 className='uppercase text-2xl'>{title}</h2>
+            <AppSectionHeader>
+              <h2 className="text-2xl">{title}</h2>
+            </AppSectionHeader>
             <AppPostGrid posts={posts} />
           </li>
         ))}
