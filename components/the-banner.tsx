@@ -27,7 +27,7 @@ export default function TheBanner(props: TheBannerProps) {
   return (
     <div className="aspect-[4]">
       {isVideo ? (
-        <video className="w-full h-full" src={bannerUrl} autoPlay loop muted />
+        <video className="w-full h-full object-cover" src={bannerUrl} autoPlay loop muted />
       ) : (
         <Image
           className="w-full h-full object-cover"
