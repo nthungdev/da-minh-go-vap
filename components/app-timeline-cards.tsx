@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 interface AppTimelineCardsProps {
+  className?: string;
   cards: {
     title: string;
     thumbnail: {
@@ -12,10 +13,10 @@ interface AppTimelineCardsProps {
   }[];
 }
 
-export default function AppTimelineCards({ cards }: AppTimelineCardsProps) {
+export default function AppTimelineCards({ className, cards }: AppTimelineCardsProps) {
 
   return (
-    <div className="space-y-12">
+    <div className={`space-y-12 ${className}`}>
       <div className="flex flex-col">
         {cards.map((card, index) => (
           <div

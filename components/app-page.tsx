@@ -15,7 +15,7 @@ export default function AppPage({
   const pathname = usePathname()
 
   return (
-    <main className={`py-8 px-4 mx-auto max-w-screen-lg ${pathname !== '/' ? 'pt-16' : ''} ${className}`} {...props}>
+    <main className={`w-full py-8 px-4 mx-auto max-w-screen-lg ${pathname !== '/' ? 'pt-16' : ''} ${className}`} {...props}>
       {children}
     </main>
   )

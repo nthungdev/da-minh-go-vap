@@ -222,7 +222,7 @@ type PagePrayerMorning = PostsPage
 type PagePrayerEvening = PostsPage
 type PagePrayerMeditation = PostsPage
 
-type PageVocation = {
+type PageVocationIntroduction = {
   title: string
   tabSections: (DynamicImageTab | TextTab)[]
   sections: {
