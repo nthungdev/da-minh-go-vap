@@ -192,14 +192,7 @@ type PageSpiritualityCharism = {
 
 type PageSpiritualitySaintDominic = {
   title: string
-  quotes: {
-    enable: boolean
-    title: string
-    quotes: {
-      quote: string
-      reference: string
-    }[]
-  }
+  banners: Image[]
   hiddenTags: string[]
 }
 
