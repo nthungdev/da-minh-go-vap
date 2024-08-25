@@ -33,7 +33,7 @@ export default function PageVocationIntroduction() {
 
   const sectionsData = sections.map((section) => ({
     ...section,
-    url: `/vocation/${normalizeText(section.title).replaceAll(/\s/g, '-')}`,
+    url: `/vocation/introduction/${normalizeText(section.title).replaceAll(/\s/g, '-')}`,
   }))
 
   return (
