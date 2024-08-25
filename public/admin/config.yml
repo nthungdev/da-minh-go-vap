@@ -519,26 +519,16 @@ collections:
             label: 'Tiêu đề'
             widget: 'string'
             required: true
-          - name: 'quotes'
-            label: 'Các câu châm ngôn của cha thánh'
-            widget: 'object'
+          - name: 'banners'
+            label: 'Banners'
+            widget: 'list'
+            allow_add: true
+            label_singular: 'Banner'
+            min: 1
+            max: 10
             fields:
-              - name: 'title'
-                label: 'Tiêu đề'
-                widget: 'string'
-                required: true
-              - { name: 'enable', label: 'Hiển thị', widget: 'boolean', default: true }
-              - name: 'quotes'
-                label: 'Các câu'
-                widget: 'list'
-                allow_add: true
-                min: 1
-                max: 20
-                label_singular: "Câu"
-                fields:
-                  - name: 'quote'
-                    label: 'Câu'
-                    widget: 'string'
+              - { name: 'url', label: 'Hình ảnh/Video ngắn', widget: 'image' }
+              - { name: 'alt', label: 'Mô tả', widget: 'string' }
           - name: 'hiddenTags'
             label: 'Tag ẩn'
             description: 'Các bài viết có các tag ẩn này sẽ hiển thị.'

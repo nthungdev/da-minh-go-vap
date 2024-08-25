@@ -11,7 +11,7 @@ export default function TheBanner(props: TheBannerProps) {
   const { banners } = props
   const [bannerIndex, setBannerIndex] = useState(0)
 
-  const banner = banners[bannerIndex]
+  const banner = (banners || [])[bannerIndex]
   const isVideo = banner?.url?.includes('.mp4')
   const bannerUrl = banner?.url || ''
 
