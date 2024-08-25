@@ -455,7 +455,7 @@ collections:
               ]
             }
       - name: spiritualityCharism
-        label: 'Tinh thần dòng'
+        label: 'Linh đạo / Tinh thần dòng'
         file: 'content/pages/spirituality/charism.md'
         fields:
           - name: 'title'
@@ -512,7 +512,7 @@ collections:
                 ],
             }
       - name: spiritualitySaintDominic
-        label: 'Thánh Đa Minh'
+        label: 'Linh đạo / Thánh Đa Minh'
         file: 'content/pages/spirituality/saint-dominic.md'
         fields:
           - name: 'title'
@@ -548,7 +548,7 @@ collections:
             value_field: title
             search_fields: [title]
       - name: spiritualitySaints
-        label: 'Các Thánh dòng'
+        label: 'Linh đạo / Các Thánh dòng'
         file: 'content/pages/spirituality/saints.md'
         fields:
           - name: 'title'
@@ -809,9 +809,9 @@ collections:
             value_field: title
             search_fields: [title]
 
-      - name: vocation
-        label: 'Ơn gọi'
-        file: 'content/pages/vocation/index.md'
+      - name: vocationIntroduction
+        label: 'Ơn gọi / Giới thiệu'
+        file: 'content/pages/vocation/introduciton.md'
         fields:
           - name: 'title'
             label: 'Tiêu đề'
@@ -888,7 +888,6 @@ collections:
                 multiple: true
                 value_field: title
                 search_fields: [title]
-
       - name: vocationMystery
         label: 'Ơn gọi / Huyền nhiệm'
         file: 'content/pages/vocation/mystery.md'
