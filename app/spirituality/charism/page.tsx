@@ -19,12 +19,11 @@ export default function SpiritualityCharism() {
   }))
 
   return (
-    <AppPage className='px-0 pt-0 md:px-4 md:py-8 md:pt-16'>
-      <h1 className="sr-only">{title}</h1>
-
+    <div>
       <TheBanner banners={banners} />
 
-      <div className='px-4 md:px-0 md:py-0'>
+      <AppPage className='pt-4'>
+        <h1 className="sr-only">{title}</h1>
 
         <div className="relative w-full">
           <Image
@@ -42,7 +41,8 @@ export default function SpiritualityCharism() {
         </div>
 
         <AppTimelineCards className='mt-12' cards={categoriesData} />
-      </div>
-    </AppPage>
+      </AppPage>
+
+    </div>
   )
 }
