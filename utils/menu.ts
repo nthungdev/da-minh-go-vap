@@ -40,7 +40,14 @@ const menu = [
       { href: '/evening', name: 'Cầu nguyện tối' },
     ]
    },
-  { href: '/ongoi', name: 'Ơn gọi' },
+  {
+    href: '/vocation',
+    name: 'Ơn gọi',
+    children: [
+      { href: '/introduction', name: 'Giới thiệu ơn gọi' },
+      { href: '/mystery', name: 'Huyền nhiệm ơn gọi' },
+    ]
+   },
   {
     href: '/news',
     name: 'Bản tin',

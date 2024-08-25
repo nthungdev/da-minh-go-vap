@@ -809,6 +809,102 @@ collections:
             value_field: title
             search_fields: [title]
 
+      - name: vocation
+        label: 'Ơn gọi'
+        file: 'content/pages/vocation/index.md'
+        fields:
+          - name: 'title'
+            label: 'Tiêu đề'
+            widget: 'string'
+          - name: 'tabSections'
+            label: 'Mục tabs'
+            widget: 'list'
+            allow_add: true
+            min: 2
+            max: 10
+            label_singular: 'Mục tab'
+            summary: '{{fields.title}}'
+            types:
+              - name: dynamicImageTab
+                label: 'Hình ảnh'
+                widget: 'object'
+                fields:
+                  - name: 'title'
+                    label: 'Tiêu đề'
+                    widget: 'string'
+                    descripion: 'Tiêu đề của tab'
+                  - name: 'image'
+                    label: 'Hình ảnh Desktop'
+                    widget: 'object'
+                    fields:
+                      - name: 'urlDesktop'
+                        label: 'Hình ảnh Desktop'
+                        widget: 'image'
+                        allow_multiple: false
+                      - name: 'urlMobile'
+                        label: 'Hình ảnh Mobile'
+                        widget: 'image'
+                        allow_multiple: false
+                      - name: 'alt'
+                        label: 'Mô tả'
+                        widget: 'string'
+              - name: textTab
+                label: 'Nội dung'
+                widget: object
+                fields:
+                  - name: title
+                    label: 'Tiêu đề'
+                    descripion: 'Tiêu đề của tab'
+                  - name: 'body'
+                    label: 'Nội dung'
+                    widget: 'markdown'
+          - name: 'sections'
+            label: 'Các mục'
+            widget: 'list'
+            allow_add: true
+            min: 1
+            max: 10
+            label_singular: 'Mục'
+            fields:
+              - name: 'title'
+                label: 'Tiêu đề'
+                widget: 'string'
+              - name: thumbnail
+                label: 'Hình ảnh'
+                widget: object
+                fields:
+                  - name: 'url'
+                    label: 'Hình ảnh'
+                    widget: 'image'
+                    allow_multiple: false
+                  - name: 'alt'
+                    label: 'Mô tả'
+                    widget: 'string'
+              - name: 'hiddenTags'
+                label: 'Tag ẩn'
+                description: 'Các bài viết có các tag ẩn này sẽ hiển thị.'
+                widget: relation
+                collection: hiddenTags
+                multiple: true
+                value_field: title
+                search_fields: [title]
+
+      - name: vocationMystery
+        label: 'Ơn gọi / Huyền nhiệm'
+        file: 'content/pages/vocation/mystery.md'
+        fields:
+          - name: 'title'
+            label: 'Tiêu đề'
+            widget: 'string'
+          - name: 'hiddenTags'
+            label: 'Tag ẩn'
+            description: 'Các bài viết có các tag ẩn này sẽ hiển thị.'
+            widget: relation
+            collection: hiddenTags
+            multiple: true
+            value_field: title
+            search_fields: [title]
+
       - name: news
         label: 'Bản tin'
         file: 'content/pages/news/index.md'

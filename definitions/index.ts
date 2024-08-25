@@ -11,6 +11,22 @@ type Post = {
   body: string
 }
 
+type TextTab = {
+  type: 'textTab'
+  title: string
+  body: string
+}
+
+type DynamicImageTab = {
+  type: 'dynamicImageTab'
+  title: string
+  image: {
+    urlDesktop: string
+    urlMobile: string
+    alt: string
+  }
+}
+
 type PostSection = {
   type: 'postSection'
   title: string
@@ -205,6 +221,20 @@ type PagePrayer = {
 type PagePrayerMorning = PostsPage
 type PagePrayerEvening = PostsPage
 type PagePrayerMeditation = PostsPage
+
+type PageVocation = {
+  title: string
+  tabSections: (DynamicImageTab | TextTab)[]
+  sections: {
+    title: string
+    thumbnail: {
+      url: string
+      alt: string
+    }
+    hiddenTags: string[]
+  }[]
+}
+type PageVocationMystery = PostsPage
 
 type PageNews = {
   title: string
