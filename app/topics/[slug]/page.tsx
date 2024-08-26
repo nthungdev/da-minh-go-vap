@@ -21,8 +21,6 @@ export default function Page({ params }: { params: { slug: string } }) {
   const { title, hiddenTags } = data
   const posts = getPostsByHiddenTags(hiddenTags)
 
-  console.log('posts', posts)
-
   return (
     <AppPostsPage title={title} posts={posts} />
   )
