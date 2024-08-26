@@ -1,7 +1,8 @@
 ---
 developmentHistory:
   title: Lịch sử phát triển hội dòng
-  body: There are many variations of passages of Lorem Ipsum available, but the
+  body: >-
+    There are many variations of passages of Lorem Ipsum available, but the
     majority have suffered alteration in some form, by injected humour, or
     randomised words which don't look even slightly believable. If you are going
     to use a passage of Lorem Ipsum, you need to be sure there isn't anything
@@ -12,6 +13,9 @@ developmentHistory:
     Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore
     always free from repetition, injected humour, or non-characteristic words
     etc.
+
+
+    The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.
   timeline:
     - title: "PHẦN 1: THỜI KÌ SƠ KHAI (1918 - 1956)"
       body: Nội dung There are many variations of passages of Lorem Ipsum available,
