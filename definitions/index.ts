@@ -242,3 +242,15 @@ type PageTopics = {
   title: string
   sections: PostSection[]
 }
+
+type SettingsFooter = {
+  name: string
+  address: string
+  phone: string
+  email: string,
+  marketingEmail: string
+  externalLinks: {
+    name: string
+    url: string
+  }[]
+}
