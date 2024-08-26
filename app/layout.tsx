@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import NavBar from "../components/the-nav-bar";
 import ThePrelineScript from "@/components/the-preline-script";
+import TheFooter from "@/components/the-footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,6 +23,7 @@ export default function RootLayout({
         <NavBar />
         {children}
         <ThePrelineScript />
+        <TheFooter />
       </body>
     </html>
   );

@@ -1043,46 +1043,6 @@ collections:
             label: 'Logo'
             widget: 'image'
             allow_multiple: false
-      - name: 'home'
-        label: 'Trang chủ'
-        file: 'content/settings/home.md'
-        fields:
-          - { name: 'hidden', label: 'Ẩn', widget: 'boolean', default: false }
-      - name: 'congregation'
-        label: 'Hội dòng'
-        file: 'content/settings/congregration.md'
-        fields:
-          - { name: 'hidden', label: 'Ẩn', widget: 'boolean', default: false }
-      - name: 'spirituality'
-        label: 'Linh đạo'
-        file: 'content/settings/spirituality.md'
-        fields:
-          - { name: 'hidden', label: 'Ẩn', widget: 'boolean', default: false }
-      - name: 'missions'
-        label: 'Sứ vụ'
-        file: 'content/settings/missions.md'
-        fields:
-          - { name: 'hidden', label: 'Ẩn', widget: 'boolean', default: false }
-      - name: 'prayer'
-        label: 'Cầu nguyện'
-        file: 'content/settings/prayer.md'
-        fields:
-          - { name: 'hidden', label: 'Ẩn', widget: 'boolean', default: false }
-      - name: 'vocation'
-        label: 'Ơn gọi'
-        file: 'content/settings/invocation.md'
-        fields:
-          - { name: 'hidden', label: 'Ẩn', widget: 'boolean', default: false }
-      - name: 'news'
-        label: 'Bản tin'
-        file: 'content/settings/news.md'
-        fields:
-          - { name: 'hidden', label: 'Ẩn', widget: 'boolean', default: false }
-      - name: 'special-topics'
-        label: 'Chuyên đề'
-        file: 'content/settings/special-topics.md'
-        fields:
-          - { name: 'hidden', label: 'Ẩn', widget: 'boolean', default: false }
       - name: 'footer'
         label: 'Chân trang'
         file: 'content/settings/footer.md'
@@ -1093,12 +1053,17 @@ collections:
               widget: 'string',
               default: 'HỘI DÒNG NỮ ĐA MINH GÒ VẤP',
             }
-          - { name: 'address', label: 'Địa chỉ', widget: 'string' }
-          - { name: 'email', label: 'Email', widget: 'string' }
+          - { name: 'address', label: 'Địa chỉ', widget: 'markdown' }
           - { name: 'phone', label: 'Điện thoại', widget: 'string' }
-          - { name: 'facebook', label: 'Facebook', widget: 'string' }
-          - { name: 'youtube', label: 'Youtube', widget: 'string' }
-          - { name: 'zalo', label: 'Zalo', widget: 'string' }
+          - { name: 'email', label: 'Email', widget: 'string' }
+          - { name: 'marketingEmail', label: 'Ban truyền thông', widget: 'string' }
+          - name: externalLinks
+            label: 'Liên kết ngoại'
+            widget: 'list'
+            allow_add: true
+            fields:
+              - { name: 'name', label: 'Tên', widget: 'string' }
+              - { name: 'url', label: 'URL', widget: 'string' }
 
   - name: posts
     label: 'Bài viết'
