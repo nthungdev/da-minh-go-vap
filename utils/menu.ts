@@ -1,4 +1,5 @@
-import { normalizeText } from "normalize-text";
+import { normalizeText } from 'normalize-text'
+import { attributes } from '@/content/pages/topics/index.md'
 
 const menu = [
   { href: '/', name: 'Trang chủ' },
@@ -29,7 +30,7 @@ const menu = [
       { href: '/pastoral-care', name: 'Mục vụ' },
       { href: '/social-activities', name: 'Hoạt động bác ái xã hội' },
       { href: '/education', name: 'Giáo dục' },
-    ]
+    ],
   },
   {
     href: '/prayer',
@@ -38,16 +39,16 @@ const menu = [
       { href: '/morning', name: 'Cầu nguyện sáng' },
       { href: '/meditation', name: 'Suy niệm lời chúa' },
       { href: '/evening', name: 'Cầu nguyện tối' },
-    ]
-   },
+    ],
+  },
   {
     href: '/vocation',
     name: 'Ơn gọi',
     children: [
       { href: '/introduction', name: 'Giới thiệu ơn gọi' },
       { href: '/mystery', name: 'Huyền nhiệm ơn gọi' },
-    ]
-   },
+    ],
+  },
   {
     href: '/news',
     name: 'Bản tin',
@@ -56,9 +57,16 @@ const menu = [
       { href: '/dominican-family', name: 'Bản tin Gia đình Đa Minh' },
       { href: '/vietnam-church', name: 'Bản tin Giáo Hội Việt Nam' },
       { href: '/church', name: 'Bản tin Giáo Hội' },
-    ]
+    ],
   },
-  { href: '/topics', name: 'Chuyên đề' },
+  {
+    href: '/topics',
+    name: 'Chuyên đề',
+    children: (attributes as PageTopics).sections.map(({ title }) => ({
+      href: `/${normalizeText(title).replaceAll(/\s+/g, '-').toLowerCase()}`,
+      name: title,
+    })),
+  },
   { href: '/contact', name: 'Liên hệ' },
 ].map((link) => ({
   ...link,

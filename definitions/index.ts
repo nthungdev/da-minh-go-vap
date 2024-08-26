@@ -237,3 +237,8 @@ type PageNewsCongregation = PostsPage
 type PageNewsDominicanFamily = PostsPage
 type PageNewsChurch = PostsPage
 type PageNewsVietnamChurch = PostsPage
+
+type PageTopics = {
+  title: string
+  sections: PostSection[]
+}
