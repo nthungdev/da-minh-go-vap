@@ -21,7 +21,8 @@ aboutUs:
 
 
         Sống linh đạo Đa Minh: NÓI VỚI CHÚA – NÓI VỀ CHÚA Hoặc “CHIÊM NIỆM VÀ TRUYỀN THÔNG”, Chia sẻ cho tha nhân những gì mình đã chiêm niệm
-      body: Điền nội dung Đôi nét chính
+      body: "Danh Xưng: Hội dòng nữ Đa Minh Gò Vấp (the congregation of Dominican
+        Sisters of Go Vap of Our Lady of the Rosary)"
     - title: Chương trình đào tạo
       content: >-
         Đào tạo nữ tu đa minh trở nên môn đệ đích thực của Đức Kito xoay quanh 4
