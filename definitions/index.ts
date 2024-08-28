@@ -254,3 +254,16 @@ type SettingsFooter = {
     url: string
   }[]
 }
+
+type PageContact = {
+  title: string
+  graphic: Image
+  contacts: {
+    type: string
+    label: string
+    value: string
+  }[]
+  map: {
+    address: string
+  }
+}
