@@ -23,6 +23,8 @@ public_folder: img
 collections:
   - name: 'pages'
     label: 'Trang'
+    editor:
+      preview: false
     files:
       - name: home
         label: 'Trang chủ'
@@ -169,7 +171,7 @@ collections:
               ]
             }
       - name: congregationIntroduction
-        label: 'Giới thiệu hội dòng'
+        label: 'Hội dòng / Giới thiệu'
         file: 'content/pages/congregation/introduction.md'
         fields:
           - name: 'aboutUs'
@@ -308,7 +310,7 @@ collections:
                   - { name: 'name', label: 'Tên nước', widget: 'string' }
                   - { name: 'body', label: 'Nội dung', widget: 'markdown' }
       - name: congregationHistory
-        label: 'Lịch sử hội dòng'
+        label: 'Hội dòng / Lịch sử'
         file: 'content/pages/congregation/history.md'
         fields:
           - name: 'developmentHistory'
@@ -389,7 +391,7 @@ collections:
                   ]
                 }
       - name: congregationEstablishment
-        label: 'Sắc lập Dòng'
+        label: 'Hội dòng / Sắc lập Dòng'
         file: 'content/pages/congregation/establishment.md'
         editor:
           preview: false
@@ -406,7 +408,7 @@ collections:
             value_field: title
             search_fields: [title]
       - name: congregationAuthorities
-        label: Các đấng bản quyền
+        label: 'Hội dòng / Các đấng bản quyền'
         file: 'content/pages/congregation/authorities.md'
         editor:
           preview: false
@@ -1026,9 +1028,44 @@ collections:
         label: 'Liên hệ'
         file: 'content/pages/contact.md'
         fields:
-          - name: 'body'
-            label: 'Thân trang'
-            widget: markdown
+          - name: 'title'
+            label: 'Tiêu đề'
+            widget: 'string'
+          - name: graphic
+            label: 'Graphic đầu trang'
+            hint: 'Video ngắn hoặc hình ảnh'
+            widget: 'object'
+            fields:
+              - { name: 'url', label: 'Hình ảnh/Video ngắn', widget: 'image' }
+              - { name: 'alt', label: 'Miêu tả', widget: 'string' }
+          - name: contacts
+            label: 'Thông tin liên hệ'
+            widget: list
+            allow_add: true
+            fields:
+              - name: types
+                label: 'Loại'
+                widget: 'select'
+                options:
+                  - { label: "Điện thoại", value: "phone" }
+                  - { label: "Địa chỉ", value: "address" }
+                  - { label: "Url", value: "url" }
+                  - { label: "Fax", value: "fax" }
+                  - { label: "Email", value: "email" }
+              - name: label
+                label: 'Nhãn'
+                widget: 'string'
+              - name: value
+                label: 'Giá trị'
+                widget: 'string'
+          - name: map
+            label: 'Địa Chỉ Bản đồ'
+            hint: 'Nhập địa chỉ để hiển thị trên bản đồ'
+            widget: object
+            fields:
+              - name: 'address'
+                label: 'Địa chỉ'
+                widget: 'string'
 
   - name: settings
     label: 'Cài đặt'

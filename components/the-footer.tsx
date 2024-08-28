@@ -28,11 +28,10 @@ export default function TheFooter() {
         sizes="100%"
       />
 
-      <div className="bg-[#427CA8] z-10">
-        <div className='px-4 md:px-0 py-4 max-w-screen-xl mx-auto flex flex-col md:flex-row justify-center gap-8 text-white'>
+      <div className="bg-[#427CA8]">
+        <div className='p-4 max-w-screen-xl sm:hidden flex flex-col md:flex-row gap-8 text-white text-left'>
           <div>
             <p className="font-bold mb-1">{name}</p>
-            {/* <p>{address}</p> */}
             <Markdown>{address}</Markdown>
             <p>
               Đt: <a href={`tel:${phone}`}>{phone}</a>
@@ -60,7 +59,8 @@ export default function TheFooter() {
         </div>
       </div>
 
-      <div className="absolute left-[1%] bottom-[1%] text-white hidden  flex-col md:flex-row gap-4">
+      {/* layout for large screens */}
+      <div className="hidden sm:flex flex-col md:flex-row absolute left-0 bottom-0 px-4 py-4 max-w-screen-xl gap-8 text-white text-left text-[0.9vw] 3xl:text-xl">
         <div>
           <p className="font-bold mb-1">{name}</p>
           {/* <p>{address}</p> */}
@@ -88,7 +88,6 @@ export default function TheFooter() {
             </div>
           ))}
         </div>
-
       </div>
     </footer>
   )
