@@ -60,7 +60,7 @@ aboutUs:
         thumbnail: https://i3.ytimg.com/vi/y0sF5xhGreA/maxresdefault.jpg
         youtubeUrl: https://www.youtube.com/watch?v=y0sF5xhGreA
   banner:
-    url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1723670153/hinh-so_jas0ec.jpg
+    url: https://res.cloudinary.com/dxtb6rv7y/video/upload/v1722222604/video-banner_gwdvew.mp4
     alt: Hình chúng tôi
 mission:
   title: SỨ MỆNH
