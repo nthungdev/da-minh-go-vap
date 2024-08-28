@@ -125,7 +125,7 @@ mission:
         * công tác giáo dục: dấn thân trong việc giáo dục mầm non, các lớp dạy kèm bán trú, nội trú.
       body: Điền nội dung
   banner:
-    url: https://cdn.ldsliving.com/dims4/default/487476b/2147483647/strip/true/crop/4970x3313+0+0/resize/800x533!/format/jpg/quality/90/?url=http%3A%2F%2Flds-living-brightspot-us-east-2.s3.us-east-2.amazonaws.com%2Fe5%2F3a%2F707892aa42f38c22ac2f01282944%2Fgettyimages-901570232.jpg
+    url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1724851376/B%E1%BA%A3n_sao_c%E1%BB%A7a_Web_Banner_mdzti1.jpg
     alt: Banner sứ mệnh
 whereabouts:
   title: CHÚNG TÔI HIỆN DIỆN Ở TRONG NƯỚC VÀ CẢ NGOẠI QUỐC
