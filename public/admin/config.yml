@@ -998,7 +998,7 @@ collections:
             label: 'Tiêu đề'
             widget: 'string'
           - name: 'sections'
-            label: 'Các mục'
+            label: 'Mục'
             widget: 'list'
             allow_add: true
             min: 1
