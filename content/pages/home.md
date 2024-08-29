@@ -4,7 +4,7 @@ banners:
     url: https://res.cloudinary.com/dxtb6rv7y/video/upload/v1724937568/HOME_opri37.mp4
     alt: Video gioi thieu
 decorativeGraphic:
-  url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1722620486/site-name_ksvjgd.png
+  url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1724944364/HEADER_0_nncnpm.svg
   alt: Đa Minh Gò Vấp
 bibleVerses:
   enable: true
