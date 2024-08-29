@@ -140,6 +140,6 @@ whereabouts:
   body: Chúng tôi hiện đang phục vụ tại 22 cộng đoàn trong đó 19 cộng đoàn thuộc 7
     giáo phận Việt Nam, 2 cộng đoàn ở Mỹ và 1 cộng đoàn tại Úc.
   banner:
-    url: https://m.media-amazon.com/images/I/71ZVA6QfbOL._AC_UF894,1000_QL80_.jpg
+    url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1724943735/2_yhzk1z.svg
     alt: Banner nơi hiện diện
 ---
