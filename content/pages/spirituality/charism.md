@@ -1,7 +1,7 @@
 ---
 title: Tinh Than Dong
 banners:
-  - url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1722133167/maxresdefault_n0yeqb.jpg
+  - url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1724972122/Linh_dao_mc5cag.svg
     alt: Mieu ta banner 1
   - alt: Mieu ta banner 2
     url: https://res.cloudinary.com/dxtb6rv7y/video/upload/v1716522866/h006976fb_V0139_017_1080p_12000br_iuat6q.mp4
