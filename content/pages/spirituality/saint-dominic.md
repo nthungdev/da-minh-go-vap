@@ -11,7 +11,7 @@ quotes:
   enable: true
   title: Cham Ngon cua Thanh Da Minh
 banners:
-  - url: https://res.cloudinary.com/dxtb6rv7y/video/upload/v1722222604/video-banner_gwdvew.mp4
+  - url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1724972122/Da_Minh_kcm4sa.svg
     alt: Banner 1
   - url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1723670153/hinh-so_jas0ec.jpg
     alt: Banner 2
