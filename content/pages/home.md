@@ -1,7 +1,7 @@
 ---
 banners:
   - image: https://res.cloudinary.com/dxtb6rv7y/video/upload/v1722222604/video-banner_gwdvew.mp4
-    url: https://res.cloudinary.com/dxtb6rv7y/video/upload/v1725004896/home_2_xanh_mksydo.mp4
+    url: https://res.cloudinary.com/dxtb6rv7y/video/upload/v1725005234/HOME_chu_ngan_insfqd.mp4
     alt: Video gioi thieu
 decorativeGraphic:
   url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1724944364/HEADER_0_nncnpm.svg
