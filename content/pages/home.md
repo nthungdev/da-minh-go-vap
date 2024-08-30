@@ -4,7 +4,7 @@ banners:
     url: https://res.cloudinary.com/dxtb6rv7y/video/upload/v1725005234/HOME_chu_ngan_insfqd.mp4
     alt: Video gioi thieu
 decorativeGraphic:
-  url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1724944364/HEADER_0_nncnpm.svg
+  url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1725007898/Untitled-1_levnnf.png
   alt: Đa Minh Gò Vấp
 bibleVerses:
   enable: true
