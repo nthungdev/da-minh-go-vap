@@ -284,10 +284,12 @@ type AsideSection = {
   curatedPosts: {
     enable: boolean
     title: string
-    limit: number
-    hiddenTags: string[]
+    /** post slugs */
+    posts: string[]
   }
   socialLinks: {
+    enable: boolean
+    title: string
     links: {
       type: string
       name: string

@@ -31,9 +31,10 @@ curatedPosts:
   title: Bai viet duoc chon
   limit: 5
   posts:
-    - Test 11
-    - Test 13
-    - Test 6
+    - 2024-07-28_test-11
+    - 2024-07-27_tesst-4
+    - 2024-07-28_test-10
+    - 2024-07-28_test-9
   enable: true
 socialLinks:
   links:
@@ -43,4 +44,6 @@ socialLinks:
     - type: instagram
       name: Instagram
       url: https://www.instagram.com/
+  enable: true
+  title: Lien ket mang xa hoi
 ---

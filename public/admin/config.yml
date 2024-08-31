@@ -1172,25 +1172,26 @@ collections:
               - name: 'title'
                 label: 'Tiêu đề'
                 widget: 'string'
-              - name: 'limit'
-                label: 'Số lượng bài viết'
-                widget: 'number'
-                value_type: 'int'
-                default: 5
-                min: 3
-                max: 10
               - name: 'posts'
                 label: 'Bài viết'
                 widget: relation
                 collection: posts
                 multiple: true
-                value_field: title
+                value_field: '{{slug}}'
                 search_fields: [title]
+                display_fields: ["{{title}} - {{date}}"]
           - name: socialLinks
             label: 'Liên kết mạng xã hội'
             widget: object
             allow_add: true
             fields:
+              - name: enable
+                label: 'Hiển thị'
+                widget: 'boolean'
+                default: true
+              - name: 'title'
+                label: 'Tiêu đề'
+                widget: 'string'
               - name: links
                 label: 'Liên kết'
                 widget: 'list'
