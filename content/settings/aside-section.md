@@ -7,25 +7,12 @@ postGroups:
   groups:
     - limit: 5
       title: Muc 1
-      subGroups:
-        - title: Muc a
-          hiddenTags:
-            - Giao phan Phu Cuong
-        - title: Muc b
-          hiddenTags:
-            - Giao phan Phu Cuong
-        - title: Muc c
-          hiddenTags:
-            - Giao phan Da Lat
+      hiddenTags:
+        - Giao phan Phu Cuong
     - limit: 5
       title: Muc 2
-      subGroups:
-        - title: Muc d
-          hiddenTags:
-            - Giới thiệu
-        - title: Muc e
-          hiddenTags:
-            - Các đấng bản quyền
+      hiddenTags:
+        - Giới thiệu
   enable: true
 curatedPosts:
   title: Bai viet duoc chon

@@ -274,11 +274,7 @@ type AsideSection = {
     groups: {
       title: string
       limit: number
-      subGroups: {
-        title: string
-        limit: number
-        hiddenTags: string[]
-      }[]
+      hiddenTags: string[]
     }[]
   }
   curatedPosts: {

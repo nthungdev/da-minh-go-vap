@@ -4,6 +4,7 @@ import AppPostList from './app-post-list'
 import AppSectionHeader from './app-section-header'
 import Link from 'next/link'
 import AppPostTabGrid from './app-post-tab-grid'
+import AppPostCard from './app-post-card'
 
 export default function AppAsideSection() {
   const { curatedPosts, postGroups, socialLinks } = attributes as AsideSection
@@ -12,13 +13,12 @@ export default function AppAsideSection() {
 
   const postGroupsData = postGroups.groups.map((group) => ({
     ...group,
-    subGroups: group.subGroups.map((subGroup) => ({
-      ...subGroup,
-      posts: getPostsByHiddenTags(subGroup.hiddenTags, {
-        limit: subGroup.limit,
-      }),
-    })),
+    posts: getPostsByHiddenTags(group.hiddenTags, {
+      limit: group.limit,
+    }),
   }))
+
+  console.log({postGroupsData})
 
   return (
     <aside className="space-y-4">
@@ -26,9 +26,9 @@ export default function AppAsideSection() {
         postGroups.enable && (
           <div className='space-y-4'>
             {postGroupsData.map((group, index) => (
-              <div key={index} className='space-y-2'>
+              <div key={index} className='space-y-4'>
                 <AppSectionHeader className='uppercase'>{group.title}</AppSectionHeader>
-                <AppPostTabGrid id={`aside-group-${index + 1}`} component={AppPostList} subCategories={group.subGroups} />
+                <AppPostList posts={group.posts} itemComponent={AppPostCard} />
               </div>
             ))}
           </div>

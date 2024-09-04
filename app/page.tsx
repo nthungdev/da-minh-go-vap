@@ -62,7 +62,7 @@ export default function Home() {
         </section>
       </div>
 
-      <AppPage className='md:flex md:flex-row md:gap-x-8 max-w-screen-xl'>
+      <AppPage className="md:flex md:flex-row md:gap-x-8 max-w-screen-xl">
         <div className="space-y-8 flex-1">
           {latestNews.enable && (
             <section>
@@ -72,21 +72,26 @@ export default function Home() {
           )}
 
           {newsByCategories.enable && (
-            <section className="space-y-4">
+            <section>
               <h2 className="sr-only">Tin tức theo danh mục</h2>
-              {newsByCategoriesData.map((newsCategory, index) => (
-                <div key={index} className='space-y-2'>
-                  <AppSectionHeader>
-                    <h3 className="text-2xl">{newsCategory.title}</h3>
-                  </AppSectionHeader>
-                  <AppPostTabGrid id={`home-posts-group-${index + 1}`} subCategories={newsCategory.subCategories} />
-                </div>
-              ))}
+              <div className="space-y-4">
+                {newsByCategoriesData.map((newsCategory, index) => (
+                  <div key={index} className="space-y-2">
+                    <AppSectionHeader>
+                      <h3 className="text-2xl">{newsCategory.title}</h3>
+                    </AppSectionHeader>
+                    <AppPostTabGrid
+                      id={`home-posts-group-${index + 1}`}
+                      subCategories={newsCategory.subCategories}
+                    />
+                  </div>
+                ))}
+              </div>
             </section>
           )}
         </div>
 
-        <div className='w-48'>
+        <div className="hidden md:block w-64">
           <AppAsideSection />
         </div>
       </AppPage>

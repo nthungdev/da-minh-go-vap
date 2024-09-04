@@ -1132,32 +1132,14 @@ collections:
                         step: 1,
                       },
                       {
-                        name: 'subGroups',
-                        label: 'Mục con',
-                        widget: 'list',
-                        allow_add: true,
-                        min: 2,
-                        max: 10,
-                        collapsed: true,
-                        label_singular: 'Mục con',
-                        fields:
-                        [
-                          {
-                            name: 'title',
-                            label: 'Tên hiển thị của mục con',
-                            widget: 'string',
-                          },
-                          {
-                            name: 'hiddenTags',
-                            label: 'Tag ẩn',
-                            widget: 'relation',
-                            hint: 'Những bài viết có các tag ẩn được chọn sẽ hiển thị ở mục con này.',
-                            collection: 'hiddenTags',
-                            multiple: true,
-                            value_field: 'title',
-                            search_fields: ['title'],
-                          },
-                        ]
+                        name: 'hiddenTags',
+                        label: 'Tag ẩn',
+                        widget: 'relation',
+                        hint: 'Những bài viết có các tag ẩn được chọn sẽ hiển thị ở mục này.',
+                        collection: 'hiddenTags',
+                        multiple: true,
+                        value_field: 'title',
+                        search_fields: ['title'],
                       },
                     ],
                 }
