@@ -112,6 +112,7 @@ const config: Config = {
   plugins: [
     require('@tailwindcss/forms'),
     require('preline/plugin'),
+    require('@tailwindcss/container-queries'),
   ],
 };
 export default config;
