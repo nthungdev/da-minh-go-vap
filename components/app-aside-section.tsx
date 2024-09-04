@@ -3,7 +3,6 @@ import { getPostsByHiddenTags, getPostsBySlugs } from '@/utils/posts'
 import AppPostList from './app-post-list'
 import AppSectionHeader from './app-section-header'
 import Link from 'next/link'
-import AppPostTabGrid from './app-post-tab-grid'
 import AppPostCard from './app-post-card'
 
 export default function AppAsideSection() {
@@ -18,29 +17,31 @@ export default function AppAsideSection() {
     }),
   }))
 
-  console.log({postGroupsData})
-
   return (
     <aside className="space-y-4">
-      {
-        postGroups.enable && (
-          <div className='space-y-4'>
-            {postGroupsData.map((group, index) => (
-              <div key={index} className='space-y-4'>
-                <AppSectionHeader className='uppercase'>{group.title}</AppSectionHeader>
-                <AppPostList posts={group.posts} itemComponent={AppPostCard} />
-              </div>
-            ))}
-          </div>
-        )
-      }
+      {postGroups.enable && (
+        <div className="space-y-4">
+          {postGroupsData.map((group, index) => (
+            <div key={index} className="space-y-4">
+              <AppSectionHeader className="uppercase">
+                {group.title}
+              </AppSectionHeader>
+              <AppPostList posts={group.posts} itemComponent={AppPostCard} />
+            </div>
+          ))}
+        </div>
+      )}
 
       {curatedPosts.enable && (
         <div className="space-y-4">
           <AppSectionHeader className="uppercase">
             {curatedPosts.title}
           </AppSectionHeader>
-          <AppPostList className="w-full" posts={curatedPostsData} />
+          <AppPostList
+            className="w-full"
+            posts={curatedPostsData}
+            itemComponent={AppPostCard}
+          />
         </div>
       )}
 
