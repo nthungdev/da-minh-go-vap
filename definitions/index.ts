@@ -267,3 +267,29 @@ type PageContact = {
     address: string
   }
 }
+
+type AsideSection = {
+  postGroups: {
+    enable: boolean
+    groups: {
+      title: string
+      limit: number
+      hiddenTags: string[]
+    }[]
+  }
+  curatedPosts: {
+    enable: boolean
+    title: string
+    /** post slugs */
+    posts: string[]
+  }
+  socialLinks: {
+    enable: boolean
+    title: string
+    links: {
+      type: string
+      name: string
+      url: string
+    }[]
+  }
+}
