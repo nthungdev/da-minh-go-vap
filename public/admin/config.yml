@@ -329,6 +329,41 @@ collections:
                 fields:
                   - { name: 'title', label: 'Tiêu đề', widget: 'string' }
                   - { name: 'body', label: 'Nội dung', widget: 'markdown' }
+              - name: accordion
+                label: 'Accordion'
+                widget: 'list'
+                fields:
+                  - name: 'title'
+                    label: 'Tiêu đề'
+                    widget: 'string'
+                  - name: 'body'
+                    label: 'Nội dung'
+                    widget: 'markdown'
+                    required: false
+                  - name: 'items'
+                    label: 'Nest 1'
+                    widget: 'list'
+                    required: false
+                    fields:
+                      - name: 'title'
+                        label: 'Tiêu đề'
+                        widget: 'string'
+                      - name: 'body'
+                        label: 'Nội dung'
+                        widget: 'markdown'
+                        required: false
+                      - name: 'items'
+                        label: 'Nest 2'
+                        required: false
+                        widget: 'list'
+                        fields:
+                          - name: 'title'
+                            label: 'Tiêu đề'
+                            widget: 'string'
+                          - name: 'body'
+                            label: 'Nội dung'
+                            widget: 'markdown'
+                            required: false
               - name: videos
                 label: 'Video về lịch sử'
                 widget: 'object'
