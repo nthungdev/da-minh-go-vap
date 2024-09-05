@@ -119,26 +119,30 @@ function AppAccordionItem(props: AppAccordionItemProps) {
   )
 }
 
-const itemRender = (alwaysOpen?: boolean) => (item: AppAccordionItem, index: number) => (
-  <AppAccordion.Item key={index} id={`${item.title}-item-${index}`}>
-    <AppAccordion.Toggle
-      controlId={`${item.title}-content-${index}`}
-      title={item.title}
-    />
-    <AppAccordion.Content
-      id={`${item.title}-content-${index}`}
-      labeledById={`${item.title}-item-${index}`}
-      body={item.body}
-    >
-      {item.items && (
-        <AppAccordion.Root
-          items={item.items}
-          itemRender={itemRender(alwaysOpen)}
-          alwaysOpen={alwaysOpen} />
-      )}
-    </AppAccordion.Content>
-  </AppAccordion.Item>
-)
+const itemRender = (alwaysOpen?: boolean) =>
+  function AppAccordionItemDefault(item: AppAccordionItem, index: number) {
+    return (
+      <AppAccordion.Item key={index} id={`${item.title}-item-${index}`}>
+        <AppAccordion.Toggle
+          controlId={`${item.title}-content-${index}`}
+          title={item.title}
+        />
+        <AppAccordion.Content
+          id={`${item.title}-content-${index}`}
+          labeledById={`${item.title}-item-${index}`}
+          body={item.body}
+        >
+          {item.items && (
+            <AppAccordion.Root
+              items={item.items}
+              itemRender={itemRender(alwaysOpen)}
+              alwaysOpen={alwaysOpen}
+            />
+          )}
+        </AppAccordion.Content>
+      </AppAccordion.Item>
+    )
+  }
 
 const AppAccordion = {
   Root: AppAccordionRoot,
