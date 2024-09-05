@@ -15,6 +15,10 @@ export const getPostBySlug = (slug: string) => {
   } as PostParams
 }
 
+export const getPostsBySlugs = (slugs: string[]) => {
+  return slugs.map((slug) => getPostBySlug(slug))
+}
+
 export const getAllPostSlugs = () => {
   const fileNames = fs.readdirSync(postsDirectory)
   return fileNames.map((fileName) => {

@@ -2,6 +2,7 @@
 
 import Image from "next/image"
 import Link from "next/link"
+import AppPostCard from "./app-post-card"
 
 interface TheLatestPostsProps {
   posts: PostParams[]
@@ -41,22 +42,7 @@ export default function TheLatestPosts(props: TheLatestPostsProps) {
 
       <div className="grid grid-flow-row lg:grid-flow-col grid-cols-2 lg:grid-cols-1 lg:grid-rows-4 gap-2 relative lg:max-w-full lg:h-full">
         {otherPosts.map((post, index) => (
-          // Post card
-          <Link
-            key={index}
-            href={`/posts/${post.slug}`}
-            className=""
-          >
-            <div className="h-full overflow-hidden flex flex-col lg:flex-row gap-x-2 rounded-lg hover:ring-2 hover:cursor-pointer">
-              <div className="relative w-full lg:w-auto lg:h-full aspect-[4/3] overflow-hidden rounded-lg">
-                <Image src={post.thumbnail} alt={post.title} fill sizes="100%" className="object-cover" />
-              </div>
-              <div className="flex-1 py-1 md:py-2 lg:py-3 flex flex-col justify-between overflow-hidden">
-                <span className="line-clamp-1 lg:line-clamp-2 text-lg text-gray-900">{post.title}</span>
-                <span className="text-xs lg:text-sm text-gray-800">{post.date.toLocaleDateString('vi-VN')}</span>
-              </div>
-            </div>
-          </Link>
+          <AppPostCard key={index} post={post} />
         ))}
       </div>
     </div>

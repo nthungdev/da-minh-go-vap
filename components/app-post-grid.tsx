@@ -8,7 +8,7 @@ interface AppPostGridProps {
 
 export default function AppPostGrid({ posts, classNames }: AppPostGridProps) {
   return (
-    <ul className={`relative grid grid-flow-row md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-8 ${classNames}`}>
+    <ul className={`relative grid grid-flow-row md:grid-cols-2 lg:grid-cols-4 gap-4 ${classNames}`}>
       {posts.map((post, index) => (
         <li className='block w-full' key={index}>
           <Link

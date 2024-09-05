@@ -1,3 +1,13 @@
+type AppAccordionItem = {
+  title: string
+  body?: string
+  items?: {
+    title: string
+    body?: string
+    items?: AppAccordionItem[]
+  }[]
+}
+
 type Post = {
   title: string
   date: Date,
@@ -149,6 +159,7 @@ type PageCongregationHistory = {
       title: string
       body: string
     }[]
+    accordion: AppAccordionItem[]
     videos: {
       title: string
       videos: {
@@ -265,5 +276,31 @@ type PageContact = {
   }[]
   map: {
     address: string
+  }
+}
+
+type AsideSection = {
+  postGroups: {
+    enable: boolean
+    groups: {
+      title: string
+      limit: number
+      hiddenTags: string[]
+    }[]
+  }
+  curatedPosts: {
+    enable: boolean
+    title: string
+    /** post slugs */
+    posts: string[]
+  }
+  socialLinks: {
+    enable: boolean
+    title: string
+    links: {
+      type: string
+      name: string
+      url: string
+    }[]
   }
 }

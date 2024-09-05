@@ -329,6 +329,41 @@ collections:
                 fields:
                   - { name: 'title', label: 'Tiêu đề', widget: 'string' }
                   - { name: 'body', label: 'Nội dung', widget: 'markdown' }
+              - name: accordion
+                label: 'Accordion'
+                widget: 'list'
+                fields:
+                  - name: 'title'
+                    label: 'Tiêu đề'
+                    widget: 'string'
+                  - name: 'body'
+                    label: 'Nội dung'
+                    widget: 'markdown'
+                    required: false
+                  - name: 'items'
+                    label: 'Nest 1'
+                    widget: 'list'
+                    required: false
+                    fields:
+                      - name: 'title'
+                        label: 'Tiêu đề'
+                        widget: 'string'
+                      - name: 'body'
+                        label: 'Nội dung'
+                        widget: 'markdown'
+                        required: false
+                      - name: 'items'
+                        label: 'Nest 2'
+                        required: false
+                        widget: 'list'
+                        fields:
+                          - name: 'title'
+                            label: 'Tiêu đề'
+                            widget: 'string'
+                          - name: 'body'
+                            label: 'Nội dung'
+                            widget: 'markdown'
+                            required: false
               - name: videos
                 label: 'Video về lịch sử'
                 widget: 'object'
@@ -998,7 +1033,7 @@ collections:
             label: 'Tiêu đề'
             widget: 'string'
           - name: 'sections'
-            label: 'Các mục'
+            label: 'Mục'
             widget: 'list'
             allow_add: true
             min: 1
@@ -1080,6 +1115,112 @@ collections:
             label: 'Logo'
             widget: 'image'
             allow_multiple: false
+      - name: asideSection
+        hint: 'Cài đặt cột bên. Cột bên sẽ được hiển thị ở trang chủ.'
+        label: 'Cột bên'
+        file: 'content/settings/aside-section.md'
+        fields:
+          # - name: mostViewedPosts
+          #   label: 'Bài viết được xem nhiều nhất'
+          #   widget: 'object'
+          #   fields:
+          #     - name: enable
+          #       label: 'Hiển thị'
+          #       widget: 'boolean'
+          #       default: true
+          #     - name: 'title'
+          #       label: 'Tiêu đề'
+          #       widget: 'string'
+          #     - name: 'limit'
+          #       label: 'Số lượng bài viết'
+          #       widget: 'number'
+          #       value_type: 'int'
+          #       default: 5
+          #       min: 3
+          #       max: 10
+          - name: 'postGroups'
+            label: 'Bài viết theo mục'
+            widget: 'object'
+            fields:
+              - { name: 'enable', label: 'Hiển thị', widget: 'boolean', default: true }
+              - {
+                  name: 'groups',
+                  label: 'Mục',
+                  widget: 'list',
+                  allow_add: true,
+                  fields:
+                    [
+                      {
+                        name: 'title',
+                        label: 'Tên hiển thị của mục',
+                        widget: 'string',
+                      },
+                      {
+                        name: 'limit',
+                        label: 'Số lượng bài viết',
+                        hint: 'Số lượng bài viết để hiển thị cho mục',
+                        value_type: 'int',
+                        widget: 'number',
+                        default: 5,
+                        min: 1,
+                        max: 100,
+                        step: 1,
+                      },
+                      {
+                        name: 'hiddenTags',
+                        label: 'Tag ẩn',
+                        widget: 'relation',
+                        hint: 'Những bài viết có các tag ẩn được chọn sẽ hiển thị ở mục này.',
+                        collection: 'hiddenTags',
+                        multiple: true,
+                        value_field: 'title',
+                        search_fields: ['title'],
+                      },
+                    ],
+                }
+          - name: curatedPosts
+            label: 'Bài viết được chọn'
+            widget: 'object'
+            fields:
+              - name: enable
+                label: 'Hiển thị'
+                widget: 'boolean'
+                default: true
+              - name: 'title'
+                label: 'Tiêu đề'
+                widget: 'string'
+              - name: 'posts'
+                label: 'Bài viết'
+                widget: relation
+                collection: posts
+                multiple: true
+                value_field: '{{slug}}'
+                search_fields: [title]
+                display_fields: ["{{title}} - {{date}}"]
+          - name: socialLinks
+            label: 'Liên kết mạng xã hội'
+            widget: object
+            allow_add: true
+            fields:
+              - name: enable
+                label: 'Hiển thị'
+                widget: 'boolean'
+                default: true
+              - name: 'title'
+                label: 'Tiêu đề'
+                widget: 'string'
+              - name: links
+                label: 'Liên kết'
+                widget: 'list'
+                fields:
+                - name: 'type'
+                  label: 'Loại'
+                  widget: 'select'
+                  options:
+                    - { label: "Facebook", value: "facebook" }
+                    - { label: "Instagram", value: "instagram" }
+                - { name: 'name', label: 'Tên', widget: 'string' }
+                - { name: 'url', label: 'URL', widget: 'string' }
       - name: 'footer'
         label: 'Chân trang'
         file: 'content/settings/footer.md'

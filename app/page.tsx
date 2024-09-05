@@ -1,3 +1,4 @@
+import AppAsideSection from '@/components/app-aside-section'
 import AppPage from '@/components/app-page'
 import AppPostTabGrid from '@/components/app-post-tab-grid'
 import AppSectionHeader from '@/components/app-section-header'
@@ -61,28 +62,38 @@ export default function Home() {
         </section>
       </div>
 
-      <AppPage className="space-y-8">
-        {latestNews.enable && (
-          <section className='space-y-4'>
-            <h2 className="text-2xl mb-2 sr-only">Tin mới</h2>
-            <TheLatestPosts posts={latestPosts} />
-          </section>
-        )}
+      <AppPage className="md:flex md:flex-row md:gap-x-8 max-w-screen-xl">
+        <div className="space-y-8 flex-1">
+          {latestNews.enable && (
+            <section>
+              <h2 className="sr-only">Tin mới</h2>
+              <TheLatestPosts posts={latestPosts} />
+            </section>
+          )}
 
-        {newsByCategories.enable && (
-          <section className="space-y-4">
-            <h2 className="sr-only">Tin tức theo danh mục</h2>
-
-            {newsByCategoriesData.map((newsCategory, index) => (
-              <div key={index} className='space-y-2'>
-                <AppSectionHeader>
-                  <h3 className="text-2xl">{newsCategory.title}</h3>
-                </AppSectionHeader>
-                <AppPostTabGrid subCategories={newsCategory.subCategories} />
+          {newsByCategories.enable && (
+            <section>
+              <h2 className="sr-only">Tin tức theo danh mục</h2>
+              <div className="space-y-4">
+                {newsByCategoriesData.map((newsCategory, index) => (
+                  <div key={index} className="space-y-2">
+                    <AppSectionHeader>
+                      <h3 className="text-2xl">{newsCategory.title}</h3>
+                    </AppSectionHeader>
+                    <AppPostTabGrid
+                      id={`home-posts-group-${index + 1}`}
+                      subCategories={newsCategory.subCategories}
+                    />
+                  </div>
+                ))}
               </div>
-            ))}
-          </section>
-        )}
+            </section>
+          )}
+        </div>
+
+        <div className="hidden md:block w-64">
+          <AppAsideSection />
+        </div>
       </AppPage>
     </div>
   )
