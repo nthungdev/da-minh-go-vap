@@ -21,7 +21,7 @@ export default function CongregationHistory() {
       <section className="space-y-4">
         <h2 className="text-2xl">{developmentHistory.title}</h2>
         <AppMarkdown>{developmentHistory.body}</AppMarkdown>
-        <AppAccordionDefault items={developmentHistory.accordion} />
+        <AppAccordionDefault items={developmentHistory.accordion} alwaysOpen />
       </section>
 
       <section className="space-y-4">

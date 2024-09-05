@@ -86,14 +86,18 @@ export interface AppAccordionItem {
 interface AppAccordionRootProps {
   children?: React.ReactNode
   items: AppAccordionItem[]
+  alwaysOpen?: boolean
   itemRender: (item: AppAccordionItem, index: number) => React.ReactNode
 }
 
 function AppAccordionRoot(props: AppAccordionRootProps) {
-  const { children, items, itemRender } = props
+  const { children, items, alwaysOpen, itemRender } = props
 
   return (
-    <div className="hs-accordion-group space-y-4">
+    <div
+      className="hs-accordion-group space-y-4"
+      data-hs-accordion-always-open={alwaysOpen}
+    >
       {items.map(itemRender)}
       {children}
     </div>
@@ -115,7 +119,7 @@ function AppAccordionItem(props: AppAccordionItemProps) {
   )
 }
 
-const itemRender = (item: AppAccordionItem, index: number) => (
+const itemRender = (alwaysOpen?: boolean) => (item: AppAccordionItem, index: number) => (
   <AppAccordion.Item key={index} id={`${item.title}-item-${index}`}>
     <AppAccordion.Toggle
       controlId={`${item.title}-content-${index}`}
@@ -127,7 +131,10 @@ const itemRender = (item: AppAccordionItem, index: number) => (
       body={item.body}
     >
       {item.items && (
-        <AppAccordion.Root items={item.items} itemRender={itemRender} />
+        <AppAccordion.Root
+          items={item.items}
+          itemRender={itemRender(alwaysOpen)}
+          alwaysOpen={alwaysOpen} />
       )}
     </AppAccordion.Content>
   </AppAccordion.Item>
@@ -143,12 +150,19 @@ const AppAccordion = {
 
 interface AppAccordionDefaultProps {
   items: AppAccordionItem[]
+  alwaysOpen?: boolean
 }
 
 export function AppAccordionDefault(props: AppAccordionDefaultProps) {
-  const { items } = props
+  const { items, alwaysOpen } = props
 
-  return <AppAccordion.Root itemRender={itemRender} items={items} />
+  return (
+    <AppAccordionRoot
+      itemRender={itemRender(alwaysOpen)}
+      items={items}
+      alwaysOpen={true}
+    />
+  )
 }
 
 export default AppAccordion
