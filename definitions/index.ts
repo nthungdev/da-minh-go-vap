@@ -1,3 +1,12 @@
+type SiteAttributes = {
+  logo: Image
+}
+
+type NavbarAttributes = {
+  banners: Image[]
+  bottomDecorativeGraphic: Image
+}
+
 type AppAccordionItem = {
   title: string
   body?: string
