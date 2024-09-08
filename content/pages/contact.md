@@ -18,7 +18,7 @@ contacts:
     types: fax
   - type: url
     label: Website
-    value: http://dongten.net
+    value: http://daminhgovap.org
     types: url
   - type: email
     label: Email liên lạc với Văn Phòng
