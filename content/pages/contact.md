@@ -6,8 +6,7 @@ graphic:
 contacts:
   - type: address
     label: Địa Chỉ
-    value: 19 Đường số 5, Khu Phố 2, Phường Linh Trung, Tp. Thủ Đức, Tp. Hồ Chí
-      Minh, Việt Nam
+    value: 1053/4 Lê Đức Thọ, Phường 16, Quận Gò Vấp, Thành Phố Hồ Chí Minh
     types: address
   - type: phone
     label: Điện thoại
@@ -23,13 +22,12 @@ contacts:
     types: url
   - type: email
     label: Email liên lạc với Văn Phòng
-    value: vptsjvn@gmail.com
+    value: daminhgovap@gmail.com
     types: email
   - type: email
     label: Emai liên lạc với Ban Truyền Thông
-    value: truyenthong@dongten.net
+    value: bttdaminhgovap@gmail.com
     types: email
 map:
-  address: 19 Đường số 5, Khu Phố 2, Phường Linh Trung, Tp. Thủ Đức, Tp. Hồ Chí
-    Minh, Việt Nam
+  address: 1053/4 Lê Đức Thọ, Phường 16, Quận Gò Vấp, Thành Phố Hồ Chí Minh
 ---
