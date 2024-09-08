@@ -1,8 +1,8 @@
 import AppAsideSection from '@/components/app-aside-section'
+import AppBanners from '@/components/app-banners'
 import AppPage from '@/components/app-page'
 import AppPostTabGrid from '@/components/app-post-tab-grid'
 import AppSectionHeader from '@/components/app-section-header'
-import TheBanner from '@/components/the-banner'
 import TheBibleVerse from '@/components/the-bible-verse'
 import TheLatestPosts from '@/components/the-latest-posts'
 import { attributes } from '@/content/pages/home.md'
@@ -38,7 +38,7 @@ export default function Home() {
     <div>
       <div className="space-y-8">
         <div>
-          <TheBanner banners={banners} />
+          <AppBanners banners={banners} />
 
           {decorativeGraphic && (
             <div>
