@@ -24,7 +24,7 @@ latestNews:
   enable: true
   limit: 6
 newsByCategories:
-  limit: 6
+  limit: 8
   enable: true
   categories:
     - title: Cầu nguyện
@@ -38,4 +38,26 @@ newsByCategories:
         - title: Mùa thường niên
           hiddenTags:
             - Hiểu Để Yêu
+    - title: Muc thu 2
+      subCategories:
+        - title: Muc 2A
+          hiddenTags:
+            - Các đấng bản quyền
+            - Hiểu Để Yêu
+            - Giao phan Da Lat
+        - title: Muc 2B
+          hiddenTags:
+            - Walking with Jesus
+            - Giao phan Da Lat
+    - title: Muc thu 3
+      subCategories:
+        - title: Muc 3A
+          hiddenTags:
+            - Giao phan Phu Cuong
+        - title: Muc 3B
+          hiddenTags:
+            - Chút men cho đời
+        - title: Muc 3C
+          hiddenTags:
+            - Lịch sử
 ---

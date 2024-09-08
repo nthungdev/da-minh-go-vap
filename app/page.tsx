@@ -76,14 +76,21 @@ export default function Home() {
               <h2 className="sr-only">Tin tức theo danh mục</h2>
               <div className="space-y-4">
                 {newsByCategoriesData.map((newsCategory, index) => (
-                  <div key={index} className="space-y-2">
-                    <AppSectionHeader>
-                      <h3 className="text-2xl">{newsCategory.title}</h3>
-                    </AppSectionHeader>
+                  <div key={index} className="space-y-4">
+                    <h3 className="text-2xl text-center uppercase">{newsCategory.title}</h3>
                     <AppPostTabGrid
                       id={`home-posts-group-${index + 1}`}
                       subCategories={newsCategory.subCategories}
                     />
+                    {index !== newsByCategoriesData.length - 1 && (
+                      <Image
+                        src="/svgs/separator.svg"
+                        className="pointer-events-none"
+                        alt="separator"
+                        width={1080}
+                        height={720}
+                      />
+                    )}
                   </div>
                 ))}
               </div>
