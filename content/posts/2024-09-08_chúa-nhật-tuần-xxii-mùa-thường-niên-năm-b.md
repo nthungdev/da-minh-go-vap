@@ -1,0 +1,35 @@
+---
+title: Chúa Nhật Tuần XXII Mùa Thường Niên Năm B
+date: 2024-09-01T07:51:00.000Z
+hiddenTags:
+  - Chút men cho đời
+thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1725757129/1_kaarbo.jpg
+videos:
+  - youtubeUrl: <iframe width="560" height="315"
+      src="https://www.youtube.com/embed/eZfRicB5YCg?si=F3yvgqK_faN2rrha"
+      title="YouTube video player" frameborder="0" allow="accelerometer;
+      autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;
+      web-share" referrerpolicy="strict-origin-when-cross-origin"
+      allowfullscreen></iframe>
+    title: Chúa Nhật Tuần XXII
+    thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1725757129/1_kaarbo.jpg
+---
+Dòng Nữ Đa Minh Gò Vấp  
+
+Suy Niệm Lời Chúa, Chúa Nhật Tuần XXII Mùa Thường Niên Năm B (01/9/2024)
+
+Bài suy niệm: Nữ tu Êlisabeth Đặng Thị Oanh, dòng Nữ Đa Minh Gò Vấp
+
+Giọng đọc: Nữ tu Maria Nguyễn Thị Thu Thoa, dòng Nữ Đa Minh Gò Vấp
+
+Ca khúc: Thờ Chúa ngoài môi miệng
+
+Sáng tác: Lm Huy Hoàng
+
+Trình bày: Ca sĩ Thanh Hoài
+
+Thực hiện: Ban Truyền thông dòng Nữ Đa Minh Gò Vấp
+
+
+
+Lạy Chúa, xin dùng chúng con như những khí cụ bình an của Chúa. Xin hãy dạy con: tìm an ủi người hơn được người ủi an. Tìm hiểu biết người hơn được người hiểu biết…Nhưng Lạy Chúa, để mang tình yêu thương đến nơi có hận thù, chúng con cần phải biết tha thứ, biết đặt mình vào vị trí của người khác để hiểu được nỗi đau của họ. Để mang sự tha thứ đến nơi có xúc phạm, chúng con cần phải biết bỏ qua những lỗi lầm của người khác, không để lòng thù hận ngự trị trong tâm hồn, hơn nữa chính nơi bản thân chúng con phải biết yêu thương, biết chia sẻ với những người bất hạnh. Amen
