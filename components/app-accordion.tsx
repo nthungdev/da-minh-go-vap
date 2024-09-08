@@ -130,6 +130,7 @@ function AppAccordionItem(props: AppAccordionItemProps) {
 
 const itemRender = (alwaysOpen?: boolean, level: number = 0) =>
   function AppAccordionItemDefault(item: AppAccordionItem, index: number) {
+    const loopedLevel = level % 3
     const levelColor: { [key: string]: 'primary' | 'pink' | 'yellow' } = {
       0: 'primary',
       1: 'yellow',
@@ -141,7 +142,7 @@ const itemRender = (alwaysOpen?: boolean, level: number = 0) =>
         <AppAccordion.Toggle
           controlId={`${item.title}-content-${index}`}
           title={item.title}
-          color={levelColor[level]}
+          color={levelColor[loopedLevel]}
         />
         <AppAccordion.Content
           id={`${item.title}-content-${index}`}
@@ -151,7 +152,7 @@ const itemRender = (alwaysOpen?: boolean, level: number = 0) =>
           {item.items && (
             <AppAccordion.Root
               items={item.items}
-              itemRender={itemRender(alwaysOpen, level + 1)}
+              itemRender={itemRender(alwaysOpen, loopedLevel + 1)}
               alwaysOpen={alwaysOpen}
             />
           )}
