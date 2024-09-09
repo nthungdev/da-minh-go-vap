@@ -1,11 +1,7 @@
 import AppPage from '@/components/app-page';
 import AppMarkdown from '@/components/app-markdown';
-import { getAllPostSlugs, getPostBySlug, getPostsByHiddenTags } from '@/utils/posts';
+import { getPostBySlug, getPostsByHiddenTags } from '@/utils/posts';
 import AppPostGrid from '@/components/app-post-grid';
-
-export async function generateStaticParams() {
-  return getAllPostSlugs().map(slug => ({ slug, test: 'hello' }))
-}
 
 export default function Page({ params }: { params: { slug: string } }) {
   const post = getPostBySlug(params.slug);
