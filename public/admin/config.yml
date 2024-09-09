@@ -1,5 +1,5 @@
 # run npx decap-server
-# local_backend: true
+local_backend: true
 
 backend:
   name: git-gateway
@@ -126,6 +126,9 @@ collections:
         label: 'Hội dòng'
         file: 'content/pages/congregation.md'
         fields:
+          - name: 'title'
+            label: 'Tiêu đề'
+            widget: 'string'
           - {
               name: 'subCategories',
               label: 'Chuyên mục con',
