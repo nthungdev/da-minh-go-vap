@@ -148,6 +148,7 @@ type WhereaboutsSection = {
 }
 
 type PageCongregation = {
+  title: string
   subCategories: {
     title: string
     hiddenTags: string[]

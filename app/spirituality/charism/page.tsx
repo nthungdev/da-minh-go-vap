@@ -1,9 +1,8 @@
+import AppBanners from '@/components/app-banners'
 import AppPage from '@/components/app-page'
 import AppTimelineCards from '@/components/app-timeline-cards'
-import TheBanner from '@/components/the-banner'
 import { attributes } from '@/content/pages/spirituality/charism.md'
 import Image from 'next/image'
-import Link from 'next/link'
 import { normalizeText } from 'normalize-text'
 
 export default function SpiritualityCharism() {
@@ -20,7 +19,7 @@ export default function SpiritualityCharism() {
 
   return (
     <div>
-      <TheBanner banners={banners} />
+      <AppBanners banners={banners} />
 
       <AppPage className='pt-4'>
         <h1 className="sr-only">{title}</h1>

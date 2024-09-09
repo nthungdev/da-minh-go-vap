@@ -21,7 +21,8 @@ aboutUs:
 
 
         Sống linh đạo Đa Minh: NÓI VỚI CHÚA – NÓI VỀ CHÚA Hoặc “CHIÊM NIỆM VÀ TRUYỀN THÔNG”, Chia sẻ cho tha nhân những gì mình đã chiêm niệm
-      body: Điền nội dung Đôi nét chính
+      body: "Danh Xưng: Hội dòng nữ Đa Minh Gò Vấp (the congregation of Dominican
+        Sisters of Go Vap of Our Lady of the Rosary)"
     - title: Chương trình đào tạo
       content: >-
         Đào tạo nữ tu đa minh trở nên môn đệ đích thực của Đức Kito xoay quanh 4
@@ -60,7 +61,7 @@ aboutUs:
         thumbnail: https://i3.ytimg.com/vi/y0sF5xhGreA/maxresdefault.jpg
         youtubeUrl: https://www.youtube.com/watch?v=y0sF5xhGreA
   banner:
-    url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1723670153/hinh-so_jas0ec.jpg
+    url: https://res.cloudinary.com/dxtb6rv7y/video/upload/v1725004896/home_2_xanh_mksydo.mp4
     alt: Hình chúng tôi
 mission:
   title: SỨ MỆNH
@@ -125,7 +126,7 @@ mission:
         * công tác giáo dục: dấn thân trong việc giáo dục mầm non, các lớp dạy kèm bán trú, nội trú.
       body: Điền nội dung
   banner:
-    url: https://cdn.ldsliving.com/dims4/default/487476b/2147483647/strip/true/crop/4970x3313+0+0/resize/800x533!/format/jpg/quality/90/?url=http%3A%2F%2Flds-living-brightspot-us-east-2.s3.us-east-2.amazonaws.com%2Fe5%2F3a%2F707892aa42f38c22ac2f01282944%2Fgettyimages-901570232.jpg
+    url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1724851376/B%E1%BA%A3n_sao_c%E1%BB%A7a_Web_Banner_mdzti1.jpg
     alt: Banner sứ mệnh
 whereabouts:
   title: CHÚNG TÔI HIỆN DIỆN Ở TRONG NƯỚC VÀ CẢ NGOẠI QUỐC
@@ -139,6 +140,6 @@ whereabouts:
   body: Chúng tôi hiện đang phục vụ tại 22 cộng đoàn trong đó 19 cộng đoàn thuộc 7
     giáo phận Việt Nam, 2 cộng đoàn ở Mỹ và 1 cộng đoàn tại Úc.
   banner:
-    url: https://m.media-amazon.com/images/I/71ZVA6QfbOL._AC_UF894,1000_QL80_.jpg
+    url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1724944288/noi_hien_dien_nehjhr.svg
     alt: Banner nơi hiện diện
 ---

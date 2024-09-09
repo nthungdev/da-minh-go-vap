@@ -7,7 +7,7 @@ backend:
   squash_merges: true
 
 # only works with remote backend
-publish_mode: editorial_workflow
+# publish_mode: editorial_workflow
 
 locale: 'vi'
 
@@ -126,6 +126,9 @@ collections:
         label: 'Hội dòng'
         file: 'content/pages/congregation.md'
         fields:
+          - name: 'title'
+            label: 'Tiêu đề'
+            widget: 'string'
           - {
               name: 'subCategories',
               label: 'Chuyên mục con',
