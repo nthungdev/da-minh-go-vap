@@ -3,11 +3,14 @@
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 
-interface TheBannerProps {
-  banners: { url: string }[]
+interface AppBannersProps {
+  banners: {
+    url: string
+    alt?: string
+  }[]
 }
 
-export default function TheBanner(props: TheBannerProps) {
+export default function AppBanners(props: AppBannersProps) {
   const { banners } = props
   const [bannerIndex, setBannerIndex] = useState(0)
 
@@ -27,12 +30,18 @@ export default function TheBanner(props: TheBannerProps) {
   return (
     <div className="aspect-[4]">
       {isVideo ? (
-        <video className="w-full h-full object-cover" src={bannerUrl} autoPlay loop muted />
+        <video
+          className="w-full h-full object-cover"
+          src={bannerUrl}
+          autoPlay
+          loop
+          muted
+        />
       ) : (
         <Image
           className="w-full h-full object-cover"
           src={bannerUrl}
-          alt=""
+          alt={banner?.alt || ''}
           sizes="100%"
           width={256}
           height={144}
