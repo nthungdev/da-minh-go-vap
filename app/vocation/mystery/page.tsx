@@ -1,12 +1,8 @@
-import AppPostsPage from '@/components/app-posts-page'
-import { getPostsByHiddenTags } from '@/utils/posts'
 import { attributes } from '@/content/pages/vocation/mystery.md'
+import AppHiddenTagsPostsPage from '@/components/app-hidden-tags-posts-page'
 
 export default function PageVocationMystery() {
   const { title, hiddenTags } = attributes as PageVocationMystery
-  const posts = getPostsByHiddenTags(hiddenTags)
 
-  return (
-    <AppPostsPage title={title} posts={posts} />
-  )
+  return <AppHiddenTagsPostsPage title={title} hiddenTags={hiddenTags} />
 }

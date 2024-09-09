@@ -28,17 +28,18 @@ export const getAllPostSlugs = () => {
 
 export const getAllPosts = ({ limit = undefined }: { limit?: number } = {}) => {
   const fileNames = fs.readdirSync(postsDirectory)
-  return fileNames.map((fileName) => {
-    const slug = fileName.replace(/\.md$/, '')
-    const filePath = path.join(postsDirectory, slug + '.md')
-    const fileContents = fs.readFileSync(filePath, 'utf8')
-    const { content, data } = matter(fileContents)
-    return {
-      slug,
-      body: content,
-      ...data,
-    } as PostParams
-  })
+  return fileNames
+    .map((fileName) => {
+      const slug = fileName.replace(/\.md$/, '')
+      const filePath = path.join(postsDirectory, slug + '.md')
+      const fileContents = fs.readFileSync(filePath, 'utf8')
+      const { content, data } = matter(fileContents)
+      return {
+        slug,
+        body: content,
+        ...data,
+      } as PostParams
+    })
     .toSorted((a, b) => b.date.getTime() - a.date.getTime())
     .slice(0, limit)
 }

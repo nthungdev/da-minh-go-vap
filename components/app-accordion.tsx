@@ -3,14 +3,23 @@ import AppMarkdown from './app-markdown'
 interface AppAccordionToggle {
   title: string
   controlId: string
+  color?: 'primary' | 'pink' | 'yellow'
 }
 
 function AppAccordionToggle(props: AppAccordionToggle) {
-  const { controlId, title } = props
+  const { controlId, title, color = 'primary' } = props
+
+  const colorVariants: { [key: string]: string } = {
+    primary:
+      'bg-primary-200 hover:bg-primary hs-accordion-active:text-primary-600',
+    pink: 'bg-pink-200 hover:bg-pink-600 hs-accordion-active:text-pink-600',
+    yellow:
+      'bg-yellow-200 hover:bg-yellow-600 hs-accordion-active:text-yellow-600',
+  }
 
   return (
     <button
-      className={`hs-accordion-toggle hs-accordion-active:text-primary-600 hs-accordion-active:hover:text-gray-50 bg-primary-200 py-3 px-2 inline-flex items-center gap-x-3 w-full font-semibold text-start text-gray-800 hover:bg-primary hover:text-gray-50 focus:outline-none rounded-lg disabled:opacity-50 disabled:pointer-events-none`}
+      className={`hs-accordion-toggle hs-accordion-active:hover:text-gray-50 py-3 px-2 inline-flex items-center gap-x-3 w-full font-semibold text-start text-gray-800 hover:text-gray-50 focus:outline-none rounded-lg disabled:opacity-50 disabled:pointer-events-none ${colorVariants[color]}`}
       aria-expanded={false}
       aria-controls={controlId}
     >
@@ -22,9 +31,9 @@ function AppAccordionToggle(props: AppAccordionToggle) {
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       >
         <path d="m6 9 6 6 6-6"></path>
       </svg>
@@ -36,9 +45,9 @@ function AppAccordionToggle(props: AppAccordionToggle) {
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       >
         <path d="m18 15-6-6-6 6"></path>
       </svg>
@@ -119,13 +128,21 @@ function AppAccordionItem(props: AppAccordionItemProps) {
   )
 }
 
-const itemRender = (alwaysOpen?: boolean) =>
+const itemRender = (alwaysOpen?: boolean, level: number = 0) =>
   function AppAccordionItemDefault(item: AppAccordionItem, index: number) {
+    const loopedLevel = level % 3
+    const levelColor: { [key: string]: 'primary' | 'pink' | 'yellow' } = {
+      0: 'primary',
+      1: 'yellow',
+      2: 'pink',
+    }
+
     return (
       <AppAccordion.Item key={index} id={`${item.title}-item-${index}`}>
         <AppAccordion.Toggle
           controlId={`${item.title}-content-${index}`}
           title={item.title}
+          color={levelColor[loopedLevel]}
         />
         <AppAccordion.Content
           id={`${item.title}-content-${index}`}
@@ -135,7 +152,7 @@ const itemRender = (alwaysOpen?: boolean) =>
           {item.items && (
             <AppAccordion.Root
               items={item.items}
-              itemRender={itemRender(alwaysOpen)}
+              itemRender={itemRender(alwaysOpen, loopedLevel + 1)}
               alwaysOpen={alwaysOpen}
             />
           )}
