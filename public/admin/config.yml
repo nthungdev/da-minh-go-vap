@@ -1219,7 +1219,7 @@ collections:
             min: 1
             max: 10
             fields:
-              - { name: 'url', label: 'Hình ảnh/Video ngắn', widget: 'image' }
+              - { name: 'url', label: 'Hình ảnh/Video ngắn', widget: 'image', allow_multiple: false }
               - { name: 'alt', label: 'Mô tả', widget: 'string' }
           - name: 'bottomDecorativeGraphic'
             label: 'Đồ họa trang trí bên dưới'

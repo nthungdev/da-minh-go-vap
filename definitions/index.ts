@@ -3,7 +3,7 @@ type SiteAttributes = {
 }
 
 type NavbarAttributes = {
-  banners: Image[]
+  homeBanners: Image[]
   bottomDecorativeGraphic: Image
 }
 

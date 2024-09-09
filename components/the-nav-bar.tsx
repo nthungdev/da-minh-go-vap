@@ -15,7 +15,7 @@ interface TheNavBarProps {
 
 export default function TheNavBar({ className }: TheNavBarProps) {
   const { logo } = siteAttributes as SiteAttributes
-  const { banners, bottomDecorativeGraphic } =
+  const { homeBanners, bottomDecorativeGraphic } =
     navbarAttributes as NavbarAttributes
 
   const pathname = usePathname()
@@ -71,7 +71,7 @@ export default function TheNavBar({ className }: TheNavBarProps) {
         </ul>
       </nav>
 
-      {isHome && <AppBanners banners={banners} />}
+      {isHome && <AppBanners banners={homeBanners} />}
 
       <Image
         src={bottomDecorativeGraphic.url}

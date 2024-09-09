@@ -1,7 +1,6 @@
 ---
 homeBanners:
-  - image: https://res.cloudinary.com/dxtb6rv7y/video/upload/v1722222604/video-banner_gwdvew.mp4
-    url: https://res.cloudinary.com/dxtb6rv7y/video/upload/v1722222604/video-banner_gwdvew.mp4
+  - url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1724851376/B%E1%BA%A3n_sao_c%E1%BB%A7a_Web_Banner_mdzti1.jpg
     alt: Video gioi thieu
 bottomDecorativeGraphic:
   url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1722620486/site-name_ksvjgd.png
