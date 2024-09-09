@@ -5,6 +5,7 @@ import AppPostsPage from '@/components/app-posts-page'
 import { redirect } from 'next/navigation'
 
 export default function Page({ params }: { params: { slug: string } }) {
+const decodedSlug = decodeURIComponent(params.slug)
   const { categories } = attributes as PageSpiritualityCharism
 
   const categoriesData = categories.map((category) => ({
@@ -12,7 +13,7 @@ export default function Page({ params }: { params: { slug: string } }) {
     slug: normalizeText(category.title).replaceAll(/\s/g, '-'),
   }))
 
-  const data = categoriesData.find((category) => category.slug === params.slug)
+  const data = categoriesData.find((category) => category.slug === decodedSlug)
 
   if (!data) {
     redirect('/404')

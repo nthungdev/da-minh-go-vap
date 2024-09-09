@@ -5,6 +5,7 @@ import { redirect } from 'next/navigation'
 import { attributes } from '@/content/pages/topics/index.md'
 
 export default function Page({ params }: { params: { slug: string } }) {
+  const decodedSlug = decodeURIComponent(params.slug)
   const { sections } = attributes as PageTopics
 
   const sectionsData = sections.map((section) => ({
@@ -12,7 +13,7 @@ export default function Page({ params }: { params: { slug: string } }) {
     slug: normalizeText(section.title).replaceAll(/\s/g, '-'),
   }))
 
-  const data = sectionsData.find((section) => section.slug === params.slug)
+  const data = sectionsData.find((section) => section.slug === decodedSlug)
 
   if (!data) {
     redirect('/404')

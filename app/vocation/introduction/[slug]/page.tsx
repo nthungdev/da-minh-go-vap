@@ -5,6 +5,7 @@ import { redirect } from 'next/navigation'
 import { attributes } from '@/content/pages/vocation/introduction.md'
 
 export default function Page({ params }: { params: { slug: string } }) {
+  const decodedSlug = decodeURIComponent(params.slug)
   const { sections } = attributes as PageVocationIntroduction
 
   const sectionsData = sections.map((section) => ({
@@ -12,7 +13,7 @@ export default function Page({ params }: { params: { slug: string } }) {
     slug: normalizeText(section.title).replaceAll(/\s/g, '-'),
   }))
 
-  const data = sectionsData.find((category) => category.slug === params.slug)
+  const data = sectionsData.find((category) => category.slug === decodedSlug)
 
   if (!data) {
     redirect('/404')
