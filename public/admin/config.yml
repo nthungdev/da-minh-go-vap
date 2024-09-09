@@ -30,23 +30,6 @@ collections:
         label: 'Trang chủ'
         file: 'content/pages/home.md'
         fields:
-          - name: 'banners'
-            label: 'Banners'
-            widget: 'list'
-            allow_add: true
-            label_singular: 'Banner'
-            min: 1
-            max: 10
-            fields:
-              - { name: 'url', label: 'Hình ảnh/Video ngắn', widget: 'image' }
-              - { name: 'alt', label: 'Mô tả', widget: 'string' }
-          - name: 'decorativeGraphic'
-            label: 'Đồ họa trang trí'
-            hint: 'Hình ảnh này sẽ hiển thị bên dưới banner.'
-            widget: 'object'
-            fields:
-              - { name: 'url', label: 'Hình ảnh', widget: 'image' }
-              - { name: 'alt', label: 'Mô tả', widget: 'string' }
           - name: 'bibleVerses'
             label: 'Câu lời Chúa'
             widget: 'object'
@@ -1113,8 +1096,10 @@ collections:
         fields:
           - name: 'logo'
             label: 'Logo'
-            widget: 'image'
-            allow_multiple: false
+            widget: 'object'
+            fields:
+              - { name: 'url', label: 'Hình ảnh', widget: 'image', allow_multiple: false }
+              - { name: 'alt', label: 'Mô tả', widget: 'string' }
       - name: asideSection
         hint: 'Cài đặt cột bên. Cột bên sẽ được hiển thị ở trang chủ.'
         label: 'Cột bên'
@@ -1221,6 +1206,28 @@ collections:
                     - { label: "Instagram", value: "instagram" }
                 - { name: 'name', label: 'Tên', widget: 'string' }
                 - { name: 'url', label: 'URL', widget: 'string' }
+      - name: 'navbar'
+        label: 'Thanh điều hướng'
+        file: 'content/settings/navbar.md'
+        fields:
+          - name: 'homeBanners'
+            label: 'Home Banners'
+            hint: 'Banner hiển thị ở trang chủ.'
+            widget: 'list'
+            allow_add: true
+            label_singular: 'Banner'
+            min: 1
+            max: 10
+            fields:
+              - { name: 'url', label: 'Hình ảnh/Video ngắn', widget: 'image', allow_multiple: false }
+              - { name: 'alt', label: 'Mô tả', widget: 'string' }
+          - name: 'bottomDecorativeGraphic'
+            label: 'Đồ họa trang trí bên dưới'
+            hint: 'Hình ảnh này sẽ hiển thị bên dưới thanh điều hướng.'
+            widget: 'object'
+            fields:
+              - { name: 'url', label: 'Hình ảnh', widget: 'image' }
+              - { name: 'alt', label: 'Mô tả', widget: 'string' }
       - name: 'footer'
         label: 'Chân trang'
         file: 'content/settings/footer.md'
