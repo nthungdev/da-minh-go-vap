@@ -7,7 +7,7 @@ backend:
   squash_merges: true
 
 # only works with remote backend
-publish_mode: editorial_workflow
+# publish_mode: editorial_workflow
 
 locale: 'vi'
 
