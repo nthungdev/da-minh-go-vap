@@ -1,8 +1,7 @@
-import { getPostsByHiddenTags } from '@/utils/posts'
 import { normalizeText } from 'normalize-text'
-import AppPostsPage from '@/components/app-posts-page'
 import { redirect } from 'next/navigation'
 import { attributes } from '@/content/pages/vocation/introduction.md'
+import AppHiddenTagsPostsPage from '@/components/app-hidden-tags-posts-page'
 
 export default function Page({ params }: { params: { slug: string } }) {
   const decodedSlug = decodeURIComponent(params.slug)
@@ -20,9 +19,6 @@ export default function Page({ params }: { params: { slug: string } }) {
   }
 
   const { title, hiddenTags } = data
-  const posts = getPostsByHiddenTags(hiddenTags)
 
-  return (
-    <AppPostsPage title={title} posts={posts} />
-  )
+  return <AppHiddenTagsPostsPage title={title} hiddenTags={hiddenTags} />
 }

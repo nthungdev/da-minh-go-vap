@@ -1,29 +1,33 @@
-import { getPostsByHiddenTags } from "@/utils/posts";
-import AppPage from "./app-page";
-import AppPostGrid from "./app-post-grid";
-import AppSeparator from "./app-separator";
+import AppPage from './app-page'
+import AppPostGrid from './app-post-grid'
+import AppSeparator from './app-separator'
+import { fetchPostsByHiddenTags } from '@/actions/post'
 
 interface AppCategoriesPageProps {
-  title: string;
+  title: string
   categories: {
     title: string
     hiddenTags: string[]
-  }[];
+  }[]
 }
 
-export default function AppCategoriesPage({
+export default async function AppCategoriesPage({
   title,
   categories,
 }: AppCategoriesPageProps) {
-  const categoriesData = categories.map(({ title, hiddenTags }) => ({
-    title,
-    posts: getPostsByHiddenTags(hiddenTags).slice(0, 4)
-  }))
+  const categoriesData = []
+  for (const category of categories) {
+    const { title, hiddenTags } = category
+    categoriesData.push({
+      title,
+      posts: (await fetchPostsByHiddenTags(hiddenTags)).slice(0, 4),
+    })
+  }
 
   return (
     <AppPage>
       <h1 className="sr-only">{title}</h1>
-      <ul className='space-y-4'>
+      <ul className="space-y-4">
         {categoriesData.map(({ title, posts }, index) => (
           <li key={index} className="space-y-4">
             <h2 className="text-2xl uppercase text-center">{title}</h2>

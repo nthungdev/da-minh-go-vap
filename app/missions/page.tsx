@@ -1,33 +1,39 @@
+import { fetchPostsByHiddenTags } from '@/actions/post'
 import AppPage from '@/components/app-page'
 import AppPostGrid from '@/components/app-post-grid'
 import AppPostTabGrid from '@/components/app-post-tab-grid'
 import AppSeparator from '@/components/app-separator'
 import { attributes } from '@/content/pages/missions/index.md'
-import { getPostsByHiddenTags } from '@/utils/posts'
 
-export default function PageMissions() {
+export default async function PageMissions() {
   const { title, sections } = attributes as PageMissions
 
-  const sectionData = sections.map((section) => {
+  const sectionData = []
+  for (const section of sections) {
     if (section.type === 'postSection') {
-      return {
+      sectionData.push({
         ...section,
-        posts: getPostsByHiddenTags(section.hiddenTags, {
+        posts: await fetchPostsByHiddenTags(section.hiddenTags, {
           limit: section.limit || undefined,
         }),
-      }
+      })
     } else {
-      return {
-        ...section,
-        categories: section.categories.map((category) => ({
+      const categories = []
+      for (const category of section.categories) {
+        const posts = await fetchPostsByHiddenTags(category.hiddenTags, {
+          limit: section.limit || undefined,
+        })
+        categories.push({
           ...category,
-          posts: getPostsByHiddenTags(category.hiddenTags, {
-            limit: section.limit || undefined,
-          }),
-        })),
+          posts,
+        })
       }
+      sectionData.push({
+        ...section,
+        categories,
+      })
     }
-  })
+  }
 
   return (
     <AppPage>

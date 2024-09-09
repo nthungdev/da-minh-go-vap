@@ -1,6 +1,6 @@
 'use server'
 
-import * as postUtils from '@/utils/posts'
+import * as postUtils from '@/utils/post'
 
 /**
  * @param slug Slug of the post
