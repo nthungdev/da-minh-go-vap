@@ -1,21 +1,24 @@
 import { attributes } from '@/content/settings/aside-section.md'
-import { getPostsByHiddenTags, getPostsBySlugs } from '@/utils/posts'
 import AppPostList from './app-post-list'
 import AppSectionHeader from './app-section-header'
 import Link from 'next/link'
 import AppPostCard from './app-post-card'
+import { fetchPostsByHiddenTags, fetchPostsBySlugs } from '@/actions/post'
 
-export default function AppAsideSection() {
+export default async function AppAsideSection() {
   const { curatedPosts, postGroups, socialLinks } = attributes as AsideSection
 
-  const curatedPostsData = getPostsBySlugs(curatedPosts.posts)
+  const curatedPostsData = await fetchPostsBySlugs(curatedPosts.posts)
 
-  const postGroupsData = postGroups.groups.map((group) => ({
-    ...group,
-    posts: getPostsByHiddenTags(group.hiddenTags, {
-      limit: group.limit,
-    }),
-  }))
+  const postGroupsData = []
+  for (const group of postGroups.groups) {
+    postGroupsData.push({
+      ...group,
+      posts: await fetchPostsByHiddenTags(group.hiddenTags, {
+        limit: group.limit,
+      }),
+    })
+  }
 
   return (
     <aside className="space-y-4">

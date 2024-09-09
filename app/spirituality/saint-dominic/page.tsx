@@ -1,13 +1,13 @@
+import { fetchPostsByHiddenTags } from '@/actions/post'
 import AppBanners from '@/components/app-banners'
 import AppPage from '@/components/app-page'
 import AppPostGrid from '@/components/app-post-grid'
 import { attributes } from '@/content/pages/spirituality/saint-dominic.md'
-import { getPostsByHiddenTags } from '@/utils/posts'
 
-export default function SpiritualitySaintDominic() {
+export default async function SpiritualitySaintDominic() {
   const { title, banners, hiddenTags } =
     attributes as PageSpiritualitySaintDominic
-  const posts = getPostsByHiddenTags(hiddenTags)
+  const posts = await fetchPostsByHiddenTags(hiddenTags)
 
   return (
     <div>

@@ -2,7 +2,7 @@
 title: Chuyen de
 sections:
   - limit: 4
-    title: Hieu de yeu
+    title: Hiểu để yêu
     hiddenTags:
       - Giao phan Phu Cuong
   - limit: 4

@@ -1,3 +1,4 @@
+import { fetchAllPosts, fetchPostsByHiddenTags } from '@/actions/post'
 import AppAsideSection from '@/components/app-aside-section'
 import AppPage from '@/components/app-page'
 import AppPostTabGrid from '@/components/app-post-tab-grid'
@@ -5,26 +6,25 @@ import AppSeparator from '@/components/app-separator'
 import TheBibleVerse from '@/components/the-bible-verse'
 import TheLatestPosts from '@/components/the-latest-posts'
 import { attributes } from '@/content/pages/home.md'
-import { getAllPosts, getPostsByHiddenTags } from '@/utils/posts'
 
-export default function Home() {
+export default async function Home() {
   const { bibleVerses, latestNews, newsByCategories } = attributes as PageHome
 
-  let latestPosts: PostParams[] = latestNews.enable
-    ? getAllPosts({ limit: latestNews.limit })
+  const latestPosts: PostParams[] = latestNews.enable
+    ? await fetchAllPosts({ limit: latestNews.limit })
     : []
 
-  const newsByCategoriesData = newsByCategories.categories.map(
-    ({ title, subCategories }) => ({
-      title,
-      subCategories: subCategories.map(({ title, hiddenTags }) => ({
-        title,
-        posts: getPostsByHiddenTags(hiddenTags, {
-          limit: newsByCategories.limit,
-        }),
-      })),
-    })
-  )
+  const postsByCategoriesData = []
+  for (const category of newsByCategories.categories) {
+    const subCategories = []
+    for (const subCategory of category.subCategories) {
+      const posts = await fetchPostsByHiddenTags(subCategory.hiddenTags, {
+        limit: newsByCategories.limit,
+      })
+      subCategories.push({ title: subCategory.title, posts })
+    }
+    postsByCategoriesData.push({ title: category.title, subCategories })
+  }
 
   return (
     <div>
@@ -48,7 +48,7 @@ export default function Home() {
             <section>
               <h2 className="sr-only">Tin tức theo danh mục</h2>
               <div className="space-y-4">
-                {newsByCategoriesData.map((newsCategory, index) => (
+                {postsByCategoriesData.map((newsCategory, index) => (
                   <div key={index} className="space-y-4">
                     <h3 className="text-2xl text-center uppercase">
                       {newsCategory.title}
@@ -57,7 +57,7 @@ export default function Home() {
                       id={`home-posts-group-${index + 1}`}
                       subCategories={newsCategory.subCategories}
                     />
-                    {index !== newsByCategoriesData.length - 1 && (
+                    {index !== postsByCategoriesData.length - 1 && (
                       <AppSeparator />
                     )}
                   </div>

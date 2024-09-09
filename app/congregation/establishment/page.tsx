@@ -1,12 +1,8 @@
-import AppPostsPage from '@/components/app-posts-page'
+import AppHiddenTagsPostsPage from '@/components/app-hidden-tags-posts-page'
 import { attributes } from '@/content/pages/congregation/establishment.md'
-import { getPostsByHiddenTags } from '@/utils/posts'
 
-export default function CongregationEstablishment() {
+export default async function CongregationEstablishment() {
   const { title, hiddenTags } = attributes as PageCongregationEstablishment
-  const posts = getPostsByHiddenTags(hiddenTags)
 
-  return (
-    <AppPostsPage title={title} posts={posts} />
-  )
+  return <AppHiddenTagsPostsPage title={title} hiddenTags={hiddenTags} />
 }

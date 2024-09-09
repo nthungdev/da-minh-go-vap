@@ -1,11 +1,11 @@
+import { fetchPostsByHiddenTags } from '@/actions/post'
 import AppPage from '@/components/app-page'
 import AppPostGrid from '@/components/app-post-grid'
 import { attributes } from '@/content/pages/congregation/authorities.md'
-import { getPostsByHiddenTags } from '@/utils/posts'
 
-export default function CongregationAuthorities() {
+export default async function CongregationAuthorities() {
   const { title, hiddenTags } = attributes as PageCongregationAuthorities
-  const posts = getPostsByHiddenTags(hiddenTags)
+  const posts = await fetchPostsByHiddenTags(hiddenTags)
 
   return (
     <AppPage className='space-y-4'>
