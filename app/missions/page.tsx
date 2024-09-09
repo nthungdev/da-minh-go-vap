@@ -1,9 +1,9 @@
 import AppPage from '@/components/app-page'
 import AppPostGrid from '@/components/app-post-grid'
 import AppPostTabGrid from '@/components/app-post-tab-grid'
+import AppSeparator from '@/components/app-separator'
 import { attributes } from '@/content/pages/missions/index.md'
 import { getPostsByHiddenTags } from '@/utils/posts'
-import Image from 'next/image'
 
 export default function PageMissions() {
   const { title, sections } = attributes as PageMissions
@@ -36,9 +36,7 @@ export default function PageMissions() {
       <div className="space-y-4">
         {sectionData.map((section, index) => (
           <div key={index} className="space-y-4">
-            <h1 className="uppercase text-2xl text-center">
-              {section.title}
-            </h1>
+            <h1 className="uppercase text-2xl text-center">{section.title}</h1>
             {section.type === 'postSection' ? (
               <AppPostGrid posts={section.posts!} />
             ) : (
@@ -47,15 +45,7 @@ export default function PageMissions() {
                 subCategories={section.categories!}
               />
             )}
-            {index !== sectionData.length - 1 && (
-              <Image
-                src="/svgs/separator.svg"
-                className="pointer-events-none"
-                alt="separator"
-                width={1080}
-                height={720}
-              />
-            )}
+            {index !== sectionData.length - 1 && <AppSeparator />}
           </div>
         ))}
       </div>

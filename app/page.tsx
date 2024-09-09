@@ -1,18 +1,14 @@
 import AppAsideSection from '@/components/app-aside-section'
 import AppPage from '@/components/app-page'
 import AppPostTabGrid from '@/components/app-post-tab-grid'
-import AppSectionHeader from '@/components/app-section-header'
+import AppSeparator from '@/components/app-separator'
 import TheBibleVerse from '@/components/the-bible-verse'
 import TheLatestPosts from '@/components/the-latest-posts'
 import { attributes } from '@/content/pages/home.md'
 import { getAllPosts, getPostsByHiddenTags } from '@/utils/posts'
 
 export default function Home() {
-  const {
-    bibleVerses,
-    latestNews,
-    newsByCategories,
-  } = attributes as PageHome
+  const { bibleVerses, latestNews, newsByCategories } = attributes as PageHome
 
   let latestPosts: PostParams[] = latestNews.enable
     ? getAllPosts({ limit: latestNews.limit })
@@ -54,19 +50,15 @@ export default function Home() {
               <div className="space-y-4">
                 {newsByCategoriesData.map((newsCategory, index) => (
                   <div key={index} className="space-y-4">
-                    <h3 className="text-2xl text-center uppercase">{newsCategory.title}</h3>
+                    <h3 className="text-2xl text-center uppercase">
+                      {newsCategory.title}
+                    </h3>
                     <AppPostTabGrid
                       id={`home-posts-group-${index + 1}`}
                       subCategories={newsCategory.subCategories}
                     />
                     {index !== newsByCategoriesData.length - 1 && (
-                      <Image
-                        src="/svgs/separator.svg"
-                        className="pointer-events-none"
-                        alt="separator"
-                        width={1080}
-                        height={720}
-                      />
+                      <AppSeparator />
                     )}
                   </div>
                 ))}

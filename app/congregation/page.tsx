@@ -1,29 +1,13 @@
 import AppPage from '@/components/app-page'
-import { getPostsByHiddenTags } from '@/utils/posts'
-import AppPostGrid from '@/components/app-post-grid'
 import { attributes } from '@/content/pages/congregation.md'
-import AppSectionHeader from '@/components/app-section-header'
+import AppCategoriesPage from '@/components/app-categories-page'
 
 export default function History() {
-  const { subCategories } = attributes as PageCongregation
-
-  const subCategoriesData = subCategories.map(({ title, hiddenTags }) => ({
-    title,
-    posts: getPostsByHiddenTags(hiddenTags).slice(0, 4)
-  }))
+  const { subCategories, title } = attributes as PageCongregation
 
   return (
     <AppPage>
-      <ul className='space-y-12'>
-        {subCategoriesData.map(({ title, posts }, index) => (
-          <li key={index} className='space-y-4'>
-            <AppSectionHeader>
-              <h2 className='uppercase text-2xl'>{title}</h2>
-            </AppSectionHeader>
-            <AppPostGrid posts={posts} />
-          </li>
-        ))}
-      </ul>
+      <AppCategoriesPage categories={subCategories} title={title} />
     </AppPage>
   )
 }
