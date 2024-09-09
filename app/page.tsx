@@ -1,5 +1,4 @@
 import AppAsideSection from '@/components/app-aside-section'
-import AppBanners from '@/components/app-banners'
 import AppPage from '@/components/app-page'
 import AppPostTabGrid from '@/components/app-post-tab-grid'
 import AppSectionHeader from '@/components/app-section-header'
@@ -7,12 +6,9 @@ import TheBibleVerse from '@/components/the-bible-verse'
 import TheLatestPosts from '@/components/the-latest-posts'
 import { attributes } from '@/content/pages/home.md'
 import { getAllPosts, getPostsByHiddenTags } from '@/utils/posts'
-import Image from 'next/image'
 
 export default function Home() {
   const {
-    banners,
-    decorativeGraphic,
     bibleVerses,
     latestNews,
     newsByCategories,
@@ -37,25 +33,6 @@ export default function Home() {
   return (
     <div>
       <div className="space-y-8">
-        <div>
-          <AppBanners banners={banners} />
-
-          {decorativeGraphic && (
-            <div>
-              <Image
-                src={decorativeGraphic.url}
-                alt={decorativeGraphic.alt}
-                className="w-full"
-                width={1080}
-                height={720}
-                quality={100}
-                sizes="100%"
-                priority
-              />
-            </div>
-          )}
-        </div>
-
         <section className="max-w-screen-xl mx-auto px-4">
           <h2 className="sr-only">Câu lời chúa</h2>
           <TheBibleVerse verses={bibleVerses.verses} />
