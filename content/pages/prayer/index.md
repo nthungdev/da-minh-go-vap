@@ -2,15 +2,15 @@
 title: Cau Nguyen
 sections:
   - limit: 4
-    title: Loi Nguyen Sang
+    title: Suy niệm
     hiddenTags:
       - Sắc lập dòng
   - limit: 4
-    title: Suy Niem Hang Ngay
+    title: Ý nguyện
     hiddenTags:
       - Giao phan Phu Cuong
   - limit: 4
-    title: Loi Nguyen Toi
+    title: Nguyện Kinh phụng vụ
     hiddenTags:
       - Giới thiệu
 ---

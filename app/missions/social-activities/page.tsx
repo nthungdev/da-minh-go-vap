@@ -1,10 +1,10 @@
 import { attributes } from '@/content/pages/missions/social-activities.md'
-import AppCategoriesPage from '@/components/app-categories-page'
+import AppGroupedPostsPage from '@/components/app-grouped-posts-page'
 
 export default function PageMissionsSocialActivities() {
-  const { title, categories } = attributes as PageMissionsSocialActivities
+  const { title, postGroups } = attributes as PageMissionsSocialActivities
 
   return (
-    <AppCategoriesPage categories={categories} title={title} />
+    <AppGroupedPostsPage categories={postGroups} title={title} />
   )
 }

@@ -462,8 +462,8 @@ collections:
         file: 'content/pages/spirituality/index.md'
         fields:
           - {
-              name: 'categories',
-              label: 'Chuyên mục con',
+              name: 'postGroups',
+              label: 'Mục con',
               widget: 'list',
               allow_add: true,
               min: 1,
@@ -473,7 +473,7 @@ collections:
               [
                 {
                   name: 'title',
-                  label: 'Tên hiển thị của chuyên mục con',
+                  label: 'Tên hiển thị của mục con',
                   widget: 'string',
                 },
                 {
@@ -693,8 +693,8 @@ collections:
             label: 'Tiêu đề'
             widget: 'string'
           - {
-              name: 'categories',
-              label: 'Chuyên mục con',
+              name: 'postGroups',
+              label: 'Mục con',
               widget: 'list',
               allow_add: true,
               min: 1,
@@ -704,7 +704,7 @@ collections:
               [
                 {
                   name: 'title',
-                  label: 'Tên hiển thị của chuyên mục con',
+                  label: 'Tên hiển thị của mục con',
                   widget: 'string',
                 },
                 {
@@ -727,8 +727,8 @@ collections:
             label: 'Tiêu đề'
             widget: 'string'
           - {
-              name: 'categories',
-              label: 'Chuyên mục con',
+              name: 'postGroups',
+              label: 'Mục con',
               widget: 'list',
               allow_add: true,
               min: 1,
@@ -738,7 +738,7 @@ collections:
               [
                 {
                   name: 'title',
-                  label: 'Tên hiển thị của chuyên mục con',
+                  label: 'Tên hiển thị của mục con',
                   widget: 'string',
                 },
                 {
