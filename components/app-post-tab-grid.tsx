@@ -1,4 +1,8 @@
+'use client'
+
+import { ChangeEvent } from 'react'
 import AppPostGrid from './app-post-grid'
+import AppSelectBasic from './app-select-basic'
 
 const ALL_POSTS_CONTROL_LABEL = 'Tất cả'
 
@@ -30,59 +34,86 @@ export default function AppPostTabGrid(props: AppPostTabGridProps) {
     .toSorted((a, b) => b.date.getTime() - a.date.getTime())
     .slice(0, allPostsLimit)
 
+  const postGroupsData = [
+    {
+      title: ALL_POSTS_CONTROL_LABEL,
+      posts: allPosts,
+    },
+    ...postGroups,
+  ]
+
+  console.log({
+    postGroupsData,
+    // allPosts,
+    allPostsCount: allPosts.length,
+    allPostsLimit,
+  })
+
+  const handleSelectChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    const selectedGroup = postGroupsData.find(
+      (group) => group.title === event.target.value
+    )
+
+    if (selectedGroup) {
+      const tab = document.querySelector<HTMLButtonElement>(
+        `#${id}-item-${postGroupsData.indexOf(selectedGroup)}`
+      )
+
+      if (tab) {
+        tab.click()
+      }
+    }
+  }
+
   return (
     <div className={`${classNames}`}>
-      <nav
-        className="flex gap-x-4"
-        aria-label="Tabs"
-        role="tablist"
-        aria-orientation="horizontal"
-      >
-        <button
-          key={-1}
-          type="button"
-          className={`hs-tab-active:bg-primary-600 hs-tab-active:text-white hs-tab-active:hover:text-white py-3 px-4 text-center basis-0 grow inline-flex justify-center items-center gap-x-2 text-sm font-medium text-gray-900 bg-primary-200 hover:text-primary-600 focus:outline-none focus:text-primary-600 rounded-lg disabled:opacity-50 disabled:pointer-events-none active`}
-          aria-selected={true}
-          role="tab"
-          id={`${id}-item-0`}
-          data-hs-tab={`#${id}-0`}
-          aria-controls={`${id}-0`}
+      <div>
+        <AppSelectBasic
+          className="lg:hidden"
+          defaultValue={ALL_POSTS_CONTROL_LABEL}
+          options={[
+            {
+              value: ALL_POSTS_CONTROL_LABEL,
+            },
+            ...postGroups.map((group) => ({
+              value: group.title,
+            })),
+          ]}
+          onChange={handleSelectChange}
+        />
+        <nav
+          className="hidden lg:flex gap-x-4"
+          aria-label="Tabs"
+          role="tablist"
+          aria-orientation="horizontal"
         >
-          {ALL_POSTS_CONTROL_LABEL}
-        </button>
-
-        {postGroups.map(({ title }, index) => (
-          <button
-            key={index}
-            type="button"
-            className={`hs-tab-active:bg-primary-600 hs-tab-active:text-white hs-tab-active:hover:text-white py-3 px-4 text-center basis-0 grow inline-flex justify-center items-center gap-x-2 text-sm font-medium text-gray-900 bg-primary-200 hover:text-primary-600 focus:outline-none focus:text-primary-600 rounded-lg disabled:opacity-50 disabled:pointer-events-none`}
-            aria-selected={false}
-            role="tab"
-            id={`${id}-item-${index + 1}`}
-            data-hs-tab={`#${id}-${index + 1}`}
-            aria-controls={`${id}-${index + 1}`}
-          >
-            {title}
-          </button>
-        ))}
-      </nav>
+          {postGroupsData.map(({ title }, index) => (
+            <button
+              key={`${id}-control-${index}`}
+              type="button"
+              className={`hs-tab-active:bg-primary-600 hs-tab-active:text-white hs-tab-active:hover:text-white py-3 px-4 text-center basis-0 grow inline-flex justify-center items-center gap-x-2 text-sm font-medium text-gray-900 bg-primary-200 hover:text-primary-600 focus:outline-none focus:text-primary-600 rounded-lg disabled:opacity-50 disabled:pointer-events-none ${
+                index === 0 ? 'active' : ''
+              }`}
+              aria-selected={false}
+              role="tab"
+              id={`${id}-control-${index}`}
+              data-hs-tab={`#${id}-content-${index}`}
+              aria-controls={`${id}-content-${index}`}
+            >
+              {title}
+            </button>
+          ))}
+        </nav>
+      </div>
 
       <div className="mt-3">
-        <div
-          key={0}
-          id={`${id}-0`}
-          role="tabpanel"
-          aria-labelledby={`${id}-item-0`}
-        >
-          <DataComponent classNames="lg:grid-cols-3" posts={allPosts} />
-        </div>
-        {postGroups.map(({ posts }, index) => (
+        {postGroupsData.map(({ posts }, index) => (
           <div
-            key={index}
-            id={`${id}-${index + 1}`}
-            className='hidden'
+            key={`${id}-content-${index}`}
+            id={`${id}-content-${index}`}
+            className={index === 0 ? '' : 'hidden'}
             role="tabpanel"
-            aria-labelledby={`${id}-item-${index + 1}`}
+            aria-labelledby={`${id}-control-${index}`}
           >
             <DataComponent classNames="lg:grid-cols-3" posts={posts} />
           </div>
