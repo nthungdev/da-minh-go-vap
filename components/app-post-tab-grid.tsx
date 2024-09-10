@@ -80,7 +80,7 @@ export default function AppPostTabGrid(props: AppPostTabGridProps) {
           <div
             key={index}
             id={`${id}-${index + 1}`}
-            className={index === 0 ? '' : 'hidden'}
+            className='hidden'
             role="tabpanel"
             aria-labelledby={`${id}-item-${index + 1}`}
           >
