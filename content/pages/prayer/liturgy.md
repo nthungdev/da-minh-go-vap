@@ -1,5 +1,5 @@
 ---
-title: Loi Nguyen Toi
+title: Nguyện Kinh phụng vụ
 hiddenTags:
   - Giao phan Phu Cuong
 ---
