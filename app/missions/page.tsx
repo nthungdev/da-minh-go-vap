@@ -48,7 +48,8 @@ export default async function PageMissions() {
             ) : (
               <AppPostTabGrid
                 id={`grid-${index}`}
-                subCategories={section.categories!}
+                postGroups={section.categories!}
+                allPostsLimit={section.limit}
               />
             )}
             {index !== sectionData.length - 1 && <AppSeparator />}

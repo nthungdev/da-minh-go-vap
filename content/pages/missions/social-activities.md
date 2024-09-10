@@ -1,6 +1,6 @@
 ---
 title: Hoạt Động Bác Ái Xã Hội
-categories:
+postGroups:
   - title: Cơ Sở Bảo Trợ Hoa Hồng Củ Chi
     hiddenTags:
       - Giao phan Xuan Loc

@@ -1,19 +1,34 @@
 import AppPostGrid from './app-post-grid'
 
+const ALL_POSTS_CONTROL_LABEL = 'Tất cả'
+
 interface AppPostTabGridProps {
   /** id should be provided when there are multiple AppPostTabGrid components on the same page */
   id?: string
   classNames?: string
-  subCategories: {
+  postGroups: {
     title: string
     posts: PostParams[]
   }[]
+  allPostsLimit?: number
   component?: React.ElementType
 }
 
 export default function AppPostTabGrid(props: AppPostTabGridProps) {
-  const { id = 'post-tab-grid', subCategories, classNames, component } = props
+  const {
+    id = 'post-tab-grid',
+    postGroups,
+    classNames,
+    allPostsLimit,
+    component,
+  } = props
+
   const DataComponent = component ? component : AppPostGrid
+
+  const allPosts = postGroups
+    .reduce((acc, { posts }) => [...acc, ...posts], [] as PostParams[])
+    .toSorted((a, b) => b.date.getTime() - a.date.getTime())
+    .slice(0, allPostsLimit)
 
   return (
     <div className={`${classNames}`}>
@@ -23,14 +38,25 @@ export default function AppPostTabGrid(props: AppPostTabGridProps) {
         role="tablist"
         aria-orientation="horizontal"
       >
-        {subCategories.map(({ title }, index) => (
+        <button
+          key={-1}
+          type="button"
+          className={`hs-tab-active:bg-primary-600 hs-tab-active:text-white hs-tab-active:hover:text-white py-3 px-4 text-center basis-0 grow inline-flex justify-center items-center gap-x-2 text-sm font-medium text-gray-900 bg-primary-200 hover:text-primary-600 focus:outline-none focus:text-primary-600 rounded-lg disabled:opacity-50 disabled:pointer-events-none active`}
+          aria-selected={true}
+          role="tab"
+          id={`${id}-item-0`}
+          data-hs-tab={`#${id}-0`}
+          aria-controls={`${id}-0`}
+        >
+          {ALL_POSTS_CONTROL_LABEL}
+        </button>
+
+        {postGroups.map(({ title }, index) => (
           <button
             key={index}
             type="button"
-            className={`hs-tab-active:bg-primary-600 hs-tab-active:text-white hs-tab-active:hover:text-white py-3 px-4 text-center basis-0 grow inline-flex justify-center items-center gap-x-2 text-sm font-medium text-gray-900 bg-primary-200 hover:text-primary-600 focus:outline-none focus:text-primary-600 rounded-lg disabled:opacity-50 disabled:pointer-events-none ${
-              index === 0 ? 'active' : ''
-            }`}
-            aria-selected={index === 0}
+            className={`hs-tab-active:bg-primary-600 hs-tab-active:text-white hs-tab-active:hover:text-white py-3 px-4 text-center basis-0 grow inline-flex justify-center items-center gap-x-2 text-sm font-medium text-gray-900 bg-primary-200 hover:text-primary-600 focus:outline-none focus:text-primary-600 rounded-lg disabled:opacity-50 disabled:pointer-events-none`}
+            aria-selected={false}
             role="tab"
             id={`${id}-item-${index + 1}`}
             data-hs-tab={`#${id}-${index + 1}`}
@@ -42,11 +68,19 @@ export default function AppPostTabGrid(props: AppPostTabGridProps) {
       </nav>
 
       <div className="mt-3">
-        {subCategories.map(({ posts }, index) => (
+        <div
+          key={0}
+          id={`${id}-0`}
+          role="tabpanel"
+          aria-labelledby={`${id}-item-0`}
+        >
+          <DataComponent classNames="lg:grid-cols-3" posts={allPosts} />
+        </div>
+        {postGroups.map(({ posts }, index) => (
           <div
             key={index}
             id={`${id}-${index + 1}`}
-            className={index === 0 ? '' : 'hidden'}
+            className='hidden'
             role="tabpanel"
             aria-labelledby={`${id}-item-${index + 1}`}
           >

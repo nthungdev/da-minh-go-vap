@@ -1,10 +1,10 @@
 import { attributes } from '@/content/pages/missions/education.md'
-import AppCategoriesPage from '@/components/app-categories-page'
+import AppGroupedPostsPage from '@/components/app-grouped-posts-page'
 
 export default function PageMissionsEducation() {
-  const { title, categories } = attributes as PageMissionsEducation
+  const { title, postGroups } = attributes as PageMissionsEducation
 
   return (
-    <AppCategoriesPage categories={categories} title={title} />
+    <AppGroupedPostsPage categories={postGroups} title={title} />
   )
 }
