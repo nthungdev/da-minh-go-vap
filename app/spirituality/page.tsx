@@ -1,5 +1,5 @@
-import { attributes } from '@/content/pages/spirituality.md'
 import AppCategoriesPage from '@/components/app-categories-page'
+import { attributes } from '@/content/pages/spirituality/index.md'
 
 export default function Spirituality() {
   const { title, categories } = attributes as PageSpirituality

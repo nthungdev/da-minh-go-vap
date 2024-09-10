@@ -97,7 +97,7 @@ type PageHome = {
       reference: string
     }[]
   }
-  latestNews: {
+  latestPosts: {
     enable: boolean
     limit: number
   }

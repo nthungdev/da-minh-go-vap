@@ -1,5 +1,5 @@
 import AppPage from '@/components/app-page'
-import { attributes } from '@/content/pages/congregation.md'
+import { attributes } from '@/content/pages/congregation/index.md'
 import AppCategoriesPage from '@/components/app-categories-page'
 
 export default function History() {

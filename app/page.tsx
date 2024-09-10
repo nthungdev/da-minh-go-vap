@@ -5,13 +5,13 @@ import AppPostTabGrid from '@/components/app-post-tab-grid'
 import AppSeparator from '@/components/app-separator'
 import TheBibleVerse from '@/components/the-bible-verse'
 import TheLatestPosts from '@/components/the-latest-posts'
-import { attributes } from '@/content/pages/home.md'
+import { attributes } from '@/content/pages/home/index.md'
 
 export default async function Home() {
-  const { bibleVerses, latestNews, newsByCategories } = attributes as PageHome
+  const { bibleVerses, latestPosts: latestPostsSection, newsByCategories } = attributes as PageHome
 
-  const latestPosts: PostParams[] = latestNews.enable
-    ? await fetchAllPosts({ limit: latestNews.limit })
+  const latestPosts: PostParams[] = latestPostsSection.enable
+    ? await fetchAllPosts({ limit: latestPostsSection.limit })
     : []
 
   const postsByCategoriesData = []
@@ -37,7 +37,7 @@ export default async function Home() {
 
       <AppPage className="md:flex md:flex-row md:gap-x-8 max-w-screen-xl">
         <div className="space-y-8 flex-1">
-          {latestNews.enable && (
+          {latestPostsSection.enable && (
             <section>
               <h2 className="sr-only">Tin mới</h2>
               <TheLatestPosts posts={latestPosts} />

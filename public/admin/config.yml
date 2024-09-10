@@ -28,7 +28,7 @@ collections:
     files:
       - name: home
         label: 'Trang chủ'
-        file: 'content/pages/home.md'
+        file: 'content/pages/home/index.md'
         fields:
           - name: 'bibleVerses'
             label: 'Câu lời Chúa'
@@ -48,7 +48,7 @@ collections:
                   - name: 'reference'
                     label: 'Trích'
                     widget: 'string'
-          - name: 'latestNews'
+          - name: 'latestPosts'
             label: 'Tin tức mới nhất'
             widget: 'object'
             fields:
@@ -124,7 +124,7 @@ collections:
 
       - name: congregation
         label: 'Hội dòng'
-        file: 'content/pages/congregation.md'
+        file: 'content/pages/congregation/index.md'
         fields:
           - name: 'title'
             label: 'Tiêu đề'
@@ -448,7 +448,7 @@ collections:
 
       - name: spirituality
         label: 'Linh đạo'
-        file: 'content/pages/spirituality.md'
+        file: 'content/pages/spirituality/index.md'
         fields:
           - {
               name: 'categories',
@@ -776,23 +776,8 @@ collections:
                 multiple: true
                 value_field: title
                 search_fields: [title]
-      - name: prayerMorning
-        label: 'Cầu nguyện / Sáng'
-        file: 'content/pages/prayer/morning.md'
-        fields:
-          - name: 'title'
-            label: 'Tiêu đề'
-            widget: 'string'
-          - name: 'hiddenTags'
-            label: 'Tag ẩn'
-            description: 'Các bài viết có các tag ẩn này sẽ hiển thị.'
-            widget: relation
-            collection: hiddenTags
-            multiple: true
-            value_field: title
-            search_fields: [title]
       - name: prayerMeditation
-        label: 'Cầu nguyện / Suy niệm lời chúa'
+        label: 'Cầu nguyện / Suy niệm'
         file: 'content/pages/prayer/meditation.md'
         fields:
           - name: 'title'
@@ -806,9 +791,24 @@ collections:
             multiple: true
             value_field: title
             search_fields: [title]
-      - name: prayerEvening
-        label: 'Cầu nguyện / Tối'
-        file: 'content/pages/prayer/evening.md'
+      - name: prayerIntention
+        label: 'Cầu nguyện / Ý nguyện'
+        file: 'content/pages/prayer/intention.md'
+        fields:
+          - name: 'title'
+            label: 'Tiêu đề'
+            widget: 'string'
+          - name: 'hiddenTags'
+            label: 'Tag ẩn'
+            description: 'Các bài viết có các tag ẩn này sẽ hiển thị.'
+            widget: relation
+            collection: hiddenTags
+            multiple: true
+            value_field: title
+            search_fields: [title]
+      - name: prayerLiturgy
+        label: 'Cầu nguyện / Nguyện Kinh phụng vụ'
+        file: 'content/pages/prayer/liturgy.md'
         fields:
           - name: 'title'
             label: 'Tiêu đề'
@@ -901,9 +901,9 @@ collections:
                 multiple: true
                 value_field: title
                 search_fields: [title]
-      - name: vocationMystery
-        label: 'Ơn gọi / Huyền nhiệm'
-        file: 'content/pages/vocation/mystery.md'
+      - name: vocationStories
+        label: 'Ơn gọi / Chuyện giờ mới kể'
+        file: 'content/pages/vocation/stories.md'
         fields:
           - name: 'title'
             label: 'Tiêu đề'
@@ -953,21 +953,6 @@ collections:
       - name: newsChurch
         label: 'Bản tin / Giáo hội'
         file: 'content/pages/news/church.md'
-        fields:
-          - name: 'title'
-            label: 'Tiêu đề'
-            widget: 'string'
-          - name: 'hiddenTags'
-            label: 'Tag ẩn'
-            description: 'Các bài viết có các tag ẩn này sẽ hiển thị.'
-            widget: relation
-            collection: hiddenTags
-            multiple: true
-            value_field: title
-            search_fields: [title]
-      - name: newsVietnamChurch
-        label: 'Bản tin / Giáo hội Việt Nam'
-        file: 'content/pages/news/vietnam-church.md'
         fields:
           - name: 'title'
             label: 'Tiêu đề'
@@ -1047,7 +1032,7 @@ collections:
 
       - name: contact
         label: 'Liên hệ'
-        file: 'content/pages/contact.md'
+        file: 'content/pages/contact/index.md'
         fields:
           - name: 'title'
             label: 'Tiêu đề'
