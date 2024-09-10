@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import { useEffect, useState } from 'react'
+import AppCarousel from './app-carousel'
 
 interface AppBannersProps {
   banners: {
@@ -12,41 +12,37 @@ interface AppBannersProps {
 
 export default function AppBanners(props: AppBannersProps) {
   const { banners } = props
-  const [bannerIndex, setBannerIndex] = useState(0)
 
-  const banner = (banners || [])[bannerIndex]
-  const isVideo = banner?.url?.includes('.mp4')
-  const bannerUrl = banner?.url || ''
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const nextIndex = (bannerIndex + 1) % banners.length
-      setBannerIndex(nextIndex)
-    }, 5000)
-
-    return () => clearInterval(interval)
-  }, [banners, bannerIndex])
+  const checkVideo = (url: string) => {
+    const videoExtensions = ['.mp4', '.webm', '.ogg']
+    return videoExtensions.some((ext) => url.includes(ext))
+  }
 
   return (
     <div className="aspect-[4]">
-      {isVideo ? (
-        <video
-          className="w-full h-full object-cover"
-          src={bannerUrl}
-          autoPlay
-          loop
-          muted
-        />
-      ) : (
-        <Image
-          className="w-full h-full object-cover"
-          src={bannerUrl}
-          alt={banner?.alt || ''}
-          sizes="100%"
-          width={256}
-          height={144}
-        />
-      )}
+      <AppCarousel>
+        {banners.map((banner, index) => (
+          <div key={index} className="w-full h-full">
+            {checkVideo(banner.url) ? (
+              <video
+                className="w-full h-full object-cover"
+                src={banner.url}
+                autoPlay
+                loop
+                muted
+              />
+            ) : (
+              <Image
+                className="w-full h-full object-cover"
+                src={banner.url}
+                alt={banner.alt || ''}
+                sizes="100%"
+                fill
+              />
+            )}
+          </div>
+        ))}
+      </AppCarousel>
     </div>
   )
 }
