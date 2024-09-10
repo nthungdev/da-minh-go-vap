@@ -42,31 +42,25 @@ export default function AppPostTabGrid(props: AppPostTabGridProps) {
     ...postGroups,
   ]
 
-  console.log({
-    postGroupsData,
-    // allPosts,
-    allPostsCount: allPosts.length,
-    allPostsLimit,
-  })
-
   const handleSelectChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const selectedGroup = postGroupsData.find(
       (group) => group.title === event.target.value
     )
 
     if (selectedGroup) {
-      const tab = document.querySelector<HTMLButtonElement>(
-        `#${id}-item-${postGroupsData.indexOf(selectedGroup)}`
+      const controls = document.querySelectorAll<HTMLButtonElement>(
+        `#${id} nav button`
       )
+      const control = controls[postGroupsData.indexOf(selectedGroup)]
 
-      if (tab) {
-        tab.click()
+      if (control) {
+        control.click()
       }
     }
   }
 
   return (
-    <div className={`${classNames}`}>
+    <div className={`${classNames}`} id={id}>
       <div>
         <AppSelectBasic
           className="lg:hidden"
