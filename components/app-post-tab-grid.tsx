@@ -6,7 +6,7 @@ interface AppPostTabGridProps {
   /** id should be provided when there are multiple AppPostTabGrid components on the same page */
   id?: string
   classNames?: string
-  subCategories: {
+  postGroups: {
     title: string
     posts: PostParams[]
   }[]
@@ -17,7 +17,7 @@ interface AppPostTabGridProps {
 export default function AppPostTabGrid(props: AppPostTabGridProps) {
   const {
     id = 'post-tab-grid',
-    subCategories,
+    postGroups,
     classNames,
     allPostsLimit,
     component,
@@ -25,7 +25,7 @@ export default function AppPostTabGrid(props: AppPostTabGridProps) {
 
   const DataComponent = component ? component : AppPostGrid
 
-  const allPosts = subCategories
+  const allPosts = postGroups
     .reduce((acc, { posts }) => [...acc, ...posts], [] as PostParams[])
     .toSorted((a, b) => b.date.getTime() - a.date.getTime())
     .slice(0, allPostsLimit)
@@ -51,7 +51,7 @@ export default function AppPostTabGrid(props: AppPostTabGridProps) {
           {ALL_POSTS_CONTROL_LABEL}
         </button>
 
-        {subCategories.map(({ title }, index) => (
+        {postGroups.map(({ title }, index) => (
           <button
             key={index}
             type="button"
@@ -76,7 +76,7 @@ export default function AppPostTabGrid(props: AppPostTabGridProps) {
         >
           <DataComponent classNames="lg:grid-cols-3" posts={allPosts} />
         </div>
-        {subCategories.map(({ posts }, index) => (
+        {postGroups.map(({ posts }, index) => (
           <div
             key={index}
             id={`${id}-${index + 1}`}

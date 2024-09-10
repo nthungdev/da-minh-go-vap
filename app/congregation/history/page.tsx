@@ -31,7 +31,7 @@ export default async function CongregationHistory() {
         <h2 className="text-2xl">{communityHistory.title}</h2>
         <AppPostTabGrid
           allPostsLimit={communityHistory.limit}
-          subCategories={postGroupsData}
+          postGroups={postGroupsData}
         />
       </section>
     </AppPage>
