@@ -181,7 +181,8 @@ type PageCongregationHistory = {
   }
   communityHistory: {
     title: string
-    subCategories: {
+    limit: number
+    postGroups: {
       title: string
       hiddenTags: string[]
     }[]

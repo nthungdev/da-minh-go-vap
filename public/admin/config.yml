@@ -73,7 +73,7 @@ collections:
                   hint: 'Số lượng bài viết để hiển thị cho mỗi chuyên mục',
                   value_type: 'int',
                   widget: 'number',
-                  default: 5,
+                  default: 4,
                   min: 1,
                   max: 100,
                   step: 1,
@@ -385,8 +385,19 @@ collections:
                 label: 'Tiêu đề'
                 widget: 'string'
               - {
-                  name: 'subCategories',
-                  label: 'Chuyên mục con',
+                  name: 'limit',
+                  label: 'Số lượng bài viết',
+                  hint: 'Số lượng bài viết để hiển thị cho mỗi mục',
+                  value_type: 'int',
+                  widget: 'number',
+                  default: 4,
+                  min: 1,
+                  max: 100,
+                  step: 1,
+                }
+              - {
+                  name: 'postGroups',
+                  label: 'Mục',
                   widget: 'list',
                   allow_add: true,
                   min: 2,

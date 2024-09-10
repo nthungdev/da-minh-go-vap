@@ -56,6 +56,7 @@ export default async function Home() {
                     <AppPostTabGrid
                       id={`home-posts-group-${index + 1}`}
                       subCategories={newsCategory.subCategories}
+                      allPostsLimit={newsByCategories.limit}
                     />
                     {index !== postsByCategoriesData.length - 1 && (
                       <AppSeparator />
