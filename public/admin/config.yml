@@ -28,7 +28,7 @@ collections:
     files:
       - name: home
         label: 'Trang chủ'
-        file: 'content/pages/home.md'
+        file: 'content/pages/home/index.md'
         fields:
           - name: 'bibleVerses'
             label: 'Câu lời Chúa'
@@ -48,7 +48,7 @@ collections:
                   - name: 'reference'
                     label: 'Trích'
                     widget: 'string'
-          - name: 'latestNews'
+          - name: 'latestPosts'
             label: 'Tin tức mới nhất'
             widget: 'object'
             fields:
@@ -124,7 +124,7 @@ collections:
 
       - name: congregation
         label: 'Hội dòng'
-        file: 'content/pages/congregation.md'
+        file: 'content/pages/congregation/index.md'
         fields:
           - name: 'title'
             label: 'Tiêu đề'
@@ -448,7 +448,7 @@ collections:
 
       - name: spirituality
         label: 'Linh đạo'
-        file: 'content/pages/spirituality.md'
+        file: 'content/pages/spirituality/index.md'
         fields:
           - {
               name: 'categories',
@@ -1032,7 +1032,7 @@ collections:
 
       - name: contact
         label: 'Liên hệ'
-        file: 'content/pages/contact.md'
+        file: 'content/pages/contact/index.md'
         fields:
           - name: 'title'
             label: 'Tiêu đề'
