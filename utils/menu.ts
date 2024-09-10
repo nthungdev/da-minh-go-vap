@@ -36,27 +36,26 @@ const menu = [
     href: '/prayer',
     name: 'Cầu nguyện',
     children: [
-      { href: '/morning', name: 'Cầu nguyện sáng' },
-      { href: '/meditation', name: 'Suy niệm lời chúa' },
-      { href: '/evening', name: 'Cầu nguyện tối' },
+      { href: '/meditation', name: 'Suy niệm' },
+      { href: '/intention', name: 'Ý nguyện' },
+      { href: '/liturgy', name: 'Nguyện Kinh phụng vụ' },
     ],
   },
   {
     href: '/vocation',
     name: 'Ơn gọi',
     children: [
-      { href: '/introduction', name: 'Giới thiệu ơn gọi' },
-      { href: '/mystery', name: 'Huyền nhiệm ơn gọi' },
+      { href: '/introduction', name: 'Giới thiệu' },
+      { href: '/stories', name: 'Chuyện giờ mới kể' },
     ],
   },
   {
     href: '/news',
     name: 'Bản tin',
     children: [
-      { href: '/congregation', name: 'Bản tin Hội dòng' },
-      { href: '/dominican-family', name: 'Bản tin Gia đình Đa Minh' },
-      { href: '/vietnam-church', name: 'Bản tin Giáo Hội Việt Nam' },
       { href: '/church', name: 'Bản tin Giáo Hội' },
+      { href: '/dominican-family', name: 'Bản tin Gia đình Đa Minh' },
+      { href: '/congregation', name: 'Bản tin Hội dòng' },
     ],
   },
   {

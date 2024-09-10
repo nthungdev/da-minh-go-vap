@@ -78,9 +78,9 @@ type PostsPage = {
   hiddenTags: string[]
 }
 
-type CategoriesPage = {
+type GroupedPostsPage = {
   title: string
-  categories: {
+  postGroups: {
     title: string
     hiddenTags: string[]
   }[]
@@ -97,7 +97,7 @@ type PageHome = {
       reference: string
     }[]
   }
-  latestNews: {
+  latestPosts: {
     enable: boolean
     limit: number
   }
@@ -181,7 +181,8 @@ type PageCongregationHistory = {
   }
   communityHistory: {
     title: string
-    subCategories: {
+    limit: number
+    postGroups: {
       title: string
       hiddenTags: string[]
     }[]
@@ -192,7 +193,7 @@ type PageCongregationEstablishment = PostsPage
 
 type PageCongregationAuthorities = PostsPage
 
-type PageSpirituality = CategoriesPage
+type PageSpirituality = GroupedPostsPage
 
 type PageSpiritualityCharism = {
   title: string
@@ -225,8 +226,8 @@ type PageMissions = {
 }
 type PageMissionsEvangelization = PostsPage
 type PageMissionsPastoralCare = PostsPage
-type PageMissionsSocialActivities = CategoriesPage
-type PageMissionsEducation = CategoriesPage
+type PageMissionsSocialActivities = GroupedPostsPage
+type PageMissionsEducation = GroupedPostsPage
 
 type PagePrayer = {
   title: string

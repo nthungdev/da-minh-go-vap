@@ -1,5 +1,5 @@
-import { fetchPostsByHiddenTags } from "@/actions/post";
-import AppAccordion, { AppAccordionDefault } from "@/components/app-accordion";
+import { fetchPostsByHiddenTags } from '@/actions/post'
+import { AppAccordionDefault } from '@/components/app-accordion'
 import AppMarkdown from '@/components/app-markdown'
 import AppPage from '@/components/app-page'
 import AppPostTabGrid from '@/components/app-post-tab-grid'
@@ -9,11 +9,13 @@ export default async function CongregationHistory() {
   const { developmentHistory, communityHistory } =
     attributes as PageCongregationHistory
 
-  const categoriesData = []
-  for (const category of communityHistory.subCategories) {
-    categoriesData.push({
+  const postGroupsData = []
+  for (const category of communityHistory.postGroups) {
+    postGroupsData.push({
       title: category.title,
-      posts: await fetchPostsByHiddenTags(category.hiddenTags),
+      posts: await fetchPostsByHiddenTags(category.hiddenTags, {
+        limit: communityHistory.limit,
+      }),
     })
   }
 
@@ -27,7 +29,10 @@ export default async function CongregationHistory() {
 
       <section className="space-y-4">
         <h2 className="text-2xl">{communityHistory.title}</h2>
-        <AppPostTabGrid subCategories={categoriesData} />
+        <AppPostTabGrid
+          allPostsLimit={communityHistory.limit}
+          postGroups={postGroupsData}
+        />
       </section>
     </AppPage>
   )

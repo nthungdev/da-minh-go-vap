@@ -3,7 +3,7 @@ import AppPostGrid from './app-post-grid'
 import AppSeparator from './app-separator'
 import { fetchPostsByHiddenTags } from '@/actions/post'
 
-interface AppCategoriesPageProps {
+interface AppGroupedPostsPageProps {
   title: string
   categories: {
     title: string
@@ -11,10 +11,10 @@ interface AppCategoriesPageProps {
   }[]
 }
 
-export default async function AppCategoriesPage({
+export default async function AppGroupedPostsPage({
   title,
   categories,
-}: AppCategoriesPageProps) {
+}: AppGroupedPostsPageProps) {
   const categoriesData = []
   for (const category of categories) {
     const { title, hiddenTags } = category

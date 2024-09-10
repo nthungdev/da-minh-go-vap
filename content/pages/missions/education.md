@@ -1,6 +1,6 @@
 ---
 title: Giáo dục
-categories:
+postGroups:
   - title: Trường Mẫu Giáo Tư Thục Mỹ Sơn
     hiddenTags:
       - Các đấng bản quyền

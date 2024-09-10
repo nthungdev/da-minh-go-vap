@@ -1,5 +1,5 @@
 ---
-title: Loi Nguyen Sang
+title: Ý nguyện
 hiddenTags:
   - Hiểu Để Yêu
 ---

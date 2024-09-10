@@ -13,7 +13,7 @@ bibleVerses:
         understanding. In all your ways acknowledge him, and he will make
         straight your paths.
       reference: Proverbs 3:5-6
-latestNews:
+latestPosts:
   enable: true
   limit: 6
 newsByCategories:

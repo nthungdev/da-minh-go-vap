@@ -1,8 +1,8 @@
 import AppPage from '@/components/app-page'
-import { attributes } from '@/content/pages/contact.md'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Fragment } from 'react'
+import { attributes } from '@/content/pages/contact/index.md'
 
 export default function PageContact() {
   const { contacts, graphic, title, map } = attributes as PageContact

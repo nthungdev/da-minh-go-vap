@@ -1,5 +1,5 @@
 ---
-categories:
+postGroups:
   - title: Tinh Than Dong
     hiddenTags:
       - Các đấng bản quyền
