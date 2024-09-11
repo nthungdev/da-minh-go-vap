@@ -22,13 +22,13 @@ newsByCategories:
   categories:
     - title: Cầu nguyện
       subCategories:
-        - title: Mùa vọng & Giáng sinh
+        - title: Suy niệm
           hiddenTags:
-            - Các đấng bản quyền
-        - title: Mùa chay & Phục sinh
+            - kinh phung vu
+        - title: Y cầu nguyện
           hiddenTags:
             - Walking with Jesus
-        - title: Mùa thường niên
+        - title: Kinh phụng vụ
           hiddenTags:
             - Hiểu Để Yêu
     - title: Muc thu 2
