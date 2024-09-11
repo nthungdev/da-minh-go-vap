@@ -3,14 +3,14 @@ title: Hội Dòng
 subCategories:
   - title: Gioi thieu
     hiddenTags:
-      - Giao phan Da Lat
+      - Giới thiệu
   - title: Lich su
     hiddenTags:
-      - Giao phan Xuan Loc
+      - Lịch sử
   - title: Sac Lap Dong
     hiddenTags:
       - Hiểu Để Yêu
   - hiddenTags:
-      - Giao phan Phu Cuong
+      - Các đấng bản quyền
     title: Cac Dang Ban Quyen
 ---
