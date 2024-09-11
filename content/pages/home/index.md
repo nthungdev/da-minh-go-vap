@@ -48,15 +48,15 @@ newsByCategories:
         - title: Giáo Dục
           hiddenTags:
             - Chút men cho đời
-    - title: Muc thu 3
+    - title: CHUYÊN ĐỀ
       subCategories:
-        - title: Muc 3A
+        - title: Hiểu để yêu
           hiddenTags:
             - Giao phan Phu Cuong
-        - title: Muc 3B
+        - title: Bé và Lời
           hiddenTags:
             - Chút men cho đời
-        - title: Muc 3C
+        - title: Walking with Jesus
           hiddenTags:
             - Lịch sử
 ---
