@@ -17,7 +17,7 @@ latestPosts:
   enable: true
   limit: 6
 newsByCategories:
-  limit: 8
+  limit: 6
   enable: true
   categories:
     - title: Cầu nguyện
