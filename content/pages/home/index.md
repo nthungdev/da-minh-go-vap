@@ -31,17 +31,23 @@ newsByCategories:
         - title: Kinh phụng vụ
           hiddenTags:
             - Hiểu Để Yêu
-    - title: Muc thu 2
+    - title: SỨ VỤ
       subCategories:
-        - title: Muc 2A
+        - title: Truyền giáo
           hiddenTags:
             - Các đấng bản quyền
             - Hiểu Để Yêu
             - Giao phan Da Lat
-        - title: Muc 2B
+        - title: Mục vụ
           hiddenTags:
             - Walking with Jesus
             - Giao phan Da Lat
+        - title: Bác ái xã hội
+          hiddenTags:
+            - Walking with Jesus
+        - title: Giáo Dục
+          hiddenTags:
+            - Chút men cho đời
     - title: Muc thu 3
       subCategories:
         - title: Muc 3A
