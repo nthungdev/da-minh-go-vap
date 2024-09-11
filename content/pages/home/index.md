@@ -59,4 +59,26 @@ newsByCategories:
         - title: Walking with Jesus
           hiddenTags:
             - Lịch sử
+    - title: BẢN TIN
+      subCategories:
+        - title: Bản tin giáo Hội
+          hiddenTags:
+            - Giao phan Xuan Loc
+        - title: Tin dòng Đa Minh
+          hiddenTags:
+            - Giao phan Da Lat
+        - title: Tin Hội dòng
+          hiddenTags:
+            - Bé và lời
+    - title: HỘI DÒNG
+      subCategories:
+        - title: Tâm thư
+          hiddenTags:
+            - Lịch sử
+        - title: Chuyện giờ mới kể
+          hiddenTags:
+            - Giới thiệu
+        - title: Tâm tình
+          hiddenTags:
+            - Các đấng bản quyền
 ---
