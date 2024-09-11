@@ -61,7 +61,7 @@ aboutUs:
         thumbnail: https://i3.ytimg.com/vi/y0sF5xhGreA/maxresdefault.jpg
         youtubeUrl: https://www.youtube.com/watch?v=y0sF5xhGreA
   banner:
-    url: https://res.cloudinary.com/dxtb6rv7y/video/upload/v1725004896/home_2_xanh_mksydo.mp4
+    url: https://res.cloudinary.com/dxtb6rv7y/video/upload/v1726044945/GIOI_THIEU_k1grfw.mp4
     alt: Hình chúng tôi
 mission:
   title: SỨ MỆNH
@@ -126,7 +126,7 @@ mission:
         * công tác giáo dục: dấn thân trong việc giáo dục mầm non, các lớp dạy kèm bán trú, nội trú.
       body: Điền nội dung
   banner:
-    url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1724851376/B%E1%BA%A3n_sao_c%E1%BB%A7a_Web_Banner_mdzti1.jpg
+    url: https://res.cloudinary.com/dxtb6rv7y/video/upload/v1726045244/TRUYEN_GIAO_BANER_klm7uf.mp4
     alt: Banner sứ mệnh
 whereabouts:
   title: CHÚNG TÔI HIỆN DIỆN Ở TRONG NƯỚC VÀ CẢ NGOẠI QUỐC
@@ -140,6 +140,6 @@ whereabouts:
   body: Chúng tôi hiện đang phục vụ tại 22 cộng đoàn trong đó 19 cộng đoàn thuộc 7
     giáo phận Việt Nam, 2 cộng đoàn ở Mỹ và 1 cộng đoàn tại Úc.
   banner:
-    url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1724944288/noi_hien_dien_nehjhr.svg
+    url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726045379/2_hjoqk6.svg
     alt: Banner nơi hiện diện
 ---
