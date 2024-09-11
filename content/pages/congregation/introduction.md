@@ -21,8 +21,36 @@ aboutUs:
 
 
         Sống linh đạo Đa Minh: NÓI VỚI CHÚA – NÓI VỀ CHÚA Hoặc “CHIÊM NIỆM VÀ TRUYỀN THÔNG”, Chia sẻ cho tha nhân những gì mình đã chiêm niệm
-      body: "Danh Xưng: Hội dòng nữ Đa Minh Gò Vấp (the congregation of Dominican
-        Sisters of Go Vap of Our Lady of the Rosary)"
+      body: >-
+        Danh Xưng: Hội dòng nữ Đa Minh Gò Vấp (the congregation of Dominican
+        Sisters of Go Vap of Our Lady of the Rosary)
+
+
+        MỤC ĐÍCH
+
+
+        Qua việc sống ba lời khuyên Phúc Âm: khiết tịnh, khó nghèo và vâng phục, chị em biểu lộ ước muốn minh nhiên được hiến dâng trọn vẹn, được theo sát Đức Kitô và trở nên đồng hình đồng dạng với Người. Nhờ đó, chị em hướng đến mục đích của đời thánh hiến là đạt tới đức ái hoàn hảo bằng việc tôn vinh Thiên Chúa, xây dựng Hội Thánh và mưu cầu phần rỗi các linh hồn.
+
+
+        ĐẶC TÍNH
+
+
+        Chị em Đa Minh Gò Vấp luôn mang trong mình những yếu tố làm nên đặc tính người nữ tu Đa Minh: đời sống Cộng đoàn, trung thành tuân giữ các lời khấn, sốt sắng cử hành phụng vụ cộng đoàn, chuyên chăm học hành và thi hành sứ vụ.
+
+
+        Trong đó đời sống cộng đoàn là nền tảng của đời tu Đa Minh
+
+
+        ĐẶC SỦNG
+
+
+        Sống tinh thần đoàn sủng Đa Minh “Chia sẻ cho tha nhân những gì mình đã chiêm niệm”, chị em Đa Minh Gò Vấp đón nhận đặc sủng: CÙNG MẸ MARIA MÂN CÔI, LOAN BÁO TIN MỪNG ĐỨC KITÔ VỚI LÒNG TRẮC ẨN.
+
+
+        SÚ VỤ
+
+
+        Chị em hội nhập nếp sống văn hóa truyền thống địa phương và thi hành sứ vụ truyền giáo qua các hoạt động phù hợp với thời đại: giáo dục đức tin và văn hóa, mục vụ giáo xứ và bác ái xã hội.
     - title: Chương trình đào tạo
       content: >-
         Đào tạo nữ tu đa minh trở nên môn đệ đích thực của Đức Kito xoay quanh 4
@@ -39,8 +67,45 @@ aboutUs:
 
 
         đào tạo qua các giai đoạn: Thỉnh sinh, tiền tập sinh, tập sinh và Học viện
-      body: Điền nội dung Chương trình đào tạo
-    - title: Chúng tôi đã làm gì
+      body: >-
+        Điền nội dung Chương trình đào tạo
+
+
+        1. Giai đoạn Thỉnh viện
+
+
+        \- Giúp ứng sinh trưởng thành nhân bản và đức tin, tìm hiểu đời sống tu trì và đặc sủng của Hội dòng
+
+
+        \- Giúp Hội dòng nhận định khả năng sống đời Đa Minh của ứng sinh
+
+
+        2. Giai đoạn Tiền tập viện
+
+
+        \- trưởng thành hơn đười sống nhân bản Kitô giáo
+
+
+        \- thăng tiến hơn đời sống thiêng liêng
+
+
+        \- Thích nghi đời sống tu trì và sứ vụ của Dòng
+
+
+        \- Thẩm định ơn gọi tu trì và khả năng thích nghi của ứng sinh
+
+
+        3 giai đoạn Tập viện
+
+
+        \- Giúp Tập sinh nhận ra ơn gọi của mình, sống những đòi hỏi thiết yếu của đời tu nếp sống Đa Minh và thấm nhuần tình thần của Hội dòng
+
+
+        \- Giúp Hội dòng kiểm chứng ơn gọi và khả năng thích đáng của Tập sinh
+
+
+        4.Học viện
+    - title: Truyền thống
       content: >-
         * công việc mực vụ: dạy giáo lý, huấn luyện giáo lý viên, phụ trách các
         hội đoàn trong giáo xứ
@@ -50,7 +115,15 @@ aboutUs:
         * công tác xã hội: mở các lớp tình thường, xây nhà cho người nghèo, chăm sóc trẻ khuyết tật, mái ấm tình thương cho các trẻ em mồ côi
 
         * công tác giáo dục: dấn thân trong việc giáo dục mầm non, các lớp dạy kèm bán trú, nội trú
-      body: Điền nội dung Chúng tôi đã làm gì
+      body: |-
+        Truyền thống chị em Đa Minh Gò Vấp
+
+        1. Là một cộng đoàn thừa sai, sẵn sàng ra đi để phục vụ
+        2. Lối sống nghèo, nhiệm nhặt và gần gũi chia sẻ thân tình.
+        3. Tấm lòng hiếu kính, vâng lời và chân thành cộng tác
+        4. Đức tính chuyên cần, xả thân và trung kiên trong thử thách, bách hại
+        5. Tinh thần hiếu học, khiêm tốn vươn lên và không ngừng đổi mới
+        6. Trọn niềm phó thác cậy trông và đầy lòng tin tưởng
   videos:
     title: Video giới thiệu
     videos:
