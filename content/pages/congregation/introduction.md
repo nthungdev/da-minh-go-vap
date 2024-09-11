@@ -102,7 +102,7 @@ aboutUs:
 
 
         # 4.Học viện
-    - title: Truyền thống
+    - title: Truyền thống chị em Đa Minh Gò Vấp
       content: >-
         * công việc mực vụ: dạy giáo lý, huấn luyện giáo lý viên, phụ trách các
         hội đoàn trong giáo xứ
