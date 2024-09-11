@@ -202,11 +202,146 @@ whereabouts:
   title: CHÚNG TÔI HIỆN DIỆN Ở TRONG NƯỚC VÀ CẢ NGOẠI QUỐC
   countries:
     - name: Việt Nam
-      body: Điền nội dung
+      body: >-
+        Tại Việt Nam có 22 cộng đoàn trải dài từ bắc vào nam. Trong đó 
+
+
+        ### Có 4 cộng đoàn ở Miền Bắc và 18 cộng đoàn ở Miền Nam.
+
+
+        # MIỀN BẮC
+
+
+        ## I. LẠNG SƠN, 
+
+
+        ### thuộc giáo phận Lạng Sơn- Cao Bằng. Có:
+
+
+        1.	Tu Xá Đa Minh Thất Khê
+
+
+        2.	Tu Xá Đa Minh Cửa Nam
+
+
+        3.	Tu Xá Đa Minh Đồng Đăng
+
+
+        ## II. CAO BẰNG 
+
+
+        ## thuộc giáo phận Lạng Sơn có
+
+
+        4. Tu Xá Đa Minh Bó Tờ
+
+
+
+
+        # MIỀN NAM
+
+
+        ## III. LÂM ĐỒNG 
+
+
+        TU VIỆN ĐA MINH TÙNG NGHĨA
+
+
+        Tu Xá Đa Minh K’nai
+
+
+        Tu Xá Đa Minh Gia Pá
+
+
+        Cộng đoàn Đa Minh Đăng Srỗn
+
+
+        ## BÌNH THUẬN thuộc giáo phận Phú Cường. có
+
+
+        Cộng Đoàn Đa Minh Tân Lý – Lagi 
+
+
+        ##  ĐỒNG NAI thuộc giáo phận Xuân Lộc. Có 2 cộng đoàn:
+
+
+        Tu Xá Đa Minh Ngọc Lâm
+
+
+        Tu Xá Đa Minh Tam Bung
+
+
+        ## TP HỒ CHÍ MINH 
+
+
+        ## thuộc Tổng giáo phận Sài Gòn, NƠI HỘI DÒNG ĐA MINH GÒ VẤP ĐẶT TRỤ SỞ CHÍNH TẠI: 1053/4 Lê Đức Thọ, Tổ 82, Khu phố 11, P.16, Q. Gò Vấp, ĐƯỢC THÀNH LẬP 7/1955, VÀ Ngày 8-12-1978, được Đức Tổng giám mục Phaolô Nguyễn Văn Bình phê chuẩn là Hội dòng nữ Đa Minh thánh hiệu Đức Mẹ Mân Côi.
+
+         thuộc tổng giáo phận TP. HCM.còn có các CỘNG ĐOÀN như
+
+
+
+        Trụ Sở Hội Dòng
+
+
+        Tu Xá Đa Minh Mẹ Thiên Chúa
+
+
+        Tu Xá Đa Minh Dũng Lạc
+
+
+        Tu Xá Đa Minh Mỹ Sơn
+
+
+        Tu Xá Đa Minh Củ Chi
+
+
+        TẠI GIÁO PHẬN LONG XUYÊN, CHỊ EM HIỆN DIỆN TẠI BA TỈNH THÀNH KHÁC NHAU VỚI NĂM CỘNG ĐOÀN:
+
+
+        ## TỈNH KIÊN GIANG
+
+
+        Tu Xá Đa Minh Phú Quốc
+
+
+        Tu Xá Đa Minh Kênh 3a
+
+
+        Tu Xá Đa Minh Kênh Zêrô
+
+
+        ## TỈNH AN GIANG
+
+
+        Tu Xá Đa Minh Cái Dầu
+
+
+        ## TỈNH CẦN THƠ
+
+
+        TU XÁ ĐA MINH KÊNH Đ1
     - name: Mỹ
-      body: Điền nội dung
+      body: |-
+        HOA KỲ có
+
+        Tu Xá  Đa Minh Oklahoma City
+
+        +	Hiện diện: 09/01/1999  -  Thành lập: 20/9/2001
+
+        +	ĐC: 3004 SW 55th Street, Oklahoma City, OK.73119
+
+        Đa Minh Holy Rosary Houston 
+
+        + Địa chỉ: số 14639, Bellaire Blvd, Houston, TX 77083
     - name: Úc
-      body: Điền nội dung
+      body: |-
+        TẠI ÚC:
+
+        Cộng Đoàn Đa Minh Chúa Chiên Lành 
+
+        +	Hiện diện: 15/11/2008
+
+        +	ĐC: 39 Parakeelya Road Banksia Grove WA 6031, Australia
   body: Chúng tôi hiện đang phục vụ tại 22 cộng đoàn trong đó 19 cộng đoàn thuộc 7
     giáo phận Việt Nam, 2 cộng đoàn ở Mỹ và 1 cộng đoàn tại Úc.
   banner:
