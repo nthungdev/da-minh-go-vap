@@ -26,28 +26,25 @@ aboutUs:
         Sisters of Go Vap of Our Lady of the Rosary)
 
 
-        # **MỤC ĐÍCH**
+        ### **MỤC ĐÍCH**
 
 
-        Qua việc sống ba lời khuyên Phúc Âm: khiết tịnh, khó nghèo và vâng phục, chị em biểu lộ ước muốn minh nhiên được hiến dâng trọn vẹn, được theo sát Đức Kitô và trở nên đồng hình đồng dạng với Người. Nhờ đó, chị em hướng đến mục đích của đời thánh hiến là đạt tới đức ái hoàn hảo bằng việc tôn vinh Thiên Chúa, xây dựng Hội Thánh và mưu cầu phần rỗi các linh hồn.
+        Qua việc sống ba lời khuyên Phúc Âm: khiết tịnh, khó nghèo và vâng phục. Chị em hướng đến mục đích của đời thánh hiến là đạt tới đức ái hoàn hảo bằng việc tôn vinh Thiên Chúa, xây dựng Hội Thánh và mưu cầu phần rỗi các linh hồn.
 
 
-        # ĐẶC TÍNH
+        ### ĐẶC TÍNH
 
 
         Chị em Đa Minh Gò Vấp luôn mang trong mình những yếu tố làm nên đặc tính người nữ tu Đa Minh: đời sống Cộng đoàn, trung thành tuân giữ các lời khấn, sốt sắng cử hành phụng vụ cộng đoàn, chuyên chăm học hành và thi hành sứ vụ.
 
 
-        Trong đó đời sống cộng đoàn là nền tảng của đời tu Đa Minh
-
-
-        # ĐẶC SỦNG
+        ### ĐẶC SỦNG
 
 
         Sống tinh thần đoàn sủng Đa Minh “Chia sẻ cho tha nhân những gì mình đã chiêm niệm”, chị em Đa Minh Gò Vấp đón nhận đặc sủng: CÙNG MẸ MARIA MÂN CÔI, LOAN BÁO TIN MỪNG ĐỨC KITÔ VỚI LÒNG TRẮC ẨN.
 
 
-        # SÚ VỤ
+        ### SÚ VỤ
 
 
         Chị em hội nhập nếp sống văn hóa truyền thống địa phương và thi hành sứ vụ truyền giáo qua các hoạt động phù hợp với thời đại: giáo dục đức tin và văn hóa, mục vụ giáo xứ và bác ái xã hội.
@@ -68,40 +65,52 @@ aboutUs:
 
         đào tạo qua các giai đoạn: Thỉnh sinh, tiền tập sinh, tập sinh và Học viện
       body: >-
-        # 1. Giai đoạn Thỉnh viện
+        ### 1. Giai đoạn Thỉnh viện
 
 
-        \- Giúp ứng sinh trưởng thành nhân bản và đức tin, tìm hiểu đời sống tu trì và đặc sủng của Hội dòng
+        * Giúp ứng sinh trưởng thành nhân bản và đức tin, tìm hiểu đời sống tu trì và đặc sủng của Hội dòng
+
+        * Giúp Hội dòng nhận định khả năng sống đời Đa Minh của ứng sinh
 
 
-        \- Giúp Hội dòng nhận định khả năng sống đời Đa Minh của ứng sinh
+        ### 2. Giai đoạn Tiền tập viện
 
 
-        # 2. Giai đoạn Tiền tập viện
+        * Trưởng thành hơn đười sống nhân bản Kitô giáo
+
+        * Thăng tiến hơn đời sống thiêng liêng
+
+        * Thích nghi đời sống tu trì và sứ vụ của Dòng
+
+        * Thẩm định ơn gọi tu trì và khả năng thích nghi của ứng sinh
 
 
-        #### \- trưởng thành hơn đười sống nhân bản Kitô giáo
+        ### 3 giai đoạn Tập viện
 
 
-        #### \- thăng tiến hơn đời sống thiêng liêng
+        * Giúp Tập sinh nhận ra ơn gọi của mình, sống những đòi hỏi thiết yếu của đời tu nếp sống Đa Minh và thấm nhuần tình thần của Hội dòng
+
+        * Giúp Hội dòng kiểm chứng ơn gọi và khả năng thích đáng của Tập sinh
 
 
-        #### \- Thích nghi đời sống tu trì và sứ vụ của Dòng
+        ### 4.Học viện
 
 
-        #### \- Thẩm định ơn gọi tu trì và khả năng thích nghi của ứng sinh
+        * Tiếp tục phát triển đời sống tâm linh và rèn luyện nhân bản.
+
+        * Trau dồi kiến thức thánh khoa, ơn gọi tu trì và nếp sống Đa Minh
+
+        * Thực tập mục vụ theo mục đích của Hội dòng
 
 
-        # 3 giai đoạn Tập viện
+        ### 5. Tiền vĩnh thệ
 
 
-        \- Giúp Tập sinh nhận ra ơn gọi của mình, sống những đòi hỏi thiết yếu của đời tu nếp sống Đa Minh và thấm nhuần tình thần của Hội dòng
+        * Bồi dưỡng tâm linh
 
+        * Nhận thức sâu xa về giá trị các lời khấn.
 
-        \- Giúp Hội dòng kiểm chứng ơn gọi và khả năng thích đáng của Tập sinh
-
-
-        # 4.Học viện
+        * Nhìn lại hành trình thánh hiến của mình để xác tín việc hiến thân trọn đời cho Chúa trong sứ vụ loan báo Tin Mừng.
     - title: Truyền thống chị em Đa Minh Gò Vấp
       content: >-
         * công việc mực vụ: dạy giáo lý, huấn luyện giáo lý viên, phụ trách các
@@ -125,11 +134,29 @@ aboutUs:
     title: Video giới thiệu
     videos:
       - youtubeUrl: https://www.youtube.com/watch?v=1Ne1hqOXKKI
-        title: Tieu de video 1
+        title: ĐÔI NÉT CHÍNH  VỀ HỘI DÒNG
         thumbnail: https://i3.ytimg.com/vi/1Ne1hqOXKKI/maxresdefault.jpg
-      - title: Tieu de video 2
+      - title: LỊCH SỬ HỘI DÒNG
         thumbnail: https://i3.ytimg.com/vi/y0sF5xhGreA/maxresdefault.jpg
         youtubeUrl: https://www.youtube.com/watch?v=y0sF5xhGreA
+      - title: NỚI CHỊ EM HIỆN DIỆN
+        thumbnail: https://res.cloudinary.com/dxtb6rv7y/video/upload/v1716522696/3209828-uhd_3840_2160_25fps_zpef8y.mp4
+        youtubeUrl: https://www.youtube.com/embed/RzXjv_Bcpdo?si=S0JbZ1n4jArMfrg6
+      - title: Ý NGHĨA LOGO HỘI DÒNG
+        thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1716425590/daily-240403162642_darxne.jpg
+        youtubeUrl: https://www.youtube.com/embed/RzXjv_Bcpdo?si=S0JbZ1n4jArMfrg6
+      - title: GIỚI THIỆU TU PHỤC HỘI DÒNG
+        thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726103558/258766072_122022223605036_1831071506490103411_n_kjgpok.jpg
+        youtubeUrl: https://www.youtube.com/embed/RzXjv_Bcpdo?si=S0JbZ1n4jArMfrg6
+      - title: Ý NGHĨA VÀ LỊCH SỬ TU PHỤC ĐA MINH
+        thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726103671/viber_image_2023-05-15_21-20-09-421_du7qxi.jpg
+        youtubeUrl: https://www.youtube.com/embed/RzXjv_Bcpdo?si=S0JbZ1n4jArMfrg6
+      - title: ĐA MINH GÒ VẤP CA
+        thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726103720/277171833_156357830171475_5074210975861142013_n_lfrcho.jpg
+        youtubeUrl: https://www.youtube.com/embed/RzXjv_Bcpdo?si=S0JbZ1n4jArMfrg6
+      - title: HUYỀN THOẠI LẠNG SƠN
+        youtubeUrl: https://www.youtube.com/embed/JWXVwh6y3Z0?si=1y2-07yPyTmRcbFv
+        thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726106443/344342926_248779361055198_6927810168029653246_n_lu5mxv.jpg
   banner:
     url: https://res.cloudinary.com/dxtb6rv7y/video/upload/v1726044945/GIOI_THIEU_k1grfw.mp4
     alt: Hình chúng tôi
@@ -146,14 +173,14 @@ mission:
     videos:
       - youtubeUrl: https://www.youtube.com/watch?v=ZgLs4fDr8aI
         thumbnail: https://i3.ytimg.com/vi/ZgLs4fDr8aI/maxresdefault.jpg
-        title: Video 1
+        title: Mái ấm cho trẻ mồ côi
       - youtubeUrl: https://www.youtube.com/watch?v=U-C0I-Ks14M
-        title: Video 2
+        title: Chăn sóc người khuyết tật
         thumbnail: https://i3.ytimg.com/vi/U-C0I-Ks14M/maxresdefault.jpg
-      - title: Video 3
+      - title: Đến với anh em nghèo
         youtubeUrl: https://www.youtube.com/watch?v=x8YM6rln_zI
         thumbnail: https://i3.ytimg.com/vi/x8YM6rln_zI/maxresdefault.jpg
-      - title: Video 4
+      - title: Giáo dục
         youtubeUrl: https://www.youtube.com/watch?v=xEz2ITDCH4M
         thumbnail: https://i3.ytimg.com/vi/xEz2ITDCH4M/maxresdefault.jpg
   tabs:
@@ -166,9 +193,9 @@ mission:
         * Mục đích: làm vinh danh Chúa, thánh hóa bản thân và dâng hiến hoàn toàn cho việc loan báo tin mừng bằng cách thực thi ba lời khấn, khiết tịnh, khó nghèo và vâng phục theo luật dòng các chị em Đa Minh Việt Nam, nội quy hội dòng và tu luật thánh Augustino
 
         * Sống linh đạo Đa Minh: NÓI VỚI CHÚA – NÓI VỀ CHÚA Hoặc “CHIÊM NIỆM VÀ TRUYỀN THÔNG”, Chia sẻ cho tha nhân những gì mình đã chiêm niệm
-      title: Mái ấm cho trẻ mồ côi
+      title: Cầu nguyện, hy sinh và chứng tá đời sống
       body: Điền nội dung
-    - title: Chăm sóc người khuyết tật
+    - title: Giáo dục đức tin và văn hóa
       content: >-
         Đào tạo nữ tu đa minh trở nên môn đệ đích thực của Đức Kito xoay quanh 4
         phương diện
@@ -184,7 +211,7 @@ mission:
 
         * đào tạo qua các giai đoạn: Thỉnh sinh, tiền tập sinh, tập sinh và Học viện
       body: Điền nội dung
-    - title: Đến với anh em nghèo
+    - title: Mục vụ giáo xứ
       content: >-
         * công việc mực vụ: dạy giáo lý, huấn luyện giáo lý viên, phụ trách các
         hội đoàn trong giáo xứ.
@@ -195,6 +222,8 @@ mission:
 
         * công tác giáo dục: dấn thân trong việc giáo dục mầm non, các lớp dạy kèm bán trú, nội trú.
       body: Điền nội dung
+    - title: Bác ái xã hội và các hoạt động thăng tiến con người
+      body: nội dung
   banner:
     url: https://res.cloudinary.com/dxtb6rv7y/video/upload/v1726045244/TRUYEN_GIAO_BANER_klm7uf.mp4
     alt: Banner sứ mệnh
@@ -209,139 +238,121 @@ whereabouts:
         ### Có 4 cộng đoàn ở Miền Bắc và 18 cộng đoàn ở Miền Nam.
 
 
-        # MIỀN BẮC
+        ## MIỀN BẮC
 
 
-        ## I. LẠNG SƠN, 
+        ### I. LẠNG SƠN, thuộc giáo phận Lạng Sơn- Cao Bằng. Có:
 
 
-        ### thuộc giáo phận Lạng Sơn- Cao Bằng. Có:
+        1. Tu Xá Đa Minh Thất Khê
 
+        2. Tu Xá Đa Minh Cửa Nam
 
-        1.	Tu Xá Đa Minh Thất Khê
+        3. Tu Xá Đa Minh Đồng Đăng
 
 
-        2.	Tu Xá Đa Minh Cửa Nam
+        ### II. CAO BẰNG thuộc giáo phận Lạng Sơn có
 
 
-        3.	Tu Xá Đa Minh Đồng Đăng
+        1. Tu Xá Đa Minh Bó Tờ
 
 
-        ## II. CAO BẰNG 
+        ## MIỀN NAM
 
 
-        ## thuộc giáo phận Lạng Sơn có
+        ### III. LÂM ĐỒNG
 
 
-        4. Tu Xá Đa Minh Bó Tờ
+        1. Tu Viện Đa Minh Tùng Nghĩa
 
+        2. Tu Xá Đa Minh K’nai
 
+        3. Tu Xá Đa Minh Gia Pá
 
+        4. Cộng đoàn Đa Minh Đăng Srỗn
 
-        # MIỀN NAM
 
+        ### IV. BÌNH THUẬN thuộc giáo phận Phú Cường. có
 
-        ## III. LÂM ĐỒNG 
 
+        1. Cộng Đoàn Đa Minh Tân Lý – Lagi 
 
-        TU VIỆN ĐA MINH TÙNG NGHĨA
 
+        ### V. ĐỒNG NAI thuộc giáo phận Xuân Lộc. Có 2 cộng đoàn:
 
-        Tu Xá Đa Minh K’nai
 
+        1. Tu Xá Đa Minh Ngọc Lâm
 
-        Tu Xá Đa Minh Gia Pá
+        2. Tu Xá Đa Minh Tam Bung
 
 
-        Cộng đoàn Đa Minh Đăng Srỗn
+        ### VII. TP HỒ CHÍ MINH thuộc Tổng giáo phận Sài Gòn, 
 
 
-        ## BÌNH THUẬN thuộc giáo phận Phú Cường. có
+        NƠI HỘI DÒNG ĐA MINH GÒ VẤP ĐẶT TRỤ SỞ CHÍNH TẠI: 1053/4 Lê Đức Thọ, Tổ 82, Khu phố 11, P.16, Q. Gò Vấp, 
 
 
-        Cộng Đoàn Đa Minh Tân Lý – Lagi 
+        ĐƯỢC THÀNH LẬP 7/1955, 
 
 
-        ##  ĐỒNG NAI thuộc giáo phận Xuân Lộc. Có 2 cộng đoàn:
+        Ngày 8-12-1978, được Đức Tổng giám mục Phaolô Nguyễn Văn Bình phê chuẩn là Hội dòng nữ Đa Minh thánh hiệu Đức Mẹ Mân Côi. 
 
 
-        Tu Xá Đa Minh Ngọc Lâm
+        thuộc tổng giáo phận TP. HCM.còn có các CỘNG ĐOÀN như
 
 
-        Tu Xá Đa Minh Tam Bung
+        1. Trụ Sở Hội Dòng
 
+        2. Tu Xá Đa Minh Mẹ Thiên Chúa
 
-        ## TP HỒ CHÍ MINH 
+        3. Tu Xá Đa Minh Dũng Lạc
 
+        4. Tu Xá Đa Minh Mỹ Sơn
 
-        ## thuộc Tổng giáo phận Sài Gòn, NƠI HỘI DÒNG ĐA MINH GÒ VẤP ĐẶT TRỤ SỞ CHÍNH TẠI: 1053/4 Lê Đức Thọ, Tổ 82, Khu phố 11, P.16, Q. Gò Vấp, ĐƯỢC THÀNH LẬP 7/1955, VÀ Ngày 8-12-1978, được Đức Tổng giám mục Phaolô Nguyễn Văn Bình phê chuẩn là Hội dòng nữ Đa Minh thánh hiệu Đức Mẹ Mân Côi.
+        5. Tu Xá Đa Minh Củ Chi
 
-         thuộc tổng giáo phận TP. HCM.còn có các CỘNG ĐOÀN như
 
+        ### VIII. TẠI GIÁO PHẬN LONG XUYÊN, chị em hiện diện tại ba tỉnh thành khác nhau với năm cộng đoàn:
 
 
-        Trụ Sở Hội Dòng
+        ### VIII. TỈNH KIÊN GIANG
 
 
-        Tu Xá Đa Minh Mẹ Thiên Chúa
+        1. Tu Xá Đa Minh Phú Quốc
 
+        2. Tu Xá Đa Minh Kênh 3a
 
-        Tu Xá Đa Minh Dũng Lạc
+        3. Tu Xá Đa Minh Kênh Zêrô
 
 
-        Tu Xá Đa Minh Mỹ Sơn
+        ### IX. TỈNH AN GIANG
 
 
-        Tu Xá Đa Minh Củ Chi
+        1. Tu Xá Đa Minh Cái Dầu
 
 
-        TẠI GIÁO PHẬN LONG XUYÊN, CHỊ EM HIỆN DIỆN TẠI BA TỈNH THÀNH KHÁC NHAU VỚI NĂM CỘNG ĐOÀN:
+        ### X. TỈNH CẦN THƠ
 
 
-        ## TỈNH KIÊN GIANG
-
-
-        Tu Xá Đa Minh Phú Quốc
-
-
-        Tu Xá Đa Minh Kênh 3a
-
-
-        Tu Xá Đa Minh Kênh Zêrô
-
-
-        ## TỈNH AN GIANG
-
-
-        Tu Xá Đa Minh Cái Dầu
-
-
-        ## TỈNH CẦN THƠ
-
-
-        TU XÁ ĐA MINH KÊNH Đ1
+        1. TU XÁ ĐA MINH KÊNH Đ1
     - name: Mỹ
       body: |-
-        HOA KỲ có
+        
 
-        Tu Xá  Đa Minh Oklahoma City
+        1. ### Tu Xá  Đa Minh Oklahoma City
 
-        +	Hiện diện: 09/01/1999  -  Thành lập: 20/9/2001
+        * Hiện diện: 09/01/1999  -  Thành lập: 20/9/2001
+        * ĐC: 3004 SW 55th Street, Oklahoma City, OK.73119
 
-        +	ĐC: 3004 SW 55th Street, Oklahoma City, OK.73119
+        1. ### Đa Minh Holy Rosary Houston 
 
-        Đa Minh Holy Rosary Houston 
-
-        + Địa chỉ: số 14639, Bellaire Blvd, Houston, TX 77083
+        * Địa chỉ: số 14639, Bellaire Blvd, Houston, TX 77083
     - name: Úc
       body: |-
-        TẠI ÚC:
+        ### Cộng Đoàn Đa Minh Chúa Chiên Lành 
 
-        Cộng Đoàn Đa Minh Chúa Chiên Lành 
-
-        +	Hiện diện: 15/11/2008
-
-        +	ĐC: 39 Parakeelya Road Banksia Grove WA 6031, Australia
+        * Hiện diện: 15/11/2008
+        * ĐC: 39 Parakeelya Road Banksia Grove WA 6031, Australia
   body: Chúng tôi hiện đang phục vụ tại 22 cộng đoàn trong đó 19 cộng đoàn thuộc 7
     giáo phận Việt Nam, 2 cộng đoàn ở Mỹ và 1 cộng đoàn tại Úc.
   banner:
