@@ -221,8 +221,7 @@ developmentHistory:
 
 
             Năm 1956 Đức cha André Jacq, bấy giờ là Đức cha phó địa phận Lạng sơn. Tuy vẫn còn ở lại đất Bắc, nhưng Ngài vẫn quan tâm và ưu ái đối với chị em. Ngài đã truyền cho cha chính Micae Nguyễn Khắc Ngữ dùng qũy của địa phận xây nhà cho chị em và trao cho cha Đaminh Nguyễn Văn Lãng đứng trông coi xây cất Tu viện cho chị em. Đó là một dãy nhà lầu, sàn gỗ; có thể nói đây là ngôi nhà nguy nga lớn nhất vùng lúc đó.
-        - title: "2"
-    - title: "PHẦN II: THỜI KỲ CẢI TỔ VÀ PHÁT TRIỂ"
+    - title: "PHẦN II: THỜI KỲ CẢI TỔ VÀ PHÁT TRIỂN"
       items:
         - title: I. GIAI ĐỌAN CẢI TỔ (1956 -1962)
           body: >-
