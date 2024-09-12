@@ -8,11 +8,11 @@ postGroups:
     - limit: 5
       title: Muc 1
       hiddenTags:
-        - Giao phan Phu Cuong
+        - Hiểu Để Yêu
     - limit: 5
       title: Muc 2
       hiddenTags:
-        - Giới thiệu
+        - Gp Lạng Sơn
   enable: true
 curatedPosts:
   title: Bai viet duoc chon
