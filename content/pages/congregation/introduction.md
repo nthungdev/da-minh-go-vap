@@ -158,7 +158,7 @@ aboutUs:
         youtubeUrl: https://www.youtube.com/embed/JWXVwh6y3Z0?si=1y2-07yPyTmRcbFv
         thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726132104/hinh_bia_huyen_thoai_lang_son_njygvs.jpg
   banner:
-    url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726132104/hinh_bia_huyen_thoai_lang_son_njygvs.jpg
+    url: https://res.cloudinary.com/dxtb6rv7y/video/upload/v1726044945/GIOI_THIEU_k1grfw.mp4
     alt: Hình chúng tôi
 mission:
   title: SỨ MỆNH
