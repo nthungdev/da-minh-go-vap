@@ -24,7 +24,7 @@ newsByCategories:
       subCategories:
         - title: Suy niệm
           hiddenTags:
-            - kinh phung vu
+            - Hiểu Để Yêu
         - title: Y cầu nguyện
           hiddenTags:
             - Walking with Jesus
@@ -35,13 +35,14 @@ newsByCategories:
       subCategories:
         - title: Truyền giáo
           hiddenTags:
-            - Các đấng bản quyền
-            - Hiểu Để Yêu
+            - Gp Long Xuyên
             - Giao phan Da Lat
+            - Giao phan Xuan Loc
         - title: Mục vụ
           hiddenTags:
-            - Walking with Jesus
             - Giao phan Da Lat
+            - Gp Lạng Sơn
+            - Gp Sài Gòn
         - title: Bác ái xã hội
           hiddenTags:
             - Walking with Jesus
@@ -52,7 +53,7 @@ newsByCategories:
       subCategories:
         - title: Hiểu để yêu
           hiddenTags:
-            - Giao phan Phu Cuong
+            - Hiểu Để Yêu
         - title: Bé và Lời
           hiddenTags:
             - Chút men cho đời
@@ -74,11 +75,11 @@ newsByCategories:
       subCategories:
         - title: Tâm thư
           hiddenTags:
-            - Lịch sử
+            - Gp Sài Gòn
         - title: Chuyện giờ mới kể
           hiddenTags:
-            - Giới thiệu
+            - Giao phan Da Lat
         - title: Tâm tình
           hiddenTags:
-            - Các đấng bản quyền
+            - Gp Long Xuyên
 ---
