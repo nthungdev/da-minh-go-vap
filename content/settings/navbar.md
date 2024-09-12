@@ -1,6 +1,6 @@
 ---
 homeBanners:
-  - url: https://res.cloudinary.com/dxtb6rv7y/video/upload/v1725005234/HOME_chu_ngan_insfqd.mp4
+  - url: https://res.cloudinary.com/dxtb6rv7y/video/upload/v1726045199/baner_xanh_lye18w.mp4
     alt: Video gioi thieu
   - url: https://res.cloudinary.com/dxtb6rv7y/video/upload/v1725005234/HOME_chu_ngan_insfqd.mp4
     alt: Video gioi thieu
