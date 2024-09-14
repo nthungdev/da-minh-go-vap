@@ -1,3 +1,3 @@
 ---
-title: suy niệm
+title: Suy niệm
 ---
