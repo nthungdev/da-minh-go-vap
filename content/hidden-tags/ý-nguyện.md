@@ -1,3 +1,3 @@
 ---
-title: Ý nguyện
+title: Ý cầu nguyện
 ---
