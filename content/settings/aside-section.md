@@ -18,10 +18,7 @@ curatedPosts:
   title: Bai viet duoc chon
   limit: 5
   posts:
-    - 2024-07-28_test-11
-    - 2024-07-27_tesst-4
-    - 2024-07-28_test-10
-    - 2024-07-28_test-9
+    - 2024-09-12_cầu-nguyện-để-làm-gì
   enable: true
 socialLinks:
   links:
