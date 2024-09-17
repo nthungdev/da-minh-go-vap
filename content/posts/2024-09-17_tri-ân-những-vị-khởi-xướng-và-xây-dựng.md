@@ -3,6 +3,9 @@ title: Tri ân những vị khởi xướng và xây dựng
 date: 2024-09-17T08:29:00.000Z
 hiddenTags:
   - Các đấng bản quyền
+  - tâm thư của BTTQ
+  - Walking with Jesus
+  - kinh phung vu
 thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726537195/DSC02280_uolcfy.jpg
 ---
 ![Đức Ông Bertrand Cothonay (cố Chiểu) là Phủ doãn Tông toà đầu tiên của địa phận Lạng Sơn – Cao Bằng. là một nhà truyền giáo đầy kinh nghiệm và thông minh, mang nhiều thao thức truyền giảng Tin Mừng cho vùng rừng núi Lạng Sơn, ngài chú tâm chiêu mộ, tập hợp và đào tạo nhân sự, thiết lập các điểm truyền giáo  tuyến biên giới Việt – Trung. Ngài có sáng kiến thiết lập các nhà phước Đa Minh, để các bà mụ cộng tác trong sứ vụ rao giảng Tin Mừng. Năm 1918, ngài thiết lập nhà phước Đa Minh đầu tiên tại Cửa Nam. Năm 1925, ngài lập nhà phước Mỹ Sơn. Đây là những nhà phước tiền thân của Hội dòng nữ Đa Minh Gò Vấp. Hội dòng tri ân ngài vì công lao khai sinh. Nhờ nhiệt tâm và tầm nhìn rộng lớn, ngài đã góp phần định hình cho Giáo Hội một Hội dòng để chung tay góp sức cho công cuộc rao giảng Tin Mừng tại vùng đất mẹ Lạng Sơn – Cao Bằng và cho Giáo hội Việt Nam.](https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726537247/DSC02276_el7f3y.jpg "Đức Ông Bertrand Cothonay (cố Chiểu)")
