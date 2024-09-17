@@ -75,7 +75,7 @@ newsByCategories:
       subCategories:
         - title: Tâm thư
           hiddenTags:
-            - Gp Sài Gòn
+            - tâm thư của BTTQ
         - title: Chuyện giờ mới kể
           hiddenTags:
             - Giao phan Da Lat
