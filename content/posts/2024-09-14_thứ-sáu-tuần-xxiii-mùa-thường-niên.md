@@ -2,7 +2,7 @@
 title: Thứ Sáu Tuần XXIII Mùa Thường Niên
 date: 2024-09-14T09:54:00.000Z
 hiddenTags:
-  - kinh phung vu
+  - Suy niệm
 thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726281453/THU_SAU_TUAN_23_ooy6oq.jpg
 videos:
   - title: Thứ Sáu Tuần XXIII Mùa Thường Niên
