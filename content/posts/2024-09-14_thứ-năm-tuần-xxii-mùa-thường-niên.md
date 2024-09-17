@@ -2,7 +2,7 @@
 title: Thứ Năm Tuần XXII Mùa Thường Niên
 date: 2024-09-14T09:51:00.000Z
 hiddenTags:
-  - kinh phung vu
+  - Suy niệm
 thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726281449/THU_NAM_TUAN_23_gnf6l1.jpg
 videos:
   - title: Thứ Năm Tuần XXII Mùa Thường Niên
