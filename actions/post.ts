@@ -19,14 +19,14 @@ export const fetchPostsBySlugs = async (slugs: string[]) => {
 export const fetchAllPosts = async ({
   limit = undefined,
 }: { limit?: number } = {}) => {
-  const posts = postUtils.getAllPosts({ limit })
-  return posts.filter((post) => post.date < new Date())
+  const posts = postUtils.getAllPosts()
+  return posts.filter((post) => post.date < new Date()).slice(0, limit)
 }
 
 export const fetchPostsByHiddenTags = async (
   hiddenTags: string[],
   { limit = undefined }: { limit?: number } = {}
 ) => {
-  const posts = postUtils.getPostsByHiddenTags(hiddenTags, { limit })
-  return posts.filter((post) => post.date < new Date())
+  const posts = postUtils.getPostsByHiddenTags(hiddenTags)
+  return posts.filter((post) => post.date < new Date()).slice(0, limit)
 }
