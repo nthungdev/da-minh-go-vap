@@ -3,6 +3,8 @@ title: NGÀY CỘNG ĐOÀN VÀ TÌNH HUYNH ĐỆ
 date: 2024-09-17T08:57:00.000Z
 hiddenTags:
   - tâm thư của BTTQ
+  - chuyện giờ mới kể
+  - Các đấng bản quyền
 thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726538327/Viet-thu-700_i1jp17.jpg
 ---
 
