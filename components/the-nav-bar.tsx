@@ -72,9 +72,9 @@ export default function TheNavBar({ className }: TheNavBarProps) {
       </nav>
 
       {isHome && (
-        // <div className='w-full'>
+        <div className='w-full'>
           <AppBanners banners={homeBanners} />
-        // </div>
+        </div>
       )}
 
       <Image

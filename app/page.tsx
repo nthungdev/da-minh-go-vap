@@ -28,12 +28,10 @@ export default async function Home() {
 
   return (
     <div>
-      <div className="space-y-8">
-        <section className="max-w-screen-xl mx-auto px-4">
-          <h2 className="sr-only">Câu lời chúa</h2>
-          <TheBibleVerse verses={bibleVerses.verses} />
-        </section>
-      </div>
+      <section className="max-w-screen-xl mx-auto px-4">
+        <h2 className="sr-only">Câu lời chúa</h2>
+        <TheBibleVerse verses={bibleVerses.verses} />
+      </section>
 
       <AppPage className="md:flex md:flex-row md:gap-x-8 max-w-screen-xl">
         <div className="space-y-8 flex-1">
