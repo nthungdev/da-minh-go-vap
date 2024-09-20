@@ -1,5 +1,7 @@
 import { normalizeText } from 'normalize-text'
-import { attributes } from '@/content/pages/topics/index.md'
+import { attributes as topicsAttributes } from '@/content/pages/topics/index.md'
+import { attributes as cultureAttributes } from '@/content/pages/culture/index.md'
+import { attributes as materialsAttributes } from '@/content/pages/materials/index.md'
 
 const menu = [
   { href: '/', name: 'Trang chủ' },
@@ -61,7 +63,23 @@ const menu = [
   {
     href: '/topics',
     name: 'Chuyên đề',
-    children: (attributes as PageTopics).sections.map(({ title }) => ({
+    children: (topicsAttributes as PageTopics).sections.map(({ title }) => ({
+      href: `/${normalizeText(title).replaceAll(/\s+/g, '-').toLowerCase()}`,
+      name: title,
+    })),
+  },
+  {
+    href: '/culture',
+    name: 'Văn hóa',
+    children: (cultureAttributes as PageCulture).sections.map(({ title }) => ({
+      href: `/${normalizeText(title).replaceAll(/\s+/g, '-').toLowerCase()}`,
+      name: title,
+    })),
+  },
+  {
+    href: '/materials',
+    name: 'Tài liệu',
+    children: (materialsAttributes as PageMaterials).sections.map(({ title }) => ({
       href: `/${normalizeText(title).replaceAll(/\s+/g, '-').toLowerCase()}`,
       name: title,
     })),

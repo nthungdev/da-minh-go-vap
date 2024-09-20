@@ -15,8 +15,8 @@ export default function AppCarousel(props: AppCarouselProps) {
   const hasMultipleChildren = childrenCount > 1
 
   return (
-    <div data-hs-carousel={JSON.stringify(hsCarouselData)} className="relative">
-      <div className="hs-carousel relative overflow-hidden w-full min-h-96 bg-white">
+    <div data-hs-carousel={JSON.stringify(hsCarouselData)} className="relative h-full">
+      <div className="hs-carousel relative overflow-hidden w-full h-full bg-white">
         <div className="hs-carousel-body absolute top-0 bottom-0 start-0 flex flex-nowrap transition-transform duration-700 opacity-0">
           {Children.map(children, (child, index) => (
             <div key={index} className="hs-carousel-slide">

@@ -24,7 +24,7 @@ export default function TheNavBar({ className }: TheNavBarProps) {
   return (
     <div>
       <nav
-        className={`relative z-50 bg-[#427CA8] text-gray-50 flex flex-row flex-wrap lg:justify-center ${className}`}
+        className={`relative z-60 bg-[#427CA8] text-gray-50 flex flex-row flex-wrap lg:justify-center ${className}`}
       >
         <div className="lg:hidden p-2 flex-1">
           <TheMobileMenu />
@@ -72,15 +72,15 @@ export default function TheNavBar({ className }: TheNavBarProps) {
       </nav>
 
       {isHome && (
-        // <div className='w-full'>
+        <div className='w-full'>
           <AppBanners banners={homeBanners} />
-        // </div>
+        </div>
       )}
 
       <Image
         src={bottomDecorativeGraphic.url}
         alt={bottomDecorativeGraphic.alt}
-        className="w-full hidden lg:block"
+        className="hidden lg:block w-full"
         width={1080}
         height={720}
         quality={100}

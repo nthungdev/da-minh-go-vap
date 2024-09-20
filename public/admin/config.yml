@@ -1041,6 +1041,74 @@ collections:
                 value_field: title
                 search_fields: [title]
 
+      - name: culture
+        label: 'Văn hóa'
+        file: 'content/pages/culture/index.md'
+        fields:
+          - name: 'title'
+            label: 'Tiêu đề'
+            widget: 'string'
+          - name: 'sections'
+            label: 'Mục'
+            widget: 'list'
+            allow_add: true
+            min: 1
+            max: 10
+            label_singular: 'Mục'
+            fields:
+              - name: 'title'
+                label: 'Tiêu đề'
+                widget: 'string'
+              - name: 'limit'
+                label: 'Số lượng bài hiển thị'
+                widget: 'number'
+                value_type: 'int'
+                default: 4
+                min: 4
+                max: 100
+              - name: 'hiddenTags'
+                label: 'Tag ẩn'
+                description: 'Các bài viết có các tag ẩn này sẽ hiển thị.'
+                widget: relation
+                collection: hiddenTags
+                multiple: true
+                value_field: title
+                search_fields: [title]
+
+      - name: materials
+        label: 'Tài liệu'
+        file: 'content/pages/materials/index.md'
+        fields:
+          - name: 'title'
+            label: 'Tiêu đề'
+            widget: 'string'
+          - name: 'sections'
+            label: 'Mục'
+            widget: 'list'
+            allow_add: true
+            min: 1
+            max: 10
+            label_singular: 'Mục'
+            fields:
+              - name: 'title'
+                label: 'Tiêu đề'
+                widget: 'string'
+              - name: 'limit'
+                label: 'Số lượng bài hiển thị'
+                widget: 'number'
+                value_type: 'int'
+                default: 4
+                min: 4
+                max: 100
+              - name: 'hiddenTags'
+                label: 'Tag ẩn'
+                description: 'Các bài viết có các tag ẩn này sẽ hiển thị.'
+                widget: relation
+                collection: hiddenTags
+                multiple: true
+                value_field: title
+                search_fields: [title]
+
       - name: contact
         label: 'Liên hệ'
         file: 'content/pages/contact/index.md'
