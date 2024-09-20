@@ -31,7 +31,7 @@ export default function TheNavBar({ className }: TheNavBarProps) {
         </div>
 
         <ul className="hidden lg:flex flex-row flex-wrap items-center max-w-screen-xl">
-          <div className="relative h-full w-20 self-start">
+          <div className="z-20 relative h-full w-20 self-start">
             <div className="absolute top-[20%] left-0 overflow-auto h-20 w-20">
               <Image
                 src={logo.url}
