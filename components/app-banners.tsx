@@ -20,7 +20,7 @@ export default function AppBanners(props: AppBannersProps) {
   }
 
   return (
-    <div className={`aspect-video md:aspect-[4] ${className || ''}`}>
+    <div className={`aspect-[4] ${className || ''}`}>
       <AppCarousel>
         {banners.map((banner, index) => (
           <div key={index} className="h-full">
