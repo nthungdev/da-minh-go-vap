@@ -174,7 +174,7 @@ interface AppAccordionDefaultProps {
   alwaysOpen?: boolean
 }
 
-export function AppAccordionDefault(props: AppAccordionDefaultProps) {
+function AppAccordionDefault(props: AppAccordionDefaultProps) {
   const { items, alwaysOpen } = props
 
   return (
@@ -187,3 +187,5 @@ export function AppAccordionDefault(props: AppAccordionDefaultProps) {
 }
 
 export default AppAccordion
+
+export { AppAccordionDefault }
