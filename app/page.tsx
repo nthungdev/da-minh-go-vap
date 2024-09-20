@@ -27,13 +27,13 @@ export default async function Home() {
   }
 
   return (
-    <div>
-      <section className="max-w-screen-xl mx-auto px-4">
+    <AppPage className='space-y-8'>
+      <section>
         <h2 className="sr-only">Câu lời chúa</h2>
         <TheBibleVerse verses={bibleVerses.verses} />
       </section>
 
-      <AppPage className="md:flex md:flex-row md:gap-x-8 max-w-screen-xl">
+      <div className="flex flex-col md:flex md:flex-row md:gap-x-8">
         <div className="space-y-8 flex-1">
           {latestPostsSection.enable && (
             <section>
@@ -69,7 +69,7 @@ export default async function Home() {
         <div className="hidden md:block w-64">
           <AppAsideSection />
         </div>
-      </AppPage>
-    </div>
+      </div>
+    </AppPage>
   )
 }
