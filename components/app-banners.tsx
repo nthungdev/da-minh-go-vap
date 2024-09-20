@@ -31,6 +31,7 @@ export default function AppBanners(props: AppBannersProps) {
                 autoPlay
                 loop
                 muted
+                playsInline
               />
             ) : (
               <Image
