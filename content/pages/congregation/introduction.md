@@ -9,7 +9,7 @@ aboutUs:
     Dòng nữ Đa Minh Gò Vấp tên gọi trước đây là Dòng nữ Đa Minh Lạng Sơn, là Dòng địa phận thuộc Tổng Giáo phận Sài Gòn.
 
 
-    <img src="https://images.app.goo.gl/tgdXBYBzHWQfw87N9" alt="Hình ảnh minh họa" width="300" height="200">
+    <img src="https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726822215/0_HOA_K%E1%BB%B2__cjvkca.png" alt="Hình ảnh minh họa" width="300" height="200">
   tabs:
     - title: Đôi nét chính
       content: >-
