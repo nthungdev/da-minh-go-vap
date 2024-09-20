@@ -57,7 +57,16 @@ const menu = [
     children: [
       { href: '/church', name: 'Bản tin Giáo Hội' },
       { href: '/dominican-family', name: 'Bản tin Gia đình Đa Minh' },
-      { href: '/congregation', name: 'Bản tin Hội dòng' },
+      {
+        href: '/congregation',
+        name: 'Bản tin Hội dòng',
+        children: [
+          { href: '/information', name: 'Thông tin' },
+          { href: '/obituary', name: 'Cáo phó' },
+          { href: '/profession', name: 'Lễ khấn' },
+          { href: '/internal', name: 'Tin nội bộ' },
+        ]
+      },
     ],
   },
   {
