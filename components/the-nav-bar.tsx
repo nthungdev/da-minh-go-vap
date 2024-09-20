@@ -80,7 +80,7 @@ export default function TheNavBar({ className }: TheNavBarProps) {
       <Image
         src={bottomDecorativeGraphic.url}
         alt={bottomDecorativeGraphic.alt}
-        className="w-full lg:block"
+        className="hidden lg:block w-full"
         width={1080}
         height={720}
         quality={100}
