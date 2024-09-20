@@ -8,10 +8,11 @@ interface AppBannersProps {
     url: string
     alt?: string
   }[]
+  className?: string
 }
 
 export default function AppBanners(props: AppBannersProps) {
-  const { banners } = props
+  const { banners, className } = props
 
   const checkVideo = (url: string) => {
     const videoExtensions = ['.mp4', '.webm', '.ogg']
@@ -19,13 +20,13 @@ export default function AppBanners(props: AppBannersProps) {
   }
 
   return (
-    <div className="aspect-[4]">
+    <div className={`aspect-video md:aspect-[4] ${className || ''}`}>
       <AppCarousel>
         {banners.map((banner, index) => (
-          <div key={index} className="w-full h-full">
+          <div key={index} className="h-full">
             {checkVideo(banner.url) ? (
               <video
-                className="w-full h-full object-cover"
+                className="object-cover h-full"
                 src={banner.url}
                 autoPlay
                 loop
@@ -33,11 +34,12 @@ export default function AppBanners(props: AppBannersProps) {
               />
             ) : (
               <Image
-                className="w-full h-full object-cover"
+                className="object-cover h-full"
                 src={banner.url}
                 alt={banner.alt || ''}
                 sizes="100%"
-                fill
+                width={1920}
+                height={1080}
               />
             )}
           </div>
