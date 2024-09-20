@@ -1,10 +1,11 @@
 'use client'
 
-import { usePathname } from "next/navigation";
+import classNames from 'classnames'
+import { usePathname } from 'next/navigation'
 
 interface AppPageProps {
-  className?: string;
-  children: React.ReactNode;
+  className?: string
+  children: React.ReactNode
 }
 
 export default function AppPage({
@@ -15,7 +16,16 @@ export default function AppPage({
   const pathname = usePathname()
 
   return (
-    <main className={`w-full py-8 px-4 mx-auto max-w-screen-lg ${pathname !== '/' ? 'pt-16' : ''} ${className}`} {...props}>
+    <main
+      className={classNames(
+        'w-full py-8 px-4 mx-auto max-w-screen-xl',
+        {
+          'pt-16': pathname !== '/',
+        },
+        className
+      )}
+      {...props}
+    >
       {children}
     </main>
   )
