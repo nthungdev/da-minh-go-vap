@@ -265,6 +265,11 @@ type PageTopics = {
   sections: PostSection[]
 }
 
+type PageCulture = {
+  title: string
+  sections: PostSection[]
+}
+
 type SettingsFooter = {
   name: string
   address: string
