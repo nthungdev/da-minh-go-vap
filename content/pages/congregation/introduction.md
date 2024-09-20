@@ -244,22 +244,27 @@ mission:
 whereabouts:
   title: CHÚNG TÔI HIỆN DIỆN Ở TRONG NƯỚC VÀ CẢ NGOẠI QUỐC
   countries:
-    - name: Việt Nam
-      body: "![](https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726818878/VI%E1%\
-        BB%86T_NAM_ok_nzkjji.jpg)"
-    - name: Mỹ
-      body: |-
-        
+    - name: VIỆT NAM
+      body: "![](https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726822219/1_VI%E\
+        1%BB%86T_NAM_bnbqi4.png)"
+    - name: HOA KỲ
+      body: >-
+        ![](https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726822215/0_HOA_K%E1%BB%B2__cjvkca.png)
+
 
         1. ### Tu Xá  Đa Minh Oklahoma City
 
+
         * Hiện diện: 09/01/1999  -  Thành lập: 20/9/2001
+
         * ĐC: 3004 SW 55th Street, Oklahoma City, OK.73119
 
-        1. ### Đa Minh Holy Rosary Houston 
+
+        1. ### Đa Minh Holy Rosary Houston
+
 
         * Địa chỉ: số 14639, Bellaire Blvd, Houston, TX 77083
-    - name: Úc
+    - name: "AUSTRALIA "
       body: |-
         ### Cộng Đoàn Đa Minh Chúa Chiên Lành 
 
