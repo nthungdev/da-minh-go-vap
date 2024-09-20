@@ -270,6 +270,11 @@ type PageCulture = {
   sections: PostSection[]
 }
 
+type PageMaterials = {
+  title: string
+  sections: PostSection[]
+}
+
 type SettingsFooter = {
   name: string
   address: string
