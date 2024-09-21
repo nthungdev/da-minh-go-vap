@@ -3,7 +3,15 @@ import { attributes as topicsAttributes } from '@/content/pages/topics/index.md'
 import { attributes as cultureAttributes } from '@/content/pages/culture/index.md'
 import { attributes as materialsAttributes } from '@/content/pages/materials/index.md'
 
-const menu = [
+export interface MenuItem {
+  href: string
+  absoluteHref: string
+  name: string
+  normalizedName: string
+  children?: MenuItem[]
+}
+
+const menu: MenuItem[] = [
   { href: '/', name: 'Trang chủ' },
   {
     href: '/congregation',
@@ -97,9 +105,16 @@ const menu = [
 ].map((link) => ({
   ...link,
   normalizedName: normalizeText(link.href),
+  absoluteHref: link.href,
   children: link.children?.map((child) => ({
     ...child,
     normalizedName: normalizeText(child.href),
+    absoluteHref: `${link.href}${child.href}`,
+    children: child.children?.map((grandChild) => ({
+      ...grandChild,
+      normalizedName: normalizeText(grandChild.href),
+      absoluteHref: `${link.href}${child.href}${grandChild.href}`,
+    }))
   })),
 }))
 
