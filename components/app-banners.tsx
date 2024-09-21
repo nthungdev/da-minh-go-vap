@@ -35,7 +35,7 @@ export default function AppBanners(props: AppBannersProps) {
               />
             ) : (
               <Image
-                className="object-cover h-full"
+                className="object-cover h-full w-full"
                 src={banner.url}
                 alt={banner.alt || ''}
                 sizes="100%"
