@@ -439,23 +439,37 @@ collections:
             multiple: true
             value_field: title
             search_fields: [title]
-      - name: congregationAuthorities
-        label: 'Hội dòng / Các đấng bản quyền'
-        file: 'content/pages/congregation/authorities.md'
-        editor:
-          preview: false
+      - name: congregationGratitude
+        label: 'Hội dòng / Tri ân'
+        file: 'content/pages/congregation/gratitude.md'
         fields:
-          - name: 'title'
-            label: 'Tiêu đề'
-            widget: 'string'
-          - name: 'hiddenTags'
-            label: 'Tag ẩn'
-            description: 'Các bài viết có các tag ẩn này sẽ hiển thị ở trang các đấng bản quyền.'
-            widget: relation
-            collection: hiddenTags
-            multiple: true
-            value_field: title
-            search_fields: [title]
+          - {
+              name: 'postGroups',
+              label: 'Mục con',
+              widget: 'list',
+              allow_add: true,
+              min: 1,
+              max: 10,
+              collapsed: true,
+              fields:
+              [
+                {
+                  name: 'title',
+                  label: 'Tên hiển thị của mục con',
+                  widget: 'string',
+                },
+                {
+                  name: 'hiddenTags',
+                  label: 'Tag ẩn',
+                  widget: 'relation',
+                  hint: 'Những bài viết có các tag ẩn được chọn sẽ hiển thị ở chuyên mục con này.',
+                  collection: 'hiddenTags',
+                  multiple: true,
+                  value_field: 'title',
+                  search_fields: ['title'],
+                },
+              ]
+            }
 
       - name: spirituality
         label: 'Linh đạo'

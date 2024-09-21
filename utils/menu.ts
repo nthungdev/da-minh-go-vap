@@ -3,7 +3,15 @@ import { attributes as topicsAttributes } from '@/content/pages/topics/index.md'
 import { attributes as cultureAttributes } from '@/content/pages/culture/index.md'
 import { attributes as materialsAttributes } from '@/content/pages/materials/index.md'
 
-const menu = [
+export interface MenuItem {
+  href: string
+  absoluteHref: string
+  name: string
+  normalizedName: string
+  children?: MenuItem[]
+}
+
+const menu: MenuItem[] = [
   { href: '/', name: 'Trang chủ' },
   {
     href: '/congregation',
@@ -12,7 +20,7 @@ const menu = [
       { href: '/introduction', name: 'Giới thiệu' },
       { href: '/history', name: 'Lịch sử' },
       { href: '/establishment', name: 'Sắc lập dòng' },
-      { href: '/authorities', name: 'Các Đấng bản quyền' },
+      { href: '/gratitude', name: 'Tri ân' },
     ],
   },
   {
@@ -57,7 +65,16 @@ const menu = [
     children: [
       { href: '/church', name: 'Bản tin Giáo Hội' },
       { href: '/dominican-family', name: 'Bản tin Gia đình Đa Minh' },
-      { href: '/congregation', name: 'Bản tin Hội dòng' },
+      {
+        href: '/congregation',
+        name: 'Bản tin Hội dòng',
+        children: [
+          { href: '/information', name: 'Thông tin' },
+          { href: '/obituary', name: 'Cáo phó' },
+          { href: '/profession', name: 'Lễ khấn' },
+          { href: '/internal', name: 'Tin nội bộ' },
+        ]
+      },
     ],
   },
   {
@@ -88,9 +105,16 @@ const menu = [
 ].map((link) => ({
   ...link,
   normalizedName: normalizeText(link.href),
+  absoluteHref: link.href,
   children: link.children?.map((child) => ({
     ...child,
     normalizedName: normalizeText(child.href),
+    absoluteHref: `${link.href}${child.href}`,
+    children: child.children?.map((grandChild) => ({
+      ...grandChild,
+      normalizedName: normalizeText(grandChild.href),
+      absoluteHref: `${link.href}${child.href}${grandChild.href}`,
+    }))
   })),
 }))
 
