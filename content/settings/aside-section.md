@@ -6,7 +6,7 @@ mostViewedPosts:
 postGroups:
   groups:
     - limit: 5
-      title: Muc 1
+      title: GIỚI THIỆU
       hiddenTags:
         - Hiểu Để Yêu
     - limit: 5
@@ -15,7 +15,7 @@ postGroups:
         - Gp Lạng Sơn
   enable: true
 curatedPosts:
-  title: Bai viet duoc chon
+  title: CÁC CHUYÊN ĐỀ ĐẶC BIỆT
   limit: 5
   posts:
     - 2024-09-12_cầu-nguyện-để-làm-gì
