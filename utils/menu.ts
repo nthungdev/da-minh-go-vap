@@ -20,7 +20,7 @@ const menu: MenuItem[] = [
       { href: '/introduction', name: 'Giới thiệu' },
       { href: '/history', name: 'Lịch sử' },
       { href: '/establishment', name: 'Sắc lập dòng' },
-      { href: '/authorities', name: 'Các Đấng bản quyền' },
+      { href: '/gratitude', name: 'Tri ân' },
     ],
   },
   {
