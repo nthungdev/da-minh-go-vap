@@ -6,6 +6,9 @@ import { usePathname } from 'next/navigation'
 
 const MENU_ID = 'hs-the-mobile-menu'
 
+
+// TODO - Refactor this component
+
 interface MobileMenuRootProps {
   items: MenuItem[]
   itemRender: (item: MenuItem, index: number) => React.ReactNode
