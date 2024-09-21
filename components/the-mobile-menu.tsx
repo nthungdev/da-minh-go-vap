@@ -1,57 +1,94 @@
 'use client'
 
-import menu from '@/utils/menu'
+import menu, { MenuItem } from '@/utils/menu'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 const MENU_ID = 'hs-the-mobile-menu'
 
+interface MobileMenuRootProps {
+  items: MenuItem[]
+  itemRender: (item: MenuItem, index: number) => React.ReactNode
+}
+
+function MobileMenuRoot(props: MobileMenuRootProps) {
+  const { items, itemRender } = props
+
+  return (
+    <div
+      className="hs-accordion-group p-6 w-full flex flex-col flex-wrap"
+      data-hs-accordion-always-open
+    >
+      <ul className="space-y-1.5">{items.map(itemRender)}</ul>
+    </div>
+  )
+}
+
+interface MobileMenuContentProps {
+  id: string
+  labelledbyId: string
+  children: React.ReactNode
+}
+
+function MobileMenuContent(props: MobileMenuContentProps) {
+  const { id, labelledbyId, children } = props
+
+  return (
+    <div
+      id={id}
+      className="hs-accordion-content w-full overflow-hidden transition-[height] duration-300 hidden"
+      role="region"
+      aria-labelledby={labelledbyId}
+    >
+      {children}
+    </div>
+  )
+}
+
 interface MobileMenuToggleProps {
-  link: {
-    name: string
-    href: string
-    normalizedName: string
-  }
+  label: string
+  controlsId: string
+  href: string
 }
 
 function MobileMenuToggle(props: MobileMenuToggleProps) {
-  const { link } = props
+  const { label, controlsId, href } = props
 
   return (
     <button
       type="button"
-      className="hs-accordion-toggle group w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-700 rounded-lg hover:text-gray-50 hover:bg-primary-500 focus:outline-none focus:bg-primary-500 focus:text-gray-50"
+      className="hs-accordion-toggle group w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-700 rounded-lg focus:outline-none"
       aria-expanded="true"
-      aria-controls={`${link.normalizedName}-accordion`}
+      aria-controls={controlsId}
     >
       <Link
         className="pr-2"
-        href={link.href}
+        href={href}
         onMouseOver={(event) => {
           event.stopPropagation()
         }}
       >
-        {link.name}
+        {label}
       </Link>
 
       {/* Up caret */}
       <svg
-        className="hs-accordion-active:block ms-auto hidden size-4 text-gray-600 hs-accordion-active:group-hover:text-gray-100"
+        className="hs-accordion-active:block ms-auto hidden size-4 text-gray-600"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       >
         <path d="m18 15-6-6-6 6" />
       </svg>
       {/* Down caret */}
       <svg
-        className="hs-accordion-active:hidden ms-auto block size-4 text-gray-600 group-hover:text-gray-100"
+        className="hs-accordion-active:hidden ms-auto block size-4 text-gray-600"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"
@@ -67,6 +104,54 @@ function MobileMenuToggle(props: MobileMenuToggleProps) {
     </button>
   )
 }
+
+const defaultItemRender = (onClick: Function) =>
+  function Item(item: MenuItem, index: number) {
+    const pathname = usePathname()
+
+    if (item.children) {
+      return (
+        <li
+          key={`${item.normalizedName}-accordion-item`}
+          id={`${item.normalizedName}-accordion-item`}
+          className="hs-accordion"
+        >
+          <MobileMenuToggle
+            label={item.name}
+            controlsId={`${item.normalizedName}-accordion`}
+            href={item.absoluteHref}
+          />
+
+          <MobileMenuContent
+            id={`${item.normalizedName}-accordion`}
+            labelledbyId={`${item.normalizedName}-accordion-item`}
+          >
+            <ul className="pt-2 ps-2 space-y-1">
+              {item.children.map((child) =>
+                defaultItemRender(onClick)(child, index)
+              )}
+            </ul>
+          </MobileMenuContent>
+        </li>
+      )
+    } else {
+      return (
+        <li key={`${item.normalizedName}-accordion-item`}>
+          <Link
+            className={`flex items-center gap-x-3.5 py-2 px-2.5 text-sm rounded-lg w-full text-start hover:text-gray-50 hover:bg-primary-500 focus:outline-none focus:bg-primary-500 focus:text-gray-50 ${
+              item.absoluteHref === pathname
+                ? 'text-gray-50 bg-primary-400 hover:bg-primary-500'
+                : 'text-gray-900'
+            }`}
+            href={item.absoluteHref}
+            onClick={() => onClick()}
+          >
+            {item.name}
+          </Link>
+        </li>
+      )
+    }
+  }
 
 export default function TheMobileMenu() {
   const pathname = usePathname()
@@ -125,6 +210,7 @@ export default function TheMobileMenu() {
             className="flex-none font-semibold text-xl text-black focus:outline-none focus:opacity-80"
             href="/"
             aria-label="Brand"
+            onClick={closeMenu}
           >
             Hội Dòng
             <br />
@@ -132,7 +218,9 @@ export default function TheMobileMenu() {
           </Link>
         </div>
 
-        <div
+        <MobileMenuDefault items={menu} />
+
+        {/* <div
           className="hs-accordion-group p-6 w-full flex flex-col flex-wrap"
           data-hs-accordion-always-open
         >
@@ -144,13 +232,15 @@ export default function TheMobileMenu() {
                   className="hs-accordion"
                   id={`${link.normalizedName}-accordion-item`}
                 >
-                  <MobileMenuToggle link={link} />
+                  <MobileMenuToggle
+                    label={link.name}
+                    controlsId={`${link.normalizedName}-accordion`}
+                    href={link.href}
+                  />
 
-                  <div
+                  <MobileMenuContent
                     id={`${link.normalizedName}-accordion`}
-                    className="hs-accordion-content w-full overflow-hidden transition-[height] duration-300 hidden"
-                    role="region"
-                    aria-labelledby={`${link.normalizedName}-accordion`}
+                    labelledbyId={`${link.normalizedName}-accordion-item`}
                   >
                     <ul className="pt-2 ps-2 space-y-1">
                       {link.children.map((child) => (
@@ -165,7 +255,7 @@ export default function TheMobileMenu() {
                         </li>
                       ))}
                     </ul>
-                  </div>
+                  </MobileMenuContent>
                 </li>
               ) : (
                 <li key={index}>
@@ -184,9 +274,32 @@ export default function TheMobileMenu() {
               )
             )}
           </ul>
-        </div>
+        </div> */}
       </div>
       {/* End Sidebar */}
     </div>
+  )
+}
+
+interface MobileMenuDefaultProps {
+  items: MenuItem[]
+}
+
+function MobileMenuDefault(props: MobileMenuDefaultProps) {
+  const { items } = props
+
+  const closeMenu = async () => {
+    const menuElement = document.querySelector<HTMLElement>(`#${MENU_ID}`)
+    if (!menuElement) {
+      console.error('Menu element not found')
+      return
+    }
+    // import preline on the client side
+    const { HSOverlay } = await import('preline/preline')
+    HSOverlay.close(menuElement)
+  }
+
+  return (
+    <MobileMenuRoot items={items} itemRender={defaultItemRender(closeMenu)} />
   )
 }
