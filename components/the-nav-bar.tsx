@@ -31,7 +31,7 @@ export default function TheNavBar({ className }: TheNavBarProps) {
         </div>
 
         <ul className="hidden lg:flex flex-row flex-wrap items-center max-w-screen-xl">
-          <div className="relative h-full w-20 self-start">
+          <div className="z-20 relative h-full w-20 self-start">
             <div className="absolute top-[20%] left-0 overflow-auto h-20 w-20">
               <Image
                 src={logo.url}
@@ -51,20 +51,33 @@ export default function TheNavBar({ className }: TheNavBarProps) {
               </Link>
 
               {link.children && (
-                <div className="z-20 hidden peer-hover:block hover:block absolute top-full left-0">
-                  <ul className="bg-primary-400">
-                    {link.children.map((child) => (
-                      <li key={child.href} className="block">
-                        <Link
-                          href={`${link.href}${child.href}`}
-                          className="block text-nowrap px-4 py-2 hover:bg-primary-700 hover:text-gray-50"
-                        >
-                          {child.name}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                <ul className="z-20 hidden peer-hover:block hover:block absolute top-full left-0 bg-primary-400">
+                  {link.children.map((child) => (
+                    <li key={child.href} className="block relative">
+                      <Link
+                        href={`${link.href}${child.href}`}
+                        className="block peer text-nowrap px-4 py-2 hover:bg-primary-700 hover:text-gray-50"
+                      >
+                        {child.name}
+                      </Link>
+
+                      {child.children && (
+                        <ul className="hidden peer-hover:block hover:block absolute left-full top-0 bg-primary-400">
+                          {child.children.map((grandchild) => (
+                            <li key={grandchild.href} className="block">
+                              <Link
+                                href={`${link.href}${child.href}${grandchild.href}`}
+                                className="block text-nowrap px-4 py-2 hover:bg-primary-700 hover:text-gray-50"
+                              >
+                                {grandchild.name}
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </li>
+                  ))}
+                </ul>
               )}
             </li>
           ))}
@@ -72,7 +85,7 @@ export default function TheNavBar({ className }: TheNavBarProps) {
       </nav>
 
       {isHome && (
-        <div className='w-full'>
+        <div className="w-full">
           <AppBanners banners={homeBanners} />
         </div>
       )}
