@@ -191,7 +191,7 @@ type PageCongregationHistory = {
 
 type PageCongregationEstablishment = PostsPage
 
-type PageCongregationAuthorities = PostsPage
+type PageCongregationGratitude = GroupedPostsPage
 
 type PageSpirituality = GroupedPostsPage
 
