@@ -1,5 +1,5 @@
 # run npx decap-server
-# local_backend: true
+local_backend: true
 
 backend:
   name: git-gateway
