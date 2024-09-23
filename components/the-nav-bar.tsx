@@ -15,11 +15,12 @@ interface TheNavBarProps {
 
 export default function TheNavBar({ className }: TheNavBarProps) {
   const { logo } = siteAttributes as SiteAttributes
-  const { homeBanners, bottomDecorativeGraphic } =
+  const { pageBanners, bottomDecorativeGraphic } =
     navbarAttributes as NavbarAttributes
 
   const pathname = usePathname()
-  const isHome = pathname === '/'
+  const banners = pageBanners.find((banner) => pathname == banner.path)?.banners
+  const hasBanners = !!banners
 
   return (
     <div>
@@ -84,9 +85,9 @@ export default function TheNavBar({ className }: TheNavBarProps) {
         </ul>
       </nav>
 
-      {isHome && (
+      {hasBanners && (
         <div className="w-full">
-          <AppBanners banners={homeBanners} />
+          <AppBanners banners={banners} />
         </div>
       )}
 
