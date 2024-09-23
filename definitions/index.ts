@@ -214,7 +214,6 @@ type PageSpiritualityCharism = {
 
 type PageSpiritualitySaintDominic = {
   title: string
-  banners: Image[]
   hiddenTags: string[]
 }
 

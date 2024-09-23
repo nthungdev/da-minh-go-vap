@@ -1,4 +1,3 @@
-import AppBanners from '@/components/app-banners'
 import AppPage from '@/components/app-page'
 import AppTimelineCards from '@/components/app-timeline-cards'
 import { attributes } from '@/content/pages/spirituality/charism.md'

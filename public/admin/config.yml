@@ -557,16 +557,6 @@ collections:
             label: 'Tiêu đề'
             widget: 'string'
             required: true
-          - name: 'banners'
-            label: 'Banners'
-            widget: 'list'
-            allow_add: true
-            label_singular: 'Banner'
-            min: 1
-            max: 10
-            fields:
-              - { name: 'url', label: 'Hình ảnh/Video ngắn', widget: 'image' }
-              - { name: 'alt', label: 'Mô tả', widget: 'string' }
           - name: 'hiddenTags'
             label: 'Tag ẩn'
             description: 'Các bài viết có các tag ẩn này sẽ hiển thị.'
