@@ -20,10 +20,10 @@ export default function AppBanners(props: AppBannersProps) {
   }
 
   return (
-    <div className={`aspect-[4] ${className || ''}`}>
+    <div className={`w-full aspect-[4] ${className || ''}`}>
       <AppCarousel>
         {banners.map((banner, index) => (
-          <div key={index} className="h-full">
+          <div key={index} className="h-full w-full">
             {checkVideo(banner.url) ? (
               <video
                 className="object-cover h-full w-full"
@@ -39,8 +39,8 @@ export default function AppBanners(props: AppBannersProps) {
                 src={banner.url}
                 alt={banner.alt || ''}
                 sizes="100%"
-                width={1920}
-                height={1080}
+                width={0}
+                height={0}
               />
             )}
           </div>
