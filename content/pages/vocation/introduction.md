@@ -52,19 +52,19 @@ sections:
       alt: Giai đoạn thỉnh viện
     hiddenTags:
       - Lịch sử
-  - title: Giai đoàn Tiền tập viện
+  - title: Giai đoạn Tiền tập viện
     thumbnail:
       url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1716407577/cld-sample-2.jpg
-      alt: Giai đoạn Học viện
+      alt: Tiền Tập viện
     hiddenTags:
       - Hiểu Để Yêu
-  - title: Hoat dong su vu
+  - title: Giai đoạn Tập viện
     hiddenTags:
       - Giao phan Phu Cuong
     thumbnail:
       alt: Hoat dong su vu
       url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1716407578/cld-sample-4.jpg
-  - title: Doi song hoc hanh
+  - title: Giai đoạn Học viện
     hiddenTags:
       - Giao phan Phu Cuong
     thumbnail:
