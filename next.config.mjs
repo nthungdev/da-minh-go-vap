@@ -17,6 +17,11 @@ const nextConfig = {
         destination: '/admin/index.html',
         permanent: false,
       },
+      {
+        source: '/vocation',
+        destination: '/vocation/introduction',
+        permanent: true,
+      },
     ]
   },
   images: {

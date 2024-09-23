@@ -12,7 +12,7 @@ pageBanners:
     banners:
       - url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1724972122/Da_Minh_kcm4sa.svg
         alt: Banner 1
-  - path: /vocation
+  - path: /vocation/introduction
     banners:
       - url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726964874/3_oxkvzl.jpg
         alt: Dien mo ta banner cho On Goi
