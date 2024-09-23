@@ -7,6 +7,7 @@ import TheFooter from '@/components/the-footer'
 import Image from 'next/image'
 import { attributes as navbarAttributes } from '@/content/settings/navbar.md'
 import TheTopBanners from '@/components/the-top-banners'
+import classNames from 'classnames'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -24,13 +25,18 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <body className={`bg-gray-50 w-full flex flex-col ${inter.className}`}>
+      <body
+        className={classNames(
+          'bg-gray-50 w-full flex flex-col',
+          inter.className
+        )}
+      >
         <NavBar className="z-10" />
         <TheTopBanners />
         <Image
           src={bottomDecorativeGraphic.url}
           alt={bottomDecorativeGraphic.alt}
-          className="hidden lg:block w-full"
+          className="hidden lg:block w-full pointer-events-none"
           width={1080}
           height={720}
           quality={100}
