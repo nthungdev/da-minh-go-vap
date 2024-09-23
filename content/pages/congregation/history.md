@@ -770,11 +770,11 @@ communityHistory:
       hiddenTags:
         - Gp Sài Gòn
         - Giao phan Phu Cuong
-        - Gp Phan Thiết
     - title: Miền Đông
       hiddenTags:
         - Giao phan Da Lat
         - Giao phan Xuan Loc
+        - Gp Phan Thiết
     - title: Miền Tây và Hải ngoại
       hiddenTags:
         - Gp Long Xuyên
