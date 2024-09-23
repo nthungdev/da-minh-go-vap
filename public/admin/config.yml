@@ -1302,6 +1302,24 @@ collections:
             fields:
               - { name: 'url', label: 'Hình ảnh/Video ngắn', widget: 'image', allow_multiple: false }
               - { name: 'alt', label: 'Mô tả', widget: 'string' }
+          - name: pageBanners
+            label: 'Banners trang'
+            widget: 'list'
+            allow_add: true
+            label_singular: 'Banner trang'
+            fields:
+              - { name: 'path', label: 'Đường dẫn', widget: 'string' }
+              - name: banners
+                label: 'Banners'
+                widget: 'list'
+                allow_add: true
+                label_singular: 'Banner'
+                min: 1
+                max: 10
+                summary: '{{fields.title}}'
+                fields:
+                  - { name: 'url', label: 'Hình ảnh/Video ngắn', widget: 'image', allow_multiple: false }
+                  - { name: 'alt', label: 'Mô tả', widget: 'string' }
           - name: 'bottomDecorativeGraphic'
             label: 'Đồ họa trang trí bên dưới'
             hint: 'Hình ảnh này sẽ hiển thị bên dưới thanh điều hướng.'
