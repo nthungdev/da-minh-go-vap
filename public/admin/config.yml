@@ -1271,17 +1271,6 @@ collections:
         label: 'Thanh điều hướng'
         file: 'content/settings/navbar.md'
         fields:
-          - name: 'homeBanners'
-            label: 'Home Banners'
-            hint: 'Banner hiển thị ở trang chủ.'
-            widget: 'list'
-            allow_add: true
-            label_singular: 'Banner'
-            min: 1
-            max: 10
-            fields:
-              - { name: 'url', label: 'Hình ảnh/Video ngắn', widget: 'image', allow_multiple: false }
-              - { name: 'alt', label: 'Mô tả', widget: 'string' }
           - name: pageBanners
             label: 'Banners trang'
             widget: 'list'

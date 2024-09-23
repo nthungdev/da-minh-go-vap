@@ -3,7 +3,6 @@ type SiteAttributes = {
 }
 
 type NavbarAttributes = {
-  homeBanners: Image[]
   pageBanners: {
     path: string
     banners: Image[]
