@@ -6,10 +6,8 @@ pageBanners:
         alt: Banner 1
   - path: /spirituality/charism
     banners:
-      - url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726818877/hin_trang_chu_sjtii5.jpg
+      - url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726964841/1_twhvhe.webp
         alt: Mieu ta banner 1
-      - url: https://res.cloudinary.com/dxtb6rv7y/video/upload/v1716522866/h006976fb_V0139_017_1080p_12000br_iuat6q.mp4
-        alt: Mieu ta banner 2
   - path: /spirituality/saint-dominic
     banners:
       - url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1724972122/Da_Minh_kcm4sa.svg
