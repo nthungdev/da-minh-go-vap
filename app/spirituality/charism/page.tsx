@@ -1,4 +1,3 @@
-import AppBanners from '@/components/app-banners'
 import AppPage from '@/components/app-page'
 import AppTimelineCards from '@/components/app-timeline-cards'
 import { attributes } from '@/content/pages/spirituality/charism.md'
@@ -6,8 +5,7 @@ import Image from 'next/image'
 import { normalizeText } from 'normalize-text'
 
 export default function SpiritualityCharism() {
-  const { title, banners, quote, categories } =
-    attributes as PageSpiritualityCharism
+  const { title, quote, categories } = attributes as PageSpiritualityCharism
 
   const categoriesData = categories.map((category) => ({
     ...category,
@@ -18,30 +16,35 @@ export default function SpiritualityCharism() {
   }))
 
   return (
-    <div>
-      <AppBanners banners={banners} />
+    <AppPage>
+      <h1 className="sr-only">{title}</h1>
 
-      <AppPage className='pt-4'>
-        <h1 className="sr-only">{title}</h1>
+      <blockquote className="relative bg-primary-200 rounded-lg p-8">
+        <svg
+          className="absolute top-2 start-2 size-16 text-gray-100"
+          width="16"
+          height="16"
+          viewBox="0 0 16 16"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+        >
+          <path
+            d="M7.39762 10.3C7.39762 11.0733 7.14888 11.7 6.6514 12.18C6.15392 12.6333 5.52552 12.86 4.76621 12.86C3.84979 12.86 3.09047 12.5533 2.48825 11.94C1.91222 11.3266 1.62421 10.4467 1.62421 9.29999C1.62421 8.07332 1.96459 6.87332 2.64535 5.69999C3.35231 4.49999 4.33418 3.55332 5.59098 2.85999L6.4943 4.25999C5.81354 4.73999 5.26369 5.27332 4.84476 5.85999C4.45201 6.44666 4.19017 7.12666 4.05926 7.89999C4.29491 7.79332 4.56983 7.73999 4.88403 7.73999C5.61716 7.73999 6.21938 7.97999 6.69067 8.45999C7.16197 8.93999 7.39762 9.55333 7.39762 10.3ZM14.6242 10.3C14.6242 11.0733 14.3755 11.7 13.878 12.18C13.3805 12.6333 12.7521 12.86 11.9928 12.86C11.0764 12.86 10.3171 12.5533 9.71484 11.94C9.13881 11.3266 8.85079 10.4467 8.85079 9.29999C8.85079 8.07332 9.19117 6.87332 9.87194 5.69999C10.5789 4.49999 11.5608 3.55332 12.8176 2.85999L13.7209 4.25999C13.0401 4.73999 12.4903 5.27332 12.0713 5.85999C11.6786 6.44666 11.4168 7.12666 11.2858 7.89999C11.5215 7.79332 11.7964 7.73999 12.1106 7.73999C12.8437 7.73999 13.446 7.97999 13.9173 8.45999C14.3886 8.93999 14.6242 9.55333 14.6242 10.3Z"
+            fill="currentColor"
+          ></path>
+        </svg>
 
-        <div className="relative w-full">
-          <Image
-            src="/images/quote-blue.png"
-            alt=""
-            className="w-full"
-            width={1080}
-            height={720}
-            quality={100}
-            sizes="100%"
-          />
-          <div className="absolute top-[35%] bottom-[35%] left-0 right-0 mx-[20%] text-sm lg:text-base text-center flex items-center overflow-hidden">
-            <p>{quote}</p>
-          </div>
+        <div className="relative z-10">
+          <p className="text-xl text-gray-800 md:text-3xl md:leading-normal">
+            <em>
+              {quote}
+            </em>
+          </p>
         </div>
+      </blockquote>
 
-        <AppTimelineCards className='mt-12' cards={categoriesData} />
-      </AppPage>
-
-    </div>
+      <AppTimelineCards className="mt-12" cards={categoriesData} />
+    </AppPage>
   )
 }

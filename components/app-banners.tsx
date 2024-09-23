@@ -26,7 +26,7 @@ export default function AppBanners(props: AppBannersProps) {
           <div key={index} className="h-full">
             {checkVideo(banner.url) ? (
               <video
-                className="object-cover h-full"
+                className="object-cover h-full w-full"
                 src={banner.url}
                 autoPlay
                 loop
