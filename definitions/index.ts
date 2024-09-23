@@ -201,10 +201,6 @@ type PageSpirituality = GroupedPostsPage
 
 type PageSpiritualityCharism = {
   title: string
-  banners: {
-    url: string
-    alt: string
-  }[]
   quote: string
   categories: {
     title: string

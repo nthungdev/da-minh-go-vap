@@ -1,8 +1,5 @@
 ---
 title: Tinh Than Dong
-banners:
-  - url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1724972122/Linh_dao_mc5cag.svg
-    alt: Mieu ta banner 1
 quote: Mauris quis rutrum enim. Suspendisse vel cursus tortor, non accumsan
   nulla. Morbi pharetra, urna sed pellentesque eleifend, quam ipsum faucibus
   lectus, sit amet dapibus arcu lorem sed felis.

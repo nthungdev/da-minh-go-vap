@@ -509,16 +509,6 @@ collections:
           - name: 'title'
             label: 'Tiêu đề'
             widget: 'string'
-          - name: banners
-            label: 'Banners'
-            widget: 'list'
-            allow_add: true
-            label_singular: 'banner'
-            min: 1
-            max: 10
-            fields:
-              - { name: 'url', label: 'Hình ảnh/Video ngắn', widget: 'image' }
-              - { name: 'alt', label: 'Mô tả', widget: 'string' }
           - name: 'quote'
             label: 'Câu'
             widget: 'string'
