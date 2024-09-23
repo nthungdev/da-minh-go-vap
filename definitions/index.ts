@@ -84,6 +84,7 @@ type PostsPage = {
 
 type GroupedPostsPage = {
   title: string
+  limit?: number
   postGroups: {
     title: string
     hiddenTags: string[]

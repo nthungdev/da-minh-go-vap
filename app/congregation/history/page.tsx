@@ -1,8 +1,8 @@
 import { fetchPostsByHiddenTags } from '@/actions/post'
 import { AppAccordionDefault } from '@/components/app-accordion'
 import AppMarkdown from '@/components/app-markdown'
+import AppMultiplePostGrids from '@/components/app-multiple-post-grids'
 import AppPage from '@/components/app-page'
-import AppPostTabGrid from '@/components/app-post-tab-grid'
 import { attributes } from '@/content/pages/congregation/history.md'
 
 export default async function CongregationHistory() {
@@ -29,9 +29,9 @@ export default async function CongregationHistory() {
 
       <section className="space-y-4">
         <h2 className="text-2xl">{communityHistory.title}</h2>
-        <AppPostTabGrid
-          allPostsLimit={communityHistory.limit}
-          postGroups={postGroupsData}
+        <AppMultiplePostGrids
+          limit={communityHistory.limit}
+          postGroups={communityHistory.postGroups}
         />
       </section>
     </AppPage>
