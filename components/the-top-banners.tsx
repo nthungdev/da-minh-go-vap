@@ -3,6 +3,7 @@
 import { usePathname } from 'next/navigation'
 import { attributes as navbarAttributes } from '@/content/settings/navbar.md'
 import AppBanners from './app-banners'
+import classNames from 'classnames'
 
 interface TheTopBannersProps {
   className?: string
@@ -16,7 +17,7 @@ export default function TheTopBanners({ className }: TheTopBannersProps) {
   const hasBanners = !!banners
 
   return (
-    <div className={`w-full ${className || ''}`}>
+    <div className={classNames('w-full', className)}>
       {hasBanners && <AppBanners banners={banners} />}
     </div>
   )
