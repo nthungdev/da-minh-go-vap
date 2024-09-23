@@ -27,7 +27,7 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={classNames(
-          'bg-gray-50 w-full flex flex-col',
+          'bg-gray-50 flex flex-col w-full min-h-screen',
           inter.className
         )}
       >
