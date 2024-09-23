@@ -1,11 +1,11 @@
 'use client'
 
 import menu, { MenuItem } from '@/utils/menu'
+import classNames from 'classnames'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 const MENU_ID = 'hs-the-mobile-menu'
-
 
 // TODO - Refactor this component
 
@@ -156,9 +156,7 @@ const defaultItemRender = (onClick: Function) =>
     }
   }
 
-export default function TheMobileMenu() {
-  const pathname = usePathname()
-
+export default function TheMobileNavbar({ className }: { className?: string }) {
   const closeMenu = async () => {
     const menuElement = document.querySelector<HTMLElement>(`#${MENU_ID}`)
     if (!menuElement) {
@@ -171,7 +169,7 @@ export default function TheMobileMenu() {
   }
 
   return (
-    <div>
+    <nav className={classNames('lg:hidden bg-[#427CA8] text-gray-50 p-2', className)}>
       {/* Navigation Toggle */}
       <div className="flex flex-row items-center">
         <button
@@ -222,65 +220,9 @@ export default function TheMobileMenu() {
         </div>
 
         <MobileMenuDefault items={menu} />
-
-        {/* <div
-          className="hs-accordion-group p-6 w-full flex flex-col flex-wrap"
-          data-hs-accordion-always-open
-        >
-          <ul className="space-y-1.5">
-            {menu.map((link, index) =>
-              link.children ? (
-                <li
-                  key={index}
-                  className="hs-accordion"
-                  id={`${link.normalizedName}-accordion-item`}
-                >
-                  <MobileMenuToggle
-                    label={link.name}
-                    controlsId={`${link.normalizedName}-accordion`}
-                    href={link.href}
-                  />
-
-                  <MobileMenuContent
-                    id={`${link.normalizedName}-accordion`}
-                    labelledbyId={`${link.normalizedName}-accordion-item`}
-                  >
-                    <ul className="pt-2 ps-2 space-y-1">
-                      {link.children.map((child) => (
-                        <li key={child.href}>
-                          <Link
-                            className="flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-700 rounded-lg hover:bg-primary-200 focus:outline-none focus:bg-primary-200"
-                            href={link.href + child.href}
-                            onClick={closeMenu}
-                          >
-                            {child.name}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </MobileMenuContent>
-                </li>
-              ) : (
-                <li key={index}>
-                  <Link
-                    className={`flex items-center gap-x-3.5 py-2 px-2.5 text-sm rounded-lg w-full text-start hover:text-gray-50 hover:bg-primary-500 focus:outline-none focus:bg-primary-500 focus:text-gray-50 ${
-                      link.href === pathname
-                        ? 'text-gray-50 bg-primary-400 hover:bg-primary-500'
-                        : 'text-gray-900'
-                    }`}
-                    href={link.href}
-                    onClick={closeMenu}
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              )
-            )}
-          </ul>
-        </div> */}
       </div>
       {/* End Sidebar */}
-    </div>
+    </nav>
   )
 }
 

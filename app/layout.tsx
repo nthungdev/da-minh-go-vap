@@ -1,13 +1,14 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
-import NavBar from '../components/the-nav-bar'
 import ThePrelineScript from '@/components/the-preline-script'
 import TheFooter from '@/components/the-footer'
 import Image from 'next/image'
 import { attributes as navbarAttributes } from '@/content/settings/navbar.md'
 import TheTopBanners from '@/components/the-top-banners'
 import classNames from 'classnames'
+import TheMobileNavbar from '@/components/the-mobile-navbar'
+import TheDesktopNavbar from '@/components/the-desktop-navbar'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -31,7 +32,8 @@ export default function RootLayout({
           inter.className
         )}
       >
-        <NavBar className="z-10" />
+        <TheDesktopNavbar className="z-10" />
+        <TheMobileNavbar />
         <TheTopBanners />
         <Image
           src={bottomDecorativeGraphic.url}

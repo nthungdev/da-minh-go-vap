@@ -1,29 +1,24 @@
 import Link from 'next/link'
 import { attributes as siteAttributes } from '@/content/settings/site.md'
 import Image from 'next/image'
-import TheMobileMenu from './the-mobile-menu'
 import menu from '@/utils/menu'
 import classNames from 'classnames'
 
-interface TheNavBarProps {
+interface TheDesktopNavbarProps {
   className?: string
 }
 
-export default function TheNavBar({ className }: TheNavBarProps) {
+export default function TheDesktopNavbar({ className }: TheDesktopNavbarProps) {
   const { logo } = siteAttributes as SiteAttributes
 
   return (
     <nav
       className={classNames(
-        `sticky top-0 bg-[#427CA8] text-gray-50 flex flex-row flex-wrap lg:justify-center`,
+        `sticky top-0 bg-[#427CA8] text-gray-50 hidden lg:flex flex-row flex-wrap lg:justify-center`,
         className
       )}
     >
-      <div className="lg:hidden p-2 flex-1">
-        <TheMobileMenu />
-      </div>
-
-      <ul className="hidden lg:flex flex-row flex-wrap items-center max-w-screen-xl">
+      <ul className="lg:flex flex-row flex-wrap items-center max-w-screen-xl">
         <div className="z-20 relative h-full w-20 self-start">
           <div className="absolute top-[20%] left-0 overflow-auto h-20 w-20">
             <Image
