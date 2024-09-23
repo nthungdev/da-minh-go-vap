@@ -2,17 +2,13 @@
 bibleVerses:
   enable: true
   verses:
-    - verse: For I know the plans I have for you, declares the Lord, plans for welfare
-        and not for evil, to give you a future and a hope.
-      reference: Jeremiah 29:11
-    - verse: Be strong and courageous. Do not fear or be in dread of them, for it is
-        the Lord your God who goes with you. He will not leave you or forsake
-        you.
-      reference: Deuteronomy 31:6
-    - verse: Trust in the Lord with all your heart, and do not lean on your own
-        understanding. In all your ways acknowledge him, and he will make
-        straight your paths.
-      reference: Proverbs 3:5-6
+    - verse: "Đức Chúa đã ban cho, Đức Chúa lại lấy đi : xin chúc tụng danh Đức Chúa."
+      reference: G 6, 21
+    - verse: Ai tiếp đón em nhỏ này vì danh Thầy, là tiếp đón chính Thầy
+      reference: Lc 9, 48
+    - verse: "Người lại hỏi : “Còn anh em, anh em bảo Thầy là ai ?” Ông Phê-rô thưa :
+        “Thầy là Đấng Ki-tô của Thiên Chúa."
+      reference: Lc 9, 20
 latestPosts:
   enable: true
   limit: 6
@@ -22,35 +18,64 @@ newsByCategories:
   categories:
     - title: Cầu nguyện
       subCategories:
-        - title: Mùa vọng & Giáng sinh
+        - title: Suy niệm
           hiddenTags:
-            - Các đấng bản quyền
-        - title: Mùa chay & Phục sinh
-          hiddenTags:
-            - Walking with Jesus
-        - title: Mùa thường niên
-          hiddenTags:
-            - Hiểu Để Yêu
-    - title: Muc thu 2
-      subCategories:
-        - title: Muc 2A
-          hiddenTags:
-            - Các đấng bản quyền
-            - Hiểu Để Yêu
-            - Giao phan Da Lat
-        - title: Muc 2B
+            - Suy niệm
+        - title: Y cầu nguyện
           hiddenTags:
             - Walking with Jesus
-            - Giao phan Da Lat
-    - title: Muc thu 3
-      subCategories:
-        - title: Muc 3A
+        - title: Kinh phụng vụ
           hiddenTags:
-            - Giao phan Phu Cuong
-        - title: Muc 3B
+            - Hiểu Để Yêu
+    - title: SỨ VỤ
+      subCategories:
+        - title: Truyền giáo
+          hiddenTags:
+            - Gp Long Xuyên
+            - Giao phan Da Lat
+            - Giao phan Xuan Loc
+        - title: Mục vụ
+          hiddenTags:
+            - Giao phan Da Lat
+            - Gp Lạng Sơn
+            - Gp Sài Gòn
+        - title: Bác ái xã hội
+          hiddenTags:
+            - Walking with Jesus
+        - title: Giáo Dục
           hiddenTags:
             - Chút men cho đời
-        - title: Muc 3C
+    - title: CHUYÊN ĐỀ
+      subCategories:
+        - title: Hiểu để yêu
+          hiddenTags:
+            - Hiểu Để Yêu
+        - title: Bé và Lời
+          hiddenTags:
+            - Chút men cho đời
+        - title: Walking with Jesus
           hiddenTags:
             - Lịch sử
+    - title: BẢN TIN
+      subCategories:
+        - title: Bản tin giáo Hội
+          hiddenTags:
+            - Giao phan Xuan Loc
+        - title: Tin dòng Đa Minh
+          hiddenTags:
+            - Giao phan Da Lat
+        - title: Tin Hội dòng
+          hiddenTags:
+            - Bé và lời
+    - title: HỘI DÒNG
+      subCategories:
+        - title: Tâm thư
+          hiddenTags:
+            - tâm thư của BTTQ
+        - title: Chuyện giờ mới kể
+          hiddenTags:
+            - Giao phan Da Lat
+        - title: Tâm tình
+          hiddenTags:
+            - Gp Long Xuyên
 ---

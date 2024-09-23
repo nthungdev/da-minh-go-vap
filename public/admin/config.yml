@@ -849,7 +849,7 @@ collections:
 
       - name: vocationIntroduction
         label: 'Ơn gọi / Giới thiệu'
-        file: 'content/pages/vocation/introduciton.md'
+        file: 'content/pages/vocation/introduction.md'
         fields:
           - name: 'title'
             label: 'Tiêu đề'
