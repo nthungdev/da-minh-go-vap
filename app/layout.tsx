@@ -24,7 +24,7 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <body className={`bg-gray-50 w-full flex flex-col ${inter.className}`}>
+      <body className={`bg-gray-50 w-full flex min-h-screen flex-col ${inter.className}`}>
         <NavBar className="z-10" />
         <TheTopBanners />
         <Image
