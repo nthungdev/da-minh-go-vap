@@ -509,16 +509,6 @@ collections:
           - name: 'title'
             label: 'Tiêu đề'
             widget: 'string'
-          - name: banners
-            label: 'Banners'
-            widget: 'list'
-            allow_add: true
-            label_singular: 'banner'
-            min: 1
-            max: 10
-            fields:
-              - { name: 'url', label: 'Hình ảnh/Video ngắn', widget: 'image' }
-              - { name: 'alt', label: 'Mô tả', widget: 'string' }
           - name: 'quote'
             label: 'Câu'
             widget: 'string'
@@ -567,16 +557,6 @@ collections:
             label: 'Tiêu đề'
             widget: 'string'
             required: true
-          - name: 'banners'
-            label: 'Banners'
-            widget: 'list'
-            allow_add: true
-            label_singular: 'Banner'
-            min: 1
-            max: 10
-            fields:
-              - { name: 'url', label: 'Hình ảnh/Video ngắn', widget: 'image' }
-              - { name: 'alt', label: 'Mô tả', widget: 'string' }
           - name: 'hiddenTags'
             label: 'Tag ẩn'
             description: 'Các bài viết có các tag ẩn này sẽ hiển thị.'
@@ -849,7 +829,7 @@ collections:
 
       - name: vocationIntroduction
         label: 'Ơn gọi / Giới thiệu'
-        file: 'content/pages/vocation/introduciton.md'
+        file: 'content/pages/vocation/introduction.md'
         fields:
           - name: 'title'
             label: 'Tiêu đề'
@@ -1302,6 +1282,24 @@ collections:
             fields:
               - { name: 'url', label: 'Hình ảnh/Video ngắn', widget: 'image', allow_multiple: false }
               - { name: 'alt', label: 'Mô tả', widget: 'string' }
+          - name: pageBanners
+            label: 'Banners trang'
+            widget: 'list'
+            allow_add: true
+            label_singular: 'Banner trang'
+            fields:
+              - { name: 'path', label: 'Đường dẫn', widget: 'string' }
+              - name: banners
+                label: 'Banners'
+                widget: 'list'
+                allow_add: true
+                label_singular: 'Banner'
+                min: 1
+                max: 10
+                summary: '{{fields.title}}'
+                fields:
+                  - { name: 'url', label: 'Hình ảnh/Video ngắn', widget: 'image', allow_multiple: false }
+                  - { name: 'alt', label: 'Mô tả', widget: 'string' }
           - name: 'bottomDecorativeGraphic'
             label: 'Đồ họa trang trí bên dưới'
             hint: 'Hình ảnh này sẽ hiển thị bên dưới thanh điều hướng.'

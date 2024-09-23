@@ -4,6 +4,10 @@ type SiteAttributes = {
 
 type NavbarAttributes = {
   homeBanners: Image[]
+  pageBanners: {
+    path: string
+    banners: Image[]
+  }[]
   bottomDecorativeGraphic: Image
 }
 
@@ -197,10 +201,6 @@ type PageSpirituality = GroupedPostsPage
 
 type PageSpiritualityCharism = {
   title: string
-  banners: {
-    url: string
-    alt: string
-  }[]
   quote: string
   categories: {
     title: string
@@ -214,7 +214,6 @@ type PageSpiritualityCharism = {
 
 type PageSpiritualitySaintDominic = {
   title: string
-  banners: Image[]
   hiddenTags: string[]
 }
 

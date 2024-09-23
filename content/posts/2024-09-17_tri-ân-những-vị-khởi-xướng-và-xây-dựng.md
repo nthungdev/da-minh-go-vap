@@ -1,0 +1,13 @@
+---
+title: Tri ân những vị khởi xướng và xây dựng
+date: 2024-09-17T08:29:00.000Z
+hiddenTags:
+  - Các đấng bản quyền
+  - tâm thư của BTTQ
+  - Walking with Jesus
+  - kinh phung vu
+thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726537195/DSC02280_uolcfy.jpg
+---
+![Đức Ông Bertrand Cothonay (cố Chiểu) là Phủ doãn Tông toà đầu tiên của địa phận Lạng Sơn – Cao Bằng. là một nhà truyền giáo đầy kinh nghiệm và thông minh, mang nhiều thao thức truyền giảng Tin Mừng cho vùng rừng núi Lạng Sơn, ngài chú tâm chiêu mộ, tập hợp và đào tạo nhân sự, thiết lập các điểm truyền giáo  tuyến biên giới Việt – Trung. Ngài có sáng kiến thiết lập các nhà phước Đa Minh, để các bà mụ cộng tác trong sứ vụ rao giảng Tin Mừng. Năm 1918, ngài thiết lập nhà phước Đa Minh đầu tiên tại Cửa Nam. Năm 1925, ngài lập nhà phước Mỹ Sơn. Đây là những nhà phước tiền thân của Hội dòng nữ Đa Minh Gò Vấp. Hội dòng tri ân ngài vì công lao khai sinh. Nhờ nhiệt tâm và tầm nhìn rộng lớn, ngài đã góp phần định hình cho Giáo Hội một Hội dòng để chung tay góp sức cho công cuộc rao giảng Tin Mừng tại vùng đất mẹ Lạng Sơn – Cao Bằng và cho Giáo hội Việt Nam.](https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726537247/DSC02276_el7f3y.jpg "Đức Ông Bertrand Cothonay (cố Chiểu)")
+
+![Đức Ông Dominique Maillet (Cố Bính) là Phủ doãn Tông toà thứ II của Lạng Sơn năm 1925. Ngài chủ trương xây dựng hàng ngũ giáo sĩ, tu sĩ làm nền tảng cho công cuộc truyền giáo. Tiếp nối công việc và thao thức của vị tiền nhiệm, ngài lập thêm ba nhà phước Đa Minh Bản Lìm, Đồng Mỏ và Cao Bằng vào năm 1925. Năm 1937, ngài lập nhà phước Quảng Uyên. Nhờ công ơn của ngài, sự hiện diện của chị em nhà phước Đa Minh tại Lạng Sơn được củng cố và mở rộng. Chị em học từ ngài tinh thần truyền giáo đầy hăng say, được ngài chỉ bảo các nề nếp sinh hoạt trong đời sống, góp phần xây dựng tinh thần và đường lối tu trì thêm vững chắc là một trong những vị mục tử có công khai sinh đối với Hội dòng, chị em tri ân ngài trong tâm tình con thảo!](https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726537345/IMG_2309_mvey76.jpg "Đức Ông Dominique Maillet (Cố Bính)")
