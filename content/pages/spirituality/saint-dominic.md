@@ -10,9 +10,6 @@ quotes:
         fine clothes.
   enable: true
   title: Cham Ngon cua Thanh Da Minh
-banners:
-  - url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1724972122/Da_Minh_kcm4sa.svg
-    alt: Banner 1
 hiddenTags:
   - Giới thiệu
   - Sắc lập dòng
