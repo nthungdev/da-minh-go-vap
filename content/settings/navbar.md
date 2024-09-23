@@ -16,7 +16,7 @@ pageBanners:
         alt: Banner 1
       - url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1723670153/hinh-so_jas0ec.jpg
         alt: Banner
-  - path: /vocation
+  - path: /vocation/introduction
     banners:
       - url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726964874/3_oxkvzl.jpg
         alt: Dien mo ta banner cho On Goi
