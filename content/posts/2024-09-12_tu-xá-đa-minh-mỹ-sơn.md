@@ -1,5 +1,5 @@
 ---
-title: Tu xá Đa Minh Mỹ Sơn
+title: Tu xá Mỹ Sơn
 date: 2024-09-12T16:03:00.000Z
 hiddenTags:
   - Gp Sài Gòn
