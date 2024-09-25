@@ -4,11 +4,11 @@ date: 2024-07-14T14:32:00.000Z
 hiddenTags:
   - thỉnh viện
   - thông tin
-thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726103671/viber_image_2023-05-15_21-20-09-421_du7qxi.jpg
+thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726106443/344342926_248779361055198_6927810168029653246_n_lu5mxv.jpg
 videos:
   - youtubeUrl: https://www.youtube.com/embed/mnqPLsI7ARo?si=PHUr0MapZjphxDWf
     title: Tiếng gọi thời thanh xuân
-    thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726103671/viber_image_2023-05-15_21-20-09-421_du7qxi.jpg
+    thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726106443/344342926_248779361055198_6927810168029653246_n_lu5mxv.jpg
 ---
 “Đừng làm nhoà tiếng của Thiên Chúa, Đấng đang mời gọi các bạn trỗi dậy và đi theo những con đường mà Ngài đã chuẩn bị cho các bạn”, lời mời gọi của Đức Giáo Hoàng Phanxicô nói với các bạn trẻ tại diễn đàn giới trẻ quốc tế lần thứ XI, tại Rôma 2019, gợi lên một tiếng gọi đầy hy vọng đến từ Thiên Chúa. 
 
