@@ -51,7 +51,7 @@ sections:
       url: https://www.facebook.com/photo.php?fbid=420360820514826&set=pb.100076227331083.-2207520000&type=3&locale=vi_VN
       alt: Giai đoạn thỉnh viện
     hiddenTags:
-      - Lịch sử
+      - thỉnh viện
   - title: Giai đoạn Tiền tập viện
     thumbnail:
       url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1716407577/cld-sample-2.jpg
