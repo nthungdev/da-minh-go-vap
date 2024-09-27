@@ -35,16 +35,24 @@ export default function RootLayout({
         <TheDesktopNavbar className="z-10" />
         <TheMobileNavbar />
         <TheTopBanners />
-        <Image
-          src={bottomDecorativeGraphic.url}
-          alt={bottomDecorativeGraphic.alt}
-          className="hidden lg:block w-full pointer-events-none"
-          width={1080}
-          height={720}
-          quality={100}
-          sizes="100%"
-          priority
-        />
+
+        {/* Dynamically render the bottom decorative graphic based on the screen size */}
+        <picture className='w-full'>
+          <source
+            media="(max-width: 799px)"
+            srcSet={bottomDecorativeGraphic.urlMobile}
+          />
+          <source
+            media="(min-width: 800px)"
+            srcSet={bottomDecorativeGraphic.urlDesktop}
+          />
+          <img
+            className="w-full"
+            src={bottomDecorativeGraphic.urlMobile}
+            alt={bottomDecorativeGraphic.alt}
+          />
+        </picture>
+
         <div className="flex-1">{children}</div>
         <ThePrelineScript />
         <TheFooter />

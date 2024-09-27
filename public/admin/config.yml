@@ -1294,8 +1294,17 @@ collections:
             hint: 'Hình ảnh này sẽ hiển thị bên dưới thanh điều hướng.'
             widget: 'object'
             fields:
-              - { name: 'url', label: 'Hình ảnh', widget: 'image' }
-              - { name: 'alt', label: 'Mô tả', widget: 'string' }
+              - name: 'urlDesktop'
+                label: 'Hình ảnh Desktop'
+                widget: 'image'
+                allow_multiple: false
+              - name: 'urlMobile'
+                label: 'Hình ảnh Mobile'
+                widget: 'image'
+                allow_multiple: false
+              - name: 'alt'
+                label: 'Mô tả'
+                widget: 'string'
       - name: 'footer'
         label: 'Chân trang'
         file: 'content/settings/footer.md'

@@ -7,7 +7,7 @@ type NavbarAttributes = {
     path: string
     banners: Image[]
   }[]
-  bottomDecorativeGraphic: Image
+  bottomDecorativeGraphic: DynamicImage
 }
 
 type AppAccordionItem = {
@@ -22,14 +22,14 @@ type AppAccordionItem = {
 
 type Post = {
   title: string
-  date: Date,
+  date: Date
   videos: {
     title: string
     thumbnail: string
     youtubeUrl: string
   }[]
   hiddenTags: string[]
-  thumbnail: string,
+  thumbnail: string
   body: string
 }
 
@@ -42,11 +42,7 @@ type TextTab = {
 type DynamicImageTab = {
   type: 'dynamicImageTab'
   title: string
-  image: {
-    urlDesktop: string
-    urlMobile: string
-    alt: string
-  }
+  image: DynamicImage
 }
 
 type PostSection = {
@@ -67,7 +63,13 @@ type PostByCategorySection = {
 }
 
 type Image = {
+  alt: string
   url: string
+}
+
+type DynamicImage = {
+  urlDesktop: string
+  urlMobile: string
   alt: string
 }
 
@@ -278,7 +280,7 @@ type SettingsFooter = {
   name: string
   address: string
   phone: string
-  email: string,
+  email: string
   marketingEmail: string
   externalLinks: {
     name: string
