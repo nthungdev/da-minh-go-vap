@@ -302,6 +302,10 @@ type PageContact = {
 }
 
 type AsideSection = {
+  slideshow: {
+    enable: boolean
+    slides: Image[]
+  }
   postGroups: {
     enable: boolean
     groups: {
