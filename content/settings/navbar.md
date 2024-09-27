@@ -21,6 +21,7 @@ pageBanners:
       - url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726964874/3_oxkvzl.jpg
         alt: Dien mo ta banner cho On Goi
 bottomDecorativeGraphic:
-  url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1727074190/hoa_van_header_nrqgtw.svg
   alt: Đa Minh Gò Vấp
+  urlDesktop: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1727074190/hoa_van_header_nrqgtw.svg
+  urlMobile: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1727074190/hoa_van_header_nrqgtw.svg
 ---
