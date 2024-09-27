@@ -32,12 +32,12 @@ export default function RootLayout({
           inter.className
         )}
       >
-        <TheDesktopNavbar className="z-10" />
-        <TheMobileNavbar />
+        <TheDesktopNavbar className="z-10 hidden xl:flex" />
+        <TheMobileNavbar className="xl:hidden" />
         <TheTopBanners />
 
         {/* Dynamically render the bottom decorative graphic based on the screen size */}
-        <picture className='w-full'>
+        <picture className="w-full">
           <source
             media="(max-width: 799px)"
             srcSet={bottomDecorativeGraphic.urlMobile}
