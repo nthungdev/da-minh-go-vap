@@ -1,12 +1,15 @@
+import Link from 'next/link'
 import { attributes } from '@/content/settings/aside-section.md'
+import { fetchPostsByHiddenTags, fetchPostsBySlugs } from '@/actions/post'
 import AppPostList from './app-post-list'
 import AppSectionHeader from './app-section-header'
-import Link from 'next/link'
 import AppPostCard from './app-post-card'
-import { fetchPostsByHiddenTags, fetchPostsBySlugs } from '@/actions/post'
+import AppCarousel from './app-carousel'
+import Image from 'next/image'
 
 export default async function AppAsideSection() {
-  const { curatedPosts, postGroups, socialLinks } = attributes as AsideSection
+  const { slideshow, curatedPosts, postGroups, socialLinks } =
+    attributes as AsideSection
 
   const curatedPostsData = await fetchPostsBySlugs(curatedPosts.posts)
 
@@ -22,6 +25,24 @@ export default async function AppAsideSection() {
 
   return (
     <aside className="space-y-4">
+      {slideshow.enable && (
+        <div className="w-full aspect-square overflow-hidden rounded-md">
+          <AppCarousel>
+            {slideshow.slides.map((slide, index) => (
+              <Image
+                key={index}
+                className="object-cover h-full w-full"
+                src={slide.url}
+                alt={slide.alt || ''}
+                sizes="100%"
+                width={0}
+                height={0}
+              />
+            ))}
+          </AppCarousel>
+        </div>
+      )}
+
       {postGroups.enable && (
         <div className="space-y-4">
           {postGroupsData.map((group, index) => (

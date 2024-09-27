@@ -1184,6 +1184,21 @@ collections:
           #       default: 5
           #       min: 3
           #       max: 10
+          - name: 'slideshow'
+            label: 'Slideshow'
+            widget: 'object'
+            fields:
+              - name: enable
+                label: 'Hiển thị'
+                widget: 'boolean'
+                default: true
+              - name: slides
+                label: 'Slides'
+                widget: 'list'
+                allow_add: true
+                fields:
+                  - { name: 'url', label: 'Hình ảnh', widget: 'image', allow_multiple: false }
+                  - { name: 'alt', label: 'Mô tả', widget: 'string' }
           - name: 'postGroups'
             label: 'Bài viết theo mục'
             widget: 'object'

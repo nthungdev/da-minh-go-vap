@@ -3,6 +3,13 @@ mostViewedPosts:
   title: Bai viet duoc xem nhieu nhat
   limit: 5
   enable: true
+slideshow:
+  enable: true
+  slides:
+    - url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1716407539/sample.jpg
+      alt: mo ta hinh
+    - url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1716407543/samples/ecommerce/analog-classic.jpg
+      alt: mo ta hinh
 postGroups:
   groups:
     - limit: 5
