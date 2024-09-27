@@ -13,7 +13,7 @@ export default function AppPostCard(props: AppPostCardProps) {
       href={`/posts/${post.slug}`}
       className="w-full h-full overflow-hidden flex flex-col lg:flex-row gap-x-2 rounded-lg hover:ring-2 hover:cursor-pointer lg:aspect-[3.5]"
     >
-      <div className="relative lg:w-auto lg:h-full aspect-video lg:aspect-[4/3] overflow-hidden rounded-lg">
+      <div className="relative lg:w-auto lg:h-full aspect-video lg:aspect-square overflow-hidden rounded-lg">
         <Image
           src={post.thumbnail}
           alt={post.title}
@@ -23,7 +23,7 @@ export default function AppPostCard(props: AppPostCardProps) {
         />
       </div>
       <div className="flex-1 px-1.5 lg:px-0 py-1 md:py-1.5 lg:py-2 flex flex-col justify-between overflow-hidden">
-        <span className="line-clamp-1 lg:line-clamp-2 text-base md:text-lg text-gray-900">
+        <span className="line-clamp-1 lg:line-clamp-2 text-base text-gray-900">
           {post.title}
         </span>
         {/* <span className="lg:hidden text-xs lg:text-sm text-gray-800">

@@ -24,9 +24,9 @@ export default async function AppAsideSection() {
   }
 
   return (
-    <aside className="space-y-4">
+    <aside className="">
       {slideshow.enable && (
-        <div className="w-full aspect-square overflow-hidden rounded-md">
+        <div className="mb-4 w-full aspect-square overflow-hidden">
           <AppCarousel>
             {slideshow.slides.map((slide, index) => (
               <Image
@@ -44,25 +44,25 @@ export default async function AppAsideSection() {
       )}
 
       {postGroups.enable && (
-        <div className="space-y-4">
+        <div className="bg-primary-200">
           {postGroupsData.map((group, index) => (
-            <div key={index} className="space-y-4">
+            <div key={index} className="">
               <AppSectionHeader className="uppercase">
                 {group.title}
               </AppSectionHeader>
-              <AppPostList posts={group.posts} itemComponent={AppPostCard} />
+              <AppPostList className='p-2' posts={group.posts} itemComponent={AppPostCard} />
             </div>
           ))}
         </div>
       )}
 
       {curatedPosts.enable && (
-        <div className="space-y-4">
+        <div className="bg-primary-200">
           <AppSectionHeader className="uppercase">
             {curatedPosts.title}
           </AppSectionHeader>
           <AppPostList
-            className="w-full"
+            className="w-full p-2"
             posts={curatedPostsData}
             itemComponent={AppPostCard}
           />
@@ -70,11 +70,11 @@ export default async function AppAsideSection() {
       )}
 
       {socialLinks.enable && (
-        <div className="space-y-4">
+        <div className="bg-primary-200">
           <AppSectionHeader className="uppercase">
             {socialLinks.title}
           </AppSectionHeader>
-          <ul className="space-y-2">
+          <ul className="space-y-2 p-2">
             {socialLinks.links.map((link, index) => (
               <li key={index}>
                 <Link
