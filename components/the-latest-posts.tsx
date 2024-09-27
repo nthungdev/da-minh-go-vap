@@ -21,7 +21,7 @@ export default function TheLatestPosts(props: TheLatestPostsProps) {
         href={`/posts/${latestPost.slug}`}
         className="col-span-2 aspect-video lg:aspect-auto"
       >
-        <div className="w-full h-full bg-blue-200 relative rounded-lg overflow-hidden hover:cursor-pointer hover:ring-2">
+        <div className="w-full h-full bg-blue-200 relative overflow-hidden hover:cursor-pointer hover:ring-2">
           <Image
             className='object-cover'
             src={latestPost.thumbnail}

@@ -11,9 +11,9 @@ export default function AppPostCard(props: AppPostCardProps) {
   return (
     <Link
       href={`/posts/${post.slug}`}
-      className="w-full h-full overflow-hidden flex flex-col lg:flex-row gap-x-2 rounded-lg hover:ring-2 hover:cursor-pointer lg:aspect-[3.5]"
+      className="w-full h-full overflow-hidden flex flex-col lg:flex-row gap-x-2 hover:ring-2 hover:cursor-pointer lg:aspect-[3.5]"
     >
-      <div className="relative lg:w-auto lg:h-full aspect-video lg:aspect-square overflow-hidden rounded-lg">
+      <div className="relative lg:w-auto lg:h-full aspect-video lg:aspect-square overflow-hidden">
         <Image
           src={post.thumbnail}
           alt={post.title}
