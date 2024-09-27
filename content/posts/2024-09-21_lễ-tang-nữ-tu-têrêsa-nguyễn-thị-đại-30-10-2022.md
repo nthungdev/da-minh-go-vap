@@ -5,9 +5,10 @@ hiddenTags:
   - thông tin
 thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726890487/le_tang_Di_%C4%90%E1%BA%A1i_H%C6%B0%C6%A1ng_vsskti.jpg
 videos:
-  - youtubeUrl: https://www.youtube.com/watch?v=z0E2YTpdJzY&list=PLLi9qVPjTxje2mrnVrfj-B1kU33fJ6Mm_&index=15
+  - url: https://www.youtube.com/watch?v=z0E2YTpdJzY&list=PLLi9qVPjTxje2mrnVrfj-B1kU33fJ6Mm_&index=15
     title: LỄ TANG Nữ tu Têrêsa NGUYỄN THỊ ĐẠI 30/10/2022
     thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726890487/le_tang_Di_%C4%90%E1%BA%A1i_H%C6%B0%C6%A1ng_vsskti.jpg
+    type: youtube
 ---
 Lễ tang Nữ tu têrêsa Nguyễn Thị Đại
 

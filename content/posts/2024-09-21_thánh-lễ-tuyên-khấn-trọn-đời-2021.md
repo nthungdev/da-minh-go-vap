@@ -5,13 +5,14 @@ hiddenTags:
   - lễ khấn
 thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726887709/khan_dong_2021_mahs9n.jpg
 videos:
-  - youtubeUrl: https://www.youtube.com/watch?v=WqimiSl5Btw
+  - url: https://www.youtube.com/watch?v=WqimiSl5Btw
     thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726887520/le_khan_2022_mymp2c.jpg
     title: THÁNH LỄ TUYÊN KHẤN TRỌN ĐỜI 2021
+    type: youtube
 ---
 Thánh lễ Tạ Ơn và Nghi thức Khấn dòng
 
-QUÝ CHỊ TUYÊN KHẤN TRỌN ĐỜI 
+QUÝ CHỊ TUYÊN KHẤN TRỌN ĐỜI
 
 Thánh lễ cử hành lúc 09g00 sáng ngày 01.05.2021
 

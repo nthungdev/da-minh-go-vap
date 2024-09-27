@@ -7,9 +7,10 @@ thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726281449/THU_NAM
 videos:
   - title: Thứ Năm Tuần XXII Mùa Thường Niên
     thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726281449/THU_NAM_TUAN_23_gnf6l1.jpg
-    youtubeUrl: Thứ Năm Tuần XXII Mùa Thường Niên
+    url: Thứ Năm Tuần XXII Mùa Thường Niên
+    type: youtube
 ---
-Dòng Nữ Đa Minh Gò Vấp  
+Dòng Nữ Đa Minh Gò Vấp
 
 Suy Niệm Lời Chúa, Thứ Năm Tuần XXII Mùa Thường Niên (05/9/2024)
 
@@ -21,7 +22,7 @@ Ca khúc: Vâng lời Thầy con thả lưới
 
 Sáng tác: Lm. Mi Trầm
 
-Trình bày: GB. Thanh Hưng Ft. Linh Giang 
+Trình bày: GB. Thanh Hưng Ft. Linh Giang
 
 Thực hiện: Ban Truyền thông dòng Nữ Đa Minh Gò Vấp
 

@@ -26,7 +26,8 @@ type Post = {
   videos: {
     title: string
     thumbnail: string
-    youtubeUrl: string
+    url: string
+    type: string
   }[]
   hiddenTags: string[]
   thumbnail: string
@@ -136,7 +137,8 @@ type AboutUsSection = {
     videos: {
       title: string
       thumbnail: string
-      youtubeUrl: string
+      url: string
+      type: string
     }[]
   }
 }
@@ -181,7 +183,8 @@ type PageCongregationHistory = {
       videos: {
         title: string
         thumbnail: string
-        youtubeUrl: string
+        url: string
+        type: string
       }[]
     }
   }

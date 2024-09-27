@@ -35,7 +35,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
 
   return <AppPage>
     {video && (
-      <iframe className='mb-4 w-full aspect-video' src={video.youtubeUrl} allowFullScreen />
+      <iframe className='mb-4 w-full aspect-video' src={video.url} allowFullScreen />
     )}
 
     <h2 className='text-3xl font-semibold'>{post.title}</h2>

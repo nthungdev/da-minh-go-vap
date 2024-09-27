@@ -6,7 +6,8 @@ hiddenTags:
 thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1722133167/maxresdefault_n0yeqb.jpg
 videos:
   - title: THÁNH LỄ TUYÊN KHẤN LẦN ĐẦU - NGÂN KHÁNH VÀ KIM KHÁNH KHẤN DÒNG 2019
-    youtubeUrl: https://www.youtube.com/watch?v=p47XboCd-qk&list=PLLi9qVPjTxje2mrnVrfj-B1kU33fJ6Mm_&index=2
+    url: https://www.youtube.com/watch?v=p47XboCd-qk&list=PLLi9qVPjTxje2mrnVrfj-B1kU33fJ6Mm_&index=2
     thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1722133167/maxresdefault_n0yeqb.jpg
+    type: youtube
 ---
 chưa soạn
