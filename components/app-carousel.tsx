@@ -77,7 +77,7 @@ export default function AppCarousel(props: AppCarouselProps) {
             {Children.map(children, (_, index) => (
               <span
                 key={index}
-                className="hs-carousel-active:bg-primary-700 hs-carousel-active:border-primary-700 size-3 border border-gray-400 rounded-full cursor-pointer dark:border-neutral-600 dark:hs-carousel-active:bg-primary-500 dark:hs-carousel-active:border-primary-500"
+                className="hs-carousel-active:bg-white/75 hs-carousel-active:border-white/75 size-3 border border-gray-400 rounded-full cursor-pointer dark:border-neutral-600 dark:hs-carousel-active:bg-primary-500 dark:hs-carousel-active:border-primary-500"
               ></span>
             ))}
           </div>
