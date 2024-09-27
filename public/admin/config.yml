@@ -1380,6 +1380,12 @@ collections:
               allow_multiple: false,
             }
           - { name: 'youtubeUrl', label: 'Link youtube', widget: 'string' }
+          - name: 'type'
+            label: 'Loại'
+            widget: select
+            options:
+              - { label: "Youtube", value: "youtube" }
+              - { label: "Facebook", value: "facebook" }
       - { name: body, label: 'Nội dung', widget: markdown }
 
   - name: 'hiddenTags'
