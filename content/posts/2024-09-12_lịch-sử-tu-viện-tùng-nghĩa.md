@@ -1,5 +1,5 @@
 ---
-title: Lịch sử Tu viện Tùng Nghĩa
+title: Tu viện Tùng Nghĩa
 date: 2024-09-12T15:37:00.000Z
 hiddenTags:
   - Giao phan Da Lat

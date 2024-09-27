@@ -763,13 +763,19 @@ communityHistory:
   title: Lịch sử các cộng đoàn
   limit: 8
   postGroups:
-    - title: Giáo phận Lạng Sơn - Cao Bằng
+    - title: Miền Bắc
       hiddenTags:
         - Gp Lạng Sơn
-    - title: Giáo phận Đà Lạt
+    - title: Miền Sài Gòn
+      hiddenTags:
+        - Gp Sài Gòn
+        - Giao phan Phu Cuong
+    - title: Miền Đông
       hiddenTags:
         - Giao phan Da Lat
-    - title: Giáo phận Xuân Lộc
-      hiddenTags:
         - Giao phan Xuan Loc
+        - Gp Phan Thiết
+    - title: Miền Tây và Hải ngoại
+      hiddenTags:
+        - Gp Long Xuyên
 ---

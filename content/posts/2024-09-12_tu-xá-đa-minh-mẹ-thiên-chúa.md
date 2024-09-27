@@ -1,5 +1,5 @@
 ---
-title: Tu xá Đa Minh Mẹ Thiên Chúa
+title: Tu xá Mẹ Thiên Chúa
 date: 2024-09-12T16:05:00.000Z
 hiddenTags:
   - Gp Sài Gòn

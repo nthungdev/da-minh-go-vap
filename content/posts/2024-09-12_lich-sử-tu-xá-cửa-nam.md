@@ -1,5 +1,5 @@
 ---
-title: Lich sử Tu xá Cửa Nam
+title: Tu xá Cửa Nam
 date: 2024-09-12T15:51:00.000Z
 hiddenTags:
   - Gp Lạng Sơn
