@@ -3,7 +3,7 @@ title: Tri Ân
 postGroups:
   - title: NHỮNG VỊ KHỞI XƯỞNG VÀ XÂY DỰNG
     hiddenTags:
-      - Giới thiệu
+      - người khởi xướng và xây dựng
   - title: TRI ÂN QUÝ ĐỨC GIÁM MỤC GIÁO PHẬN LẠNG SƠN
     hiddenTags:
       - Giới thiệu
