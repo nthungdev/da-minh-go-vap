@@ -2,11 +2,13 @@ import { fetchPostsByHiddenTags } from '@/actions/post'
 import AppPostGrid from './app-post-grid'
 import AppSeparator from './app-separator'
 
+const DEFAULT_LIMIT = 4
+
 interface AppMultiplePostGridsProps {
   postGroups: {
     title: string
     hiddenTags: string[]
-    limit: number
+    limit?: number
   }[]
 }
 
@@ -20,7 +22,7 @@ export default async function AppMultiplePostGrids(
     postGroupsData.push({
       title: group.title,
       posts: await fetchPostsByHiddenTags(group.hiddenTags, {
-        limit: group.limit,
+        limit: group.limit || DEFAULT_LIMIT,
       }),
     })
   }
