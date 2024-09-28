@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -32,7 +33,7 @@ export default function AppPostList(props: AppPostListProps) {
   const ItemComponent = itemComponent ? itemComponent : DefaultItemComponent
 
   return (
-    <ul className={`relative flex flex-col gap-4 ${className}`}>
+    <ul className={classNames('relative flex flex-col gap-4', className)}>
       {posts.map((post, index) => (
         <li className="block w-full" key={index}>
           <ItemComponent post={post} />

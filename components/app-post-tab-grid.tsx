@@ -76,7 +76,7 @@ export default function AppPostTabGrid(props: AppPostTabGridProps) {
           onChange={handleSelectChange}
         />
         <nav
-          className="hidden lg:flex gap-x-4"
+          className="hidden lg:flex gap-x-4 bg-primary-500 p-4"
           aria-label="Tabs"
           role="tablist"
           aria-orientation="horizontal"
@@ -85,7 +85,7 @@ export default function AppPostTabGrid(props: AppPostTabGridProps) {
             <button
               key={`${id}-control-${index}`}
               type="button"
-              className={`hs-tab-active:bg-primary-600 hs-tab-active:text-white hs-tab-active:hover:text-white py-3 px-4 text-center basis-0 grow inline-flex justify-center items-center gap-x-2 text-sm font-medium text-gray-900 bg-primary-200 hover:text-primary-600 focus:outline-none focus:text-primary-600 rounded-lg disabled:opacity-50 disabled:pointer-events-none ${
+              className={`hs-tab-active:bg-primary-700 hs-tab-active:text-white hs-tab-active:hover:text-white py-2 px-3 text-center basis-0 grow inline-flex justify-center items-center gap-x-2 text-sm font-medium text-gray-900 bg-primary-200 hover:text-primary-700 focus:outline-none focus:text-primary-700 disabled:opacity-50 disabled:pointer-events-none ${
                 index === 0 ? 'active' : ''
               }`}
               aria-selected={false}
@@ -100,7 +100,7 @@ export default function AppPostTabGrid(props: AppPostTabGridProps) {
         </nav>
       </div>
 
-      <div className="mt-3">
+      <div className="p-4 bg-primary-200">
         {postGroupsData.map(({ posts }, index) => (
           <div
             key={`${id}-content-${index}`}

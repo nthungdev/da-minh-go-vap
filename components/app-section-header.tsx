@@ -11,7 +11,7 @@ export default function AppSectionHeader({
   return (
     <div
       {...props}
-      className={`bg-primary-800 p-2.5 text-center text-gray-50 rounded-lg ${className}`}
+      className={`bg-primary-800 p-2.5 text-center text-gray-50 ${className}`}
     >
       {children}
     </div>
