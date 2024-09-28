@@ -1,9 +1,9 @@
 ---
 title: "Đức Ông Dominique Maillet (Cố Bính) "
-date: 2024-09-25T09:29:00.000Z
+date: 2024-09-24T16:29:00.000Z
 hiddenTags:
   - người khởi xướng và xây dựng
-thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1727490621/Cha_Dominique_Mailelt_B%C3%ADnh_lhdije.jpg
+thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1727510169/2_zfg5fg.jpg
 ---
 **Đức Ông Dominique Maillet (Cố Bính)** là Phủ doãn Tông toà thứ II của Lạng Sơn năm 1925. Ngài chủ trương xây dựng hàng ngũ giáo sĩ, tu sĩ làm nền tảng cho công cuộc truyền giáo.
 
