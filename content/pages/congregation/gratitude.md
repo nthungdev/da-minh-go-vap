@@ -12,5 +12,5 @@ postGroups:
       - đức giám mục sài gòn
   - title: TRI ÂN QUÝ CHA BỀ TRÊN TỔNG QUYỀN DÒNG ANH EM GIẢNG THUYẾT
     hiddenTags:
-      - bác ái xã hội
+      - cha bề trên tổng quyền dòng đa minh
 ---
