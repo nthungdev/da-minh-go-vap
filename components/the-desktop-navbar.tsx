@@ -14,11 +14,11 @@ export default function TheDesktopNavbar({ className }: TheDesktopNavbarProps) {
   return (
     <nav
       className={classNames(
-        `sticky top-0 bg-[#427CA8] text-gray-50 hidden lg:flex flex-row flex-wrap lg:justify-center`,
+        `sticky top-0 bg-[#427CA8] text-gray-50 xl:flex flex-row flex-wrap lg:justify-center`,
         className
       )}
     >
-      <ul className="lg:flex flex-row flex-wrap items-center max-w-screen-xl">
+      <div className="lg:flex flex-row flex-wrap items-center max-w-screen-xl">
         <div className="z-20 relative h-full w-20 self-start">
           <div className="absolute top-[20%] left-0 overflow-auto h-20 w-20">
             <Image
@@ -32,44 +32,48 @@ export default function TheDesktopNavbar({ className }: TheDesktopNavbarProps) {
           </div>
         </div>
 
-        {menu.map((link) => (
-          <li key={link.href} className="relative flex flex-row z-30">
-            <Link className="block peer px-3 py-4" href={link.href}>
-              {link.name.toUpperCase()}
-            </Link>
+        <ul className="lg:flex flex-row flex-wrap items-center">
+          {menu.map((link, index) => (
+            <li key={link.href} className="relative flex flex-row z-30">
+              {index !== 0 && <div className='border-l my-2'></div>}
 
-            {link.children && (
-              <ul className="z-20 hidden peer-hover:block hover:block absolute top-full left-0 bg-primary-400">
-                {link.children.map((child) => (
-                  <li key={child.href} className="block relative">
-                    <Link
-                      href={`${link.href}${child.href}`}
-                      className="block peer text-nowrap px-4 py-2 hover:bg-primary-700 hover:text-gray-50"
-                    >
-                      {child.name}
-                    </Link>
+              <Link className="block peer px-3 py-3" href={link.href}>
+                {link.name.toUpperCase()}
+              </Link>
 
-                    {child.children && (
-                      <ul className="hidden peer-hover:block hover:block absolute left-full top-0 bg-primary-400">
-                        {child.children.map((grandchild) => (
-                          <li key={grandchild.href} className="block">
-                            <Link
-                              href={`${link.href}${child.href}${grandchild.href}`}
-                              className="block text-nowrap px-4 py-2 hover:bg-primary-700 hover:text-gray-50"
-                            >
-                              {grandchild.name}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                  </li>
-                ))}
-              </ul>
-            )}
-          </li>
-        ))}
-      </ul>
+              {link.children && (
+                <ul className="z-20 hidden peer-hover:block hover:block absolute top-full left-0 bg-primary-400 divide-y min-w-full">
+                  {link.children.map((child) => (
+                    <li key={child.href} className="block relative">
+                      <Link
+                        href={`${link.href}${child.href}`}
+                        className="block peer text-nowrap px-4 py-2 hover:bg-primary-700 hover:text-gray-50"
+                      >
+                        {child.name}
+                      </Link>
+
+                      {child.children && (
+                        <ul className="hidden peer-hover:block hover:block absolute left-full top-0 bg-primary-400 divide-y">
+                          {child.children.map((grandchild) => (
+                            <li key={grandchild.href} className="block">
+                              <Link
+                                href={`${link.href}${child.href}${grandchild.href}`}
+                                className="block text-nowrap px-4 py-2 hover:bg-primary-700 hover:text-gray-50"
+                              >
+                                {grandchild.name}
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </li>
+          ))}
+        </ul>
+      </div>
     </nav>
   )
 }
