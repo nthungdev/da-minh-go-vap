@@ -1,5 +1,5 @@
 ---
-title: Lịch sử cộng đoàn Đăng Srỗn
+title: cộng đoàn Đăng Srỗn
 date: 2024-09-12T15:39:00.000Z
 hiddenTags:
   - Giao phan Da Lat

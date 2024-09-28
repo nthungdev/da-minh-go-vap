@@ -7,7 +7,8 @@ thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726887520/le_khan
 videos:
   - title: THÁNH LỄ TUYÊN KHẤN TRỌN ĐỜI, NGÂN KHÁNH & KIM KHÁNH KHẤN DÒNG 2022
     thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726887520/le_khan_2022_mymp2c.jpg
-    youtubeUrl: https://www.youtube.com/watch?v=qNABn9HTTj8
+    url: https://www.youtube.com/watch?v=qNABn9HTTj8
+    type: youtube
 ---
 \- Thánh lễ tạ ơn và nghi thức khấn dòng cử hành lúc 8g30 sáng thứ hai, ngày 08.8.2022, tại Thánh Đường Giáo Xứ Lạng Sơn
 

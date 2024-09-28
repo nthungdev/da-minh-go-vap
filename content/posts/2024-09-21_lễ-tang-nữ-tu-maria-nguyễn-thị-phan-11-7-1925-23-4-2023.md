@@ -5,9 +5,10 @@ hiddenTags:
   - thông tin
 thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726890632/le_tang_D%C3%AC_Phan_nzgask.jpg
 videos:
-  - youtubeUrl: https://www.youtube.com/watch?v=IPBkJEO32hE&list=PLLi9qVPjTxje2mrnVrfj-B1kU33fJ6Mm_&index=17
+  - url: https://www.youtube.com/watch?v=IPBkJEO32hE&list=PLLi9qVPjTxje2mrnVrfj-B1kU33fJ6Mm_&index=17
     thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726890632/le_tang_D%C3%AC_Phan_nzgask.jpg
     title: LỄ TANG Nữ tu MARIA NGUYỄN THỊ PHAN (11/7/1925 - 23/4/2023)
+    type: youtube
 ---
 Nữ tu MARIA NGUYỄN THỊ PHAN
 
@@ -17,7 +18,7 @@ Khấn lần đầu ngày: 05/8/1960
 
 Khấn trọn đời ngày: 30/4/1966
 
-Đã an nghỉ trong Chúa lúc 09 giờ 15 Chúa Nhật ngày 23/4/2023 
+Đã an nghỉ trong Chúa lúc 09 giờ 15 Chúa Nhật ngày 23/4/2023
 
 Tại Trụ sở Hội dòng, 1053/4 Lê Đức Thọ, P. 16, Quận Gò Vấp, Tp. Hồ Chí Minh.
 
@@ -35,7 +36,7 @@ Tại nguyện đường Hội dòng, 1053/4 Lê Đức Thọ, P. 16, Q. Gò V�
 
 Sau đó hỏa táng tại Trung tâm Hỏa táng Bình Hưng Hòa.
 
-Chúng con kính xin Đức Tổng, Đức Hồng y, quý Đức cha, quý Bề trên, quý Cha, 
+Chúng con kính xin Đức Tổng, Đức Hồng y, quý Đức cha, quý Bề trên, quý Cha,
 
 quý Tu sĩ nam nữ và quý vị thương cầu nguyện cho linh hồn nữ tu MARIA sớm được hưởng nhan thánh Chúa.
 

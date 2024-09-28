@@ -1,5 +1,5 @@
 ---
-title: Lịch sử Tu Xá K'Nai
+title: Tu Xá K'Nai
 date: 2024-09-12T14:49:00.000Z
 hiddenTags:
   - Giao phan Da Lat
