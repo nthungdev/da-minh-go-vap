@@ -778,4 +778,6 @@ communityHistory:
     - title: Miền Tây và Hải ngoại
       hiddenTags:
         - Gp Long Xuyên
+        - Gp Mỹ
+        - Gp Úc
 ---
