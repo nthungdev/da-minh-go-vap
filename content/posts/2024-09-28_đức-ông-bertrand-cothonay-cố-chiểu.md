@@ -3,7 +3,7 @@ title: "Đức Ông Bertrand Cothonay (cố Chiểu) "
 date: 2024-09-25T09:16:00.000Z
 hiddenTags:
   - người khởi xướng và xây dựng
-thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1727494739/%C4%90%E1%BB%A9c_%C3%94ng_Bertrand_Cothonay_c%E1%BB%91_Chi%E1%BB%83u_y4navp.jpg
+thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1727510158/1_lxrkgg.jpg
 ---
 **<img src="url-cua-hinh.jpg" alt="Đức Ông Bertrand Cothonay (cố Chiểu)" width="300" height="200">**
 
