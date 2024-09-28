@@ -88,9 +88,9 @@ type PostsPage = {
 
 type GroupedPostsPage = {
   title: string
-  limit?: number
   postGroups: {
     title: string
+    limit?: number
     hiddenTags: string[]
   }[]
 }
@@ -182,9 +182,9 @@ type PageCongregationHistory = {
   }
   communityHistory: {
     title: string
-    limit: number
     postGroups: {
       title: string
+      limit: number
       hiddenTags: string[]
     }[]
   }

@@ -14,7 +14,7 @@ export default async function CongregationHistory() {
     postGroupsData.push({
       title: category.title,
       posts: await fetchPostsByHiddenTags(category.hiddenTags, {
-        limit: communityHistory.limit,
+        limit: category.limit,
       }),
     })
   }
@@ -29,10 +29,7 @@ export default async function CongregationHistory() {
 
       <section className="space-y-4">
         <h2 className="text-2xl">{communityHistory.title}</h2>
-        <AppMultiplePostGrids
-          limit={communityHistory.limit}
-          postGroups={communityHistory.postGroups}
-        />
+        <AppMultiplePostGrids postGroups={communityHistory.postGroups} />
       </section>
     </AppPage>
   )
