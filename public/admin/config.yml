@@ -1397,13 +1397,13 @@ collections:
               widget: 'image',
               allow_multiple: false,
             }
-          - { name: 'url', label: 'Link youtube', widget: 'string' }
           - name: 'type'
             label: 'Loại'
             widget: select
             options:
               - { label: "Youtube", value: "youtube" }
               - { label: "Facebook", value: "facebook" }
+          - { name: 'url', label: 'Link video', widget: 'string' }
       - { name: body, label: 'Nội dung', widget: markdown }
 
   - name: 'hiddenTags'
