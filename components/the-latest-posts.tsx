@@ -42,7 +42,7 @@ export default function TheLatestPosts(props: TheLatestPostsProps) {
 
       <div className="grid grid-flow-row lg:grid-flow-col grid-cols-2 lg:grid-cols-1 lg:grid-rows-4 gap-2 relative lg:max-w-full lg:h-full">
         {otherPosts.map((post, index) => (
-          <AppPostCard key={index} post={post} />
+          <AppPostCard key={index} post={post} className="bg-white" />
         ))}
       </div>
     </div>

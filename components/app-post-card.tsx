@@ -1,17 +1,22 @@
+import classNames from 'classnames'
 import Image from 'next/image'
 import Link from 'next/link'
 
 interface AppPostCardProps {
   post: PostParams
+  className?: string
 }
 
 export default function AppPostCard(props: AppPostCardProps) {
-  const { post } = props
+  const { post, className } = props
 
   return (
     <Link
       href={`/posts/${post.slug}`}
-      className="w-full h-full overflow-hidden flex flex-col lg:flex-row gap-x-2 hover:ring-2 hover:cursor-pointer lg:aspect-[3.5]"
+      className={classNames(
+        'w-full h-full overflow-hidden flex flex-col lg:flex-row gap-x-2 hover:ring-2 hover:cursor-pointer lg:aspect-[3.5]',
+        className
+      )}
     >
       <div className="relative lg:w-auto lg:h-full aspect-video lg:aspect-square overflow-hidden">
         <Image
