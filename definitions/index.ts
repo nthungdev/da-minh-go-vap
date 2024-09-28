@@ -23,11 +23,7 @@ type AppAccordionItem = {
 type Post = {
   title: string
   date: Date
-  videos: {
-    title: string
-    thumbnail: string
-    youtubeUrl: string
-  }[]
+  videos: Video[]
   hiddenTags: string[]
   thumbnail: string
   body: string
@@ -60,6 +56,13 @@ type PostByCategorySection = {
     title: string
     hiddenTags: string[]
   }[]
+}
+
+type Video = {
+  title: string
+  thumbnail: string
+  url: string
+  type: 'facebook' | 'youtube'
 }
 
 type Image = {
@@ -133,11 +136,7 @@ type AboutUsSection = {
   }[]
   videos: {
     title: string
-    videos: {
-      title: string
-      thumbnail: string
-      youtubeUrl: string
-    }[]
+    videos: Video[]
   }
 }
 
@@ -178,11 +177,7 @@ type PageCongregationHistory = {
     accordion: AppAccordionItem[]
     videos: {
       title: string
-      videos: {
-        title: string
-        thumbnail: string
-        youtubeUrl: string
-      }[]
+      videos: Video[]
     }
   }
   communityHistory: {
@@ -206,10 +201,7 @@ type PageSpiritualityCharism = {
   quote: string
   categories: {
     title: string
-    thumbnail: {
-      url: string
-      alt: string
-    }
+    thumbnail: Image
     hiddenTags: string[]
   }[]
 }
@@ -243,10 +235,7 @@ type PageVocationIntroduction = {
   tabSections: (DynamicImageTab | TextTab)[]
   sections: {
     title: string
-    thumbnail: {
-      url: string
-      alt: string
-    }
+    thumbnail: Image
     hiddenTags: string[]
   }[]
 }

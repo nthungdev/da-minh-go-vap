@@ -7,6 +7,7 @@ thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726889125/khan_la
 videos:
   - thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726889125/khan_lan_dau_2017_pj9vfh.jpg
     title: Thánh Lễ Tuyên Khấn Lần Đầu 2017
-    youtubeUrl: https://www.youtube.com/watch?v=1ALVgr7SvE8
+    url: https://www.youtube.com/watch?v=1ALVgr7SvE8
+    type: youtube
 ---
 chưa soạn nội dung

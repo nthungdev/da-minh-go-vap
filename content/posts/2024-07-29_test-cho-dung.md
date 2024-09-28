@@ -6,9 +6,10 @@ hiddenTags:
   - Giao phan Da Lat
 thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1722133167/maxresdefault_n0yeqb.jpg
 videos:
-  - youtubeUrl: https://www.youtube.com/embed/QtC3Bo9B0yI?si=2ogNyd5m0RhNlOGi
+  - url: https://www.youtube.com/embed/QtC3Bo9B0yI?si=2ogNyd5m0RhNlOGi
     title: Clip meo
     thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1716407578/cld-sample-4.jpg
+    type: youtube
 ---
 Clip meo o duoi
 

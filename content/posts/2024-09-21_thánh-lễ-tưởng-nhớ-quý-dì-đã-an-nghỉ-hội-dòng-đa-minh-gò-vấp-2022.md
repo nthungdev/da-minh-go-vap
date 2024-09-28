@@ -7,6 +7,7 @@ thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726890873/thanh_l
 videos:
   - title: THÁNH LỄ TƯỞNG NHỚ QUÝ DÌ ĐÃ AN NGHỈ - HỘI DÒNG ĐA MINH GÒ VẤP 2022
     thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726890873/thanh_le_cau_nguyen_cho_quy_Di_an_nghi_llmzxu.jpg
-    youtubeUrl: https://www.youtube.com/watch?v=AI64J4lCXwE&list=PLLi9qVPjTxje2mrnVrfj-B1kU33fJ6Mm_&index=16
+    url: https://www.youtube.com/watch?v=AI64J4lCXwE&list=PLLi9qVPjTxje2mrnVrfj-B1kU33fJ6Mm_&index=16
+    type: youtube
 ---
 chưa soạn

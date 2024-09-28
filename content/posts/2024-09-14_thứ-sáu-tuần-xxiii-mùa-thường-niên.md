@@ -7,9 +7,10 @@ thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726281453/THU_SAU
 videos:
   - title: Thứ Sáu Tuần XXIII Mùa Thường Niên
     thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726281453/THU_SAU_TUAN_23_ooy6oq.jpg
-    youtubeUrl: https://www.youtube.com/embed/bmSEuDThHdU?si=F1LYTwKP7sV_AzpH
+    url: https://www.youtube.com/embed/bmSEuDThHdU?si=F1LYTwKP7sV_AzpH
+    type: youtube
 ---
-Dòng Nữ Đa Minh Gò Vấp  
+Dòng Nữ Đa Minh Gò Vấp
 
 Suy Niệm Lời Chúa, Thứ Sáu Tuần XXIII Mùa Thường Niên (13/9/2024)
 

@@ -133,29 +133,37 @@ aboutUs:
   videos:
     title: Video giới thiệu
     videos:
-      - youtubeUrl: https://www.youtube.com/watch?v=1Ne1hqOXKKI
+      - url: https://www.youtube.com/watch?v=1Ne1hqOXKKI
+        type: youtube
         title: ĐÔI NÉT CHÍNH  VỀ HỘI DÒNG
         thumbnail: https://i3.ytimg.com/vi/1Ne1hqOXKKI/maxresdefault.jpg
       - title: LỊCH SỬ HỘI DÒNG
         thumbnail: https://i3.ytimg.com/vi/y0sF5xhGreA/maxresdefault.jpg
-        youtubeUrl: https://www.youtube.com/watch?v=y0sF5xhGreA
+        type: youtube
+        url: https://www.youtube.com/watch?v=y0sF5xhGreA
       - title: NỚI CHỊ EM HIỆN DIỆN
         thumbnail: https://res.cloudinary.com/dxtb6rv7y/video/upload/v1716522696/3209828-uhd_3840_2160_25fps_zpef8y.mp4
-        youtubeUrl: https://www.youtube.com/embed/RzXjv_Bcpdo?si=S0JbZ1n4jArMfrg6
+        url: https://www.youtube.com/embed/RzXjv_Bcpdo?si=S0JbZ1n4jArMfrg6
+        type: youtube
       - title: Ý NGHĨA LOGO HỘI DÒNG
         thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1716425590/daily-240403162642_darxne.jpg
-        youtubeUrl: https://www.youtube.com/embed/RzXjv_Bcpdo?si=S0JbZ1n4jArMfrg6
+        url: https://www.youtube.com/embed/RzXjv_Bcpdo?si=S0JbZ1n4jArMfrg6
+        type: youtube
       - title: GIỚI THIỆU TU PHỤC HỘI DÒNG
         thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726103558/258766072_122022223605036_1831071506490103411_n_kjgpok.jpg
-        youtubeUrl: https://www.youtube.com/embed/RzXjv_Bcpdo?si=S0JbZ1n4jArMfrg6
+        url: https://www.youtube.com/embed/RzXjv_Bcpdo?si=S0JbZ1n4jArMfrg6
+        type: youtube
       - title: Ý NGHĨA VÀ LỊCH SỬ TU PHỤC ĐA MINH
         thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726103671/viber_image_2023-05-15_21-20-09-421_du7qxi.jpg
-        youtubeUrl: https://www.youtube.com/embed/RzXjv_Bcpdo?si=S0JbZ1n4jArMfrg6
+        url: https://www.youtube.com/embed/RzXjv_Bcpdo?si=S0JbZ1n4jArMfrg6
+        type: youtube
       - title: ĐA MINH GÒ VẤP CA
         thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726103720/277171833_156357830171475_5074210975861142013_n_lfrcho.jpg
-        youtubeUrl: https://www.youtube.com/embed/RzXjv_Bcpdo?si=S0JbZ1n4jArMfrg6
+        url: https://www.youtube.com/embed/RzXjv_Bcpdo?si=S0JbZ1n4jArMfrg6
+        type: youtube
       - title: HUYỀN THOẠI LẠNG SƠN
-        youtubeUrl: https://www.youtube.com/embed/JWXVwh6y3Z0?si=1y2-07yPyTmRcbFv
+        url: https://www.youtube.com/embed/JWXVwh6y3Z0?si=1y2-07yPyTmRcbFv
+        type: youtube
         thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726132104/hinh_bia_huyen_thoai_lang_son_njygvs.jpg
   banner:
     url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726132104/hinh_bia_huyen_thoai_lang_son_njygvs.jpg
@@ -171,18 +179,22 @@ mission:
   videos:
     title: Video hoat dong su menh
     videos:
-      - youtubeUrl: https://www.youtube.com/watch?v=ZgLs4fDr8aI
+      - url: https://www.youtube.com/watch?v=ZgLs4fDr8aI
         thumbnail: https://i3.ytimg.com/vi/ZgLs4fDr8aI/maxresdefault.jpg
         title: Mái ấm cho trẻ mồ côi
-      - youtubeUrl: https://www.youtube.com/watch?v=U-C0I-Ks14M
+        type: youtube
+      - url: https://www.youtube.com/watch?v=U-C0I-Ks14M
         title: Chăn sóc người khuyết tật
         thumbnail: https://i3.ytimg.com/vi/U-C0I-Ks14M/maxresdefault.jpg
+        type: youtube
       - title: Đến với anh em nghèo
-        youtubeUrl: https://www.youtube.com/watch?v=x8YM6rln_zI
+        url: https://www.youtube.com/watch?v=x8YM6rln_zI
         thumbnail: https://i3.ytimg.com/vi/x8YM6rln_zI/maxresdefault.jpg
+        type: youtube
       - title: Giáo dục
-        youtubeUrl: https://www.youtube.com/watch?v=xEz2ITDCH4M
+        url: https://www.youtube.com/watch?v=xEz2ITDCH4M
         thumbnail: https://i3.ytimg.com/vi/xEz2ITDCH4M/maxresdefault.jpg
+        type: youtube
   tabs:
     - content: >-
         * Danh hiệu dòng Đa Minh Việt nam thánh hiệu Đức mẹ Mân Côi, với tên
@@ -266,7 +278,7 @@ whereabouts:
         * Địa chỉ: số 14639, Bellaire Blvd, Houston, TX 77083
     - name: "AUSTRALIA "
       body: |-
-        ### Cộng Đoàn Đa Minh Chúa Chiên Lành 
+        ### Cộng Đoàn Đa Minh Chúa Chiên Lành
 
         * Hiện diện: 15/11/2008
         * ĐC: 39 Parakeelya Road Banksia Grove WA 6031, Australia

@@ -25,15 +25,15 @@ const BannerContainer = ({
 const VideosContainer = ({
   videos,
 }: Readonly<{
-  videos: { title: string; youtubeUrl: string; thumbnail: string }[]
+  videos: { title: string; url: string; thumbnail: string }[]
 }>) => (
   <ul className="grid grid-flow-col md:grid-flow-row grid-rows-4 md:grid-rows-2 lg:grid-rows-1 md:grid-cols-2 lg:grid-cols-4 gap-2">
-    {videos.map(({ title, youtubeUrl, thumbnail }, index) => (
+    {videos.map(({ title, url, thumbnail }, index) => (
       <li key={index}>
         <AppVideoTile
           thumbnail={thumbnail}
           title={title}
-          videoUrl={youtubeUrl}
+          videoUrl={url}
           titleComponent="h5"
         />
       </li>
