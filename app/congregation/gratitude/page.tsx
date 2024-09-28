@@ -4,5 +4,8 @@ import { attributes } from '@/content/pages/congregation/gratitude.md'
 export default async function PageCongregationGratitude() {
   const { title, postGroups } = attributes as PageCongregationGratitude
 
-  return <AppGroupedPostsPage categories={postGroups} title={title} />
+
+  return (
+    <AppGroupedPostsPage categories={postGroups} title={title}/>
+  )
 }

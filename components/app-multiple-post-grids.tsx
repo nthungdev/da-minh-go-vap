@@ -6,21 +6,21 @@ interface AppMultiplePostGridsProps {
   postGroups: {
     title: string
     hiddenTags: string[]
+    limit: number
   }[]
-  limit: number
 }
 
 export default async function AppMultiplePostGrids(
   props: AppMultiplePostGridsProps
 ) {
-  const { postGroups, limit } = props
+  const { postGroups } = props
 
   const postGroupsData = []
   for (const group of postGroups) {
     postGroupsData.push({
       title: group.title,
       posts: await fetchPostsByHiddenTags(group.hiddenTags, {
-        limit,
+        limit: group.limit,
       }),
     })
   }
