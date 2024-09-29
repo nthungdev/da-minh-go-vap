@@ -22,6 +22,15 @@ postGroups:
       title: CÁC CHUYÊN ĐỀ ĐẶC BIỆT
       hiddenTags:
         - Gp Lạng Sơn
+    - limit: 5
+      title: NGỢI CA
+      hiddenTags:
+        - Giao phan Da Lat
+        - Giao phan Xuan Loc
+    - limit: 5
+      title: WALKING WITH JESUS
+      hiddenTags:
+        - Gp Long Xuyên
   enable: true
 curatedPosts:
   title: BÀI ĐƯỢC CHỌN
