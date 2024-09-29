@@ -245,10 +245,10 @@ type PageNews = {
   title: string
   sections: PostSection[]
 }
-type PageNewsCongregation = PostsPage
 type PageNewsDominicanFamily = PostsPage
 type PageNewsChurch = PostsPage
 type PageNewsVietnamChurch = PostsPage
+type PageNewsCongregation = GroupedPostsPage
 
 type PageTopics = {
   title: string
