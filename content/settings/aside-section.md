@@ -6,10 +6,12 @@ mostViewedPosts:
 slideshow:
   enable: true
   slides:
-    - url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1716407539/sample.jpg
-      alt: mo ta hinh
-    - url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1716407543/samples/ecommerce/analog-classic.jpg
-      alt: mo ta hinh
+    - url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1727578541/5b230f53eed4de339c820efac5811e1b_pajazl.jpg
+      alt: Đức Mẹ trao tràng chuỗi cho thánh Đa Minh
+    - url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1727578546/0205a8c2ce1a9ce3405afb15baa3b34f_zlahuh.jpg
+      alt: Thánh Đa Minh
+    - url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1727578556/78d3d4495a125e16b7c5622f394730e5_wmj2jc.jpg
+      alt: Đức mẹ Mân Côi
 postGroups:
   groups:
     - limit: 5
