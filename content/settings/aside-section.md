@@ -18,7 +18,7 @@ postGroups:
       title: GIỚI THIỆU
       hiddenTags:
         - Hiểu Để Yêu
-    - limit: 3
+    - limit: 7
       title: CÁC CHUYÊN ĐỀ ĐẶC BIỆT
       hiddenTags:
         - Gp Lạng Sơn
