@@ -18,7 +18,7 @@ export default function AppPostCard(props: AppPostCardProps) {
         className
       )}
     >
-      <div className="relative lg:w-auto lg:h-full aspect-video lg:aspect-square overflow-hidden">
+      <div className="relative lg:w-auto lg:h-full aspect-video overflow-hidden">
         <Image
           src={post.thumbnail}
           alt={post.title}
@@ -31,9 +31,6 @@ export default function AppPostCard(props: AppPostCardProps) {
         <span className="line-clamp-1 lg:line-clamp-2 text-base text-gray-900">
           {post.title}
         </span>
-        {/* <span className="lg:hidden text-xs lg:text-sm text-gray-800">
-          {post.date.toLocaleDateString('vi-VN')}
-        </span> */}
       </div>
     </Link>
   )
