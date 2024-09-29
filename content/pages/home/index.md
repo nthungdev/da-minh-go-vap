@@ -4,14 +4,9 @@ bibleVerses:
   verses:
     - verse: "Đức Chúa đã ban cho, Đức Chúa lại lấy đi : xin chúc tụng danh Đức Chúa."
       reference: G 6, 21
-    - verse: Ai tiếp đón em nhỏ này vì danh Thầy, là tiếp đón chính Thầy
-      reference: Lc 9, 48
-    - verse: "Người lại hỏi : “Còn anh em, anh em bảo Thầy là ai ?” Ông Phê-rô thưa :
-        “Thầy là Đấng Ki-tô của Thiên Chúa."
-      reference: Lc 9, 20
 latestPosts:
   enable: true
-  limit: 6
+  limit: 5
 newsByCategories:
   limit: 8
   enable: true
