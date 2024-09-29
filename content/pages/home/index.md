@@ -51,6 +51,7 @@ newsByCategories:
         - title: Walking with Jesus
           hiddenTags:
             - Lịch sử
+            - Gp Mỹ
     - title: BẢN TIN
       subCategories:
         - title: Bản tin giáo Hội
