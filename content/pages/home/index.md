@@ -52,6 +52,7 @@ newsByCategories:
           hiddenTags:
             - Lịch sử
             - Gp Mỹ
+            - Giao phan Da Lat
     - title: BẢN TIN
       subCategories:
         - title: Bản tin giáo Hội
