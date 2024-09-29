@@ -31,6 +31,10 @@ postGroups:
       title: WALKING WITH JESUS
       hiddenTags:
         - Gp Long Xuyên
+    - limit: 8
+      title: CHUYỆN GIỜ MỚI KỂ
+      hiddenTags:
+        - thông tin
   enable: true
 curatedPosts:
   title: BÀI ĐƯỢC CHỌN
