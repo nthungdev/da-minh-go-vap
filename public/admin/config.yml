@@ -429,6 +429,15 @@ collections:
                       widget: 'string',
                     },
                     {
+                      name: 'limit',
+                      label: 'Số lượng bài hiển thị',
+                      widget: 'number',
+                      value_type: 'int',
+                      default: 4,
+                      min: 0,
+                      max: 100,
+                    },
+                    {
                       name: 'hiddenTags',
                       label: 'Tag ẩn',
                       widget: 'relation',
@@ -738,6 +747,15 @@ collections:
                   widget: 'string',
                 },
                 {
+                  name: 'limit',
+                  label: 'Số lượng bài hiển thị',
+                  widget: 'number',
+                  value_type: 'int',
+                  default: 4,
+                  min: 0,
+                  max: 100,
+                },
+                {
                   name: 'hiddenTags',
                   label: 'Tag ẩn',
                   widget: 'relation',
@@ -770,6 +788,15 @@ collections:
                   name: 'title',
                   label: 'Tên hiển thị của mục con',
                   widget: 'string',
+                },
+                {
+                  name: 'limit',
+                  label: 'Số lượng bài hiển thị',
+                  widget: 'number',
+                  value_type: 'int',
+                  default: 4,
+                  min: 0,
+                  max: 100,
                 },
                 {
                   name: 'hiddenTags',
