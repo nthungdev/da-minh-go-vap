@@ -11,6 +11,8 @@ subCategories:
     hiddenTags:
       - Hiểu Để Yêu
   - hiddenTags:
-      - Các đấng bản quyền
-    title: Cac Dang Ban Quyen
+      - người khởi xướng và xây dựng
+      - đức giám mục lạng sơn
+      - đức giám mục sài gòn
+    title: tri ân
 ---
