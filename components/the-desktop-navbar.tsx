@@ -14,7 +14,7 @@ export default function TheDesktopNavbar({ className }: TheDesktopNavbarProps) {
   return (
     <nav
       className={classNames(
-        `sticky top-0 bg-[#427CA8] text-gray-50 xl:flex flex-row flex-wrap lg:justify-center`,
+        `bg-[#427CA8] text-gray-50 xl:flex flex-row flex-wrap lg:justify-center`,
         className
       )}
     >
