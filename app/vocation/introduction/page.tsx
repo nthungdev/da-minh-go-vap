@@ -3,9 +3,10 @@ import { normalizeText } from 'normalize-text'
 import { attributes } from '@/content/pages/vocation/introduction.md'
 import AppCardTabs from '@/components/app-card-tabs'
 import AppTimelineCards from '@/components/app-timeline-cards'
+import AppSectionHeader from '@/components/app-section-header'
 
 export default function PageVocationIntroduction() {
-  const { title, tabSections, sections } = attributes as PageVocationIntroduction
+  const { title, tabSections, timeline } = attributes as PageVocationIntroduction
 
   const tabSectionsData = tabSections.map((tabSection) => ({
     ...tabSection,
@@ -31,7 +32,7 @@ export default function PageVocationIntroduction() {
       ),
   }))
 
-  const sectionsData = sections.map((section) => ({
+  const sectionsData = timeline.sections.map((section) => ({
     ...section,
     url: `/vocation/introduction/${normalizeText(section.title).replaceAll(/\s/g, '-')}`,
   }))
@@ -44,7 +45,12 @@ export default function PageVocationIntroduction() {
         <div className="w-full">
           <AppCardTabs tabs={tabSectionsData} />
         </div>
-        <AppTimelineCards cards={sectionsData} />
+
+
+        <section className="mt-12 space-y-4">
+          <AppSectionHeader className="text-2xl">{timeline.title}</AppSectionHeader>
+          <AppTimelineCards cards={sectionsData} />
+        </section>
       </div>
     </AppPage>
   )

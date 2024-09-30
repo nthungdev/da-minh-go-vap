@@ -5,9 +5,9 @@ import AppHiddenTagsPostsPage from '@/components/app-hidden-tags-posts-page'
 
 export default function Page({ params }: { params: { slug: string } }) {
   const decodedSlug = decodeURIComponent(params.slug)
-  const { sections } = attributes as PageVocationIntroduction
+  const { timeline } = attributes as PageVocationIntroduction
 
-  const sectionsData = sections.map((section) => ({
+  const sectionsData = timeline.sections.map((section) => ({
     ...section,
     slug: normalizeText(section.title).replaceAll(/\s/g, '-'),
   }))

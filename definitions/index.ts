@@ -199,11 +199,14 @@ type PageSpirituality = GroupedPostsPage
 type PageSpiritualityCharism = {
   title: string
   quote: string
-  categories: {
+  pillars: {
     title: string
-    thumbnail: Image
-    hiddenTags: string[]
-  }[]
+    categories: {
+      title: string
+      thumbnail: Image
+      hiddenTags: string[]
+    }[]
+  }
 }
 
 type PageSpiritualitySaintDominic = {
@@ -233,11 +236,14 @@ type PagePrayerMeditation = PostsPage
 type PageVocationIntroduction = {
   title: string
   tabSections: (DynamicImageTab | TextTab)[]
-  sections: {
+  timeline: {
     title: string
-    thumbnail: Image
-    hiddenTags: string[]
-  }[]
+    sections: {
+      title: string
+      thumbnail: Image
+      hiddenTags: string[]
+    }[]
+  }
 }
 type PageVocationMystery = PostsPage
 
