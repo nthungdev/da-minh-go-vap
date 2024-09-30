@@ -766,7 +766,7 @@ communityHistory:
     - title: Miền Bắc
       hiddenTags:
         - Gp Lạng Sơn
-      limit: 7
+      limit: 8
     - title: Miền Sài Gòn
       hiddenTags:
         - Gp Sài Gòn
@@ -777,7 +777,7 @@ communityHistory:
         - Giao phan Da Lat
         - Giao phan Xuan Loc
         - Gp Phan Thiết
-      limit: 9
+      limit: 8
     - title: Miền Tây và Hải ngoại
       hiddenTags:
         - Gp Long Xuyên
