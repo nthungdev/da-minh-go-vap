@@ -5,9 +5,9 @@ import AppHiddenTagsPostsPage from '@/components/app-hidden-tags-posts-page'
 
 export default function Page({ params }: { params: { slug: string } }) {
   const decodedSlug = decodeURIComponent(params.slug)
-  const { categories } = attributes as PageSpiritualityCharism
+  const { pillars } = attributes as PageSpiritualityCharism
 
-  const categoriesData = categories.map((category) => ({
+  const categoriesData = pillars.categories.map((category) => ({
     ...category,
     slug: normalizeText(category.title).replaceAll(/\s/g, '-'),
   }))
