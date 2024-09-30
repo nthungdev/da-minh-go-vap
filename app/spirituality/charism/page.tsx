@@ -1,13 +1,14 @@
 import AppPage from '@/components/app-page'
+import AppSectionHeader from '@/components/app-section-header'
 import AppTimelineCards from '@/components/app-timeline-cards'
 import { attributes } from '@/content/pages/spirituality/charism.md'
 import Image from 'next/image'
 import { normalizeText } from 'normalize-text'
 
 export default function SpiritualityCharism() {
-  const { title, quote, categories } = attributes as PageSpiritualityCharism
+  const { title, quote, pillars } = attributes as PageSpiritualityCharism
 
-  const categoriesData = categories.map((category) => ({
+  const categoriesData = pillars.categories.map((category) => ({
     ...category,
     url: `/spirituality/charism/${normalizeText(category.title).replaceAll(
       /\s/g,
@@ -37,14 +38,15 @@ export default function SpiritualityCharism() {
 
         <div className="relative z-10">
           <p className="text-xl text-gray-800 md:text-3xl md:leading-normal">
-            <em>
-              {quote}
-            </em>
+            <em>{quote}</em>
           </p>
         </div>
       </blockquote>
 
-      <AppTimelineCards className="mt-12" cards={categoriesData} />
+      <section className="mt-12 space-y-4">
+        <AppSectionHeader className="text-2xl">{pillars.title}</AppSectionHeader>
+        <AppTimelineCards className="" cards={categoriesData} />
+      </section>
     </AppPage>
   )
 }
