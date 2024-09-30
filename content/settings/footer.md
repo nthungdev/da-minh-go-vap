@@ -1,4 +1,7 @@
 ---
+graphic:
+  url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1727664991/fooder_im8maf.svg
+  alt: Footer graphic
 name: HỘI DÒNG NỮ ĐA MINH GÒ VẤP
 address: |-
   1053/4 Lê Đức Thọ, Tổ 82, khu phố 11,

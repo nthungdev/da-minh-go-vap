@@ -270,6 +270,7 @@ type PageMaterials = {
 }
 
 type SettingsFooter = {
+  graphic: Image
   name: string
   address: string
   phone: string

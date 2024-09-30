@@ -1527,6 +1527,17 @@ collections:
         label: 'Chân trang'
         file: 'content/settings/footer.md'
         fields:
+          - name: 'graphic'
+            label: 'Đồ họa'
+            widget: 'object'
+            fields:
+              - name: 'url'
+                label: 'Hình ảnh'
+                widget: 'image'
+                allow_multiple: false
+              - name: 'alt'
+                label: 'Mô tả'
+                widget: 'string'
           - {
               name: 'name',
               label: 'Tên',
