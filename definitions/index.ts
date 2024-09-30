@@ -236,11 +236,14 @@ type PagePrayerMeditation = PostsPage
 type PageVocationIntroduction = {
   title: string
   tabSections: (DynamicImageTab | TextTab)[]
-  sections: {
+  timeline: {
     title: string
-    thumbnail: Image
-    hiddenTags: string[]
-  }[]
+    sections: {
+      title: string
+      thumbnail: Image
+      hiddenTags: string[]
+    }[]
+  }
 }
 type PageVocationMystery = PostsPage
 

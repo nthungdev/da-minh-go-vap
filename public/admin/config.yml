@@ -934,36 +934,43 @@ collections:
                   - name: 'body'
                     label: 'Nội dung'
                     widget: 'markdown'
-          - name: 'sections'
-            label: 'Các mục'
-            widget: 'list'
-            allow_add: true
-            min: 1
-            max: 10
-            label_singular: 'Mục'
+          - name: 'timeline'
+            label: 'Timeline'
+            widget: 'object'
             fields:
-              - name: 'title'
+              - name: title
                 label: 'Tiêu đề'
                 widget: 'string'
-              - name: thumbnail
-                label: 'Hình ảnh'
-                widget: object
+              - name: 'sections'
+                label: 'Các mục'
+                widget: 'list'
+                allow_add: true
+                min: 1
+                max: 10
+                label_singular: 'Mục'
                 fields:
-                  - name: 'url'
-                    label: 'Hình ảnh'
-                    widget: 'image'
-                    allow_multiple: false
-                  - name: 'alt'
-                    label: 'Mô tả'
+                  - name: 'title'
+                    label: 'Tiêu đề'
                     widget: 'string'
-              - name: 'hiddenTags'
-                label: 'Tag ẩn'
-                description: 'Các bài viết có các tag ẩn này sẽ hiển thị.'
-                widget: relation
-                collection: hiddenTags
-                multiple: true
-                value_field: title
-                search_fields: [title]
+                  - name: thumbnail
+                    label: 'Hình ảnh'
+                    widget: object
+                    fields:
+                      - name: 'url'
+                        label: 'Hình ảnh'
+                        widget: 'image'
+                        allow_multiple: false
+                      - name: 'alt'
+                        label: 'Mô tả'
+                        widget: 'string'
+                  - name: 'hiddenTags'
+                    label: 'Tag ẩn'
+                    description: 'Các bài viết có các tag ẩn này sẽ hiển thị.'
+                    widget: relation
+                    collection: hiddenTags
+                    multiple: true
+                    value_field: title
+                    search_fields: [title]
       - name: vocationStories
         label: 'Ơn gọi / Chuyện giờ mới kể'
         file: 'content/pages/vocation/stories.md'
