@@ -1,14 +1,26 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  webpack: (cfg) => {
-    cfg.module.rules.push(
-      {
-        test: /\.md$/,
-        loader: 'frontmatter-markdown-loader',
-        options: { mode: ['react-component', 'body'] }
-      }
-    )
-    return cfg
+  webpack: (config) => {
+    config.module.rules.push({
+      test: /\.md$/,
+      loader: 'frontmatter-markdown-loader',
+      options: { mode: ['react-component', 'body'] },
+    })
+    config.module.rules.push({
+      test: /\.svg$/i,
+      issuer: /\.[jt]sx?$/,
+      use: [
+        {
+          loader: '@svgr/webpack',
+          options: {
+            // disable removing viewBox
+            icon: true,
+          },
+        },
+      ],
+    })
+
+    return config
   },
   redirects: async () => {
     return [
@@ -32,9 +44,9 @@ const nextConfig = {
       // },
       {
         hostname: '*',
-      }
-    ]
-  }
-};
+      },
+    ],
+  },
+}
 
-export default nextConfig;
+export default nextConfig
