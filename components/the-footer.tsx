@@ -4,7 +4,7 @@ import Markdown from 'react-markdown'
 import Link from 'next/link'
 
 export default function TheFooter() {
-  const { name, address, email, marketingEmail, phone, externalLinks } =
+  const { name, address, email, marketingEmail, phone, externalLinks, graphic } =
     attributes as SettingsFooter
 
   const splitExternalLinks = (links: any[], chunkSize: number) => {
@@ -20,7 +20,7 @@ export default function TheFooter() {
   return (
     <footer className="relative">
       <Image
-        src="/images/footer-background.png"
+        src={graphic.url}
         alt="Footer background"
         className="w-full z-0 pointer-events-none select-none"
         height={229}
