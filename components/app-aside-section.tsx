@@ -26,7 +26,7 @@ export default async function AppAsideSection() {
   return (
     <aside className="">
       {slideshow.enable && (
-        <div className="mb-4 w-full aspect-square overflow-hidden">
+        <div className="mb-4 w-full aspect-[2/3] overflow-hidden">
           <AppCarousel>
             {slideshow.slides.map((slide, index) => (
               <Image
