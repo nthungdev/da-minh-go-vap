@@ -249,6 +249,10 @@ type PageNewsDominicanFamily = PostsPage
 type PageNewsChurch = PostsPage
 type PageNewsVietnamChurch = PostsPage
 type PageNewsCongregation = GroupedPostsPage
+type PageNewsCongregationInformation = GroupedPostsPage
+type PageNewsCongregationObituary = GroupedPostsPage
+type PageNewsCongregationInternal = GroupedPostsPage
+type PageNewsCongregationProfession = GroupedPostsPage
 
 type PageTopics = {
   title: string
