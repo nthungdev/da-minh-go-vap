@@ -403,17 +403,6 @@ collections:
                 label: 'Tiêu đề'
                 widget: 'string'
               - {
-                  name: 'limit',
-                  label: 'Số lượng bài viết',
-                  hint: 'Số lượng bài viết để hiển thị cho mỗi mục',
-                  value_type: 'int',
-                  widget: 'number',
-                  default: 4,
-                  min: 1,
-                  max: 100,
-                  step: 1,
-                }
-              - {
                   name: 'postGroups',
                   label: 'Mục',
                   widget: 'list',
@@ -427,6 +416,15 @@ collections:
                       name: 'title',
                       label: 'Tên hiển thị của chuyên mục con',
                       widget: 'string',
+                    },
+                    {
+                      name: 'limit',
+                      label: 'Số lượng bài hiển thị',
+                      widget: 'number',
+                      value_type: 'int',
+                      default: 4,
+                      min: 0,
+                      max: 100,
                     },
                     {
                       name: 'hiddenTags',
@@ -738,6 +736,15 @@ collections:
                   widget: 'string',
                 },
                 {
+                  name: 'limit',
+                  label: 'Số lượng bài hiển thị',
+                  widget: 'number',
+                  value_type: 'int',
+                  default: 4,
+                  min: 0,
+                  max: 100,
+                },
+                {
                   name: 'hiddenTags',
                   label: 'Tag ẩn',
                   widget: 'relation',
@@ -770,6 +777,15 @@ collections:
                   name: 'title',
                   label: 'Tên hiển thị của mục con',
                   widget: 'string',
+                },
+                {
+                  name: 'limit',
+                  label: 'Số lượng bài hiển thị',
+                  widget: 'number',
+                  value_type: 'int',
+                  default: 4,
+                  min: 0,
+                  max: 100,
                 },
                 {
                   name: 'hiddenTags',
@@ -1028,14 +1044,165 @@ collections:
           - name: 'title'
             label: 'Tiêu đề'
             widget: 'string'
-          - name: 'hiddenTags'
-            label: 'Tag ẩn'
-            description: 'Các bài viết có các tag ẩn này sẽ hiển thị.'
-            widget: relation
-            collection: hiddenTags
-            multiple: true
-            value_field: title
-            search_fields: [title]
+          - name: 'postGroups'
+            label: 'Mục con'
+            widget: 'list'
+            allow_add: true
+            min: 1
+            max: 10
+            collapsed: true
+            fields:
+              - name: 'title'
+                label: 'Tên hiển thị của mục con'
+                widget: 'string'
+              - name: 'limit'
+                label: 'Số lượng bài hiển thị'
+                widget: 'number'
+                value_type: 'int'
+                default: 4
+                min: 0
+                max: 100
+              - name: 'hiddenTags'
+                label: 'Tag ẩn'
+                widget: 'relation'
+                hint: 'Những bài viết có các tag ẩn được chọn sẽ hiển thị ở chuyên mục con này.'
+                collection: 'hiddenTags'
+                multiple: true
+                value_field: 'title'
+                search_fields: ['title']
+
+      - name: newsCongregationInformation
+        label: 'Bản tin / Hội dòng / Thông tin'
+        file: 'content/pages/news/congregation/information.md'
+        fields:
+          - name: 'title'
+            label: 'Tiêu đề'
+            widget: 'string'
+          - name: 'postGroups'
+            label: 'Mục con'
+            widget: 'list'
+            allow_add: true
+            min: 1
+            max: 10
+            collapsed: true
+            fields:
+              - name: 'title'
+                label: 'Tên hiển thị của mục con'
+                widget: 'string'
+              - name: 'limit'
+                label: 'Số lượng bài hiển thị'
+                widget: 'number'
+                value_type: 'int'
+                default: 4
+                min: 0
+                max: 100
+              - name: 'hiddenTags'
+                label: 'Tag ẩn'
+                widget: 'relation'
+                hint: 'Những bài viết có các tag ẩn được chọn sẽ hiển thị ở chuyên mục con này.'
+                collection: 'hiddenTags'
+                multiple: true
+                value_field: 'title'
+                search_fields: ['title']
+      - name: newsCongregationObituary
+        label: 'Bản tin / Hội dòng / Cáo phó'
+        file: 'content/pages/news/congregation/obituary.md'
+        fields:
+          - name: 'title'
+            label: 'Tiêu đề'
+            widget: 'string'
+          - name: 'postGroups'
+            label: 'Mục con'
+            widget: 'list'
+            allow_add: true
+            min: 1
+            max: 10
+            collapsed: true
+            fields:
+              - name: 'title'
+                label: 'Tên hiển thị của mục con'
+                widget: 'string'
+              - name: 'limit'
+                label: 'Số lượng bài hiển thị'
+                widget: 'number'
+                value_type: 'int'
+                default: 4
+                min: 0
+                max: 100
+              - name: 'hiddenTags'
+                label: 'Tag ẩn'
+                widget: 'relation'
+                hint: 'Những bài viết có các tag ẩn được chọn sẽ hiển thị ở chuyên mục con này.'
+                collection: 'hiddenTags'
+                multiple: true
+                value_field: 'title'
+                search_fields: ['title']
+      - name: newsCongregationProfession
+        label: 'Bản tin / Hội dòng / Lễ khấn'
+        file: 'content/pages/news/congregation/profession.md'
+        fields:
+          - name: 'title'
+            label: 'Tiêu đề'
+            widget: 'string'
+          - name: 'postGroups'
+            label: 'Mục con'
+            widget: 'list'
+            allow_add: true
+            min: 1
+            max: 10
+            collapsed: true
+            fields:
+              - name: 'title'
+                label: 'Tên hiển thị của mục con'
+                widget: 'string'
+              - name: 'limit'
+                label: 'Số lượng bài hiển thị'
+                widget: 'number'
+                value_type: 'int'
+                default: 4
+                min: 0
+                max: 100
+              - name: 'hiddenTags'
+                label: 'Tag ẩn'
+                widget: 'relation'
+                hint: 'Những bài viết có các tag ẩn được chọn sẽ hiển thị ở chuyên mục con này.'
+                collection: 'hiddenTags'
+                multiple: true
+                value_field: 'title'
+                search_fields: ['title']
+      - name: newsCongregationInternal
+        label: 'Bản tin / Hội dòng / Tin nội bộ'
+        file: 'content/pages/news/congregation/internal.md'
+        fields:
+          - name: 'title'
+            label: 'Tiêu đề'
+            widget: 'string'
+          - name: 'postGroups'
+            label: 'Mục con'
+            widget: 'list'
+            allow_add: true
+            min: 1
+            max: 10
+            collapsed: true
+            fields:
+              - name: 'title'
+                label: 'Tên hiển thị của mục con'
+                widget: 'string'
+              - name: 'limit'
+                label: 'Số lượng bài hiển thị'
+                widget: 'number'
+                value_type: 'int'
+                default: 4
+                min: 0
+                max: 100
+              - name: 'hiddenTags'
+                label: 'Tag ẩn'
+                widget: 'relation'
+                hint: 'Những bài viết có các tag ẩn được chọn sẽ hiển thị ở chuyên mục con này.'
+                collection: 'hiddenTags'
+                multiple: true
+                value_field: 'title'
+                search_fields: ['title']
 
       - name: topics
         label: 'Chuyên đề'
