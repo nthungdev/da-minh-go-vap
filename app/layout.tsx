@@ -26,6 +26,8 @@ export default function RootLayout({
 
   return (
     <html lang="en">
+      <ThePrelineScript />
+
       <body
         className={classNames(
           'relative bg-gray-100 flex flex-col w-full min-h-screen',
@@ -54,7 +56,6 @@ export default function RootLayout({
         </picture>
 
         <div className="flex-1">{children}</div>
-        <ThePrelineScript />
         <TheFooter />
       </body>
     </html>
