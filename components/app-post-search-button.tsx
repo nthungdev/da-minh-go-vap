@@ -15,7 +15,7 @@ import AppPostListItem from './app-post-list-item'
 
 const PLACEHOLDER = 'Tìm kiếm...'
 
-export default function AppSearchBar() {
+export default function AppPostSearchButton() {
   const overlayRef = useRef<HTMLDivElement>(null)
   const [input, setInput] = useState('')
   const [posts, setPosts] = useState<PostParams[]>([])
