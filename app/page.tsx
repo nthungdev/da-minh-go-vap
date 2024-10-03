@@ -8,7 +8,11 @@ import TheLatestPosts from '@/components/the-latest-posts'
 import { attributes } from '@/content/pages/home/index.md'
 
 export default async function Home() {
-  const { bibleVerses, latestPosts: latestPostsSection, newsByCategories } = attributes as PageHome
+  const {
+    bibleVerses,
+    latestPosts: latestPostsSection,
+    newsByCategories,
+  } = attributes as PageHome
 
   const latestPosts: PostParams[] = latestPostsSection.enable
     ? await fetchAllPosts({ limit: latestPostsSection.limit })
@@ -27,7 +31,7 @@ export default async function Home() {
   }
 
   return (
-    <AppPage className='space-y-8'>
+    <AppPage className="space-y-8">
       <section>
         <h2 className="sr-only">Câu lời chúa</h2>
         <TheBibleVerse verses={bibleVerses.verses} />

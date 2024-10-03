@@ -33,7 +33,7 @@ export default function AppPostList(props: AppPostListProps) {
   const ItemComponent = itemComponent ? itemComponent : DefaultItemComponent
 
   return (
-    <ul className={classNames('relative flex flex-col gap-4', className)}>
+    <ul className={classNames('relative flex flex-col gap-4 rounded-sm', className)}>
       {posts.map((post, index) => (
         <li className="block w-full" key={index}>
           <ItemComponent post={post} />
