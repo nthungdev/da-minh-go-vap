@@ -35,7 +35,8 @@ export default function RootLayout({
         )}
       >
         <TheDesktopNavbar className="z-20 sticky top-0 hidden xl:flex" />
-        <TheMobileNavbar className="z-20 sticky top-0 xl:hidden" />
+        {/* z-60 because backdrop from Preline is z-59 */}
+        <TheMobileNavbar className="z-[60] sticky top-0 xl:hidden" />
         <TheTopBanners />
 
         {/* Dynamically render the bottom decorative graphic based on the screen size */}

@@ -4,6 +4,7 @@ import menu, { MenuItem } from '@/utils/menu'
 import classNames from 'classnames'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import AppPostSearchButton from './app-post-search-button'
 
 const MENU_ID = 'hs-the-mobile-menu'
 
@@ -194,14 +195,17 @@ export default function TheMobileNavbar({ className }: { className?: string }) {
             <path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z"></path>
           </svg>
         </button>
-        <p className="ml-auto">Hội Dòng Đa Minh Gò Vấp</p>
+        <div className="ml-auto space-x-2 flex flex-row items-center">
+          <p>Hội Dòng Đa Minh Gò Vấp</p>
+          <AppPostSearchButton id="mobile-navbar-search" />
+        </div>
       </div>
       {/* End Navigation Toggle */}
 
       {/* Sidebar */}
       <div
         id={MENU_ID}
-        className="hs-overlay [--auto-close:lg] hs-overlay-open:translate-x-0 -translate-x-full transition-all duration-300 transform hidden fixed top-0 start-0 bottom-0 z-[60] w-72 bg-white border-e border-gray-200 pt-7 pb-10 overflow-y-auto xg:block xg:translate-x-0 xg:end-auto xg:bottom-0 [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:bg-gray-300"
+        className="hs-overlay [--auto-close:lg] hs-overlay-open:translate-x-0 -translate-x-full transition-all duration-300 transform hidden fixed top-0 start-0 bottom-0 z-[60] h-full w-72 bg-white border-e border-gray-200 pt-7 pb-10 overflow-y-auto xg:block xg:translate-x-0 xg:end-auto xg:bottom-0 [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:bg-gray-300"
         role="dialog"
         tabIndex={-1}
         aria-label="Sidebar"

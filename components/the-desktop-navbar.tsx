@@ -36,7 +36,7 @@ export default function TheDesktopNavbar({ className }: TheDesktopNavbarProps) {
         <ul className="lg:flex flex-row flex-wrap items-center">
           {menu.map((link, index) => (
             <li key={link.href} className="relative flex flex-row z-30">
-              {index !== 0 && <div className='border-l my-2'></div>}
+              {index !== 0 && <div className="border-l my-2"></div>}
 
               <Link className="block peer px-3 py-3" href={link.href}>
                 {link.name.toUpperCase()}
@@ -75,7 +75,7 @@ export default function TheDesktopNavbar({ className }: TheDesktopNavbarProps) {
           ))}
         </ul>
 
-        <AppPostSearchButton />
+        <AppPostSearchButton id="desktop-navbar-search" />
       </div>
     </nav>
   )
