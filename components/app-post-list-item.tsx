@@ -16,7 +16,7 @@ export default function AppPostListItem(props: AppPostListItemProps) {
       className={classNames('@container block w-full h-full', className)}
     >
       <div className="hover:ring-2 hover:cursor-pointer w-full h-full overflow-hidden flex flex-row gap-x-2 aspect-[3.5]">
-        <div className="relative w-auto h-full aspect-video overflow-hidden">
+        <div className="relative w-auto h-full aspect-video overflow-hidden bg-gray-300">
           <Image
             src={post.thumbnail}
             alt={post.title}
