@@ -3,6 +3,7 @@ import { attributes as siteAttributes } from '@/content/settings/site.md'
 import Image from 'next/image'
 import menu from '@/utils/menu'
 import classNames from 'classnames'
+import AppPostSearchButton from './app-post-search-button'
 
 interface TheDesktopNavbarProps {
   className?: string
@@ -73,6 +74,8 @@ export default function TheDesktopNavbar({ className }: TheDesktopNavbarProps) {
             </li>
           ))}
         </ul>
+
+        <AppPostSearchButton />
       </div>
     </nav>
   )
