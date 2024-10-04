@@ -3,6 +3,7 @@ import { attributes as siteAttributes } from '@/content/settings/site.md'
 import Image from 'next/image'
 import menu from '@/utils/menu'
 import classNames from 'classnames'
+import AppPostSearchButton from './app-post-search-button'
 
 interface TheDesktopNavbarProps {
   className?: string
@@ -14,7 +15,7 @@ export default function TheDesktopNavbar({ className }: TheDesktopNavbarProps) {
   return (
     <nav
       className={classNames(
-        `sticky top-0 bg-[#427CA8] text-gray-50 xl:flex flex-row flex-wrap lg:justify-center`,
+        `bg-[#427CA8] text-gray-50 xl:flex flex-row flex-wrap lg:justify-center`,
         className
       )}
     >
@@ -35,7 +36,7 @@ export default function TheDesktopNavbar({ className }: TheDesktopNavbarProps) {
         <ul className="lg:flex flex-row flex-wrap items-center">
           {menu.map((link, index) => (
             <li key={link.href} className="relative flex flex-row z-30">
-              {index !== 0 && <div className='border-l my-2'></div>}
+              {index !== 0 && <div className="border-l my-2"></div>}
 
               <Link className="block peer px-3 py-3" href={link.href}>
                 {link.name.toUpperCase()}
@@ -73,6 +74,8 @@ export default function TheDesktopNavbar({ className }: TheDesktopNavbarProps) {
             </li>
           ))}
         </ul>
+
+        <AppPostSearchButton id="desktop-navbar-search" />
       </div>
     </nav>
   )

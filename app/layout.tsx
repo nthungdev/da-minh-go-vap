@@ -26,18 +26,21 @@ export default function RootLayout({
 
   return (
     <html lang="en">
+      <ThePrelineScript />
+
       <body
         className={classNames(
-          'bg-gray-100 flex flex-col w-full min-h-screen',
+          'relative bg-gray-100 flex flex-col w-full min-h-screen',
           inter.className
         )}
       >
-        <TheDesktopNavbar className="z-10 hidden xl:flex" />
-        <TheMobileNavbar className="xl:hidden" />
+        <TheDesktopNavbar className="z-20 sticky top-0 hidden xl:flex" />
+        {/* z-60 because backdrop from Preline is z-59 */}
+        <TheMobileNavbar className="z-[60] sticky top-0 xl:hidden" />
         <TheTopBanners />
 
         {/* Dynamically render the bottom decorative graphic based on the screen size */}
-        <picture className="w-full">
+        <picture className="w-full block sticky top-[55px] xl:top-[48px] z-10">
           <source
             media="(max-width: 799px)"
             srcSet={bottomDecorativeGraphic.urlMobile}
@@ -54,7 +57,6 @@ export default function RootLayout({
         </picture>
 
         <div className="flex-1">{children}</div>
-        <ThePrelineScript />
         <TheFooter />
       </body>
     </html>
