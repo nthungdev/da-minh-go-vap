@@ -10,9 +10,9 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@preline/overlay": "^2.4.1",
     "@tailwindcss/container-queries": "^0.1.1",
     "classnames": "^2.5.1",
+    "fuse.js": "^7.0.0",
     "gray-matter": "^4.0.3",
     "next": "^14.2.5",
     "normalize-text": "^2.5.0",
@@ -24,8 +24,8 @@
     "remark-gfm": "^4.0.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.24.5",
-    "@babel/preset-react": "^7.24.1",
+    "@babel/core": "^7.25.7",
+    "@babel/preset-react": "^7.25.7",
     "@svgr/webpack": "^8.1.0",
     "@tailwindcss/forms": "^0.5.7",
     "@types/node": "^20",
