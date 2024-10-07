@@ -10,7 +10,7 @@ pillars:
       hiddenTags:
         - Các đấng bản quyền
       thumbnail:
-        url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1716407578/cld-sample-3.jpg
+        url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1728272561/8T9A9118_aetk1g.jpg
         alt: Mo ta thumbnail
     - title: Hoat dong su vu
       hiddenTags:
@@ -24,7 +24,7 @@ pillars:
         - Sắc lập dòng
         - Giao phan Phu Cuong
       thumbnail:
-        url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1716407576/samples/upscale-face-1.jpg
+        url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1728272561/DSCF8597_n1hntd.jpg
         alt: Mo ta thumbnail
     - title: Doi song hoc hanh
       hiddenTags:
