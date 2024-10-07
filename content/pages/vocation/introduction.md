@@ -52,11 +52,11 @@ timeline:
         - Giao phan Phu Cuong
       thumbnail:
         alt: Hoat dong su vu
-        url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1716407578/cld-sample-4.jpg
+        url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1728272655/IMG_8687_wly8hb.jpg
     - title: Giai đoạn Học viện
       hiddenTags:
         - Giao phan Phu Cuong
       thumbnail:
         alt: Doi song hoc hanh
-        url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1716407572/samples/man-on-a-street.jpg
+        url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1728274122/IMG_8170_gwkzhx.jpg
 ---
