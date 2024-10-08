@@ -18,7 +18,7 @@ newsByCategories:
             - Suy niệm
         - title: Y cầu nguyện
           hiddenTags:
-            - Walking with Jesus
+            - Ý cầu nguyện
         - title: Kinh phụng vụ
           hiddenTags:
             - Hiểu Để Yêu
