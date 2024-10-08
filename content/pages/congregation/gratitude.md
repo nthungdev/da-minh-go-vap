@@ -11,9 +11,10 @@ postGroups:
     limit: 8
   - title: TRI ÂN QUÝ ĐỨC GIÁM MỤC GIÁO PHẬN SÀI GÒN
     hiddenTags:
-      - đức giám mục sài gòn
+      - Gp Sài Gòn
     limit: 8
-  - title: TRI ÂN QUÝ CHA BỀ TRÊN TỔNG QUYỀN DÒNG ANH EM GIẢNG THUYẾT
+  - title: TRI ÂN QUÝ CHA BỀ TRÊN TỔNG QUYỀN VÀ CHA GIÁM TỈNH  DÒNG ANH EM GIẢNG
+      THUYẾT
     hiddenTags:
       - cha bề trên tổng quyền dòng đa minh
     limit: 8
