@@ -17,7 +17,7 @@ postGroups:
     - limit: 6
       title: GIỚI THIỆU
       hiddenTags:
-        - Hiểu Để Yêu
+        - Giới thiệu
     - limit: 7
       title: CÁC CHUYÊN ĐỀ ĐẶC BIỆT
       hiddenTags:
