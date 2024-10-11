@@ -47,7 +47,7 @@ newsByCategories:
             - Hiểu Để Yêu
         - title: Bé và Lời
           hiddenTags:
-            - Chút men cho đời
+            - Bé và lời
         - title: Walking with Jesus
           hiddenTags:
             - Lịch sử
