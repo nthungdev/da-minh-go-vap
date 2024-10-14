@@ -30,31 +30,32 @@ export default function RootLayout({
 
       <body
         className={classNames(
-          'relative bg-gray-100 flex flex-col w-full min-h-screen',
+          'relative bg-white flex flex-col w-full min-h-screen',
           inter.className
         )}
       >
         <TheDesktopNavbar className="z-20 sticky top-0 hidden xl:flex" />
         {/* z-60 because backdrop from Preline is z-59 */}
         <TheMobileNavbar className="z-[60] sticky top-0 xl:hidden" />
-        <TheTopBanners />
 
-        {/* Dynamically render the bottom decorative graphic based on the screen size */}
-        <picture className="w-full block sticky top-[55px] xl:top-[48px] z-10">
-          <source
-            media="(max-width: 799px)"
-            srcSet={bottomDecorativeGraphic.urlMobile}
-          />
-          <source
-            media="(min-width: 800px)"
-            srcSet={bottomDecorativeGraphic.urlDesktop}
-          />
-          <img
-            className="w-full"
-            src={bottomDecorativeGraphic.urlMobile}
-            alt={bottomDecorativeGraphic.alt}
-          />
-        </picture>
+        <div className='relative'>
+          <TheTopBanners />
+          <picture className="w-full block absolute -bottom-[1px] z-10">
+            <source
+              media="(max-width: 799px)"
+              srcSet={bottomDecorativeGraphic.urlMobile}
+            />
+            <source
+              media="(min-width: 800px)"
+              srcSet={bottomDecorativeGraphic.urlDesktop}
+            />
+            <img
+              className="w-full"
+              src={bottomDecorativeGraphic.urlMobile}
+              alt={bottomDecorativeGraphic.alt}
+            />
+          </picture>
+        </div>
 
         <div className="flex-1">{children}</div>
         <TheFooter />
