@@ -42,6 +42,7 @@ export default function AppPostTabGrid(props: AppPostTabGridProps) {
     },
     ...postGroups,
   ]
+  const postGroupsDataReversed = postGroupsData.toReversed()
 
   const handleSelectChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const selectedGroup = postGroupsData.find(
@@ -82,7 +83,7 @@ export default function AppPostTabGrid(props: AppPostTabGridProps) {
           role="tablist"
           aria-orientation="horizontal"
         >
-          {postGroupsData.toReversed().map(({ title }, index) => (
+          {postGroupsDataReversed.map(({ title }, index) => (
             <button
               key={`${id}-control-${index}`}
               type="button"
@@ -106,11 +107,11 @@ export default function AppPostTabGrid(props: AppPostTabGridProps) {
       </div>
 
       <div className="p-4 bg-primary-200">
-        {postGroupsData.map(({ posts }, index) => (
+        {postGroupsDataReversed.map(({ posts }, index) => (
           <div
             key={`${id}-content-${index}`}
             id={`${id}-content-${index}`}
-            className={index === 0 ? '' : 'hidden'}
+            className={index === postGroupsDataReversed.length - 1 ? '' : 'hidden'}
             role="tabpanel"
             aria-labelledby={`${id}-control-${index}`}
           >
