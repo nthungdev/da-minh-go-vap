@@ -3,13 +3,14 @@
 import { ChangeEvent } from 'react'
 import AppPostGrid from './app-post-grid'
 import AppSelectBasic from './app-select-basic'
+import classNames from 'classnames'
 
 const ALL_POSTS_CONTROL_LABEL = 'Tất cả'
 
 interface AppPostTabGridProps {
   /** id should be provided when there are multiple AppPostTabGrid components on the same page */
   id?: string
-  classNames?: string
+  className?: string
   postGroups: {
     title: string
     posts: PostParams[]
@@ -22,7 +23,7 @@ export default function AppPostTabGrid(props: AppPostTabGridProps) {
   const {
     id = 'post-tab-grid',
     postGroups,
-    classNames,
+    className,
     allPostsLimit,
     component,
   } = props
@@ -60,7 +61,7 @@ export default function AppPostTabGrid(props: AppPostTabGridProps) {
   }
 
   return (
-    <div className={`${classNames}`} id={id}>
+    <div className={`${className}`} id={id}>
       <div>
         <AppSelectBasic
           className="lg:hidden"
@@ -76,18 +77,22 @@ export default function AppPostTabGrid(props: AppPostTabGridProps) {
           onChange={handleSelectChange}
         />
         <nav
-          className="hidden lg:flex gap-x-4 bg-primary-500 p-4"
+          className="hidden lg:flex py-4 flex-row-reverse justify-end"
           aria-label="Tabs"
           role="tablist"
           aria-orientation="horizontal"
         >
-          {postGroupsData.map(({ title }, index) => (
+          {postGroupsData.toReversed().map(({ title }, index) => (
             <button
               key={`${id}-control-${index}`}
               type="button"
-              className={`hs-tab-active:bg-primary-700 hs-tab-active:text-white hs-tab-active:hover:text-white py-2 px-3 text-center basis-0 grow inline-flex justify-center items-center gap-x-2 text-sm font-medium text-gray-900 bg-primary-200 hover:text-primary-700 focus:outline-none focus:text-primary-700 disabled:opacity-50 disabled:pointer-events-none ${
-                index === 0 ? 'active' : ''
-              }`}
+              className={classNames(
+                `relative -mr-12 py-2 px-10 text-center inline-flex justify-center items-center gap-x-2 text-xl rounded-full border-[6px] border-secondary-400 text-secondary font-bold bg-primary-200 disabled:opacity-50 disabled:pointer-events-none`,
+                'hs-tab-active:bg-primary-400 hs-tab-active:text-secondary hs-tab-active:border-secondary hs-tab-active:z-10',
+                'hover:z-20 hover:shadow-[0_0_30px_5px_rgba(231,131,103,0.8),0_0_30px_5px_rgba(230,75,32,0.9)] hs-tab-active:hover:border-secondary-300 hover:border-secondary-300',
+                'focus:outline-none focus:text-primary-700',
+                index === postGroupsData.length - 1 && 'active'
+              )}
               aria-selected={false}
               role="tab"
               id={`${id}-control-${index}`}
