@@ -3,7 +3,7 @@ title: Thánh Lễ TUYÊN KHẤN TRỌN ĐỜI và NGÂN KHÁNH KHẤN DÒNG 201
 date: 2018-08-10T10:19:00.000Z
 hiddenTags:
   - lễ khấn
-thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726888851/khan_tron_2018_akpqwe.jpg
+thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1728980901/VINH_KHAN_2018_mbniow.png
 videos:
   - title: Thánh Lễ TUYÊN KHẤN TRỌN ĐỜI và NGÂN KHÁNH KHẤN DÒNG 2018
     thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726888851/khan_tron_2018_akpqwe.jpg
