@@ -3,7 +3,7 @@ title: THÁNH LỄ TUYÊN KHẤN TRỌN ĐỜI, NGÂN KHÁNH & KIM KHÁNH KHẤN
 date: 2022-08-08T09:58:00.000Z
 hiddenTags:
   - lễ khấn
-thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726887520/le_khan_2022_mymp2c.jpg
+thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1728980858/VINH_KHAN_2022_ee7dlz.png
 videos:
   - title: THÁNH LỄ TUYÊN KHẤN TRỌN ĐỜI, NGÂN KHÁNH & KIM KHÁNH KHẤN DÒNG 2022
     thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726887520/le_khan_2022_mymp2c.jpg
