@@ -1,7 +1,9 @@
 import { fetchAllPosts, fetchPostsByHiddenTags } from '@/actions/post'
 import AppAsideSection from '@/components/app-aside-section'
+import AppGridHeader from '@/components/app-grid-header'
 import AppPage from '@/components/app-page'
 import AppPostTabGrid from '@/components/app-post-tab-grid'
+import AppSectionHeader from '@/components/app-section-header'
 import AppSeparator from '@/components/app-separator'
 import TheBibleVerse from '@/components/the-bible-verse'
 import TheLatestPosts from '@/components/the-latest-posts'
@@ -49,20 +51,15 @@ export default async function Home() {
           {newsByCategories.enable && (
             <section>
               <h2 className="sr-only">Tin tức theo danh mục</h2>
-              <div className="space-y-4">
+              <div className="space-y-12">
                 {postsByCategoriesData.map((newsCategory, index) => (
                   <div key={index} className="space-y-4">
-                    <h3 className="text-2xl text-center uppercase">
-                      {newsCategory.title}
-                    </h3>
+                    <AppGridHeader text={newsCategory.title} />
                     <AppPostTabGrid
                       id={`home-posts-group-${index + 1}`}
                       postGroups={newsCategory.subCategories}
                       allPostsLimit={newsByCategories.limit}
                     />
-                    {index !== postsByCategoriesData.length - 1 && (
-                      <AppSeparator />
-                    )}
                   </div>
                 ))}
               </div>
