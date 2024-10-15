@@ -18,6 +18,6 @@ pageBanners:
         alt: Dien mo ta banner cho On Goi
 bottomDecorativeGraphic:
   alt: Đa Minh Gò Vấp
-  urlDesktop: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1728969575/LUON_SONG_ok_ajgm2h.svg
-  urlMobile: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1728969575/LUON_SONG_ok_ajgm2h.svg
+  urlDesktop: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1728970147/LUON_SONG_1_ok_honkec.svg
+  urlMobile: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1728970147/LUON_SONG_1_ok_honkec.svg
 ---
