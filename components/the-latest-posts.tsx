@@ -53,7 +53,8 @@ export default function TheLatestPosts(props: TheLatestPostsProps) {
             key={index}
             post={post}
             className={classNames(
-              index % 2 === 0 ? 'bg-primary-100' : 'bg-primary-200'
+              'border lg:border-transparent',
+              index % 2 === 0 ? 'lg:bg-primary-50' : 'lg:bg-primary-100'
             )}
           />
         ))}

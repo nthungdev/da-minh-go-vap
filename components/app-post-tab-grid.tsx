@@ -62,7 +62,7 @@ export default function AppPostTabGrid(props: AppPostTabGridProps) {
   }
 
   return (
-    <div className={`${className}`} id={id}>
+    <div className={`space-y-2 ${className}`} id={id}>
       <div>
         <AppSelectBasic
           className="lg:hidden"
@@ -106,7 +106,7 @@ export default function AppPostTabGrid(props: AppPostTabGridProps) {
         </nav>
       </div>
 
-      <div className="p-4 bg-primary-200">
+      <div className="">
         {postGroupsDataReversed.map(({ posts }, index) => (
           <div
             key={`${id}-content-${index}`}
