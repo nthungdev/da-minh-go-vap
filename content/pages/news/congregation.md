@@ -5,24 +5,15 @@ hiddenTags:
   - thông tin
 postGroups:
   - limit: 4
-    title: A
+    title: THÔNG TIN
     hiddenTags:
-      - chuyện giờ mới kể
-      - Giới thiệu
-      - cha bề trên tổng quyền dòng đa minh
-      - giáo dục
+      - thông tin
   - limit: 4
-    title: B
+    title: RIP
     hiddenTags:
-      - Giao phan Phu Cuong
       - Hiểu Để Yêu
+  - limit: 4
+    title: THÁNH LÊ TRỰC TUYẾN
+    hiddenTags:
       - lễ khấn
-  - limit: 4
-    title: C
-    hiddenTags:
-      - Giao phan Da Lat
-  - limit: 4
-    title: D
-    hiddenTags:
-      - Giao phan Xuan Loc
 ---
