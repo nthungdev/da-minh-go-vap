@@ -9,7 +9,7 @@ interface AppPostGridFiveProps {
   className?: string
 }
 
-export default function AppPostGridFive({
+export default function AppPostGridSix({
   posts,
   className,
 }: AppPostGridFiveProps) {
@@ -31,7 +31,7 @@ export default function AppPostGridFive({
         <li
           key={index}
           className={classNames(
-            'md:aspect-video overflow-hidden block w-full min-w-0 bg-white border md:border-transparent hover:ring hover:ring-secondary-200',
+            'relative md:aspect-video overflow-hidden block w-full min-w-0 bg-white border md:border-transparent hover:ring hover:ring-secondary-200',
             cellClasses[index]
           )}
         >
@@ -55,6 +55,19 @@ export default function AppPostGridFive({
               <button className="w-full text-center block">Xem tiếp...</button>
             </div>
           </Link>
+
+          <div className="group hidden md:block absolute top-0 left-0 size-full hover:cursor-pointer">
+            {/* static black gradient background */}
+            <div className="absolute w-full md:h-20 lg:h-24 left-0 bottom-0 bg-opacity-50 bg-gradient-to-b from-transparent from-5% to-black"></div>
+            {/* slide up secondary color gradient background */}
+            <div className="absolute w-full md:h-20 lg:h-24 left-0 bottom-0 translate-y-full group-hover:translate-y-0 transition bg-opacity-50 bg-gradient-to-b from-transparent from-5% via-secondary-400 via-40% to-secondary-400"></div>
+            {/* static post title */}
+            <div className="absolute bottom-0 left-0 p-3 w-full">
+              <h2 className="md:text-sm lg:text-lg line-clamp-2 text-white">
+                {post.title}
+              </h2>
+            </div>
+          </div>
         </li>
       ))}
     </ul>

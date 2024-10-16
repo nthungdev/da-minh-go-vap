@@ -78,7 +78,7 @@ export default function AppPostTabGrid(props: AppPostTabGridProps) {
           onChange={handleSelectChange}
         />
         <nav
-          className="hidden lg:flex py-4 flex-row-reverse justify-end"
+          className="hidden lg:flex py-4 flex-row-reverse justify-end group"
           aria-label="Tabs"
           role="tablist"
           aria-orientation="horizontal"
@@ -88,9 +88,9 @@ export default function AppPostTabGrid(props: AppPostTabGridProps) {
               key={`${id}-control-${index}`}
               type="button"
               className={classNames(
-                `peer relative -mr-12 py-2 px-12 text-center inline-flex justify-center items-center gap-x-2 text-xl rounded-full border-[6px] border-secondary-400 text-secondary font-bold bg-primary-100 disabled:opacity-50 disabled:pointer-events-none`,
+                `peer relative -mr-12 py-2 px-12 text-center inline-flex justify-center items-center gap-x-2 text-xl rounded-full border-[6px] border-secondary-400 text-secondary font-bold bg-primary-100 disabled:opacity-50 disabled:pointer-events-none transition`,
                 'hs-tab-active:bg-secondary-100 hs-tab-active:text-secondary hs-tab-active:border-secondary hs-tab-active:z-10',
-                'hover:z-20 hover:shadow-[0_0_30px_5px_rgba(231,131,103,0.8),0_0_30px_5px_rgba(230,75,32,0.9)] hs-tab-active:hover:border-secondary-300 hover:border-secondary-300 ',
+                'hover:z-20 hover:shadow-[0_0_30px_5px_rgba(231,131,103,0.8),0_0_30px_5px_rgba(230,75,32,0.9)] hover:border-secondary-300',
                 'focus:outline-none focus:text-primary-700',
                 index === postGroupsData.length - 1 && 'active'
               )}

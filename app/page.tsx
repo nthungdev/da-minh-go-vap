@@ -2,7 +2,7 @@ import { fetchAllPosts, fetchPostsByHiddenTags } from '@/actions/post'
 import AppAsideSection from '@/components/app-aside-section'
 import AppGridHeader from '@/components/app-grid-header'
 import AppPage from '@/components/app-page'
-import AppPostGridFive from '@/components/app-post-grid-five'
+import AppPostGridSix from '@/components/app-post-grid-five'
 import AppPostTabGrid from '@/components/app-post-tab-grid'
 import AppSectionHeader from '@/components/app-section-header'
 import AppSeparator from '@/components/app-separator'
@@ -62,7 +62,7 @@ export default async function Home() {
                       id={`home-posts-group-${index + 1}`}
                       postGroups={newsCategory.subCategories}
                       allPostsLimit={newsByCategories.limit}
-                      component={AppPostGridFive}
+                      component={AppPostGridSix}
                     />
                   </div>
                 ))}

@@ -1,7 +1,7 @@
 import { fetchPostsByHiddenTags } from '@/actions/post'
 import AppGridHeader from './app-grid-header'
 import AppPostTabGrid from './app-post-tab-grid'
-import AppPostGridFive from './app-post-grid-five'
+import AppPostGridSix from './app-post-grid-five'
 
 interface AppTestProps {
   newsByCategories: {
@@ -41,7 +41,7 @@ export default async function AppTest(props: AppTestProps) {
             id={`home-posts-group-${index + 1}`}
             postGroups={newsCategory.subCategories}
             allPostsLimit={newsByCategories.limit}
-            component={AppPostGridFive}
+            component={AppPostGridSix}
           />
         </div>
       ))}
