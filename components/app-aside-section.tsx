@@ -44,20 +44,24 @@ export default async function AppAsideSection() {
       )}
 
       {postGroups.enable && (
-        <div className="bg-primary-200">
+        <div className="bg-primary-100">
           {postGroupsData.map((group, index) => (
             <div key={index} className="">
               <AppSectionHeader className="uppercase">
                 {group.title}
               </AppSectionHeader>
-              <AppPostList className='p-2' posts={group.posts} itemComponent={AppPostCard} />
+              <AppPostList
+                className="p-2"
+                posts={group.posts}
+                itemComponent={AppPostCard}
+              />
             </div>
           ))}
         </div>
       )}
 
       {curatedPosts.enable && (
-        <div className="bg-primary-200">
+        <div className="bg-primary-100">
           <AppSectionHeader className="uppercase">
             {curatedPosts.title}
           </AppSectionHeader>
@@ -70,7 +74,7 @@ export default async function AppAsideSection() {
       )}
 
       {socialLinks.enable && (
-        <div className="bg-primary-200">
+        <div className="bg-primary-100">
           <AppSectionHeader className="uppercase">
             {socialLinks.title}
           </AppSectionHeader>
