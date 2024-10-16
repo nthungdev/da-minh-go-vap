@@ -142,9 +142,9 @@ const defaultItemRender = (onClick: Function) =>
       return (
         <li key={`${item.normalizedName}-accordion-item`}>
           <Link
-            className={`flex items-center gap-x-3.5 py-2 px-2.5 text-sm rounded-lg w-full text-start hover:text-gray-50 hover:bg-primary-500 focus:outline-none focus:bg-primary-500 focus:text-gray-50 ${
+            className={`flex items-center gap-x-3.5 py-2 px-2.5 text-sm rounded-lg w-full text-start hover:text-gray-50 hover:bg-primary-600 focus:outline-none focus:bg-primary-600 focus:text-gray-50 ${
               item.absoluteHref === pathname
-                ? 'text-gray-50 bg-primary-400 hover:bg-primary-500'
+                ? 'text-gray-50 bg-primary-600 hover:bg-primary-600'
                 : 'text-gray-900'
             }`}
             href={item.absoluteHref}
@@ -170,7 +170,7 @@ export default function TheMobileNavbar({ className }: { className?: string }) {
   }
 
   return (
-    <nav className={classNames('bg-[#427CA8] text-gray-50 p-2', className)}>
+    <nav className={classNames('bg-primary text-gray-50 p-2', className)}>
       {/* Navigation Toggle */}
       <div className="flex flex-row items-center">
         <button
@@ -188,10 +188,10 @@ export default function TheMobileNavbar({ className }: { className?: string }) {
             height="24"
             viewBox="0 0 24 24"
             role="img"
-            aria-labelledby="a3mj0osd8yblbhwt1scru448yoh362oy"
+            aria-labelledby="mobile-nav-toggle"
             className="crayons-icon"
           >
-            <title id="a3mj0osd8yblbhwt1scru448yoh362oy">Navigation menu</title>
+            <title id="mobile-nav-toggle">Navigation menu</title>
             <path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z"></path>
           </svg>
         </button>

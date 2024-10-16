@@ -15,7 +15,7 @@ export default function TheDesktopNavbar({ className }: TheDesktopNavbarProps) {
   return (
     <nav
       className={classNames(
-        `bg-[#427CA8] text-gray-50 xl:flex flex-row flex-wrap lg:justify-center`,
+        `bg-primary text-gray-50 xl:flex flex-row flex-wrap lg:justify-center`,
         className
       )}
     >
@@ -43,7 +43,7 @@ export default function TheDesktopNavbar({ className }: TheDesktopNavbarProps) {
               </Link>
 
               {link.children && (
-                <ul className="z-20 hidden peer-hover:block hover:block absolute top-full left-0 bg-primary-400 divide-y min-w-full">
+                <ul className="z-20 hidden peer-hover:block hover:block absolute top-full left-0 bg-primary-500 divide-y min-w-full">
                   {link.children.map((child) => (
                     <li key={child.href} className="block relative">
                       <Link

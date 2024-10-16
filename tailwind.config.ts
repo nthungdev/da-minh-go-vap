@@ -1,7 +1,23 @@
-import type { Config } from "tailwindcss";
+import type { Config } from 'tailwindcss'
+import defaultTheme from 'tailwindcss/defaultTheme'
+import defaultColors from 'tailwindcss/colors'
 
 const colorPalette = {
-  'matisse': {
+  chill: {
+    '50': '#eafffd',
+    '100': '#cafffb',
+    '200': '#9cfffa',
+    '300': '#57fff9',
+    '400': '#0cfcff',
+    '500': '#00deea',
+    '600': '#00b0c4',
+    '700': '#008596',
+    DEFAULT: '#008596',
+    '800': '#0b6f7f',
+    '900': '#0e5b6b',
+    '950': '#023d4a',
+  },
+  matisse: {
     '50': '#f3f7fc',
     '100': '#e7eff7',
     '200': '#c9dcee',
@@ -57,7 +73,7 @@ const colorPalette = {
     '900': '#7c2712',
     '950': '#431107',
   },
-  'keppel': {
+  keppel: {
     '50': '#f3faf7',
     '100': '#d7f0e8',
     '200': '#aee1d2',
@@ -71,7 +87,7 @@ const colorPalette = {
     '900': '#21403b',
     '950': '#0e2523',
   },
-  'viola': {
+  viola: {
     '50': '#f9f6f8',
     '100': '#f5eef3',
     '200': '#ebdfe7',
@@ -89,24 +105,31 @@ const colorPalette = {
 
 const config: Config = {
   content: [
-    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    './pages/**/*.{js,ts,jsx,tsx,mdx}',
+    './components/**/*.{js,ts,jsx,tsx,mdx}',
+    './app/**/*.{js,ts,jsx,tsx,mdx}',
     'node_modules/preline/dist/*.js',
   ],
   darkMode: 'class',
   theme: {
     extend: {
       backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+        'gradient-conic':
+          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
       colors: {
         ...colorPalette,
-        primary: colorPalette['matisse'],
-        secondary: colorPalette['keppel'],
-      }
+        primary: {
+          ...defaultColors.cyan,
+          DEFAULT: defaultColors.cyan[600],
+        },
+        // secondary: colorPalette['keppel'],
+        secondary: {
+          ...defaultColors.orange,
+          DEFAULT: defaultColors.orange[600],
+        },
+      },
     },
   },
   plugins: [
@@ -114,5 +137,5 @@ const config: Config = {
     require('preline/plugin'),
     require('@tailwindcss/container-queries'),
   ],
-};
-export default config;
+}
+export default config
