@@ -3,7 +3,7 @@ title: THÁNH LỄ TUYÊN KHẤN TRỌN ĐỜI 2021
 date: 2021-05-01T10:02:00.000Z
 hiddenTags:
   - lễ khấn
-thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1728980820/VINH_KHAN_2021_hvye8k.png
+thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1729041592/vinh_KHAN_2021_copy_n3nyag.jpg
 videos:
   - url: https://www.youtube.com/watch?v=WqimiSl5Btw
     thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726887520/le_khan_2022_mymp2c.jpg
