@@ -2,7 +2,7 @@
 pageBanners:
   - path: /
     banners:
-      - url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726818877/hin_trang_chu_sjtii5.jpg
+      - url: https://res.cloudinary.com/dxtb6rv7y/video/upload/v1729068325/0_Baner_Trang_Chu_l4t1tk.mp4
         alt: Banner 1
   - path: /spirituality/charism
     banners:
