@@ -1,11 +1,11 @@
 ---
 title: Chuyen de
 sections:
-  - limit: 4
+  - limit: 8
     title: Hiểu để yêu
     hiddenTags:
       - Hiểu Để Yêu
-  - limit: 4
+  - limit: 8
     title: Be va Loi
     hiddenTags:
       - Bé và lời
