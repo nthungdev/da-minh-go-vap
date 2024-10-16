@@ -3,7 +3,7 @@ title: Thánh Lễ TUYÊN KHẤN LẦN ĐẦU và KIM KHÁNH KHẤN DÒNG 2018
 date: 2018-08-09T10:07:00.000Z
 hiddenTags:
   - lễ khấn
-thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1728980724/TIEN_KHAN_2018_2_cvsf2h.png
+thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1729041590/TIEN_KHAN_2018_copy_psqdna.jpg
 videos:
   - title: Thánh Lễ TUYÊN KHẤN LẦN ĐẦU và KIM KHÁNH KHẤN DÒNG 2018
     url: https://www.youtube.com/watch?app=desktop&v=-cknbf2pRJw
