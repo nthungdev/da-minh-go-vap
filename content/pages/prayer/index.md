@@ -5,7 +5,7 @@ sections:
     title: Suy niệm
     hiddenTags:
       - Suy niệm
-  - limit: 4
+  - limit: 8
     title: Ý nguyện
     hiddenTags:
       - Ý cầu nguyện
