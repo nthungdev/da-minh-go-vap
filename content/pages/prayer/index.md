@@ -1,7 +1,7 @@
 ---
 title: Cau Nguyen
 sections:
-  - limit: 4
+  - limit: 8
     title: Suy niệm
     hiddenTags:
       - Suy niệm
@@ -9,7 +9,7 @@ sections:
     title: Ý nguyện
     hiddenTags:
       - Ý cầu nguyện
-  - limit: 4
+  - limit: 8
     title: Nguyện Kinh phụng vụ
     hiddenTags:
       - Giới thiệu
