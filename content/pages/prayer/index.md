@@ -4,11 +4,11 @@ sections:
   - limit: 4
     title: Suy niệm
     hiddenTags:
-      - Sắc lập dòng
+      - Suy niệm
   - limit: 4
     title: Ý nguyện
     hiddenTags:
-      - Giao phan Phu Cuong
+      - Ý cầu nguyện
   - limit: 4
     title: Nguyện Kinh phụng vụ
     hiddenTags:
