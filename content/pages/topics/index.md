@@ -4,11 +4,11 @@ sections:
   - limit: 4
     title: Hiểu để yêu
     hiddenTags:
-      - Giao phan Phu Cuong
+      - Hiểu Để Yêu
   - limit: 4
     title: Be va Loi
     hiddenTags:
-      - Giao phan Xuan Loc
+      - Bé và lời
   - limit: 4
     title: Walking with Jesus
     hiddenTags:
