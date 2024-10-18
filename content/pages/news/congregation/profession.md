@@ -1,12 +1,8 @@
 ---
 title: Le khan
 postGroups:
-  - limit: 4
-    title: A
+  - limit: 20
+    title: LỄ KHẤN
     hiddenTags:
-      - Giao phan Phu Cuong
-  - limit: 4
-    title: B
-    hiddenTags:
-      - Bé và lời
+      - lễ khấn
 ---

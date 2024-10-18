@@ -2,7 +2,7 @@
 pageBanners:
   - path: /
     banners:
-      - url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726818877/hin_trang_chu_sjtii5.jpg
+      - url: https://res.cloudinary.com/dxtb6rv7y/video/upload/v1729068325/0_Baner_Trang_Chu_l4t1tk.mp4
         alt: Banner 1
   - path: /spirituality/charism
     banners:
@@ -14,10 +14,12 @@ pageBanners:
         alt: Banner 1
   - path: /vocation/introduction
     banners:
-      - url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726964874/3_oxkvzl.jpg
+      - url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1729236065/baner_thuong_huan_mhvfkb.png
         alt: Dien mo ta banner cho On Goi
+      - url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1729244808/999_rg82a8.png
+        alt: giai doan hoc vien
 bottomDecorativeGraphic:
   alt: Đa Minh Gò Vấp
-  urlDesktop: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1728780324/LUON_SONG_7_bw4vw1.svg
-  urlMobile: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1727755733/do_hoa_khong_co_chu_tmct88.svg
+  urlDesktop: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1728970147/LUON_SONG_1_ok_honkec.svg
+  urlMobile: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1728970147/LUON_SONG_1_ok_honkec.svg
 ---

@@ -1,15 +1,15 @@
 ---
 title: Cau Nguyen
 sections:
-  - limit: 4
+  - limit: 8
     title: Suy niệm
     hiddenTags:
-      - Sắc lập dòng
-  - limit: 4
+      - Suy niệm
+  - limit: 8
     title: Ý nguyện
     hiddenTags:
-      - Giao phan Phu Cuong
-  - limit: 4
+      - Ý cầu nguyện
+  - limit: 8
     title: Nguyện Kinh phụng vụ
     hiddenTags:
       - Giới thiệu

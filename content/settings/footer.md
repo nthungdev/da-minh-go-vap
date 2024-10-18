@@ -1,6 +1,6 @@
 ---
 graphic:
-  url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1727664991/fooder_im8maf.svg
+  url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1728940419/fooder_xanh_ngoc_hgax5f.svg
   alt: Footer graphic
 name: HỘI DÒNG NỮ ĐA MINH GÒ VẤP
 address: |-
