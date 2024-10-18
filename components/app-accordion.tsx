@@ -11,10 +11,10 @@ function AppAccordionToggle(props: AppAccordionToggle) {
 
   const colorVariants: { [key: string]: string } = {
     primary:
-      'bg-primary-200 hover:bg-primary hs-accordion-active:text-primary-600',
-    pink: 'bg-pink-200 hover:bg-pink-600 hs-accordion-active:text-pink-600',
+      'bg-primary-200 hover:bg-primary hs-accordion-active:text-primary-700',
+    pink: 'bg-pink-200 hover:bg-pink-600 hs-accordion-active:text-pink-700',
     yellow:
-      'bg-yellow-200 hover:bg-yellow-600 hs-accordion-active:text-yellow-600',
+      'bg-yellow-200 hover:bg-yellow-600 hs-accordion-active:text-yellow-700',
   }
 
   return (
@@ -122,7 +122,7 @@ function AppAccordionItem(props: AppAccordionItemProps) {
   const { id, children } = props
 
   return (
-    <div className={`hs-accordion rounded-lg bg-gray-200`} id={id}>
+    <div className={`hs-accordion rounded-lg bg-gray-100`} id={id}>
       {children}
     </div>
   )

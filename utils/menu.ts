@@ -19,7 +19,6 @@ const menu: MenuItem[] = [
     children: [
       { href: '/introduction', name: 'Giới thiệu' },
       { href: '/history', name: 'Lịch sử' },
-      { href: '/establishment', name: 'Sắc lập dòng' },
       { href: '/gratitude', name: 'Tri ân' },
     ],
   },
