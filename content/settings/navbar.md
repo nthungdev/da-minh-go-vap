@@ -16,7 +16,7 @@ pageBanners:
     banners:
       - url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1729236065/baner_thuong_huan_mhvfkb.png
         alt: Dien mo ta banner cho On Goi
-      - url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1729240293/hoc_vien_baner_hqcdat.png
+      - url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1729242203/hoc_vien_baner_6_urbtoj.png
         alt: giai doan hoc vien
 bottomDecorativeGraphic:
   alt: Đa Minh Gò Vấp
