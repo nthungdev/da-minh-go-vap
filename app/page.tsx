@@ -41,7 +41,7 @@ export default async function Home() {
         <TheBibleVerse className='mx-auto' verses={bibleVerses.verses} />
       </section>
 
-      <div className="flex flex-col md:flex md:flex-row md:gap-x-8">
+      <div className="flex flex-col md:flex md:flex-row gap-x-4 lg:gap-x-6">
         <div className="space-y-8 flex-1">
           {latestPostsSection.enable && (
             <section>
@@ -71,7 +71,7 @@ export default async function Home() {
           )}
         </div>
 
-        <div className="hidden md:block w-64">
+        <div className="hidden md:block w-56 lg:w-64">
           <AppAsideSection />
         </div>
       </div>

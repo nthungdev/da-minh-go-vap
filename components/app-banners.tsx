@@ -20,7 +20,7 @@ export default function AppBanners(props: AppBannersProps) {
   }
 
   return (
-    <div className={`w-full aspect-[2] ${className || ''}`}>
+    <div className={`w-full aspect-[4/1.2] ${className || ''}`}>
       <AppCarousel>
         {banners.map((banner, index) => (
           <div key={index} className="h-full w-full">
