@@ -28,7 +28,7 @@ export default function TheFooter() {
         sizes="100%"
       />
 
-      <div className="bg-[#427CA8]">
+      <div className="bg-primary">
         <div className='p-4 max-w-screen-xl sm:hidden flex flex-col md:flex-row gap-8 text-white text-left'>
           <div>
             <p className="font-bold mb-1">{name}</p>
