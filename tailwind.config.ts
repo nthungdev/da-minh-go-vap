@@ -121,8 +121,7 @@ const config: Config = {
       colors: {
         ...colorPalette,
         primary: {
-          ...defaultColors.cyan,
-          DEFAULT: defaultColors.cyan[600],
+          ...colorPalette.chill,
         },
         // secondary: colorPalette['keppel'],
         secondary: {

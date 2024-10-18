@@ -43,18 +43,42 @@ export default function TheDesktopNavbar({ className }: TheDesktopNavbarProps) {
               </Link>
 
               {link.children && (
-                <ul className="z-20 hidden peer-hover:block hover:block absolute top-full left-0 bg-primary-500 divide-y min-w-full">
+                <ul className="z-20 hidden peer-hover:block hover:block absolute top-full left-0 bg-primary-600 divide-y min-w-full">
                   {link.children.map((child) => (
                     <li key={child.href} className="block relative">
                       <Link
                         href={`${link.href}${child.href}`}
-                        className="block peer text-nowrap px-4 py-2 hover:bg-primary-700 hover:text-gray-50"
+                        className={classNames(
+                          'flex flex-row justify-between space-x-2 peer text-nowrap pl-4 pr-2 py-2 hover:bg-primary-800 hover:text-gray-50',
+                          !child.children && 'pr-4'
+                        )}
                       >
-                        {child.name}
+                        <span>{child.name}</span>
+                        {child.children && (
+                          <span>
+                            <svg
+                              className="w-6 h-6"
+                              aria-hidden="true"
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                stroke="currentColor"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="2"
+                                d="m10 16 4-4-4-4"
+                              />
+                            </svg>
+                          </span>
+                        )}
                       </Link>
 
                       {child.children && (
-                        <ul className="hidden peer-hover:block hover:block absolute left-full top-0 bg-primary-400 divide-y">
+                        <ul className="hidden peer-hover:block hover:block absolute left-full top-0 bg-primary-600 divide-y ml-px">
                           {child.children.map((grandchild) => (
                             <li key={grandchild.href} className="block">
                               <Link
