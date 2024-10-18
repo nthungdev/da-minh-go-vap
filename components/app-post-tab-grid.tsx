@@ -78,7 +78,7 @@ export default function AppPostTabGrid(props: AppPostTabGridProps) {
           onChange={handleSelectChange}
         />
         <nav
-          className="hidden lg:flex py-4 flex-row-reverse justify-end group"
+          className="hidden py-4 lg:flex flex-row-reverse justify-end group"
           aria-label="Tabs"
           role="tablist"
           aria-orientation="horizontal"
@@ -88,7 +88,7 @@ export default function AppPostTabGrid(props: AppPostTabGridProps) {
               key={`${id}-control-${index}`}
               type="button"
               className={classNames(
-                `peer relative -mr-12 py-2 px-12 text-center inline-flex justify-center items-center gap-x-2 text-xl rounded-full border-[6px] border-secondary-400 text-secondary font-bold bg-primary-100 disabled:opacity-50 disabled:pointer-events-none transition`,
+                `peer relative -mr-12 py-2 px-12 text-center inline-flex justify-center items-center gap-x-2 text-xl rounded-full border-[6px] border-secondary-400 text-secondary font-bold bg-primary-100 disabled:opacity-50 disabled:pointer-events-none transition text-nowrap`,
                 'hs-tab-active:bg-secondary-100 hs-tab-active:text-secondary hs-tab-active:border-secondary hs-tab-active:z-10',
                 'hover:z-20 hover:shadow-neon hover:border-secondary-300',
                 'focus:outline-none focus:text-primary-700',
