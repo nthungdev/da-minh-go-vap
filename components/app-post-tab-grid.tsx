@@ -90,7 +90,7 @@ export default function AppPostTabGrid(props: AppPostTabGridProps) {
               className={classNames(
                 `peer relative -mr-12 py-2 px-12 text-center inline-flex justify-center items-center gap-x-2 text-xl rounded-full border-[6px] border-secondary-400 text-secondary font-bold bg-primary-100 disabled:opacity-50 disabled:pointer-events-none transition`,
                 'hs-tab-active:bg-secondary-100 hs-tab-active:text-secondary hs-tab-active:border-secondary hs-tab-active:z-10',
-                'hover:z-20 hover:shadow-[0_0_10px_3px_rgba(231,131,103,0.8),0_0_10px_3px_rgba(230,75,32,0.9)] hover:border-secondary-300',
+                'hover:z-20 hover:shadow-neon hover:border-secondary-300',
                 'focus:outline-none focus:text-primary-700',
                 index === postGroupsData.length - 1 && 'active'
               )}
