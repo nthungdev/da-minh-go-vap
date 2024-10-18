@@ -438,23 +438,6 @@ collections:
                     },
                   ]
                 }
-      - name: congregationEstablishment
-        label: 'Hội dòng / Sắc lập Dòng'
-        file: 'content/pages/congregation/establishment.md'
-        editor:
-          preview: false
-        fields:
-          - name: 'title'
-            label: 'Tiêu đề'
-            widget: 'string'
-          - name: 'hiddenTags'
-            label: 'Tag ẩn'
-            description: 'Các bài viết có các tag ẩn này sẽ hiển thị ở trang sắc lập dòng.'
-            widget: relation
-            collection: hiddenTags
-            multiple: true
-            value_field: title
-            search_fields: [title]
       - name: congregationGratitude
         label: 'Hội dòng / Tri ân'
         file: 'content/pages/congregation/gratitude.md'
