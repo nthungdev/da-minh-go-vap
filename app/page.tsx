@@ -38,7 +38,7 @@ export default async function Home() {
     <AppPage className="space-y-8">
       <section>
         <h2 className="sr-only">Câu lời chúa</h2>
-        <TheBibleVerse verses={bibleVerses.verses} />
+        <TheBibleVerse className='mx-auto' verses={bibleVerses.verses} />
       </section>
 
       <div className="flex flex-col md:flex md:flex-row md:gap-x-8">

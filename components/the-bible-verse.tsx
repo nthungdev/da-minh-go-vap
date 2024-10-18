@@ -1,10 +1,10 @@
 'use client'
 
+import classNames from 'classnames'
 import { useEffect, useState } from 'react'
-import QuoteOpen from '@/public/svgs/quote-open.svg'
-import QuoteClose from '@/public/svgs/quote-close.svg'
 
 interface TheBibleVerseProps {
+  className?: string
   verses: {
     verse: string
     reference: string
@@ -12,7 +12,7 @@ interface TheBibleVerseProps {
 }
 
 export default function TheBibleVerse(props: TheBibleVerseProps) {
-  const { verses } = props
+  const { verses, className } = props
 
   const [currentIndex, setCurrentIndex] = useState(0)
 
@@ -33,12 +33,14 @@ export default function TheBibleVerse(props: TheBibleVerseProps) {
   const reference = currentVerse.reference
 
   return (
-    <blockquote className="relative border-2 border-primary rounded-md flex flex-col items-center justify-center py-8 px-4 sm:px-10 bg-white">
-      <QuoteOpen className="absolute top-0 start-0 size-8 text-primary" />
-      <QuoteClose className="absolute bottom-0 end-0 size-8 text-primary" />
-
-      <p className="text-center">{verse}</p>
-      <cite className="block w-full text-right">{reference}</cite>
+    <blockquote
+      className={classNames(
+        'max-w-max relative border-2 border-secondary rounded-full flex flex-col items-center justify-center pt-3 pb-2 px-10 md:px-20 bg-white text-primary hover:shadow-neon transition-shadow',
+        className
+      )}
+    >
+      <p className="text-center font-bold text-xl">{verse}</p>
+      <cite className="block w-full text-right text-xs not-italic font-semibold">{reference}</cite>
     </blockquote>
   )
 }
