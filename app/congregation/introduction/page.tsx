@@ -1,26 +1,9 @@
 import { attributes } from '@/content/pages/congregation/introduction.md'
 import AppMarkdown from '@/components/app-markdown'
-import Image from 'next/image'
 import AppPage from '@/components/app-page'
 import AppVideoTile from '@/components/app-video-tile'
 import AppCardTabs from '@/components/app-card-tabs'
 import AppBanners from '@/components/app-banners'
-
-const BannerContainer = ({
-  url,
-  alt,
-}: Readonly<{ url: string; alt: string }>) => (
-  <div className="relative w-full aspect-[4] mb-4">
-    <Image
-      src={url}
-      className="object-cover"
-      sizes="100%"
-      alt={alt}
-      priority
-      fill
-    />
-  </div>
-)
 
 const VideosContainer = ({
   videos,
