@@ -14,7 +14,7 @@ pageBanners:
         alt: Banner 1
   - path: /vocation/introduction
     banners:
-      - url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726964874/3_oxkvzl.jpg
+      - url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1729236065/baner_thuong_huan_mhvfkb.png
         alt: Dien mo ta banner cho On Goi
 bottomDecorativeGraphic:
   alt: Đa Minh Gò Vấp
