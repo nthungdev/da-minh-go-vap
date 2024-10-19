@@ -130,6 +130,9 @@ const config: Config = {
       },
       boxShadow: {
         'neon': '0 0 10px 3px rgba(231,131,103,0.8), 0 0 10px 3px rgba(230,75,32,0.9)',
+      },
+      fontFamily: {
+        header: ['Montserrat', 'sans-serif'],
       }
     },
   },
