@@ -1,25 +1,28 @@
+import classNames from 'classnames'
 import AppMarkdown from './app-markdown'
 
 interface AppAccordionToggle {
   title: string
   controlId: string
-  color?: 'primary' | 'pink' | 'yellow'
+  colorLevel?: number
 }
 
 function AppAccordionToggle(props: AppAccordionToggle) {
-  const { controlId, title, color = 'primary' } = props
+  const { controlId, title, colorLevel = 0 } = props
 
-  const colorVariants: { [key: string]: string } = {
-    primary:
-      'bg-primary-200 hover:bg-primary hs-accordion-active:text-primary-700',
-    pink: 'bg-pink-200 hover:bg-pink-600 hs-accordion-active:text-pink-700',
-    yellow:
-      'bg-yellow-200 hover:bg-yellow-600 hs-accordion-active:text-yellow-700',
+  const colorVariants: Record<number, string> = {
+    0: 'bg-[#70C7D0]',
+    1: 'bg-[#9DD9DE]',
+    2: 'bg-[#B2FEFF]',
   }
 
   return (
     <button
-      className={`hs-accordion-toggle hs-accordion-active:hover:text-gray-50 py-3 px-2 inline-flex items-center gap-x-3 w-full font-semibold text-start text-gray-800 hover:text-gray-50 focus:outline-none rounded-lg disabled:opacity-50 disabled:pointer-events-none ${colorVariants[color]}`}
+      className={classNames(
+        'hs-accordion-toggle hs-accordion-active:hover:text-gray-50 py-3 px-2 inline-flex items-center gap-x-3 w-full font-semibold text-start text-gray-800 hover:text-gray-50 focus:outline-none rounded-lg disabled:opacity-50 disabled:pointer-events-none',
+        colorVariants[colorLevel],
+        'hover:bg-[#01919F] hs-accordion-active:text-gray-800'
+      )}
       aria-expanded={false}
       aria-controls={controlId}
     >
@@ -122,7 +125,7 @@ function AppAccordionItem(props: AppAccordionItemProps) {
   const { id, children } = props
 
   return (
-    <div className={`hs-accordion rounded-lg bg-gray-100`} id={id}>
+    <div className={`hs-accordion rounded-lg bg-primary-50`} id={id}>
       {children}
     </div>
   )
@@ -131,18 +134,13 @@ function AppAccordionItem(props: AppAccordionItemProps) {
 const defaultItemRender = (alwaysOpen?: boolean, level: number = 0) =>
   function AppAccordionItemDefault(item: AppAccordionItem, index: number) {
     const loopedLevel = level % 3
-    const levelColor: { [key: string]: 'primary' | 'pink' | 'yellow' } = {
-      0: 'primary',
-      1: 'yellow',
-      2: 'pink',
-    }
 
     return (
       <AppAccordion.Item key={index} id={`${item.title}-item-${index}`}>
         <AppAccordion.Toggle
           controlId={`${item.title}-content-${index}`}
           title={item.title}
-          color={levelColor[loopedLevel]}
+          colorLevel={level}
         />
         <AppAccordion.Content
           id={`${item.title}-content-${index}`}

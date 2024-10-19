@@ -36,7 +36,7 @@ export default function AppCardTabs({ tabs }: AppCardTabsProps) {
           ))}
         </nav>
       </div>
-      <div className="relative border border-gray-200 dark:border-neutral-700 rounded-b-lg rounded-tr-lg bg-primary-100 p-4">
+      <div className="relative border border-gray-200 dark:border-neutral-700 rounded-b-lg rounded-tr-lg bg-primary-50 p-4">
         {isReactNode ? (
           activeBody
         ) : (

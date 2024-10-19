@@ -10,9 +10,9 @@ const VideosContainer = ({
 }: Readonly<{
   videos: { title: string; url: string; thumbnail: string }[]
 }>) => (
-  <ul className="grid grid-flow-col md:grid-flow-row grid-rows-4 md:grid-rows-2 lg:grid-rows-1 md:grid-cols-2 lg:grid-cols-4 gap-2">
+  <ul className="grid grid-flow-row md:grid-flow-row grid-cols-2 lg:grid-rows-1 md:grid-cols-2 lg:grid-cols-4 gap-2">
     {videos.map(({ title, url, thumbnail }, index) => (
-      <li key={index}>
+      <li key={index} className='block w-full'>
         <AppVideoTile
           thumbnail={thumbnail}
           title={title}

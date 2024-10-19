@@ -1,16 +1,23 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Montserrat, Nunito } from 'next/font/google'
 import './globals.css'
 import ThePrelineScript from '@/components/the-preline-script'
 import TheFooter from '@/components/the-footer'
-import Image from 'next/image'
 import { attributes as navbarAttributes } from '@/content/settings/navbar.md'
 import TheTopBanners from '@/components/the-top-banners'
 import classNames from 'classnames'
 import TheMobileNavbar from '@/components/the-mobile-navbar'
 import TheDesktopNavbar from '@/components/the-desktop-navbar'
 
-const inter = Inter({ subsets: ['latin'] })
+const montserrat = Montserrat({
+  subsets: ['vietnamese'],
+  variable: '--font-montserrat',
+})
+
+const nunito = Nunito({
+  subsets: ['vietnamese'],
+  variable: '--font-nunito',
+})
 
 export const metadata: Metadata = {
   title: 'Đa Minh Gò Vấp',
@@ -25,20 +32,25 @@ export default function RootLayout({
   const { bottomDecorativeGraphic } = navbarAttributes as NavbarAttributes
 
   return (
-    <html lang="en">
+    <html
+      lang="en"
+      className={classNames(
+        nunito.className,
+        montserrat.className,
+      )}
+    >
       <ThePrelineScript />
 
       <body
         className={classNames(
-          'relative bg-white flex flex-col w-full min-h-screen',
-          inter.className
+          'relative bg-white flex flex-col w-full min-h-screen'
         )}
       >
         <TheDesktopNavbar className="z-20 sticky top-0 hidden xl:flex" />
         {/* z-60 because backdrop from Preline is z-59 */}
         <TheMobileNavbar className="z-[60] sticky top-0 xl:hidden" />
 
-        <div className='relative'>
+        <div className="relative">
           <TheTopBanners />
           <picture className="w-full block absolute -bottom-[1px] z-10">
             <source
