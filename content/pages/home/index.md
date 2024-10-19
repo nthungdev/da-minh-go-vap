@@ -2,11 +2,9 @@
 bibleVerses:
   enable: true
   verses:
-    - verse: “Khi người ta đưa anh em ra trước hội đường, trước mặt những người lãnh
-        đạo và những người cầm quyền, thì anh em đừng lo phải bào chữa làm sao,
-        hoặc phải nói gì,  vì ngay trong giờ đó, Thánh Thần sẽ dạy cho anh em
-        biết những điều phải nói.”
-      reference: Lc 12, 11-12
+    - verse: '"Ngay trong giờ đó, Thánh Thần sẽ dạy cho anh em biết những điều phải
+        nói."'
+      reference: Lc 12,12
 latestPosts:
   enable: true
   limit: 5
