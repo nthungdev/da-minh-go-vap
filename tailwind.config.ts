@@ -122,11 +122,14 @@ const config: Config = {
         primary: {
           ...colorPalette.chill,
         },
-        // secondary: colorPalette['keppel'],
         secondary: {
           ...defaultColors.orange,
           DEFAULT: defaultColors.orange[600],
         },
+      },
+      ringColor: {
+        ...defaultColors.orange,
+        DEFAULT: defaultColors.orange[300],
       },
       boxShadow: {
         'neon': '0 0 10px 3px rgba(231,131,103,0.8), 0 0 10px 3px rgba(230,75,32,0.9)',
