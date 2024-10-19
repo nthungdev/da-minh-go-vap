@@ -18,11 +18,11 @@ export default function AppVideoTile({
   return (
     <Link
       href={videoUrl}
-      className='inline-block w-full'
+      className='block w-full border border-transparent hover:ring-2'
       target='_blank'
     >
-      <div className='w-full inline-block rounded-lg overflow-hidden border-2 hover:ring-2'>
-        <div className='w-full lg:w-[256px] relative aspect-video'>
+      <div className='w-full overflow-hidden border hover:ring-2'>
+        <div className='w-full relative aspect-video'>
           <Image
             className='w-full object-cover'
             src={thumbnail}
@@ -30,7 +30,7 @@ export default function AppVideoTile({
             alt={`${title}'s thumbnail`}
           />
         </div>
-        <TitleComponent className='text-center py-2 px-2 truncate block'>{title}</TitleComponent>
+        <TitleComponent className='text-center py-2 px-2 truncate block font-header'>{title}</TitleComponent>
       </div>
     </Link>
   );

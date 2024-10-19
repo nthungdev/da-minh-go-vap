@@ -36,8 +36,7 @@ export default function RootLayout({
       lang="en"
       className={classNames(
         nunito.className,
-        nunito.variable,
-        montserrat.variable
+        montserrat.className,
       )}
     >
       <ThePrelineScript />

@@ -28,7 +28,7 @@ export default function AppPostCard(props: AppPostCardProps) {
         />
       </div>
       <div className="flex-1 px-1.5 lg:px-0 py-1 md:py-1.5 lg:py-2 flex flex-col justify-between overflow-hidden">
-        <span className="line-clamp-1 lg:line-clamp-2 text-base text-gray-900">
+        <span className="line-clamp-1 lg:line-clamp-2 text-base text-gray-900 font-header">
           {post.title}
         </span>
       </div>

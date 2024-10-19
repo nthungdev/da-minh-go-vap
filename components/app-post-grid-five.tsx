@@ -31,7 +31,7 @@ export default function AppPostGridSix({
         <li
           key={index}
           className={classNames(
-            'relative md:aspect-video overflow-hidden block w-full min-w-0 bg-white border md:border-transparent hover:ring hover:ring-secondary-200',
+            'relative md:aspect-video overflow-hidden block w-full min-w-0 bg-white border md:border-transparent hover:ring',
             cellClasses[index]
           )}
         >
@@ -62,9 +62,9 @@ export default function AppPostGridSix({
               <div className="absolute w-full md:h-20 lg:h-24 left-0 bottom-0 translate-y-full group-hover:translate-y-0 transition bg-opacity-50 bg-gradient-to-b from-transparent from-5% via-secondary-400 via-40% to-secondary-400"></div>
               {/* static post title */}
               <div className="absolute bottom-0 left-0 p-3 w-full">
-                <h2 className="md:text-sm lg:text-lg line-clamp-2 text-white">
+                <span className="md:text-sm lg:text-lg line-clamp-2 text-white font-header">
                   {post.title}
-                </h2>
+                </span>
               </div>
             </div>
           </Link>

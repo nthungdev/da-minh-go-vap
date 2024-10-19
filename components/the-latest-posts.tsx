@@ -37,7 +37,7 @@ export default function TheLatestPosts(props: TheLatestPostsProps) {
           <div className="absolute left-0 top-0 w-full h-full bg-gradient-to-b from-transparent to-black from-60%"></div>
           {/* Post text */}
           <div className="absolute flex flex-col bottom-0 left-0 p-3 lg:p-4 text-gray-100 gap-y-1 lg:gap-y-2">
-            <span className="text-lg lg:text-2xl line-clamp-1 lg:line-clamp-2 text-gray-100">
+            <span className="text-lg lg:text-2xl line-clamp-1 lg:line-clamp-2 text-gray-100 font-header">
               {latestPost.title}
             </span>
             <span className="text-xs lg:text-sm text-gray-200">
