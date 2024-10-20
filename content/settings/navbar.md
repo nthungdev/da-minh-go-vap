@@ -18,6 +18,8 @@ pageBanners:
         alt: Dien mo ta banner cho On Goi
       - url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1729308779/3_iev9xb.jpg
         alt: giai doan hoc vien
+      - url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1729413745/TIEN_TAP_BANER_ah6eaq.jpg
+        alt: Tiền tập
 bottomDecorativeGraphic:
   alt: Đa Minh Gò Vấp
   urlDesktop: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1728970147/LUON_SONG_1_ok_honkec.svg
