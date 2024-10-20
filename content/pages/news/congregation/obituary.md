@@ -1,10 +1,10 @@
 ---
-title: Cao pho
+title: RIP
 postGroups:
   - limit: 4
     title: A
     hiddenTags:
-      - chuyện giờ mới kể
+      - RIP
   - limit: 4
     title: B
     hiddenTags:
