@@ -3,7 +3,7 @@ title: LỄ TANG Nữ tu MARIA NGUYỄN THỊ PHAN (11/7/1925 - 23/4/2023)
 date: 2023-04-23T10:50:00.000Z
 hiddenTags:
   - thông tin
-thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726890632/le_tang_D%C3%AC_Phan_nzgask.jpg
+thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1729392784/21_dddel0.jpg
 videos:
   - url: https://www.youtube.com/watch?v=IPBkJEO32hE&list=PLLi9qVPjTxje2mrnVrfj-B1kU33fJ6Mm_&index=17
     thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726890632/le_tang_D%C3%AC_Phan_nzgask.jpg
