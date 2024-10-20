@@ -2,8 +2,8 @@
 title: LỄ TANG Nữ tu Têrêsa NGUYỄN THỊ ĐẠI 30/10/2022
 date: 2022-10-30T10:46:00.000Z
 hiddenTags:
-  - thông tin
-thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726890487/le_tang_Di_%C4%90%E1%BA%A1i_H%C6%B0%C6%A1ng_vsskti.jpg
+  - RIP
+thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1729392783/19_lue4gj.jpg
 videos:
   - url: https://www.youtube.com/watch?v=z0E2YTpdJzY&list=PLLi9qVPjTxje2mrnVrfj-B1kU33fJ6Mm_&index=15
     title: LỄ TANG Nữ tu Têrêsa NGUYỄN THỊ ĐẠI 30/10/2022
