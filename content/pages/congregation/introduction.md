@@ -142,7 +142,7 @@ aboutUs:
         type: youtube
         url: https://www.youtube.com/watch?v=y0sF5xhGreA
       - title: NỚI CHỊ EM HIỆN DIỆN
-        thumbnail: https://res.cloudinary.com/dxtb6rv7y/video/upload/v1716522696/3209828-uhd_3840_2160_25fps_zpef8y.mp4
+        thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1729392549/NOI_CHI_EM_HIEN_DIEN_xbdqqf.jpg
         url: https://www.youtube.com/embed/RzXjv_Bcpdo?si=S0JbZ1n4jArMfrg6
         type: youtube
       - title: Ý NGHĨA LOGO HỘI DÒNG
