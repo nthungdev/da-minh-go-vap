@@ -1,5 +1,5 @@
 ---
-title: RIP
+title: THÁNH LỄ AN TÁNG
 postGroups:
   - limit: 4
     title: A
