@@ -88,10 +88,10 @@ export default function AppPostTabGrid(props: AppPostTabGridProps) {
               key={`${id}-control-${index}`}
               type="button"
               className={classNames(
-                `peer relative -mr-12 py-2 px-12 text-center inline-flex justify-center items-center gap-x-2 text-xl rounded-full border-[6px] border-secondary-400 text-secondary font-bold font-header bg-primary-100 disabled:opacity-50 disabled:pointer-events-none transition text-nowrap`,
-                'hs-tab-active:bg-secondary-100 hs-tab-active:text-secondary hs-tab-active:border-secondary hs-tab-active:z-10',
+                'peer relative -mr-12 py-1 px-12 text-center inline-flex justify-center items-center gap-x-2 text-xl rounded-full border-[6px] border-secondary-400 text-white font-bold font-header bg-[#70C7D0] disabled:opacity-50 disabled:pointer-events-none transition text-nowrap',
+                'hs-tab-active:bg-primary hs-tab-active:border-secondary-500 hs-tab-active:z-10',
                 'hover:z-20 hover:shadow-neon hover:border-secondary-300',
-                'focus:outline-none focus:text-primary-700',
+                'focus:outline-none',
                 index === postGroupsData.length - 1 && 'active'
               )}
               aria-selected={false}
