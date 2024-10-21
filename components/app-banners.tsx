@@ -29,6 +29,7 @@ export default function AppBanners(props: AppBannersProps) {
   )
   const [bannerIndex, setBannerIndex] = useState(0)
   const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null)
+
   const nextIndex = (bannerIndex + 1) % banners.length
   const prevIndex = (bannerIndex - 1 + banners.length) % banners.length
   const duration = videosDuration[bannerIndex] || PHOTO_DURATION
@@ -43,16 +44,10 @@ export default function AppBanners(props: AppBannersProps) {
 
   const handleLoadedMetadata =
     (index: number) => (event: React.SyntheticEvent<HTMLVideoElement>) => {
-      console.log(
-        'video index',
-        index,
-        'has duration:',
-        event.currentTarget.duration
-      )
-      setVideosDuration((prev) => ({
-        ...prev,
+      setVideosDuration({
+        ...videosDuration,
         [index]: event.currentTarget.duration * 1000,
-      }))
+      })
     }
 
   const getCarousel = async () => {
@@ -101,6 +96,8 @@ export default function AppBanners(props: AppBannersProps) {
     if (banners.length < 2 || !gotAllVideosDuration) return
     timeout()
   }, [gotAllVideosDuration, bannerIndex])
+
+  console.log('render')
 
   return (
     <div className={`w-full aspect-[4/1.2] ${className || ''}`}>
