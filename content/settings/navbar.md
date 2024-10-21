@@ -20,6 +20,8 @@ pageBanners:
         alt: giai doan hoc vien
       - url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1729414286/TIEN_TAP_VIEN_Baner_2_y8pega.jpg
         alt: Tiền tập
+      - url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1729477571/tap_vien_nq8np8.jpg
+        alt: tập viện
 bottomDecorativeGraphic:
   alt: Đa Minh Gò Vấp
   urlDesktop: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1728970147/LUON_SONG_1_ok_honkec.svg
