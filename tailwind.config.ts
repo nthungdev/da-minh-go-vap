@@ -1,5 +1,6 @@
 import type { Config } from 'tailwindcss'
 import defaultColors from 'tailwindcss/colors'
+import Flowbite from 'flowbite-react/tailwind'
 
 const colorPalette = {
   chill: {
@@ -108,6 +109,7 @@ const config: Config = {
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
     'node_modules/preline/dist/*.js',
+    Flowbite.content(),
   ],
   darkMode: 'class',
   theme: {
@@ -143,6 +145,7 @@ const config: Config = {
     require('@tailwindcss/forms'),
     require('preline/plugin'),
     require('@tailwindcss/container-queries'),
+    Flowbite.plugin(),
   ],
 }
 export default config

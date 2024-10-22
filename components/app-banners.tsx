@@ -3,10 +3,10 @@
 import Image from 'next/image'
 import AppCarousel from './app-carousel'
 import dynamic from 'next/dynamic'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 const CAROUSEL_ID = 'app-banners-carousel'
-const PHOTO_DURATION = 3000 // 3 seconds
+const PHOTO_DURATION = 5000 // 3 seconds
 
 const checkVideo = (url: string) => {
   const videoExtensions = ['.mp4', '.webm', '.ogg']
@@ -28,6 +28,7 @@ export default function AppBanners(props: AppBannersProps) {
     {}
   )
   const [bannerIndex, setBannerIndex] = useState(0)
+  const [isSliding, setIsSliding] = useState(false)
   const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null)
 
   const nextIndex = (bannerIndex + 1) % banners.length
@@ -50,64 +51,52 @@ export default function AppBanners(props: AppBannersProps) {
       })
     }
 
-  const getCarousel = async () => {
-    const { HSCarousel } = await import('preline/preline')
-
-    const carousel = new HSCarousel(
-      document.querySelector(`#${CAROUSEL_ID}`)!,
-      {
-        // without passing the current index, the carousel will jump to the first slide by default
-        currentIndex: bannerIndex,
-      }
-    )
-
-    if (!carousel.el) {
-      return null
-    }
-
-    return carousel
+  const goNext = () => {
+    const nextButtonEl = document.querySelector(
+      `#${CAROUSEL_ID} [aria-label="Next slide"]`
+    ) as HTMLButtonElement
+    console.log({ nextButtonEl })
+    nextButtonEl.click()
   }
 
   const timeout = async () => {
-    const carousel = await getCarousel()
-    if (!carousel) return
-
-    setTimeoutId(
-      setTimeout(() => {
-        setBannerIndex((prev) => {
-          return nextIndex
-        })
-        carousel.goTo(nextIndex)
-      }, duration)
-    )
+    const timeoutFn = () => {
+      // setBannerIndex(nextIndex)
+      console.log('carousel next')
+      setIsSliding(true)
+      goNext()
+    }
+    console.log('set timeout')
+    setTimeoutId(setTimeout(timeoutFn, duration))
   }
 
-  const handleNextClick = async () => {
-    if (timeoutId) clearTimeout(timeoutId)
-    setBannerIndex(nextIndex)
-  }
+  // const handleSlideChange = (index: number) => {
+  //   console.log('handleSlideChange', index)
+  //   if (isSliding) {
+  //     console.log('set sliding off')
+  //     setIsSliding(false)
+  //   } else {
+  //     console.log('clearing timeout')
+  //     if (timeoutId) clearTimeout(timeoutId)
+  //     // setBannerIndex((new Date()).getTime())
+  //   }
+  // }
 
-  const handlePrevClick = async () => {
-    if (timeoutId) clearTimeout(timeoutId)
-    setBannerIndex(prevIndex)
-  }
-
-  useEffect(() => {
-    if (banners.length < 2 || !gotAllVideosDuration) return
-    timeout()
-  }, [gotAllVideosDuration, bannerIndex])
-
-  console.log('render')
+  // useEffect(() => {
+  //   if (banners.length < 2 || !gotAllVideosDuration) return
+  //   console.log('effect')
+  //   timeout()
+  // }, [gotAllVideosDuration, bannerIndex])
 
   return (
     <div className={`w-full aspect-[4/1.2] ${className || ''}`}>
-      <AppCarousel
-        id={CAROUSEL_ID}
-        onNext={handleNextClick}
-        onPrev={handlePrevClick}
-      >
+      <AppCarousel id={CAROUSEL_ID} slideInterval={PHOTO_DURATION}>
         {banners.map((banner, index) => (
-          <div key={index} className="h-full w-full">
+          <div
+            key={index}
+            id={`${CAROUSEL_ID}-item-${index}`}
+            className="h-full w-full"
+          >
             {checkVideo(banner.url) ? (
               <AppBannerVideo
                 id={`banner-video-${index}`}
