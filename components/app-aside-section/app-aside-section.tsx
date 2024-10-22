@@ -1,11 +1,10 @@
 import Link from 'next/link'
 import { attributes } from '@/content/settings/aside-section.md'
 import { fetchPostsByHiddenTags, fetchPostsBySlugs } from '@/actions/post'
-import AppPostList from './app-post-list'
-import AppSectionHeader from './app-section-header'
-import AppPostCard from './app-post-card'
-import AppCarousel from './app-carousel'
-import Image from 'next/image'
+import AppSectionHeader from '@/components/app-section-header'
+import AppPostList from '@/components/app-post-list'
+import AppPostCard from '@/components/app-post-card'
+import AsideSectionSlideshow from './aside-section-slideshow'
 
 export default async function AppAsideSection() {
   const { slideshow, curatedPosts, postGroups, socialLinks } =
@@ -26,21 +25,11 @@ export default async function AppAsideSection() {
   return (
     <aside className="">
       {slideshow.enable && (
-        <div className="mb-4 w-full aspect-[2/3] overflow-hidden">
-          <AppCarousel>
-            {slideshow.slides.map((slide, index) => (
-              <Image
-                key={index}
-                className="object-cover h-full w-full"
-                src={slide.url}
-                alt={slide.alt || ''}
-                sizes="100%"
-                width={0}
-                height={0}
-              />
-            ))}
-          </AppCarousel>
-        </div>
+        <AsideSectionSlideshow
+          id="aside-section-slideshow"
+          className="mb-4"
+          slides={slideshow.slides}
+        />
       )}
 
       {postGroups.enable && (
