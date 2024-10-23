@@ -33,7 +33,7 @@ export default async function AppAsideSection() {
       )}
 
       {postGroups.enable && (
-        <div className="bg-primary-100">
+        <div className="bg-primary-1">
           {postGroupsData.map((group, index) => (
             <div key={index} className="">
               <AppSectionHeader className="uppercase">
@@ -50,7 +50,7 @@ export default async function AppAsideSection() {
       )}
 
       {curatedPosts.enable && (
-        <div className="bg-primary-100">
+        <div className="bg-primary-1">
           <AppSectionHeader className="uppercase">
             {curatedPosts.title}
           </AppSectionHeader>
@@ -63,7 +63,7 @@ export default async function AppAsideSection() {
       )}
 
       {socialLinks.enable && (
-        <div className="bg-primary-100">
+        <div className="bg-primary-1">
           <AppSectionHeader className="uppercase">
             {socialLinks.title}
           </AppSectionHeader>
