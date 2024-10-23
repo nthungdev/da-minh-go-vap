@@ -52,10 +52,7 @@ export default function TheLatestPosts(props: TheLatestPostsProps) {
           <AppPostCard
             key={index}
             post={post}
-            className={classNames(
-              'border lg:border-transparent',
-              index % 2 === 0 ? 'lg:bg-primary-50' : 'lg:bg-primary-100'
-            )}
+            className={classNames('border lg:border-transparent bg-primary-1')}
           />
         ))}
       </div>

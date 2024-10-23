@@ -11,9 +11,9 @@ function AppAccordionToggle(props: AppAccordionToggle) {
   const { controlId, title, colorLevel = 0 } = props
 
   const colorVariants: Record<number, string> = {
-    0: 'bg-[#70C7D0]',
-    1: 'bg-[#9DD9DE]',
-    2: 'bg-[#B2FEFF]',
+    0: 'bg-chill-4',
+    1: 'bg-chill-3',
+    2: 'bg-chill-2',
   }
 
   return (
