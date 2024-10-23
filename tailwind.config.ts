@@ -4,6 +4,10 @@ import Flowbite from 'flowbite-react/tailwind'
 
 const colorPalette = {
   chill: {
+    '4': '#70C7D0',
+    '3': '#9DD9DE',
+    '2': '#b9e5e8',
+    '1': '#daf2f3',
     '50': '#eafffd',
     '100': '#cafffb',
     '200': '#9cfffa',
@@ -134,11 +138,11 @@ const config: Config = {
         DEFAULT: defaultColors.orange[300],
       },
       boxShadow: {
-        'neon': '0 0 10px 3px rgba(231,131,103,0.8), 0 0 10px 3px rgba(230,75,32,0.9)',
+        neon: '0 0 10px 3px rgba(231,131,103,0.8), 0 0 10px 3px rgba(230,75,32,0.9)',
       },
       fontFamily: {
         header: ['Montserrat', 'sans-serif'],
-      }
+      },
     },
   },
   plugins: [
