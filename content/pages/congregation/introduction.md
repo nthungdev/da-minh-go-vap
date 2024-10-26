@@ -185,7 +185,7 @@ mission:
         type: youtube
       - url: https://www.youtube.com/watch?v=U-C0I-Ks14M
         title: Chăn sóc người khuyết tật
-        thumbnail: https://i3.ytimg.com/vi/U-C0I-Ks14M/maxresdefault.jpg
+        thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1729933468/Gio_an_2_ujkvjp.jpg
         type: youtube
       - title: Đến với anh em nghèo
         url: https://www.youtube.com/watch?v=x8YM6rln_zI
