@@ -146,11 +146,11 @@ aboutUs:
         url: https://www.youtube.com/embed/RzXjv_Bcpdo?si=S0JbZ1n4jArMfrg6
         type: youtube
       - title: Ý NGHĨA LOGO HỘI DÒNG
-        thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1716425590/daily-240403162642_darxne.jpg
+        thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1729999506/gioi_thieu_logo_hoi_dong_ub0ywd.jpg
         url: https://www.youtube.com/embed/RzXjv_Bcpdo?si=S0JbZ1n4jArMfrg6
         type: youtube
       - title: GIỚI THIỆU TU PHỤC HỘI DÒNG
-        thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726103558/258766072_122022223605036_1831071506490103411_n_kjgpok.jpg
+        thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1729999527/gioi_thieu_tu_phuc_hoi_dong_2_vt1buc.jpg
         url: https://www.youtube.com/embed/RzXjv_Bcpdo?si=S0JbZ1n4jArMfrg6
         type: youtube
       - title: Ý NGHĨA VÀ LỊCH SỬ TU PHỤC ĐA MINH
@@ -180,7 +180,7 @@ mission:
     title: Video hoat dong su menh
     videos:
       - url: https://www.youtube.com/watch?v=ZgLs4fDr8aI
-        thumbnail: https://i3.ytimg.com/vi/ZgLs4fDr8aI/maxresdefault.jpg
+        thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1729999554/cu_chi_pstttt.jpg
         title: Mái ấm cho trẻ mồ côi
         type: youtube
       - url: https://www.youtube.com/watch?v=U-C0I-Ks14M
@@ -189,7 +189,7 @@ mission:
         type: youtube
       - title: Đến với anh em nghèo
         url: https://www.youtube.com/watch?v=x8YM6rln_zI
-        thumbnail: https://i3.ytimg.com/vi/x8YM6rln_zI/maxresdefault.jpg
+        thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1729999592/1_z1uf2q.jpg
         type: youtube
       - title: Giáo dục
         url: https://www.youtube.com/watch?v=xEz2ITDCH4M
