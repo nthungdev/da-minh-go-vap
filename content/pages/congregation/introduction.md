@@ -166,7 +166,7 @@ aboutUs:
         type: youtube
         thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726132104/hinh_bia_huyen_thoai_lang_son_njygvs.jpg
   banner:
-    url: https://res.cloudinary.com/dxtb6rv7y/video/upload/v1729068461/0_Baner_Chung_Toi_La_2_vjqgpk.mp4
+    url: https://res.cloudinary.com/dxtb6rv7y/video/upload/v1730084694/Gioi_Thieu_Chung_Toi_La_r2qjq6.mp4
     alt: Hình chúng tôi
 mission:
   title: SỨ MỆNH
@@ -251,7 +251,7 @@ mission:
     - title: Bác ái xã hội và các hoạt động thăng tiến con người
       body: nội dung
   banner:
-    url: https://res.cloudinary.com/dxtb6rv7y/video/upload/v1730080194/Missione_kfgxv4.mp4
+    url: https://res.cloudinary.com/dxtb6rv7y/video/upload/v1730084690/Misione_2_kj5h1m.mp4
     alt: Banner sứ mệnh
 whereabouts:
   title: CHÚNG TÔI HIỆN DIỆN Ở TRONG NƯỚC VÀ CẢ NGOẠI QUỐC
