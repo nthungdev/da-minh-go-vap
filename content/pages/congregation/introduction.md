@@ -251,7 +251,7 @@ mission:
     - title: Bác ái xã hội và các hoạt động thăng tiến con người
       body: nội dung
   banner:
-    url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726130089/Kenh_Zero_toan_canh_gaotbh.jpg
+    url: https://res.cloudinary.com/dxtb6rv7y/video/upload/v1730080194/Missione_kfgxv4.mp4
     alt: Banner sứ mệnh
 whereabouts:
   title: CHÚNG TÔI HIỆN DIỆN Ở TRONG NƯỚC VÀ CẢ NGOẠI QUỐC
