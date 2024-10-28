@@ -16,7 +16,7 @@ pillars:
       hiddenTags:
         - Bé và lời
       thumbnail:
-        url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1716407578/cld-sample-4.jpg
+        url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1730087566/hoat_dong_su_vu_n6gcca.jpg
         alt: Mo ta thumbnail
     - title: Doi song cong doan
       hiddenTags:
@@ -31,5 +31,5 @@ pillars:
         - Giao phan Phu Cuong
       thumbnail:
         alt: Mo ta thumbnail
-        url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1716407578/cld-sample-4.jpg
+        url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1728274122/IMG_8170_gwkzhx.jpg
 ---
