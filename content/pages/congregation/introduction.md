@@ -193,7 +193,7 @@ mission:
         type: youtube
       - title: Giáo dục
         url: https://www.youtube.com/watch?v=xEz2ITDCH4M
-        thumbnail: https://i3.ytimg.com/vi/xEz2ITDCH4M/maxresdefault.jpg
+        thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1730087565/giao_duc_jev57s.jpg
         type: youtube
   tabs:
     - content: >-
