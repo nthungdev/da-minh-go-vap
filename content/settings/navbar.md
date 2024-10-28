@@ -14,13 +14,13 @@ pageBanners:
         alt: Banner 1
   - path: /vocation/introduction
     banners:
-      - url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1729307891/4_r2tx5y.jpg
+      - url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1730084863/4_ecga2z.jpg
         alt: Dien mo ta banner cho On Goi
-      - url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1729308779/3_iev9xb.jpg
+      - url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1730084895/5_adx90e.jpg
         alt: giai doan hoc vien
-      - url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1729414286/TIEN_TAP_VIEN_Baner_2_y8pega.jpg
+      - url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1730084862/3_sfx7jh.jpg
         alt: Tiền tập
-      - url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1729496380/baner_tapvien_ok_z54j4s.jpg
+      - url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1730084862/2_lajwxe.jpg
         alt: tập viện
 bottomDecorativeGraphic:
   alt: Đa Minh Gò Vấp
