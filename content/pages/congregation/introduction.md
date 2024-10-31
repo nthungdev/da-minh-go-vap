@@ -28,24 +28,20 @@ aboutUs:
 
         ### **MỤC ĐÍCH**
 
-
         Qua việc sống ba lời khuyên Phúc Âm: khiết tịnh, khó nghèo và vâng phục. Chị em hướng đến mục đích của đời thánh hiến là đạt tới đức ái hoàn hảo bằng việc tôn vinh Thiên Chúa, xây dựng Hội Thánh và mưu cầu phần rỗi các linh hồn.
 
 
         ### **ĐẶC TÍNH**
-
 
         Chị em Đa Minh Gò Vấp luôn mang trong mình những yếu tố làm nên đặc tính người nữ tu Đa Minh: đời sống Cộng đoàn, trung thành tuân giữ các lời khấn, sốt sắng cử hành phụng vụ cộng đoàn, chuyên chăm học hành và thi hành sứ vụ.
 
 
         ### **ĐẶC SỦNG**
 
-
         Sống tinh thần đoàn sủng Đa Minh “Chia sẻ cho tha nhân những gì mình đã chiêm niệm”, chị em Đa Minh Gò Vấp đón nhận đặc sủng: CÙNG MẸ MARIA MÂN CÔI, LOAN BÁO TIN MỪNG ĐỨC KITÔ VỚI LÒNG TRẮC ẨN.
 
 
         ### **SỨ VỤ**
-
 
         Chị em hội nhập nếp sống văn hóa truyền thống địa phương và thi hành sứ vụ truyền giáo qua các hoạt động phù hợp với thời đại: giáo dục đức tin và văn hóa, mục vụ giáo xứ và bác ái xã hội.
     - title: Chương trình đào tạo
@@ -142,15 +138,15 @@ aboutUs:
         type: youtube
         url: https://www.youtube.com/watch?v=y0sF5xhGreA
       - title: NỚI CHỊ EM HIỆN DIỆN
-        thumbnail: https://res.cloudinary.com/dxtb6rv7y/video/upload/v1716522696/3209828-uhd_3840_2160_25fps_zpef8y.mp4
+        thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1729392549/NOI_CHI_EM_HIEN_DIEN_xbdqqf.jpg
         url: https://www.youtube.com/embed/RzXjv_Bcpdo?si=S0JbZ1n4jArMfrg6
         type: youtube
       - title: Ý NGHĨA LOGO HỘI DÒNG
-        thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1716425590/daily-240403162642_darxne.jpg
+        thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1729999506/gioi_thieu_logo_hoi_dong_ub0ywd.jpg
         url: https://www.youtube.com/embed/RzXjv_Bcpdo?si=S0JbZ1n4jArMfrg6
         type: youtube
       - title: GIỚI THIỆU TU PHỤC HỘI DÒNG
-        thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726103558/258766072_122022223605036_1831071506490103411_n_kjgpok.jpg
+        thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1729999527/gioi_thieu_tu_phuc_hoi_dong_2_vt1buc.jpg
         url: https://www.youtube.com/embed/RzXjv_Bcpdo?si=S0JbZ1n4jArMfrg6
         type: youtube
       - title: Ý NGHĨA VÀ LỊCH SỬ TU PHỤC ĐA MINH
@@ -166,7 +162,7 @@ aboutUs:
         type: youtube
         thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726132104/hinh_bia_huyen_thoai_lang_son_njygvs.jpg
   banner:
-    url: https://res.cloudinary.com/dxtb6rv7y/video/upload/v1729068461/0_Baner_Chung_Toi_La_2_vjqgpk.mp4
+    url: https://res.cloudinary.com/dxtb6rv7y/video/upload/v1730084694/Gioi_Thieu_Chung_Toi_La_r2qjq6.mp4
     alt: Hình chúng tôi
 mission:
   title: SỨ MỆNH
@@ -180,20 +176,20 @@ mission:
     title: Video hoat dong su menh
     videos:
       - url: https://www.youtube.com/watch?v=ZgLs4fDr8aI
-        thumbnail: https://i3.ytimg.com/vi/ZgLs4fDr8aI/maxresdefault.jpg
+        thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1729999554/cu_chi_pstttt.jpg
         title: Mái ấm cho trẻ mồ côi
         type: youtube
       - url: https://www.youtube.com/watch?v=U-C0I-Ks14M
         title: Chăn sóc người khuyết tật
-        thumbnail: https://i3.ytimg.com/vi/U-C0I-Ks14M/maxresdefault.jpg
+        thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1729933468/Gio_an_2_ujkvjp.jpg
         type: youtube
       - title: Đến với anh em nghèo
         url: https://www.youtube.com/watch?v=x8YM6rln_zI
-        thumbnail: https://i3.ytimg.com/vi/x8YM6rln_zI/maxresdefault.jpg
+        thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1729999592/1_z1uf2q.jpg
         type: youtube
       - title: Giáo dục
         url: https://www.youtube.com/watch?v=xEz2ITDCH4M
-        thumbnail: https://i3.ytimg.com/vi/xEz2ITDCH4M/maxresdefault.jpg
+        thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1730087565/giao_duc_jev57s.jpg
         type: youtube
   tabs:
     - content: >-
@@ -251,7 +247,7 @@ mission:
     - title: Bác ái xã hội và các hoạt động thăng tiến con người
       body: nội dung
   banner:
-    url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726130089/Kenh_Zero_toan_canh_gaotbh.jpg
+    url: https://res.cloudinary.com/dxtb6rv7y/video/upload/v1730084690/Misione_2_kj5h1m.mp4
     alt: Banner sứ mệnh
 whereabouts:
   title: CHÚNG TÔI HIỆN DIỆN Ở TRONG NƯỚC VÀ CẢ NGOẠI QUỐC

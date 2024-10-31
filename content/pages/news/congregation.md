@@ -11,7 +11,7 @@ postGroups:
   - limit: 4
     title: RIP
     hiddenTags:
-      - Hiểu Để Yêu
+      - RIP
   - limit: 4
     title: THÁNH LÊ TRỰC TUYẾN
     hiddenTags:

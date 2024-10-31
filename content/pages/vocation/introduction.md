@@ -37,13 +37,13 @@ timeline:
   sections:
     - title: Giai đoạn Thỉnh viện
       thumbnail:
-        url: https://scontent-ord5-2.xx.fbcdn.net/v/t39.30808-6/429685282_420340470516861_7394197492656257465_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=127cfc&_nc_ohc=VQf-QwdQffYQ7kNvgEag3NX&_nc_ht=scontent-ord5-2.xx&_nc_gid=AxX_kCOHEWTdsLuJihb7rTz&oh=00_AYCzIMKBxqlTEWSy21fNzQNm0yej1eS_AT-uoTT_hkw9Rg&oe=6700F6B7
+        url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1730087172/thinh_vien_ow4yun.jpg
         alt: Giai đoạn thỉnh viện
       hiddenTags:
         - thỉnh viện
     - title: Giai đoạn Tiền tập viện
       thumbnail:
-        url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1716407577/cld-sample-2.jpg
+        url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1730087172/tien_tap_vien_jsvlje.jpg
         alt: Tiền Tập viện
       hiddenTags:
         - Hiểu Để Yêu
@@ -52,11 +52,11 @@ timeline:
         - Giao phan Phu Cuong
       thumbnail:
         alt: Hoat dong su vu
-        url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1728272655/IMG_8687_wly8hb.jpg
+        url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1730087171/tap_vien_xmabrn.jpg
     - title: Giai đoạn Học viện
       hiddenTags:
         - Giao phan Phu Cuong
       thumbnail:
         alt: Doi song hoc hanh
-        url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1728274122/IMG_8170_gwkzhx.jpg
+        url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1730087172/hoc_vien_zssqeb.jpg
 ---

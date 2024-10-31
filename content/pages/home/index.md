@@ -2,8 +2,9 @@
 bibleVerses:
   enable: true
   verses:
-    - verse: "Đức Chúa đã ban cho, Đức Chúa lại lấy đi : xin chúc tụng danh Đức Chúa."
-      reference: G 6, 21
+    - verse: '"Ngay trong giờ đó, Thánh Thần sẽ dạy cho anh em biết những điều phải
+        nói."'
+      reference: Lc 12,12
 latestPosts:
   enable: true
   limit: 5
