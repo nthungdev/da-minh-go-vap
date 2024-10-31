@@ -39,9 +39,9 @@ export default async function PageMissions() {
     <AppPage>
       <h1 className="sr-only">{title}</h1>
 
-      <div className="space-y-4">
+      <div className="space-y-8">
         {sectionData.map((section, index) => (
-          <div key={index} className="space-y-4">
+          <div key={index} className="space-y-8">
             <AppGridHeader text={section.title} />
             {section.type === 'postSection' ? (
               <AppPostGrid posts={section.posts!} />

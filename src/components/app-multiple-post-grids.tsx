@@ -28,9 +28,9 @@ export default async function AppMultiplePostGrids(
   }
 
   return (
-    <ul className="space-y-4">
+    <ul className="space-y-8">
       {postGroupsData.map(({ title, posts }, index) => (
-        <li key={index} className="space-y-4">
+        <li key={index} className="space-y-8">
           <AppGridHeader text={title} />
           <AppPostGrid posts={posts} />
         </li>
