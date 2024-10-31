@@ -1,8 +1,8 @@
 import { fetchPostsByHiddenTags } from '@/actions/post'
+import AppGridHeader from '@/components/app-grid-header'
 import AppPage from '@/components/app-page'
 import AppPostGrid from '@/components/app-post-grid'
 import AppPostTabGrid from '@/components/app-post-tab-grid'
-import AppSeparator from '@/components/app-separator'
 import { attributes } from '@/content/pages/missions/index.md'
 
 export default async function PageMissions() {
@@ -42,7 +42,7 @@ export default async function PageMissions() {
       <div className="space-y-4">
         {sectionData.map((section, index) => (
           <div key={index} className="space-y-4">
-            <h1 className="uppercase text-2xl text-center">{section.title}</h1>
+            <AppGridHeader text={section.title} />
             {section.type === 'postSection' ? (
               <AppPostGrid posts={section.posts!} />
             ) : (
@@ -52,7 +52,6 @@ export default async function PageMissions() {
                 allPostsLimit={section.limit}
               />
             )}
-            {index !== sectionData.length - 1 && <AppSeparator />}
           </div>
         ))}
       </div>

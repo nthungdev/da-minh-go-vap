@@ -1,6 +1,6 @@
 import { fetchPostsByHiddenTags } from '@/actions/post'
 import AppPostGrid from './app-post-grid'
-import AppSeparator from './app-separator'
+import AppGridHeader from './app-grid-header'
 
 const DEFAULT_LIMIT = 4
 
@@ -31,9 +31,8 @@ export default async function AppMultiplePostGrids(
     <ul className="space-y-4">
       {postGroupsData.map(({ title, posts }, index) => (
         <li key={index} className="space-y-4">
-          <h2 className="text-2xl uppercase text-center">{title}</h2>
+          <AppGridHeader text={title} />
           <AppPostGrid posts={posts} />
-          {index !== postGroupsData.length - 1 && <AppSeparator />}
         </li>
       ))}
     </ul>
