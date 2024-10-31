@@ -28,7 +28,7 @@ collections:
     files:
       - name: home
         label: 'Trang chủ'
-        file: 'content/pages/home/index.md'
+        file: 'src/content/pages/home/index.md'
         fields:
           - name: 'bibleVerses'
             label: 'Câu lời Chúa'
@@ -124,7 +124,7 @@ collections:
 
       - name: congregation
         label: 'Hội dòng'
-        file: 'content/pages/congregation/index.md'
+        file: 'src/content/pages/congregation/index.md'
         fields:
           - name: 'title'
             label: 'Tiêu đề'
@@ -158,7 +158,7 @@ collections:
             }
       - name: congregationIntroduction
         label: 'Hội dòng / Giới thiệu'
-        file: 'content/pages/congregation/introduction.md'
+        file: 'src/content/pages/congregation/introduction.md'
         fields:
           - name: 'aboutUs'
             label: 'Mục chúng tôi là ai'
@@ -309,7 +309,7 @@ collections:
                   - { name: 'body', label: 'Nội dung', widget: 'markdown' }
       - name: congregationHistory
         label: 'Hội dòng / Lịch sử'
-        file: 'content/pages/congregation/history.md'
+        file: 'src/content/pages/congregation/history.md'
         fields:
           - name: 'developmentHistory'
             label: 'Mục lịch sử phát triển'
@@ -440,7 +440,7 @@ collections:
                 }
       - name: congregationGratitude
         label: 'Hội dòng / Tri ân'
-        file: 'content/pages/congregation/gratitude.md'
+        file: 'src/content/pages/congregation/gratitude.md'
         fields:
           - {
               name: 'postGroups',
@@ -481,7 +481,7 @@ collections:
 
       - name: spirituality
         label: 'Linh đạo'
-        file: 'content/pages/spirituality/index.md'
+        file: 'src/content/pages/spirituality/index.md'
         fields:
           - {
               name: 'postGroups',
@@ -521,7 +521,7 @@ collections:
             }
       - name: spiritualityCharism
         label: 'Linh đạo / Tinh thần dòng'
-        file: 'content/pages/spirituality/charism.md'
+        file: 'src/content/pages/spirituality/charism.md'
         fields:
           - name: 'title'
             label: 'Tiêu đề'
@@ -574,7 +574,7 @@ collections:
                 }
       - name: spiritualitySaintDominic
         label: 'Linh đạo / Thánh Đa Minh'
-        file: 'content/pages/spirituality/saint-dominic.md'
+        file: 'src/content/pages/spirituality/saint-dominic.md'
         fields:
           - name: 'title'
             label: 'Tiêu đề'
@@ -590,7 +590,7 @@ collections:
             search_fields: [title]
       - name: spiritualitySaints
         label: 'Linh đạo / Các Thánh dòng'
-        file: 'content/pages/spirituality/saints.md'
+        file: 'src/content/pages/spirituality/saints.md'
         fields:
           - name: 'title'
             label: 'Tiêu đề'
@@ -606,7 +606,7 @@ collections:
 
       - name: missions
         label: 'Sứ Vụ'
-        file: 'content/pages/missions/index.md'
+        file: 'src/content/pages/missions/index.md'
         fields:
           - name: 'title'
             label: 'Tiêu đề'
@@ -674,7 +674,7 @@ collections:
                         search_fields: ['title']
       - name: missionsEvangelization
         label: 'Sứ Vụ / Truyền giáo'
-        file: 'content/pages/missions/evangelization.md'
+        file: 'src/content/pages/missions/evangelization.md'
         fields:
           - name: 'title'
             label: 'Tiêu đề'
@@ -689,7 +689,7 @@ collections:
             search_fields: [title]
       - name: missionsPastoralCare
         label: 'Sứ Vụ / Mục Vụ'
-        file: 'content/pages/missions/pastoral-care.md'
+        file: 'src/content/pages/missions/pastoral-care.md'
         fields:
           - name: 'title'
             label: 'Tiêu đề'
@@ -704,7 +704,7 @@ collections:
             search_fields: [title]
       - name: missionsSocialActivities
         label: 'Sứ Vụ / Hoạt động bác ái xã hội'
-        file: 'content/pages/missions/social-activities.md'
+        file: 'src/content/pages/missions/social-activities.md'
         fields:
           - name: 'title'
             label: 'Tiêu đề'
@@ -747,7 +747,7 @@ collections:
             }
       - name: missionsEducation
         label: 'Sứ Vụ / Giáo dục'
-        file: 'content/pages/missions/education.md'
+        file: 'src/content/pages/missions/education.md'
         fields:
           - name: 'title'
             label: 'Tiêu đề'
@@ -791,7 +791,7 @@ collections:
 
       - name: prayer
         label: 'Cầu nguyện'
-        file: 'content/pages/prayer/index.md'
+        file: 'src/content/pages/prayer/index.md'
         fields:
           - name: 'title'
             label: 'Tiêu đề'
@@ -824,7 +824,7 @@ collections:
                 search_fields: [title]
       - name: prayerMeditation
         label: 'Cầu nguyện / Suy niệm'
-        file: 'content/pages/prayer/meditation.md'
+        file: 'src/content/pages/prayer/meditation.md'
         fields:
           - name: 'title'
             label: 'Tiêu đề'
@@ -839,7 +839,7 @@ collections:
             search_fields: [title]
       - name: prayerIntention
         label: 'Cầu nguyện / Ý nguyện'
-        file: 'content/pages/prayer/intention.md'
+        file: 'src/content/pages/prayer/intention.md'
         fields:
           - name: 'title'
             label: 'Tiêu đề'
@@ -854,7 +854,7 @@ collections:
             search_fields: [title]
       - name: prayerLiturgy
         label: 'Cầu nguyện / Nguyện Kinh phụng vụ'
-        file: 'content/pages/prayer/liturgy.md'
+        file: 'src/content/pages/prayer/liturgy.md'
         fields:
           - name: 'title'
             label: 'Tiêu đề'
@@ -870,7 +870,7 @@ collections:
 
       - name: vocationIntroduction
         label: 'Ơn gọi / Giới thiệu'
-        file: 'content/pages/vocation/introduction.md'
+        file: 'src/content/pages/vocation/introduction.md'
         fields:
           - name: 'title'
             label: 'Tiêu đề'
@@ -956,7 +956,7 @@ collections:
                     search_fields: [title]
       - name: vocationStories
         label: 'Ơn gọi / Chuyện giờ mới kể'
-        file: 'content/pages/vocation/stories.md'
+        file: 'src/content/pages/vocation/stories.md'
         fields:
           - name: 'title'
             label: 'Tiêu đề'
@@ -972,7 +972,7 @@ collections:
 
       - name: news
         label: 'Bản tin'
-        file: 'content/pages/news/index.md'
+        file: 'src/content/pages/news/index.md'
         fields:
           - name: 'title'
             label: 'Tiêu đề'
@@ -1005,7 +1005,7 @@ collections:
                 search_fields: [title]
       - name: newsChurch
         label: 'Bản tin / Giáo hội'
-        file: 'content/pages/news/church.md'
+        file: 'src/content/pages/news/church.md'
         fields:
           - name: 'title'
             label: 'Tiêu đề'
@@ -1020,7 +1020,7 @@ collections:
             search_fields: [title]
       - name: newsDominicanFamily
         label: 'Bản tin / Gia đình Đa Minh'
-        file: 'content/pages/news/dominican-family.md'
+        file: 'src/content/pages/news/dominican-family.md'
         fields:
           - name: 'title'
             label: 'Tiêu đề'
@@ -1035,7 +1035,7 @@ collections:
             search_fields: [title]
       - name: newsCongregation
         label: 'Bản tin / Hội dòng'
-        file: 'content/pages/news/congregation.md'
+        file: 'src/content/pages/news/congregation.md'
         fields:
           - name: 'title'
             label: 'Tiêu đề'
@@ -1069,7 +1069,7 @@ collections:
 
       - name: newsCongregationInformation
         label: 'Bản tin / Hội dòng / Thông tin'
-        file: 'content/pages/news/congregation/information.md'
+        file: 'src/content/pages/news/congregation/information.md'
         fields:
           - name: 'title'
             label: 'Tiêu đề'
@@ -1102,7 +1102,7 @@ collections:
                 search_fields: ['title']
       - name: newsCongregationObituary
         label: 'Bản tin / Hội dòng / Cáo phó'
-        file: 'content/pages/news/congregation/obituary.md'
+        file: 'src/content/pages/news/congregation/obituary.md'
         fields:
           - name: 'title'
             label: 'Tiêu đề'
@@ -1135,7 +1135,7 @@ collections:
                 search_fields: ['title']
       - name: newsCongregationProfession
         label: 'Bản tin / Hội dòng / Lễ khấn'
-        file: 'content/pages/news/congregation/profession.md'
+        file: 'src/content/pages/news/congregation/profession.md'
         fields:
           - name: 'title'
             label: 'Tiêu đề'
@@ -1168,7 +1168,7 @@ collections:
                 search_fields: ['title']
       - name: newsCongregationInternal
         label: 'Bản tin / Hội dòng / Tin nội bộ'
-        file: 'content/pages/news/congregation/internal.md'
+        file: 'src/content/pages/news/congregation/internal.md'
         fields:
           - name: 'title'
             label: 'Tiêu đề'
@@ -1202,7 +1202,7 @@ collections:
 
       - name: topics
         label: 'Chuyên đề'
-        file: 'content/pages/topics/index.md'
+        file: 'src/content/pages/topics/index.md'
         fields:
           - name: 'title'
             label: 'Tiêu đề'
@@ -1236,7 +1236,7 @@ collections:
 
       - name: culture
         label: 'Văn hóa'
-        file: 'content/pages/culture/index.md'
+        file: 'src/content/pages/culture/index.md'
         fields:
           - name: 'title'
             label: 'Tiêu đề'
@@ -1270,7 +1270,7 @@ collections:
 
       - name: materials
         label: 'Tài liệu'
-        file: 'content/pages/materials/index.md'
+        file: 'src/content/pages/materials/index.md'
         fields:
           - name: 'title'
             label: 'Tiêu đề'
@@ -1304,7 +1304,7 @@ collections:
 
       - name: contact
         label: 'Liên hệ'
-        file: 'content/pages/contact/index.md'
+        file: 'src/content/pages/contact/index.md'
         fields:
           - name: 'title'
             label: 'Tiêu đề'
@@ -1352,7 +1352,7 @@ collections:
     files:
       - name: 'site'
         label: 'Cài đặt website'
-        file: 'content/settings/site.md'
+        file: 'src/content/settings/site.md'
         fields:
           - name: 'logo'
             label: 'Logo'
@@ -1363,7 +1363,7 @@ collections:
       - name: asideSection
         hint: 'Cài đặt cột bên. Cột bên sẽ được hiển thị ở trang chủ.'
         label: 'Cột bên'
-        file: 'content/settings/aside-section.md'
+        file: 'src/content/settings/aside-section.md'
         fields:
           # - name: mostViewedPosts
           #   label: 'Bài viết được xem nhiều nhất'
@@ -1483,7 +1483,7 @@ collections:
                 - { name: 'url', label: 'URL', widget: 'string' }
       - name: 'navbar'
         label: 'Thanh điều hướng'
-        file: 'content/settings/navbar.md'
+        file: 'src/content/settings/navbar.md'
         fields:
           - name: pageBanners
             label: 'Banners trang'
@@ -1521,7 +1521,7 @@ collections:
                 widget: 'string'
       - name: 'footer'
         label: 'Chân trang'
-        file: 'content/settings/footer.md'
+        file: 'src/content/settings/footer.md'
         fields:
           - name: 'graphic'
             label: 'Đồ họa'
@@ -1556,7 +1556,7 @@ collections:
     label: 'Bài viết'
     create: true
     preview_path: posts/{{year}}/{{month}}/{{title}}
-    folder: 'content/posts'
+    folder: 'src/content/posts'
     slug: '{{year}}-{{month}}-{{day}}_{{slug}}'
     summary: '{{title}} - {{date}}'
     editor:
@@ -1601,7 +1601,7 @@ collections:
   - name: 'hiddenTags'
     label: 'Các tag ẩn'
     description: 'Dùng tag ẩn để tổ chức bài viết. Người dùng sẽ không nhìn thấy các tag ẩn này.'
-    folder: 'content/hidden-tags'
+    folder: 'src/content/hidden-tags'
     create: true
     fields:
       - { name: title, label: 'Tên tag ẩn', widget: string }

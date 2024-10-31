@@ -2,7 +2,7 @@ import path from 'path'
 import fs from 'fs'
 import matter from 'gray-matter'
 
-const postsDirectory = path.join(process.cwd(), 'content/posts')
+const postsDirectory = path.join(process.cwd(), 'src/content/posts')
 
 export const getPostBySlug = (slug: string) => {
   const filePath = path.join(postsDirectory, slug + '.md')
