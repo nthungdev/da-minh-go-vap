@@ -5,6 +5,7 @@ import AppSectionHeader from '@/components/app-section-header'
 import AppPostList from '@/components/app-post-list'
 import AppPostCard from '@/components/app-post-card'
 import AsideSectionSlideshow from './aside-section-slideshow'
+import Image from 'next/image'
 
 export default async function AppAsideSection() {
   const { slideshow, curatedPosts, postGroups, socialLinks } =
@@ -71,10 +72,16 @@ export default async function AppAsideSection() {
             {socialLinks.links.map((link, index) => (
               <li key={index}>
                 <Link
+                  target="_blank"
                   href={link.url}
-                  className="block text-primary-800 hover:text-primary-900 hover:bg-gray-300 px-3 py-1 rounded-md"
+                  className="relative w-full block aspect-[4] text-primary-800 hover:text-primary-900 hover:bg-gray-300 px-3 py-1 rounded-md"
                 >
-                  {link.name}
+                  <Image
+                    className="object-cover"
+                    src={link.image.url}
+                    alt={link.image.alt}
+                    fill
+                  />
                 </Link>
               </li>
             ))}

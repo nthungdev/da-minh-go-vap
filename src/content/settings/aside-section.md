@@ -50,12 +50,14 @@ curatedPosts:
   enable: true
 socialLinks:
   links:
-    - type: facebook
-      name: Facebook
-      url: https://www.facebook.com
-    - type: instagram
-      name: Instagram
-      url: https://www.instagram.com/
+    - url: https://www.facebook.com
+      image:
+        url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1730087566/hoat_dong_su_vu_n6gcca.jpg
+        alt: Facebook
+    - url: https://www.instagram.com/
+      image:
+        url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1730087565/giao_duc_jev57s.jpg
+        alt: Instagram
   enable: true
   title: Lien ket mang xa hoi
 ---

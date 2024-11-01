@@ -1473,14 +1473,15 @@ collections:
                 label: 'Liên kết'
                 widget: 'list'
                 fields:
-                - name: 'type'
-                  label: 'Loại'
-                  widget: 'select'
-                  options:
-                    - { label: "Facebook", value: "facebook" }
-                    - { label: "Instagram", value: "instagram" }
-                - { name: 'name', label: 'Tên', widget: 'string' }
-                - { name: 'url', label: 'URL', widget: 'string' }
+                - name: 'url'
+                  label: 'URL'
+                  widget: 'string'
+                - name: image
+                  label: 'Hình ảnh'
+                  widget: 'object'
+                  fields:
+                    - { name: 'url', label: 'Hình ảnh', widget: 'image', allow_multiple: false }
+                    - { name: 'alt', label: 'Mô tả', widget: 'string' }
       - name: 'navbar'
         label: 'Thanh điều hướng'
         file: 'src/content/settings/navbar.md'
