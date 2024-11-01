@@ -14,7 +14,7 @@ export default function AppPostCard(props: AppPostCardProps) {
     <Link
       href={`/posts/${post.slug}`}
       className={classNames(
-        'w-full h-full overflow-hidden flex flex-col lg:flex-row gap-x-2 hover:ring-2 hover:cursor-pointer lg:aspect-[3.5]',
+        'w-full h-full overflow-hidden flex flex-col lg:flex-row gap-x-2 border border-transparent hover:ring hover:cursor-pointer lg:aspect-[3.5]',
         className
       )}
     >

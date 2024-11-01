@@ -62,7 +62,7 @@ export default function AppPostTabGrid(props: AppPostTabGridProps) {
   }
 
   return (
-    <div className={`space-y-2 ${className}`} id={id}>
+    <div className={`space-y-4 ${className}`} id={id}>
       <div>
         <AppSelectBasic
           className="lg:hidden"
@@ -78,7 +78,7 @@ export default function AppPostTabGrid(props: AppPostTabGridProps) {
           onChange={handleSelectChange}
         />
         <nav
-          className="hidden py-4 lg:flex flex-row-reverse justify-end group"
+          className="hidden lg:flex flex-row-reverse justify-end group"
           aria-label="Tabs"
           role="tablist"
           aria-orientation="horizontal"
