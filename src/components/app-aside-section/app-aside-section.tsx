@@ -74,7 +74,7 @@ export default async function AppAsideSection() {
                 <Link
                   target="_blank"
                   href={link.url}
-                  className="relative w-full block aspect-[4] border border-transparent hover:ring px-3 py-1"
+                  className="relative w-full block aspect-[4] border border-transparent hover:ring"
                 >
                   <Image
                     className="object-cover"
