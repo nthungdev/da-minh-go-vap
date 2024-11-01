@@ -318,13 +318,12 @@ type AsideSection = {
     /** post slugs */
     posts: string[]
   }
-  socialLinks: {
+  links: {
     enable: boolean
     title: string
     links: {
-      type: string
-      name: string
       url: string
+      image: Image
     }[]
   }
 }
