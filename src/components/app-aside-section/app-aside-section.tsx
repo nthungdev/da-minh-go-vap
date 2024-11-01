@@ -8,7 +8,7 @@ import AsideSectionSlideshow from './aside-section-slideshow'
 import Image from 'next/image'
 
 export default async function AppAsideSection() {
-  const { slideshow, curatedPosts, postGroups, socialLinks } =
+  const { slideshow, curatedPosts, postGroups, links } =
     attributes as AsideSection
 
   const curatedPostsData = await fetchPostsBySlugs(curatedPosts.posts)
@@ -63,18 +63,18 @@ export default async function AppAsideSection() {
         </div>
       )}
 
-      {socialLinks.enable && (
+      {links.enable && (
         <div className="bg-primary-1">
           <AppSectionHeader className="uppercase">
-            {socialLinks.title}
+            {links.title}
           </AppSectionHeader>
           <ul className="space-y-2 p-2">
-            {socialLinks.links.map((link, index) => (
+            {links.links.map((link, index) => (
               <li key={index}>
                 <Link
                   target="_blank"
                   href={link.url}
-                  className="relative w-full block aspect-[4] text-primary-800 hover:text-primary-900 hover:bg-gray-300 px-3 py-1 rounded-md"
+                  className="relative w-full block aspect-[4] border border-transparent hover:ring px-3 py-1"
                 >
                   <Image
                     className="object-cover"

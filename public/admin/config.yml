@@ -1457,8 +1457,8 @@ collections:
                 value_field: '{{slug}}'
                 search_fields: [title]
                 display_fields: ["{{title}} - {{date}}"]
-          - name: socialLinks
-            label: 'Liên kết mạng xã hội'
+          - name: links
+            label: 'Liên kết'
             widget: object
             allow_add: true
             fields:

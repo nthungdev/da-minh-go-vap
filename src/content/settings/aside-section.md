@@ -48,7 +48,7 @@ curatedPosts:
     - 2024-07-29_test-12
     - 2024-07-29_test-13
   enable: true
-socialLinks:
+links:
   links:
     - url: https://www.facebook.com
       image:
@@ -59,5 +59,5 @@ socialLinks:
         url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1730087565/giao_duc_jev57s.jpg
         alt: Instagram
   enable: true
-  title: Lien ket mang xa hoi
+  title: Lien ket
 ---
