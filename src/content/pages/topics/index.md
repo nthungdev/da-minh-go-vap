@@ -14,7 +14,7 @@ sections:
     hiddenTags:
       - Giao phan Phu Cuong
   - limit: 4
-    title: Ngoi ca
+    title: ngợi ca
     hiddenTags:
       - Lịch sử
 ---
