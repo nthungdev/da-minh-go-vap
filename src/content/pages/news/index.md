@@ -1,5 +1,5 @@
 ---
-title: Ban tin
+title: Bản tin
 sections:
   - limit: 4
     title: Bản tin Hội dòng
