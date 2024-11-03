@@ -6,17 +6,13 @@ sections:
     hiddenTags:
       - Hiểu Để Yêu
   - limit: 8
-    title: Be va Loi
+    title: Bé và LỜI
     hiddenTags:
       - Bé và lời
   - limit: 4
-    title: Walking with Jesus
+    title: Dấu chân Cha
     hiddenTags:
       - Giao phan Phu Cuong
-  - limit: 4
-    title: Chut men cho doi
-    hiddenTags:
-      - Sắc lập dòng
   - limit: 4
     title: Ngoi ca
     hiddenTags:
