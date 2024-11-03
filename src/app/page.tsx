@@ -2,7 +2,7 @@ import { fetchAllPosts, fetchPostsByHiddenTags } from '@/actions/post'
 import AppAsideSection from '@/components/app-aside-section'
 import AppGridHeader from '@/components/app-grid-header'
 import AppPage from '@/components/app-page'
-import AppPostGridSix from '@/components/app-post-grid-five'
+import AppPostGridSix, { POST_COUNT } from '@/components/app-post-grid-five'
 import AppPostTabGrid from '@/components/app-post-tab-grid'
 import TheBibleVerse from '@/components/the-bible-verse'
 import TheLatestPosts from '@/components/the-latest-posts'
@@ -24,7 +24,7 @@ export default async function Home() {
     const subCategories = []
     for (const subCategory of category.subCategories) {
       const posts = await fetchPostsByHiddenTags(subCategory.hiddenTags, {
-        limit: newsByCategories.limit,
+        limit: POST_COUNT,
       })
       subCategories.push({ title: subCategory.title, posts })
     }
@@ -58,7 +58,7 @@ export default async function Home() {
                     <AppPostTabGrid
                       id={`home-posts-group-${index + 1}`}
                       postGroups={newsCategory.subCategories}
-                      allPostsLimit={newsByCategories.limit}
+                      allPostsLimit={POST_COUNT}
                       component={AppPostGridSix}
                     />
                   </div>

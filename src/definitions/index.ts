@@ -112,7 +112,7 @@ type PageHome = {
   }
   newsByCategories: {
     enable: boolean
-    limit: number
+    // limit: number // always shows 6 posts
     categories: {
       title: string
       subCategories: {

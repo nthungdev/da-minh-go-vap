@@ -63,26 +63,26 @@ collections:
                   max: 100
                 }
           - name: 'newsByCategories'
-            label: 'Tin tức theo chuyên mục'
+            label: 'Bài viết theo chuyên mục'
             widget: 'object'
             fields:
               - { name: 'enable', label: 'Hiển thị', widget: 'boolean' }
-              - {
-                  name: 'limit',
-                  label: 'Số lượng bài viết',
-                  hint: 'Số lượng bài viết để hiển thị cho mỗi chuyên mục',
-                  value_type: 'int',
-                  widget: 'number',
-                  default: 4,
-                  min: 1,
-                  max: 100,
-                  step: 1,
-                }
+              # - {
+              #     name: 'limit',
+              #     label: 'Số lượng bài viết',
+              #     hint: 'Số lượng bài viết để hiển thị cho mỗi chuyên mục',
+              #     value_type: 'int',
+              #     widget: 'number',
+              #     default: 4,
+              #     min: 1,
+              #     max: 100,
+              #     step: 1,
+              #   }
               - {
                   name: 'categories',
-                  label: 'Chuyên mục',
+                  label: 'Mục',
                   widget: 'list',
-                  hint: 'Chọn chuyên mục bài viết',
+                  hint: 'Tạo mục bài viết',
                   allow_add: true,
                   fields:
                     [

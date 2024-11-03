@@ -4,6 +4,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import classNames from 'classnames'
 
+export const POST_COUNT = 6
+
 interface AppPostGridFiveProps {
   posts: PostParams[]
   className?: string
