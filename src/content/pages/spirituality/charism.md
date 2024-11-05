@@ -6,19 +6,19 @@ quote: Mauris quis rutrum enim. Suspendisse vel cursus tortor, non accumsan
 pillars:
   title: BỐN CỘT TRỤ CỦA ĐỜI SỐNG ĐA MINH
   categories:
-    - title: Doi song cau nguyen
+    - title: ĐỜI SỐNG CẦU NGUYỆN
       hiddenTags:
         - Các đấng bản quyền
       thumbnail:
         url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1728272561/8T9A9118_aetk1g.jpg
         alt: Mo ta thumbnail
-    - title: Hoat dong su vu
+    - title: HOẠT ĐỘNG SỨ VỤ
       hiddenTags:
         - Bé và lời
       thumbnail:
         url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1730087566/hoat_dong_su_vu_n6gcca.jpg
         alt: Mo ta thumbnail
-    - title: Doi song cong doan
+    - title: ĐỜI SỐNG CỘNG ĐOÀN
       hiddenTags:
         - Bé và lời
         - Sắc lập dòng
@@ -26,7 +26,7 @@ pillars:
       thumbnail:
         url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1728272561/DSCF8597_n1hntd.jpg
         alt: Mo ta thumbnail
-    - title: Doi song hoc hanh
+    - title: ĐỜI SỐNG HỌC HÀNH
       hiddenTags:
         - Giao phan Phu Cuong
       thumbnail:

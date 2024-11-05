@@ -1,5 +1,5 @@
 ---
-title: CẤU CHUYỆN SÁNG TẠO
+title: Câu chuyện Sáng Tạo
 date: 2024-10-11T06:22:00.000Z
 hiddenTags:
   - Bé và lời

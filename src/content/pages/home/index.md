@@ -9,7 +9,7 @@ latestPosts:
   enable: true
   limit: 5
 newsByCategories:
-  limit: 8
+  limit: 6
   enable: true
   categories:
     - title: Cầu nguyện
@@ -20,7 +20,7 @@ newsByCategories:
         - title: Y cầu nguyện
           hiddenTags:
             - Ý cầu nguyện
-        - title: Kinh phụng vụ
+        - title: Hát Kinh phụng vụ
           hiddenTags:
             - Hiểu Để Yêu
     - title: SỨ VỤ
@@ -49,11 +49,14 @@ newsByCategories:
         - title: Bé và Lời
           hiddenTags:
             - Bé và lời
-        - title: Walking with Jesus
+        - title: Dấu chân Cha
           hiddenTags:
             - Lịch sử
             - Gp Mỹ
             - Giao phan Da Lat
+        - title: Ngợi ca
+          hiddenTags:
+            - chuyện giờ mới kể
     - title: BẢN TIN
       subCategories:
         - title: Bản tin giáo Hội

@@ -1,5 +1,5 @@
 ---
-title: LỄ TẠ ƠN LÀM PHÉP NHÀ SINH HOẠT HỘI DÒNG ĐA MINH LẠNG SƠN
+title: Lễ Tạ Ơn Làm Phép Nhà Sinh hoạt Hội dòng Đa Minh Lạng Sơn
 date: 2018-06-14T10:40:00.000Z
 hiddenTags:
   - thông tin

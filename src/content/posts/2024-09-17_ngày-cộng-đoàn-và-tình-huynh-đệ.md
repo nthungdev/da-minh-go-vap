@@ -1,5 +1,5 @@
 ---
-title: NGÀY CỘNG ĐOÀN VÀ TÌNH HUYNH ĐỆ
+title: Ngày cộng đoàn và tình huynh đệ
 date: 2024-09-17T08:57:00.000Z
 hiddenTags:
   - tâm thư của BTTQ
