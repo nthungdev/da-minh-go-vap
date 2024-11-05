@@ -92,6 +92,28 @@ collections:
                         widget: 'string',
                       },
                       {
+                        name: 'viewMoreButton',
+                        label: 'Nút xem thêm',
+                        widget: object,
+                        fields:
+                          [
+                            {
+                              name: 'enable',
+                              label: 'Hiển thị',
+                              widget: 'boolean',
+                              default: false,
+                              required: false,
+                            },
+                            {
+                              name: 'relativeUrl',
+                              label: 'Đường dẫn',
+                              description: 'Đường dẫn tương đối. Ví dụ: "/vocation/introduction"',
+                              widget: 'string',
+                              required: false,
+                            },
+                          ],
+                      },
+                      {
                         name: 'subCategories',
                         label: 'Chuyên mục con',
                         widget: 'list',

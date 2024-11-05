@@ -115,6 +115,10 @@ type PageHome = {
     // limit: number // always shows 6 posts
     categories: {
       title: string
+      viewMoreButton: {
+        enable: boolean
+        relativeUrl: string
+      }
       subCategories: {
         title: string
         hiddenTags: string[]
