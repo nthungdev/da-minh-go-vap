@@ -25,7 +25,7 @@ export const fetchAllPosts = async ({
 
 export const fetchPostsByHiddenTags = async (
   hiddenTags: string[],
-  { limit = undefined }: { limit?: number } = {}
+  { limit }: { limit?: number } = {}
 ) => {
   const posts = postUtils.getPostsByHiddenTags(hiddenTags)
   return posts.filter((post) => post.date < new Date()).slice(0, limit)

@@ -2,11 +2,14 @@ import { fetchAllPosts, fetchPostsByHiddenTags } from '@/actions/post'
 import AppAsideSection from '@/components/app-aside-section'
 import AppGridHeader from '@/components/app-grid-header'
 import AppPage from '@/components/app-page'
-import AppPostGridSix, { POST_COUNT } from '@/components/app-post-grid-five'
+import AppPostGridSix from '@/components/app-post-grid-five'
 import AppPostTabGrid from '@/components/app-post-tab-grid'
 import TheBibleVerse from '@/components/the-bible-verse'
 import TheLatestPosts from '@/components/the-latest-posts'
 import { attributes } from '@/content/pages/home/index.md'
+import Link from 'next/link'
+
+const POST_COUNT = 6
 
 export default async function Home() {
   const {
@@ -26,16 +29,25 @@ export default async function Home() {
       const posts = await fetchPostsByHiddenTags(subCategory.hiddenTags, {
         limit: POST_COUNT,
       })
-      subCategories.push({ title: subCategory.title, posts })
+      subCategories.push({
+        title: subCategory.title,
+        posts,
+      })
     }
-    postsByCategoriesData.push({ title: category.title, subCategories })
+    postsByCategoriesData.push({
+      title: category.title,
+      viewMoreButton: category.viewMoreButton,
+      subCategories,
+    })
   }
+
+  // console.log(JSON.stringify(postsByCategoriesData, null, 2))
 
   return (
     <AppPage className="space-y-8">
       <section>
         <h2 className="sr-only">Câu lời chúa</h2>
-        <TheBibleVerse className='mx-auto' verses={bibleVerses.verses} />
+        <TheBibleVerse className="mx-auto" verses={bibleVerses.verses} />
       </section>
 
       <div className="flex flex-col md:flex md:flex-row gap-x-4 lg:gap-x-6">
@@ -61,6 +73,13 @@ export default async function Home() {
                       allPostsLimit={POST_COUNT}
                       component={AppPostGridSix}
                     />
+                    {newsCategory.viewMoreButton?.enable && (
+                      <div className='flex flex-row justify-end'>
+                        <Link href={newsCategory.viewMoreButton.relativeUrl}>
+                          Xem thêm
+                        </Link>
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>

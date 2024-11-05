@@ -4,8 +4,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 import classNames from 'classnames'
 
-export const POST_COUNT = 6
-
 interface AppPostGridFiveProps {
   posts: PostParams[]
   className?: string
@@ -41,7 +39,7 @@ export default function AppPostGridSix({
             href={`/posts/${post.slug}`}
             className="relative w-full h-full block overflow-hidden hover:ring-2"
           >
-            <div className="relative aspect-video">
+            <div className="relative aspect-video bg-gray-50">
               <Image
                 className="object-cover"
                 src={post.thumbnail}
