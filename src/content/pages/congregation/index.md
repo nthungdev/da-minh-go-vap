@@ -1,15 +1,12 @@
 ---
 title: Hội Dòng
 subCategories:
-  - title: Gioi thieu
+  - title: Giới Thiệu
     hiddenTags:
       - Giới thiệu
-  - title: Lich su
+  - title: Lịch Sử
     hiddenTags:
       - Lịch sử
-  - title: Sac Lap Dong
-    hiddenTags:
-      - Hiểu Để Yêu
   - hiddenTags:
       - người khởi xướng và xây dựng
       - đức giám mục lạng sơn
