@@ -23,6 +23,9 @@ newsByCategories:
         - title: Hát Kinh phụng vụ
           hiddenTags:
             - Hiểu Để Yêu
+      viewMoreButton:
+        relativeUrl: /prayer
+        enable: true
     - title: SỨ VỤ
       subCategories:
         - title: Truyền giáo

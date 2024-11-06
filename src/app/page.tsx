@@ -7,6 +7,10 @@ import AppPostTabGrid from '@/components/app-post-tab-grid'
 import TheBibleVerse from '@/components/the-bible-verse'
 import TheLatestPosts from '@/components/the-latest-posts'
 import { attributes } from '@/content/pages/home/index.md'
+import Link from 'next/link'
+import { FaArrowRight } from 'react-icons/fa'
+
+const POST_COUNT = 6
 
 export default async function Home() {
   const {
@@ -24,18 +28,25 @@ export default async function Home() {
     const subCategories = []
     for (const subCategory of category.subCategories) {
       const posts = await fetchPostsByHiddenTags(subCategory.hiddenTags, {
-        limit: newsByCategories.limit,
+        limit: POST_COUNT,
       })
-      subCategories.push({ title: subCategory.title, posts })
+      subCategories.push({
+        title: subCategory.title,
+        posts,
+      })
     }
-    postsByCategoriesData.push({ title: category.title, subCategories })
+    postsByCategoriesData.push({
+      title: category.title,
+      viewMoreButton: category.viewMoreButton,
+      subCategories,
+    })
   }
 
   return (
     <AppPage className="space-y-8">
       <section>
         <h2 className="sr-only">Câu lời chúa</h2>
-        <TheBibleVerse className='mx-auto' verses={bibleVerses.verses} />
+        <TheBibleVerse className="mx-auto" verses={bibleVerses.verses} />
       </section>
 
       <div className="flex flex-col md:flex md:flex-row gap-x-4 lg:gap-x-6">
@@ -58,9 +69,20 @@ export default async function Home() {
                     <AppPostTabGrid
                       id={`home-posts-group-${index + 1}`}
                       postGroups={newsCategory.subCategories}
-                      allPostsLimit={newsByCategories.limit}
+                      allPostsLimit={POST_COUNT}
                       component={AppPostGridSix}
                     />
+                    {newsCategory.viewMoreButton?.enable && (
+                      <div className="flex flex-row justify-end">
+                        <Link
+                          href={newsCategory.viewMoreButton.relativeUrl}
+                          className="text-secondary flex flex-row justify-end items-center space-x-1 hover:scale-105 transition-transform"
+                        >
+                          <span>Xem tiếp</span>
+                          <FaArrowRight size={16} />
+                        </Link>
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>
