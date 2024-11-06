@@ -14,7 +14,11 @@ sections:
     hiddenTags:
       - Hiểu Để Yêu
   - limit: 4
+    title: Bài song ngữ
+    hiddenTags:
+      - chuyện giờ mới kể
+  - limit: 4
     title: Hội họa
     hiddenTags:
-      - Walking with Jesus
+      - giáo dục
 ---

@@ -1,16 +1,16 @@
 ---
-title: Ban tin
+title: Bản tin
 sections:
   - limit: 4
-    title: Ban tin Hoi Dong
+    title: Bản tin Hội dòng
     hiddenTags:
       - Giao phan Phu Cuong
   - limit: 4
-    title: Ban tin Gia Dinh Da Minh
+    title: Bản tin gia đình Đa Minh
     hiddenTags:
       - Giao phan Phu Cuong
   - limit: 4
-    title: Ban tin Giao Hoi
+    title: Bản tin Giáo Hội
     hiddenTags:
       - Walking with Jesus
 ---
