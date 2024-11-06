@@ -1,14 +1,14 @@
 ---
 postGroups:
-  - title: Tinh Than Dong
+  - title: Tinh Thần Dòng
     hiddenTags:
       - Các đấng bản quyền
     limit: 8
-  - title: Thanh Da Minh
+  - title: Thánh Đa Minh
     hiddenTags:
       - Giao phan Xuan Loc
     limit: 8
-  - title: Cac Thanh Dong
+  - title: Các Thánh Dòng
     hiddenTags:
       - Giới thiệu
     limit: 8
