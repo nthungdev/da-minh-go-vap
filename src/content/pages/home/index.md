@@ -59,7 +59,7 @@ newsByCategories:
             - Giao phan Da Lat
         - title: Ngợi ca
           hiddenTags:
-            - chuyện giờ mới kể
+            - ngợi ca
     - title: BẢN TIN
       subCategories:
         - title: Bản tin giáo Hội
