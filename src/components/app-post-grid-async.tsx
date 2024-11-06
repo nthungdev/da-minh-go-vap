@@ -11,6 +11,7 @@ interface AppPostGridProps {
   hiddenTags: string[]
   limit: number
   title: string
+  posts?: PostParams[]
   classNames?: string
 }
 
@@ -18,6 +19,7 @@ export default function AppPostGrid({
   hiddenTags,
   limit,
   title,
+  posts,
   classNames,
 }: AppPostGridProps) {
   const { data, error, isFetched } = useQuery({
@@ -28,6 +30,7 @@ export default function AppPostGrid({
       })
       return posts
     },
+    initialData: { posts: posts || [], hasMore: false },
   })
 
   if (!isFetched) return <AppPostGridSkeleton count={limit} />
