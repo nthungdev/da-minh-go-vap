@@ -175,7 +175,7 @@ mission:
   videos:
     title: Video hoat dong su menh
     videos:
-      - url: https://www.youtube.com/watch?v=ZgLs4fDr8aI
+      - url: https://www.youtube.com/embed/7pys7gYGAyY?si=OqdSEilzNpdBtYPB
         thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1729999554/cu_chi_pstttt.jpg
         title: Mái ấm cho trẻ mồ côi
         type: youtube
