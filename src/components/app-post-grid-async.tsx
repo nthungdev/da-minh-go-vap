@@ -12,6 +12,7 @@ interface AppPostGridProps {
   limit: number
   title: string
   posts?: PostParams[]
+  hasMore?: boolean
   classNames?: string
 }
 
@@ -20,9 +21,10 @@ export default function AppPostGrid({
   limit,
   title,
   posts,
+  hasMore,
   classNames,
 }: AppPostGridProps) {
-  const { data, error, isFetched } = useQuery({
+  const { data, error, isPending } = useQuery({
     queryKey: ['fetchPostsByHiddenTags', hiddenTags],
     queryFn: async () => {
       const posts = await fetchPostsByHiddenTags(hiddenTags, {
@@ -30,10 +32,10 @@ export default function AppPostGrid({
       })
       return posts
     },
-    initialData: { posts: posts || [], hasMore: false },
+    initialData: { posts: posts || [], hasMore: hasMore || false },
   })
 
-  if (!isFetched) return <AppPostGridSkeleton count={limit} />
+  if (isPending) return <AppPostGridSkeleton count={limit} />
 
   if (error) return <p>Error: {error.message}</p>
 
