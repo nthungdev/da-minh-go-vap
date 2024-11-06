@@ -1,6 +1,5 @@
 import AppPage from '@/components/app-page'
 import AppMarkdown from '@/components/app-markdown'
-import AppPostGrid from '@/components/app-post-grid'
 import { fetchPostBySlug, fetchPostsByHiddenTags } from '@/actions/post'
 import { redirect } from 'next/navigation'
 import VideoIframe from '@/components/app-video-iframe'
