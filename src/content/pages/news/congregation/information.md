@@ -2,9 +2,9 @@
 title: Thong tin
 postGroups:
   - limit: 4
-    title: A
+    title: TUYỂN SINH ƠN GỌI
     hiddenTags:
-      - Giao phan Phu Cuong
+      - thông tin
   - limit: 4
     title: B
     hiddenTags:
