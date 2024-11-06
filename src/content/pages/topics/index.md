@@ -16,5 +16,5 @@ sections:
   - limit: 4
     title: ngợi ca
     hiddenTags:
-      - Lịch sử
+      - ngợi ca
 ---
