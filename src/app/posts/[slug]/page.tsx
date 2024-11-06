@@ -20,6 +20,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
     post.hiddenTags,
     {
       limit: 12,
+      skipSlug: post.slug,
     }
   )
 
@@ -36,7 +37,11 @@ export default async function Page({ params }: { params: { slug: string } }) {
 
       <div className="mt-12 space-y-4">
         <h2 className="text-2xl">Các bài liên quan</h2>
-        <AppPostGridPaginated hiddenTags={post.hiddenTags} />
+        <AppPostGridPaginated
+          hiddenTags={post.hiddenTags}
+          posts={relatedPosts}
+          skipSlug={post.slug}
+        />
       </div>
     </AppPage>
   )

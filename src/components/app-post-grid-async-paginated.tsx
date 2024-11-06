@@ -13,12 +13,16 @@ interface AppPostGridPaginatedProps {
   hiddenTags: string[]
   pageSize?: number
   classNames?: string
+  skipSlug?: string
+  posts?: PostParams[]
 }
 
 export default function AppPostGridPaginated({
   hiddenTags,
   pageSize = DEFAULT_PAGE_SIZE,
   classNames,
+  skipSlug,
+  posts,
 }: AppPostGridPaginatedProps) {
   const [page, setPage] = useState(0)
 
@@ -26,6 +30,7 @@ export default function AppPostGridPaginated({
     return await fetchPostsByHiddenTags(hiddenTags, {
       limit: pageSize,
       offset: offset * pageSize,
+      skipSlug,
     })
   }
 
@@ -33,6 +38,7 @@ export default function AppPostGridPaginated({
     queryKey: ['fetchPostsByHiddenTags', hiddenTags, page],
     queryFn: () => fetchPosts(page),
     placeholderData: keepPreviousData,
+    initialData: { posts: posts || [], hasMore: false },
   })
 
   if (data) {
