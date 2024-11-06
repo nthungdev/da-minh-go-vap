@@ -6,7 +6,7 @@ pageBanners:
         alt: Banner 1
   - path: /spirituality/charism
     banners:
-      - url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1730862035/linh_dao_i0n1qn.jpg
+      - url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1730862726/linh_dao_ok_typope.jpg
         alt: Mieu ta banner 1
   - path: /spirituality/saint-dominic
     banners:
