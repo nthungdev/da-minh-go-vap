@@ -46,7 +46,7 @@ newsByCategories:
             - giáo dục
       viewMoreButton:
         enable: true
-        relativeUrl: /mission
+        relativeUrl: /missions
     - title: CHUYÊN ĐỀ
       subCategories:
         - title: Hiểu để yêu
@@ -63,6 +63,9 @@ newsByCategories:
         - title: Ngợi ca
           hiddenTags:
             - ngợi ca
+      viewMoreButton:
+        enable: true
+        relativeUrl: /topics
     - title: BẢN TIN
       subCategories:
         - title: Bản tin giáo Hội
@@ -74,6 +77,9 @@ newsByCategories:
         - title: Tin Hội dòng
           hiddenTags:
             - Bé và lời
+      viewMoreButton:
+        enable: true
+        relativeUrl: /news
     - title: HỘI DÒNG
       subCategories:
         - title: Tâm thư
