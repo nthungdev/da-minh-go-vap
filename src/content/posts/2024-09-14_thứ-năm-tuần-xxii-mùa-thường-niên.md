@@ -7,7 +7,7 @@ thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726281449/THU_NAM
 videos:
   - title: Thứ Năm Tuần XXII Mùa Thường Niên
     thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726281449/THU_NAM_TUAN_23_gnf6l1.jpg
-    url: Thứ Năm Tuần XXII Mùa Thường Niên
+    url: https://www.youtube.com/embed/riw5spMgbXQ?si=uMqhwB-mejoPaWaH
     type: youtube
 ---
 Dòng Nữ Đa Minh Gò Vấp

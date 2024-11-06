@@ -31,7 +31,6 @@ export default function AppPostGrid({ posts, classNames }: AppPostGridProps) {
               <h2 className="text-center block text-xl truncate">
                 {post.title}
               </h2>
-              <button className="w-full text-center block">Xem tiếp...</button>
             </div>
           </Link>
         </li>

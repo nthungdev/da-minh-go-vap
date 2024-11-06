@@ -4,11 +4,10 @@ import AppGridHeader from '@/components/app-grid-header'
 import AppPage from '@/components/app-page'
 import AppPostGridSix from '@/components/app-post-grid-five'
 import AppPostTabGrid from '@/components/app-post-tab-grid'
+import AppViewMoreLink from '@/components/app-view-more-link'
 import TheBibleVerse from '@/components/the-bible-verse'
 import TheLatestPosts from '@/components/the-latest-posts'
 import { attributes } from '@/content/pages/home/index.md'
-import Link from 'next/link'
-import { FaArrowRight } from 'react-icons/fa'
 
 const POST_COUNT = 6
 
@@ -27,7 +26,7 @@ export default async function Home() {
   for (const category of newsByCategories.categories) {
     const subCategories = []
     for (const subCategory of category.subCategories) {
-      const posts = await fetchPostsByHiddenTags(subCategory.hiddenTags, {
+      const { posts } = await fetchPostsByHiddenTags(subCategory.hiddenTags, {
         limit: POST_COUNT,
       })
       subCategories.push({
@@ -74,13 +73,9 @@ export default async function Home() {
                     />
                     {newsCategory.viewMoreButton?.enable && (
                       <div className="flex flex-row justify-end">
-                        <Link
+                        <AppViewMoreLink
                           href={newsCategory.viewMoreButton.relativeUrl}
-                          className="text-secondary flex flex-row justify-end items-center space-x-1 hover:scale-105 transition-transform"
-                        >
-                          <span>Xem tiếp</span>
-                          <FaArrowRight size={16} />
-                        </Link>
+                        />
                       </div>
                     )}
                   </div>

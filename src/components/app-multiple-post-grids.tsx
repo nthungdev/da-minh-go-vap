@@ -1,6 +1,6 @@
 import { fetchPostsByHiddenTags } from '@/actions/post'
-import AppPostGrid from './app-post-grid'
 import AppGridHeader from './app-grid-header'
+import AppPostGrid from './app-post-grid-async'
 
 const DEFAULT_LIMIT = 4
 
@@ -19,20 +19,30 @@ export default async function AppMultiplePostGrids(
 
   const postGroupsData = []
   for (const group of postGroups) {
+    const { posts, hasMore } = await fetchPostsByHiddenTags(group.hiddenTags, {
+      limit: group.limit || DEFAULT_LIMIT,
+    })
     postGroupsData.push({
       title: group.title,
-      posts: await fetchPostsByHiddenTags(group.hiddenTags, {
-        limit: group.limit || DEFAULT_LIMIT,
-      }),
+      hiddenTags: group.hiddenTags,
+      limit: group.limit || DEFAULT_LIMIT,
+      posts,
+      hasMore
     })
   }
 
   return (
     <ul className="space-y-8">
-      {postGroupsData.map(({ title, posts }, index) => (
+      {postGroupsData.map(({ title, hiddenTags, limit, posts, hasMore }, index) => (
         <li key={index} className="space-y-8">
           <AppGridHeader text={title} />
-          <AppPostGrid posts={posts} />
+          <AppPostGrid
+            hiddenTags={hiddenTags}
+            limit={limit || DEFAULT_LIMIT}
+            title={title}
+            posts={posts}
+            hasMore={hasMore}
+          />
         </li>
       ))}
     </ul>

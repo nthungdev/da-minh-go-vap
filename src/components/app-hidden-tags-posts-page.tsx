@@ -1,4 +1,3 @@
-import { fetchPostsByHiddenTags } from '@/actions/post'
 import AppPostsPage from './app-posts-page'
 
 interface AppHiddenTagsPostsPageProps {
@@ -10,7 +9,5 @@ export default async function AppHiddenTagsPostsPage({
   hiddenTags,
   title,
 }: AppHiddenTagsPostsPageProps) {
-  const posts = await fetchPostsByHiddenTags(hiddenTags)
-
-  return <AppPostsPage title={title} posts={posts} />
+  return <AppPostsPage title={title} hiddenTags={hiddenTags} />
 }
