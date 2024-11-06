@@ -42,8 +42,6 @@ export default async function Home() {
     })
   }
 
-  // console.log(JSON.stringify(postsByCategoriesData, null, 2))
-
   return (
     <AppPage className="space-y-8">
       <section>
