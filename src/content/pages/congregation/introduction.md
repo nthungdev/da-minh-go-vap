@@ -185,7 +185,7 @@ mission:
         type: youtube
       - title: Đến với anh em nghèo
         url: https://www.youtube.com/watch?v=x8YM6rln_zI
-        thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1729999592/1_z1uf2q.jpg
+        thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1730877871/Th%C4%83m_b%E1%BB%87nh_nh%C3%A2n_phong_ee2gdo.jpg
         type: youtube
       - title: Giáo dục
         url: https://www.youtube.com/watch?v=xEz2ITDCH4M
