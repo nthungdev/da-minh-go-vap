@@ -17,12 +17,28 @@ export default async function AppMultiplePostGrids(
 ) {
   const { postGroups } = props
 
+  const postGroupsData = []
+  for (const group of postGroups) {
+    const { posts } = await fetchPostsByHiddenTags(group.hiddenTags)
+    postGroupsData.push({
+      title: group.title,
+      hiddenTags: group.hiddenTags,
+      limit: group.limit || DEFAULT_LIMIT,
+      posts,
+    })
+  }
+
   return (
     <ul className="space-y-8">
-      {postGroups.map(({ title, hiddenTags, limit }, index) => (
+      {postGroupsData.map(({ title, hiddenTags, limit, posts }, index) => (
         <li key={index} className="space-y-8">
           <AppGridHeader text={title} />
-          <AppPostGrid hiddenTags={hiddenTags} limit={limit || DEFAULT_LIMIT} title={title} />
+          <AppPostGrid
+            hiddenTags={hiddenTags}
+            limit={limit || DEFAULT_LIMIT}
+            title={title}
+            posts={posts}
+          />
         </li>
       ))}
     </ul>
