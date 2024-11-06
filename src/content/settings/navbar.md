@@ -10,7 +10,7 @@ pageBanners:
         alt: Mieu ta banner 1
   - path: /spirituality/saint-dominic
     banners:
-      - url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1730855714/baner_Daminh_ok_r3imyj.jpg
+      - url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1730856293/baner_cha_thanh_da_minh_ok_t47aq5.jpg
         alt: Banner 1
   - path: /vocation/introduction
     banners:
