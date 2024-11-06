@@ -93,7 +93,7 @@ collections:
                       },
                       {
                         name: 'viewMoreButton',
-                        label: 'Nút xem thêm',
+                        label: 'Nút xem tiếp',
                         widget: object,
                         fields:
                           [
