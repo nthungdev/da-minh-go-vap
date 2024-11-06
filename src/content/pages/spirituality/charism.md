@@ -12,12 +12,6 @@ pillars:
       thumbnail:
         url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1728272561/8T9A9118_aetk1g.jpg
         alt: Mo ta thumbnail
-    - title: HOẠT ĐỘNG SỨ VỤ
-      hiddenTags:
-        - Bé và lời
-      thumbnail:
-        url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1730087566/hoat_dong_su_vu_n6gcca.jpg
-        alt: Mo ta thumbnail
     - title: ĐỜI SỐNG CỘNG ĐOÀN
       hiddenTags:
         - Bé và lời
@@ -32,4 +26,10 @@ pillars:
       thumbnail:
         alt: Mo ta thumbnail
         url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1728274122/IMG_8170_gwkzhx.jpg
+    - title: HOẠT ĐỘNG SỨ VỤ
+      hiddenTags:
+        - Bé và lời
+      thumbnail:
+        url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1730087566/hoat_dong_su_vu_n6gcca.jpg
+        alt: Mo ta thumbnail
 ---
