@@ -15,11 +15,12 @@ export default async function AppAsideSection() {
 
   const postGroupsData = []
   for (const group of postGroups.groups) {
+    const { posts } = await fetchPostsByHiddenTags(group.hiddenTags, {
+      limit: group.limit,
+    })
     postGroupsData.push({
       ...group,
-      posts: await fetchPostsByHiddenTags(group.hiddenTags, {
-        limit: group.limit,
-      }),
+      posts,
     })
   }
 

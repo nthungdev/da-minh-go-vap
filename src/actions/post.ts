@@ -25,8 +25,20 @@ export const fetchAllPosts = async ({
 
 export const fetchPostsByHiddenTags = async (
   hiddenTags: string[],
-  { limit }: { limit?: number } = {}
+  {
+    limit,
+    offset = undefined,
+    skipSlug,
+  }: { limit?: number; offset?: number; skipSlug?: string } = {}
 ) => {
   const posts = postUtils.getPostsByHiddenTags(hiddenTags)
-  return posts.filter((post) => post.date < new Date()).slice(0, limit)
+  const plus1 = posts
+    .filter((post) => post.date < new Date())
+    .filter((post) => post.slug !== skipSlug)
+    .slice(offset || 0, limit ? limit + 1 : undefined)
+  const results = limit ? plus1.slice(0, limit) : plus1
+  return {
+    posts: results,
+    hasMore: plus1.length > results.length,
+  }
 }

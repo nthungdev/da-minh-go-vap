@@ -1,7 +1,7 @@
 import { fetchPostsByHiddenTags } from '@/actions/post'
 import AppGridHeader from '@/components/app-grid-header'
 import AppPage from '@/components/app-page'
-import AppPostGrid from '@/components/app-post-grid'
+import AppPostGrid from '@/components/app-post-grid-async'
 import AppPostTabGrid from '@/components/app-post-tab-grid'
 import { attributes } from '@/content/pages/missions/index.md'
 
@@ -11,16 +11,17 @@ export default async function PageMissions() {
   const sectionData = []
   for (const section of sections) {
     if (section.type === 'postSection') {
+      const { posts } = await fetchPostsByHiddenTags(section.hiddenTags, {
+        limit: section.limit || undefined,
+      })
       sectionData.push({
         ...section,
-        posts: await fetchPostsByHiddenTags(section.hiddenTags, {
-          limit: section.limit || undefined,
-        }),
+        posts,
       })
     } else {
       const categories = []
       for (const category of section.categories) {
-        const posts = await fetchPostsByHiddenTags(category.hiddenTags, {
+        const { posts } = await fetchPostsByHiddenTags(category.hiddenTags, {
           limit: section.limit || undefined,
         })
         categories.push({
@@ -44,7 +45,12 @@ export default async function PageMissions() {
           <div key={index} className="space-y-8">
             <AppGridHeader text={section.title} />
             {section.type === 'postSection' ? (
-              <AppPostGrid posts={section.posts!} />
+              <AppPostGrid
+                hiddenTags={section.hiddenTags}
+                limit={section.limit}
+                title={section.title}
+                posts={section.posts}
+              />
             ) : (
               <AppPostTabGrid
                 id={`grid-${index}`}
