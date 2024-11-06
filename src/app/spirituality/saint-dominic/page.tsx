@@ -5,7 +5,7 @@ import { attributes } from '@/content/pages/spirituality/saint-dominic.md'
 
 export default async function SpiritualitySaintDominic() {
   const { title, hiddenTags } = attributes as PageSpiritualitySaintDominic
-  const posts = await fetchPostsByHiddenTags(hiddenTags)
+  const { posts } = await fetchPostsByHiddenTags(hiddenTags)
 
   return (
     <AppPage>

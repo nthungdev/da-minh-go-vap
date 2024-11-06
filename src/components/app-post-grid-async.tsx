@@ -5,58 +5,40 @@ import { useQuery } from '@tanstack/react-query'
 import Image from 'next/image'
 import Link from 'next/link'
 import AppViewMoreLink from './app-view-more-link'
-
-function AppPostGridSkeleton() {
-  return (
-    <ul className="relative grid grid-flow-row md:grid-cols-2 lg:grid-cols-4 gap-4">
-      {[1, 2, 3, 4].map((_, index) => (
-        <li
-          className="animate-pulse block w-full min-w-0 bg-white border border-transparent"
-          key={index}
-        >
-          <div className="block overflow-hidden border">
-            <div className="relative aspect-video bg-gray-200"></div>
-            <div className="p-2 space-y-2">
-              <div className="text-center block text-xl truncate h-7 bg-gray-200"></div>
-            </div>
-          </div>
-        </li>
-      ))}
-    </ul>
-  )
-}
+import AppPostGridSkeleton from './app-post-grid-skeleton'
 
 interface AppPostGridProps {
   hiddenTags: string[]
   limit: number
+  title: string
   classNames?: string
 }
 
 export default function AppPostGrid({
   hiddenTags,
   limit,
+  title,
   classNames,
 }: AppPostGridProps) {
   const { data, error, isFetched } = useQuery({
     queryKey: ['fetchPostsByHiddenTags', hiddenTags],
     queryFn: async () => {
       const posts = await fetchPostsByHiddenTags(hiddenTags, {
-        limit: limit + 1,
+        limit,
       })
       return posts
     },
   })
 
-  if (!isFetched) return <AppPostGridSkeleton />
+  if (!isFetched) return <AppPostGridSkeleton count={limit} />
 
   if (error) return <p>Error: {error.message}</p>
 
   if (data) {
-    const showViewMore = data.length > limit
-    const posts = data.slice(0, limit)
-
-
-    const viewMoreHref = `/posts?ht=${encodeURIComponent(hiddenTags.join(','))}`
+    const { posts, hasMore } = data
+    const viewMoreHref = `/posts?ht=${encodeURIComponent(
+      hiddenTags.join(',')
+    )}&ti=${encodeURIComponent(title)}`
 
     return (
       <div className="space-y-2">
@@ -83,16 +65,16 @@ export default function AppPostGrid({
                   />
                 </div>
                 <div className="p-2 space-y-2">
-                  <h2 className="text-center block text-xl truncate">
+                  <span className="text-center block text-xl truncate">
                     {post.title}
-                  </h2>
+                  </span>
                 </div>
               </Link>
             </li>
           ))}
         </ul>
 
-        {showViewMore && (
+        {hasMore && (
           <div className="flex flex-row justify-end">
             <AppViewMoreLink href={viewMoreHref} />
           </div>

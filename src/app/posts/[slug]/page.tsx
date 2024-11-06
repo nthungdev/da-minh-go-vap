@@ -16,9 +16,12 @@ export default async function Page({ params }: { params: { slug: string } }) {
   }
 
   const video = post.videos?.[0]
-  const relatedPosts = await fetchPostsByHiddenTags(post.hiddenTags, {
-    limit: 12,
-  })
+  const { posts: relatedPosts } = await fetchPostsByHiddenTags(
+    post.hiddenTags,
+    {
+      limit: 12,
+    }
+  )
 
   return (
     <AppPage>

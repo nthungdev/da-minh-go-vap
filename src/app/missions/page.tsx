@@ -11,16 +11,17 @@ export default async function PageMissions() {
   const sectionData = []
   for (const section of sections) {
     if (section.type === 'postSection') {
+      const { posts } = await fetchPostsByHiddenTags(section.hiddenTags, {
+        limit: section.limit || undefined,
+      })
       sectionData.push({
         ...section,
-        posts: await fetchPostsByHiddenTags(section.hiddenTags, {
-          limit: section.limit || undefined,
-        }),
+        posts,
       })
     } else {
       const categories = []
       for (const category of section.categories) {
-        const posts = await fetchPostsByHiddenTags(category.hiddenTags, {
+        const { posts } = await fetchPostsByHiddenTags(category.hiddenTags, {
           limit: section.limit || undefined,
         })
         categories.push({

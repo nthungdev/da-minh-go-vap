@@ -11,11 +11,12 @@ export default async function CongregationHistory() {
 
   const postGroupsData = []
   for (const category of communityHistory.postGroups) {
+    const { posts } = await fetchPostsByHiddenTags(category.hiddenTags, {
+      limit: category.limit,
+    })
     postGroupsData.push({
       title: category.title,
-      posts: await fetchPostsByHiddenTags(category.hiddenTags, {
-        limit: category.limit,
-      }),
+      posts,
     })
   }
 

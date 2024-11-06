@@ -10,7 +10,7 @@ export default async function AppHiddenTagsPostsPage({
   hiddenTags,
   title,
 }: AppHiddenTagsPostsPageProps) {
-  const posts = await fetchPostsByHiddenTags(hiddenTags)
+  const { posts } = await fetchPostsByHiddenTags(hiddenTags)
 
   return <AppPostsPage title={title} posts={posts} />
 }
