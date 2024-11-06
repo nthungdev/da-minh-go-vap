@@ -40,10 +40,13 @@ newsByCategories:
             - Gp Sài Gòn
         - title: Bác ái xã hội
           hiddenTags:
-            - Walking with Jesus
+            - bác ái xã hội
         - title: Giáo Dục
           hiddenTags:
-            - Chút men cho đời
+            - giáo dục
+      viewMoreButton:
+        enable: true
+        relativeUrl: /mission
     - title: CHUYÊN ĐỀ
       subCategories:
         - title: Hiểu để yêu
