@@ -1,0 +1,103 @@
+'use client'
+
+import { fetchPostsByHiddenTags } from '@/actions/post'
+import { useQuery } from '@tanstack/react-query'
+import Image from 'next/image'
+import Link from 'next/link'
+import AppViewMoreLink from './app-view-more-link'
+
+function AppPostGridSkeleton() {
+  return (
+    <ul className="relative grid grid-flow-row md:grid-cols-2 lg:grid-cols-4 gap-4">
+      {[1, 2, 3, 4].map((_, index) => (
+        <li
+          className="animate-pulse block w-full min-w-0 bg-white border border-transparent"
+          key={index}
+        >
+          <div className="block overflow-hidden border">
+            <div className="relative aspect-video bg-gray-200"></div>
+            <div className="p-2 space-y-2">
+              <div className="text-center block text-xl truncate h-7 bg-gray-200"></div>
+            </div>
+          </div>
+        </li>
+      ))}
+    </ul>
+  )
+}
+
+interface AppPostGridProps {
+  hiddenTags: string[]
+  limit: number
+  classNames?: string
+}
+
+export default function AppPostGrid({
+  hiddenTags,
+  limit,
+  classNames,
+}: AppPostGridProps) {
+  const { data, error, isFetched } = useQuery({
+    queryKey: ['fetchPostsByHiddenTags', hiddenTags],
+    queryFn: async () => {
+      const posts = await fetchPostsByHiddenTags(hiddenTags, {
+        limit: limit + 1,
+      })
+      return posts
+    },
+  })
+
+  if (!isFetched) return <AppPostGridSkeleton />
+
+  if (error) return <p>Error: {error.message}</p>
+
+  if (data) {
+    const showViewMore = data.length > limit
+    const posts = data.slice(0, limit)
+
+
+    const viewMoreHref = `/posts?ht=${encodeURIComponent(hiddenTags.join(','))}`
+
+    return (
+      <div className="space-y-2">
+        <ul
+          className={`relative grid grid-flow-row md:grid-cols-2 lg:grid-cols-4 gap-4 ${classNames}`}
+        >
+          {posts.map((post, index) => (
+            // min-w-0 to override min-width: min-content that cause post title to not be truncated
+            <li
+              className="block w-full min-w-0 bg-white hover:ring border border-transparent"
+              key={index}
+            >
+              <Link
+                href={`/posts/${post.slug}`}
+                className="block overflow-hidden border"
+              >
+                <div className="relative aspect-video">
+                  <Image
+                    className="object-cover"
+                    src={post.thumbnail}
+                    fill
+                    sizes="100%"
+                    alt={`${post.title}'s thumbnail`}
+                  />
+                </div>
+                <div className="p-2 space-y-2">
+                  <h2 className="text-center block text-xl truncate">
+                    {post.title}
+                  </h2>
+                </div>
+              </Link>
+            </li>
+          ))}
+        </ul>
+
+        {showViewMore && (
+          <div className="flex flex-row justify-end">
+            <AppViewMoreLink href={viewMoreHref} />
+          </div>
+        )}
+      </div>
+    )
+  }
+}

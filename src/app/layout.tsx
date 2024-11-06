@@ -8,6 +8,7 @@ import TheTopBanners from '@/components/the-top-banners'
 import classNames from 'classnames'
 import TheMobileNavbar from '@/components/the-mobile-navbar'
 import TheDesktopNavbar from '@/components/the-desktop-navbar'
+import ReactQueryProvider from '@/components/providers/react-query-provider'
 
 const montserrat = Montserrat({
   subsets: ['vietnamese'],
@@ -34,10 +35,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={classNames(
-        nunito.className,
-        montserrat.className,
-      )}
+      className={classNames(nunito.className, montserrat.className)}
     >
       <ThePrelineScript />
 
@@ -69,7 +67,9 @@ export default function RootLayout({
           </picture>
         </div>
 
-        <div className="flex-1">{children}</div>
+        <ReactQueryProvider>
+          <div className="flex-1">{children}</div>
+        </ReactQueryProvider>
         <TheFooter />
       </body>
     </html>
