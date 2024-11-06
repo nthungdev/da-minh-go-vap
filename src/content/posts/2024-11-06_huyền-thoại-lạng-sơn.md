@@ -1,6 +1,6 @@
 ---
 title: Huyền Thoại Lạng Sơn
-date: 2021-11-11T16:00:00.000Z
+date: 2021-11-11T02:00:00.000Z
 hiddenTags:
   - ngợi ca
 thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726132104/hinh_bia_huyen_thoai_lang_son_njygvs.jpg
