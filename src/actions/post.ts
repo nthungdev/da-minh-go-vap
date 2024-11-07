@@ -8,6 +8,9 @@ import * as postUtils from '@/utils/post'
  */
 export const fetchPostBySlug = async (slug: string) => {
   const post = postUtils.getPostBySlug(slug)
+  if (!post) {
+    return null
+  }
   return post.date < new Date() ? post : null
 }
 

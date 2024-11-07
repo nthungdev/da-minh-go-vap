@@ -6,17 +6,24 @@ const postsDirectory = path.join(process.cwd(), 'src/content/posts')
 
 export const getPostBySlug = (slug: string) => {
   const filePath = path.join(postsDirectory, slug + '.md')
-  const fileContents = fs.readFileSync(filePath, 'utf8')
-  const { content, data } = matter(fileContents)
-  return {
-    slug,
-    body: content,
-    ...data,
-  } as PostParams
+  try {
+    const fileContents = fs.readFileSync(filePath, 'utf8')
+    const { content, data } = matter(fileContents)
+    return {
+      slug,
+      body: content,
+      ...data,
+    } as PostParams
+  } catch (error) {
+    console.error('Error reading file', { filePath, error })
+    return null
+  }
 }
 
-export const getPostsBySlugs = (slugs: string[]) => {
-  return slugs.map((slug) => getPostBySlug(slug))
+export const getPostsBySlugs = (slugs: string[]): PostParams[] => {
+  return slugs
+    .map((slug) => getPostBySlug(slug))
+    .filter((post) => post !== null) as PostParams[]
 }
 
 export const getAllPostSlugs = () => {
