@@ -11,19 +11,11 @@ videos:
     thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726132104/hinh_bia_huyen_thoai_lang_son_njygvs.jpg
 ---
 Ngày Truyền thống 8/12/2021 của Hội dòng Đa Minh Lạng Sơn - Gò Vấp,
-
 nhắc nhớ chị em trân trọng về một lịch sử:
-
 103 năm Hội dòng được khai sinh và phát triển
-
 43 năm  Hội dòng được thiết lập
-
 Bài hát: Huyền Thoại Lạng Sơn 
-
 Sáng tác: Monica Ngọc Điệp
-
 Trình bày: Dòng nữ Đa Minh Gò Vấp
-
 Hòa âm phối khí: Trung Nguyen
-
 Thu âm: Paul Trần
