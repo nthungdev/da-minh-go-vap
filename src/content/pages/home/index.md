@@ -90,5 +90,5 @@ newsByCategories:
             - Giao phan Da Lat
         - title: Tâm tình
           hiddenTags:
-            - Gp Long Xuyên
+            - ngợi ca
 ---
