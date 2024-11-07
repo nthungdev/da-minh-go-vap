@@ -1,5 +1,5 @@
 ---
-title: Tinh Than Dong
+title: Tinh thần Dòng
 quote: 'Noi gương Cha Thánh Đa Minh, chị em luôn " Nói với Chúa và nói về Chúa"
   cho muôn dân trong mọi nơi mọi lúc. Chị em đón nhận nếp sống tông đồ đã được
   Thánh Đa Minh thể hiện là: chung sống hoà hợp, Trung thành thực thi ba lời
