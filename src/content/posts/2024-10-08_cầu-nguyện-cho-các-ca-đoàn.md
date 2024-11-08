@@ -1,6 +1,6 @@
 ---
 title: Cầu nguyện cho các ca đoàn
-date: 2024-10-05T15:40:00.000Z
+date: 2024-10-05T22:41:00.000Z
 hiddenTags:
   - Ý cầu nguyện
 thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1728376665/6_goq1fy.png
