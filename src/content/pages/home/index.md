@@ -22,7 +22,7 @@ newsByCategories:
             - Ý cầu nguyện
         - title: Hát Kinh phụng vụ
           hiddenTags:
-            - đức giám mục sài gòn
+            - người khởi xướng và xây dựng
       viewMoreButton:
         relativeUrl: /prayer
         enable: true
