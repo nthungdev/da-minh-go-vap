@@ -23,12 +23,12 @@ postGroups:
       hiddenTags:
         - quảng cáo
     - limit: 8
-      title: NGỢI CA
+      title: Văn Hoá
       hiddenTags:
         - Giao phan Da Lat
         - Giao phan Xuan Loc
     - limit: 8
-      title: WALKING WITH JESUS
+      title: Bài song ngữ
       hiddenTags:
         - Gp Long Xuyên
     - limit: 8
