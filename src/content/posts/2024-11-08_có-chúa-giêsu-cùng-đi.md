@@ -8,12 +8,7 @@ videos:
   - title: Có Chúa Giêsu cùng đi
     thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1731056512/B%C3%8CA_MV_NH%E1%BA%A2Y_m5lpmr.png
     type: facebook
-    url: <iframe
-      src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2FThinhsinhDaMinhGoVap%2Fvideos%2F984827660078186%2F&show_text=false&width=560&t=0"
-      width="560" height="314" style="border:none;overflow:hidden"
-      scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay;
-      clipboard-write; encrypted-media; picture-in-picture; web-share"
-      allowFullScreen="true"></iframe>
+    url: https://www.facebook.com/watch/?v=984827660078186
 ---
 🏃Bước bước đi cùng Ngài
 
