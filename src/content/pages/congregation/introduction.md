@@ -132,9 +132,9 @@ aboutUs:
       - url: https://www.youtube.com/watch?v=1Ne1hqOXKKI
         type: youtube
         title: ĐÔI NÉT CHÍNH  VỀ HỘI DÒNG
-        thumbnail: https://i3.ytimg.com/vi/1Ne1hqOXKKI/maxresdefault.jpg
+        thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726538327/Viet-thu-700_i1jp17.jpg
       - title: LỊCH SỬ HỘI DÒNG
-        thumbnail: https://i3.ytimg.com/vi/y0sF5xhGreA/maxresdefault.jpg
+        thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726538327/Viet-thu-700_i1jp17.jpg
         type: youtube
         url: https://www.youtube.com/watch?v=y0sF5xhGreA
       - title: NỚI CHỊ EM HIỆN DIỆN
@@ -150,11 +150,11 @@ aboutUs:
         url: https://www.youtube.com/embed/RzXjv_Bcpdo?si=S0JbZ1n4jArMfrg6
         type: youtube
       - title: Ý NGHĨA VÀ LỊCH SỬ TU PHỤC ĐA MINH
-        thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726103671/viber_image_2023-05-15_21-20-09-421_du7qxi.jpg
+        thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726538327/Viet-thu-700_i1jp17.jpg
         url: https://www.youtube.com/embed/RzXjv_Bcpdo?si=S0JbZ1n4jArMfrg6
         type: youtube
       - title: ĐA MINH GÒ VẤP CA
-        thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726103720/277171833_156357830171475_5074210975861142013_n_lfrcho.jpg
+        thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726538327/Viet-thu-700_i1jp17.jpg
         url: https://www.youtube.com/embed/RzXjv_Bcpdo?si=S0JbZ1n4jArMfrg6
         type: youtube
       - title: HUYỀN THOẠI LẠNG SƠN
