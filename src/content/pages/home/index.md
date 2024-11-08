@@ -70,13 +70,13 @@ newsByCategories:
       subCategories:
         - title: Bản tin giáo Hội
           hiddenTags:
-            - Giao phan Xuan Loc
+            - kinh phung vu
         - title: Tin dòng Đa Minh
           hiddenTags:
-            - Giao phan Da Lat
+            - kinh phung vu
         - title: Tin Hội dòng
           hiddenTags:
-            - Bé và lời
+            - kinh phung vu
       viewMoreButton:
         enable: true
         relativeUrl: /news
@@ -84,11 +84,11 @@ newsByCategories:
       subCategories:
         - title: Tâm thư
           hiddenTags:
-            - tâm thư của BTTQ
+            - kinh phung vu
         - title: Chuyện giờ mới kể
           hiddenTags:
-            - Giao phan Da Lat
+            - kinh phung vu
         - title: Tâm tình
           hiddenTags:
-            - ngợi ca
+            - kinh phung vu
 ---
