@@ -1,5 +1,5 @@
 ---
-title: Giới thiệu Tu Phục Hội dòng nữ Đa Minh Gò Vấp
+title: Tu Phục Hội dòng
 date: 2024-10-15T10:00:00.000Z
 hiddenTags:
   - Giới thiệu
