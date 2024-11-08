@@ -1,6 +1,6 @@
 ---
 title: "Cầu nguyện cho các thầy cô và những người làm công tác giáo dục "
-date: 2024-10-06T15:39:00.000Z
+date: 2024-09-06T22:39:00.000Z
 hiddenTags:
   - Ý cầu nguyện
 thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1728376665/5_wrvobb.png
