@@ -22,7 +22,7 @@ newsByCategories:
             - Ý cầu nguyện
         - title: Hát Kinh phụng vụ
           hiddenTags:
-            - kinh phung vu
+            - đức giám mục sài gòn
       viewMoreButton:
         relativeUrl: /prayer
         enable: true
