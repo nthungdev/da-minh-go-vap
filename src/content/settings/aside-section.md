@@ -21,7 +21,7 @@ postGroups:
     - limit: 7
       title: CÁC CHUYÊN ĐỀ ĐẶC BIỆT
       hiddenTags:
-        - Gp Lạng Sơn
+        - quảng cáo
     - limit: 8
       title: NGỢI CA
       hiddenTags:
@@ -45,8 +45,6 @@ curatedPosts:
     - 2024-09-12_amen-có-nghĩa-là-gì
     - 2024-09-12_lịch-sử-cộng-đoàn-đăng-srỗn
     - 2024-09-12_lịch-sử-tu-xá-knai
-    - 2024-07-29_test-12
-    - 2024-07-29_test-13
   enable: true
 links:
   links:
