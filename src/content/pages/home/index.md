@@ -70,13 +70,13 @@ newsByCategories:
       subCategories:
         - title: Bản tin giáo Hội
           hiddenTags:
-            - kinh phung vu
+            - đức giám mục lạng sơn
         - title: Tin dòng Đa Minh
           hiddenTags:
-            - kinh phung vu
+            - đức giám mục sài gòn
         - title: Tin Hội dòng
           hiddenTags:
-            - kinh phung vu
+            - cha bề trên tổng quyền dòng đa minh
       viewMoreButton:
         enable: true
         relativeUrl: /news
@@ -84,10 +84,10 @@ newsByCategories:
       subCategories:
         - title: Tâm thư
           hiddenTags:
-            - kinh phung vu
+            - Gp Long Xuyên
         - title: Chuyện giờ mới kể
           hiddenTags:
-            - kinh phung vu
+            - Giao phan Da Lat
         - title: Tâm tình
           hiddenTags:
             - kinh phung vu
