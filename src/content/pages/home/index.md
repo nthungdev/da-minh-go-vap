@@ -22,7 +22,7 @@ newsByCategories:
             - Ý cầu nguyện
         - title: Hát Kinh phụng vụ
           hiddenTags:
-            - Hiểu Để Yêu
+            - kinh phung vu
       viewMoreButton:
         relativeUrl: /prayer
         enable: true
