@@ -2,11 +2,11 @@
 aboutUs:
   title: CHÚNG TÔI LÀ NHỮNG NỮ TU ĐA MINH GÒ VẤP
   body: >-
-    ### Trụ sở chính: <u>[25/2 Lê Đức Thọ, Gò Vấp, Thành phố Hồ Chí
+    ##### Trụ sở chính: <u>[25/2 Lê Đức Thọ, Gò Vấp, Thành phố Hồ Chí
     Minh](https://maps.app.goo.gl/hnfrCGRCganpZTPS7)</u>
 
 
-    ### Dòng nữ Đa Minh Gò Vấp tên gọi trước đây là Dòng nữ Đa Minh Lạng Sơn, là Dòng địa phận thuộc Tổng Giáo phận Sài Gòn.
+    ##### Dòng nữ Đa Minh Gò Vấp tên gọi trước đây là Dòng nữ Đa Minh Lạng Sơn, là Dòng địa phận thuộc Tổng Giáo phận Sài Gòn.
   tabs:
     - title: ĐÔI NÉT CHÍNH
       content: >-
@@ -22,32 +22,32 @@ aboutUs:
 
         Sống linh đạo Đa Minh: NÓI VỚI CHÚA – NÓI VỀ CHÚA Hoặc “CHIÊM NIỆM VÀ TRUYỀN THÔNG”, Chia sẻ cho tha nhân những gì mình đã chiêm niệm
       body: >-
-        #### Danh Xưng: Hội dòng nữ Đa Minh Gò Vấp (the congregation of
-        Dominican Sisters of Go Vap of Our Lady of the Rosary)
+        ### **Danh Xưng: Hội dòng nữ Đa Minh Gò Vấp (the congregation of
+        Dominican Sisters of Go Vap of Our Lady of the Rosary)**
 
 
         ### **MỤC ĐÍCH**
 
 
-        Qua việc sống ba lời khuyên Phúc Âm: khiết tịnh, khó nghèo và vâng phục. Chị em hướng đến mục đích của đời thánh hiến là đạt tới đức ái hoàn hảo bằng việc tôn vinh Thiên Chúa, xây dựng Hội Thánh và mưu cầu phần rỗi các linh hồn.
+        ##### Qua việc sống ba lời khuyên Phúc Âm: khiết tịnh, khó nghèo và vâng phục. Chị em hướng đến mục đích của đời thánh hiến là đạt tới đức ái hoàn hảo bằng việc tôn vinh Thiên Chúa, xây dựng Hội Thánh và mưu cầu phần rỗi các linh hồn.
 
 
         ### **ĐẶC TÍNH**
 
 
-        Chị em Đa Minh Gò Vấp luôn mang trong mình những yếu tố làm nên đặc tính người nữ tu Đa Minh: đời sống Cộng đoàn, trung thành tuân giữ các lời khấn, sốt sắng cử hành phụng vụ cộng đoàn, chuyên chăm học hành và thi hành sứ vụ.
+        ##### Chị em Đa Minh Gò Vấp luôn mang trong mình những yếu tố làm nên đặc tính người nữ tu Đa Minh: đời sống Cộng đoàn, trung thành tuân giữ các lời khấn, sốt sắng cử hành phụng vụ cộng đoàn, chuyên chăm học hành và thi hành sứ vụ.
 
 
         ### **ĐẶC SỦNG**
 
 
-        Sống tinh thần đoàn sủng Đa Minh “Chia sẻ cho tha nhân những gì mình đã chiêm niệm”, chị em Đa Minh Gò Vấp đón nhận đặc sủng: CÙNG MẸ MARIA MÂN CÔI, LOAN BÁO TIN MỪNG ĐỨC KITÔ VỚI LÒNG TRẮC ẨN.
+        ##### Sống tinh thần đoàn sủng Đa Minh “Chia sẻ cho tha nhân những gì mình đã chiêm niệm”, chị em Đa Minh Gò Vấp đón nhận đặc sủng: CÙNG MẸ MARIA MÂN CÔI, LOAN BÁO TIN MỪNG ĐỨC KITÔ VỚI LÒNG TRẮC ẨN.
 
 
         ### **SỨ VỤ**
 
 
-        Chị em hội nhập nếp sống văn hóa truyền thống địa phương và thi hành sứ vụ truyền giáo qua các hoạt động phù hợp với thời đại: giáo dục đức tin và văn hóa, mục vụ giáo xứ và bác ái xã hội.
+        ##### Chị em hội nhập nếp sống văn hóa truyền thống địa phương và thi hành sứ vụ truyền giáo qua các hoạt động phù hợp với thời đại: giáo dục đức tin và văn hóa, mục vụ giáo xứ và bác ái xã hội.
     - title: CHƯƠNG TRÌNH ĐÀO TẠO
       content: >-
         Đào tạo nữ tu đa minh trở nên môn đệ đích thực của Đức Kito xoay quanh 4
@@ -68,59 +68,59 @@ aboutUs:
         ## **I. ĐÀO TẠO SƠ KHỞI**
 
 
-        **Việc đào tạo sơ khởi gồm năm giai đoạn:**
+        #### **Việc đào tạo sơ khởi gồm năm giai đoạn:**
 
 
         ### **1. Thỉnh viện**
 
 
-        * Giúp ứng sinh trưởng thành nhân bản và đức tin, tìm hiểu đời sống tu trì và đặc sủng của Hội dòng
+        * ##### Giúp ứng sinh trưởng thành nhân bản và đức tin, tìm hiểu đời sống tu trì và đặc sủng của Hội dòng
 
-        * Giúp Hội dòng nhận định khả năng sống đời Đa Minh của ứng sinh
+        * ##### Giúp Hội dòng nhận định khả năng sống đời Đa Minh của ứng sinh
 
 
         ### **2. Tiền tập viện**
 
 
-        * Trưởng thành hơn đười sống nhân bản Kitô giáo
+        * ##### Trưởng thành hơn đười sống nhân bản Kitô giáo
 
-        * Thăng tiến hơn đời sống thiêng liêng
+        * ##### Thăng tiến hơn đời sống thiêng liêng
 
-        * Thích nghi đời sống tu trì và sứ vụ của Dòng
+        * ##### Thích nghi đời sống tu trì và sứ vụ của Dòng
 
-        * Thẩm định ơn gọi tu trì và khả năng thích nghi của ứng sinh
+        * ##### Thẩm định ơn gọi tu trì và khả năng thích nghi của ứng sinh
 
 
         ### **3 Tập viện**
 
 
-        * Giúp Tập sinh nhận ra ơn gọi của mình, sống những đòi hỏi thiết yếu của đời tu nếp sống Đa Minh và thấm nhuần tình thần của Hội dòng
+        * ##### Giúp Tập sinh nhận ra ơn gọi của mình, sống những đòi hỏi thiết yếu của đời tu nếp sống Đa Minh và thấm nhuần tình thần của Hội dòng
 
-        * Giúp Hội dòng kiểm chứng ơn gọi và khả năng thích đáng của Tập sinh
+        * ##### Giúp Hội dòng kiểm chứng ơn gọi và khả năng thích đáng của Tập sinh
 
 
         ### **4.Học viện**
 
 
-        * Tiếp tục phát triển đời sống tâm linh và rèn luyện nhân bản.
+        * ##### Tiếp tục phát triển đời sống tâm linh và rèn luyện nhân bản.
 
-        * Trau dồi kiến thức thánh khoa, ơn gọi tu trì và nếp sống Đa Minh
+        * ##### Trau dồi kiến thức thánh khoa, ơn gọi tu trì và nếp sống Đa Minh
 
-        * Thực tập mục vụ theo mục đích của Hội dòng
+        * ##### Thực tập mục vụ theo mục đích của Hội dòng
 
 
         ### **5. Tiền vĩnh thệ**
 
 
-        * Bồi dưỡng tâm linh
+        * ##### Bồi dưỡng tâm linh
 
-        * Nhận thức sâu xa về giá trị các lời khấn.
+        * ##### Nhận thức sâu xa về giá trị các lời khấn.
 
-        * Nhìn lại hành trình thánh hiến của mình để xác tín việc hiến thân trọn đời cho Chúa trong sứ vụ loan báo Tin Mừng.
+        * ##### Nhìn lại hành trình thánh hiến của mình để xác tín việc hiến thân trọn đời cho Chúa trong sứ vụ loan báo Tin Mừng.
 
-          ## II. GIAI ĐOẠN THƯỜNG HUẤN (đào tạo liên tục)
+          ## **II. GIAI ĐOẠN THƯỜNG HUẤN (đào tạo liên tục)**
 
-          ##### Khi đã khấn trọn, chị em bước vào giai đoạn thường huấn trải dài suốt cuộc đời tu trì.
+          #### **Khi đã khấn trọn, chị em bước vào giai đoạn thường huấn trải dài suốt cuộc đời tu trì.**
     - title: TRUYỀN THỐNG CHỊ EM ĐA MINH GÒ VẤP
       content: >-
         * công việc mực vụ: dạy giáo lý, huấn luyện giáo lý viên, phụ trách các
@@ -187,13 +187,13 @@ aboutUs:
 mission:
   title: SỨ MỆNH
   body: >-
-    ##### Sứ vụ đặc biệt của Hội dòng Đa Minh Gò Vấp là LOAN BÁO TIN MỪNG CHO
-    NGƯỜI NGHÈO KHÓ: 25/2 Lê Đức Thọ, Gò Vấp, Thành phố Hồ Chí Minh
+    #### Sứ vụ đặc biệt của Hội dòng Đa Minh Gò Vấp là LOAN BÁO TIN MỪNG CHO
+    NGƯỜI NGHÈO KHÓ: 
 
 
-    ##### Xuyên suốt giòng thời gian gần 100 năm, từ rừng Lạng Sơn miền Bắc đến miền đảo Phú Quốc trời Nam, những họat động của chị em đa số tập trung ở các xứ truyền giáo hoặc xứ đạo miền quê. Đơn sơ, giản dị, hội nhập vào cuộc sống người lao động địa phương để khai hóa dân trí, gieo rắc tình thương và giáo dục niềm tin. Cho đi cái mình có. Làm điều mình có thể với một con tim yêu mến và hiến dâng trọn vẹn. Thật bé nhỏ và khiêm tốn! Chị em Đa Minh Lạng Sơn trong hình thành và phát triển, đến hôm nay Dòng đã có một chỗ đứng trong lòng Giáo hội. Hội dòng Đa Minh Lạng Sơn đang cùng nhịp bước với các hội dòng trong lòng Giáo hội Việt Nam và cùng với Giáo hội toàn cầu dấn thân “PHỤC VỤ ƠN CỨU ĐỘ”.
+    #### Xuyên suốt giòng thời gian gần 100 năm, từ rừng Lạng Sơn miền Bắc đến miền đảo Phú Quốc trời Nam, những họat động của chị em đa số tập trung ở các xứ truyền giáo hoặc xứ đạo miền quê. Đơn sơ, giản dị, hội nhập vào cuộc sống người lao động địa phương để khai hóa dân trí, gieo rắc tình thương và giáo dục niềm tin. Cho đi cái mình có. Làm điều mình có thể với một con tim yêu mến và hiến dâng trọn vẹn. Thật bé nhỏ và khiêm tốn! Chị em Đa Minh Lạng Sơn trong hình thành và phát triển, đến hôm nay Dòng đã có một chỗ đứng trong lòng Giáo hội. Hội dòng Đa Minh Lạng Sơn đang cùng nhịp bước với các hội dòng trong lòng Giáo hội Việt Nam và cùng với Giáo hội toàn cầu dấn thân “PHỤC VỤ ƠN CỨU ĐỘ”.
   videos:
-    title: Video hoat dong su menh
+    title: "Video hoạt động sứ mệnh "
     videos:
       - url: https://www.youtube.com/embed/7pys7gYGAyY?si=OqdSEilzNpdBtYPB
         thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1729999554/cu_chi_pstttt.jpg
@@ -226,13 +226,13 @@ mission:
         ### Việc loan báo Nước Thiên Chúa của chúng ta phải:
 
 
-        1. bắt nguồn từ việc kết hợp mật thiết với Thiên Chúa ;
+        1. #### bắt nguồn từ việc kết hợp mật thiết với Thiên Chúa ;
 
-        2. thấm nhuần tinh thần phục vụ đích thực, vô vị lợi và sẵn sàng đi tới bất cứ nơi nào được sai đến;
+        2. #### thấm nhuần tinh thần phục vụ đích thực, vô vị lợi và sẵn sàng đi tới bất cứ nơi nào được sai đến;
 
-        3. vun trồng đời sống thiêng liêng và các đức tính nhân bản, để cách sống của chúng ta không làm suy yếu điều mình giảng truyền ;
+        3. #### vun trồng đời sống thiêng liêng và các đức tính nhân bản, để cách sống của chúng ta không làm suy yếu điều mình giảng truyền ;
 
-        4. mang tính ngôn sứ: nhận ra tiếng gọi của Thiên Chúa nơi các biến cố của cuộc sống và xã hội, đồng thời đáp ứng nhu cầu thời đại .
+        4. #### mang tính ngôn sứ: nhận ra tiếng gọi của Thiên Chúa nơi các biến cố của cuộc sống và xã hội, đồng thời đáp ứng nhu cầu thời đại .
     - title: Giáo dục đức tin và văn hóa
       content: >-
         Đào tạo nữ tu đa minh trở nên môn đệ đích thực của Đức Kito xoay quanh 4
@@ -248,11 +248,11 @@ mission:
         * Sứ vụ
 
         * đào tạo qua các giai đoạn: Thỉnh sinh, tiền tập sinh, tập sinh và Học viện
-      body: Việc dạy giáo lý được Hội Thánh luôn coi là nhiệm vụ thánh  và là một
-        trong những công tác chính của mình , “không thể tách rời khỏi các hoạt
-        động mục vụ và truyền giáo của Hội Thánh” . Do đó, tại các môi trường
-        làm việc của chị em, việc dạy giáo lý là bổn phận ưu tiên, nên phải được
-        thi hành nghiêm chỉnh và nhiệt thành.
+      body: "##### Việc dạy giáo lý được Hội Thánh luôn coi là nhiệm vụ thánh  và là
+        một trong những công tác chính của mình , “không thể tách rời khỏi các
+        hoạt động mục vụ và truyền giáo của Hội Thánh” . Do đó, tại các môi
+        trường làm việc của chị em, việc dạy giáo lý là bổn phận ưu tiên, nên
+        phải được thi hành nghiêm chỉnh và nhiệt thành."
     - title: Mục vụ giáo xứ
       content: >-
         * công việc mực vụ: dạy giáo lý, huấn luyện giáo lý viên, phụ trách các
@@ -298,8 +298,8 @@ whereabouts:
 
         * Hiện diện: 15/11/2008
         * ĐC: 39 Parakeelya Road Banksia Grove WA 6031, Australia
-  body: Chúng tôi hiện đang phục vụ tại 22 cộng đoàn trong đó 19 cộng đoàn thuộc 7
-    giáo phận Việt Nam, 2 cộng đoàn ở Mỹ và 1 cộng đoàn tại Úc.
+  body: "#### Chúng tôi hiện đang phục vụ tại 25 cộng đoàn trong đó 22 cộng đoàn
+    thuộc 7 giáo phận Việt Nam, 2 cộng đoàn ở Mỹ và 1 cộng đoàn tại Úc."
   banner:
     url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1731121237/su_menh_dndsii.jpg
     alt: Banner nơi hiện diện
