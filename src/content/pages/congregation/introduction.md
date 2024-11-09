@@ -22,29 +22,29 @@ aboutUs:
 
         Sống linh đạo Đa Minh: NÓI VỚI CHÚA – NÓI VỀ CHÚA Hoặc “CHIÊM NIỆM VÀ TRUYỀN THÔNG”, Chia sẻ cho tha nhân những gì mình đã chiêm niệm
       body: >-
-        ### **Danh Xưng: Hội dòng nữ Đa Minh Gò Vấp (the congregation of
+        #### **Danh Xưng: Hội dòng nữ Đa Minh Gò Vấp (the congregation of
         Dominican Sisters of Go Vap of Our Lady of the Rosary)**
 
 
-        ### **MỤC ĐÍCH**
+        #### **MỤC ĐÍCH**
 
 
-        ##### Qua việc sống ba lời khuyên Phúc Âm: khiết tịnh, khó nghèo và vâng phục. Chị em hướng đến mục đích của đời thánh hiến là đạt tới đức ái hoàn hảo bằng việc tôn vinh Thiên Chúa, xây dựng Hội Thánh và mưu cầu phần rỗi các linh hồn.
+        #### Qua việc sống ba lời khuyên Phúc Âm: khiết tịnh, khó nghèo và vâng phục. Chị em hướng đến mục đích của đời thánh hiến là đạt tới đức ái hoàn hảo bằng việc tôn vinh Thiên Chúa, xây dựng Hội Thánh và mưu cầu phần rỗi các linh hồn.
 
 
-        ### **ĐẶC TÍNH**
+        #### **ĐẶC TÍNH**
 
 
         ##### Chị em Đa Minh Gò Vấp luôn mang trong mình những yếu tố làm nên đặc tính người nữ tu Đa Minh: đời sống Cộng đoàn, trung thành tuân giữ các lời khấn, sốt sắng cử hành phụng vụ cộng đoàn, chuyên chăm học hành và thi hành sứ vụ.
 
 
-        ### **ĐẶC SỦNG**
+        #### **ĐẶC SỦNG**
 
 
         ##### Sống tinh thần đoàn sủng Đa Minh “Chia sẻ cho tha nhân những gì mình đã chiêm niệm”, chị em Đa Minh Gò Vấp đón nhận đặc sủng: CÙNG MẸ MARIA MÂN CÔI, LOAN BÁO TIN MỪNG ĐỨC KITÔ VỚI LÒNG TRẮC ẨN.
 
 
-        ### **SỨ VỤ**
+        #### **SỨ VỤ**
 
 
         ##### Chị em hội nhập nếp sống văn hóa truyền thống địa phương và thi hành sứ vụ truyền giáo qua các hoạt động phù hợp với thời đại: giáo dục đức tin và văn hóa, mục vụ giáo xứ và bác ái xã hội.
@@ -68,18 +68,19 @@ aboutUs:
         ## **I. ĐÀO TẠO SƠ KHỞI**
 
 
-        #### **Việc đào tạo sơ khởi gồm năm giai đoạn:**
+        ####  **\    Việc đào tạo sơ khởi gồm năm giai đoạn:**
 
 
-        ### **1. Thỉnh viện**
+        ###  **\    1. Thỉnh viện**
 
 
-        * ##### Giúp ứng sinh trưởng thành nhân bản và đức tin, tìm hiểu đời sống tu trì và đặc sủng của Hội dòng
-
-        * ##### Giúp Hội dòng nhận định khả năng sống đời Đa Minh của ứng sinh
+        ### \- Giúp ứng sinh trưởng thành nhân bản và đức tin, tìm hiểu  đời sống tu trì và đặc sủng của Hội dòng
 
 
-        ### **2. Tiền tập viện**
+        ### Giúp Hội dòng nhận định khả năng sống đời Đa Minh của ứng sinh
+
+
+        ###  **\    2. Tiền tập viện**
 
 
         * ##### Trưởng thành hơn đười sống nhân bản Kitô giáo
