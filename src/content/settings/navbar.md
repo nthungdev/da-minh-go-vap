@@ -24,7 +24,7 @@ pageBanners:
         alt: tập viện
   - path: /missions/evangelization
     banners:
-      - url: https://res.cloudinary.com/dxtb6rv7y/video/upload/v1731142675/Truyen_Giao_inhmul.mp4
+      - url: https://res.cloudinary.com/dxtb6rv7y/video/upload/v1731144231/Truyen_Giao_3_mmqhip.mp4
         alt: truyền giáo
 bottomDecorativeGraphic:
   alt: Đa Minh Gò Vấp
