@@ -760,7 +760,7 @@ developmentHistory:
 
         GIÁO PHẬN TP. HỒ CHÍ MINH (1978 - 2013)
 communityHistory:
-  title: Lịch sử các cộng đoàn
+  title: LỊCH SỬ CÁC CỘNG ĐOÀN
   limit: 8
   postGroups:
     - title: Miền Bắc
