@@ -226,16 +226,16 @@ mission:
         ### **Việc loan báo Nước Thiên Chúa của chúng ta phải:**
 
 
-        ##### 1. Bắt nguồn từ việc kết hợp mật thiết với Thiên Chúa ;
+        1. Bắt nguồn từ việc kết hợp mật thiết với Thiên Chúa ;
 
 
-        ##### 2. Thấm nhuần tinh thần phục vụ đích thực, vô vị lợi và sẵn sàng đi tới bất cứ nơi nào được sai đến;
+        2. Thấm nhuần tinh thần phục vụ đích thực, vô vị lợi và sẵn sàng đi tới bất cứ nơi nào được sai đến;
 
 
-        ##### 3. Vun trồng đời sống thiêng liêng và các đức tính nhân bản, để cách sống của chúng ta không làm suy yếu điều mình giảng truyền ;
+        3. Vun trồng đời sống thiêng liêng và các đức tính nhân bản, để cách sống của chúng ta không làm suy yếu điều mình giảng truyền ;
 
 
-        ##### 4. Mang tính ngôn sứ: nhận ra tiếng gọi của Thiên Chúa nơi các biến cố của cuộc sống và xã hội, đồng thời đáp ứng nhu cầu thời đại .
+        4. Mang tính ngôn sứ: nhận ra tiếng gọi của Thiên Chúa nơi các biến cố của cuộc sống và xã hội, đồng thời đáp ứng nhu cầu thời đại .
     - title: "GIÁO DỤC ĐỨC TIN VÀ VĂN HOÁ. "
       content: >-
         Đào tạo nữ tu đa minh trở nên môn đệ đích thực của Đức Kito xoay quanh 4
