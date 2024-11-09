@@ -162,7 +162,7 @@ aboutUs:
         type: youtube
         thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726132104/hinh_bia_huyen_thoai_lang_son_njygvs.jpg
   banner:
-    url: https://res.cloudinary.com/dxtb6rv7y/video/upload/v1730084694/Gioi_Thieu_Chung_Toi_La_r2qjq6.mp4
+    url: https://res.cloudinary.com/dxtb6rv7y/video/upload/v1731120522/Chung_Toi_La_omvfet.mp4
     alt: Hình chúng tôi
 mission:
   title: SỨ MỆNH
