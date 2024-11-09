@@ -9,18 +9,18 @@ developmentHistory:
         ### **TỪ NHÀ PHƯỚC ĐẾN CẢI TỔ THÀNH DÒNG**
 
 
-        ##### Theo lịch sữ Giáo hội Việt Nam, Sắc lệnh của Thánh bộ Truyền giáo ban hành ngày 30.12.1913 đã thành lập một giáo phận mới gồm hai tỉnh Lạng Sơn - Cao Bằng và một nửa tỉnh Hà giang, lấy tên là Giáo phận Lạng Sơn – Cao Bằng, và trao cho các cha dòng Đa Minh tỉnh dòng Lyon coi sóc.
+        #### Theo lịch sữ Giáo hội Việt Nam, Sắc lệnh của Thánh bộ Truyền giáo ban hành ngày 30.12.1913 đã thành lập một giáo phận mới gồm hai tỉnh Lạng Sơn - Cao Bằng và một nửa tỉnh Hà giang, lấy tên là Giáo phận Lạng Sơn – Cao Bằng, và trao cho các cha dòng Đa Minh tỉnh dòng Lyon coi sóc.
 
 
-        ##### Diện tích Giáo phận là 25.000 cây số vuông, với một đường biên thùy Hoa – Việt dài 700 km. Đây là một miền rừng âm u hiểm trở, núi rừng trùng điệp. Dân số lúc ấy có khoảng 300.000 người thuộc dòng dõi Thái, chia làm nhiều chủng: Thổ, Nùng, Mán, Tày… và nói chừng 9, 10 thổ âm khác nhau, với niềm tin dân gian đa thần. Người kinh (Việt) chỉ là thiểu số ở trung châu lên đó làm ăn hoặc đi công cán.
+        #### Diện tích Giáo phận là 25.000 cây số vuông, với một đường biên thùy Hoa – Việt dài 700 km. Đây là một miền rừng âm u hiểm trở, núi rừng trùng điệp. Dân số lúc ấy có khoảng 300.000 người thuộc dòng dõi Thái, chia làm nhiều chủng: Thổ, Nùng, Mán, Tày… và nói chừng 9, 10 thổ âm khác nhau, với niềm tin dân gian đa thần. Người kinh (Việt) chỉ là thiểu số ở trung châu lên đó làm ăn hoặc đi công cán.
 
 
-        ##### Giáo phận mới đặt dưới quyền coi sóc của Đức Ông Bertrand Cothonay OP. Chiểu.
+        #### Giáo phận mới đặt dưới quyền coi sóc của Đức Ông Bertrand Cothonay OP. Chiểu.
 
 
-        ##### Khởi đầu kiến thiết giáo phận, Ngài thấy cần có người bản xứ thành tâm thiện chí giúp việc, nhất là ngài đã sống chung và cùng hoạt động truyền giáo với các cha Đa Minh Tây Ban Nha ở Bùi Chu, nên đã kinh nghiệm rằng các “cô mụ” cộng tác vào việc truyền giáo rất đắc lực, nên đã lưu tâm đến việc thiết lập nhà Phước Đa Minh. Nhưng, giáo phận mới, giáo dân chỉ là tân tòng, chưa có ơn gọi tu trì, Ngài đã phải liên lạc với các Nhà phước Đa Minh Bùi Chu, xin một số chị em lên giúp.
+        #### Khởi đầu kiến thiết giáo phận, Ngài thấy cần có người bản xứ thành tâm thiện chí giúp việc, nhất là ngài đã sống chung và cùng hoạt động truyền giáo với các cha Đa Minh Tây Ban Nha ở Bùi Chu, nên đã kinh nghiệm rằng các “cô mụ” cộng tác vào việc truyền giáo rất đắc lực, nên đã lưu tâm đến việc thiết lập nhà Phước Đa Minh. Nhưng, giáo phận mới, giáo dân chỉ là tân tòng, chưa có ơn gọi tu trì, Ngài đã phải liên lạc với các Nhà phước Đa Minh Bùi Chu, xin một số chị em lên giúp.
     - title: "PHẦN II: THỜI KỲ CẢI TỔ VÀ PHÁT TRIỂN (1956 - 1978)"
-      body: "##### Nội dung There are many variations of passages of Lorem Ipsum
+      body: "#### Nội dung There are many variations of passages of Lorem Ipsum
         available, but the majority have suffered alteration in some form, by
         injected humour, or randomised words which don't look even slightly
         believable. If you are going to use a passage of Lorem Ipsum, you need
@@ -33,7 +33,7 @@ developmentHistory:
         free from repetition, injected humour, or non-characteristic words etc."
     - title: "PHẦN III: THỜI KỲ CHÍNH THỨC LÀ HỘI DÒNG ĐA MINH LẠNG SƠN, THÁNH HIỆU
         ĐỨC MẸ MẦN CÔI GIÁO PHẬN TP. HỒ CHÍ MÌNH (1978 - 2013)"
-      body: "##### Nội dung There are many variations of passages of Lorem Ipsum
+      body: "#### Nội dung There are many variations of passages of Lorem Ipsum
         available, but the majority have suffered alteration in some form, by
         injected humour, or randomised words which don't look even slightly
         believable. If you are going to use a passage of Lorem Ipsum, you need
