@@ -68,28 +68,27 @@ aboutUs:
         #### **I. ĐÀO TẠO SƠ KHỞI**
 
 
-        ####  **   Việc đào tạo sơ khởi gồm năm giai đoạn:**
+        ####  **Việc đào tạo sơ khởi gồm năm giai đoạn:**
 
 
-        ###  **  1. Thỉnh viện**
+        #### **1. Thỉnh viện**
 
 
-        \- Giúp ứng sinh trưởng thành nhân bản và đức tin, tìm hiểu  đời sống tu trì và đặc sủng của Hội dòng
+        * ##### Giúp ứng sinh trưởng thành nhân bản và đức tin, tìm hiểu  đời sống tu trì và đặc sủng của Hội dòng
+
+        * ##### Giúp Hội dòng nhận định khả năng sống đời Đa Minh của ứng sinh
 
 
-        Giúp Hội dòng nhận định khả năng sống đời Đa Minh của ứng sinh
+        ###  **  2. Tiền tập viện**
 
 
-        ###  **   2. Tiền tập viện**
+        * ##### Trưởng thành hơn đười sống nhân bản Kitô giáo
 
+        * ##### Thăng tiến hơn đời sống thiêng liêng
 
-        * #### Trưởng thành hơn đười sống nhân bản Kitô giáo
+        * ##### Thích nghi đời sống tu trì và sứ vụ của Dòng
 
-        * #### Thăng tiến hơn đời sống thiêng liêng
-
-        * #### Thích nghi đời sống tu trì và sứ vụ của Dòng
-
-        * #### Thẩm định ơn gọi tu trì và khả năng thích nghi của ứng sinh
+        * ##### Thẩm định ơn gọi tu trì và khả năng thích nghi của ứng sinh
 
 
         ### **3 Tập viện**
@@ -113,11 +112,11 @@ aboutUs:
         ### **5. Tiền vĩnh thệ**
 
 
-        * #### Bồi dưỡng tâm linh
+        * ##### Bồi dưỡng tâm linh
 
-        * #### Nhận thức sâu xa về giá trị các lời khấn.
+        * ##### Nhận thức sâu xa về giá trị các lời khấn.
 
-        * #### Nhìn lại hành trình thánh hiến của mình để xác tín việc hiến thân trọn đời cho Chúa trong sứ vụ loan báo Tin Mừng.
+        * ##### Nhìn lại hành trình thánh hiến của mình để xác tín việc hiến thân trọn đời cho Chúa trong sứ vụ loan báo Tin Mừng.
 
           #### **II. GIAI ĐOẠN THƯỜNG HUẤN (đào tạo liên tục)**
 
