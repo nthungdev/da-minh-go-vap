@@ -2,13 +2,13 @@
 aboutUs:
   title: CHÚNG TÔI LÀ NHỮNG NỮ TU ĐA MINH GÒ VẤP
   body: >-
-    Trụ sở chính: <u>[25/2 Lê Đức Thọ, Gò Vấp, Thành phố Hồ Chí
+    ### Trụ sở chính: <u>[25/2 Lê Đức Thọ, Gò Vấp, Thành phố Hồ Chí
     Minh](https://maps.app.goo.gl/hnfrCGRCganpZTPS7)</u>
 
 
-    Dòng nữ Đa Minh Gò Vấp tên gọi trước đây là Dòng nữ Đa Minh Lạng Sơn, là Dòng địa phận thuộc Tổng Giáo phận Sài Gòn.
+    ### Dòng nữ Đa Minh Gò Vấp tên gọi trước đây là Dòng nữ Đa Minh Lạng Sơn, là Dòng địa phận thuộc Tổng Giáo phận Sài Gòn.
   tabs:
-    - title: Đôi nét chính
+    - title: ĐÔI NÉT CHÍNH
       content: >-
         Danh hiệu dòng Đa Minh Việt nam thánh hiệu Đức mẹ Mân Côi, với tên
         thường gọi là hội dòng Đa Minh Gò Vấp
@@ -22,29 +22,33 @@ aboutUs:
 
         Sống linh đạo Đa Minh: NÓI VỚI CHÚA – NÓI VỀ CHÚA Hoặc “CHIÊM NIỆM VÀ TRUYỀN THÔNG”, Chia sẻ cho tha nhân những gì mình đã chiêm niệm
       body: >-
-        Danh Xưng: Hội dòng nữ Đa Minh Gò Vấp (the congregation of Dominican
-        Sisters of Go Vap of Our Lady of the Rosary)
+        #### Danh Xưng: Hội dòng nữ Đa Minh Gò Vấp (the congregation of
+        Dominican Sisters of Go Vap of Our Lady of the Rosary)
 
 
         ### **MỤC ĐÍCH**
+
 
         Qua việc sống ba lời khuyên Phúc Âm: khiết tịnh, khó nghèo và vâng phục. Chị em hướng đến mục đích của đời thánh hiến là đạt tới đức ái hoàn hảo bằng việc tôn vinh Thiên Chúa, xây dựng Hội Thánh và mưu cầu phần rỗi các linh hồn.
 
 
         ### **ĐẶC TÍNH**
 
+
         Chị em Đa Minh Gò Vấp luôn mang trong mình những yếu tố làm nên đặc tính người nữ tu Đa Minh: đời sống Cộng đoàn, trung thành tuân giữ các lời khấn, sốt sắng cử hành phụng vụ cộng đoàn, chuyên chăm học hành và thi hành sứ vụ.
 
 
         ### **ĐẶC SỦNG**
+
 
         Sống tinh thần đoàn sủng Đa Minh “Chia sẻ cho tha nhân những gì mình đã chiêm niệm”, chị em Đa Minh Gò Vấp đón nhận đặc sủng: CÙNG MẸ MARIA MÂN CÔI, LOAN BÁO TIN MỪNG ĐỨC KITÔ VỚI LÒNG TRẮC ẨN.
 
 
         ### **SỨ VỤ**
 
+
         Chị em hội nhập nếp sống văn hóa truyền thống địa phương và thi hành sứ vụ truyền giáo qua các hoạt động phù hợp với thời đại: giáo dục đức tin và văn hóa, mục vụ giáo xứ và bác ái xã hội.
-    - title: Chương trình đào tạo
+    - title: CHƯƠNG TRÌNH ĐÀO TẠO
       content: >-
         Đào tạo nữ tu đa minh trở nên môn đệ đích thực của Đức Kito xoay quanh 4
         phương diện
@@ -61,7 +65,13 @@ aboutUs:
 
         đào tạo qua các giai đoạn: Thỉnh sinh, tiền tập sinh, tập sinh và Học viện
       body: >-
-        ### **1. Giai đoạn Thỉnh viện**
+        ## **I. ĐÀO TẠO SƠ KHỞI**
+
+
+        **Việc đào tạo sơ khởi gồm năm giai đoạn:**
+
+
+        ### **1. Thỉnh viện**
 
 
         * Giúp ứng sinh trưởng thành nhân bản và đức tin, tìm hiểu đời sống tu trì và đặc sủng của Hội dòng
@@ -69,7 +79,7 @@ aboutUs:
         * Giúp Hội dòng nhận định khả năng sống đời Đa Minh của ứng sinh
 
 
-        ### **2. Giai đoạn Tiền tập viện**
+        ### **2. Tiền tập viện**
 
 
         * Trưởng thành hơn đười sống nhân bản Kitô giáo
@@ -81,7 +91,7 @@ aboutUs:
         * Thẩm định ơn gọi tu trì và khả năng thích nghi của ứng sinh
 
 
-        ### **3 giai đoạn Tập viện**
+        ### **3 Tập viện**
 
 
         * Giúp Tập sinh nhận ra ơn gọi của mình, sống những đòi hỏi thiết yếu của đời tu nếp sống Đa Minh và thấm nhuần tình thần của Hội dòng
@@ -107,7 +117,11 @@ aboutUs:
         * Nhận thức sâu xa về giá trị các lời khấn.
 
         * Nhìn lại hành trình thánh hiến của mình để xác tín việc hiến thân trọn đời cho Chúa trong sứ vụ loan báo Tin Mừng.
-    - title: Truyền thống chị em Đa Minh Gò Vấp
+
+          ## II. GIAI ĐOẠN THƯỜNG HUẤN (đào tạo liên tục)
+
+          ##### Khi đã khấn trọn, chị em bước vào giai đoạn thường huấn trải dài suốt cuộc đời tu trì.
+    - title: TRUYỀN THỐNG CHỊ EM ĐA MINH GÒ VẤP
       content: >-
         * công việc mực vụ: dạy giáo lý, huấn luyện giáo lý viên, phụ trách các
         hội đoàn trong giáo xứ
@@ -117,15 +131,21 @@ aboutUs:
         * công tác xã hội: mở các lớp tình thường, xây nhà cho người nghèo, chăm sóc trẻ khuyết tật, mái ấm tình thương cho các trẻ em mồ côi
 
         * công tác giáo dục: dấn thân trong việc giáo dục mầm non, các lớp dạy kèm bán trú, nội trú
-      body: |-
+      body: >-
         # **Truyền thống chị em Đa Minh Gò Vấp**
 
-        1. Là một cộng đoàn thừa sai, sẵn sàng ra đi để phục vụ
-        2. Lối sống nghèo, nhiệm nhặt và gần gũi chia sẻ thân tình.
-        3. Tấm lòng hiếu kính, vâng lời và chân thành cộng tác
-        4. Đức tính chuyên cần, xả thân và trung kiên trong thử thách, bách hại
-        5. Tinh thần hiếu học, khiêm tốn vươn lên và không ngừng đổi mới
-        6. Trọn niềm phó thác cậy trông và đầy lòng tin tưởng
+
+        1. ##### Là một cộng đoàn thừa sai, sẵn sàng ra đi để phục vụ
+
+        2. ##### Lối sống nghèo, nhiệm nhặt và gần gũi chia sẻ thân tình.
+
+        3. ##### Tấm lòng hiếu kính, vâng lời và chân thành cộng tác
+
+        4. ##### Đức tính chuyên cần, xả thân và trung kiên trong thử thách, bách hại
+
+        5. ##### Tinh thần hiếu học, khiêm tốn vươn lên và không ngừng đổi mới
+
+        6. ##### Trọn niềm phó thác cậy trông và đầy lòng tin tưởng
   videos:
     title: Video giới thiệu
     videos:
@@ -167,11 +187,11 @@ aboutUs:
 mission:
   title: SỨ MỆNH
   body: >-
-    Sứ vụ đặc biệt của Hội dòng Đa Minh Gò Vấp là LOAN BÁO TIN MỪNG CHO NGƯỜI
-    NGHÈO KHÓ: 25/2 Lê Đức Thọ, Gò Vấp, Thành phố Hồ Chí Minh
+    ##### Sứ vụ đặc biệt của Hội dòng Đa Minh Gò Vấp là LOAN BÁO TIN MỪNG CHO
+    NGƯỜI NGHÈO KHÓ: 25/2 Lê Đức Thọ, Gò Vấp, Thành phố Hồ Chí Minh
 
 
-    Xuyên suốt giòng thời gian gần 100 năm, từ rừng Lạng Sơn miền Bắc đến miền đảo Phú Quốc trời Nam, những họat động của chị em đa số tập trung ở các xứ truyền giáo hoặc xứ đạo miền quê. Đơn sơ, giản dị, hội nhập vào cuộc sống người lao động địa phương để khai hóa dân trí, gieo rắc tình thương và giáo dục niềm tin. Cho đi cái mình có. Làm điều mình có thể với một con tim yêu mến và hiến dâng trọn vẹn. Thật bé nhỏ và khiêm tốn! Chị em Đa Minh Lạng Sơn trong hình thành và phát triển, đến hôm nay Dòng đã có một chỗ đứng trong lòng Giáo hội. Hội dòng Đa Minh Lạng Sơn đang cùng nhịp bước với các hội dòng trong lòng Giáo hội Việt Nam và cùng với Giáo hội toàn cầu dấn thân “PHỤC VỤ ƠN CỨU ĐỘ”.
+    ##### Xuyên suốt giòng thời gian gần 100 năm, từ rừng Lạng Sơn miền Bắc đến miền đảo Phú Quốc trời Nam, những họat động của chị em đa số tập trung ở các xứ truyền giáo hoặc xứ đạo miền quê. Đơn sơ, giản dị, hội nhập vào cuộc sống người lao động địa phương để khai hóa dân trí, gieo rắc tình thương và giáo dục niềm tin. Cho đi cái mình có. Làm điều mình có thể với một con tim yêu mến và hiến dâng trọn vẹn. Thật bé nhỏ và khiêm tốn! Chị em Đa Minh Lạng Sơn trong hình thành và phát triển, đến hôm nay Dòng đã có một chỗ đứng trong lòng Giáo hội. Hội dòng Đa Minh Lạng Sơn đang cùng nhịp bước với các hội dòng trong lòng Giáo hội Việt Nam và cùng với Giáo hội toàn cầu dấn thân “PHỤC VỤ ƠN CỨU ĐỘ”.
   videos:
     title: Video hoat dong su menh
     videos:
@@ -281,6 +301,6 @@ whereabouts:
   body: Chúng tôi hiện đang phục vụ tại 22 cộng đoàn trong đó 19 cộng đoàn thuộc 7
     giáo phận Việt Nam, 2 cộng đoàn ở Mỹ và 1 cộng đoàn tại Úc.
   banner:
-    url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726045379/2_hjoqk6.svg
+    url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1731121237/su_menh_dndsii.jpg
     alt: Banner nơi hiện diện
 ---
