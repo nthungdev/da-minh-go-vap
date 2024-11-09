@@ -68,57 +68,67 @@ aboutUs:
         #### **I. ĐÀO TẠO SƠ KHỞI**
 
 
-        ####  **Việc đào tạo sơ khởi gồm năm giai đoạn:**
+        #### **Việc đào tạo sơ khởi gồm năm giai đoạn:**
 
 
         #### **1. Thỉnh viện**
 
 
-        * ##### Giúp ứng sinh trưởng thành nhân bản và đức tin, tìm hiểu  đời sống tu trì và đặc sủng của Hội dòng
-
-        * ##### Giúp Hội dòng nhận định khả năng sống đời Đa Minh của ứng sinh
+        ##### \- Giúp ứng sinh trưởng thành nhân bản và đức tin, tìm hiểu  đời sống tu trì và đặc sủng của Hội dòng
 
 
-        ###  **  2. Tiền tập viện**
+        ##### \- Giúp Hội dòng nhận định khả năng sống đời Đa Minh của ứng sinh
 
 
-        * ##### Trưởng thành hơn đười sống nhân bản Kitô giáo
+        #### **2. Tiền tập viện**
 
-        * ##### Thăng tiến hơn đời sống thiêng liêng
 
-        * ##### Thích nghi đời sống tu trì và sứ vụ của Dòng
+        #### \- Trưởng thành hơn đười sống nhân bản Kitô giáo
 
-        * ##### Thẩm định ơn gọi tu trì và khả năng thích nghi của ứng sinh
+
+        #### \- Thăng tiến hơn đời sống thiêng liêng
+
+
+        #### \- Thích nghi đời sống tu trì và sứ vụ của Dòng
+
+
+        #### \- Thẩm định ơn gọi tu trì và khả năng thích nghi của ứng sinh
 
 
         ### **3 Tập viện**
 
 
-        * #### Giúp Tập sinh nhận ra ơn gọi của mình, sống những đòi hỏi thiết yếu của đời tu nếp sống Đa Minh và thấm nhuần tình thần của Hội dòng
+        ##### \- Giúp Tập sinh nhận ra ơn gọi của mình, sống những đòi hỏi thiết yếu của đời tu nếp sống Đa Minh và thấm nhuần tình thần của Hội dòng
 
-        * #### Giúp Hội dòng kiểm chứng ơn gọi và khả năng thích đáng của Tập sinh
+
+        ##### \- Giúp Hội dòng kiểm chứng ơn gọi và khả năng thích đáng của Tập sinh
 
 
         ### **4.Học viện**
 
 
-        * #### Tiếp tục phát triển đời sống tâm linh và rèn luyện nhân bản.
+        ##### \- Tiếp tục phát triển đời sống tâm linh và rèn luyện nhân bản.
 
-        * #### Trau dồi kiến thức thánh khoa, ơn gọi tu trì và nếp sống Đa Minh
 
-        * #### Thực tập mục vụ theo mục đích của Hội dòng
+        ##### \- Trau dồi kiến thức thánh khoa, ơn gọi tu trì và nếp sống Đa Minh
+
+
+        ##### \- Thực tập mục vụ theo mục đích của Hội dòng
 
 
         ### **5. Tiền vĩnh thệ**
 
 
-        * ##### Bồi dưỡng tâm linh
+        ##### \- Bồi dưỡng tâm linh
 
-        * ##### Nhận thức sâu xa về giá trị các lời khấn.
 
-        * ##### Nhìn lại hành trình thánh hiến của mình để xác tín việc hiến thân trọn đời cho Chúa trong sứ vụ loan báo Tin Mừng.
+        ##### \- Nhận thức sâu xa về giá trị các lời khấn.
 
-          #### **II. GIAI ĐOẠN THƯỜNG HUẤN (đào tạo liên tục)**
+
+        ##### \- Nhìn lại hành trình thánh hiến của mình để xác tín việc hiến thân trọn đời cho Chúa trong sứ vụ loan báo Tin Mừng.
+
+
+        * #### **II. GIAI ĐOẠN THƯỜNG HUẤN (đào tạo liên tục)**
 
           #### **Khi đã khấn trọn, chị em bước vào giai đoạn thường huấn trải dài suốt cuộc đời tu trì.**
     - title: TRUYỀN THỐNG CHỊ EM ĐA MINH GÒ VẤP
@@ -132,20 +142,25 @@ aboutUs:
 
         * công tác giáo dục: dấn thân trong việc giáo dục mầm non, các lớp dạy kèm bán trú, nội trú
       body: >-
-        # **Truyền thống chị em Đa Minh Gò Vấp**
+        #### **Truyền thống chị em Đa Minh Gò Vấp**
 
 
-        1. ##### Là một cộng đoàn thừa sai, sẵn sàng ra đi để phục vụ
+        ##### 1. Là một cộng đoàn thừa sai, sẵn sàng ra đi để phục vụ
 
-        2. ##### Lối sống nghèo, nhiệm nhặt và gần gũi chia sẻ thân tình.
 
-        3. ##### Tấm lòng hiếu kính, vâng lời và chân thành cộng tác
+        ##### 2. Lối sống nghèo, nhiệm nhặt và gần gũi chia sẻ thân tình.
 
-        4. ##### Đức tính chuyên cần, xả thân và trung kiên trong thử thách, bách hại
 
-        5. ##### Tinh thần hiếu học, khiêm tốn vươn lên và không ngừng đổi mới
+        ##### 3. Tấm lòng hiếu kính, vâng lời và chân thành cộng tác
 
-        6. ##### Trọn niềm phó thác cậy trông và đầy lòng tin tưởng
+
+        ##### 4. Đức tính chuyên cần, xả thân và trung kiên trong thử thách, bách hại
+
+
+        ##### 5. Tinh thần hiếu học, khiêm tốn vươn lên và không ngừng đổi mới
+
+
+        ##### 6. Trọn niềm phó thác cậy trông và đầy lòng tin tưởng
   videos:
     title: Video giới thiệu
     videos:
