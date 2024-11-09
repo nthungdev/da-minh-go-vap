@@ -223,7 +223,7 @@ mission:
         * Sống linh đạo Đa Minh: NÓI VỚI CHÚA – NÓI VỀ CHÚA Hoặc “CHIÊM NIỆM VÀ TRUYỀN THÔNG”, Chia sẻ cho tha nhân những gì mình đã chiêm niệm
       title: CẦU NGUYỆN, HY SINH VÀ CHỨNG TÁ ĐỜI SỐNG
       body: >-
-        ### **Việc loan báo Nước Thiên Chúa của chúng ta phải:**
+        ##### **Việc loan báo Nước Thiên Chúa của chúng ta phải:**
 
 
         1. Bắt nguồn từ việc kết hợp mật thiết với Thiên Chúa ;
