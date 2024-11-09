@@ -221,9 +221,9 @@ mission:
         * Mục đích: làm vinh danh Chúa, thánh hóa bản thân và dâng hiến hoàn toàn cho việc loan báo tin mừng bằng cách thực thi ba lời khấn, khiết tịnh, khó nghèo và vâng phục theo luật dòng các chị em Đa Minh Việt Nam, nội quy hội dòng và tu luật thánh Augustino
 
         * Sống linh đạo Đa Minh: NÓI VỚI CHÚA – NÓI VỀ CHÚA Hoặc “CHIÊM NIỆM VÀ TRUYỀN THÔNG”, Chia sẻ cho tha nhân những gì mình đã chiêm niệm
-      title: Cầu nguyện, hy sinh và chứng tá đời sống
+      title: CẦU NGUYỆN, HY SINH VÀ CHỨNG TÁ ĐỜI SỐNG
       body: >-
-        ### Việc loan báo Nước Thiên Chúa của chúng ta phải:
+        ### **Việc loan báo Nước Thiên Chúa của chúng ta phải:**
 
 
         1. #### bắt nguồn từ việc kết hợp mật thiết với Thiên Chúa ;
@@ -233,7 +233,7 @@ mission:
         3. #### vun trồng đời sống thiêng liêng và các đức tính nhân bản, để cách sống của chúng ta không làm suy yếu điều mình giảng truyền ;
 
         4. #### mang tính ngôn sứ: nhận ra tiếng gọi của Thiên Chúa nơi các biến cố của cuộc sống và xã hội, đồng thời đáp ứng nhu cầu thời đại .
-    - title: Giáo dục đức tin và văn hóa
+    - title: "GIÁO DỤC ĐỨC TIN VÀ VĂN HOÁ. "
       content: >-
         Đào tạo nữ tu đa minh trở nên môn đệ đích thực của Đức Kito xoay quanh 4
         phương diện
@@ -253,7 +253,7 @@ mission:
         hoạt động mục vụ và truyền giáo của Hội Thánh” . Do đó, tại các môi
         trường làm việc của chị em, việc dạy giáo lý là bổn phận ưu tiên, nên
         phải được thi hành nghiêm chỉnh và nhiệt thành."
-    - title: Mục vụ giáo xứ
+    - title: "MỤC VỤ GIÁO XỨ. "
       content: >-
         * công việc mực vụ: dạy giáo lý, huấn luyện giáo lý viên, phụ trách các
         hội đoàn trong giáo xứ.
@@ -264,7 +264,7 @@ mission:
 
         * công tác giáo dục: dấn thân trong việc giáo dục mầm non, các lớp dạy kèm bán trú, nội trú.
       body: Điền nội dung
-    - title: Bác ái xã hội và các hoạt động thăng tiến con người
+    - title: BÁC ÁI XÃ HỘI VÀ CÁC HOẠT ĐỘNG THĂNG TIẾN CON NGƯỜI.
       body: nội dung
   banner:
     url: https://res.cloudinary.com/dxtb6rv7y/video/upload/v1730084690/Misione_2_kj5h1m.mp4
