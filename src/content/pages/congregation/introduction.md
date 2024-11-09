@@ -29,25 +29,25 @@ aboutUs:
         #### **MỤC ĐÍCH**
 
 
-        #### Qua việc sống ba lời khuyên Phúc Âm: khiết tịnh, khó nghèo và vâng phục. Chị em hướng đến mục đích của đời thánh hiến là đạt tới đức ái hoàn hảo bằng việc tôn vinh Thiên Chúa, xây dựng Hội Thánh và mưu cầu phần rỗi các linh hồn.
+        ### Qua việc sống ba lời khuyên Phúc Âm: khiết tịnh, khó nghèo và vâng phục. Chị em hướng đến mục đích của đời thánh hiến là đạt tới đức ái hoàn hảo bằng việc tôn vinh Thiên Chúa, xây dựng Hội Thánh và mưu cầu phần rỗi các linh hồn.
 
 
         #### **ĐẶC TÍNH**
 
 
-        ##### Chị em Đa Minh Gò Vấp luôn mang trong mình những yếu tố làm nên đặc tính người nữ tu Đa Minh: đời sống Cộng đoàn, trung thành tuân giữ các lời khấn, sốt sắng cử hành phụng vụ cộng đoàn, chuyên chăm học hành và thi hành sứ vụ.
+        ### Chị em Đa Minh Gò Vấp luôn mang trong mình những yếu tố làm nên đặc tính người nữ tu Đa Minh: đời sống Cộng đoàn, trung thành tuân giữ các lời khấn, sốt sắng cử hành phụng vụ cộng đoàn, chuyên chăm học hành và thi hành sứ vụ.
 
 
         #### **ĐẶC SỦNG**
 
 
-        ##### Sống tinh thần đoàn sủng Đa Minh “Chia sẻ cho tha nhân những gì mình đã chiêm niệm”, chị em Đa Minh Gò Vấp đón nhận đặc sủng: CÙNG MẸ MARIA MÂN CÔI, LOAN BÁO TIN MỪNG ĐỨC KITÔ VỚI LÒNG TRẮC ẨN.
+        ### Sống tinh thần đoàn sủng Đa Minh “Chia sẻ cho tha nhân những gì mình đã chiêm niệm”, chị em Đa Minh Gò Vấp đón nhận đặc sủng: CÙNG MẸ MARIA MÂN CÔI, LOAN BÁO TIN MỪNG ĐỨC KITÔ VỚI LÒNG TRẮC ẨN.
 
 
         #### **SỨ VỤ**
 
 
-        ##### Chị em hội nhập nếp sống văn hóa truyền thống địa phương và thi hành sứ vụ truyền giáo qua các hoạt động phù hợp với thời đại: giáo dục đức tin và văn hóa, mục vụ giáo xứ và bác ái xã hội.
+        ### Chị em hội nhập nếp sống văn hóa truyền thống địa phương và thi hành sứ vụ truyền giáo qua các hoạt động phù hợp với thời đại: giáo dục đức tin và văn hóa, mục vụ giáo xứ và bác ái xã hội.
     - title: CHƯƠNG TRÌNH ĐÀO TẠO
       content: >-
         Đào tạo nữ tu đa minh trở nên môn đệ đích thực của Đức Kito xoay quanh 4
@@ -65,61 +65,61 @@ aboutUs:
 
         đào tạo qua các giai đoạn: Thỉnh sinh, tiền tập sinh, tập sinh và Học viện
       body: >-
-        ## **I. ĐÀO TẠO SƠ KHỞI**
+        #### **I. ĐÀO TẠO SƠ KHỞI**
 
 
-        ####  **\    Việc đào tạo sơ khởi gồm năm giai đoạn:**
+        ####  **   Việc đào tạo sơ khởi gồm năm giai đoạn:**
 
 
-        ###  **\    1. Thỉnh viện**
+        ###  **  1. Thỉnh viện**
 
 
-        ### \- Giúp ứng sinh trưởng thành nhân bản và đức tin, tìm hiểu  đời sống tu trì và đặc sủng của Hội dòng
+        \- Giúp ứng sinh trưởng thành nhân bản và đức tin, tìm hiểu  đời sống tu trì và đặc sủng của Hội dòng
 
 
-        ### Giúp Hội dòng nhận định khả năng sống đời Đa Minh của ứng sinh
+        Giúp Hội dòng nhận định khả năng sống đời Đa Minh của ứng sinh
 
 
-        ###  **\    2. Tiền tập viện**
+        ###  **   2. Tiền tập viện**
 
 
-        * ##### Trưởng thành hơn đười sống nhân bản Kitô giáo
+        * #### Trưởng thành hơn đười sống nhân bản Kitô giáo
 
-        * ##### Thăng tiến hơn đời sống thiêng liêng
+        * #### Thăng tiến hơn đời sống thiêng liêng
 
-        * ##### Thích nghi đời sống tu trì và sứ vụ của Dòng
+        * #### Thích nghi đời sống tu trì và sứ vụ của Dòng
 
-        * ##### Thẩm định ơn gọi tu trì và khả năng thích nghi của ứng sinh
+        * #### Thẩm định ơn gọi tu trì và khả năng thích nghi của ứng sinh
 
 
         ### **3 Tập viện**
 
 
-        * ##### Giúp Tập sinh nhận ra ơn gọi của mình, sống những đòi hỏi thiết yếu của đời tu nếp sống Đa Minh và thấm nhuần tình thần của Hội dòng
+        * #### Giúp Tập sinh nhận ra ơn gọi của mình, sống những đòi hỏi thiết yếu của đời tu nếp sống Đa Minh và thấm nhuần tình thần của Hội dòng
 
-        * ##### Giúp Hội dòng kiểm chứng ơn gọi và khả năng thích đáng của Tập sinh
+        * #### Giúp Hội dòng kiểm chứng ơn gọi và khả năng thích đáng của Tập sinh
 
 
         ### **4.Học viện**
 
 
-        * ##### Tiếp tục phát triển đời sống tâm linh và rèn luyện nhân bản.
+        * #### Tiếp tục phát triển đời sống tâm linh và rèn luyện nhân bản.
 
-        * ##### Trau dồi kiến thức thánh khoa, ơn gọi tu trì và nếp sống Đa Minh
+        * #### Trau dồi kiến thức thánh khoa, ơn gọi tu trì và nếp sống Đa Minh
 
-        * ##### Thực tập mục vụ theo mục đích của Hội dòng
+        * #### Thực tập mục vụ theo mục đích của Hội dòng
 
 
         ### **5. Tiền vĩnh thệ**
 
 
-        * ##### Bồi dưỡng tâm linh
+        * #### Bồi dưỡng tâm linh
 
-        * ##### Nhận thức sâu xa về giá trị các lời khấn.
+        * #### Nhận thức sâu xa về giá trị các lời khấn.
 
-        * ##### Nhìn lại hành trình thánh hiến của mình để xác tín việc hiến thân trọn đời cho Chúa trong sứ vụ loan báo Tin Mừng.
+        * #### Nhìn lại hành trình thánh hiến của mình để xác tín việc hiến thân trọn đời cho Chúa trong sứ vụ loan báo Tin Mừng.
 
-          ## **II. GIAI ĐOẠN THƯỜNG HUẤN (đào tạo liên tục)**
+          #### **II. GIAI ĐOẠN THƯỜNG HUẤN (đào tạo liên tục)**
 
           #### **Khi đã khấn trọn, chị em bước vào giai đoạn thường huấn trải dài suốt cuộc đời tu trì.**
     - title: TRUYỀN THỐNG CHỊ EM ĐA MINH GÒ VẤP
