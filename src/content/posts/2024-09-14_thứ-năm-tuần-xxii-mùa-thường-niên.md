@@ -1,5 +1,5 @@
 ---
-title: Thứ Năm Tuần XXII Mùa Thường Niên
+title: 14/9/2024
 date: 2024-09-14T09:51:00.000Z
 hiddenTags:
   - Suy niệm
