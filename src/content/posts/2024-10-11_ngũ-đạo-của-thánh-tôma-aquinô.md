@@ -1,5 +1,5 @@
 ---
-title: Ngũ đạo của thánh Tôma Aquinô
+title: "2"
 date: 2024-10-10T14:55:00.000Z
 hiddenTags:
   - Hiểu Để Yêu
