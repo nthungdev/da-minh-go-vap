@@ -13,4 +13,5 @@ quotes:
 hiddenTags:
   - Giới thiệu
   - Sắc lập dòng
+  - cha bề trên tổng quyền dòng đa minh
 ---
