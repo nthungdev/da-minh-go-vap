@@ -24,7 +24,7 @@ pageBanners:
         alt: tập viện
   - path: /missions/evangelization
     banners:
-      - url: https://res.cloudinary.com/dxtb6rv7y/video/upload/v1731465897/Tinh_Yeu_Duc_Kito_Thuc_Bach_Toi_lqzlds.mp4
+      - url: https://res.cloudinary.com/dxtb6rv7y/video/upload/v1731483402/Truyen_Giao_Dkttbt_ji7a4d.mp4
         alt: truyền giáo
 bottomDecorativeGraphic:
   alt: Đa Minh Gò Vấp
