@@ -1,54 +1,61 @@
 ---
-title: Su Vu
+title: SỨ VỤ
 sections:
   - type: postSection
-    title: Truyen Giao
+    title: TRUYỀN GIÁO
     hiddenTags:
-      - Giao phan Da Lat
+      - kinh phung vu
     limit: 4
   - type: postByCategorySection
     categories:
-      - title: Truyen giao
+      - title: DẠY GIÁO LÝ
         hiddenTags:
-          - Giao phan Xuan Loc
-      - title: Muc Vu
+          - kinh phung vu
+        limit: 6
+      - title: PHỤC VỤ GIÁO XỨ
         hiddenTags:
-          - Giao phan Phu Cuong
-      - title: Giao Ly
-        hiddenTags:
-          - Giao phan Da Lat
-      - title: Phuc Vu Giao Xu
-        hiddenTags:
-          - Giao phan Xuan Loc
-    title: Muc Vu
+          - kinh phung vu
+        limit: 6
+    title: MỤC VỤ
     limit: 1
   - type: postByCategorySection
-    title: Hoat Dong Xa Hoi
+    title: HOẠT ĐỘNG BÁC ÁI XÃ HỘI
     categories:
-      - title: Mo coi
+      - title: NUÔI DƯỠNG TRẺ MỒ CÔI
         hiddenTags:
-          - Giao phan Phu Cuong
-      - title: Bac Ai
+          - kinh phung vu
+        limit: 6
+      - title: CHẮM SÓC NGƯỜI KHUYẾT TẬT
         hiddenTags:
-          - Hiểu Để Yêu
-      - title: Khuyet tat
+          - kinh phung vu
+        limit: 4
+      - title: "ĐẾN VỚI ANH EM "
         hiddenTags:
-          - Các đấng bản quyền
+          - kinh phung vu
+        limit: 6
     limit: 4
   - type: postByCategorySection
-    title: Giao Duc
+    title: GIÁO DỤC
     categories:
-      - title: My Son
+      - title: MẪU GIÁO MỸ SƠN
         hiddenTags:
-          - Các đấng bản quyền
-      - title: Bong Hong
+          - kinh phung vu
+        limit: 6
+      - title: MẦN NON BÔNG HỒNG
         hiddenTags:
-          - Giao phan Phu Cuong
-      - title: Hoa Mi
+          - kinh phung vu
+        limit: 6
+      - title: MẪU GIÁO HOẠ MI
         hiddenTags:
-          - Giao phan Phu Cuong
-      - title: Lang Son
+          - kinh phung vu
+        limit: 6
+      - title: CÁC TRƯỜNG MẦM NON KHÁC
         hiddenTags:
-          - Các đấng bản quyền
+          - kinh phung vu
+        limit: 6
+      - limit: 6
+        title: TRƯỜNG BÁN TRÚ LẠNG SƠN
+        hiddenTags:
+          - kinh phung vu
     limit: 4
 ---
