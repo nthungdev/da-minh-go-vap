@@ -6,7 +6,7 @@ subCategories:
       - Giới thiệu
   - title: Lịch Sử
     hiddenTags:
-      - Lịch sử
+      - kinh phung vu
   - hiddenTags:
       - người khởi xướng và xây dựng
       - đức giám mục lạng sơn
