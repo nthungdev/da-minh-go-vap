@@ -48,10 +48,10 @@ curatedPosts:
   enable: true
 links:
   links:
-    - url: https://www.facebook.com
+    - url: https://daminhvn.net/
       image:
-        url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1730087566/hoat_dong_su_vu_n6gcca.jpg
-        alt: Facebook
+        url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1731488022/daminhvn.net_dprfdf.png
+        alt: Dòng Đa Minh Việt Nam
     - url: https://www.instagram.com/
       image:
         url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1730087565/giao_duc_jev57s.jpg
