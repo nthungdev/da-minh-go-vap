@@ -8,11 +8,11 @@ sections:
     limit: 4
   - type: postByCategorySection
     categories:
-      - title: DẠY GIÁO LÝ
+      - title: Dạy Giáo lý
         hiddenTags:
           - kinh phung vu
         limit: 6
-      - title: PHỤC VỤ GIÁO XỨ
+      - title: Phục vụ Giáo xứ
         hiddenTags:
           - kinh phung vu
         limit: 6
@@ -21,15 +21,15 @@ sections:
   - type: postByCategorySection
     title: HOẠT ĐỘNG BÁC ÁI XÃ HỘI
     categories:
-      - title: NUÔI DƯỠNG TRẺ MỒ CÔI
+      - title: Nuôi dưỡng trẻ Mồ côi
         hiddenTags:
           - kinh phung vu
         limit: 6
-      - title: CHẮM SÓC NGƯỜI KHUYẾT TẬT
+      - title: Chăm sóc người khuyết tật
         hiddenTags:
           - kinh phung vu
         limit: 4
-      - title: "ĐẾN VỚI ANH EM "
+      - title: Đến với anh em kém may mắn
         hiddenTags:
           - kinh phung vu
         limit: 6
@@ -37,24 +37,24 @@ sections:
   - type: postByCategorySection
     title: GIÁO DỤC
     categories:
-      - title: MẪU GIÁO MỸ SƠN
+      - title: MN Mỹ Sơn
         hiddenTags:
           - kinh phung vu
         limit: 6
-      - title: MẦN NON BÔNG HỒNG
+      - title: MN Bông Hồng
         hiddenTags:
           - kinh phung vu
         limit: 6
-      - title: MẪU GIÁO HOẠ MI
+      - title: MN Hoạ Mi
         hiddenTags:
           - kinh phung vu
         limit: 6
-      - title: CÁC TRƯỜNG MẦM NON KHÁC
+      - title: Các trường Mầm non
         hiddenTags:
           - kinh phung vu
         limit: 6
       - limit: 6
-        title: TRƯỜNG BÁN TRÚ LẠNG SƠN
+        title: Bán trú cấp 1
         hiddenTags:
           - kinh phung vu
     limit: 4
