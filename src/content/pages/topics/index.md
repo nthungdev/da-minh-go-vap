@@ -5,7 +5,7 @@ sections:
     title: Hiểu để yêu
     hiddenTags:
       - Hiểu Để Yêu
-  - limit: 8
+  - limit: 4
     title: Bé và LỜI
     hiddenTags:
       - Bé và lời
