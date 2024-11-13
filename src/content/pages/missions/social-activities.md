@@ -3,11 +3,14 @@ title: Hoạt Động Bác Ái Xã Hội
 postGroups:
   - title: Cơ Sở Bảo Trợ Hoa Hồng Củ Chi
     hiddenTags:
-      - Giao phan Xuan Loc
+      - kinh phung vu
+    limit: 6
   - title: Mái Ấm Thất Khê Vinh Sơn
     hiddenTags:
-      - Giới thiệu
+      - kinh phung vu
+    limit: 4
   - title: Lớp Tình Thương
     hiddenTags:
-      - Các đấng bản quyền
+      - kinh phung vu
+    limit: 6
 ---
