@@ -48,14 +48,14 @@ curatedPosts:
   enable: true
 links:
   links:
+    - url: https://catechesis.net/
+      image:
+        url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1731491220/1_r59xrn.png
+        alt: Trung tâm học vấn Đa Minh
     - url: https://daminhvn.net/
       image:
-        url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1731488022/daminhvn.net_dprfdf.png
-        alt: Dòng Đa Minh Việt Nam
-    - url: https://www.instagram.com/
-      image:
-        url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1730087565/giao_duc_jev57s.jpg
-        alt: Instagram
+        url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1731491223/2_jirzzy.png
+        alt: Tỉnh dòng Đa Minh Việt Nam
   enable: true
   title: LIÊN KẾT
 ---
