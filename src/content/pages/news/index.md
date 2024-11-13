@@ -4,13 +4,13 @@ sections:
   - limit: 4
     title: Bản tin Hội dòng
     hiddenTags:
-      - Giao phan Phu Cuong
+      - kinh phung vu
   - limit: 4
     title: Bản tin gia đình Đa Minh
     hiddenTags:
-      - Giao phan Phu Cuong
+      - kinh phung vu
   - limit: 4
     title: Bản tin Giáo Hội
     hiddenTags:
-      - Walking with Jesus
+      - kinh phung vu
 ---
