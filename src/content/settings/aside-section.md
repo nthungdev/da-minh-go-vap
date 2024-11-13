@@ -57,5 +57,5 @@ links:
         url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1730087565/giao_duc_jev57s.jpg
         alt: Instagram
   enable: true
-  title: Lien ket
+  title: LIÊN KẾT
 ---
