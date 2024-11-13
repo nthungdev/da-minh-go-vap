@@ -4,17 +4,17 @@ postGroups:
   - title: Trường Mẫu Giáo Tư Thục Mỹ Sơn
     hiddenTags:
       - kinh phung vu
-    limit: 9
+    limit: 4
   - title: Trường Mẫu Giáo Tư Thục Hoa Hồng
     hiddenTags:
       - kinh phung vu
-    limit: 6
+    limit: 4
   - title: Trường Mẫu Giáo Tư Thục Họa Mi
     hiddenTags:
       - kinh phung vu
-    limit: 6
+    limit: 4
   - title: Trường Mẫu Giáo Bán Trú Cấp 1 Lạng Sơn
     hiddenTags:
       - kinh phung vu
-    limit: 6
+    limit: 4
 ---
