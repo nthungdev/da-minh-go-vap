@@ -43,7 +43,7 @@ aboutUs:
         <hr><h4 style="color:#008596;"> <b>SỨ VỤ</b></h4> 
 
 
-        <h3>Chị em hội nhập nếp sống văn hóa truyền thống địa phương và thi hành sứ vụ truyền giáo qua các hoạt động phù hợp với thời đại: giáo dục đức tin và văn hóa, mục vụ giáo xứ và bác ái xã hội.</h3>
+        <p>Chị em hội nhập nếp sống văn hóa truyền thống địa phương và thi hành sứ vụ truyền giáo qua các hoạt động phù hợp với thời đại: giáo dục đức tin và văn hóa, mục vụ giáo xứ và bác ái xã hội.</p>
     - title: CHƯƠNG TRÌNH ĐÀO TẠO
       content: >-
         Đào tạo nữ tu đa minh trở nên môn đệ đích thực của Đức Kito xoay quanh 4
