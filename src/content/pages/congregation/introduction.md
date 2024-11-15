@@ -24,9 +24,7 @@ aboutUs:
         Sống linh đạo Đa Minh: NÓI VỚI CHÚA – NÓI VỀ CHÚA Hoặc “CHIÊM NIỆM VÀ TRUYỀN THÔNG”, Chia sẻ cho tha nhân những gì mình đã chiêm niệm
       body: >-
         #### **Danh Xưng: Hội dòng nữ Đa Minh Gò Vấp (the congregation of
-        Dominican Sisters of Go Vap)**
-
-        <br> <hr>
+        Dominican Sisters of Go Vap)** <hr>
 
         <h4 style="color:#008596;"> <b>MỤC ĐÍCH</b></h4> 
 
