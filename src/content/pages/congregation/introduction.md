@@ -32,18 +32,18 @@ aboutUs:
 
         <hr>
 
-        <h4 style="color:#008596;line-height: 1.5"> <b>ĐẶC TÍNH</b></h4> 
+        <h4 style="color:#008596;line-height:1"> <b>ĐẶC TÍNH</b></h4> 
 
         <h4> Chị em Đa Minh Gò Vấp luôn mang trong mình những yếu tố làm nên đặc tính người nữ tu Đa Minh: đời sống Cộng đoàn, trung thành tuân giữ các lời khấn, sốt sắng cử hành phụng vụ cộng đoàn, chuyên chăm học hành và thi hành sứ vụ. </h4> 
 
         <hr><h4 style="color:#008596;"> <b>ĐẶC SỦNG</b></h4> 
 
-        <h4>Sống tinh thần đoàn sủng Đa Minh “Chia sẻ cho tha nhân những gì mình đã chiêm niệm”, chị em Đa Minh Gò Vấp đón nhận đặc sủng: CÙNG MẸ MARIA MÂN CÔI, LOAN BÁO TIN MỪNG ĐỨC KITÔ VỚI LÒNG TRẮC ẨN.</h4>
+        <h5>Sống tinh thần đoàn sủng Đa Minh “Chia sẻ cho tha nhân những gì mình đã chiêm niệm”, chị em Đa Minh Gò Vấp đón nhận đặc sủng: CÙNG MẸ MARIA MÂN CÔI, LOAN BÁO TIN MỪNG ĐỨC KITÔ VỚI LÒNG TRẮC ẨN.</h5>
 
         <hr><h4 style="color:#008596;"> <b>SỨ VỤ</b></h4> 
 
 
-        <h4>Chị em hội nhập nếp sống văn hóa truyền thống địa phương và thi hành sứ vụ truyền giáo qua các hoạt động phù hợp với thời đại: giáo dục đức tin và văn hóa, mục vụ giáo xứ và bác ái xã hội.</h4>
+        <h3>Chị em hội nhập nếp sống văn hóa truyền thống địa phương và thi hành sứ vụ truyền giáo qua các hoạt động phù hợp với thời đại: giáo dục đức tin và văn hóa, mục vụ giáo xứ và bác ái xã hội.</h3>
     - title: CHƯƠNG TRÌNH ĐÀO TẠO
       content: >-
         Đào tạo nữ tu đa minh trở nên môn đệ đích thực của Đức Kito xoay quanh 4
