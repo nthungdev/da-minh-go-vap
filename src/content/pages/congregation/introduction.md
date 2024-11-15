@@ -6,8 +6,6 @@ aboutUs:
     Minh](https://maps.app.goo.gl/hnfrCGRCganpZTPS7)</u>**
 
 
-    <p style="color:red;">A red paragraph.</p>
-
     ##### **Dòng nữ Đa Minh Gò Vấp tên gọi trước đây là Dòng nữ Đa Minh Lạng Sơn, là Dòng địa phận thuộc Tổng Giáo phận Sài Gòn.**
 
   tabs:
@@ -29,7 +27,7 @@ aboutUs:
         Dominican Sisters of Go Vap of Our Lady of the Rosary)**
 
 
-        #### **MỤC ĐÍCH**
+        <p style="color:#008596;">MỤC ĐÍCH.\</p> 
 
 
         #### Qua việc sống ba lời khuyên Phúc Âm: khiết tịnh, khó nghèo và vâng phục. Chị em hướng đến mục đích của đời thánh hiến là đạt tới đức ái hoàn hảo bằng việc tôn vinh Thiên Chúa, xây dựng Hội Thánh và mưu cầu phần rỗi các linh hồn.
