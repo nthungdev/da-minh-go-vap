@@ -24,10 +24,13 @@ aboutUs:
         Sống linh đạo Đa Minh: NÓI VỚI CHÚA – NÓI VỀ CHÚA Hoặc “CHIÊM NIỆM VÀ TRUYỀN THÔNG”, Chia sẻ cho tha nhân những gì mình đã chiêm niệm
       body: >-
         #### **Danh Xưng: Hội dòng nữ Đa Minh Gò Vấp (the congregation of
-        Dominican Sisters of Go Vap of Our Lady of the Rosary)**
+        Dominican Sisters of Go Vap)**
 
+        <br>
 
-        <p style="color:#008596;"> <b>MỤC ĐÍCH</b></p> 
+        <p style="color:#008596;"> <b>MỤC ĐÍCH</b></p> <br>
+
+        <p> Qua việc sống ba lời khuyên Phúc Âm: khiết tịnh, khó nghèo và vâng phục. Chị em hướng đến mục đích của đời thánh hiến là đạt tới đức ái hoàn hảo bằng việc tôn vinh Thiên Chúa, xây dựng Hội Thánh và mưu cầu phần rỗi các linh hồn.</p> 
 
 
         #### Qua việc sống ba lời khuyên Phúc Âm: khiết tịnh, khó nghèo và vâng phục. Chị em hướng đến mục đích của đời thánh hiến là đạt tới đức ái hoàn hảo bằng việc tôn vinh Thiên Chúa, xây dựng Hội Thánh và mưu cầu phần rỗi các linh hồn.
