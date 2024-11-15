@@ -5,12 +5,12 @@ aboutUs:
     ##### **Trụ sở chính: <u>[25/2 Lê Đức Thọ, Gò Vấp, Thành phố Hồ Chí
     Minh](https://maps.app.goo.gl/hnfrCGRCganpZTPS7)</u>**
 
+    {
 
     ##### **Dòng nữ Đa Minh Gò Vấp tên gọi trước đây là Dòng nữ Đa Minh Lạng Sơn, là Dòng địa phận thuộc Tổng Giáo phận Sài Gòn.**
 
 
 
-    {
 
 
       color: blue;
