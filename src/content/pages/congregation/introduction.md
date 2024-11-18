@@ -67,7 +67,7 @@ aboutUs:
 
         h4 {
 
-        line-height: 2
+        line-height: 2.5
          text-align: justify;
         font-size: 20px;
 
