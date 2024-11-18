@@ -5,6 +5,7 @@ hiddenTags:
   - thơ
 thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726538327/Viet-thu-700_i1jp17.jpg
 ---
+  <style>
 </body>
    <div class="poem-container">
 
@@ -40,7 +41,7 @@ thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726538327/Viet-th
         </div>
     </div>
 </body>
-  <style>
+
         body {
             font-family: 'Georgia', serif;
             background-color: #f3f4f6;
