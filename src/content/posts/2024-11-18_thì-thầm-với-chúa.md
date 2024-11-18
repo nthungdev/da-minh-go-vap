@@ -7,18 +7,21 @@ thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726538327/Viet-th
 ---
 
     <title>Bài Thơ</title>
+
+
+    <div class="poem-container">
+        <div class="poem-title">Tên Bài Thơ</div>
+        <div class="poem-author">Tác giả: Tên Tác Giả</div>
+        <div class="poem-content">
+            Đoạn thơ đầu tiên, từng chữ nhẹ nhàng,  
+            Như dòng suối chảy, mát lành mênh mang.  
+            Đoạn hai sâu lắng, chứa chan tình người,  
+            Những nỗi buồn vui, đời như mây trôi.  
+        </div>
+   </div>
     <style>
-        body {
-            font-family: 'Times New Roman', Times, serif;
-            line-height: 1.8;
-            background-color: #f9f9f9;
-            color: #333;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-        }
+        
+        
         .poem-container {
             background: #ffffff;
             padding: 20px 30px;
@@ -45,14 +48,3 @@ thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726538327/Viet-th
             color: #34495e;
         }
     </style>
-
-    <div class="poem-container">
-        <div class="poem-title">Tên Bài Thơ</div>
-        <div class="poem-author">Tác giả: Tên Tác Giả</div>
-        <div class="poem-content">
-            Đoạn thơ đầu tiên, từng chữ nhẹ nhàng,  
-            Như dòng suối chảy, mát lành mênh mang.  
-            Đoạn hai sâu lắng, chứa chan tình người,  
-            Những nỗi buồn vui, đời như mây trôi.  
-        </div>
-
