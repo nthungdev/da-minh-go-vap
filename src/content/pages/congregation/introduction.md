@@ -70,7 +70,7 @@ aboutUs:
         line-height: 2.5
          text-align: justify;
         font-size: 19px;
-         margin-top: -5px;
+         margin-top: -25px;
         }
 
         </style>
