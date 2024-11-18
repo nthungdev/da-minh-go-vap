@@ -69,7 +69,7 @@ aboutUs:
 
         line-height: 2
          text-align: justify;
-        font-size: 18px;
+        font-size: 20px;
 
         }
 
