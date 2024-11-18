@@ -6,7 +6,7 @@ hiddenTags:
 thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726538327/Viet-thu-700_i1jp17.jpg
 ---
   <style>
-</body>
+<body>
    <div class="poem-container">
 
 
