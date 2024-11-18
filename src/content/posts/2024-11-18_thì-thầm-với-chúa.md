@@ -8,17 +8,7 @@ thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726538327/Viet-th
 
     <title>Bài Thơ</title>
     <style>
-        body {
-            font-family: 'Georgia', serif;
-            background-color: #f7f8fa;
-            color: #2c3e50;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
+   
         .poem-container {
             max-width: 700px;
             background: white;
@@ -54,9 +44,9 @@ thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726538327/Viet-th
             font-size: 16px;
             color: #34495e;
         }
-    </style>
 
-<body>
+
+
     <div class="poem-container">
         <h1>Tên Bài Thơ</h1>
         <div class="poem-author">Tác giả: Tên Tác Giả</div>
@@ -91,4 +81,4 @@ thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726538327/Viet-th
             </div>
         </div>
     </div>
-</body>
+    </style>
