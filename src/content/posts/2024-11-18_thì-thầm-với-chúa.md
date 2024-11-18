@@ -27,7 +27,7 @@ thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726538327/Viet-th
     </div>
 
 <style>
-
+/* Reset một số thuộc tính mặc định của trình duyệt */
 .tong {
     margin: 0;
     padding: 0;
@@ -53,7 +53,7 @@ thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726538327/Viet-th
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
 }
 
-
+/* Tiêu đề bài thơ */
 .title {
     text-align: center;
     font-size: 2rem;
@@ -62,7 +62,7 @@ thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726538327/Viet-th
     color: #2c3e50;
 }
 
-
+/* Định dạng cho từng khổ thơ */
 .stanza {
     margin-bottom: 20px;
 }
