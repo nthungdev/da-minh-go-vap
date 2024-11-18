@@ -36,7 +36,7 @@ thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726538327/Viet-th
 }
 
 /* Thiết lập nền và kiểu chữ chung */
-body {
+.body {
     font-family: 'Arial', sans-serif;
     background-color: #f4f4f9;
     color: #333;
