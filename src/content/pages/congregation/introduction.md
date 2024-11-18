@@ -56,7 +56,7 @@ aboutUs:
 
         h3 {
 
-        color:#008596;
+        color:#008596; line-height: 0.5
 
         font-size: 25px;
 
@@ -67,7 +67,7 @@ aboutUs:
 
         h4 {
 
-        line-height: 1.5
+        line-height: 2
          text-align: justify;
         font-size: 18px;
 
