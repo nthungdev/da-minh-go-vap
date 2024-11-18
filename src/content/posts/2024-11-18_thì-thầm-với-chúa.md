@@ -40,7 +40,7 @@ thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726538327/Viet-th
             </p>
         </div>
     </div>
-</body>
+
 
         body {
             font-family: 'Georgia', serif;
@@ -75,4 +75,5 @@ thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726538327/Viet-th
             font-size: 16px;
             color: #34495e;
         }
+</body>
     </style>
