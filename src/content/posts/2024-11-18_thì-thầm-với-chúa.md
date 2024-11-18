@@ -5,10 +5,7 @@ hiddenTags:
   - thơ
 thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726538327/Viet-thu-700_i1jp17.jpg
 ---
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Bài Thơ</title>
     <style>
         body {
@@ -48,8 +45,7 @@ thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726538327/Viet-th
             color: #34495e;
         }
     </style>
-</head>
-<body>
+
     <div class="poem-container">
         <div class="poem-title">Tên Bài Thơ</div>
         <div class="poem-author">Tác giả: Tên Tác Giả</div>
@@ -59,6 +55,4 @@ thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726538327/Viet-th
             Đoạn hai sâu lắng, chứa chan tình người,  
             Những nỗi buồn vui, đời như mây trôi.  
         </div>
-    </div>
-</body>
-</html>
+
