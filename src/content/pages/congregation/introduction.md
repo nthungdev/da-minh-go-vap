@@ -90,73 +90,78 @@ aboutUs:
 
 
         đào tạo qua các giai đoạn: Thỉnh sinh, tiền tập sinh, tập sinh và Học viện
-      body: >-
-        #### **I. ĐÀO TẠO SƠ KHỞI**
+      body: >
+        <h1>I. ĐÀO TẠO SƠ KHỞI</h1> 
+
+        <h2> <b>Việc đào tạo sơ khởi gồm năm giai đoạn: </b> </h2> 
 
 
-        #### **Việc đào tạo sơ khởi gồm năm giai đoạn:**
+        <h3><b>1. Thỉnh viện </b> </h3> 
 
 
-        #### **1. Thỉnh viện**
+         <ul>
+            <li>Giúp ứng sinh trưởng thành nhân bản và đức tin, tìm hiểu  đời sống tu trì và đặc sủng của Hội dòng</li>
+            <li>Giúp Hội dòng nhận định khả năng sống đời Đa Minh của ứng sinh </li>
+          </ul>
+
+        <h3><b>2. Tiền tập viện </b> </h3> 
+         <ul>
+            <li>Trưởng thành hơn đười sống nhân bản Kitô giáo</li>
+            <li>Thăng tiến hơn đời sống thiêng liêng </li>
+            <li>Thích nghi đời sống tu trì và sứ vụ của Dòng</li>
+            <li>Thẩm định ơn gọi tu trì và khả năng thích nghi của ứng sinh </li>
+          </ul>
+        <h3><b>3. Tập viện </b> </h3> 
+
+        <ul>
+          <li>Giúp Tập sinh nhận ra ơn gọi của mình, sống những đòi hỏi thiết yếu của đời tu nếp sống Đa Minh và thấm nhuần tình thần của Hội dòng</li>
+            <li>Giúp Hội dòng kiểm chứng ơn gọi và khả năng thích đáng của Tập sinh </li>
+              </ul>
+        <h3><b>4.Học viện </b> </h3> 
+
+         <ul>
+            <li>Tiếp tục phát triển đời sống tâm linh và rèn luyện nhân bản.</li>
+            <li>Trau dồi kiến thức thánh khoa, ơn gọi tu trì và nếp sống Đa Minh </li>
+            <li>Thực tập mục vụ theo mục đích của Hội dòng</li>
+           
+          </ul>
+        <h3><b>5. Tiền vĩnh thệ</b> </h3> 
+
+         <ul>
+            <li>Bồi dưỡng tâm linh</li>
+            <li>Nhận thức sâu xa về giá trị các lời khấn. </li>
+            <li>Nhìn lại hành trình thánh hiến của mình để xác tín việc hiến thân trọn đời cho Chúa trong sứ vụ loan báo Tin Mừng.</li>
+           
+          </ul>
+
+        <h1>II. GIAI ĐOẠN THƯỜNG HUẤN (đào tạo liên tục)</h1> 
 
 
-        ##### \- Giúp ứng sinh trưởng thành nhân bản và đức tin, tìm hiểu  đời sống tu trì và đặc sủng của Hội dòng
+        <h2> <b>Khi đã khấn trọn, chị em bước vào giai đoạn thường huấn trải dài suốt cuộc đời tu trì. </b> </h2> 
 
 
-        ##### \- Giúp Hội dòng nhận định khả năng sống đời Đa Minh của ứng sinh
+        <style>
+
+        h1 {
+
+        color:#008596; 
+
+        font-size: 25px;
+
+        font-weight: bold;
+
+        }
 
 
-        #### **2. Tiền tập viện**
+        h3 {
 
+        line-height: 1.5
+         text-align: justify;
+        font-size: 19px;
+         
+        }
 
-        #### \- Trưởng thành hơn đười sống nhân bản Kitô giáo
-
-
-        #### \- Thăng tiến hơn đời sống thiêng liêng
-
-
-        #### \- Thích nghi đời sống tu trì và sứ vụ của Dòng
-
-
-        #### \- Thẩm định ơn gọi tu trì và khả năng thích nghi của ứng sinh
-
-
-        ### **3 Tập viện**
-
-
-        ##### \- Giúp Tập sinh nhận ra ơn gọi của mình, sống những đòi hỏi thiết yếu của đời tu nếp sống Đa Minh và thấm nhuần tình thần của Hội dòng
-
-
-        ##### \- Giúp Hội dòng kiểm chứng ơn gọi và khả năng thích đáng của Tập sinh
-
-
-        ### **4.Học viện**
-
-
-        ##### \- Tiếp tục phát triển đời sống tâm linh và rèn luyện nhân bản.
-
-
-        ##### \- Trau dồi kiến thức thánh khoa, ơn gọi tu trì và nếp sống Đa Minh
-
-
-        ##### \- Thực tập mục vụ theo mục đích của Hội dòng
-
-
-        ### **5. Tiền vĩnh thệ**
-
-
-        ##### \- Bồi dưỡng tâm linh
-
-
-        ##### \- Nhận thức sâu xa về giá trị các lời khấn.
-
-
-        ##### \- Nhìn lại hành trình thánh hiến của mình để xác tín việc hiến thân trọn đời cho Chúa trong sứ vụ loan báo Tin Mừng.
-
-
-        * #### **II. GIAI ĐOẠN THƯỜNG HUẤN (đào tạo liên tục)**
-
-          #### **Khi đã khấn trọn, chị em bước vào giai đoạn thường huấn trải dài suốt cuộc đời tu trì.**
+        </style>
     - title: TRUYỀN THỐNG CHỊ EM ĐA MINH GÒ VẤP
       content: >-
         * công việc mực vụ: dạy giáo lý, huấn luyện giáo lý viên, phụ trách các
