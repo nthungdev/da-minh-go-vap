@@ -5,46 +5,73 @@ hiddenTags:
   - thơ
 thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726538327/Viet-thu-700_i1jp17.jpg
 ---
+</body>
+   <div class="poem-container">
 
-    <title>Bài Thơ</title>
 
-
-    <div class="poem-container">
-        <div class="poem-title">Tên Bài Thơ</div>
-        <div class="poem-author">Tác giả: Tên Tác Giả</div>
-        <div class="poem-content">
-            Đoạn thơ đầu tiên, từng chữ nhẹ nhàng,  
-            Như dòng suối chảy, mát lành mênh mang.  
-            Đoạn hai sâu lắng, chứa chan tình người,  
-            Những nỗi buồn vui, đời như mây trôi.  
+        <div class="verse">
+ 
+            <p>
+                Đây là khổ thơ thứ nhất,  
+                Mang ý nghĩa sâu lắng, thiết tha.  
+                Từng câu từng chữ đậm đà,  
+                Chạm vào lòng người, như làn mây bay.  
+            </p>
         </div>
-   </div>
-    <style>
+
+        <div class="verse">
+      
+            <p>
+                Đây là khổ thơ thứ hai,  
+                Tựa ánh nắng mai trải dài khắp nơi.  
+                Mang bao cảm xúc, ý đời,  
+                Như dòng sông chảy không ngừng nghỉ trôi.  
+            </p>
+        </div>
+
+        <div class="verse">
         
-        
-        .poem-container {
-            background: #ffffff;
-            padding: 20px 30px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            max-width: 600px;
-            text-align: center;
-        }
-        .poem-title {
-            font-size: 24px;
-            font-weight: bold;
+            <p>
+                Đây là khổ thơ cuối cùng,  
+                Lời thơ lắng đọng, như trùng mây xa.  
+                Hy vọng gửi gắm thiết tha,  
+                Một đời ý nghĩa, mãi là niềm vui.  
+            </p>
+        </div>
+    </div>
+</body>
+  <style>
+        body {
+            font-family: 'Georgia', serif;
+            background-color: #f3f4f6;
             color: #2c3e50;
-            margin-bottom: 10px;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
         }
-        .poem-author {
-            font-size: 16px;
-            font-style: italic;
-            color: #7f8c8d;
+        .poem-container {
+            max-width: 800px;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .verse {
             margin-bottom: 20px;
+            padding: 15px;
+            border-left: 5px solid #3498db;
+            background: #ecf0f1;
+            border-radius: 4px;
         }
-        .poem-content {
+        
+        }
+        .verse p {
+            margin: 0;
             white-space: pre-wrap;
-            font-size: 18px;
+            line-height: 1.8;
+            font-size: 16px;
             color: #34495e;
         }
     </style>
