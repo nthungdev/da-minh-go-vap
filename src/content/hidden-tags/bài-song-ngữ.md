@@ -1,3 +1,3 @@
 ---
-title: bài song ngữ
+title: song ngữ
 ---
