@@ -26,11 +26,36 @@ aboutUs:
         #### **Danh Xưng: Hội dòng nữ Đa Minh Gò Vấp (the congregation of
         Dominican Sisters of Go Vap)** <hr>
 
-        <h4 style="color:#008596;line-height: 1.5"> <b>MỤC ĐÍCH</b></h4> 
+
+        <h3>MỤC ĐÍCH</h3> 
 
         <h4> Qua việc sống ba lời khuyên Phúc Âm: khiết tịnh, khó nghèo và vâng phục. Chị em hướng đến mục đích của đời thánh hiến là đạt tới đức ái hoàn hảo bằng việc tôn vinh Thiên Chúa, xây dựng Hội Thánh và mưu cầu phần rỗi các linh hồn.</h4> 
 
         <hr>
+
+
+        <style>
+
+        h3 {
+
+        color:#008596;line-height: 1.5
+
+        font-size: 30px;
+
+        font-weight: bold;
+
+        }
+
+
+        h4 {
+
+        line-height: 1.5
+         text-align: justify;
+        font-size: 22px;
+
+        }
+
+        </style>
 
         <h4 style="color:#008596;line-height:1"> <b>ĐẶC TÍNH</b></h4> 
 
