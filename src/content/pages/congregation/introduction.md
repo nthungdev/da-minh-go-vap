@@ -69,8 +69,8 @@ aboutUs:
 
         line-height: 2.5
          text-align: justify;
-        font-size: 18px;
-
+        font-size: 19px;
+         margin-left: 50px;
         }
 
         </style>
