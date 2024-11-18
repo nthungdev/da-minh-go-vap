@@ -5,9 +5,8 @@ hiddenTags:
   - thơ
 thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726538327/Viet-thu-700_i1jp17.jpg
 ---
+ <div class="tong">
 
-
-<body>
  <div class="container">
         <h1 class="title">Bài Thơ "Cảnh Đẹp Việt Nam"</h1>
         <div class="poem">
@@ -25,11 +24,11 @@ thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726538327/Viet-th
             </div>
         </div>
     </div>
-</body>
+    </div>
 
 <style>
 
-* {
+.tong {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
