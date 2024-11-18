@@ -7,37 +7,78 @@ thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726538327/Viet-th
 ---
 
     <h3>Thì thầm với Chúa</h3> 
-<h4> Quỳ bên Thánh Giá nhiệm mầu </br>
-Lòng con thổn thức đôi câu thầm thì:</br>
-Chúa ơi! Tu nghĩa là gì?</br>
-Phải chăng từ bỏ lối đi riêng mình?</br>
 
 
-Hay là buông bỏ chữ tình</br>
-Tình đời từ bỏ, mong tình thiên thu?</br>
-Bước chân theo Chúa đi tu</br>
-Theo gương Thánh Tử Giêsu lên đường.</br>
+<div class="poem-container">
+        <h1>Tên Bài Thơ</h1>
+        <div class="poem-author">Tác giả: Tên Tác Giả</div>
 
- 
-Rời xa mái ấm yêu thương</br>
-Quyết tâm bên Chúa, náu nương tháng ngày.</br>
-Dẫu cho trần thế đổi thay</br>
-Luôn theo lý tưởng dựng xây an bình.</br>
-</h4>
+        <div class="verse">
+            <div class="verse-title">Khổ 1</div>
+            <div class="verse-content">
+                Đây là khổ thơ đầu tiên,  
+                Lời thơ bay bổng, dịu êm nhẹ nhàng.  
+                Như làn gió thoảng mênh mang,  
+                Truyền cảm xúc tới muôn vàn trái tim.  
+            </div>
+        </div>
 
+        <div class="verse">
+            <div class="verse-title">Khổ 2</div>
+            <div class="verse-content">
+                Đây là khổ thơ thứ hai,  
+                Mang bao ý nghĩa, đậm đà thiết tha.  
+                Dòng thơ chảy mãi như là,  
+                Một dòng suối ngọt chảy ra đời mình.  
+            </div>
+        </div>
+
+        <div class="verse">
+            <div class="verse-title">Khổ 3</div>
+            <div class="verse-content">
+                Đây là khổ thơ cuối cùng,  
+                Khép lại cảm xúc, trùng trùng yêu thương.  
+                Như tiếng chim hót vấn vương,  
+                Gửi lời từ biệt trên đường mộng mơ.  
+            </div>
+        </div>
+    </div>
 
 
 <style>
-h3 {
-color:#008596; 
-font-size: 25px;
-font-weight: bold;
-}
-
-h4 {
-line-height: 2.5
- text-align: center;
-font-size: 19px;
-
-}
+ .poem-container {
+            max-width: 700px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #34495e;
+        }
+        .poem-author {
+            text-align: center;
+            font-style: italic;
+            color: #7f8c8d;
+            margin-bottom: 20px;
+        }
+        .verse {
+            margin-bottom: 20px;
+            padding: 15px;
+            border-left: 5px solid #3498db;
+            background: #ecf0f1;
+            border-radius: 4px;
+        }
+        .verse-title {
+            font-weight: bold;
+            color: #2980b9;
+            margin-bottom: 10px;
+        }
+        .verse-content {
+            white-space: pre-wrap;
+            line-height: 1.8;
+            font-size: 16px;
+            color: #34495e;
+        }
 </style>
