@@ -6,12 +6,13 @@ hiddenTags:
 thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1731982439/8T9A9369_kgngmd.jpg
 ---
  <div class="tong">
-<div style="text-align: center;">
-    <img src="https://via.placeholder.com/600x300" alt="Cảnh thiên nhiên">
-    <p style="font-style: italic; color: #666;">Hình minh họa: Cảnh thiên nhiên tươi đẹp</p>
+
 </div>
 
  <div class="container">
+<div style="text-align: center;">
+    <img src="https://via.placeholder.com/600x300" alt="Cảnh thiên nhiên">
+    <p style="font-style: italic; color: #666;">Hình minh họa: Thì Thầm với Chúa</p>
         <h1 class="title">THÌ THẦM VỚI CHÚA</h1>
         <div class="poem-author">Tác giả: Hồng Đào</div>
         <div class="poem">
