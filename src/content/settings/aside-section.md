@@ -6,11 +6,11 @@ mostViewedPosts:
 slideshow:
   enable: true
   slides:
-    - url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1727580020/1_gpnw8u.jpg
+    - url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1732003205/2_g9keff.png
       alt: Đức Mẹ trao tràng chuỗi cho thánh Đa Minh
     - url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1727580021/3_xzemsj.jpg
       alt: Thánh Đa Minh
-    - url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1727580021/2_e3zneb.jpg
+    - url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1732003206/3_j2nfwc.png
       alt: Đức mẹ Mân Côi
 postGroups:
   groups:
