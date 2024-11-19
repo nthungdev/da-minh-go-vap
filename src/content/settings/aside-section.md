@@ -10,7 +10,7 @@ slideshow:
       alt: Đức Mẹ trao tràng chuỗi cho thánh Đa Minh
     - url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1727580021/3_xzemsj.jpg
       alt: Thánh Đa Minh
-    - url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1732003206/3_j2nfwc.png
+    - url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1732005003/duc_me_man_coi_p9riuh.png
       alt: Đức mẹ Mân Côi
 postGroups:
   groups:
