@@ -47,9 +47,6 @@ thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726538327/Viet-th
                 <p class="line">Tình yêu dâng hiến trọn đời tình con.</p>
             </div>
 
-        </div>
-    </div>
-    </div>
 
 <style>
 /* Reset một số thuộc tính mặc định của trình duyệt */
