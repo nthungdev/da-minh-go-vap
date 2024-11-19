@@ -52,14 +52,14 @@ timeline:
         - Hiểu Để Yêu
     - title: Giai đoạn Tập viện
       hiddenTags:
-        - Giao phan Phu Cuong
+        - tập viện
       thumbnail:
         alt: Hoat dong su vu
         url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1730087171/tap_vien_xmabrn.jpg
     - title: Giai đoạn Học viện
       hiddenTags:
-        - Giao phan Phu Cuong
+        - học viện
       thumbnail:
-        alt: Doi song hoc hanh
+        alt: Giai đoạn học viện
         url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1730087172/hoc_vien_zssqeb.jpg
 ---
