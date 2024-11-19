@@ -8,7 +8,7 @@ thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726538327/Viet-th
  <div class="tong">
 
  <div class="container">
-        <h1 class="title">THÌ THẦM VỚI CHÚA"</h1>
+        <h1 class="title">THÌ THẦM VỚI CHÚA</h1>
         <div class="poem-author">Tác giả: Hồng Đào</div>
         <div class="poem">
             <!-- Khổ thơ 1 -->
@@ -58,7 +58,7 @@ thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1726538327/Viet-th
 
 /* Thiết lập nền và kiểu chữ chung */
 .body {
-    font-family: 'Arial', sans-serif;
+    font-family: 'Georgia', sans-serif;
     background-color: #f4f4f9;
     color: #333;
     line-height: 1.6;
