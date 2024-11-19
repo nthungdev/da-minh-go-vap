@@ -61,7 +61,7 @@ thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1731982439/8T9A936
     font-family: 'Arial', sans-serif;
     background-color: #f4f4f9;
     color: #333;
-    line-height: 1.6;
+    line-height: 1.2;
     padding: 20px;
 }
 
