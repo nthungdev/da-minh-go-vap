@@ -81,7 +81,7 @@ thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1731982439/8T9A936
     font-size: 2rem;
     font-weight: bold;
     margin-bottom: 20px;
-    color: #2c3e50;
+    color: #008596;
 }
 
 /* Định dạng cho từng khổ thơ */
