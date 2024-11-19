@@ -58,7 +58,7 @@ thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1731982439/8T9A936
 
 /* Thiết lập nền và kiểu chữ chung */
 .body {
-    font-family: 'Georgia', sans-serif;
+    font-family: 'Dancing Script', cursive;
     background-color: #f4f4f9;
     color: #333;
     line-height: 1.6;
