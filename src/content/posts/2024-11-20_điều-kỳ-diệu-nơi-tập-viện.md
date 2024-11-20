@@ -14,14 +14,18 @@ thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1730087171/tap_vie
 <div id="secondParagraph" class="paragraph">
 <p3> <b>Câu 1: Chị hãy chia sẻ về “nhà” của chị?</b> </p3></br>
 <p3> <b>Kim Tiến</b>: Nói đến con số “7” bạn sẽ nghĩ về điều gì? Theo Kinh Thánh, số 7 là con số tròn đầy. Ấy vậy nên em gọi nhà em là “Ngôi nhà tròn đầy” vì nhà em có 7 chị em và có thêm Chúa là Ông Chủ. Trong sa mạc của căn nhà đầy thánh thiêng này, chúng em kết nên sự tròn đầy ấy bằng “đức mến” đối với Chúa và đối với nhau. </p3></br>
+<p3>Cứ nói đến nhà là nghĩ ngay đến sự ấm áp và đầy tình thương mến. Ngày ngày chúng em quây quần bên nhau trong những giờ kinh, Thánh lễ... bên cạnh đó, rộn rã tiếng cười giòn tan khi cùng nhau xây đắp tình cộng đoàn qua các giờ sinh hoạt chung. Nhà em đơn giản chỉ có thế thôi, sống với Chúa và chị em là đủ rồi. Bật mí cho bạn biết, nhà em còn có tên gọi khác nữa nè “trái tim của Hội Dòng” cái tên nghe là thấy đập liên hồi luôn.</p3></br>
 </div>
+
   <div class="distance" id="distanceDisplay">Khoảng cách giữa 2 đoạn văn bản: <span id="distanceValue">0</span> px
   </div>
 
 
-<p3>Cứ nói đến nhà là nghĩ ngay đến sự ấm áp và đầy tình thương mến. Ngày ngày chúng em quây quần bên nhau trong những giờ kinh, Thánh lễ... bên cạnh đó, rộn rã tiếng cười giòn tan khi cùng nhau xây đắp tình cộng đoàn qua các giờ sinh hoạt chung. Nhà em đơn giản chỉ có thế thôi, sống với Chúa và chị em là đủ rồi. Bật mí cho bạn biết, nhà em còn có tên gọi khác nữa nè “trái tim của Hội Dòng” cái tên nghe là thấy đập liên hồi luôn.</p3></br>
-<p3> <b>Quỳnh Lam</b>: Em nhận thấy nhà là nơi cho mình có cảm giác thoải mái, thuộc về và là nói mình được là chính mình. Nơi đó chị em vui tươi luôn nở nụ cười tỏa nắng và “bà” giáo của chúng em là một người luôn hài hước, dí dỏm những cũng không kém phần trầm lắng và sâu sắc. Em thấy rất hạnh phúc khi được ở “nhà”.</p3></br>
+<div id="3Paragraph" class="paragraph">
+<p3> <b>Quỳnh Lam</b>: Em nhận thấy nhà là nơi cho mình có cảm giác thoải mái, thuộc về và là nói mình được là chính mình. Nơi đó chị em vui tươi luôn nở nụ cười tỏa nắng và “bà” giáo của chúng em là một người luôn hài hước, dí dỏm những cũng không kém phần trầm lắng và sâu sắc. Em thấy rất hạnh phúc khi được ở “nhà”.</p3></br></div>
+<div id="4Paragraph" class="paragraph">
 <p3> <b>Hoài Nhi</b>: Nhà là nơi có người nhà, có việc nhà và nếp nhà. Nhà mãi thân thương vì có người nhà cùng nhau xây đắp, làm việc nhà và chia sẻ nếp nhà. Nhà còn là nơi để tập yêu những gì hoàn hảo và cả những gì chưa hoàn hảo nữa.</p3></br>
+</div>
 <p3> <b>Câu 2: Bí kíp giúp chị giữ “lửa tình yêu” trong cộng đoàn? </p3></b>
 <p3> <b>Quỳnh Lam</b>: Chấp nhận những gì bản thân không thể thay đổi, và tại sao không thay đổi chính mình? Trong đó em tin rằng Chúa tạo nên ai cũng tốt, nhận ra điều tốt nơi chị em, đồng cảm với những điều ít tốt bằng cách hiện diện, lắng nghe và chia sẻ niềm vui nỗi buồn với nhau.</p3></b>
 <p3> <b>Quyên Quyên</b>: Để ngọn lửa trong tình cộng đoàn luôn cháy rực, chính em thường dùng đức can đảm-là một tinh thần xông xáo dám nghĩ dám làm, óc sáng tạo và sự thánh thiện mà Thiên Chúa mời gọi để đáp trả những “Thời điểm” sẽ xuất hiện trong từng giây phút. </b> </p3></br>
