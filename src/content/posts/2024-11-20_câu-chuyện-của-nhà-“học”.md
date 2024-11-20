@@ -49,7 +49,32 @@ font-size: 1.5rem;
 text-align: justify;
 padding: 10px;
 }
+p1 {
+text-align: right;
+margin-top: 20px;
+color: #666;
+font-size: 1.5rem;
+}
 
+figure { 
+float: left; /* Hình ảnh ở bên phải */
+margin: 0px 10px 10px 10px; /* Khoảng cách với văn bản xung quanh */
+
+}
+figcaption {
+margin-top: 8px;
+font-size: 16px;
+color: #666;
+font-style: italic;
+}
+/* Định dạng cho từng dòng trong bài thơ */
+.poem .line {
+text-align: center;
+line-height: 1.6;
+font-size: 1.5rem;
+font-style: italic;
+color: #008596;
+}
 
 </style>
 
