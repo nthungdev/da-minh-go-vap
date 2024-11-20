@@ -47,7 +47,7 @@ margin-right: 10px;
 figure { 
 float: left; /* Hình ảnh ở bên phải */
 margin: 0px 10px 10px 10px; /* Khoảng cách với văn bản xung quanh */
-max-width: 50%; /* Giới hạn kích thước */
+
 }
 figcaption {
 margin-top: 8px;
