@@ -41,11 +41,9 @@ Sứ vụ của nhà Học chúng tôi được một chị Thần II diễn t�
 
 <p1> <strong>Tác giả:</strong> <span class="author-name">Thu Hà và Chị em Học viện<I>(Giai đoạn Thần học)</I> </span> </p1>
 
-
 <style>
 
 p3 {
-
 text-align: justify;
 margin-bottom: 15px;
 color: #008596;
