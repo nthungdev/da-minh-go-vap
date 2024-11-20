@@ -7,9 +7,6 @@ thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1730087172/hoc_vie
 ---
 <figure> <img src="https://res.cloudinary.com/dxtb6rv7y/image/upload/v1731982439/8T9A9369_kgngmd.jpg" alt="Hình ảnh bên trái" class="image-left"; width="300">  <figcaption>Hình minh hoạ: cảnh vào làng.</figcaption>       
  </figure> 
-
-
-
 <div class="poem">
 <p class="line">Học viện Gò Vấp hỉ hoan</p>
 <p class="line">Sẻ chia đời sống cộng đoàn yêu thương.</p>
@@ -28,8 +25,6 @@ Sứ vụ của nhà Học chúng tôi được một chị Thần II diễn t�
  </p>
 
 <div class="poem">
-
-
 <p class="line">Học là một khổ chế</p>
 <p class="line">Nhưng tôi nào có sợ</p>
 <p class="line">Bởi học đâu chỉ đọc</p>
@@ -75,7 +70,6 @@ max-width: 50%; /* Giới hạn kích thước */
 
 /* Định dạng cho từng dòng trong bài thơ */
 .poem .line {
-font-size: 1rem;
 text-align: center;
 margin: 8px 0;
 font-style: italic;
