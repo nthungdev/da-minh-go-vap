@@ -5,7 +5,7 @@ hiddenTags:
   - học viện
 thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1730087172/hoc_vien_zssqeb.jpg
 ---
-<figure> <img src="https://res.cloudinary.com/dxtb6rv7y/image/upload/v1731982439/8T9A9369_kgngmd.jpg" alt="Hình ảnh bên trái" class="image-left"; width="300"> <figcaption>Hình minh hoạ: cảnh vào làng.</figcaption> 
+<figure> <img src="https://res.cloudinary.com/dxtb6rv7y/image/upload/v1731982439/8T9A9369_kgngmd.jpg" alt="Hình ảnh bên trái" class="image-left"; width="600"> <figcaption>Hình minh hoạ: cảnh vào làng.</figcaption> 
 </figure> 
 <div class="poem">
 <p class="line">Học viện Gò Vấp hỉ hoan</p>
