@@ -9,12 +9,8 @@ thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1730087172/hoc_vie
 
 
 <div>  <img src="https://res.cloudinary.com/dxtb6rv7y/image/upload/v1732003205/1_bg1zyz.png" alt="Hình ảnh bên trái" class="image-left" width="150"> 
-
-
-
 <div class="poem">
-<!-- Khổ thơ 1 -->
-<div class="stanza">
+
 <p class="line">Học viện Gò Vấp hỉ hoan</p>
 <p class="line">Sẻ chia đời sống cộng đoàn yêu thương.</p>
 <p class="line">Cùng nhau đi đến biên cương</p>
@@ -32,8 +28,8 @@ Sứ vụ của nhà Học chúng tôi được một chị Thần II diễn t�
  </p>
 
 <div class="poem">
-<!-- Khổ thơ 2 -->
-<div class="stanza">
+
+
 <p class="line">Học là một khổ chế</p>
 <p class="line">Nhưng tôi nào có sợ</p>
 <p class="line">Bởi học đâu chỉ đọc</p>
@@ -65,10 +61,7 @@ margin-top: 20px;
 color: #666;
 }
 
-/* Định dạng cho từng khổ thơ */
-.stanza {
-margin-bottom: 20px;
-}
+
 /* Định dạng cho từng dòng trong bài thơ */
 .poem .line {
 font-size: 1rem;
