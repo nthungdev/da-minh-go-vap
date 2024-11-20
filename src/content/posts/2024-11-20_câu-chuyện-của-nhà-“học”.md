@@ -71,7 +71,6 @@ max-width: 50%; /* Giới hạn kích thước */
 /* Định dạng cho từng dòng trong bài thơ */
 .poem .line {
 text-align: center;
-margin: 8px 0;
 font-style: italic;
 }
 
