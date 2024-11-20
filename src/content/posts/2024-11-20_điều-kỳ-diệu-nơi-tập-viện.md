@@ -17,9 +17,9 @@ thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1730087171/tap_vie
 <p3> <b>Câu 2: Bí kíp giúp chị giữ “lửa tình yêu” trong cộng đoàn? </p3></b>
 <p3> <b>Quỳnh Lam</b>: Chấp nhận những gì bản thân không thể thay đổi, và tại sao không thay đổi chính mình? Trong đó em tin rằng Chúa tạo nên ai cũng tốt, nhận ra điều tốt nơi chị em, đồng cảm với những điều ít tốt bằng cách hiện diện, lắng nghe và chia sẻ niềm vui nỗi buồn với nhau.</p3></b>
 <p3> <b>Quyên Quyên</b>: Để ngọn lửa trong tình cộng đoàn luôn cháy rực, chính em thường dùng đức can đảm-là một tinh thần xông xáo dám nghĩ dám làm, óc sáng tạo và sự thánh thiện mà Thiên Chúa mời gọi để đáp trả những “Thời điểm” sẽ xuất hiện trong từng giây phút. </b> </p3></b>
-<p3>Đối với em, hơn hết khi đối thoại, bản thân cần biết khiêm tốn, đón nhận chị em như chị em là, đừng bao giờ để cái em của mình trỗi dậy. Nhờ đó trong mọi cảnh huống mối tương quan sẽ được hòa giải cách dễ dàng.</p3></b>
-<p3> <b>Kim Dung</b>: Mỗi người đều có công tác riêng, có khoảng trời riêng của mình. Một trong những bí kíp để giữ mối dây liên kết trong cộng đoàn của em đó là luôn dành 1 khoảng thời gian cho nhau, để chia sẻ buồn vui lo lắng trong ngày. Ở đó chị em cởi mở, chia sẻ và có thể là góp ý cho nhau một cách chân thành và khiêm tốn. </p3></b>
-<p3> <b>Ngọc Huyền</b>: Cộng đoàn không phải là một sàn đấu để phân biệt thắng thua hay một sân khấu để thi thố tài năng. Hòa mình và nhẹ nhàng trong từng khoảnh khắc, được ở bên và đối thoại với nhau. </p3></b>
+<p3>Đối với em, hơn hết khi đối thoại, bản thân cần biết khiêm tốn, đón nhận chị em như chị em là, đừng bao giờ để cái em của mình trỗi dậy. Nhờ đó trong mọi cảnh huống mối tương quan sẽ được hòa giải cách dễ dàng.</p3></br>
+<p3> <b>Kim Dung</b>: Mỗi người đều có công tác riêng, có khoảng trời riêng của mình. Một trong những bí kíp để giữ mối dây liên kết trong cộng đoàn của em đó là luôn dành 1 khoảng thời gian cho nhau, để chia sẻ buồn vui lo lắng trong ngày. Ở đó chị em cởi mở, chia sẻ và có thể là góp ý cho nhau một cách chân thành và khiêm tốn. </p3></br>
+<p3> <b>Ngọc Huyền</b>: Cộng đoàn không phải là một sàn đấu để phân biệt thắng thua hay một sân khấu để thi thố tài năng. Hòa mình và nhẹ nhàng trong từng khoảnh khắc, được ở bên và đối thoại với nhau. </p3></br>
 
 
   <p1> <strong>Tác giả:</strong> <span class="author-name">Consolata Dung <I>(Thỉnh sinh)</I> </span> </p1>
