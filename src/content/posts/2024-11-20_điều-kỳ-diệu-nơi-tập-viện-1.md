@@ -40,7 +40,7 @@ thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1730087171/tap_vie
 <p1> <strong>Tác giả:</strong> <span class="author-name">Consolata Dung <I>(Thỉnh sinh)</I> </span> </p1>
 <style>
 p3 {
-text-align: justify;
+
 margin-bottom: 25px;
 color: #008596;
 line-height: 1.6;
@@ -57,6 +57,7 @@ padding: 10px;
 .paragraph {
             margin-bottom: 20px;
             padding: 10px;
+text-align: justify;
             
         }
         .distance {
