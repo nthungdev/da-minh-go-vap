@@ -5,12 +5,12 @@ hiddenTags:
   - học viện
 thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1730087172/hoc_vien_zssqeb.jpg
 ---
+<figure> <img src="https://res.cloudinary.com/dxtb6rv7y/image/upload/v1731982439/8T9A9369_kgngmd.jpg" alt="Hình ảnh bên trái" class="image-left"; width="300">  <figcaption>Hình minh hoạ: cảnh vào làng.</figcaption>       
+ </figure> 
 
 
 
-<div>  <img src="https://res.cloudinary.com/dxtb6rv7y/image/upload/v1732003205/1_bg1zyz.png" alt="Hình ảnh bên trái" class="image-left" width="150"> 
 <div class="poem">
-
 <p class="line">Học viện Gò Vấp hỉ hoan</p>
 <p class="line">Sẻ chia đời sống cộng đoàn yêu thương.</p>
 <p class="line">Cùng nhau đi đến biên cương</p>
@@ -44,7 +44,8 @@ Sứ vụ của nhà Học chúng tôi được một chị Thần II diễn t�
 
 <p> Một thoáng nhìn để thấy vẻ đẹp và sự thiêng liêng trong sứ vụ học của chúng tôi. Dù đôi lúc chúng tôi cũng gặp một vài sự rắc rối nhưng trong Đức Kitô chúng tôi đón nhận và biến chúng thành cơ hội, để trước lời mời gọi của Đức Kitô “Hãy ra khơi” chúng tôi có đủ hành trang và chẳng ngần ngại gì trước bất cứ cánh đồng nào Chúa gửi chúng tôi tới, để cùng với các thành phần trong Giáo Hội, cùng với các chị bao thế hệ của dòng, chúng ta “CÙNG NHAU LOAN BÁO TIN MỪNG ĐỨC KITÔ VỚI LÒNG TRẮC ẨN”.  </p>
 
-<p1> Thu Hà và Chị em Học viện – GĐ Thần học </p1>
+<p1> <strong>Tác giả:</strong> <span class="author-name">Consolata Dung <I>(Thỉnh sinh)</I> </span> </p1>
+
 
 <style>
 
@@ -60,7 +61,17 @@ text-align: right;
 margin-top: 20px;
 color: #666;
 }
-
+figure {      
+    float: left; /* Hình ảnh ở bên phải */
+    margin: 0px 10px 10px 10px; /* Khoảng cách với văn bản xung quanh */
+max-width: 50%; /* Giới hạn kích thước */
+  }
+      figcaption {
+            margin-top: 8px;
+            font-size: 16px;
+            color: #666;
+            font-style: italic;
+        }
 
 /* Định dạng cho từng dòng trong bài thơ */
 .poem .line {
