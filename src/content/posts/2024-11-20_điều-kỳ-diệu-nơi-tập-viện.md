@@ -5,7 +5,7 @@ hiddenTags:
   - tập viện
 thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1730087171/tap_vien_xmabrn.jpg
 ---
-<figure> <img src="https://res.cloudinary.com/dxtb6rv7y/image/upload/v1731982439/8T9A9369_kgngmd.jpg" alt="Hình ảnh bên trái" class="image-left"; width="400"> <figcaption>Hình minh hoạ: cảnh vào làng.</figcaption> 
+<figure> <img src="https://res.cloudinary.com/dxtb6rv7y/image/upload/v1731982439/8T9A9369_kgngmd.jpg" alt="Hình ảnh bên trái" class="image-left"; width="300"> <figcaption>Hình minh hoạ: cảnh vào làng.</figcaption> 
 </figure> 
 <p4> <I>Tập viện được ví như hơi thở làm nên sức sống của Hội dòng. Nói đến đây chắc hẳn nhiều người sẽ tò mò liệu rằng trong khuôn viên Nhà Tập ấy, điều gì đang xảy ra? Sức sống ấy được thể hiện như thế nào? Mời cả nhà cùng dừng lại một chút để nghe những chia sẻ của chị em Tập viện chúng mình nhé!</I></br></p4>
 <p3> <b>Câu 1: Chị hãy chia sẻ về “nhà” của chị?</b> </p3></br>
