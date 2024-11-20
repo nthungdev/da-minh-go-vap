@@ -40,39 +40,16 @@ Sứ vụ của nhà Học chúng tôi được một chị Thần II diễn t�
 <p3> Một thoáng nhìn để thấy vẻ đẹp và sự thiêng liêng trong sứ vụ học của chúng tôi. Dù đôi lúc chúng tôi cũng gặp một vài sự rắc rối nhưng trong Đức Kitô chúng tôi đón nhận và biến chúng thành cơ hội, để trước lời mời gọi của Đức Kitô “Hãy ra khơi” chúng tôi có đủ hành trang và chẳng ngần ngại gì trước bất cứ cánh đồng nào Chúa gửi chúng tôi tới, để cùng với các thành phần trong Giáo Hội, cùng với các chị bao thế hệ của dòng, chúng ta “CÙNG NHAU LOAN BÁO TIN MỪNG ĐỨC KITÔ VỚI LÒNG TRẮC ẨN”. </p3></br>
 <p1> <strong>Tác giả:</strong> <span class="author-name">Thu Hà và Chị em Học viện<I>(Giai đoạn Thần học)</I> </span> </p1>
 <style>
+
 p3 {
 margin-bottom: 15px;
-
 color: #008596;
 line-height: 1.6;
 font-size: 1.5rem;
 text-align: justify;
 padding: 10px;
 }
-p1 {
-text-align: right;
-margin-top: 20px;
-color: #666;
-font-size: 1.5rem;
-}
-figure { 
-float: left; /* Hình ảnh ở bên phải */
-margin: 0px 10px 10px 10px; /* Khoảng cách với văn bản xung quanh */
 
-}
-figcaption {
-margin-top: 8px;
-font-size: 16px;
-color: #666;
-font-style: italic;
-}
-/* Định dạng cho từng dòng trong bài thơ */
-.poem .line {
-text-align: center;
-line-height: 1.6;
-font-size: 1.5rem;
-font-style: italic;
-color: #008596;
-}
+
 </style>
 
