@@ -4,19 +4,20 @@ sections:
   - limit: 4
     title: Văn
     hiddenTags:
-      - kinh phung vu
+      - văn
   - limit: 4
     title: Thơ
     hiddenTags:
-      - kinh phung vu
+      - thơ
   - limit: 4
     title: Truyện
     hiddenTags:
-      - kinh phung vu
+      - truyện
+      - Radio truyện ngắn
   - limit: 4
     title: Bài song ngữ
     hiddenTags:
-      - kinh phung vu
+      - song ngữ
   - limit: 4
     title: Hội họa
     hiddenTags:
