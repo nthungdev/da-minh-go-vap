@@ -51,6 +51,7 @@ p1 {
 text-align: right;
 margin-top: 20px;
 color: #666;
+font-size: 1.5rem;
 }
 figure { 
 float: left; /* Hình ảnh ở bên phải */
