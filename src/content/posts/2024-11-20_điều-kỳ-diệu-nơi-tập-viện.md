@@ -56,7 +56,7 @@ padding: 10px;
         }
         .distance {
             font-weight: bold;
-            margin-top: 20px;
+            margin-top: 50px;
         }
 
 p1 {
