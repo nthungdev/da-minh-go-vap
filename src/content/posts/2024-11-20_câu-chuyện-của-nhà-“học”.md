@@ -39,12 +39,13 @@ Sứ vụ của nhà Học chúng tôi được một chị Thần II diễn t�
 
 <p3> Một thoáng nhìn để thấy vẻ đẹp và sự thiêng liêng trong sứ vụ học của chúng tôi. Dù đôi lúc chúng tôi cũng gặp một vài sự rắc rối nhưng trong Đức Kitô chúng tôi đón nhận và biến chúng thành cơ hội, để trước lời mời gọi của Đức Kitô “Hãy ra khơi” chúng tôi có đủ hành trang và chẳng ngần ngại gì trước bất cứ cánh đồng nào Chúa gửi chúng tôi tới, để cùng với các thành phần trong Giáo Hội, cùng với các chị bao thế hệ của dòng, chúng ta “CÙNG NHAU LOAN BÁO TIN MỪNG ĐỨC KITÔ VỚI LÒNG TRẮC ẨN”.  </p3>
 
-<p1> <strong>Tác giả:</strong> <span class="author-name">Consolata Dung <I>(Thỉnh sinh)</I> </span> </p1>
+<p1> <strong>Tác giả:</strong> <span class="author-name">Thu Hà và Chị em Học viện<I>(Giai đoạn Thần học)</I> </span> </p1>
 
 
 <style>
 
 p3 {
+
 text-align: justify;
 margin-bottom: 15px;
 color: #008596;
