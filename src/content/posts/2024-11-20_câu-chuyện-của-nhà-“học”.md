@@ -8,7 +8,7 @@ thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1730087172/hoc_vie
 
 
 
-<p>  <img src="https://res.cloudinary.com/dxtb6rv7y/image/upload/v1732003205/1_bg1zyz.png" alt="Hình ảnh bên trái" class="image-left" width="150"> </p>
+<div>  <img src="https://res.cloudinary.com/dxtb6rv7y/image/upload/v1732003205/1_bg1zyz.png" alt="Hình ảnh bên trái" class="image-left" width="150"> 
 
 
 
@@ -22,7 +22,7 @@ thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1730087172/hoc_vie
 <p class="line">Sao cho tỏ lộ biểu trưng</p>
 <p class="line">Từ tâm lên trí sáng bừng Giêsu.</p>
 </div>
-
+</div>
 <p> Một điều có lẽ các bạn đã biết, Học viện là một giai đoạn chính thức theo giáo luật. Giai đoạn này được bắt đầu sau một năm chìm đắm trong đời sống cầu nguyện nơi mái nhà Tập viện hay nói cách khác, khi có lời khấn tạm chúng tôi sẽ rời sa mạc và bước vào những ngày tháng đào tạo miệt mài về tri thức để chuẩn bị cho sứ vụ tương lai, giai đoạn đào tạo tri thức chính thức này được gọi là Học viện hay nhà Học. </p>
 
 <p> Cái tên nhà Học đã nói lên tất cả sứ vụ của chúng tôi đó là “HỌC”. Việc học được bắt đầu với ba năm Thần học chính thức tại Học viên Liên Dòng Thánh Tôma. Nơi đây nhiều Hội dòng khác nhau tham gia học tập và việc học tại Liên Dòng mở ra cho chúng tôi một cơ hội phong phú, được tiếp xúc, làm quen và học hỏi cùng nhiều chị em với các nguồn đặc sủng khác nhau. Họ cho chúng tôi thấy được vẻ đẹp phong nhiêu và thánh thiện của đời thánh hiến giữa lòng một thành phố năng động, xa hoa và không thiếu những cám dỗ. Việc học thần học, còn cho chúng tôi một nhãn quan rộng và xa hơn về giá trị con người, về quan điểm của Giáo hội và dạy cho chúng tôi cách trả lời cho thế giới về những vấn nạn của con người hôm nay. “Vô tri bất mộ - không biết thì không yêu mến”. Thật vậy, dù chưa chắc chúng tôi đã có được một câu trả lời chính thức cho thế giới những vấn nạn họ đang gặp phải nhưng chắc chắn chúng tôi có thể trả lời cho chính mình về sự xác tín vào niềm tin và ơn gọi mà chúng tôi chọn lựa. </p>
@@ -76,9 +76,5 @@ text-align: center;
 margin: 8px 0;
 font-style: italic;
 }
-/* Tạo hiệu ứng hover cho mỗi dòng thơ */
-.poem .line:hover {
-color: #2980b9;
-cursor: pointer;
-}
+
 </style>
