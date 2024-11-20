@@ -23,7 +23,7 @@ thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1730087171/tap_vie
 <style>
 p3 {
 text-align: justify;
-margin-bottom: 15px;
+margin-bottom: 25px;
 color: #008596;
 line-height: 1.6;
 font-size: 1.5rem;
@@ -33,6 +33,7 @@ text-align: justify;
 margin-bottom: 15px;
 line-height: 1.6;
 font-size: 1.5rem;
+padding: 10px;
 }
 p1 {
 margin-right: 5px;
