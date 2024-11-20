@@ -44,11 +44,11 @@ Sứ vụ của nhà Học chúng tôi được một chị Thần II diễn t�
 <style>
 
 p3 {
-text-align: justify;
 margin-bottom: 15px;
 color: #008596;
 line-height: 1.6;
 font-size: 1.5rem;
+text-align: justify;
 }
 
 p1 {
