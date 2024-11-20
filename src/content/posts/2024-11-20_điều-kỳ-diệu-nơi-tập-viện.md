@@ -15,10 +15,8 @@ thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1730087171/tap_vie
 <p3> <b>Câu 1: Chị hãy chia sẻ về “nhà” của chị?</b> </p3></br>
 <p3> <b>Kim Tiến</b>: Nói đến con số “7” bạn sẽ nghĩ về điều gì? Theo Kinh Thánh, số 7 là con số tròn đầy. Ấy vậy nên em gọi nhà em là “Ngôi nhà tròn đầy” vì nhà em có 7 chị em và có thêm Chúa là Ông Chủ. Trong sa mạc của căn nhà đầy thánh thiêng này, chúng em kết nên sự tròn đầy ấy bằng “đức mến” đối với Chúa và đối với nhau. </p3></br>
 </div>
-
-        <div class="distance" id="distanceDisplay">
-            Khoảng cách giữa 2 đoạn văn bản: <span id="distanceValue">0</span> px
-        </div>
+  <div class="distance" id="distanceDisplay">Khoảng cách giữa 2 đoạn văn bản: <span id="distanceValue">0</span> px
+  </div>
 
 
 <p3>Cứ nói đến nhà là nghĩ ngay đến sự ấm áp và đầy tình thương mến. Ngày ngày chúng em quây quần bên nhau trong những giờ kinh, Thánh lễ... bên cạnh đó, rộn rã tiếng cười giòn tan khi cùng nhau xây đắp tình cộng đoàn qua các giờ sinh hoạt chung. Nhà em đơn giản chỉ có thế thôi, sống với Chúa và chị em là đủ rồi. Bật mí cho bạn biết, nhà em còn có tên gọi khác nữa nè “trái tim của Hội Dòng” cái tên nghe là thấy đập liên hồi luôn.</p3></br>
