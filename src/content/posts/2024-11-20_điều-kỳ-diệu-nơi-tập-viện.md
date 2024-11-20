@@ -9,16 +9,9 @@ thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1730087171/tap_vie
 </figure> 
  <div id="firstParagraph" class="paragraph">
 <p4> <I>Tập viện được ví như hơi thở làm nên sức sống của Hội dòng. Nói đến đây chắc hẳn nhiều người sẽ tò mò liệu rằng trong khuôn viên Nhà Tập ấy, điều gì đang xảy ra? Sức sống ấy được thể hiện như thế nào? Mời cả nhà cùng dừng lại một chút để nghe những chia sẻ của chị em Tập viện chúng mình nhé!</I></br></p4>
+</div>
 
-
-
-        </div>
-
-        <div id="secondParagraph" class="paragraph">
-            
-        
-
-
+<div id="secondParagraph" class="paragraph">
 <p3> <b>Câu 1: Chị hãy chia sẻ về “nhà” của chị?</b> </p3></br>
 <p3> <b>Kim Tiến</b>: Nói đến con số “7” bạn sẽ nghĩ về điều gì? Theo Kinh Thánh, số 7 là con số tròn đầy. Ấy vậy nên em gọi nhà em là “Ngôi nhà tròn đầy” vì nhà em có 7 chị em và có thêm Chúa là Ông Chủ. Trong sa mạc của căn nhà đầy thánh thiêng này, chúng em kết nên sự tròn đầy ấy bằng “đức mến” đối với Chúa và đối với nhau. </p3></br>
 </div>
@@ -59,8 +52,7 @@ padding: 10px;
 .paragraph {
             margin-bottom: 20px;
             padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+            
         }
         .distance {
             font-weight: bold;
