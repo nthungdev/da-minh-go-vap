@@ -5,10 +5,10 @@ hiddenTags:
   - tập viện
 thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1730087171/tap_vien_xmabrn.jpg
 ---
-<figure> <img src="https://res.cloudinary.com/dxtb6rv7y/image/upload/v1731982439/8T9A9369_kgngmd.jpg" alt="Hình ảnh bên trái" class="image-left"; width="300">  <figcaption>Hình minh hoạ: cảnh vào làng.</figcaption>       
+<figure> <img src="https://res.cloudinary.com/dxtb6rv7y/image/upload/v1731982439/8T9A9369_kgngmd.jpg" alt="Hình ảnh bên trái" class="image-left"; width="600">  <figcaption>Hình minh hoạ: cảnh vào làng.</figcaption>       
  </figure> 
 
-<p3> <I>Tập viện được ví như hơi thở làm nên sức sống của Hội dòng. Nói đến đây chắc hẳn nhiều người sẽ tò mò liệu rằng trong khuôn viên Nhà Tập ấy, điều gì đang xảy ra? Sức sống ấy được thể hiện như thế nào? Mời cả nhà cùng dừng lại một chút để nghe những chia sẻ của chị em Tập viện chúng mình nhé!</I></br></p3>
+<p4> <I>Tập viện được ví như hơi thở làm nên sức sống của Hội dòng. Nói đến đây chắc hẳn nhiều người sẽ tò mò liệu rằng trong khuôn viên Nhà Tập ấy, điều gì đang xảy ra? Sức sống ấy được thể hiện như thế nào? Mời cả nhà cùng dừng lại một chút để nghe những chia sẻ của chị em Tập viện chúng mình nhé!</I></br></p4>
 <p3> <b>Câu 1: Chị hãy chia sẻ về “nhà” của chị?</b> </p3></br>
 <p3> <b>Kim Tiến</b>: Nói đến con số “7” bạn sẽ nghĩ về điều gì? Theo Kinh Thánh, số 7 là con số tròn đầy. Ấy vậy nên em gọi nhà em là “Ngôi nhà tròn đầy” vì nhà em có 7 chị em và có thêm Chúa là Ông Chủ. Trong sa mạc của căn nhà đầy thánh thiêng này, chúng em kết nên sự tròn đầy ấy bằng “đức mến” đối với Chúa và đối với nhau. </p3></br>
 <p3>Cứ nói đến nhà là nghĩ ngay đến sự ấm áp và đầy tình thương mến. Ngày ngày chúng em quây quần bên nhau trong những giờ kinh, Thánh lễ... bên cạnh đó, rộn rã tiếng cười giòn tan khi cùng nhau xây đắp tình cộng đoàn qua các giờ sinh hoạt chung. Nhà em đơn giản chỉ có thế thôi, sống với Chúa và chị em là đủ rồi. Bật mí cho bạn biết, nhà em còn có tên gọi khác nữa nè “trái tim của Hội Dòng” cái tên nghe là thấy đập liên hồi luôn.</p3></br>
@@ -34,7 +34,12 @@ thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1730087171/tap_vie
             line-height: 1.6;
             font-size: 1.5rem;
         }
-
+    p4 {
+            text-align: justify;
+            margin-bottom: 15px;
+            line-height: 1.6;
+            font-size: 1.5rem;
+        }
         p1 {
             margin-right: 5px;
             margin-top: 20px;
