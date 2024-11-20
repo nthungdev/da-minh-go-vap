@@ -10,7 +10,6 @@ thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1730087171/tap_vie
  <div id="firstParagraph" class="paragraph">
 <p4> <I>Tập viện được ví như hơi thở làm nên sức sống của Hội dòng. Nói đến đây chắc hẳn nhiều người sẽ tò mò liệu rằng trong khuôn viên Nhà Tập ấy, điều gì đang xảy ra? Sức sống ấy được thể hiện như thế nào? Mời cả nhà cùng dừng lại một chút để nghe những chia sẻ của chị em Tập viện chúng mình nhé!</I></br></p4>
 </div>
-
 <div id="secondParagraph" class="paragraph">
 <p3> <b>Câu 1: Chị hãy chia sẻ về “nhà” của chị?</b> </p3></br>
 <p3> <b>Kim Tiến</b>: Nói đến con số “7” bạn sẽ nghĩ về điều gì? Theo Kinh Thánh, số 7 là con số tròn đầy. Ấy vậy nên em gọi nhà em là “Ngôi nhà tròn đầy” vì nhà em có 7 chị em và có thêm Chúa là Ông Chủ. Trong sa mạc của căn nhà đầy thánh thiêng này, chúng em kết nên sự tròn đầy ấy bằng “đức mến” đối với Chúa và đối với nhau. </p3></br>
@@ -21,9 +20,6 @@ thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1730087171/tap_vie
 <div id="4Paragraph" class="paragraph">
 <p3> <b>Hoài Nhi</b>: Nhà là nơi có người nhà, có việc nhà và nếp nhà. Nhà mãi thân thương vì có người nhà cùng nhau xây đắp, làm việc nhà và chia sẻ nếp nhà. Nhà còn là nơi để tập yêu những gì hoàn hảo và cả những gì chưa hoàn hảo nữa.</p3></br>
 </div>
-<div class="distance1" id="distanceDisplay">
-  </div>
-
 <div id="4Paragraph" class="paragraph">
 <p3> <b>Câu 2: Bí kíp giúp chị giữ “lửa tình yêu” trong cộng đoàn? </p3></b>
 <p3> <b>Quỳnh Lam</b>: Chấp nhận những gì bản thân không thể thay đổi, và tại sao không thay đổi chính mình? Trong đó em tin rằng Chúa tạo nên ai cũng tốt, nhận ra điều tốt nơi chị em, đồng cảm với những điều ít tốt bằng cách hiện diện, lắng nghe và chia sẻ niềm vui nỗi buồn với nhau.</p3></b>
@@ -64,10 +60,7 @@ text-align: justify;
             font-weight: bold;
             margin-top: 20px;
         }
-.distance1 {
-            font-weight: bold;
-            margin-top: 50px;
-        }
+
 
 p1 {
 margin-right: 5px;
