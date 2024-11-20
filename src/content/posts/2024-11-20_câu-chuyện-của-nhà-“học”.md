@@ -42,11 +42,12 @@ Sứ vụ của nhà Học chúng tôi được một chị Thần II diễn t�
 <style>
 p3 {
 margin-bottom: 15px;
-margin-top: 15px;
+
 color: #008596;
 line-height: 1.6;
 font-size: 1.5rem;
 text-align: justify;
+padding: 10px;
 }
 p1 {
 text-align: right;
@@ -57,7 +58,7 @@ font-size: 1.5rem;
 figure { 
 float: left; /* Hình ảnh ở bên phải */
 margin: 0px 10px 10px 10px; /* Khoảng cách với văn bản xung quanh */
-max-width: 50%; /* Giới hạn kích thước */
+
 }
 figcaption {
 margin-top: 8px;
