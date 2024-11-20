@@ -51,6 +51,7 @@ color: #008596;
 line-height: 1.6;
 font-size: 1.5rem;
 }
+
 p1 {
 text-align: right;
 margin-top: 20px;
@@ -74,6 +75,7 @@ text-align: center;
 line-height: 1.6;
 font-size: 1.5rem;
 font-style: italic;
+color: #008596;
 }
 
 </style>
