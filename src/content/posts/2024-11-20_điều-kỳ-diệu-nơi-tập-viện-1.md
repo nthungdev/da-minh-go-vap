@@ -47,12 +47,13 @@ thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1730087171/tap_vie
 <p3><b>- Hoài Nhi</b>: Nhà – nơi em đã cho đi con người rất thật của mình, không che giấu, không ngờ vực. Và thành quả là nhận được chính mình trong một phiên bản tốt đẹp và hoàn thiện hơn. </p3></br>
 
 <p3><b>- Ngọc Huyền:</b></p3></br>
+<div class="poem">
 <div class="stanza">
 <p class="line">Cộng đoàn giúp cho em lớn lên từng ngày,</p>
 <p class="line">không chỉ ngang qua những nâng đỡ yêu thương</p>
 <p class="line">mà còn ngang qua những đụng chạm và va vấp.</p>
 </div>
-<div class="poem">
+
 <div class="stanza">
 <p class="line">Cộng đoàn như là sứ mạng đầu tiên Chúa gửi đến cho em</p>
 <p class="line">Để em học biết khiêm tốn và chấp nhận</p>
