@@ -24,10 +24,13 @@ thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1730087171/tap_vie
 <p5><b>Câu 2: Bí kíp giúp chị giữ “lửa tình yêu” trong cộng đoàn? </p5></br>
 <p3><b>- Quỳnh Lam</b>: Chấp nhận những gì bản thân không thể thay đổi, và tại sao không thay đổi chính mình? Trong đó em tin rằng Chúa tạo nên ai cũng tốt, nhận ra điều tốt nơi chị em, đồng cảm với những điều ít tốt bằng cách hiện diện, lắng nghe và chia sẻ niềm vui nỗi buồn với nhau.</p3></br>
 <div id="5Paragraph" class="paragraph">
-<p3><b>- Quyên Quyên</b>: Để ngọn lửa trong tình cộng đoàn luôn cháy rực, chính em thường dùng đức can đảm-là một tinh thần xông xáo dám nghĩ dám làm, óc sáng tạo và sự thánh thiện mà Thiên Chúa mời gọi để đáp trả những “Thời điểm” sẽ xuất hiện trong từng giây phút. </b> </p3></br>
+
+<p3><b>- Quyên Quyên</b>: Để ngọn lửa trong tình cộng đoàn luôn cháy rực, chính em thường dùng đức can đảm-là một tinh thần xông xáo dám nghĩ dám làm, óc sáng tạo và sự thánh thiện mà Thiên Chúa mời gọi để đáp trả những “Thời điểm” sẽ xuất hiện trong từng giây phút. </p3></br>
 <p3>Đối với em, hơn hết khi đối thoại, bản thân cần biết khiêm tốn, đón nhận chị em như chị em là, đừng bao giờ để cái em của mình trỗi dậy. Nhờ đó trong mọi cảnh huống mối tương quan sẽ được hòa giải cách dễ dàng.</p3></br>
+
 <div id="6Paragraph" class="paragraph">
 <p3><b>- Kim Dung</b>: Mỗi người đều có công tác riêng, có khoảng trời riêng của mình. Một trong những bí kíp để giữ mối dây liên kết trong cộng đoàn của em đó là luôn dành 1 khoảng thời gian cho nhau, để chia sẻ buồn vui lo lắng trong ngày. Ở đó chị em cởi mở, chia sẻ và có thể là góp ý cho nhau một cách chân thành và khiêm tốn. </p3></br>
+
 <div id="7Paragraph" class="paragraph">
 <p3><b>- Ngọc Huyền</b>: Cộng đoàn không phải là một sàn đấu để phân biệt thắng thua hay một sân khấu để thi thố tài năng. Hòa mình và nhẹ nhàng trong từng khoảnh khắc, được ở bên và đối thoại với nhau. </p3></br>
 
@@ -36,15 +39,18 @@ thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1730087171/tap_vie
 <p5><b>Câu 3: Chị đã “nhận” và “cho” điều gì nơi cộng đoàn?</p5></br>
 <p3><b>- Kim Tiến</b>: : Nơi “ngôi nhà tròn đầy” em thấy mình được nhận nhiều hơn là cho đi. Em thấy tình yêu mà các chị dành cho Chúa thêm thôi thúc em phải yêu Chúa hơn nữa. Thêm vào đó là sự hy sinh đến quên cả mệt nhọc của “bà giáo” vì đàn cháu thân thương. Sự quảng đại dấn thân không ngại khó của tất cả mọi thành viên. Sự hy sinh, giúp đỡ lẫn nhau trong tất cả mọi sự. Nói đến sự hy sinh, chỉ cần lơ là chút thôi là em sẽ bị vụt mất vì sự nhanh nhẹn chớp lấy hy sinh của các chị, ai ai cũng tóm lấy hy sinh không ngưng nghỉ.</p3></br>
 <p3>Còn em, chỉ có thể lấy tình yêu bù đắp tất cả, thêm chút muối vào gia vị cộng đoàn, góp những viên gạch dấn thân, hy sinh, bỏ mình, khiêm nhường và hiền lành để ngôi nhà em mỗi ngày thêm yêu thương và ấm cũng hơn.</p3></br>
+
 <div id="5Paragraph" class="paragraph">
 <p3><b>- Kim Dung</b>: Cộng đoàn khác với khác với những tập thể khác, khác với những kí túc hay một hội nhóm bạn bè. Nơi cộng đoàn em nhận được sự nâng đỡ, chia sẻ và đôi khi là cả những cảm thông đối với điều yếu đuối nơi bản thân. Điều đó là động lực to lớn và là điều quý báu hơn cả khiến cộng đoàn trở nên khác biệt, bởi khi đó cộng đoàn đã trở nên “mái nhà”  để trở về.
 Được đón nhận bằng tình yêu thì em cũng cần đáp lại bằng chính tình yêu. Bởi vậy, em luôn ý thức để làm mọi việc với một tình yêu đặt trong đó. </p3></br>
 <div id="5Paragraph" class="paragraph">
 
 <p3><b>- Quyên Quyên</b>: Trải qua những năm tháng trong ơn gọi tu trì, em đã cho đi chính mình, cho đi con người nguyên bản của một thiếu nữ mới bước từ cuộc sống vào nhà dòng. Nhờ đó em nhận được tình yêu là thứ em đã cảm nếm được trong hành trình vừa qua. </p3></br>
+
 <div id="5Paragraph" class="paragraph">
 <p3><b>- Hoài Nhi</b>: Nhà – nơi em đã cho đi con người rất thật của mình, không che giấu, không ngờ vực. Và thành quả là nhận được chính mình trong một phiên bản tốt đẹp và hoàn thiện hơn. </p3></br>
 <div id="5Paragraph" class="paragraph">
+
 <p3><b>- Ngọc Huyền:</b></p3></br>
 <div class="poem">
 <div class="stanza">
