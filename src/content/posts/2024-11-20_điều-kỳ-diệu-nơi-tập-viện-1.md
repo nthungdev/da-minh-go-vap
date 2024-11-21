@@ -133,10 +133,11 @@ margin-bottom: 20px;
 }
 /* Định dạng cho từng dòng trong bài thơ */
 .poem .line {
-font-size: 1rem;
+
 text-align: center;
 margin: 8px 0;
 font-style: italic;
+color: #008596;
 }
 
 
