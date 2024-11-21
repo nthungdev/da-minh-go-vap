@@ -40,6 +40,9 @@ Sứ vụ của nhà Học chúng tôi được một chị Thần II diễn t�
 <p3> Sau khi hoàn thành ba năm thần học chúng tôi được gửi đến các cộng đoàn của Hội Dòng để thực tập sứ vụ tông đồ. Điều đáng để quan tâm trong giai đoạn này là sự tự đào tạo. Dưới sự hướng dẫn của vị hữu trách, người tu sĩ trẻ kiên tâm cắt tỉa mình mỗi ngày ngang qua sứ vụ, qua biến cố mà Chúa đặt để. Họ khéo léo hòa mình vào công việc gieo rắc Tin Mừng nhưng không đánh mất căn cốt của một người tu sĩ. Thật thế, nơi các cộng đoàn chúng tôi được trải nghiệm đời sống của một người tông đồ chính danh. </p3></br>
 <p style="text-align:justify;">
 <p3> Một thoáng nhìn để thấy vẻ đẹp và sự thiêng liêng trong sứ vụ học của chúng tôi. Dù đôi lúc chúng tôi cũng gặp một vài sự rắc rối nhưng trong Đức Kitô chúng tôi đón nhận và biến chúng thành cơ hội, để trước lời mời gọi của Đức Kitô “Hãy ra khơi” chúng tôi có đủ hành trang và chẳng ngần ngại gì trước bất cứ cánh đồng nào Chúa gửi chúng tôi tới, để cùng với các thành phần trong Giáo Hội, cùng với các chị bao thế hệ của dòng, chúng ta “CÙNG NHAU LOAN BÁO TIN MỪNG ĐỨC KITÔ VỚI LÒNG TRẮC ẨN”. </p3></br>
+
+<div class="distance" id="distanceDisplay"></div>
+<div class="distance" id="distanceDisplay"></div>
 <p1> <strong>Tác giả:</strong> <span class="author-name">Thu Hà và Chị em Học viện<I>(Giai đoạn Thần học)</I> </span> </p1>
 <style>
 p3 {
@@ -73,5 +76,16 @@ font-size: 1.5rem;
 font-style: italic;
 color: #008596;
 }
+
+.paragraph {
+            margin-bottom: 10px;
+            padding: 10px;
+text-align: justify;
+            
+        }
+        .distance {
+            font-weight: bold;
+            margin-top: 20px;
+        }
 </style>
 
