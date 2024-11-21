@@ -150,9 +150,9 @@ margin-bottom: 20px;
 }
 /* Định dạng cho từng dòng trong bài thơ */
 .poem .line {
-
 text-align: center;
-margin: 8px 0;
+line-height: 1.6;
+font-size: 1.5rem;
 font-style: italic;
 color: #008596;
 }
