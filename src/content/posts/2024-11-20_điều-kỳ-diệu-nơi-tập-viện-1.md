@@ -49,6 +49,7 @@ thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1730087171/tap_vie
 
 <div id="5Paragraph" class="paragraph">
 <p3><b>- Hoài Nhi</b>: Nhà – nơi em đã cho đi con người rất thật của mình, không che giấu, không ngờ vực. Và thành quả là nhận được chính mình trong một phiên bản tốt đẹp và hoàn thiện hơn. </p3></br>
+
 <div id="5Paragraph" class="paragraph">
 
 <p3><b>- Ngọc Huyền:</b></p3></br>
@@ -64,11 +65,13 @@ thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1730087171/tap_vie
 <p class="line">Để em học biết khiêm tốn và chấp nhận</p>
 <p class="line">Học phục vụ và yêu mến tha nhân.</p>
 </div>
+
 <div class="stanza">
 <p class="line">Là ngôi trường giúp trái tim em mở ra trọn vẹn khả năng yêu thương.</p>
 </div>
-<div class="distance" id="distanceDisplay"></div>
 </div>
+<div class="distance" id="distanceDisplay"></div>
+
 
 <p1> <strong>Tác giả:</strong> <span class="author-name"> Tập sinh Catarina  <I>(                                                                                   -Niên khóa 2024-2025)</I> </span> </p1>
 <style>
@@ -79,6 +82,7 @@ color: #008596;
 line-height: 1.6;
 font-size: 1.5rem;
 }
+
 p4 {
 text-align: justify;
 margin-bottom: 15px;
@@ -86,6 +90,7 @@ line-height: 1.6;
 font-size: 1.5rem;
 padding: 10px;
 }
+
 p5 {
 
 margin-bottom: 25px;
@@ -93,6 +98,7 @@ color: #ff6700;
 line-height: 1.6;
 font-size: 1.5rem;
 }
+
 .paragraph {
             margin-bottom: 10px;
             padding: 10px;
