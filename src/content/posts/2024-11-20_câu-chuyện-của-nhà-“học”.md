@@ -24,12 +24,14 @@ thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1730087172/hoc_vie
 <p3> Ngoài việc học thần học chính thức ở trường, chúng tôi còn được học Luật Dòng, các môn năng khiếu như: đàn thánh ca, ca trưởng, Anh văn; các kỹ năng và các chuyên đề về lên kế hoạch và nhiều chuyên đề khác để một ngày kia chúng tôi có thể bước vào Giáo hội trong một vị trí khác, vị trí của một người nữ tu khôn ngoan và trưởng thành.
 Sứ vụ của nhà Học chúng tôi được một chị Thần II diễn tả thế này:
 </p3></br>
+<div id="5Paragraph" class="paragraph">
 <div class="poem">
 <p class="line">Học là một khổ chế</p>
 <p class="line">Nhưng tôi nào có sợ</p>
 <p class="line">Bởi học đâu chỉ đọc</p>
 <p class="line">Hành mới là đích đến.</p>
 </div></br>
+<div class="distance" id="distanceDisplay"></div>
 <p style="text-align:justify;">
 <p3> Trường thần học với tôi không chỉ là nguồn kho tàng kiến thức về Chúa, về con người và thiên nhiên vạn vật. Nơi ấy tôi tìm thấy nhiều niềm vui, nhiều điều thú vị trong giá trị của tri thức, của những mối tương quan và hơn cả tôi gặp được hình bóng Giêsu nơi người chị em tôi gặp gỡ. Điều đó không ngừng thúc bách tôi mỗi ngày “Phải làm gì để trở nên một Giêsu đệ thứ!” </p3></br>
 <p style="text-align:justify;">
