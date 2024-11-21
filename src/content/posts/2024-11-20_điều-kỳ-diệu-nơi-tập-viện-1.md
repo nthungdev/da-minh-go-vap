@@ -87,7 +87,7 @@ thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1730087171/tap_vie
 <p1> <strong>Tác giả:</strong> <span class="author-name"> Tập sinh Catarina  <I>(                                                                                   -Niên khóa 2024-2025)</I> </span> </p1>
 <style>
 p3 {
-
+text-align: justify;
 margin-bottom: 25px;
 color: #008596;
 line-height: 1.6;
@@ -103,7 +103,7 @@ padding: 10px;
 }
 
 p5 {
-
+text-align: justify;
 margin-bottom: 25px;
 color: #ff6700;
 line-height: 1.6;
@@ -113,7 +113,7 @@ font-size: 1.5rem;
 .paragraph {
             margin-bottom: 10px;
             padding: 10px;
-text-align: justify;
+            text-align: justify;
             
         }
         .distance {
