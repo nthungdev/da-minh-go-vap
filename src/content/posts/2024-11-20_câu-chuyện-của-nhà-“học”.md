@@ -31,7 +31,9 @@ Sứ vụ của nhà Học chúng tôi được một chị Thần II diễn t�
 <p class="line">Bởi học đâu chỉ đọc</p>
 <p class="line">Hành mới là đích đến.</p>
 </div></br>
+</div>
 <div class="distance" id="distanceDisplay"></div>
+
 <p style="text-align:justify;">
 <p3> Trường thần học với tôi không chỉ là nguồn kho tàng kiến thức về Chúa, về con người và thiên nhiên vạn vật. Nơi ấy tôi tìm thấy nhiều niềm vui, nhiều điều thú vị trong giá trị của tri thức, của những mối tương quan và hơn cả tôi gặp được hình bóng Giêsu nơi người chị em tôi gặp gỡ. Điều đó không ngừng thúc bách tôi mỗi ngày “Phải làm gì để trở nên một Giêsu đệ thứ!” </p3></br>
 <p style="text-align:justify;">
@@ -42,8 +44,9 @@ Sứ vụ của nhà Học chúng tôi được một chị Thần II diễn t�
 <p3> Một thoáng nhìn để thấy vẻ đẹp và sự thiêng liêng trong sứ vụ học của chúng tôi. Dù đôi lúc chúng tôi cũng gặp một vài sự rắc rối nhưng trong Đức Kitô chúng tôi đón nhận và biến chúng thành cơ hội, để trước lời mời gọi của Đức Kitô “Hãy ra khơi” chúng tôi có đủ hành trang và chẳng ngần ngại gì trước bất cứ cánh đồng nào Chúa gửi chúng tôi tới, để cùng với các thành phần trong Giáo Hội, cùng với các chị bao thế hệ của dòng, chúng ta “CÙNG NHAU LOAN BÁO TIN MỪNG ĐỨC KITÔ VỚI LÒNG TRẮC ẨN”. </p3></br>
 
 <div class="distance" id="distanceDisplay"></div>
-<div class="distance" id="distanceDisplay"></div>
+
 <p1> <strong>Tác giả:</strong> <span class="author-name">Thu Hà và Chị em Học viện<I>(Giai đoạn Thần học)</I> </span> </p1>
+
 <style>
 p3 {
 margin-bottom: 15px;
