@@ -33,7 +33,37 @@ thumbnail: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1730087171/tap_vie
 <div class="distance" id="distanceDisplay">
   </div>
 
-<p1> <strong>Tác giả:</strong> <span class="author-name">Consolata Dung <I>(Thỉnh sinh)</I> </span> </p1>
+<div id="5Paragraph" class="paragraph">
+<p5><b>Câu 3: Chị đã “nhận” và “cho” điều gì nơi cộng đoàn?</p5></b>
+<p3><b>- Kim Tiến</b>: : Nơi “ngôi nhà tròn đầy” em thấy mình được nhận nhiều hơn là cho đi. Em thấy tình yêu mà các chị dành cho Chúa thêm thôi thúc em phải yêu Chúa hơn nữa. Thêm vào đó là sự hy sinh đến quên cả mệt nhọc của “bà giáo” vì đàn cháu thân thương. Sự quảng đại dấn thân không ngại khó của tất cả mọi thành viên. Sự hy sinh, giúp đỡ lẫn nhau trong tất cả mọi sự. Nói đến sự hy sinh, chỉ cần lơ là chút thôi là em sẽ bị vụt mất vì sự nhanh nhẹn chớp lấy hy sinh của các chị, ai ai cũng tóm lấy hy sinh không ngưng nghỉ.</p3></br>
+<p3>Còn em, chỉ có thể lấy tình yêu bù đắp tất cả, thêm chút muối vào gia vị cộng đoàn, góp những viên gạch dấn thân, hy sinh, bỏ mình, khiêm nhường và hiền lành để ngôi nhà em mỗi ngày thêm yêu thương và ấm cũng hơn.</p3></br>
+
+<p3><b>- Kim Dung</b>: Cộng đoàn khác với khác với những tập thể khác, khác với những kí túc hay một hội nhóm bạn bè. Nơi cộng đoàn em nhận được sự nâng đỡ, chia sẻ và đôi khi là cả những cảm thông đối với điều yếu đuối nơi bản thân. Điều đó là động lực to lớn và là điều quý báu hơn cả khiến cộng đoàn trở nên khác biệt, bởi khi đó cộng đoàn đã trở nên “mái nhà”  để trở về.
+Được đón nhận bằng tình yêu thì em cũng cần đáp lại bằng chính tình yêu. Bởi vậy, em luôn ý thức để làm mọi việc với một tình yêu đặt trong đó. </p3></br>
+
+
+<p3><b>- Quyên Quyên</b>: Trải qua những năm tháng trong ơn gọi tu trì, em đã cho đi chính mình, cho đi con người nguyên bản của một thiếu nữ mới bước từ cuộc sống vào nhà dòng. Nhờ đó em nhận được tình yêu là thứ em đã cảm nếm được trong hành trình vừa qua. </p3></br>
+
+<p3><b>- Hoài Nhi</b>: Nhà – nơi em đã cho đi con người rất thật của mình, không che giấu, không ngờ vực. Và thành quả là nhận được chính mình trong một phiên bản tốt đẹp và hoàn thiện hơn. </p3></br>
+
+<p3><b>- Ngọc Huyền:</b></p3></br>
+<div class="stanza">
+<p class="line">Cộng đoàn giúp cho em lớn lên từng ngày,</p>
+<p class="line">không chỉ ngang qua những nâng đỡ yêu thương</p>
+<p class="line">mà còn ngang qua những đụng chạm và va vấp.</p>
+</div>
+<div class="poem">
+<div class="stanza">
+<p class="line">Cộng đoàn như là sứ mạng đầu tiên Chúa gửi đến cho em</p>
+<p class="line">Để em học biết khiêm tốn và chấp nhận</p>
+<p class="line">Học phục vụ và yêu mến tha nhân.</p>
+</div>
+<div class="stanza">
+<p class="line">Là ngôi trường giúp trái tim em mở ra trọn vẹn khả năng yêu thương.</p>
+</div>
+</div>
+
+<p1> <strong>Tác giả:</strong> <span class="author-name"> Tập sinh Catarina  <I>(                                                                                   -Niên khóa 2024-2025)</I> </span> </p1>
 <style>
 p3 {
 
@@ -89,5 +119,19 @@ font-size: 16px;
 color: #666;
 font-style: italic;
 }
+
+/* Định dạng cho từng khổ thơ */
+.stanza {
+margin-bottom: 20px;
+}
+/* Định dạng cho từng dòng trong bài thơ */
+.poem .line {
+font-size: 1rem;
+text-align: center;
+margin: 8px 0;
+font-style: italic;
+}
+
+
 </style>
 
