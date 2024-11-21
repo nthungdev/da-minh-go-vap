@@ -64,10 +64,12 @@ line-height: 1.6;
 font-size: 1.5rem;
 text-align: justify;
 }
+
 p1 {
 text-align: right;
 margin-top: 20px;
 color: #666;
+font-size: 1.5rem;
 }
 figure { 
 float: left; /* Hình ảnh ở bên phải */
@@ -80,6 +82,7 @@ font-size: 16px;
 color: #666;
 font-style: italic;
 }
+
 /* Định dạng cho từng dòng trong bài thơ */
 .poem .line {
 text-align: center;
@@ -91,7 +94,7 @@ color: #008596;
 
 .paragraph {
             margin-bottom: 0px;
-            padding: 10px;
+            padding: 0px;
 text-align: justify;
             
         }
