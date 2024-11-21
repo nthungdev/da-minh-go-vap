@@ -81,7 +81,7 @@ color: #008596;
 }
 
 .paragraph {
-            margin-bottom: 10px;
+            margin-bottom: 0px;
             padding: 10px;
 text-align: justify;
             
