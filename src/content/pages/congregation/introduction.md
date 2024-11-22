@@ -58,7 +58,7 @@ aboutUs:
 
         color:#008596; 
 
-        font-size: 25px;
+        font-size: 20px;
 
         font-weight: bold;
 
@@ -67,10 +67,10 @@ aboutUs:
 
         h4 {
 
-        line-height: 2.5
+        line-height: 1.6
          text-align: justify;
-        font-size: 19px;
-         margin-top: -25px;
+        font-size: 16px;
+         margin-top: 5px;
         }
 
         </style>
