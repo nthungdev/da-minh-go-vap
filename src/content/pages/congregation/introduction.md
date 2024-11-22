@@ -95,9 +95,9 @@ aboutUs:
 
         đào tạo qua các giai đoạn: Thỉnh sinh, tiền tập sinh, tập sinh và Học viện
       body: >
-        <h3> <b>I. ĐÀO TẠO SƠ KHỞI</b></h3> 
+        <h4> <b>I. ĐÀO TẠO SƠ KHỞI</b></h4> 
 
-        <h3> Việc đào tạo sơ khởi gồm năm giai đoạn: </h3> 
+        <h4> Việc đào tạo sơ khởi gồm năm giai đoạn: </h4> 
 
 
         <p><b>1. Thỉnh viện </b> 
@@ -106,7 +106,7 @@ aboutUs:
             <li>- Giúp Hội dòng nhận định khả năng sống đời Đa Minh của ứng sinh </li>
           </ul> </p> 
 
-        <h4><b>2. Tiền tập viện </b> 
+        <p><b>2. Tiền tập viện </b> 
          <ul>
             <li>- Trưởng thành hơn đười sống nhân bản Kitô giáo</li>
             <li>- Thăng tiến hơn đời sống thiêng liêng </li>
@@ -115,7 +115,7 @@ aboutUs:
           </ul>
         </p> 
 
-        <h4><b>3. Tập viện </b> 
+        <p><b>3. Tập viện </b> 
 
         <ul>
           <li>- Giúp Tập sinh nhận ra ơn gọi của mình, sống những đòi hỏi thiết yếu của đời tu nếp sống Đa Minh và thấm nhuần tình thần của Hội dòng</li>
@@ -143,15 +143,15 @@ aboutUs:
           </ul>
         </p> 
 
-        <h3><b>II. GIAI ĐOẠN THƯỜNG HUẤN (đào tạo liên tục)</b></h3> 
+        <h4><b>II. GIAI ĐOẠN THƯỜNG HUẤN (đào tạo liên tục)</b></h4> 
 
 
-        <h3> Khi đã khấn trọn, chị em bước vào giai đoạn thường huấn trải dài suốt cuộc đời tu trì.  </h3> 
+        <h4> Khi đã khấn trọn, chị em bước vào giai đoạn thường huấn trải dài suốt cuộc đời tu trì.  </h4> 
 
 
         <style>
 
-        h3 {
+        h4 {
 
         color:#008596; 
 
