@@ -73,7 +73,7 @@ aboutUs:
          text-align: justify;
         font-size: 18px;
          margin-top: 5px;
-        margin-left:80px;
+        margin-left:60px;
 
         }
 
