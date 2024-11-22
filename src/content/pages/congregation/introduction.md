@@ -69,7 +69,7 @@ aboutUs:
 
         line-height: 2.0
          text-align: justify;
-        font-size: 17px;
+        font-size: 18px;
          margin-top: 5px;
         }
 
@@ -164,7 +164,7 @@ aboutUs:
 
         line-height: 2.0
          text-align: justify;
-        font-size: 19px;
+        font-size: 18px;
 
         margin-left: 40px;
          
