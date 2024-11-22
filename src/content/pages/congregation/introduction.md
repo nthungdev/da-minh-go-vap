@@ -67,9 +67,9 @@ aboutUs:
 
         h4 {
 
-        line-height: 1.6
+        line-height: 2.0
          text-align: justify;
-        font-size: 16px;
+        font-size: 17px;
          margin-top: 5px;
         }
 
@@ -93,38 +93,38 @@ aboutUs:
       body: >
         <h3> <b>I. ĐÀO TẠO SƠ KHỞI</b></h3> 
 
-        <h3> Việc đào tạo sơ khởi gồm năm giai đoạn: </h3> 
+        <h4> Việc đào tạo sơ khởi gồm năm giai đoạn: </h4> 
 
 
         <h4><b>1. Thỉnh viện </b> 
          <ul>
-            <li>Giúp ứng sinh trưởng thành nhân bản và đức tin, tìm hiểu  đời sống tu trì và đặc sủng của Hội dòng</li>
-            <li>Giúp Hội dòng nhận định khả năng sống đời Đa Minh của ứng sinh </li>
+            <li>- Giúp ứng sinh trưởng thành nhân bản và đức tin, tìm hiểu  đời sống tu trì và đặc sủng của Hội dòng</li>
+            <li>- Giúp Hội dòng nhận định khả năng sống đời Đa Minh của ứng sinh </li>
           </ul> </h4> 
 
         <h4><b>2. Tiền tập viện </b> 
          <ul>
-            <li>Trưởng thành hơn đười sống nhân bản Kitô giáo</li>
-            <li>Thăng tiến hơn đời sống thiêng liêng </li>
-            <li>Thích nghi đời sống tu trì và sứ vụ của Dòng</li>
-            <li>Thẩm định ơn gọi tu trì và khả năng thích nghi của ứng sinh </li>
+            <li>- Trưởng thành hơn đười sống nhân bản Kitô giáo</li>
+            <li>- Thăng tiến hơn đời sống thiêng liêng </li>
+            <li>- Thích nghi đời sống tu trì và sứ vụ của Dòng</li>
+            <li>- Thẩm định ơn gọi tu trì và khả năng thích nghi của ứng sinh </li>
           </ul>
         </h4> 
 
         <h4><b>3. Tập viện </b> 
 
         <ul>
-          <li>Giúp Tập sinh nhận ra ơn gọi của mình, sống những đòi hỏi thiết yếu của đời tu nếp sống Đa Minh và thấm nhuần tình thần của Hội dòng</li>
-            <li>Giúp Hội dòng kiểm chứng ơn gọi và khả năng thích đáng của Tập sinh </li>
+          <li>- Giúp Tập sinh nhận ra ơn gọi của mình, sống những đòi hỏi thiết yếu của đời tu nếp sống Đa Minh và thấm nhuần tình thần của Hội dòng</li>
+            <li>- Giúp Hội dòng kiểm chứng ơn gọi và khả năng thích đáng của Tập sinh </li>
               </ul>
         </h4> 
 
         <h4><b>4.Học viện </b> 
 
          <ul>
-            <li>Tiếp tục phát triển đời sống tâm linh và rèn luyện nhân bản.</li>
-            <li>Trau dồi kiến thức thánh khoa, ơn gọi tu trì và nếp sống Đa Minh </li>
-            <li>Thực tập mục vụ theo mục đích của Hội dòng</li>
+            <li>- Tiếp tục phát triển đời sống tâm linh và rèn luyện nhân bản.</li>
+            <li>- Trau dồi kiến thức thánh khoa, ơn gọi tu trì và nếp sống Đa Minh </li>
+            <li>- Thực tập mục vụ theo mục đích của Hội dòng</li>
            
           </ul>
         </h4> 
@@ -132,9 +132,9 @@ aboutUs:
         <h4><b>5. Tiền vĩnh thệ</b> 
 
          <ul>
-            <li>Bồi dưỡng tâm linh</li>
-            <li>Nhận thức sâu xa về giá trị các lời khấn. </li>
-            <li>Nhìn lại hành trình thánh hiến của mình để xác tín việc hiến thân trọn đời cho Chúa trong sứ vụ loan báo Tin Mừng.</li>
+            <li>- Bồi dưỡng tâm linh</li>
+            <li>- Nhận thức sâu xa về giá trị các lời khấn. </li>
+            <li>- Nhìn lại hành trình thánh hiến của mình để xác tín việc hiến thân trọn đời cho Chúa trong sứ vụ loan báo Tin Mừng.</li>
            
           </ul>
         </h4> 
@@ -142,7 +142,7 @@ aboutUs:
         <h3><b>II. GIAI ĐOẠN THƯỜNG HUẤN (đào tạo liên tục)</b></h3> 
 
 
-        <h3> Khi đã khấn trọn, chị em bước vào giai đoạn thường huấn trải dài suốt cuộc đời tu trì.  </h3> 
+        <h4> Khi đã khấn trọn, chị em bước vào giai đoạn thường huấn trải dài suốt cuộc đời tu trì.  </h4> 
 
 
         <style>
@@ -162,7 +162,7 @@ aboutUs:
 
         h4 {
 
-        line-height: 1.5
+        line-height: 2.0
          text-align: justify;
         font-size: 19px;
 
