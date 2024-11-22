@@ -62,6 +62,8 @@ aboutUs:
 
         font-weight: bold;
 
+        margin-left: 20px;
+
         }
 
 
@@ -71,6 +73,8 @@ aboutUs:
          text-align: justify;
         font-size: 18px;
          margin-top: 5px;
+        margin-left: 40px;
+
         }
 
         </style>
@@ -142,7 +146,7 @@ aboutUs:
         <h3><b>II. GIAI ĐOẠN THƯỜNG HUẤN (đào tạo liên tục)</b></h3> 
 
 
-        <h4> Khi đã khấn trọn, chị em bước vào giai đoạn thường huấn trải dài suốt cuộc đời tu trì.  </h4> 
+        <h3> Khi đã khấn trọn, chị em bước vào giai đoạn thường huấn trải dài suốt cuộc đời tu trì.  </h3> 
 
 
         <style>
