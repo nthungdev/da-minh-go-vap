@@ -27,25 +27,25 @@ aboutUs:
         Dominican Sisters of Go Vap) </b> </h4> <hr>
 
 
-        <h3>MỤC ĐÍCH</h3> 
+        <h4>MỤC ĐÍCH</h4> 
 
         <p> Qua việc sống ba lời khuyên Phúc Âm: khiết tịnh, khó nghèo và vâng phục. Chị em hướng đến mục đích của đời thánh hiến là đạt tới đức ái hoàn hảo bằng việc tôn vinh Thiên Chúa, xây dựng Hội Thánh và mưu cầu phần rỗi các linh hồn.</p> 
 
         <hr>
 
-        <h3> ĐẶC TÍNH</h3> 
+        <h4> ĐẶC TÍNH</h4> 
 
         <p> Chị em Đa Minh Gò Vấp luôn mang trong mình những yếu tố làm nên đặc tính người nữ tu Đa Minh: đời sống Cộng đoàn, trung thành tuân giữ các lời khấn, sốt sắng cử hành phụng vụ cộng đoàn, chuyên chăm học hành và thi hành sứ vụ. </p> 
 
         <hr>
 
-        <h3> ĐẶC SỦNG</h3> 
+        <h4> ĐẶC SỦNG</h4> 
 
         <p>Sống tinh thần đoàn sủng Đa Minh “Chia sẻ cho tha nhân những gì mình đã chiêm niệm”, chị em Đa Minh Gò Vấp đón nhận đặc sủng: CÙNG MẸ MARIA MÂN CÔI, LOAN BÁO TIN MỪNG ĐỨC KITÔ VỚI LÒNG TRẮC ẨN.</p>
 
         <hr>
 
-        <h3>SỨ VỤ</h3> 
+        <h4>SỨ VỤ</h4> 
 
 
         <p>Chị em hội nhập nếp sống văn hóa truyền thống địa phương và thi hành sứ vụ truyền giáo qua các hoạt động phù hợp với thời đại: giáo dục đức tin và văn hóa, mục vụ giáo xứ và bác ái xã hội.</p>
