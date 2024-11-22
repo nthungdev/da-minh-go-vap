@@ -168,7 +168,7 @@ aboutUs:
 
         line-height: 2.0
          text-align: justify;
-        font-size: 18px;
+        font-size: 25px;
 
         margin-left: 40px;
          
