@@ -155,6 +155,8 @@ aboutUs:
 
         font-weight: bold;
 
+        margin-left: 20px;
+
         }
 
 
@@ -163,6 +165,8 @@ aboutUs:
         line-height: 1.5
          text-align: justify;
         font-size: 19px;
+
+        margin-left: 40px;
          
         }
 
