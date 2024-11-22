@@ -167,6 +167,8 @@ aboutUs:
                     padding: 10px;
         margin-left: 60px;
 
+        font-size: 18px;
+
 
         }
 
@@ -175,7 +177,7 @@ aboutUs:
 
         line-height: 2.0
          text-align: justify;
-        font-size: 25px;
+        font-size: 18px;
 
         margin-left: 40px;
 
