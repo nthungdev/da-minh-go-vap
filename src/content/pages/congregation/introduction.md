@@ -100,11 +100,14 @@ aboutUs:
         <h4> Việc đào tạo sơ khởi gồm năm giai đoạn: </h4> 
 
 
-        <p><b>1. Thỉnh viện </b> 
+        <p><b>1. Thỉnh viện </b> </p> 
+
+
+        <div class="dong">
          <ul>
             <li>- Giúp ứng sinh trưởng thành nhân bản và đức tin, tìm hiểu  đời sống tu trì và đặc sủng của Hội dòng</li>
             <li>- Giúp Hội dòng nhận định khả năng sống đời Đa Minh của ứng sinh </li>
-          </ul> </p> 
+          </ul> </p> </div>
 
         <p><b>2. Tiền tập viện </b> </p> 
 
@@ -115,35 +118,40 @@ aboutUs:
             <li>- Thích nghi đời sống tu trì và sứ vụ của Dòng</li>
             <li>- Thẩm định ơn gọi tu trì và khả năng thích nghi của ứng sinh </li>
           </ul>
-        <div>
+        </div>
 
-        <p><b>3. Tập viện </b> 
+
+        <p><b>3. Tập viện </b> </p> 
+
+        <div class="dong">
 
         <ul>
           <li>- Giúp Tập sinh nhận ra ơn gọi của mình, sống những đòi hỏi thiết yếu của đời tu nếp sống Đa Minh và thấm nhuần tình thần của Hội dòng</li>
             <li>- Giúp Hội dòng kiểm chứng ơn gọi và khả năng thích đáng của Tập sinh </li>
               </ul>
-        </p> 
+        </div>
 
-        <p><b>4.Học viện </b> 
 
+        <p><b>4.Học viện </b> </p> 
+
+        <div class="dong">
          <ul>
             <li>- Tiếp tục phát triển đời sống tâm linh và rèn luyện nhân bản.</li>
             <li>- Trau dồi kiến thức thánh khoa, ơn gọi tu trì và nếp sống Đa Minh </li>
             <li>- Thực tập mục vụ theo mục đích của Hội dòng</li>
-           
           </ul>
-        </p> 
+        </div>
 
-        <p><b>5. Tiền vĩnh thệ</b> 
 
+        <p><b>5. Tiền vĩnh thệ</b> </p> 
+
+
+        <div class="dong">
          <ul>
             <li>- Bồi dưỡng tâm linh</li>
             <li>- Nhận thức sâu xa về giá trị các lời khấn. </li>
             <li>- Nhìn lại hành trình thánh hiến của mình để xác tín việc hiến thân trọn đời cho Chúa trong sứ vụ loan báo Tin Mừng.</li>
-           
-          </ul>
-        </p> 
+          </ul> </div>
 
         <h4><b>II. GIAI ĐOẠN THƯỜNG HUẤN (đào tạo liên tục)</b></h4> 
 
