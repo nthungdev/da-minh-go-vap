@@ -171,7 +171,9 @@ aboutUs:
         font-size: 25px;
 
         margin-left: 40px;
-         
+
+        margin-top: 20px;
+         margin-bottom: 5px;
         }
 
         </style>
