@@ -2,8 +2,8 @@
 aboutUs:
   title: CHÚNG TÔI LÀ NHỮNG NỮ TU ĐA MINH GÒ VẤP
   body: >+
-    ##### **Trụ sở chính: <u>[25/2 Lê Đức Thọ, Gò Vấp, Thành phố Hồ Chí
-    Minh](https://maps.app.goo.gl/hnfrCGRCganpZTPS7)</u>**
+    ##### **Trụ sở chính: <u>[1053/4 Lê Đức Thọ, Phường 16, Quận Gò Vấp, Thành
+    phố Hồ Chí Minh](https://maps.app.goo.gl/hnfrCGRCganpZTPS7)</u>**
 
 
     ##### **Dòng nữ Đa Minh Gò Vấp tên gọi trước đây là Dòng nữ Đa Minh Lạng Sơn, là Dòng địa phận thuộc Tổng Giáo phận Sài Gòn.**
@@ -238,6 +238,17 @@ mission:
 
 
     #### Xuyên suốt giòng thời gian gần 100 năm, từ rừng Lạng Sơn miền Bắc đến miền đảo Phú Quốc trời Nam, những họat động của chị em đa số tập trung ở các xứ truyền giáo hoặc xứ đạo miền quê. Đơn sơ, giản dị, hội nhập vào cuộc sống người lao động địa phương để khai hóa dân trí, gieo rắc tình thương và giáo dục niềm tin. Cho đi cái mình có. Làm điều mình có thể với một con tim yêu mến và hiến dâng trọn vẹn. Thật bé nhỏ và khiêm tốn! Chị em Đa Minh Gò Vấp trong hình thành và phát triển, đến hôm nay Dòng đã có một chỗ đứng trong lòng Giáo hội. Hội dòng Đa Minh Gò Vấp đang cùng nhịp bước với các hội dòng trong lòng Giáo hội Việt Nam và cùng với Giáo hội toàn cầu dấn thân “PHỤC VỤ ƠN CỨU ĐỘ”.
+
+    ##### **Việc loan báo Nước Thiên Chúa của chị em Đa Minh Gò Vấp:**
+
+
+    1. Bắt nguồn từ việc kết hợp mật thiết với Thiên Chúa ;
+
+    2. Thấm nhuần tinh thần phục vụ đích thực, vô vị lợi và sẵn sàng đi tới bất cứ nơi nào được sai đến;
+
+    3. Vun trồng đời sống thiêng liêng và các đức tính nhân bản, để cách sống của chúng ta không làm suy yếu điều mình giảng truyền;
+
+    4. Mang tính ngôn sứ: nhận ra tiếng gọi của Thiên Chúa nơi các biến cố của cuộc sống và xã hội, đồng thời đáp ứng nhu cầu thời đại.
   videos:
     title: "Video hoạt động sứ mệnh "
     videos:
@@ -267,22 +278,21 @@ mission:
         * Mục đích: làm vinh danh Chúa, thánh hóa bản thân và dâng hiến hoàn toàn cho việc loan báo tin mừng bằng cách thực thi ba lời khấn, khiết tịnh, khó nghèo và vâng phục theo luật dòng các chị em Đa Minh Việt Nam, nội quy hội dòng và tu luật thánh Augustino
 
         * Sống linh đạo Đa Minh: NÓI VỚI CHÚA – NÓI VỀ CHÚA Hoặc “CHIÊM NIỆM VÀ TRUYỀN THÔNG”, Chia sẻ cho tha nhân những gì mình đã chiêm niệm
-      title: CẦU NGUYỆN, HY SINH VÀ CHỨNG TÁ ĐỜI SỐNG
-      body: >-
-        ##### **Việc loan báo Nước Thiên Chúa của chị em Đa Minh Gò Vấp:**
+      title: TRUYỀN GIÁO
+      body: >
+        ##### **Chị em thực thi sứ vụ truyền giáo tại địa phương mình qua
+        việc:** 
 
+        1. Cầu nguyện, hy sinh cho việc truyền giáo
 
-        1. Bắt nguồn từ việc kết hợp mật thiết với Thiên Chúa ;
+        2. Dạy giáo lý cho dự tòng và củng cố đức tin cho tân tòng;
 
+        3. Tái truyền giảng Tin Mừng cho những người đã xa lìa đức tin.
 
-        2. Thấm nhuần tinh thần phục vụ đích thực, vô vị lợi và sẵn sàng đi tới bất cứ nơi nào được sai đến;
+        4. Cộng tác với giáo dân và các hội dòng khác trong sứ vụ truyền giáo; 
 
-
-        3. Vun trồng đời sống thiêng liêng và các đức tính nhân bản, để cách sống của chúng ta không làm suy yếu điều mình giảng truyền;
-
-
-        4. Mang tính ngôn sứ: nhận ra tiếng gọi của Thiên Chúa nơi các biến cố của cuộc sống và xã hội, đồng thời đáp ứng nhu cầu thời đại.
-    - title: "GIÁO DỤC ĐỨC TIN VÀ VĂN HOÁ. "
+        5. Thăm viếng giúp đỡ các gia đình lương dân. 
+    - title: GIÁO DỤC ĐỨC TIN VÀ MỤC VỤ GIÁO XỨ
       content: >-
         Đào tạo nữ tu đa minh trở nên môn đệ đích thực của Đức Kito xoay quanh 4
         phương diện
@@ -297,12 +307,24 @@ mission:
         * Sứ vụ
 
         * đào tạo qua các giai đoạn: Thỉnh sinh, tiền tập sinh, tập sinh và Học viện
-      body: "##### Việc dạy giáo lý được Hội Thánh luôn coi là nhiệm vụ thánh và là
-        một trong những công tác chính của mình, “không thể tách rời khỏi các
-        hoạt động mục vụ và truyền giáo của Hội Thánh”. Do đó, tại các môi
-        trường làm việc của chị em Đa Minh Gò Vấp, việc dạy giáo lý là bổn phận
-        ưu tiên, nên phải được thi hành nghiêm chỉnh và nhiệt thành."
-    - title: "MỤC VỤ GIÁO XỨ. "
+      body: >
+        ##### Giáo dục Đức tin: tại các môi trường làm việc của chị em Đa Minh
+        Gò Vấp, việc dạy giáo lý là bổn phận ưu tiên, phải được thi hành nghiêm
+        chỉnh và nhiệt thành. Lưu tâm đến việc gieo hạt giống đức tin.
+
+
+        ##### **Chị em đảm trách các công tác tông đồ giáo xứ như:** 
+
+        1. Ưu tiên dạy giáo lý.
+
+        2. Chia sẻ Lời Chúa và dạy Thánh kinh.
+
+        3. Phụ trách các giới, các hội đoàn, đặc biệt là Huynh đoàn Đa Minh.
+
+        4. Trao Mình Thánh Chúa cho bệnh nhân.
+
+        5. Thừa tác viên ngoại lệ, phục vụ bàn thánh…
+    - title: GIÁO DỤC VĂN HOÁ
       content: >-
         * công việc mực vụ: dạy giáo lý, huấn luyện giáo lý viên, phụ trách các
         hội đoàn trong giáo xứ.
@@ -312,9 +334,31 @@ mission:
         * công tác xã hội: mở các lớp tình thường, xây nhà cho người nghèo, chăm sóc trẻ khuyết tật, mái ấm tình thương cho các trẻ em mồ côi.
 
         * công tác giáo dục: dấn thân trong việc giáo dục mầm non, các lớp dạy kèm bán trú, nội trú.
-      body: Điền nội dung
+      body: >
+        ##### **Giáo dục toàn diện nhân bản và đức tin** 
+
+
+        <b>1. Nhân bản</b>: Quan tâm đến việc giáo dục toàn diện, phát triển hài hòa về thể lực, trí tuệ, đạo đức, thẩm mỹ và lao động; đặc biệt giáo dục học viên có lương tâm chân chính và giàu lòng nhân ái. 
+
+        <b>2. Đức tin</b>: Lưu tâm việc gieo hạt giống đức tin cho học viên, bằng đời sống gương mẫu và tình thương như lời rao giảng đầy sức thuyết phục.
     - title: BÁC ÁI XÃ HỘI VÀ CÁC HOẠT ĐỘNG THĂNG TIẾN CON NGƯỜI.
-      body: nội dung
+      body: >+
+        ##### **Người nghèo là đối tượng phục vụ ưu tiên của Hội dòng, vì
+        thế:** 
+
+
+        Chúng tôi thực hiện những việc từ thiện bác ái: 
+
+        1. Thăm viếng và giúp đỡ các bệnh nhân, người già yếu neo đơn và những người nghèo khổ tại địa phương.
+
+        2. Cổ võ công bằng xã hội, trợ vốn, tạo việc làm cho người thất nghiệp, gây quỹ học bổng, mở lớp tình thương, hướng nghiệp, các công tác y tế
+
+        3. Mái ấm cho trẻ mồ côi
+
+        4. Chăm sóc người khuyết tật.
+
+
+
   banner:
     url: https://res.cloudinary.com/dxtb6rv7y/video/upload/v1730084690/Misione_2_kj5h1m.mp4
     alt: Banner sứ mệnh
