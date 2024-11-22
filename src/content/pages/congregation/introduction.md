@@ -62,7 +62,7 @@ aboutUs:
 
         font-weight: bold;
 
-        margin-left: 20px;
+        margin-left: 40px;
 
         }
 
