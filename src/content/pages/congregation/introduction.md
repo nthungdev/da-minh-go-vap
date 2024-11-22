@@ -23,32 +23,32 @@ aboutUs:
 
         Sống linh đạo Đa Minh: NÓI VỚI CHÚA – NÓI VỀ CHÚA Hoặc “CHIÊM NIỆM VÀ TRUYỀN THÔNG”, Chia sẻ cho tha nhân những gì mình đã chiêm niệm
       body: >
-        <h4> <b>Danh Xưng: Hội dòng nữ Đa Minh Gò Vấp (the congregation of
-        Dominican Sisters of Go Vap) </b> </h4> <hr>
+        <p> <b>Danh Xưng: Hội dòng nữ Đa Minh Gò Vấp (the congregation of
+        Dominican Sisters of Go Vap) </b> </p> <hr>
 
 
         <h3>MỤC ĐÍCH</h3> 
 
-        <h4> Qua việc sống ba lời khuyên Phúc Âm: khiết tịnh, khó nghèo và vâng phục. Chị em hướng đến mục đích của đời thánh hiến là đạt tới đức ái hoàn hảo bằng việc tôn vinh Thiên Chúa, xây dựng Hội Thánh và mưu cầu phần rỗi các linh hồn.</h4> 
+        <p> Qua việc sống ba lời khuyên Phúc Âm: khiết tịnh, khó nghèo và vâng phục. Chị em hướng đến mục đích của đời thánh hiến là đạt tới đức ái hoàn hảo bằng việc tôn vinh Thiên Chúa, xây dựng Hội Thánh và mưu cầu phần rỗi các linh hồn.</p> 
 
         <hr>
 
         <h3> ĐẶC TÍNH</h3> 
 
-        <h4> Chị em Đa Minh Gò Vấp luôn mang trong mình những yếu tố làm nên đặc tính người nữ tu Đa Minh: đời sống Cộng đoàn, trung thành tuân giữ các lời khấn, sốt sắng cử hành phụng vụ cộng đoàn, chuyên chăm học hành và thi hành sứ vụ. </h4> 
+        <p> Chị em Đa Minh Gò Vấp luôn mang trong mình những yếu tố làm nên đặc tính người nữ tu Đa Minh: đời sống Cộng đoàn, trung thành tuân giữ các lời khấn, sốt sắng cử hành phụng vụ cộng đoàn, chuyên chăm học hành và thi hành sứ vụ. </p> 
 
         <hr>
 
         <h3> ĐẶC SỦNG</h3> 
 
-        <h4>Sống tinh thần đoàn sủng Đa Minh “Chia sẻ cho tha nhân những gì mình đã chiêm niệm”, chị em Đa Minh Gò Vấp đón nhận đặc sủng: CÙNG MẸ MARIA MÂN CÔI, LOAN BÁO TIN MỪNG ĐỨC KITÔ VỚI LÒNG TRẮC ẨN.</h4>
+        <p>Sống tinh thần đoàn sủng Đa Minh “Chia sẻ cho tha nhân những gì mình đã chiêm niệm”, chị em Đa Minh Gò Vấp đón nhận đặc sủng: CÙNG MẸ MARIA MÂN CÔI, LOAN BÁO TIN MỪNG ĐỨC KITÔ VỚI LÒNG TRẮC ẨN.</p>
 
         <hr>
 
         <h3>SỨ VỤ</h3> 
 
 
-        <h4>Chị em hội nhập nếp sống văn hóa truyền thống địa phương và thi hành sứ vụ truyền giáo qua các hoạt động phù hợp với thời đại: giáo dục đức tin và văn hóa, mục vụ giáo xứ và bác ái xã hội.</h4>
+        <p>Chị em hội nhập nếp sống văn hóa truyền thống địa phương và thi hành sứ vụ truyền giáo qua các hoạt động phù hợp với thời đại: giáo dục đức tin và văn hóa, mục vụ giáo xứ và bác ái xã hội.</p>
 
 
 
@@ -67,13 +67,13 @@ aboutUs:
         }
 
 
-        h4 {
+        p {
 
         line-height: 2.0
          text-align: justify;
         font-size: 18px;
          margin-top: 5px;
-        margin-left: 40px;
+        margin-left:80px;
 
         }
 
