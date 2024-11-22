@@ -237,7 +237,7 @@ mission:
     NGƯỜI NGHÈO KHÓ:**
 
 
-    #### Xuyên suốt giòng thời gian gần 100 năm, từ rừng Lạng Sơn miền Bắc đến miền đảo Phú Quốc trời Nam, những họat động của chị em đa số tập trung ở các xứ truyền giáo hoặc xứ đạo miền quê. Đơn sơ, giản dị, hội nhập vào cuộc sống người lao động địa phương để khai hóa dân trí, gieo rắc tình thương và giáo dục niềm tin. Cho đi cái mình có. Làm điều mình có thể với một con tim yêu mến và hiến dâng trọn vẹn. Thật bé nhỏ và khiêm tốn! Chị em Đa Minh Lạng Sơn trong hình thành và phát triển, đến hôm nay Dòng đã có một chỗ đứng trong lòng Giáo hội. Hội dòng Đa Minh Lạng Sơn đang cùng nhịp bước với các hội dòng trong lòng Giáo hội Việt Nam và cùng với Giáo hội toàn cầu dấn thân “PHỤC VỤ ƠN CỨU ĐỘ”.
+    #### Xuyên suốt giòng thời gian gần 100 năm, từ rừng Lạng Sơn miền Bắc đến miền đảo Phú Quốc trời Nam, những họat động của chị em đa số tập trung ở các xứ truyền giáo hoặc xứ đạo miền quê. Đơn sơ, giản dị, hội nhập vào cuộc sống người lao động địa phương để khai hóa dân trí, gieo rắc tình thương và giáo dục niềm tin. Cho đi cái mình có. Làm điều mình có thể với một con tim yêu mến và hiến dâng trọn vẹn. Thật bé nhỏ và khiêm tốn! Chị em Đa Minh Gò Vấp trong hình thành và phát triển, đến hôm nay Dòng đã có một chỗ đứng trong lòng Giáo hội. Hội dòng Đa Minh Gò Vấp đang cùng nhịp bước với các hội dòng trong lòng Giáo hội Việt Nam và cùng với Giáo hội toàn cầu dấn thân “PHỤC VỤ ƠN CỨU ĐỘ”.
   videos:
     title: "Video hoạt động sứ mệnh "
     videos:
@@ -269,7 +269,7 @@ mission:
         * Sống linh đạo Đa Minh: NÓI VỚI CHÚA – NÓI VỀ CHÚA Hoặc “CHIÊM NIỆM VÀ TRUYỀN THÔNG”, Chia sẻ cho tha nhân những gì mình đã chiêm niệm
       title: CẦU NGUYỆN, HY SINH VÀ CHỨNG TÁ ĐỜI SỐNG
       body: >-
-        ##### **Việc loan báo Nước Thiên Chúa của chúng ta phải:**
+        ##### **Việc loan báo Nước Thiên Chúa của chị em Đa Minh Gò Vấp:**
 
 
         1. Bắt nguồn từ việc kết hợp mật thiết với Thiên Chúa ;
@@ -278,10 +278,10 @@ mission:
         2. Thấm nhuần tinh thần phục vụ đích thực, vô vị lợi và sẵn sàng đi tới bất cứ nơi nào được sai đến;
 
 
-        3. Vun trồng đời sống thiêng liêng và các đức tính nhân bản, để cách sống của chúng ta không làm suy yếu điều mình giảng truyền ;
+        3. Vun trồng đời sống thiêng liêng và các đức tính nhân bản, để cách sống của chúng ta không làm suy yếu điều mình giảng truyền;
 
 
-        4. Mang tính ngôn sứ: nhận ra tiếng gọi của Thiên Chúa nơi các biến cố của cuộc sống và xã hội, đồng thời đáp ứng nhu cầu thời đại .
+        4. Mang tính ngôn sứ: nhận ra tiếng gọi của Thiên Chúa nơi các biến cố của cuộc sống và xã hội, đồng thời đáp ứng nhu cầu thời đại.
     - title: "GIÁO DỤC ĐỨC TIN VÀ VĂN HOÁ. "
       content: >-
         Đào tạo nữ tu đa minh trở nên môn đệ đích thực của Đức Kito xoay quanh 4
@@ -297,11 +297,11 @@ mission:
         * Sứ vụ
 
         * đào tạo qua các giai đoạn: Thỉnh sinh, tiền tập sinh, tập sinh và Học viện
-      body: "##### Việc dạy giáo lý được Hội Thánh luôn coi là nhiệm vụ thánh  và là
-        một trong những công tác chính của mình , “không thể tách rời khỏi các
-        hoạt động mục vụ và truyền giáo của Hội Thánh” . Do đó, tại các môi
-        trường làm việc của chị em, việc dạy giáo lý là bổn phận ưu tiên, nên
-        phải được thi hành nghiêm chỉnh và nhiệt thành."
+      body: "##### Việc dạy giáo lý được Hội Thánh luôn coi là nhiệm vụ thánh và là
+        một trong những công tác chính của mình, “không thể tách rời khỏi các
+        hoạt động mục vụ và truyền giáo của Hội Thánh”. Do đó, tại các môi
+        trường làm việc của chị em Đa Minh Gò Vấp, việc dạy giáo lý là bổn phận
+        ưu tiên, nên phải được thi hành nghiêm chỉnh và nhiệt thành."
     - title: "MỤC VỤ GIÁO XỨ. "
       content: >-
         * công việc mực vụ: dạy giáo lý, huấn luyện giáo lý viên, phụ trách các
