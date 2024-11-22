@@ -93,7 +93,7 @@ aboutUs:
       body: >
         <h3> <b>I. ĐÀO TẠO SƠ KHỞI</b></h3> 
 
-        <h4> Việc đào tạo sơ khởi gồm năm giai đoạn: </h4> 
+        <h3> Việc đào tạo sơ khởi gồm năm giai đoạn: </h3> 
 
 
         <h4><b>1. Thỉnh viện </b> 
