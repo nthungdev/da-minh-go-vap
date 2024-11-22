@@ -107,7 +107,9 @@ aboutUs:
          <ul>
             <li>- Giúp ứng sinh trưởng thành nhân bản và đức tin, tìm hiểu  đời sống tu trì và đặc sủng của Hội dòng</li>
             <li>- Giúp Hội dòng nhận định khả năng sống đời Đa Minh của ứng sinh </li>
-          </ul> </p> </div>
+          </ul> 
+        </div>
+
 
         <p><b>2. Tiền tập viện </b> </p> 
 
@@ -206,9 +208,11 @@ aboutUs:
 
         * công tác giáo dục: dấn thân trong việc giáo dục mầm non, các lớp dạy kèm bán trú, nội trú
       body: >
-        <h3><b>Truyền thống chị em Đa Minh Gò Vấp</b></h3>
+        <h4><b>Truyền thống chị em Đa Minh Gò Vấp</b></h4>
 
-        <h4><ul>
+        <div class="dong">
+
+        <ul>
 
         <li>1. Là một cộng đoàn thừa sai, sẵn sàng ra đi để phục vụ</li>
 
@@ -222,12 +226,11 @@ aboutUs:
 
         <li>6. Trọn niềm phó thác cậy trông và đầy lòng tin tưởng</li>
 
-        </ul></h4>
-
-
+        </ul>
+         </div>
         <style>
 
-        h3 {
+        h4 {
 
         color:#008596; 
 
@@ -240,7 +243,7 @@ aboutUs:
         }
 
 
-        h4 {
+        .dong {
 
         line-height: 2.0
          text-align: justify;
