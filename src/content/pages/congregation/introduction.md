@@ -106,14 +106,16 @@ aboutUs:
             <li>- Giúp Hội dòng nhận định khả năng sống đời Đa Minh của ứng sinh </li>
           </ul> </p> 
 
-        <p><b>2. Tiền tập viện </b> 
+        <p><b>2. Tiền tập viện </b> </p> 
+
+        <div class="dong">
          <ul>
             <li>- Trưởng thành hơn đười sống nhân bản Kitô giáo</li>
             <li>- Thăng tiến hơn đời sống thiêng liêng </li>
             <li>- Thích nghi đời sống tu trì và sứ vụ của Dòng</li>
             <li>- Thẩm định ơn gọi tu trì và khả năng thích nghi của ứng sinh </li>
           </ul>
-        </p> 
+        <div>
 
         <p><b>3. Tập viện </b> 
 
@@ -162,8 +164,7 @@ aboutUs:
         margin-left: 20px;
 
         }
-
-        li { margin-bottom: 20px; /* Tạo khoảng cách giữa các div */
+         .dong { margin-bottom: 20px; /* Tạo khoảng cách giữa các div */
                     padding: 10px;
         margin-left: 60px;
 
