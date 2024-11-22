@@ -1598,6 +1598,7 @@ collections:
         label: 'Ảnh bìa'
         widget: image
         allow_multiple: false
+        required: false
       - name: 'videos'
         label: 'Video'
         description: 'Video của bài viết. Chỉ được thêm tối đa 1 video.'
@@ -1611,6 +1612,7 @@ collections:
               label: 'Hình thu nhỏ',
               widget: 'image',
               allow_multiple: false,
+              required: false,
             }
           - name: 'type'
             label: 'Loại'
