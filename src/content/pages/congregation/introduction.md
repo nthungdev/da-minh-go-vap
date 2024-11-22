@@ -271,23 +271,54 @@ aboutUs:
     alt: Hình chúng tôi
 mission:
   title: SỨ MỆNH
-  body: >-
-    #### **Sứ vụ đặc biệt của Hội dòng Đa Minh Gò Vấp là LOAN BÁO TIN MỪNG CHO
-    NGƯỜI NGHÈO KHÓ:**
+  body: >
+    <h3><b>Sứ vụ đặc biệt của Hội dòng Đa Minh Gò Vấp là LOAN BÁO TIN MỪNG CHO
+    NGƯỜI NGHÈO KHÓ:</b></h3>
 
 
-    #### Xuyên suốt giòng thời gian gần 100 năm, từ rừng Lạng Sơn miền Bắc đến miền đảo Phú Quốc trời Nam, những họat động của chị em đa số tập trung ở các xứ truyền giáo hoặc xứ đạo miền quê. Đơn sơ, giản dị, hội nhập vào cuộc sống người lao động địa phương để khai hóa dân trí, gieo rắc tình thương và giáo dục niềm tin. Cho đi cái mình có. Làm điều mình có thể với một con tim yêu mến và hiến dâng trọn vẹn. Thật bé nhỏ và khiêm tốn! Chị em Đa Minh Gò Vấp trong hình thành và phát triển, đến hôm nay Dòng đã có một chỗ đứng trong lòng Giáo hội. Hội dòng Đa Minh Gò Vấp đang cùng nhịp bước với các hội dòng trong lòng Giáo hội Việt Nam và cùng với Giáo hội toàn cầu dấn thân “PHỤC VỤ ƠN CỨU ĐỘ”.
+    </h4> Xuyên suốt giòng thời gian gần 100 năm, từ rừng Lạng Sơn miền Bắc đến miền đảo Phú Quốc trời Nam, những họat động của chị em đa số tập trung ở các xứ truyền giáo hoặc xứ đạo miền quê. Đơn sơ, giản dị, hội nhập vào cuộc sống người lao động địa phương để khai hóa dân trí, gieo rắc tình thương và giáo dục niềm tin. Cho đi cái mình có. Làm điều mình có thể với một con tim yêu mến và hiến dâng trọn vẹn. Thật bé nhỏ và khiêm tốn! Chị em Đa Minh Gò Vấp trong hình thành và phát triển, đến hôm nay Dòng đã có một chỗ đứng trong lòng Giáo hội. Hội dòng Đa Minh Gò Vấp đang cùng nhịp bước với các hội dòng trong lòng Giáo hội Việt Nam và cùng với Giáo hội toàn cầu dấn thân “PHỤC VỤ ƠN CỨU ĐỘ”.</h4>
 
-    ##### **Việc loan báo Nước Thiên Chúa của chị em Đa Minh Gò Vấp:**
+    <h3><b>Việc loan báo Nước Thiên Chúa của chị em Đa Minh Gò Vấp:</b></h3>
+
+    <h4><ul>
+
+    <li>1. Bắt nguồn từ việc kết hợp mật thiết với Thiên Chúa;</li>
+
+    <li>2. Thấm nhuần tinh thần phục vụ đích thực, vô vị lợi và sẵn sàng đi tới bất cứ nơi nào được sai đến;</li>
+
+    <li>3. Vun trồng đời sống thiêng liêng và các đức tính nhân bản, để cách sống của chúng ta không làm suy yếu điều mình giảng truyền;</li>
+
+    <li>4. Mang tính ngôn sứ: nhận ra tiếng gọi của Thiên Chúa nơi các biến cố của cuộc sống và xã hội, đồng thời đáp ứng nhu cầu thời đại.</li>
+
+    </h4>
 
 
-    1. Bắt nguồn từ việc kết hợp mật thiết với Thiên Chúa ;
+    <style>
 
-    2. Thấm nhuần tinh thần phục vụ đích thực, vô vị lợi và sẵn sàng đi tới bất cứ nơi nào được sai đến;
+    h3 {
 
-    3. Vun trồng đời sống thiêng liêng và các đức tính nhân bản, để cách sống của chúng ta không làm suy yếu điều mình giảng truyền;
+    color:#008596; 
 
-    4. Mang tính ngôn sứ: nhận ra tiếng gọi của Thiên Chúa nơi các biến cố của cuộc sống và xã hội, đồng thời đáp ứng nhu cầu thời đại.
+    font-size: 25px;
+
+    font-weight: bold;
+
+    margin-left: 20px;
+
+    }
+
+
+    h4 {
+
+    line-height: 2.0
+     text-align: justify;
+    font-size: 18px;
+
+    margin-left: 40px;
+     
+    }
+
+    </style>
   videos:
     title: "Video hoạt động sứ mệnh "
     videos:
