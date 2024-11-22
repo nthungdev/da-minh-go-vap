@@ -295,15 +295,17 @@ aboutUs:
 mission:
   title: SỨ MỆNH
   body: >
-    <h3><b>Sứ vụ đặc biệt của Hội dòng Đa Minh Gò Vấp là LOAN BÁO TIN MỪNG CHO
-    NGƯỜI NGHÈO KHÓ:</b></h3>
+    <h4><b>Sứ vụ đặc biệt của Hội dòng Đa Minh Gò Vấp là LOAN BÁO TIN MỪNG CHO
+    NGƯỜI NGHÈO KHÓ:</b></h4>
 
 
-    </h4> Xuyên suốt giòng thời gian gần 100 năm, từ rừng Lạng Sơn miền Bắc đến miền đảo Phú Quốc trời Nam, những họat động của chị em đa số tập trung ở các xứ truyền giáo hoặc xứ đạo miền quê. Đơn sơ, giản dị, hội nhập vào cuộc sống người lao động địa phương để khai hóa dân trí, gieo rắc tình thương và giáo dục niềm tin. Cho đi cái mình có. Làm điều mình có thể với một con tim yêu mến và hiến dâng trọn vẹn. Thật bé nhỏ và khiêm tốn! Chị em Đa Minh Gò Vấp trong hình thành và phát triển, đến hôm nay Dòng đã có một chỗ đứng trong lòng Giáo hội. Hội dòng Đa Minh Gò Vấp đang cùng nhịp bước với các hội dòng trong lòng Giáo hội Việt Nam và cùng với Giáo hội toàn cầu dấn thân “PHỤC VỤ ƠN CỨU ĐỘ”.</h4>
+    <p> Xuyên suốt giòng thời gian gần 100 năm, từ rừng Lạng Sơn miền Bắc đến miền đảo Phú Quốc trời Nam, những họat động của chị em đa số tập trung ở các xứ truyền giáo hoặc xứ đạo miền quê. Đơn sơ, giản dị, hội nhập vào cuộc sống người lao động địa phương để khai hóa dân trí, gieo rắc tình thương và giáo dục niềm tin. Cho đi cái mình có. Làm điều mình có thể với một con tim yêu mến và hiến dâng trọn vẹn. Thật bé nhỏ và khiêm tốn! Chị em Đa Minh Gò Vấp trong hình thành và phát triển, đến hôm nay Dòng đã có một chỗ đứng trong lòng Giáo hội. Hội dòng Đa Minh Gò Vấp đang cùng nhịp bước với các hội dòng trong lòng Giáo hội Việt Nam và cùng với Giáo hội toàn cầu dấn thân “PHỤC VỤ ƠN CỨU ĐỘ”.</p>
 
-    <h3><b>Việc loan báo Nước Thiên Chúa của chị em Đa Minh Gò Vấp:</b></h3>
+    <h4><b>Việc loan báo Nước Thiên Chúa của chị em Đa Minh Gò Vấp:</b></h4>
 
-    <h4><ul>
+    <div class="dong">
+
+    <ul>
 
     <li>1. Bắt nguồn từ việc kết hợp mật thiết với Thiên Chúa;</li>
 
@@ -313,12 +315,12 @@ mission:
 
     <li>4. Mang tính ngôn sứ: nhận ra tiếng gọi của Thiên Chúa nơi các biến cố của cuộc sống và xã hội, đồng thời đáp ứng nhu cầu thời đại.</li>
 
-    </h4>
+    </div>
 
 
     <style>
 
-    h3 {
+    h4 {
 
     color:#008596; 
 
@@ -331,14 +333,27 @@ mission:
     }
 
 
-    h4 {
+    }
+     .dong { margin-bottom: 20px; /* Tạo khoảng cách giữa các div */
+                padding: 10px;
+    margin-left: 60px;
+
+    font-size: 18px;
+
+
+    }
+
+
+    p {
 
     line-height: 2.0
      text-align: justify;
     font-size: 18px;
 
     margin-left: 40px;
-     
+
+    margin-top: 20px;
+     margin-bottom: 5px;
     }
 
     </style>
@@ -373,10 +388,10 @@ mission:
         * Sống linh đạo Đa Minh: NÓI VỚI CHÚA – NÓI VỀ CHÚA Hoặc “CHIÊM NIỆM VÀ TRUYỀN THÔNG”, Chia sẻ cho tha nhân những gì mình đã chiêm niệm
       title: TRUYỀN GIÁO
       body: >-
-        <h3><b>Chị em thực thi sứ vụ truyền giáo tại địa phương mình qua
-        việc:</b></h3>
+        <h4><b>Chị em thực thi sứ vụ truyền giáo tại địa phương mình qua
+        việc:</b></h4>
 
-        <h4>
+        <div class="dong">
 
         <ul>
 
@@ -392,11 +407,11 @@ mission:
 
         </ul>
 
-        </h4>
+        </div>
 
         <style>
 
-        h3 {
+        h4 {
 
         color:#008596; 
 
@@ -409,7 +424,7 @@ mission:
         }
 
 
-        h4 {
+        .dong {
 
         line-height: 2.0
          text-align: justify;
@@ -436,15 +451,15 @@ mission:
 
         * đào tạo qua các giai đoạn: Thỉnh sinh, tiền tập sinh, tập sinh và Học viện
       body: >-
-        <h3><b> Giáo dục Đức tin:</b></h3> <h4>tại các môi trường làm việc của
+        <h4><b> Giáo dục Đức tin:</b></h4> <p>tại các môi trường làm việc của
         chị em Đa Minh Gò Vấp, việc dạy giáo lý là bổn phận ưu tiên, phải được
         thi hành nghiêm chỉnh và nhiệt thành. Lưu tâm đến việc gieo hạt giống
-        đức tin.</h4>
+        đức tin.</p>
 
 
-        <h3><b>Chị em đảm trách các công tác tông đồ giáo xứ như:</b></h3>
+        <h4><b>Chị em đảm trách các công tác tông đồ giáo xứ như:</b></h4>
 
-        <h4> 
+        <div class="dong">
 
         <ul>
 
@@ -460,11 +475,11 @@ mission:
 
         </ul>
 
-        </h4>
+        </div>
 
         <style>
 
-        h3 {
+        h4 {
 
         color:#008596; 
 
@@ -477,7 +492,17 @@ mission:
         }
 
 
-        h4 {
+        p{
+
+        line-height: 2.0
+         text-align: justify;
+        font-size: 18px;
+
+        margin-left: 40px;
+         
+        }
+
+        .dong {
 
         line-height: 2.0
          text-align: justify;
@@ -499,10 +524,12 @@ mission:
 
         * công tác giáo dục: dấn thân trong việc giáo dục mầm non, các lớp dạy kèm bán trú, nội trú.
       body: >-
-        <h3><b>Giáo dục toàn diện nhân bản và đức tin</b></h3>
+        <h4><b>Giáo dục toàn diện nhân bản và đức tin</b></h4>
 
 
-        <h4><ul>
+        <div class="dong">
+
+        <ul>
 
         <li><b>1. Nhân bản</b>: Quan tâm đến việc giáo dục toàn diện, phát triển hài hòa về thể lực, trí tuệ, đạo đức, thẩm mỹ và lao động; đặc biệt giáo dục học viên có lương tâm chân chính và giàu lòng nhân ái. </li>
 
@@ -510,11 +537,12 @@ mission:
 
         </ul>
 
-        </h4>
+        </div>
+
 
         <style>
 
-        h3 {
+        h4 {
 
         color:#008596; 
 
@@ -527,7 +555,17 @@ mission:
         }
 
 
-        h4 {
+        p {
+
+        line-height: 2.0
+         text-align: justify;
+        font-size: 18px;
+
+        margin-left: 40px;
+         
+        }
+
+        .dong {
 
         line-height: 2.0
          text-align: justify;
@@ -540,12 +578,13 @@ mission:
         </style>
     - title: BÁC ÁI XÃ HỘI VÀ CÁC HOẠT ĐỘNG THĂNG TIẾN CON NGƯỜI.
       body: >+
-        <h3><b>Người nghèo là đối tượng phục vụ ưu tiên của Hội dòng, vì
-        thế:</b></h3>
+        <h4><b>Người nghèo là đối tượng phục vụ ưu tiên của Hội dòng, vì
+        thế:</b></h4>
 
-        <h4>
 
         <b>Chúng tôi thực hiện những việc từ thiện bác ái: </b>
+
+        <div class="dong">
 
         <ul>
 
@@ -559,12 +598,12 @@ mission:
 
         </ul>
 
-        </h4>
+        </div>
 
 
         <style>
 
-        h3 {
+        h4 {
 
         color:#008596; 
 
@@ -577,7 +616,17 @@ mission:
         }
 
 
-        h4 {
+        p {
+
+        line-height: 2.0
+         text-align: justify;
+        font-size: 18px;
+
+        margin-left: 40px;
+         
+        }
+
+        .dong {
 
         line-height: 2.0
          text-align: justify;
