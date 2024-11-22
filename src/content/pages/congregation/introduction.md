@@ -54,7 +54,7 @@ aboutUs:
 
         <style>
 
-        h3 {
+        h4 {
 
         color:#008596; 
 
