@@ -349,19 +349,54 @@ mission:
 
         * Sống linh đạo Đa Minh: NÓI VỚI CHÚA – NÓI VỀ CHÚA Hoặc “CHIÊM NIỆM VÀ TRUYỀN THÔNG”, Chia sẻ cho tha nhân những gì mình đã chiêm niệm
       title: TRUYỀN GIÁO
-      body: >
-        ##### **Chị em thực thi sứ vụ truyền giáo tại địa phương mình qua
-        việc:** 
+      body: >-
+        <h3><b>Chị em thực thi sứ vụ truyền giáo tại địa phương mình qua
+        việc:</b></h3>
 
-        1. Cầu nguyện, hy sinh cho việc truyền giáo
+        <h4>
 
-        2. Dạy giáo lý cho dự tòng và củng cố đức tin cho tân tòng;
+        <ul>
 
-        3. Tái truyền giảng Tin Mừng cho những người đã xa lìa đức tin.
+        <li>1. Cầu nguyện, hy sinh cho việc truyền giáo</li>
 
-        4. Cộng tác với giáo dân và các hội dòng khác trong sứ vụ truyền giáo; 
+        <li>2. Dạy giáo lý cho dự tòng và củng cố đức tin cho tân tòng;</li>
 
-        5. Thăm viếng giúp đỡ các gia đình lương dân. 
+        <li>3. Tái truyền giảng Tin Mừng cho những người đã xa lìa đức tin.</li>
+
+        <li>4. Cộng tác với giáo dân và các hội dòng khác trong sứ vụ truyền giáo;</li> 
+
+        <li>5. Thăm viếng giúp đỡ các gia đình lương dân. </li>
+
+        </ul>
+
+        </h4>
+
+        <style>
+
+        h3 {
+
+        color:#008596; 
+
+        font-size: 25px;
+
+        font-weight: bold;
+
+        margin-left: 20px;
+
+        }
+
+
+        h4 {
+
+        line-height: 2.0
+         text-align: justify;
+        font-size: 18px;
+
+        margin-left: 40px;
+         
+        }
+
+        </style>
     - title: GIÁO DỤC ĐỨC TIN VÀ MỤC VỤ GIÁO XỨ
       content: >-
         Đào tạo nữ tu đa minh trở nên môn đệ đích thực của Đức Kito xoay quanh 4
@@ -377,23 +412,59 @@ mission:
         * Sứ vụ
 
         * đào tạo qua các giai đoạn: Thỉnh sinh, tiền tập sinh, tập sinh và Học viện
-      body: >
-        ##### Giáo dục Đức tin: tại các môi trường làm việc của chị em Đa Minh
-        Gò Vấp, việc dạy giáo lý là bổn phận ưu tiên, phải được thi hành nghiêm
-        chỉnh và nhiệt thành. Lưu tâm đến việc gieo hạt giống đức tin.
+      body: >-
+        <h3><b> Giáo dục Đức tin:</b></h3> <h4>tại các môi trường làm việc của
+        chị em Đa Minh Gò Vấp, việc dạy giáo lý là bổn phận ưu tiên, phải được
+        thi hành nghiêm chỉnh và nhiệt thành. Lưu tâm đến việc gieo hạt giống
+        đức tin.</h4>
 
 
-        ##### **Chị em đảm trách các công tác tông đồ giáo xứ như:** 
+        <h3><b>Chị em đảm trách các công tác tông đồ giáo xứ như:</b></h3>
 
-        1. Ưu tiên dạy giáo lý.
+        <h4> 
 
-        2. Chia sẻ Lời Chúa và dạy Thánh kinh.
+        <ul>
 
-        3. Phụ trách các giới, các hội đoàn, đặc biệt là Huynh đoàn Đa Minh.
+        <li>1. Ưu tiên dạy giáo lý.</li>
 
-        4. Trao Mình Thánh Chúa cho bệnh nhân.
+        <li>2. Chia sẻ Lời Chúa và dạy Thánh kinh.</li>
 
-        5. Thừa tác viên ngoại lệ, phục vụ bàn thánh…
+        <li>3. Phụ trách các giới, các hội đoàn, đặc biệt là Huynh đoàn Đa Minh.</li>
+
+        <li>4. Trao Mình Thánh Chúa cho bệnh nhân.</li>
+
+        <li>5. Thừa tác viên ngoại lệ, phục vụ bàn thánh…</li>
+
+        </ul>
+
+        </h4>
+
+        <style>
+
+        h3 {
+
+        color:#008596; 
+
+        font-size: 25px;
+
+        font-weight: bold;
+
+        margin-left: 20px;
+
+        }
+
+
+        h4 {
+
+        line-height: 2.0
+         text-align: justify;
+        font-size: 18px;
+
+        margin-left: 40px;
+         
+        }
+
+        </style>
     - title: GIÁO DỤC VĂN HOÁ
       content: >-
         * công việc mực vụ: dạy giáo lý, huấn luyện giáo lý viên, phụ trách các
@@ -404,30 +475,96 @@ mission:
         * công tác xã hội: mở các lớp tình thường, xây nhà cho người nghèo, chăm sóc trẻ khuyết tật, mái ấm tình thương cho các trẻ em mồ côi.
 
         * công tác giáo dục: dấn thân trong việc giáo dục mầm non, các lớp dạy kèm bán trú, nội trú.
-      body: >
-        ##### **Giáo dục toàn diện nhân bản và đức tin** 
+      body: >-
+        <h3><b>Giáo dục toàn diện nhân bản và đức tin</b></h3>
 
 
-        <b>1. Nhân bản</b>: Quan tâm đến việc giáo dục toàn diện, phát triển hài hòa về thể lực, trí tuệ, đạo đức, thẩm mỹ và lao động; đặc biệt giáo dục học viên có lương tâm chân chính và giàu lòng nhân ái. 
+        <h4><ul>
 
-        <b>2. Đức tin</b>: Lưu tâm việc gieo hạt giống đức tin cho học viên, bằng đời sống gương mẫu và tình thương như lời rao giảng đầy sức thuyết phục.
+        <li><b>1. Nhân bản</b>: Quan tâm đến việc giáo dục toàn diện, phát triển hài hòa về thể lực, trí tuệ, đạo đức, thẩm mỹ và lao động; đặc biệt giáo dục học viên có lương tâm chân chính và giàu lòng nhân ái. </li>
+
+        <li><b>2. Đức tin</b>: Lưu tâm việc gieo hạt giống đức tin cho học viên, bằng đời sống gương mẫu và tình thương như lời rao giảng đầy sức thuyết phục.</li>
+
+        </ul>
+
+        </h4>
+
+        <style>
+
+        h3 {
+
+        color:#008596; 
+
+        font-size: 25px;
+
+        font-weight: bold;
+
+        margin-left: 20px;
+
+        }
+
+
+        h4 {
+
+        line-height: 2.0
+         text-align: justify;
+        font-size: 18px;
+
+        margin-left: 40px;
+         
+        }
+
+        </style>
     - title: BÁC ÁI XÃ HỘI VÀ CÁC HOẠT ĐỘNG THĂNG TIẾN CON NGƯỜI.
       body: >+
-        ##### **Người nghèo là đối tượng phục vụ ưu tiên của Hội dòng, vì
-        thế:** 
+        <h3><b>Người nghèo là đối tượng phục vụ ưu tiên của Hội dòng, vì
+        thế:</b></h3>
+
+        <h4>
+
+        <b>Chúng tôi thực hiện những việc từ thiện bác ái: </b>
+
+        <ul>
+
+        <li>1. Thăm viếng và giúp đỡ các bệnh nhân, người già yếu neo đơn và những người nghèo khổ tại địa phương.</li>
+
+        <li>2. Cổ võ công bằng xã hội, trợ vốn, tạo việc làm cho người thất nghiệp, gây quỹ học bổng, mở lớp tình thương, hướng nghiệp, các công tác y tế</li>
+
+        <li>3. Mái ấm cho trẻ mồ côi</li>
+
+        <li>4. Chăm sóc người khuyết tật.</li>
+
+        </ul>
+
+        </h4>
 
 
-        Chúng tôi thực hiện những việc từ thiện bác ái: 
+        <style>
 
-        1. Thăm viếng và giúp đỡ các bệnh nhân, người già yếu neo đơn và những người nghèo khổ tại địa phương.
+        h3 {
 
-        2. Cổ võ công bằng xã hội, trợ vốn, tạo việc làm cho người thất nghiệp, gây quỹ học bổng, mở lớp tình thương, hướng nghiệp, các công tác y tế
+        color:#008596; 
 
-        3. Mái ấm cho trẻ mồ côi
+        font-size: 25px;
 
-        4. Chăm sóc người khuyết tật.
+        font-weight: bold;
+
+        margin-left: 20px;
+
+        }
 
 
+        h4 {
+
+        line-height: 2.0
+         text-align: justify;
+        font-size: 18px;
+
+        margin-left: 40px;
+         
+        }
+
+        </style>
 
   banner:
     url: https://res.cloudinary.com/dxtb6rv7y/video/upload/v1730084690/Misione_2_kj5h1m.mp4
