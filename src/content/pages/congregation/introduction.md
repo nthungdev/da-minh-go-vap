@@ -181,26 +181,52 @@ aboutUs:
         * công tác xã hội: mở các lớp tình thường, xây nhà cho người nghèo, chăm sóc trẻ khuyết tật, mái ấm tình thương cho các trẻ em mồ côi
 
         * công tác giáo dục: dấn thân trong việc giáo dục mầm non, các lớp dạy kèm bán trú, nội trú
-      body: >-
-        #### **Truyền thống chị em Đa Minh Gò Vấp**
+      body: >
+        <h3><b>Truyền thống chị em Đa Minh Gò Vấp</b></h3>
+
+        <h4><ul>
+
+        <li>1. Là một cộng đoàn thừa sai, sẵn sàng ra đi để phục vụ</li>
+
+        <li>2. Lối sống nghèo, nhiệm nhặt và gần gũi chia sẻ thân tình.</li>
+
+        <li>3. Tấm lòng hiếu kính, vâng lời và chân thành cộng tác<li>
+
+        <li>4. Đức tính chuyên cần, xả thân và trung kiên trong thử thách, bách hại</li>
+
+        <li>5. Tinh thần hiếu học, khiêm tốn vươn lên và không ngừng đổi mới</li>
+
+        <li>6. Trọn niềm phó thác cậy trông và đầy lòng tin tưởng</li>
+
+        </ul></h4>
 
 
-        ##### 1. Là một cộng đoàn thừa sai, sẵn sàng ra đi để phục vụ
+        <style>
+
+        h3 {
+
+        color:#008596; 
+
+        font-size: 25px;
+
+        font-weight: bold;
+
+        margin-left: 20px;
+
+        }
 
 
-        ##### 2. Lối sống nghèo, nhiệm nhặt và gần gũi chia sẻ thân tình.
+        h4 {
 
+        line-height: 2.0
+         text-align: justify;
+        font-size: 18px;
 
-        ##### 3. Tấm lòng hiếu kính, vâng lời và chân thành cộng tác
+        margin-left: 40px;
+         
+        }
 
-
-        ##### 4. Đức tính chuyên cần, xả thân và trung kiên trong thử thách, bách hại
-
-
-        ##### 5. Tinh thần hiếu học, khiêm tốn vươn lên và không ngừng đổi mới
-
-
-        ##### 6. Trọn niềm phó thác cậy trông và đầy lòng tin tưởng
+        </style>
   videos:
     title: Video giới thiệu
     videos:
