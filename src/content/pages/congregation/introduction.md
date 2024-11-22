@@ -100,11 +100,11 @@ aboutUs:
         <h3> Việc đào tạo sơ khởi gồm năm giai đoạn: </h3> 
 
 
-        <h4><b>1. Thỉnh viện </b> 
+        <p><b>1. Thỉnh viện </b> 
          <ul>
             <li>- Giúp ứng sinh trưởng thành nhân bản và đức tin, tìm hiểu  đời sống tu trì và đặc sủng của Hội dòng</li>
             <li>- Giúp Hội dòng nhận định khả năng sống đời Đa Minh của ứng sinh </li>
-          </ul> </h4> 
+          </ul> </p> 
 
         <h4><b>2. Tiền tập viện </b> 
          <ul>
@@ -113,7 +113,7 @@ aboutUs:
             <li>- Thích nghi đời sống tu trì và sứ vụ của Dòng</li>
             <li>- Thẩm định ơn gọi tu trì và khả năng thích nghi của ứng sinh </li>
           </ul>
-        </h4> 
+        </p> 
 
         <h4><b>3. Tập viện </b> 
 
@@ -121,9 +121,9 @@ aboutUs:
           <li>- Giúp Tập sinh nhận ra ơn gọi của mình, sống những đòi hỏi thiết yếu của đời tu nếp sống Đa Minh và thấm nhuần tình thần của Hội dòng</li>
             <li>- Giúp Hội dòng kiểm chứng ơn gọi và khả năng thích đáng của Tập sinh </li>
               </ul>
-        </h4> 
+        </p> 
 
-        <h4><b>4.Học viện </b> 
+        <p><b>4.Học viện </b> 
 
          <ul>
             <li>- Tiếp tục phát triển đời sống tâm linh và rèn luyện nhân bản.</li>
@@ -131,9 +131,9 @@ aboutUs:
             <li>- Thực tập mục vụ theo mục đích của Hội dòng</li>
            
           </ul>
-        </h4> 
+        </p> 
 
-        <h4><b>5. Tiền vĩnh thệ</b> 
+        <p><b>5. Tiền vĩnh thệ</b> 
 
          <ul>
             <li>- Bồi dưỡng tâm linh</li>
@@ -141,7 +141,7 @@ aboutUs:
             <li>- Nhìn lại hành trình thánh hiến của mình để xác tín việc hiến thân trọn đời cho Chúa trong sứ vụ loan báo Tin Mừng.</li>
            
           </ul>
-        </h4> 
+        </p> 
 
         <h3><b>II. GIAI ĐOẠN THƯỜNG HUẤN (đào tạo liên tục)</b></h3> 
 
@@ -164,7 +164,7 @@ aboutUs:
         }
 
 
-        h4 {
+        p {
 
         line-height: 2.0
          text-align: justify;
