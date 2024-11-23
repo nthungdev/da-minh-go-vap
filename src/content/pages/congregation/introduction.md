@@ -322,7 +322,7 @@ mission:
 
     color:#008596; 
 
-    font-size: 25px;
+    font-size: 15px;
 
     font-weight: bold;
 
@@ -413,7 +413,7 @@ mission:
 
         color:#008596; 
 
-        font-size: 25px;
+        font-size: 15px;
 
         font-weight: bold;
 
@@ -481,7 +481,7 @@ mission:
 
         color:#008596; 
 
-        font-size: 25px;
+        font-size: 15px;
 
         font-weight: bold;
 
@@ -544,7 +544,7 @@ mission:
 
         color:#008596; 
 
-        font-size: 25px;
+        font-size: 15px;
 
         font-weight: bold;
 
@@ -605,7 +605,7 @@ mission:
 
         color:#008596; 
 
-        font-size: 25px;
+        font-size: 15px;
 
         font-weight: bold;
 
