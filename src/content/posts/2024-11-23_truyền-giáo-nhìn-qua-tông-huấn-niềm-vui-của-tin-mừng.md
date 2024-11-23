@@ -3,6 +3,7 @@ title: TRUYỀN GIÁO  Nhìn qua Tông huấn NIỀM VUI CỦA TIN MỪNG
 date: 2015-12-16T09:55:00.000Z
 hiddenTags:
   - tinh thần dòng
+  - truyền giáo
 ---
 <figure> <img src="https://res.cloudinary.com/dxtb6rv7y/image/upload/v1731982439/8T9A9369_kgngmd.jpg" alt="Hình ảnh bên trái" class="image-left"; width="300"> <figcaption>Hình minh hoạ: cảnh vào làng.</figcaption> 
 </figure> 
