@@ -11,7 +11,5 @@ quotes:
   enable: true
   title: Cham Ngon cua Thanh Da Minh
 hiddenTags:
-  - Giới thiệu
-  - Sắc lập dòng
-  - cha bề trên tổng quyền dòng đa minh
+  - thánh đa minh
 ---
