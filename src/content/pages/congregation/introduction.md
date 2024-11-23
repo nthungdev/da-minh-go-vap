@@ -389,6 +389,7 @@ mission:
         <h4><b>Chị em thực thi sứ vụ truyền giáo tại địa phương mình qua
         việc:</b></h4>
 
+
         <div class="dong">
 
         <ul>
@@ -407,6 +408,7 @@ mission:
 
         </div>
 
+
         <style>
 
         h4 {
@@ -421,17 +423,16 @@ mission:
 
         }
 
-
         .dong {
 
         line-height: 2.0
-         text-align: justify;
+
+        text-align: justify;
+
         font-size: 18px;
 
         margin-left: 40px;
-         
-        }
-
+         }
         </style>
     - title: GIÁO DỤC ĐỨC TIN VÀ MỤC VỤ GIÁO XỨ
       content: >-
@@ -503,11 +504,13 @@ mission:
         .dong {
 
         line-height: 2.0
-         text-align: justify;
+
+        text-align: justify;
+
         font-size: 18px;
 
-        margin-left: 40px;
-         
+        margin-left: 40px; 
+
         }
 
         </style>
@@ -576,11 +579,8 @@ mission:
         </style>
     - title: BÁC ÁI XÃ HỘI VÀ CÁC HOẠT ĐỘNG THĂNG TIẾN CON NGƯỜI.
       body: >+
-        <h4><b>Người nghèo là đối tượng phục vụ ưu tiên của Hội dòng, vì
-        thế:</b></h4>
-
-
-        <b>Chúng tôi thực hiện những việc từ thiện bác ái: </b>
+        <h4><b>Người nghèo là đối tượng phục vụ ưu tiên của Hội dòng, vì thế
+        chúng tôi thực hiện những việc từ thiện bác ái:</b></h4>
 
         <div class="dong">
 
@@ -627,7 +627,9 @@ mission:
         .dong {
 
         line-height: 2.0
-         text-align: justify;
+
+        text-align: justify;
+
         font-size: 18px;
 
         margin-left: 40px;
