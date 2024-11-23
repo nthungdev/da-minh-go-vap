@@ -33,12 +33,12 @@ hiddenTags:
 
 <div class="distance" id="distanceDisplay"></div>
 <p style="text-align:justify;">
-<p4> <b>2/ 3/ Tâm hồn đơn sơ phó thác: </b></p4>
+<p4> <b>3/ Tâm hồn đơn sơ phó thác: </b></p4>
 <p3> đơn sơ phó thác là một hành trang cần thiết cho người môn đệ. Không mang theo gì của loài người, chỉ mang theo niềm tin yêu và phó thác.  </p3></br>
 
 <div class="distance" id="distanceDisplay"></div>
 <p style="text-align:justify;">
-<p4> <b>2/ 4/ Tình liên đới: </b></p4>
+<p4> <b>4/ Tình liên đới: </b></p4>
 <p3> Chúa Giêsu không sai các môn đệ đi riêng lẻ nhưng sai từng 2 người một vào các thành, các làng mạc xa sôi hẻo lánh… Tình liên đới rất cần thiết để nâng đỡ nhau, bổ túc cho nhau, đồng tâm nhất trí của một tập thể thì có giá trị thuyết phục, chia sẻ cuộc sống, giúp đỡ mọi người. Chính qua tình liên đới mà Tin Mừng được đón nhận. Đó cũng là cách làm việc của Chúa trong Giáo Hội. </p3></br>
 
 <p3> Ngày 21/11/2014 Đức Thánh Cha Phanxicô đã gởi Tông Thư cho giới Thánh Hiến nhân dịp năm đời sống Thánh Hiến. Trong lá thư nói trên. Đức Thánh Cha Phanxico đã xác định cho năm thánh hiến 3 mục đích:</p3></br>
@@ -71,7 +71,9 @@ font-size: 1.5rem;
             padding: 10px;
 margin-left: 60px;
 font-size: 18px;
-
+color: #008596;
+line-height: 1.6;
+font-size: 1.5rem;
 }
 
 p4 {
