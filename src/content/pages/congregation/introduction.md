@@ -58,7 +58,7 @@ aboutUs:
 
         color:#008596; 
 
-        font-size: 18px;
+        font-size: 15px;
 
         font-weight: bold;
 
@@ -167,7 +167,7 @@ aboutUs:
 
         color:#008596; 
 
-        font-size: 25px;
+        font-size: 15px;
 
         font-weight: bold;
 
@@ -234,7 +234,7 @@ aboutUs:
 
         color:#008596; 
 
-        font-size: 25px;
+        font-size: 15px;
 
         font-weight: bold;
 
@@ -249,9 +249,7 @@ aboutUs:
          text-align: justify;
         font-size: 18px;
 
-        margin-left: 40px;
-         
-        }
+        margin-left: 40px;}
 
         </style>
   videos:
