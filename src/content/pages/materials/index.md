@@ -4,17 +4,17 @@ sections:
   - limit: 4
     title: Giáo Hội
     hiddenTags:
-      - Giới thiệu
+      - kinh phung vu
   - limit: 4
     title: Giáo dục
     hiddenTags:
-      - Các đấng bản quyền
+      - kinh phung vu
   - limit: 4
     title: Y tế
     hiddenTags:
-      - Hiểu Để Yêu
+      - kinh phung vu
   - limit: 4
     title: Truyền thông
     hiddenTags:
-      - Sắc lập dòng
+      - kinh phung vu
 ---

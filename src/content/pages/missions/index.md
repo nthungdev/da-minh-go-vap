@@ -1,54 +1,61 @@
 ---
-title: Su Vu
+title: SỨ VỤ
 sections:
   - type: postSection
-    title: Truyen Giao
+    title: TRUYỀN GIÁO
     hiddenTags:
-      - Giao phan Da Lat
+      - kinh phung vu
     limit: 4
   - type: postByCategorySection
     categories:
-      - title: Truyen giao
+      - title: Dạy Giáo lý
         hiddenTags:
-          - Giao phan Xuan Loc
-      - title: Muc Vu
+          - kinh phung vu
+        limit: 6
+      - title: Phục vụ Giáo xứ
         hiddenTags:
-          - Giao phan Phu Cuong
-      - title: Giao Ly
-        hiddenTags:
-          - Giao phan Da Lat
-      - title: Phuc Vu Giao Xu
-        hiddenTags:
-          - Giao phan Xuan Loc
-    title: Muc Vu
+          - kinh phung vu
+        limit: 6
+    title: MỤC VỤ
     limit: 1
   - type: postByCategorySection
-    title: Hoat Dong Xa Hoi
+    title: HOẠT ĐỘNG BÁC ÁI XÃ HỘI
     categories:
-      - title: Mo coi
+      - title: Nuôi dưỡng trẻ Mồ côi
         hiddenTags:
-          - Giao phan Phu Cuong
-      - title: Bac Ai
+          - kinh phung vu
+        limit: 6
+      - title: Chăm sóc người khuyết tật
         hiddenTags:
-          - Hiểu Để Yêu
-      - title: Khuyet tat
+          - kinh phung vu
+        limit: 4
+      - title: Đến với anh em kém may mắn
         hiddenTags:
-          - Các đấng bản quyền
+          - kinh phung vu
+        limit: 6
     limit: 4
   - type: postByCategorySection
-    title: Giao Duc
+    title: GIÁO DỤC
     categories:
-      - title: My Son
+      - title: MN Mỹ Sơn
         hiddenTags:
-          - Các đấng bản quyền
-      - title: Bong Hong
+          - kinh phung vu
+        limit: 6
+      - title: MN Bông Hồng
         hiddenTags:
-          - Giao phan Phu Cuong
-      - title: Hoa Mi
+          - kinh phung vu
+        limit: 6
+      - title: MN Hoạ Mi
         hiddenTags:
-          - Giao phan Phu Cuong
-      - title: Lang Son
+          - kinh phung vu
+        limit: 6
+      - title: Các trường Mầm non
         hiddenTags:
-          - Các đấng bản quyền
+          - kinh phung vu
+        limit: 6
+      - limit: 6
+        title: Bán trú cấp 1
+        hiddenTags:
+          - kinh phung vu
     limit: 4
 ---

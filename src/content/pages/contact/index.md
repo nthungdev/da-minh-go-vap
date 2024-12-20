@@ -1,7 +1,7 @@
 ---
 title: Lien He
 graphic:
-  url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1722133167/maxresdefault_n0yeqb.jpg
+  url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1731486301/hinh_canh_nha_dong_hk7ct1.jpg
   alt: Video lien he
 contacts:
   - type: address

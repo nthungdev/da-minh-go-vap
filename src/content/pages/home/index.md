@@ -22,7 +22,7 @@ newsByCategories:
             - Ý cầu nguyện
         - title: Hát Kinh phụng vụ
           hiddenTags:
-            - Hiểu Để Yêu
+            - người khởi xướng và xây dựng
       viewMoreButton:
         relativeUrl: /prayer
         enable: true
@@ -70,13 +70,13 @@ newsByCategories:
       subCategories:
         - title: Bản tin giáo Hội
           hiddenTags:
-            - Giao phan Xuan Loc
+            - đức giám mục lạng sơn
         - title: Tin dòng Đa Minh
           hiddenTags:
-            - Giao phan Da Lat
+            - đức giám mục sài gòn
         - title: Tin Hội dòng
           hiddenTags:
-            - Bé và lời
+            - cha bề trên tổng quyền dòng đa minh
       viewMoreButton:
         enable: true
         relativeUrl: /news
@@ -84,11 +84,11 @@ newsByCategories:
       subCategories:
         - title: Tâm thư
           hiddenTags:
-            - tâm thư của BTTQ
+            - Gp Long Xuyên
         - title: Chuyện giờ mới kể
           hiddenTags:
             - Giao phan Da Lat
         - title: Tâm tình
           hiddenTags:
-            - ngợi ca
+            - kinh phung vu
 ---

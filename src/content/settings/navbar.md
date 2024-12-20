@@ -22,6 +22,10 @@ pageBanners:
         alt: Tiền tập
       - url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1730084862/2_lajwxe.jpg
         alt: tập viện
+  - path: /missions/evangelization
+    banners:
+      - url: https://res.cloudinary.com/dxtb6rv7y/video/upload/v1731483402/Truyen_Giao_Dkttbt_ji7a4d.mp4
+        alt: truyền giáo
 bottomDecorativeGraphic:
   alt: Đa Minh Gò Vấp
   urlDesktop: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1728970147/LUON_SONG_1_ok_honkec.svg

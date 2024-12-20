@@ -4,21 +4,22 @@ sections:
   - limit: 4
     title: Văn
     hiddenTags:
-      - Giới thiệu
+      - văn
   - limit: 4
     title: Thơ
     hiddenTags:
-      - Lịch sử
+      - thơ
   - limit: 4
     title: Truyện
     hiddenTags:
-      - Hiểu Để Yêu
+      - truyện
+      - Radio truyện ngắn
   - limit: 4
     title: Bài song ngữ
     hiddenTags:
-      - chuyện giờ mới kể
+      - song ngữ
   - limit: 4
     title: Hội họa
     hiddenTags:
-      - giáo dục
+      - kinh phung vu
 ---

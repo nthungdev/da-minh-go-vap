@@ -6,11 +6,11 @@ mostViewedPosts:
 slideshow:
   enable: true
   slides:
-    - url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1727580020/1_gpnw8u.jpg
+    - url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1732003205/2_g9keff.png
       alt: Đức Mẹ trao tràng chuỗi cho thánh Đa Minh
     - url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1727580021/3_xzemsj.jpg
       alt: Thánh Đa Minh
-    - url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1727580021/2_e3zneb.jpg
+    - url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1732005003/duc_me_man_coi_p9riuh.png
       alt: Đức mẹ Mân Côi
 postGroups:
   groups:
@@ -21,14 +21,14 @@ postGroups:
     - limit: 7
       title: CÁC CHUYÊN ĐỀ ĐẶC BIỆT
       hiddenTags:
-        - Gp Lạng Sơn
+        - quảng cáo
     - limit: 8
-      title: NGỢI CA
+      title: Văn Hoá
       hiddenTags:
         - Giao phan Da Lat
         - Giao phan Xuan Loc
     - limit: 8
-      title: WALKING WITH JESUS
+      title: Bài song ngữ
       hiddenTags:
         - Gp Long Xuyên
     - limit: 8
@@ -45,19 +45,17 @@ curatedPosts:
     - 2024-09-12_amen-có-nghĩa-là-gì
     - 2024-09-12_lịch-sử-cộng-đoàn-đăng-srỗn
     - 2024-09-12_lịch-sử-tu-xá-knai
-    - 2024-07-29_test-12
-    - 2024-07-29_test-13
   enable: true
 links:
   links:
-    - url: https://www.facebook.com
+    - url: https://daminhvn.net/
       image:
-        url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1730087566/hoat_dong_su_vu_n6gcca.jpg
-        alt: Facebook
-    - url: https://www.instagram.com/
+        url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1731491223/2_jirzzy.png
+        alt: Tỉnh dòng Đa Minh Việt Nam
+    - url: https://catechesis.net/
       image:
-        url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1730087565/giao_duc_jev57s.jpg
-        alt: Instagram
+        url: https://res.cloudinary.com/dxtb6rv7y/image/upload/v1731491220/1_r59xrn.png
+        alt: Trung tâm học vấn Đa Minh
   enable: true
-  title: Lien ket
+  title: LIÊN KẾT
 ---

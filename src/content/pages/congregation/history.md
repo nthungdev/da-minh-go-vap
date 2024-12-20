@@ -1,48 +1,49 @@
 ---
 developmentHistory:
-  title: Lịch sử phát triển hội dòng
-  body: "Lịch sử của Hội dòng Đa Minh Lạng Sơn có thể chia làm 3 phần với 3 thời kỳ:"
+  title: LỊCH SỬ PHÁT TRIỂN HỘI DÒNG NỮ ĐA MINH GÒ VẤP
+  body: "#### **Lịch sử của Hội dòng Đa Minh Lạng Sơn có thể chia làm 3 phần với 3
+    thời kỳ:**"
   timeline:
     - title: "PHẦN 1: THỜI KÌ SƠ KHAI (1918 - 1956)"
       body: >-
         ### **TỪ NHÀ PHƯỚC ĐẾN CẢI TỔ THÀNH DÒNG**
 
 
-        Theo lịch sữ Giáo hội Việt Nam, Sắc lệnh của Thánh bộ Truyền giáo ban hành ngày 30.12.1913 đã thành lập một giáo phận mới gồm hai tỉnh Lạng Sơn - Cao Bằng và một nửa tỉnh Hà giang, lấy tên là Giáo phận Lạng Sơn – Cao Bằng, và trao cho các cha dòng Đa Minh tỉnh dòng Lyon coi sóc.
+        #### Theo lịch sữ Giáo hội Việt Nam, Sắc lệnh của Thánh bộ Truyền giáo ban hành ngày 30.12.1913 đã thành lập một giáo phận mới gồm hai tỉnh Lạng Sơn - Cao Bằng và một nửa tỉnh Hà giang, lấy tên là Giáo phận Lạng Sơn – Cao Bằng, và trao cho các cha dòng Đa Minh tỉnh dòng Lyon coi sóc.
 
 
-        Diện tích Giáo phận là 25.000 cây số vuông, với một đường biên thùy Hoa – Việt dài 700 km. Đây là một miền rừng âm u hiểm trở, núi rừng trùng điệp. Dân số lúc ấy có khoảng 300.000 người thuộc dòng dõi Thái, chia làm nhiều chủng: Thổ, Nùng, Mán, Tày… và nói chừng 9, 10 thổ âm khác nhau, với niềm tin dân gian đa thần. Người kinh (Việt) chỉ là thiểu số ở trung châu lên đó làm ăn hoặc đi công cán.
+        #### Diện tích Giáo phận là 25.000 cây số vuông, với một đường biên thùy Hoa – Việt dài 700 km. Đây là một miền rừng âm u hiểm trở, núi rừng trùng điệp. Dân số lúc ấy có khoảng 300.000 người thuộc dòng dõi Thái, chia làm nhiều chủng: Thổ, Nùng, Mán, Tày… và nói chừng 9, 10 thổ âm khác nhau, với niềm tin dân gian đa thần. Người kinh (Việt) chỉ là thiểu số ở trung châu lên đó làm ăn hoặc đi công cán.
 
 
-        Giáo phận mới đặt dưới quyền coi sóc của Đức Ông Bertrand Cothonay OP. Chiểu.
+        #### Giáo phận mới đặt dưới quyền coi sóc của Đức Ông Bertrand Cothonay OP. Chiểu.
 
 
-        Khởi đầu kiến thiết giáo phận, Ngài thấy cần có người bản xứ thành tâm thiện chí giúp việc, nhất là ngài đã sống chung và cùng hoạt động truyền giáo với các cha Đa Minh Tây Ban Nha ở Bùi Chu, nên đã kinh nghiệm rằng các “cô mụ” cộng tác vào việc truyền giáo rất đắc lực, nên đã lưu tâm đến việc thiết lập nhà Phước Đa Minh. Nhưng, giáo phận mới, giáo dân chỉ là tân tòng, chưa có ơn gọi tu trì, Ngài đã phải liên lạc với các Nhà phước Đa Minh Bùi Chu, xin một số chị em lên giúp.
+        #### Khởi đầu kiến thiết giáo phận, Ngài thấy cần có người bản xứ thành tâm thiện chí giúp việc, nhất là ngài đã sống chung và cùng hoạt động truyền giáo với các cha Đa Minh Tây Ban Nha ở Bùi Chu, nên đã kinh nghiệm rằng các “cô mụ” cộng tác vào việc truyền giáo rất đắc lực, nên đã lưu tâm đến việc thiết lập nhà Phước Đa Minh. Nhưng, giáo phận mới, giáo dân chỉ là tân tòng, chưa có ơn gọi tu trì, Ngài đã phải liên lạc với các Nhà phước Đa Minh Bùi Chu, xin một số chị em lên giúp.
     - title: "PHẦN II: THỜI KỲ CẢI TỔ VÀ PHÁT TRIỂN (1956 - 1978)"
-      body: Nội dung There are many variations of passages of Lorem Ipsum available,
-        but the majority have suffered alteration in some form, by injected
-        humour, or randomised words which don't look even slightly believable.
-        If you are going to use a passage of Lorem Ipsum, you need to be sure
-        there isn't anything embarrassing hidden in the middle of text. All the
-        Lorem Ipsum generators on the Internet tend to repeat predefined chunks
-        as necessary, making this the first true generator on the Internet. It
-        uses a dictionary of over 200 Latin words, combined with a handful of
-        model sentence structures, to generate Lorem Ipsum which looks
-        reasonable. The generated Lorem Ipsum is therefore always free from
-        repetition, injected humour, or non-characteristic words etc.
+      body: "#### Nội dung There are many variations of passages of Lorem Ipsum
+        available, but the majority have suffered alteration in some form, by
+        injected humour, or randomised words which don't look even slightly
+        believable. If you are going to use a passage of Lorem Ipsum, you need
+        to be sure there isn't anything embarrassing hidden in the middle of
+        text. All the Lorem Ipsum generators on the Internet tend to repeat
+        predefined chunks as necessary, making this the first true generator on
+        the Internet. It uses a dictionary of over 200 Latin words, combined
+        with a handful of model sentence structures, to generate Lorem Ipsum
+        which looks reasonable. The generated Lorem Ipsum is therefore always
+        free from repetition, injected humour, or non-characteristic words etc."
     - title: "PHẦN III: THỜI KỲ CHÍNH THỨC LÀ HỘI DÒNG ĐA MINH LẠNG SƠN, THÁNH HIỆU
         ĐỨC MẸ MẦN CÔI GIÁO PHẬN TP. HỒ CHÍ MÌNH (1978 - 2013)"
-      body: Nội dung There are many variations of passages of Lorem Ipsum available,
-        but the majority have suffered alteration in some form, by injected
-        humour, or randomised words which don't look even slightly believable.
-        If you are going to use a passage of Lorem Ipsum, you need to be sure
-        there isn't anything embarrassing hidden in the middle of text. All the
-        Lorem Ipsum generators on the Internet tend to repeat predefined chunks
-        as necessary, making this the first true generator on the Internet. It
-        uses a dictionary of over 200 Latin words, combined with a handful of
-        model sentence structures, to generate Lorem Ipsum which looks
-        reasonable. The generated Lorem Ipsum is therefore always free from
-        repetition, injected humour, or non-characteristic words etc.
+      body: "#### Nội dung There are many variations of passages of Lorem Ipsum
+        available, but the majority have suffered alteration in some form, by
+        injected humour, or randomised words which don't look even slightly
+        believable. If you are going to use a passage of Lorem Ipsum, you need
+        to be sure there isn't anything embarrassing hidden in the middle of
+        text. All the Lorem Ipsum generators on the Internet tend to repeat
+        predefined chunks as necessary, making this the first true generator on
+        the Internet. It uses a dictionary of over 200 Latin words, combined
+        with a handful of model sentence structures, to generate Lorem Ipsum
+        which looks reasonable. The generated Lorem Ipsum is therefore always
+        free from repetition, injected humour, or non-characteristic words etc."
   videos:
     title: Video về lịch sử (các giai đoạn phát triển hội dòng)
   accordion:
@@ -53,148 +54,147 @@ developmentHistory:
           items:
             - title: 1. Nhà Phước Đa Minh Cửa Nam tỉnh Lạng Sơn
               body: >-
-                Năm 1918, Đức Ông Bertrand Cothonay OP. Chiểu, qui tụ các chị em
-                lập nên nhà phước đầu tiên tại Cửa Nam tỉnh Lạng Sơn; chị Maria
-                Nguyễn Thị Nha thuộc nhà phước Văn Tiên - Bùi Chu làm bề trên và
-                gồm có các chị em: Maria Nguyễn Thị Cậy, Agatha Nguyễn Thị
-                Nghĩa, Anna Nguyễn Thị Tin, Anna Nguyễn Thị Công, Maria Nguyễn
-                Thị Kính, Maria Nguyễn Thị Mến, Maria Nguyễn Thị Ơn.
+                #### Năm 1918, Đức Ông Bertrand Cothonay OP. Chiểu, qui tụ các
+                chị em lập nên nhà phước đầu tiên tại Cửa Nam tỉnh Lạng Sơn; chị
+                Maria Nguyễn Thị Nha thuộc nhà phước Văn Tiên - Bùi Chu làm bề
+                trên và gồm có các chị em: Maria Nguyễn Thị Cậy, Agatha Nguyễn
+                Thị Nghĩa, Anna Nguyễn Thị Tin, Anna Nguyễn Thị Công, Maria
+                Nguyễn Thị Kính, Maria Nguyễn Thị Mến, Maria Nguyễn Thị Ơn.
 
 
-                Năm 1927, Chị Nha về làm Bề trên nhà phước Cao Bằng, thì Chị Maria Nguyễn Thị Cậy lên thay coi sóc Cộng đoàn Cửa Nam. Chị em làm ruộng, chăn nuôi, trồng màu và nuôi nhà khuyết tật của dòng Đức Bà Truyền Giáo bỏ lại trong trận chiến Nhật – Pháp.
+                #### Năm 1927, Chị Nha về làm Bề trên nhà phước Cao Bằng, thì Chị Maria Nguyễn Thị Cậy lên thay coi sóc Cộng đoàn Cửa Nam. Chị em làm ruộng, chăn nuôi, trồng màu và nuôi nhà khuyết tật của dòng Đức Bà Truyền Giáo bỏ lại trong trận chiến Nhật – Pháp.
 
 
-                Chị em sống theo tôn chỉ và luật pháp nhà phước Đaminh. Sự hiện diện của chị em nhà phước tiên khởi nơi vùng đất dân ngoại này, cũng giống như các phụ nữ thời Giáo hội sơ khai bên các tông đồ, là theo giúp việc.
+                #### Chị em sống theo tôn chỉ và luật pháp nhà phước Đaminh. Sự hiện diện của chị em nhà phước tiên khởi nơi vùng đất dân ngoại này, cũng giống như các phụ nữ thời Giáo hội sơ khai bên các tông đồ, là theo giúp việc.
             - title: 2. Nhà phước Đa Minh Mỹ Sơn
               body: >-
-                Năm 1925, Đức Ông Bertrand lập thêm Nhà Phước Mỹ Sơn. Chị Maria
-                Nguyễn Thị Mầu, Nhà Phước Trung Lao làm Bề trên cùng với các chị
-                Maria Nguyễn Thị Kính, Anna Nguyễn Thị Công, Anna Nguyễn Thị Ơn,
-                Maria Trần Thị Mát, Maria Nguyễn Thị Ngắm, Anna Nguyễn Thị Quy,
-                Anna Nguyễn Thị An, Maria Nguyễn Thị Nghĩa.
+                #### Năm 1925, Đức Ông Bertrand lập thêm Nhà Phước Mỹ Sơn. Chị
+                Maria Nguyễn Thị Mầu, Nhà Phước Trung Lao làm Bề trên cùng với
+                các chị Maria Nguyễn Thị Kính, Anna Nguyễn Thị Công, Anna Nguyễn
+                Thị Ơn, Maria Trần Thị Mát, Maria Nguyễn Thị Ngắm, Anna Nguyễn
+                Thị Quy, Anna Nguyễn Thị An, Maria Nguyễn Thị Nghĩa.
 
 
-                Nơi đây các chị cộng tác rất đắc lực giúp chủng viện thánh Têrêsa; trông coi nhà dưỡng lão của các chị dòng Thánh Phaolô đã bỏ chạy chiến tranh vào khoảng năm 1942, đời cha Giuse Trịnh Tiến Khái coi xứ Mỹ Sơn.
+                #### Nơi đây các chị cộng tác rất đắc lực giúp chủng viện thánh Têrêsa; trông coi nhà dưỡng lão của các chị dòng Thánh Phaolô đã bỏ chạy chiến tranh vào khoảng năm 1942, đời cha Giuse Trịnh Tiến Khái coi xứ Mỹ Sơn.
 
 
-                Ngày 25.5.1926 Đức Ông đáng kính Bertrand Cothonay trút hơi thở cuối cùng trong sự thương tiếc của đoàn con mà ngài đã gây dựng; xác Ngài được an táng trước thánh đường Mỹ Sơn để con cái sớm hôm thăm viếng và cầu nguyện, ghi nhớ công ơn khai sáng của ngài. Ngày 14.11.2006 Đức cha Giuse Ngô Quang Kiệt đã cải táng phần mộ của Ngài về tòa Giám mục Lạng Sơn.
+                #### Ngày 25.5.1926 Đức Ông đáng kính Bertrand Cothonay trút hơi thở cuối cùng trong sự thương tiếc của đoàn con mà ngài đã gây dựng; xác Ngài được an táng trước thánh đường Mỹ Sơn để con cái sớm hôm thăm viếng và cầu nguyện, ghi nhớ công ơn khai sáng của ngài. Ngày 14.11.2006 Đức cha Giuse Ngô Quang Kiệt đã cải táng phần mộ của Ngài về tòa Giám mục Lạng Sơn.
 
 
-                Sau Đức Ông Cothonay là Đức ông Maillet Bính OP. Ngài tiếp tục đường lối của Đức ông Cothonay, mong muốn các chị em nhà phước hiện diện ở nhiều nơi hơn, nên trong ba năm, Ngài đã lập thêm ba nhà Bản Lìm, Đồng Mỏ và Cao Bằng.
+                #### Sau Đức Ông Cothonay là Đức ông Maillet Bính OP. Ngài tiếp tục đường lối của Đức ông Cothonay, mong muốn các chị em nhà phước hiện diện ở nhiều nơi hơn, nên trong ba năm, Ngài đã lập thêm ba nhà Bản Lìm, Đồng Mỏ và Cao Bằng.
             - title: 3. Nhà Phước Đa Minh Bản Lìm – Thiết lập năm 1927
               body: >-
-                Chị Rosa Bùi Thị Ga, gốc nhà phước Bùi Chu làm Bề trên;
+                #### Chị Rosa Bùi Thị Ga, gốc nhà phước Bùi Chu làm Bề trên;
 
 
-                gồm có các chị: Maria Trần Thị Ơn, Maria Nguyễn Thị Huệ,
+                #### gồm có các chị: Maria Trần Thị Ơn, Maria Nguyễn Thị Huệ,
 
 
+                #### Anna Nguyễn Thị Tuyết, Maria Nguyễn Thị Hiền, Maria Hoàng Thị Ngọc, Maria Nguyễn Thị Thái, Anna Trần Thị Tâm, Macta Nguyễn Thị An.
 
 
-                Anna Nguyễn Thị Tuyết, Maria Nguyễn Thị Hiền, Maria Hoàng Thị Ngọc, Maria Nguyễn Thị Thái, Anna Trần Thị Tâm, Macta Nguyễn Thị An.
+                #### Nhà Bản Lìm trong hoàn cảnh thuận lợi là sống với thời các cha xứ Việt Nam nhiều hơn như cha Thao, cha Quyến, cha Phú, cha Kế, nên chị em được các cha hướng dẫn trong đời sống thiêng liêng, cũng như dạy kèm thêm văn hóa.
 
 
-                Nhà Bản Lìm trong hoàn cảnh thuận lợi là sống với thời các cha xứ Việt Nam nhiều hơn như cha Thao, cha Quyến, cha Phú, cha Kế, nên chị em được các cha hướng dẫn trong đời sống thiêng liêng, cũng như dạy kèm thêm văn hóa.
+                #### Biến cố di cư 1954, chị em vào miền Nam; gia đình một người bổn đạo vào sống trong ngôi nhà của chị em.
 
 
-                Biến cố di cư 1954, chị em vào miền Nam; gia đình một người bổn đạo vào sống trong ngôi nhà của chị em.
-
-
-                Năm 1990, khi đất nước có chiều hướng mở ra, chị em đã trở về để có thể tiếp tục hiện diện và tái thiết lại, thì gia đình đó đã dời đi nơi khác. Nhưng chị em gặp nhiều khó khăn về tạm trú và đã phải ngậm ngùi ra đi, bỏ lại ngôi nhà vẫn cửa đóng then cài cho đến ngày nay, như dấu chứng của một thời, dấu ấn của một đời!
+                #### Năm 1990, khi đất nước có chiều hướng mở ra, chị em đã trở về để có thể tiếp tục hiện diện và tái thiết lại, thì gia đình đó đã dời đi nơi khác. Nhưng chị em gặp nhiều khó khăn về tạm trú và đã phải ngậm ngùi ra đi, bỏ lại ngôi nhà vẫn cửa đóng then cài cho đến ngày nay, như dấu chứng của một thời, dấu ấn của một đời!
             - title: "4. Nhà Phước Đa Minh Đồng Mỏ: thiết lập năm 1927"
-              body: Chị Maria Nguyễn Thị Nguyện, gốc nhà phước Bùi Chu làm Bề trên cùng với
-                các chị Maria Nguyễn Thị Lành, Maria Nguyễn Thị Nhiệm. Cộng đoàn
-                này năm Nhật đánh Lạng Sơn, các chị bỏ về xuôi hết. Chị Nguyện
-                và chị Nhiệm nhập vào dòng Mân Côi; Chị Lành vào Đa Minh Bùi
-                Chu.
+              body: "#### Chị Maria Nguyễn Thị Nguyện, gốc nhà phước Bùi Chu làm Bề trên cùng
+                với các chị Maria Nguyễn Thị Lành, Maria Nguyễn Thị Nhiệm. Cộng
+                đoàn này năm Nhật đánh Lạng Sơn, các chị bỏ về xuôi hết. Chị
+                Nguyện và chị Nhiệm nhập vào dòng Mân Côi; Chị Lành vào Đa Minh
+                Bùi Chu."
             - title: "5. Nhà Phước Đa Minh Cao Bằng: Thiết lập năm 1927"
               body: >-
-                Bà Maria Nguyễn Thị Nha ở nhà phước Cửa Nam lên làm Bề trên tại
-                đây, cùng với các chị: Maria Nguyễn Thị Suy, Maria Trần Thị Tin,
-                Maria Nguyễn Thị Kính, Maria Nguyễn Thị Ngượi, Maria Nguyễn Thị
-                Na, Maria Nguyễn Thị Ơn, Maria Hoàng Thị Nhân.
+                #### Bà Maria Nguyễn Thị Nha ở nhà phước Cửa Nam lên làm Bề trên
+                tại đây, cùng với các chị: Maria Nguyễn Thị Suy, Maria Trần Thị
+                Tin, Maria Nguyễn Thị Kính, Maria Nguyễn Thị Ngượi, Maria Nguyễn
+                Thị Na, Maria Nguyễn Thị Ơn, Maria Hoàng Thị Nhân.
 
 
-                Nhà Phước Cao Bằng có chị Maria Nguyễn Thị Ơn là chứng nhân của lòng yêu mến Đức Mẹ Mân Côi và phép lần hạt Mân Côi. Chị đã dâng hiến thân mình bằng một cái chết âm thầm với một tình yêu mãnh liệt. Vào cuối năm 1946 trên đường từ Cao Bằng về quê thăm em bị bệnh ở Nước Hai, chị không rời cỗ tràng hạt trên tay. Bị theo dõi và phát giác, người ta bắt chị vứt bỏ cỗ tràng hạt đi, chị không chịu. Trong cương quyết kháng cự, chị đã bị đánh và đẩy xuống vực cho chết luôn.
+                #### Nhà Phước Cao Bằng có chị Maria Nguyễn Thị Ơn là chứng nhân của lòng yêu mến Đức Mẹ Mân Côi và phép lần hạt Mân Côi. Chị đã dâng hiến thân mình bằng một cái chết âm thầm với một tình yêu mãnh liệt. Vào cuối năm 1946 trên đường từ Cao Bằng về quê thăm em bị bệnh ở Nước Hai, chị không rời cỗ tràng hạt trên tay. Bị theo dõi và phát giác, người ta bắt chị vứt bỏ cỗ tràng hạt đi, chị không chịu. Trong cương quyết kháng cự, chị đã bị đánh và đẩy xuống vực cho chết luôn.
 
 
-                Trong khoảng thời gian từ 1934 – 1948, Đức Cha Felice Hedde Minh, OP. lập thêm 4 nhà do bốn Chị gốc Nhà phước Bùi Chu làm Bề trên.
+                #### Trong khoảng thời gian từ 1934 – 1948, Đức Cha Felice Hedde Minh, OP. lập thêm 4 nhà do bốn Chị gốc Nhà phước Bùi Chu làm Bề trên.
             - title: 6. Nhà Phước Đa Minh Thất Khê
               body: >-
-                Thành lập năm 1934, gồm có chị Nhất Catarina Trần Thị Khiêm,
-                Maria Nguyễn Thị Cậy, Maria Phạm Thị Nhiệm (Nhì), Maria Nguyễn
-                Thị Nghĩa, Maria Trần Thị Sâm, Agnes Hoàng Thị Mến (Sa), Maria
-                Nguyễn Thị Huệ, Catarina Hoàng Thị Yên, Maria Trần Thị Tịnh,
+                #### Thành lập năm 1934, gồm có chị Nhất Catarina Trần Thị
+                Khiêm, Maria Nguyễn Thị Cậy, Maria Phạm Thị Nhiệm (Nhì), Maria
+                Nguyễn Thị Nghĩa, Maria Trần Thị Sâm, Agnes Hoàng Thị Mến (Sa),
+                Maria Nguyễn Thị Huệ, Catarina Hoàng Thị Yên, Maria Trần Thị
+                Tịnh,
 
 
-                Maria Trần Thị Na, Têrêsa Nông Thị Tê, Maria Nguyễn Thị A, Maria Dương Thị Thi, Maria Nguyễn Thị Oanh.
+                #### Maria Trần Thị Na, Têrêsa Nông Thị Tê, Maria Nguyễn Thị A, Maria Dương Thị Thi, Maria Nguyễn Thị Oanh.
 
 
-                Những khuôn mặt thân quen ai cũng biết đến phải kể là chị nhất Khiêm, chị Nhiệm (Nhì), mà người Dân tộc trong bản làng gọi các chị là “Bà xóm đạo - Bà xóm đạo chữa bệnh mát tay lắm!” Các chị đã rửa tội được nhiều trẻ em và người lớn lâm bệnh hiểm nghèo.
+                #### Những khuôn mặt thân quen ai cũng biết đến phải kể là chị nhất Khiêm, chị Nhiệm (Nhì), mà người Dân tộc trong bản làng gọi các chị là “Bà xóm đạo - Bà xóm đạo chữa bệnh mát tay lắm!” Các chị đã rửa tội được nhiều trẻ em và người lớn lâm bệnh hiểm nghèo.
 
 
-                Nhà phước Thất Khê trong thời kỳ các nhà thừa sai bị giam giữ tại đây từ năm 1950 -1953, chị em đã giúp đỡ chăm nuôi bốn vị truyền giáo là Đức cha Hedde, Đức Cha Jacq, cha Nerdeux và cha Guibert trong 3 năm 3 tháng 10 ngày. Chị em rất nỗ lực vừa đi lao công cho nhà nước vừa xay thóc giã gạo mướn để có của nuôi các ngài và tiếp tế thuốc men.
+                #### Nhà phước Thất Khê trong thời kỳ các nhà thừa sai bị giam giữ tại đây từ năm 1950 -1953, chị em đã giúp đỡ chăm nuôi bốn vị truyền giáo là Đức cha Hedde, Đức Cha Jacq, cha Nerdeux và cha Guibert trong 3 năm 3 tháng 10 ngày. Chị em rất nỗ lực vừa đi lao công cho nhà nước vừa xay thóc giã gạo mướn để có của nuôi các ngài và tiếp tế thuốc men.
 
 
-                Hơn nữa, nhà phước Thất Khê còn dâng hiến cho lòng đất mẹ tấm hình hài của hai người chị em là chị Maria Nguyễn Thị Cậy và Maria Nguyễn Thị Nghĩa bị đánh chết tại Hà Lũng trong khi thi hành sứ vụ ngày 09.12.1946 trên đường đi từ Thất Khê xuống Tòa Giám Mục Lạng Sơn và xác hai chị bị quăng xuống vực sâu.
+                #### Hơn nữa, nhà phước Thất Khê còn dâng hiến cho lòng đất mẹ tấm hình hài của hai người chị em là chị Maria Nguyễn Thị Cậy và Maria Nguyễn Thị Nghĩa bị đánh chết tại Hà Lũng trong khi thi hành sứ vụ ngày 09.12.1946 trên đường đi từ Thất Khê xuống Tòa Giám Mục Lạng Sơn và xác hai chị bị quăng xuống vực sâu.
             - title: "7. Nhà Phước Đa Minh Quảng Uyên:"
               body: >-
-                Do cha Maillet Bính lập năm 1937 khi ngài nghỉ hưu ở đây. Chị
-                Maria Nguyễn Thị Ro làm Bề trên và các chị em: Maria Nguyễn Thị
-                Kính, Maria Nguyễn Thị Ngượi, Maria Nguyễn Thị Nhạn (Bà Mến),
-                Maria Nguyễn Thị Phan (Em Bà Mến), Maria Nguyễn Thị Nhường,
-                Maria Nguyễn Thị Chi, Rosa Nguyễn Thị Khiêm, Maria Nguyễn Thị
-                Suy, Maria Hoàng Thị Nhân.
+                #### Do cha Maillet Bính lập năm 1937 khi ngài nghỉ hưu ở đây.
+                Chị Maria Nguyễn Thị Ro làm Bề trên và các chị em: Maria Nguyễn
+                Thị Kính, Maria Nguyễn Thị Ngượi, Maria Nguyễn Thị Nhạn (Bà
+                Mến), Maria Nguyễn Thị Phan (Em Bà Mến), Maria Nguyễn Thị
+                Nhường, Maria Nguyễn Thị Chi, Rosa Nguyễn Thị Khiêm, Maria
+                Nguyễn Thị Suy, Maria Hoàng Thị Nhân.
 
 
-                Chị em Quảng Uyên được cha Maillet thương giúp và chỉ bảo tận tình trong công việc lao động chân tay. Các chị cũng đã chứng kiến cái chết của cha Maillet Bính, Brébion Úy và cha Giuse Nguyễn Văn Đề.
+                #### Chị em Quảng Uyên được cha Maillet thương giúp và chỉ bảo tận tình trong công việc lao động chân tay. Các chị cũng đã chứng kiến cái chết của cha Maillet Bính, Brébion Úy và cha Giuse Nguyễn Văn Đề.
 
 
-                Chị em đã an táng cha Brébion Úy bên cạnh nhà thờ Quảng Uyên năm 1947. Hiện nay nhà thờ đã bị phá bình địa và là khu quân đội chiếm đóng. Đã có những sự kiện lạ nơi mộ của ngài, nên dù mộ không được xây cất hẳn hoi, chỉ là những hòn đá xếp lên trên mà vẫn còn nguyên đó, không ai dám động đến! Còn cha Maillet Bính và cha Đề thì bị thủ tiêu mất tích.
+                #### Chị em đã an táng cha Brébion Úy bên cạnh nhà thờ Quảng Uyên năm 1947. Hiện nay nhà thờ đã bị phá bình địa và là khu quân đội chiếm đóng. Đã có những sự kiện lạ nơi mộ của ngài, nên dù mộ không được xây cất hẳn hoi, chỉ là những hòn đá xếp lên trên mà vẫn còn nguyên đó, không ai dám động đến! Còn cha Maillet Bính và cha Đề thì bị thủ tiêu mất tích.
 
 
-                Năm 1949, chị em bị đuổi khỏi Quảng Uyên, một số chị đến ở Cao Bằng, một số về giúp nhà khuyết tật, mồ côi tại Cửa Nam.
+                #### Năm 1949, chị em bị đuổi khỏi Quảng Uyên, một số chị đến ở Cao Bằng, một số về giúp nhà khuyết tật, mồ côi tại Cửa Nam.
             - title: "8. Nhà Phước Đa Minh Đồng Đăng:"
-              body: Do cha Arbogast Haag Đỗ Minh Xuyên OP. lập năm 1941, nằm dưới chân đồi nhà
-                xứ Đồng Đăng, đối diện ga tầu lửa. Gồm có chị Nhất Maria Nguyễn
-                Thị Vững, Chị Maria Nguyễn Thị Tin, Anna Trần Thị Cậy, Maria Mai
-                Thị Mầu (Mến), Anna Nguyễn Thị Ri, Maria Nguyễn Thị Hiền. Năm
-                1954 chị em di cư hết. Ngôi nhà của chị em được nhà nước trưng
-                dụng làm nhà kho.
+              body: "#### Do cha Arbogast Haag Đỗ Minh Xuyên OP. lập năm 1941, nằm dưới chân
+                đồi nhà xứ Đồng Đăng, đối diện ga tầu lửa. Gồm có chị Nhất Maria
+                Nguyễn Thị Vững, Chị Maria Nguyễn Thị Tin, Anna Trần Thị Cậy,
+                Maria Mai Thị Mầu (Mến), Anna Nguyễn Thị Ri, Maria Nguyễn Thị
+                Hiền. Năm 1954 chị em di cư hết. Ngôi nhà của chị em được nhà
+                nước trưng dụng làm nhà kho."
             - title: "9. Nhà Phước Đa Minh Lộc Bình:"
               body: >-
-                Lập năm 1948 ở giữa khu phố Lộc Bình. Chị Nhất Maria Vũ Thị
+                #### Lập năm 1948 ở giữa khu phố Lộc Bình. Chị Nhất Maria Vũ Thị
                 Vâng, Maria Nguyễn Thị Chuyền, chị Maria Nguyễn Thị Chiên.
 
 
-                Ở đây, chị Vâng làm thuốc chữa bệnh rất được tín nhiệm. Có lần ông chánh tổng trong làng đem ngựa đi đón chị về nhà chữa bệnh cho con ông. Chị Vâng có dạng người to lớn, oai vệ, đã ngồi trên lưng ngựa để ông dắt đi, vì đường rừng, xa xôi. Một hình ảnh thật ấn tượng! Chị Chuyền thường ra suối chao tép đổi lấy gạo để có lương thực giúp người nghèo. Sau di cư, gia đình ông Cung đến ở nhà các chị cho đến ngày nay.
+                #### Ở đây, chị Vâng làm thuốc chữa bệnh rất được tín nhiệm. Có lần ông chánh tổng trong làng đem ngựa đi đón chị về nhà chữa bệnh cho con ông. Chị Vâng có dạng người to lớn, oai vệ, đã ngồi trên lưng ngựa để ông dắt đi, vì đường rừng, xa xôi. Một hình ảnh thật ấn tượng! Chị Chuyền thường ra suối chao tép đổi lấy gạo để có lương thực giúp người nghèo. Sau di cư, gia đình ông Cung đến ở nhà các chị cho đến ngày nay.
 
 
-                Nhờ ơn Chúa, ơn gọi ở các miền xuôi đem tới, số chị em mỗi ngày thêm đông từ các giáo phận Bùi Chu, Hải Phòng và Bắc Ninh.
+                #### Nhờ ơn Chúa, ơn gọi ở các miền xuôi đem tới, số chị em mỗi ngày thêm đông từ các giáo phận Bùi Chu, Hải Phòng và Bắc Ninh.
 
 
-                Năm 1948, địa phận có 9 nhà phước và khoảng 50 nữ tu.
+                #### Năm 1948, địa phận có 9 nhà phước và khoảng 50 nữ tu.
 
 
-                Nói chung, các nhà phước sống tự lập, số các chị em ở mỗi nhà đã phát triển nhiều ít tùy nhu cầu công việc tại chỗ và tùy cha xứ.
+                #### Nói chung, các nhà phước sống tự lập, số các chị em ở mỗi nhà đã phát triển nhiều ít tùy nhu cầu công việc tại chỗ và tùy cha xứ.
 
 
-                Mấy nhà được biết đến hơn trong thời bình (trước 1945) là Mỹ Sơn, Bản Lìm, Thất Khê; các nhà này cũng là những nơi có đông các chị hơn cả.
+                #### Mấy nhà được biết đến hơn trong thời bình (trước 1945) là Mỹ Sơn, Bản Lìm, Thất Khê; các nhà này cũng là những nơi có đông các chị hơn cả.
 
 
-                Một đặc điểm nói lên tính chuyên tu và từ bỏ để theo Chúa của các chị là khi vào tu, các chị thường không gọi tên theo như gia đình đã đặt cho, mà nhận một tên khác theo ngôn từ nhà đạo, diễn tả nét khiêm nhu, hiền lành, đạo đức như: Tin, Cậy, Kính, Mến, Ơn, Nghĩa ... nên đã có sự trùng lắp tên nhau.
+                #### Một đặc điểm nói lên tính chuyên tu và từ bỏ để theo Chúa của các chị là khi vào tu, các chị thường không gọi tên theo như gia đình đã đặt cho, mà nhận một tên khác theo ngôn từ nhà đạo, diễn tả nét khiêm nhu, hiền lành, đạo đức như: Tin, Cậy, Kính, Mến, Ơn, Nghĩa ... nên đã có sự trùng lắp tên nhau.
 
 
-                Quả thực, trong việc khai phá, truyền giảng Tin Mừng tại giáo phận Lạng Sơn, sát cánh với các nhà thừa sai Đa Minh Lyon và các cha Việt Nam trong việc thiết lập và phát triển các giáo xứ trong giáo phận, phải kể đến rất nhiều công khó của chị em nhà phước Đa Minh Lạng Sơn.
+                #### Quả thực, trong việc khai phá, truyền giảng Tin Mừng tại giáo phận Lạng Sơn, sát cánh với các nhà thừa sai Đa Minh Lyon và các cha Việt Nam trong việc thiết lập và phát triển các giáo xứ trong giáo phận, phải kể đến rất nhiều công khó của chị em nhà phước Đa Minh Lạng Sơn.
 
 
-                Là những cô gái trẻ, đầy nhiệt huyết tông đồ, hàng ngày chị em lao động cần cù để có lương thực nuôi sống mình và giúp nuôi các chủng sinh cũng như các nhà thừa sai trong thời kỳ giam cầm tù tội. Là những bà lang đi chữa thuốc miễn phí, các chị có thể len lỏi vào mọi ngõ ngách của đời sống dân làng. Bằng lời cầu nguyện, chị em là hậu phương vững chắc nâng đỡ tinh thần các vị truyền giáo, giúp dân chúng cầu nguyện và thông hiểu lẽ đạo. Cách thức hiện diện của các chị đã đóng góp rất nhiều thành quả cho việc truyền giáo của giáo phận thuở ban đầu.
+                #### Là những cô gái trẻ, đầy nhiệt huyết tông đồ, hàng ngày chị em lao động cần cù để có lương thực nuôi sống mình và giúp nuôi các chủng sinh cũng như các nhà thừa sai trong thời kỳ giam cầm tù tội. Là những bà lang đi chữa thuốc miễn phí, các chị có thể len lỏi vào mọi ngõ ngách của đời sống dân làng. Bằng lời cầu nguyện, chị em là hậu phương vững chắc nâng đỡ tinh thần các vị truyền giáo, giúp dân chúng cầu nguyện và thông hiểu lẽ đạo. Cách thức hiện diện của các chị đã đóng góp rất nhiều thành quả cho việc truyền giáo của giáo phận thuở ban đầu.
 
 
-                Năm 1949, sau khi nhận trách nhiệm Giáo phận Lạng Sơn, Đức cha André Réginal Jacques Mỹ OP. đặc biệt lưu ý đến các chị em, lo lắng chuẩn bị xây cất cơ sở để chị em được tụ họp và học tập trở thành nữ tu có lời khấn theo Giáo Luật. Nhưng công việc xây cất mới bắt đầu, thì năm 1954 hiệp định Genève ra đời, phong trào di cư đưa một số chị em nhà phước Lạng Sơn vào miền Nam.
+                #### Năm 1949, sau khi nhận trách nhiệm Giáo phận Lạng Sơn, Đức cha André Réginal Jacques Mỹ OP. đặc biệt lưu ý đến các chị em, lo lắng chuẩn bị xây cất cơ sở để chị em được tụ họp và học tập trở thành nữ tu có lời khấn theo Giáo Luật. Nhưng công việc xây cất mới bắt đầu, thì năm 1954 hiệp định Genève ra đời, phong trào di cư đưa một số chị em nhà phước Lạng Sơn vào miền Nam.
 
 
-                Tu viện Đa Minh Lạng Sơn Xóm Mới, Gò Vấp, Gia Định, là nơi chị em dừng chân đầu tiên.
+                #### Tu viện Đa Minh Lạng Sơn Xóm Mới, Gò Vấp, Gia Định, là nơi chị em dừng chân đầu tiên.
           body: ""
         - title: II. GIAI ĐỌAN ĐẦU TẠI MIỀN NAM (1954 – 1956)
           body: >-
@@ -760,7 +760,7 @@ developmentHistory:
 
         GIÁO PHẬN TP. HỒ CHÍ MINH (1978 - 2013)
 communityHistory:
-  title: Lịch sử các cộng đoàn
+  title: LỊCH SỬ CÁC CỘNG ĐOÀN
   limit: 8
   postGroups:
     - title: Miền Bắc
