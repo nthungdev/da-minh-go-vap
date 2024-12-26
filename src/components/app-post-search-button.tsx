@@ -16,6 +16,7 @@ import classNames from 'classnames'
 import { HSOverlay } from 'preline/preline'
 import AppPostListItem from './app-post-list-item'
 import { createPortal } from 'react-dom'
+import Image from 'next/image'
 
 const PLACEHOLDER = 'Tìm kiếm...'
 
@@ -31,7 +32,7 @@ interface SearchModalProps {
   posts: PostParams[]
   input: string
   state: ModalState
-  containerRef: RefObject<HTMLElement>
+  containerRef: RefObject<HTMLElement | null>
   onInputSubmit: FormEventHandler<HTMLFormElement>
   onInputChange: ChangeEventHandler<HTMLInputElement>
 }
@@ -71,7 +72,12 @@ const SearchModal = forwardRef<HTMLDivElement, SearchModalProps>(
                       Search input
                     </label>
                     <div className="absolute inset-y-0 start-0 flex items-center pointer-events-none z-20 ps-3.5">
-                      <SearchIcon className="shrink-0 size-4 text-gray-400" />
+                      {/* <SearchIcon className="shrink-0 size-4 text-gray-400" /> */}
+                      <Image
+                        src={SearchIcon}
+                        alt=""
+                        className="shrink-0 size-4 text-gray-400"
+                      />
                     </div>
                     <input
                       id={`${id}-input`}
@@ -207,10 +213,13 @@ export default function AppPostSearchButton({ id }: { id: string }) {
         className="relative hover:cursor-pointer bg-white flex flex-row items-center space-x-2 p-2 hover:ring-2 ring-primary border rounded-full"
         onClick={openSearchModal}
       >
-        <SearchIcon className="shrink-0 size-4 text-gray-400" />
+        <Image
+          src={SearchIcon}
+          alt=""
+          className="shrink-0 size-4 text-gray-400"
+        />
       </button>
 
-      {/* {bodyRef.current && ( */}
       <SearchModal
         id={id}
         ref={overlayRef}

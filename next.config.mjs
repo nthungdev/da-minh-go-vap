@@ -1,34 +1,23 @@
+import { withPayload } from '@payloadcms/next/withPayload'
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   webpack: (config) => {
     config.module.rules.push({
       test: /\.md$/,
-    loader: 'frontmatter-markdown-loader',
+      loader: 'frontmatter-markdown-loader',
       options: { mode: ['react-component', 'body'] },
-    })
-    config.module.rules.push({
-      test: /\.svg$/i,
-      issuer: /\.[jt]sx?$/,
-      use: [
-        {
-          loader: '@svgr/webpack',
-          options: {
-            // disable removing viewBox
-            icon: true,
-          },
-        },
-      ],
     })
 
     return config
   },
   redirects: async () => {
     return [
-      {
-        source: '/admin',
-        destination: '/admin/index.html',
-        permanent: false,
-      },
+      // TODO remove this redirect
+      // {
+      //   source: '/admin',
+      //   destination: '/admin/index.html',
+      //   permanent: false,
+      // },
       {
         source: '/vocation',
         destination: '/vocation/introduction',
@@ -49,4 +38,4 @@ const nextConfig = {
   },
 }
 
-export default nextConfig
+export default withPayload(nextConfig)
