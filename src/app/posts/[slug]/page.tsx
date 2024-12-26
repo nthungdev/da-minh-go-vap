@@ -7,7 +7,8 @@ import AppPostGridPaginated from '@/components/app-post-grid-async-paginated'
 
 // Netlify cannot ignore deploying upon new posts to support incremental static regeneration
 
-export default async function Page({ params }: { params: { slug: string } }) {
+export default async function Page(props: { params: Promise<{ slug: string }> }) {
+  const params = await props.params;
   const decodedSlug = decodeURIComponent(params.slug)
   const post = await fetchPostBySlug(decodedSlug)
 

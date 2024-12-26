@@ -3,7 +3,8 @@ import { normalizeText } from 'normalize-text'
 import { redirect } from 'next/navigation'
 import AppHiddenTagsPostsPage from '@/components/app-hidden-tags-posts-page'
 
-export default function Page({ params }: { params: { slug: string } }) {
+export default async function Page(props: { params: Promise<{ slug: string }> }) {
+  const params = await props.params;
   const decodedSlug = decodeURIComponent(params.slug)
   const { pillars } = attributes as PageSpiritualityCharism
 

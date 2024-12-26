@@ -3,7 +3,8 @@ import { redirect } from 'next/navigation'
 import { attributes } from '@/content/pages/vocation/introduction.md'
 import AppHiddenTagsPostsPage from '@/components/app-hidden-tags-posts-page'
 
-export default function Page({ params }: { params: { slug: string } }) {
+export default async function Page(props: { params: Promise<{ slug: string }> }) {
+  const params = await props.params;
   const decodedSlug = decodeURIComponent(params.slug)
   const { timeline } = attributes as PageVocationIntroduction
 
