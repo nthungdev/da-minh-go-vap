@@ -5,7 +5,7 @@ import { useField } from '@payloadcms/ui'
 import { CodeFieldClientComponent } from 'payload'
 import React, { useCallback } from 'react'
 
-export const MarkdownField: CodeFieldClientComponent = (props) => {
+const MarkdownField: CodeFieldClientComponent = (props) => {
   const path = (props?.path || props?.field?.name || '') as string
   const { value, setValue } = useField<string>({ path })
 
@@ -28,3 +28,5 @@ export const MarkdownField: CodeFieldClientComponent = (props) => {
     </div>
   )
 }
+
+export default MarkdownField

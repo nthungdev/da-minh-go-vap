@@ -13,6 +13,8 @@ export interface Config {
   collections: {
     users: User;
     media: Media;
+    posts: Post;
+    hiddenTags: HiddenTag;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -21,6 +23,8 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    posts: PostsSelect<false> | PostsSelect<true>;
+    hiddenTags: HiddenTagsSelect<false> | HiddenTagsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -28,8 +32,12 @@ export interface Config {
   db: {
     defaultIDType: string;
   };
-  globals: {};
-  globalsSelect: {};
+  globals: {
+    asideSection: AsideSection;
+  };
+  globalsSelect: {
+    asideSection: AsideSectionSelect<false> | AsideSectionSelect<true>;
+  };
   locale: null;
   user: User & {
     collection: 'users';
@@ -63,6 +71,8 @@ export interface UserAuthOperations {
  */
 export interface User {
   id: string;
+  firstName?: string | null;
+  lastName?: string | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -92,6 +102,57 @@ export interface Media {
   height?: number | null;
   focalX?: number | null;
   focalY?: number | null;
+  sizes?: {
+    'thumbnail-square'?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    'thumbnail-square-mobile'?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "posts".
+ */
+export interface Post {
+  id: string;
+  title: string;
+  publishedAt: string;
+  hiddenTags?: (string | HiddenTag)[] | null;
+  thumbnail?: (string | null) | Media;
+  videos?:
+    | {
+        title: string;
+        type?: ('youtube' | 'facebook') | null;
+        url: string;
+        id?: string | null;
+      }[]
+    | null;
+  body: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "hiddenTags".
+ */
+export interface HiddenTag {
+  id: string;
+  label: string;
+  tag: string;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -107,6 +168,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'media';
         value: string | Media;
+      } | null)
+    | ({
+        relationTo: 'posts';
+        value: string | Post;
+      } | null)
+    | ({
+        relationTo: 'hiddenTags';
+        value: string | HiddenTag;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -155,6 +224,8 @@ export interface PayloadMigration {
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
+  firstName?: T;
+  lastName?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
@@ -182,6 +253,61 @@ export interface MediaSelect<T extends boolean = true> {
   height?: T;
   focalX?: T;
   focalY?: T;
+  sizes?:
+    | T
+    | {
+        'thumbnail-square'?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+        'thumbnail-square-mobile'?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "posts_select".
+ */
+export interface PostsSelect<T extends boolean = true> {
+  title?: T;
+  publishedAt?: T;
+  hiddenTags?: T;
+  thumbnail?: T;
+  videos?:
+    | T
+    | {
+        title?: T;
+        type?: T;
+        url?: T;
+        id?: T;
+      };
+  body?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "hiddenTags_select".
+ */
+export interface HiddenTagsSelect<T extends boolean = true> {
+  label?: T;
+  tag?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -214,6 +340,104 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "asideSection".
+ */
+export interface AsideSection {
+  id: string;
+  slideshow?: {
+    enable?: boolean | null;
+    slides?: (string | null) | Media;
+  };
+  postGroups?: {
+    enable?: boolean | null;
+    groups?:
+      | {
+          title: string;
+          limit?: number | null;
+          hiddenTags?: (string | HiddenTag)[] | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  curatedPosts: {
+    enable?: boolean | null;
+    title: string;
+    posts?:
+      | {
+          post?: (string | null) | Post;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  links: {
+    enable?: boolean | null;
+    title: string;
+    links?:
+      | {
+          url: string;
+          image?: (string | null) | Media;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "asideSection_select".
+ */
+export interface AsideSectionSelect<T extends boolean = true> {
+  slideshow?:
+    | T
+    | {
+        enable?: T;
+        slides?: T;
+      };
+  postGroups?:
+    | T
+    | {
+        enable?: T;
+        groups?:
+          | T
+          | {
+              title?: T;
+              limit?: T;
+              hiddenTags?: T;
+              id?: T;
+            };
+      };
+  curatedPosts?:
+    | T
+    | {
+        enable?: T;
+        title?: T;
+        posts?:
+          | T
+          | {
+              post?: T;
+              id?: T;
+            };
+      };
+  links?:
+    | T
+    | {
+        enable?: T;
+        title?: T;
+        links?:
+          | T
+          | {
+              url?: T;
+              image?: T;
+              id?: T;
+            };
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
