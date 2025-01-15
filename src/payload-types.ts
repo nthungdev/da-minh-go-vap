@@ -33,9 +33,11 @@ export interface Config {
     defaultIDType: string;
   };
   globals: {
+    navBar: NavBar;
     asideSection: AsideSection;
   };
   globalsSelect: {
+    navBar: NavBarSelect<false> | NavBarSelect<true>;
     asideSection: AsideSectionSelect<false> | AsideSectionSelect<true>;
   };
   locale: null;
@@ -343,6 +345,20 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "navBar".
+ */
+export interface NavBar {
+  id: string;
+  bottomDecorativeGraphic?: {
+    enable?: boolean | null;
+    imageDesktop?: (string | null) | Media;
+    imageMobile?: (string | null) | Media;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "asideSection".
  */
 export interface AsideSection {
@@ -385,6 +401,22 @@ export interface AsideSection {
   };
   updatedAt?: string | null;
   createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "navBar_select".
+ */
+export interface NavBarSelect<T extends boolean = true> {
+  bottomDecorativeGraphic?:
+    | T
+    | {
+        enable?: T;
+        imageDesktop?: T;
+        imageMobile?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

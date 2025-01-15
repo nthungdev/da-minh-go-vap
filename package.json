@@ -9,7 +9,8 @@
     "start": "next start",
     "lint": "next lint",
     "generate:importmap": "payload generate:importmap",
-    "generate:types": "payload generate:types"
+    "generate:types": "payload generate:types",
+    "generate": "pnpm run generate:importmap && pnpm run generate:types"
   },
   "dependencies": {
     "@payloadcms/db-mongodb": "^3.11.0",
