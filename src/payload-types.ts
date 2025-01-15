@@ -36,11 +36,13 @@ export interface Config {
     navBar: NavBar;
     asideSection: AsideSection;
     footer: Footer;
+    siteSettings: SiteSetting;
   };
   globalsSelect: {
     navBar: NavBarSelect<false> | NavBarSelect<true>;
     asideSection: AsideSectionSelect<false> | AsideSectionSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
+    siteSettings: SiteSettingsSelect<false> | SiteSettingsSelect<true>;
   };
   locale: null;
   user: User & {
@@ -430,6 +432,16 @@ export interface Footer {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "siteSettings".
+ */
+export interface SiteSetting {
+  id: string;
+  logo?: (string | null) | Media;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "navBar_select".
  */
 export interface NavBarSelect<T extends boolean = true> {
@@ -519,6 +531,16 @@ export interface FooterSelect<T extends boolean = true> {
         url?: T;
         id?: T;
       };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "siteSettings_select".
+ */
+export interface SiteSettingsSelect<T extends boolean = true> {
+  logo?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
