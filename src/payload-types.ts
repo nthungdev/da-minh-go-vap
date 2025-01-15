@@ -35,10 +35,12 @@ export interface Config {
   globals: {
     navBar: NavBar;
     asideSection: AsideSection;
+    footer: Footer;
   };
   globalsSelect: {
     navBar: NavBarSelect<false> | NavBarSelect<true>;
     asideSection: AsideSectionSelect<false> | AsideSectionSelect<true>;
+    footer: FooterSelect<false> | FooterSelect<true>;
   };
   locale: null;
   user: User & {
@@ -404,6 +406,30 @@ export interface AsideSection {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "footer".
+ */
+export interface Footer {
+  id: string;
+  topFooterDecorativeGraphic?: (string | null) | Media;
+  contact?: {
+    name?: string | null;
+    address?: string | null;
+    phone?: string | null;
+    email?: string | null;
+    marketingEmail?: string | null;
+  };
+  externalLinks?:
+    | {
+        name: string;
+        url: string;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "navBar_select".
  */
 export interface NavBarSelect<T extends boolean = true> {
@@ -466,6 +492,32 @@ export interface AsideSectionSelect<T extends boolean = true> {
               image?: T;
               id?: T;
             };
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "footer_select".
+ */
+export interface FooterSelect<T extends boolean = true> {
+  topFooterDecorativeGraphic?: T;
+  contact?:
+    | T
+    | {
+        name?: T;
+        address?: T;
+        phone?: T;
+        email?: T;
+        marketingEmail?: T;
+      };
+  externalLinks?:
+    | T
+    | {
+        name?: T;
+        url?: T;
+        id?: T;
       };
   updatedAt?: T;
   createdAt?: T;
