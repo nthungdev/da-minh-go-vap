@@ -174,10 +174,40 @@ export interface Page {
   content?:
     | (
         | {
+            items: {
+              title: string;
+              content: string;
+              children?:
+                | {
+                    title: string;
+                    content: string;
+                    children?:
+                      | {
+                          title: string;
+                          content: string;
+                          id?: string | null;
+                        }[]
+                      | null;
+                    id?: string | null;
+                  }[]
+                | null;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'AccordionContentBlock';
+          }
+        | {
             content: string;
             id?: string | null;
             blockName?: string | null;
             blockType: 'textBlock';
+          }
+        | {
+            image: string | Media;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'imageBlock';
           }
         | {
             title: string;
@@ -386,10 +416,44 @@ export interface PagesSelect<T extends boolean = true> {
   content?:
     | T
     | {
+        AccordionContentBlock?:
+          | T
+          | {
+              items?:
+                | T
+                | {
+                    title?: T;
+                    content?: T;
+                    children?:
+                      | T
+                      | {
+                          title?: T;
+                          content?: T;
+                          children?:
+                            | T
+                            | {
+                                title?: T;
+                                content?: T;
+                                id?: T;
+                              };
+                          id?: T;
+                        };
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
         textBlock?:
           | T
           | {
               content?: T;
+              id?: T;
+              blockName?: T;
+            };
+        imageBlock?:
+          | T
+          | {
+              image?: T;
               id?: T;
               blockName?: T;
             };

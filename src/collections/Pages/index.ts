@@ -1,3 +1,5 @@
+import AccordionContentBlock from '@/blocks/AccordionContentBlock'
+import ImageBlock from '@/blocks/ImageBlock'
 import PostGroupBlock from '@/blocks/PostGroupBlock'
 import TabbedContentBlock from '@/blocks/TabbedContentBlock'
 import TextBlock from '@/blocks/TextBock'
@@ -35,7 +37,14 @@ const Pages: CollectionConfig = {
     {
       name: 'content',
       type: 'blocks',
-      blocks: [TextBlock, PostGroupBlock, TabbedContentBlock, VideoGridBlock,],
+      blocks: [
+        AccordionContentBlock,
+        TextBlock,
+        ImageBlock,
+        PostGroupBlock,
+        TabbedContentBlock,
+        VideoGridBlock,
+      ],
     },
   ],
 }
