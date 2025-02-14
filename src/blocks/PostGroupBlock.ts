@@ -1,11 +1,10 @@
-import markdownField from '@/fields/markdown'
 import { Block } from 'payload'
 
 const PostGroupBlock: Block = {
   slug: 'postGroupBlock',
   labels: {
-    singular: 'Post Group Block',
-    plural: 'Post Group Blocks',
+    singular: 'Post Group',
+    plural: 'Post Groups',
   },
   fields: [
     {

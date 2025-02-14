@@ -1,4 +1,5 @@
 import AccordionContentBlock from '@/blocks/AccordionContentBlock'
+import BibleVerseBlock from '@/blocks/BibleVerseBlock'
 import DynamicImageBlock from '@/blocks/DynamicImageBlock'
 import ImageBlock from '@/blocks/ImageBlock'
 import MapBlock from '@/blocks/MapBlock'
@@ -43,6 +44,7 @@ const Pages: CollectionConfig = {
       type: 'blocks',
       blocks: [
         AccordionContentBlock,
+        BibleVerseBlock,
         DynamicImageBlock,
         ImageBlock,
         MapBlock,

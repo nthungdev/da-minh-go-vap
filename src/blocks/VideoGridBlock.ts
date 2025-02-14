@@ -3,8 +3,8 @@ import { Block } from 'payload'
 const VideoGridBlock: Block = {
   slug: 'videoGridBlock',
   labels: {
-    singular: 'Video Grid Block',
-    plural: 'Video Grid Blocks',
+    singular: 'Video Grid',
+    plural: 'Video Grids',
   },
   fields: [
     {
