@@ -200,6 +200,17 @@ export interface Page {
             blockName?: string | null;
             blockType: 'tabbedContentBlock';
           }
+        | {
+            videos: {
+              title: string;
+              type: 'youtube' | 'facebook';
+              url: string;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'videoGridBlock';
+          }
       )[]
     | null;
   updatedAt: string;
@@ -404,6 +415,20 @@ export interface PagesSelect<T extends boolean = true> {
                 | {
                     title?: T;
                     content?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        videoGridBlock?:
+          | T
+          | {
+              videos?:
+                | T
+                | {
+                    title?: T;
+                    type?: T;
+                    url?: T;
                     id?: T;
                   };
               id?: T;
