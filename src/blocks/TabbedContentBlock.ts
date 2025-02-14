@@ -4,8 +4,8 @@ import { Block } from 'payload'
 const TabbedContentBlock: Block = {
   slug: 'tabbedContentBlock',
   labels: {
-    singular: 'Tabbed Content Block',
-    plural: 'Tabbed Content Blocks',
+    singular: 'Tabbed Content',
+    plural: 'Tabbed Contents',
   },
   fields: [
     {
@@ -19,8 +19,7 @@ const TabbedContentBlock: Block = {
           required: true,
         },
         {
-          ...markdownField('body'),
-          name: 'content',
+          ...markdownField('content'),
           required: true,
         },
       ],
