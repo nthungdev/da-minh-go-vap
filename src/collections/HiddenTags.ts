@@ -2,6 +2,9 @@ import { CollectionConfig } from "payload"
 
 const HiddenTags: CollectionConfig = {
   slug: 'hiddenTags',
+  admin: {
+    useAsTitle: 'label',
+  },
   fields: [
     {
       name: 'label',
