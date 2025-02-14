@@ -1,4 +1,5 @@
 import PostGroupBlock from '@/blocks/PostGroupBlock'
+import TabbedContentBlock from '@/blocks/TabbedContentBlock'
 import TextBlock from '@/blocks/TextBock'
 import type { CollectionConfig } from 'payload'
 
@@ -26,12 +27,6 @@ const Pages: CollectionConfig = {
       admin: { position: 'sidebar' },
     },
     {
-      name: 'hiddenTags',
-      type: 'relationship',
-      relationTo: 'hiddenTags',
-      hasMany: true,
-    },
-    {
       name: 'thumbnail',
       type: 'upload',
       relationTo: 'media',
@@ -39,7 +34,7 @@ const Pages: CollectionConfig = {
     {
       name: 'content',
       type: 'blocks',
-      blocks: [TextBlock, PostGroupBlock],
+      blocks: [TextBlock, PostGroupBlock, TabbedContentBlock],
     },
   ],
 }

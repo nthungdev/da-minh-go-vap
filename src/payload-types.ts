@@ -170,7 +170,6 @@ export interface Page {
   id: string;
   title: string;
   publishedAt: string;
-  hiddenTags?: (string | HiddenTag)[] | null;
   thumbnail?: (string | null) | Media;
   content?:
     | (
@@ -190,6 +189,16 @@ export interface Page {
             id?: string | null;
             blockName?: string | null;
             blockType: 'postGroupBlock';
+          }
+        | {
+            tabs: {
+              title: string;
+              content: string;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'tabbedContentBlock';
           }
       )[]
     | null;
@@ -362,7 +371,6 @@ export interface HiddenTagsSelect<T extends boolean = true> {
 export interface PagesSelect<T extends boolean = true> {
   title?: T;
   publishedAt?: T;
-  hiddenTags?: T;
   thumbnail?: T;
   content?:
     | T
@@ -384,6 +392,19 @@ export interface PagesSelect<T extends boolean = true> {
                 | {
                     enableViewMoreButton?: T;
                     relativeUrl?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        tabbedContentBlock?:
+          | T
+          | {
+              tabs?:
+                | T
+                | {
+                    title?: T;
+                    content?: T;
+                    id?: T;
                   };
               id?: T;
               blockName?: T;
