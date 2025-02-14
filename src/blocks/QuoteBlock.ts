@@ -1,11 +1,11 @@
 import markdownField from '@/fields/markdown'
 import { Block } from 'payload'
 
-const TextBlock: Block = {
-  slug: 'textBlock',
+const QuoteBlock: Block = {
+  slug: 'quoteBlock',
   labels: {
-    singular: 'Text',
-    plural: 'Texts',
+    singular: 'Quote',
+    plural: 'Quotes',
   },
   fields: [
     {
@@ -15,4 +15,4 @@ const TextBlock: Block = {
   ],
 }
 
-export default TextBlock
+export default QuoteBlock

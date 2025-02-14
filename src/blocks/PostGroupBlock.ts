@@ -22,6 +22,11 @@ const PostGroupBlock: Block = {
       unique: true,
     },
     {
+      name: 'limit',
+      type: 'number',
+      defaultValue: 4,
+    },
+    {
       name: 'viewMoreButton',
       type: 'group',
       fields: [
