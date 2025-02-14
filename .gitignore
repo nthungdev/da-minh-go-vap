@@ -40,3 +40,4 @@ certificates
 # Payload
 media
 temp
+src/payload-types.ts
