@@ -1,12 +1,15 @@
 import PostGroupBlock from '@/blocks/PostGroupBlock'
 import TextBlock from '@/blocks/TextBock'
-import markdownField from '@/fields/markdown'
 import type { CollectionConfig } from 'payload'
 
 const Pages: CollectionConfig = {
   slug: 'pages',
   access: {
-    read: () => true,
+    read: () => ({
+      publishedAt: {
+        greater_than: new Date(),
+      },
+    }),
   },
   fields: [
     {
@@ -36,10 +39,8 @@ const Pages: CollectionConfig = {
     {
       name: 'content',
       type: 'blocks',
-      blocks: [
-        TextBlock, PostGroupBlock,
-      ]
-    }
+      blocks: [TextBlock, PostGroupBlock],
+    },
   ],
 }
 
