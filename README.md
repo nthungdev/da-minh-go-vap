@@ -1,6 +1,18 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Da Minh Go Vap
 
 ## Getting Started
+
+Generate PayloadCMS secret:
+
+```bash
+node -e "console.log(require('crypto').randomBytes(48).toString('hex'))"
+```
+
+Generate typescript types:
+
+```bash
+yarn generate:types
+```
 
 Run the development server:
 
