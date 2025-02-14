@@ -4,6 +4,7 @@ import ImageBlock from '@/blocks/ImageBlock'
 import MapBlock from '@/blocks/MapBlock'
 import PostGroupBlock from '@/blocks/PostGroupBlock'
 import TabbedContentBlock from '@/blocks/TabbedContentBlock'
+import TabbedPostGroupBlock from '@/blocks/TabbedPostGroupBlock'
 import TextBlock from '@/blocks/TextBock'
 import TimelineBlock from '@/blocks/TimelineBlock'
 import VideoGridBlock from '@/blocks/VideoGridBlock'
@@ -47,6 +48,7 @@ const Pages: CollectionConfig = {
         MapBlock,
         PostGroupBlock,
         TabbedContentBlock,
+        TabbedPostGroupBlock,
         TextBlock,
         TimelineBlock,
         VideoGridBlock,
