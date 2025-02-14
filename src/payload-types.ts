@@ -15,6 +15,7 @@ export interface Config {
     media: Media;
     posts: Post;
     hiddenTags: HiddenTag;
+    pages: Page;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -25,6 +26,7 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     posts: PostsSelect<false> | PostsSelect<true>;
     hiddenTags: HiddenTagsSelect<false> | HiddenTagsSelect<true>;
+    pages: PagesSelect<false> | PagesSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -162,6 +164,40 @@ export interface HiddenTag {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pages".
+ */
+export interface Page {
+  id: string;
+  title: string;
+  publishedAt: string;
+  hiddenTags?: (string | HiddenTag)[] | null;
+  thumbnail?: (string | null) | Media;
+  content?:
+    | (
+        | {
+            content: string;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'textBlock';
+          }
+        | {
+            title: string;
+            hiddenTags: (string | HiddenTag)[];
+            viewMoreButton: {
+              enableViewMoreButton: boolean;
+              relativeUrl?: (string | null) | Post;
+            };
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'postGroupBlock';
+          }
+      )[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -182,6 +218,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'hiddenTags';
         value: string | HiddenTag;
+      } | null)
+    | ({
+        relationTo: 'pages';
+        value: string | Page;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -312,6 +352,43 @@ export interface PostsSelect<T extends boolean = true> {
 export interface HiddenTagsSelect<T extends boolean = true> {
   label?: T;
   tag?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pages_select".
+ */
+export interface PagesSelect<T extends boolean = true> {
+  title?: T;
+  publishedAt?: T;
+  hiddenTags?: T;
+  thumbnail?: T;
+  content?:
+    | T
+    | {
+        textBlock?:
+          | T
+          | {
+              content?: T;
+              id?: T;
+              blockName?: T;
+            };
+        postGroupBlock?:
+          | T
+          | {
+              title?: T;
+              hiddenTags?: T;
+              viewMoreButton?:
+                | T
+                | {
+                    enableViewMoreButton?: T;
+                    relativeUrl?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+      };
   updatedAt?: T;
   createdAt?: T;
 }

@@ -15,6 +15,7 @@ import AsideSection from '@/globals/AsideSection'
 import NavBar from '@/globals/NavBar'
 import Footer from '@/globals/Footer'
 import SiteSettings from '@/globals/SiteSettings'
+import Pages from '@/collections/Pages'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -26,7 +27,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Posts, HiddenTags],
+  collections: [Users, Media, Posts, HiddenTags, Pages],
   globals: [NavBar, AsideSection, Footer, SiteSettings],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
