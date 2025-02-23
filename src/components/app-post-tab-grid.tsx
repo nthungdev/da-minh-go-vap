@@ -4,6 +4,7 @@ import { ChangeEvent } from 'react'
 import AppPostGrid from './app-post-grid'
 import AppSelectBasic from './app-select-basic'
 import classNames from 'classnames'
+import { PostParams } from '@/definitions'
 
 const ALL_POSTS_CONTROL_LABEL = 'Tất cả'
 
@@ -32,7 +33,7 @@ export default function AppPostTabGrid(props: AppPostTabGridProps) {
 
   const allPosts = postGroups
     .reduce((acc, { posts }) => [...acc, ...posts], [] as PostParams[])
-    .toSorted((a, b) => b.date.getTime() - a.date.getTime())
+    .toSorted((a, b) => b.publishedAt.getTime() - a.publishedAt.getTime())
     .slice(0, allPostsLimit)
 
   const postGroupsData = [

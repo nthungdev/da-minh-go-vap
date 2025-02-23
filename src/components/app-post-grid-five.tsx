@@ -3,6 +3,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import classNames from 'classnames'
+import type { PostParams } from '@/definitions'
 
 interface AppPostGridFiveProps {
   posts: PostParams[]
@@ -40,13 +41,15 @@ export default function AppPostGridSix({
             className="relative w-full h-full block overflow-hidden hover:ring-2"
           >
             <div className="relative aspect-video bg-gray-50">
-              <Image
-                className="object-cover"
-                src={post.thumbnail}
-                fill
-                sizes="100%"
-                alt={`${post.title}'s thumbnail`}
-              />
+              {post.thumbnail.url && (
+                <Image
+                  className="object-cover"
+                  src={post.thumbnail.url}
+                  fill
+                  sizes="100%"
+                  alt={`${post.title}'s thumbnail`}
+                />
+              )}
             </div>
             <div className="p-2 space-y-2">
               <h2 className="text-center block text-xl truncate">
