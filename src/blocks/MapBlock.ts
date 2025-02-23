@@ -3,8 +3,8 @@ import { Block } from 'payload'
 const MapBlock: Block = {
   slug: 'mapBlock',
   labels: {
-    singular: 'Text',
-    plural: 'Texts',
+    singular: 'Map',
+    plural: 'Maps',
   },
   fields: [
     {
