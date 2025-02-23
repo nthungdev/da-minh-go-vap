@@ -10,12 +10,13 @@ import sharp from 'sharp'
 import Users from '@/collections/Users'
 import Media from '@/collections/Media'
 import Posts from '@/collections/Posts'
+import Pages from '@/collections/Pages'
 import HiddenTags from '@/collections/HiddenTags'
+
 import AsideSection from '@/globals/AsideSection'
+import SiteSettings from '@/globals/SiteSettings'
 import NavBar from '@/globals/NavBar'
 import Footer from '@/globals/Footer'
-import SiteSettings from '@/globals/SiteSettings'
-import Pages from '@/collections/Pages'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -27,7 +28,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Posts, HiddenTags, Pages],
+  collections: [HiddenTags, Media, Pages, Posts, Users],
   globals: [NavBar, AsideSection, Footer, SiteSettings],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',

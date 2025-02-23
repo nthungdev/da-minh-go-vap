@@ -18,11 +18,11 @@ const Pages: CollectionConfig = {
     useAsTitle: 'title',
   },
   access: {
-    read: () => ({
-      publishedAt: {
-        greater_than: new Date(),
-      },
-    }),
+    // read: () => ({
+    //   publishedAt: {
+    //     greater_than: new Date(),
+    //   },
+    // }),
   },
   fields: [
     {
@@ -30,6 +30,14 @@ const Pages: CollectionConfig = {
       type: 'date',
       label: 'Thời gian công bố',
       required: true,
+      admin: { position: 'sidebar' },
+    },
+    {
+      name: 'path',
+      type: 'text',
+      label: 'Đường dẫn',
+      required: true,
+      unique: true,
       admin: { position: 'sidebar' },
     },
     {
@@ -50,24 +58,7 @@ const Pages: CollectionConfig = {
             //   relationTo: 'media',
             // },
             {
-              name: 'mainItems',
-              type: 'blocks',
-              blocks: [
-                DynamicImageBlock,
-                ImageBlock,
-                PostGroupBlock,
-                TabbedContentBlock,
-                TextBlock,
-                QuoteBlock,
-              ],
-            },
-          ],
-        },
-        {
-          label: 'Side',
-          fields: [
-            {
-              name: 'sideItems',
+              name: 'main',
               type: 'blocks',
               blocks: [
                 AccordionContentBlock,
@@ -81,6 +72,23 @@ const Pages: CollectionConfig = {
                 TextBlock,
                 TimelineBlock,
                 VideoGridBlock,
+                QuoteBlock,
+              ],
+            },
+          ],
+        },
+        {
+          label: 'Side',
+          fields: [
+            {
+              name: 'side',
+              type: 'blocks',
+              blocks: [
+                DynamicImageBlock,
+                ImageBlock,
+                PostGroupBlock,
+                TabbedContentBlock,
+                TextBlock,
                 QuoteBlock,
               ],
             },
