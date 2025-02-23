@@ -6,6 +6,7 @@ const SpaceBlock: Block = {
     singular: 'Space',
     plural: 'Spaces',
   },
+  interfaceName: 'SpaceBlock',
   fields: [
     {
       name: 'size',

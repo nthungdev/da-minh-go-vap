@@ -6,7 +6,12 @@ const TabbedPostGroupBlock: Block = {
     singular: 'Tabbed Post Group',
     plural: 'Tabbed Post Groups',
   },
+  interfaceName: 'TabbedPostGroupBlock',
   fields: [
+    {
+      name: 'title',
+      type: 'text',
+    },
     {
       name: 'tabs',
       type: 'array',

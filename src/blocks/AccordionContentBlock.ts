@@ -2,11 +2,12 @@ import markdownField from '@/fields/markdown'
 import { Block } from 'payload'
 
 const AccordionContentBlock: Block = {
-  slug: 'AccordionContentBlock',
+  slug: 'accordionContentBlock',
   labels: {
     singular: 'Accordion',
     plural: 'Accordions',
   },
+  interfaceName: 'AccordionContentBlock',
   fields: [
     {
       name: 'items',

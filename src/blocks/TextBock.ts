@@ -7,6 +7,7 @@ const TextBlock: Block = {
     singular: 'Text',
     plural: 'Texts',
   },
+  interfaceName: 'TextBlock',
   fields: [
     {
       ...markdownField('content'),

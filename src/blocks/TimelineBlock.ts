@@ -6,6 +6,7 @@ const TimelineBlock: Block = {
     singular: 'Timeline',
     plural: 'Timelines',
   },
+  interfaceName: 'TimelineBlock',
   fields: [
     {
       name: 'title',

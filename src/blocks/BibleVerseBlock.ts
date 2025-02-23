@@ -6,6 +6,7 @@ const BibleVerseBlock: Block = {
     singular: 'Bible Verse',
     plural: 'Bible Verses',
   },
+  interfaceName: 'BibleVerseBlock',
   fields: [
     {
       name: 'verse',

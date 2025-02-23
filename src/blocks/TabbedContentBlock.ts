@@ -7,6 +7,7 @@ const TabbedContentBlock: Block = {
     singular: 'Tabbed Content',
     plural: 'Tabbed Contents',
   },
+  interfaceName: 'TabbedContentBlock',
   fields: [
     {
       name: 'tabs',

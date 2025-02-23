@@ -7,6 +7,7 @@ const QuoteBlock: Block = {
     singular: 'Quote',
     plural: 'Quotes',
   },
+  interfaceName: 'QuoteBlock',
   fields: [
     {
       ...markdownField('content'),

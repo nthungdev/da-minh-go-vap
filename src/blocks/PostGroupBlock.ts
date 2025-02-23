@@ -6,6 +6,7 @@ const PostGroupBlock: Block = {
     singular: 'Post Group',
     plural: 'Post Groups',
   },
+  interfaceName: 'PostGroupBlock',
   fields: [
     {
       name: 'title',

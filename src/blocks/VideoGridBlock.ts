@@ -6,6 +6,7 @@ const VideoGridBlock: Block = {
     singular: 'Video Grid',
     plural: 'Video Grids',
   },
+  interfaceName: 'VideoGridBlock',
   fields: [
     {
       name: 'videos',

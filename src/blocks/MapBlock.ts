@@ -6,6 +6,7 @@ const MapBlock: Block = {
     singular: 'Map',
     plural: 'Maps',
   },
+  interfaceName: 'MapBlock',
   fields: [
     {
       name: 'address',

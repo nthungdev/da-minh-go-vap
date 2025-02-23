@@ -6,6 +6,7 @@ const ImageBlock: Block = {
     singular: 'Image',
     plural: 'Images',
   },
+  interfaceName: 'ImageBlock',
   fields: [
     {
       name: 'image',

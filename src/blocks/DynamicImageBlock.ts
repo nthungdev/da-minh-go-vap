@@ -6,6 +6,7 @@ const DynamicImageBlock: Block = {
     singular: 'Dynamic Image',
     plural: 'Dynamic Images',
   },
+  interfaceName: 'DynamicImageBlock',
   fields: [
     {
       name: 'desktopImage',
