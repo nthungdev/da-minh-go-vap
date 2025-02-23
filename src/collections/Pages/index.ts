@@ -4,6 +4,7 @@ import DynamicImageBlock from '@/blocks/DynamicImageBlock'
 import ImageBlock from '@/blocks/ImageBlock'
 import MapBlock from '@/blocks/MapBlock'
 import PostGroupBlock from '@/blocks/PostGroupBlock'
+import QuoteBlock from '@/blocks/QuoteBlock'
 import TabbedContentBlock from '@/blocks/TabbedContentBlock'
 import TabbedPostGroupBlock from '@/blocks/TabbedPostGroupBlock'
 import TextBlock from '@/blocks/TextBock'
@@ -13,6 +14,9 @@ import type { CollectionConfig } from 'payload'
 
 const Pages: CollectionConfig = {
   slug: 'pages',
+  admin: {
+    useAsTitle: 'title',
+  },
   access: {
     read: () => ({
       publishedAt: {
@@ -54,6 +58,7 @@ const Pages: CollectionConfig = {
         TextBlock,
         TimelineBlock,
         VideoGridBlock,
+        QuoteBlock,
       ],
     },
   ],
