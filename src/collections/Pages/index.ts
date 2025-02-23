@@ -31,7 +31,12 @@ const Pages: CollectionConfig = {
       type: 'date',
       label: 'Thời gian công bố',
       required: true,
-      admin: { position: 'sidebar' },
+      admin: {
+        position: 'sidebar',
+        date: {
+          pickerAppearance: 'dayAndTime',
+        },
+      },
     },
     {
       name: 'path',

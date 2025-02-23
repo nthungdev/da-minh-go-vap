@@ -18,13 +18,20 @@ const Posts: CollectionConfig = {
       type: 'date',
       label: 'Thời gian công bố',
       required: true,
-      admin: { position: 'sidebar' },
+      admin: {
+        position: 'sidebar',
+        date: {
+          pickerAppearance: 'dayAndTime',
+        },
+      },
     },
     {
       name: 'hiddenTags',
       type: 'relationship',
       relationTo: 'hiddenTags',
       hasMany: true,
+      defaultValue: [],
+      required: true,
     },
     {
       name: 'thumbnail',
