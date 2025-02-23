@@ -26,12 +26,6 @@ const Pages: CollectionConfig = {
   },
   fields: [
     {
-      name: 'title',
-      type: 'text',
-      label: 'Tiêu đề',
-      required: true,
-    },
-    {
       name: 'publishedAt',
       type: 'date',
       label: 'Thời gian công bố',
@@ -39,26 +33,59 @@ const Pages: CollectionConfig = {
       admin: { position: 'sidebar' },
     },
     {
-      name: 'thumbnail',
-      type: 'upload',
-      relationTo: 'media',
-    },
-    {
-      name: 'content',
-      type: 'blocks',
-      blocks: [
-        AccordionContentBlock,
-        BibleVerseBlock,
-        DynamicImageBlock,
-        ImageBlock,
-        MapBlock,
-        PostGroupBlock,
-        TabbedContentBlock,
-        TabbedPostGroupBlock,
-        TextBlock,
-        TimelineBlock,
-        VideoGridBlock,
-        QuoteBlock,
+      type: 'tabs',
+      tabs: [
+        {
+          label: 'Main',
+          fields: [
+            {
+              name: 'title',
+              type: 'text',
+              label: 'Tiêu đề',
+              required: true,
+            },
+            // {
+            //   name: 'thumbnail',
+            //   type: 'upload',
+            //   relationTo: 'media',
+            // },
+            {
+              name: 'mainItems',
+              type: 'blocks',
+              blocks: [
+                DynamicImageBlock,
+                ImageBlock,
+                PostGroupBlock,
+                TabbedContentBlock,
+                TextBlock,
+                QuoteBlock,
+              ],
+            },
+          ],
+        },
+        {
+          label: 'Side',
+          fields: [
+            {
+              name: 'sideItems',
+              type: 'blocks',
+              blocks: [
+                AccordionContentBlock,
+                BibleVerseBlock,
+                DynamicImageBlock,
+                ImageBlock,
+                MapBlock,
+                PostGroupBlock,
+                TabbedContentBlock,
+                TabbedPostGroupBlock,
+                TextBlock,
+                TimelineBlock,
+                VideoGridBlock,
+                QuoteBlock,
+              ],
+            },
+          ],
+        },
       ],
     },
   ],
