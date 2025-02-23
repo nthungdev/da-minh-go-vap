@@ -5,6 +5,7 @@ import ImageBlock from '@/blocks/ImageBlock'
 import MapBlock from '@/blocks/MapBlock'
 import PostGroupBlock from '@/blocks/PostGroupBlock'
 import QuoteBlock from '@/blocks/QuoteBlock'
+import SpaceBlock from '@/blocks/SpaceBlock'
 import TabbedContentBlock from '@/blocks/TabbedContentBlock'
 import TabbedPostGroupBlock from '@/blocks/TabbedPostGroupBlock'
 import TextBlock from '@/blocks/TextBock'
@@ -72,6 +73,7 @@ const Pages: CollectionConfig = {
                 TextBlock,
                 TimelineBlock,
                 VideoGridBlock,
+                SpaceBlock,
                 QuoteBlock,
               ],
             },
@@ -89,6 +91,7 @@ const Pages: CollectionConfig = {
                 PostGroupBlock,
                 TabbedContentBlock,
                 TextBlock,
+                SpaceBlock,
                 QuoteBlock,
               ],
             },
