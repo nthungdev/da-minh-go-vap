@@ -34,9 +34,9 @@ export const fetchPostsByHiddenTags = async (
     skipSlug,
   }: { limit?: number; offset?: number; skipSlug?: string } = {}
 ) => {
-  const posts = postUtils.getPostsByHiddenTags(hiddenTags)
+  const posts = await postUtils.getPostsByHiddenTags(hiddenTags)
   const plus1 = posts
-    .filter((post) => post.date < new Date())
+    .filter((post) => post.publishedAt < new Date())
     .filter((post) => post.slug !== skipSlug)
     .slice(offset || 0, limit ? limit + 1 : undefined)
   const results = limit ? plus1.slice(0, limit) : plus1

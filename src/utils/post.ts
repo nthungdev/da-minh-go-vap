@@ -1,9 +1,13 @@
 import path from 'path'
 import fs from 'fs'
 import matter from 'gray-matter'
+import { getPayload } from 'payload'
+import config from '@payload-config'
+import { PostParams } from '@/definitions'
 
 const postsDirectory = path.join(process.cwd(), 'src/content/posts')
 
+// TODO update to use Payload
 export const getPostBySlug = (slug: string) => {
   const filePath = path.join(postsDirectory, slug + '.md')
   try {
@@ -26,6 +30,7 @@ export const getPostsBySlugs = (slugs: string[]): PostParams[] => {
     .filter((post) => post !== null) as PostParams[]
 }
 
+// TODO update to use Payload
 export const getAllPostSlugs = () => {
   const fileNames = fs.readdirSync(postsDirectory)
   return fileNames.map((fileName) => {
@@ -33,6 +38,7 @@ export const getAllPostSlugs = () => {
   })
 }
 
+// TODO update to use Payload
 export const getAllPosts = ({ limit = undefined }: { limit?: number } = {}) => {
   const fileNames = fs.readdirSync(postsDirectory)
   return fileNames
@@ -51,27 +57,30 @@ export const getAllPosts = ({ limit = undefined }: { limit?: number } = {}) => {
     .slice(0, limit)
 }
 
-export const getPostsByHiddenTags = (
+export async function getPostsByHiddenTags(
   hiddenTags: string[],
   { limit = undefined }: { limit?: number } = {}
-) => {
-  const fileNames = fs.readdirSync(postsDirectory)
-  const allPosts = fileNames.map((fileName) => {
-    const slug = fileName.replace(/\.md$/, '')
-    const filePath = path.join(postsDirectory, slug + '.md')
-    const fileContents = fs.readFileSync(filePath, 'utf8')
-    const { content, data } = matter(fileContents)
-    return {
-      slug,
-      body: content,
-      ...data,
-    } as PostParams
+) {
+  const payload = await getPayload({ config })
+  const query = await payload.find({
+    collection: 'posts',
   })
-  return allPosts
+  const posts = query.docs.map((doc) => ({
+    ...doc,
+    publishedAt: new Date(doc.publishedAt),
+    createdAt: new Date(doc.createdAt),
+    updatedAt: new Date(doc.updatedAt),
+  }))
+  return posts
     .filter((post) => {
-      const postHiddenTags = new Set(post.hiddenTags)
+      const postHiddenTags = new Set(
+        post.hiddenTags
+          // tag is a string when reference not found
+          .filter((a) => typeof a !== 'string')
+          .map((a) => a.tag)
+      )
       return hiddenTags.some((tag) => postHiddenTags.has(tag))
     })
-    .toSorted((a, b) => b.date.getTime() - a.date.getTime())
+    .toSorted((a, b) => b.publishedAt.getTime() - a.publishedAt.getTime())
     .slice(0, limit)
 }
