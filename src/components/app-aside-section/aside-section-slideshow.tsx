@@ -1,8 +1,9 @@
 'use client'
 
-import Image from 'next/image'
+import NextImage from 'next/image'
 import classNames from 'classnames'
 import AppCarousel from '@/components/app-carousel'
+import { Image } from '@/definitions'
 
 export default function AsideSectionSlideshow({
   id,
@@ -19,7 +20,7 @@ export default function AsideSectionSlideshow({
     >
       <AppCarousel>
         {slides.map((slide, index) => (
-          <Image
+          <NextImage
             key={index}
             className="object-cover h-full w-full"
             src={slide.url}
