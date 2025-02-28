@@ -50,6 +50,7 @@ const Posts: CollectionConfig = {
       name: 'thumbnail',
       type: 'upload',
       relationTo: 'media',
+      required: true,
     },
     {
       name: 'videos',
