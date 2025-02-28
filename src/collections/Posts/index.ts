@@ -21,7 +21,10 @@ const Posts: CollectionConfig = {
       required: true,
       hasMany: false,
       validate: validateSlug,
-      admin: { position: 'sidebar' },
+      admin: {
+        position: 'sidebar',
+        description: 'Can only use letters (a-z, A-Z), numbers (0-9), and dashes (-, _)',
+      },
     },
     {
       name: 'publishedAt',
