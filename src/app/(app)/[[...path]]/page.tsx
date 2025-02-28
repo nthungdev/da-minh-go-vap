@@ -1,6 +1,7 @@
 import { getPayload } from 'payload'
 import config from '@payload-config'
 import AppPage from '@/components/app-page'
+import BlocksRenderer from '@/components/blocks-renderer'
 
 // export const dynamicParams = true // or false, to 404 on unknown paths
 export const dynamic = 'force-static'
@@ -14,11 +15,11 @@ export async function generateStaticParams() {
 }
 
 export default async function Page(props: {
-  params: Promise<{ path: string[] }>
+  params: Promise<{ path?: string[] }>
 }) {
   const params = await props.params
-  console.log({ params })
-  const path = '/' + params.path?.join('/') || ''
+  const path = '/' + (params.path || []).join('/')
+  // console.log({ params, path })
   const payload = await getPayload({ config })
   const query = await payload.find({
     collection: 'pages',
@@ -36,6 +37,7 @@ export default async function Page(props: {
   return (
     <AppPage>
       <h1 className="sr-only">{page.title}</h1>
+      <BlocksRenderer blocks={page.main || []} />
     </AppPage>
   )
 }
