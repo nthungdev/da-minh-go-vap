@@ -1,4 +1,19 @@
-import type { AccordionContentBlock, BibleVerseBlock, DynamicImageBlock, HiddenTag, ImageBlock, MapBlock, Media, PostGroupBlock, QuoteBlock, SpaceBlock, TabbedContentBlock, TabbedPostGroupBlock, TextBlock, TimelineBlock, VideoGridBlock } from "@/payload-types"
+import type {
+  AccordionContentBlock,
+  BibleVerseBlock,
+  DynamicImageBlock,
+  ImageBlock,
+  MapBlock,
+  Post,
+  PostGroupBlock,
+  QuoteBlock,
+  SpaceBlock,
+  TabbedContentBlock,
+  TabbedPostGroupBlock,
+  TextBlock,
+  TimelineBlock,
+  VideoGridBlock,
+} from '@/payload-types'
 
 type SiteAttributes = {
   logo: Image
@@ -22,15 +37,10 @@ type AppAccordionItem = {
   }[]
 }
 
-export type Post = {
-  title: string
-  /** @deprecated */
-  date: Date
+export type AppPost = Omit<Post, 'publishedAt' | 'createdAt' | 'updatedAt'> & {
   publishedAt: Date
-  videos: Video[]
-  hiddenTags: string[] | HiddenTag[]
-  thumbnail: Media
-  body: string
+  updatedAt: Date
+  createdAt: Date
 }
 
 type TextTab = {
@@ -64,7 +74,7 @@ type PostByCategorySection = {
 
 type Video = {
   title: string
-  thumbnail: string
+  // thumbnail: string
   url: string
   type: 'facebook' | 'youtube'
 }
@@ -336,5 +346,17 @@ export type AsideSection = {
   }
 }
 
-
-export type BlockType = AccordionContentBlock | BibleVerseBlock | DynamicImageBlock | ImageBlock | MapBlock | PostGroupBlock | TabbedContentBlock | TabbedPostGroupBlock | TextBlock | TimelineBlock | VideoGridBlock | SpaceBlock | QuoteBlock
+export type BlockType =
+  | AccordionContentBlock
+  | BibleVerseBlock
+  | DynamicImageBlock
+  | ImageBlock
+  | MapBlock
+  | PostGroupBlock
+  | TabbedContentBlock
+  | TabbedPostGroupBlock
+  | TextBlock
+  | TimelineBlock
+  | VideoGridBlock
+  | SpaceBlock
+  | QuoteBlock

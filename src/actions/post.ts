@@ -11,19 +11,20 @@ export const fetchPostBySlug = async (slug: string) => {
   if (!post) {
     return null
   }
-  return post.date < new Date() ? post : null
+  const appPost = postUtils.postToAppPost(post)
+  return appPost.publishedAt < new Date() ? appPost : null
 }
 
 export const fetchPostsBySlugs = async (slugs: string[]) => {
-  const posts = postUtils.getPostsBySlugs(slugs)
-  return posts.filter((post) => post.date < new Date())
+  const posts = postUtils.getPostsBySlugs(slugs).map(postUtils.postToAppPost)
+  return posts.filter((post) => post.publishedAt < new Date())
 }
 
 export const fetchAllPosts = async ({
   limit = undefined,
 }: { limit?: number } = {}) => {
   const posts = postUtils.getAllPosts()
-  return posts.filter((post) => post.date < new Date()).slice(0, limit)
+  return posts.filter((post) => post.publishedAt < new Date()).slice(0, limit)
 }
 
 export const fetchPostsByHiddenTags = async (

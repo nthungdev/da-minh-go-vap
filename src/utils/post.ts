@@ -3,7 +3,8 @@ import fs from 'fs'
 import matter from 'gray-matter'
 import { getPayload } from 'payload'
 import config from '@payload-config'
-import { PostParams } from '@/definitions'
+import { AppPost, PostParams } from '@/definitions'
+import { Post } from '@/payload-types'
 
 const postsDirectory = path.join(process.cwd(), 'src/content/posts')
 
@@ -38,7 +39,6 @@ export const getAllPostSlugs = () => {
   })
 }
 
-// TODO update to use Payload
 export const getAllPosts = ({ limit = undefined }: { limit?: number } = {}) => {
   const fileNames = fs.readdirSync(postsDirectory)
   return fileNames
@@ -50,10 +50,13 @@ export const getAllPosts = ({ limit = undefined }: { limit?: number } = {}) => {
       return {
         slug,
         body: content,
+        // ...data,
         ...data,
-      } as PostParams
+        // ...postToAppPost(data),
+      } as unknown as PostParams
     })
-    .toSorted((a, b) => b.date.getTime() - a.date.getTime())
+    .map(p => postToAppPost(p))
+    .toSorted((a, b) => b.publishedAt.getTime() - a.publishedAt.getTime())
     .slice(0, limit)
 }
 
@@ -65,12 +68,7 @@ export async function getPostsByHiddenTags(
   const query = await payload.find({
     collection: 'posts',
   })
-  const posts = query.docs.map((doc) => ({
-    ...doc,
-    publishedAt: new Date(doc.publishedAt),
-    createdAt: new Date(doc.createdAt),
-    updatedAt: new Date(doc.updatedAt),
-  }))
+  const posts = query.docs.map(postToAppPost)
   return posts
     .filter((post) => {
       const postHiddenTags = new Set(
@@ -83,4 +81,14 @@ export async function getPostsByHiddenTags(
     })
     .toSorted((a, b) => b.publishedAt.getTime() - a.publishedAt.getTime())
     .slice(0, limit)
+}
+
+
+export function postToAppPost(post: Post): AppPost {
+  return {
+    ...post,
+    publishedAt: new Date(post.publishedAt),
+    createdAt: new Date(post.createdAt),
+    updatedAt: new Date(post.updatedAt),
+  }
 }

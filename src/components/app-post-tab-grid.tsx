@@ -4,7 +4,7 @@ import { ChangeEvent } from 'react'
 import AppPostGrid from './app-post-grid'
 import AppSelectBasic from './app-select-basic'
 import classNames from 'classnames'
-import { PostParams } from '@/definitions'
+import { AppPost } from '@/definitions'
 
 const ALL_POSTS_CONTROL_LABEL = 'Tất cả'
 
@@ -14,7 +14,7 @@ interface AppPostTabGridProps {
   className?: string
   postGroups: {
     title: string
-    posts: PostParams[]
+    posts: AppPost[]
   }[]
   allPostsLimit?: number
   component?: React.ElementType
@@ -32,7 +32,7 @@ export default function AppPostTabGrid(props: AppPostTabGridProps) {
   const DataComponent = component ? component : AppPostGrid
 
   const allPosts = postGroups
-    .reduce((acc, { posts }) => [...acc, ...posts], [] as PostParams[])
+    .reduce((acc, { posts }) => [...acc, ...posts], [] as AppPost[])
     .toSorted((a, b) => b.publishedAt.getTime() - a.publishedAt.getTime())
     .slice(0, allPostsLimit)
 
