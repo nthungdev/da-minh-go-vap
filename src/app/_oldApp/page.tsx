@@ -8,6 +8,7 @@ import AppViewMoreLink from '@/components/app-view-more-link'
 import TheBibleVerse from '@/components/the-bible-verse'
 import TheLatestPosts from '@/components/the-latest-posts'
 import { attributes } from '@/content/pages/home/index.md'
+import { AppPost, PageHome } from '@/definitions'
 
 const POST_COUNT = 6
 
@@ -18,7 +19,7 @@ export default async function Home() {
     newsByCategories,
   } = attributes as PageHome
 
-  const latestPosts: PostParams[] = latestPostsSection.enable
+  const latestPosts: AppPost[] = latestPostsSection.enable
     ? await fetchAllPosts({ limit: latestPostsSection.limit })
     : []
 
