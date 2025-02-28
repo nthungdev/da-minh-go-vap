@@ -20,10 +20,10 @@ export const fetchPostsBySlugs = async (slugs: string[]) => {
   return posts.filter((post) => post.publishedAt < new Date())
 }
 
-export const fetchAllPosts = async ({
+export async function fetchAllPosts({
   limit = undefined,
-}: { limit?: number } = {}) => {
-  const posts = postUtils.getAllPosts()
+}: { limit?: number } = {}) {
+  const posts = (await postUtils.getAllPosts()).filter((post) => !!post.slug)
   return posts.filter((post) => post.publishedAt < new Date()).slice(0, limit)
 }
 

@@ -3,6 +3,7 @@ import type {
   BibleVerseBlock,
   DynamicImageBlock,
   ImageBlock,
+  LatestPostGridBlock,
   MapBlock,
   Post,
   PostGroupBlock,
@@ -351,6 +352,7 @@ export type BlockType =
   | BibleVerseBlock
   | DynamicImageBlock
   | ImageBlock
+  | LatestPostGridBlock
   | MapBlock
   | PostGroupBlock
   | TabbedContentBlock

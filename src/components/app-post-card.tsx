@@ -1,9 +1,10 @@
+import { AppPost } from '@/definitions'
 import classNames from 'classnames'
 import Image from 'next/image'
 import Link from 'next/link'
 
 interface AppPostCardProps {
-  post: PostParams
+  post: AppPost
   className?: string
 }
 
@@ -19,13 +20,16 @@ export default function AppPostCard(props: AppPostCardProps) {
       )}
     >
       <div className="relative lg:w-auto lg:h-full aspect-video overflow-hidden">
-        <Image
-          src={post.thumbnail}
-          alt={post.title}
-          fill
-          sizes="100%"
-          className="object-cover"
-        />
+        {typeof post.thumbnail !== 'string' &&
+          post.thumbnail?.url === 'string' && (
+            <Image
+              src={post.thumbnail.url}
+              alt={post.title}
+              fill
+              sizes="100%"
+              className="object-cover"
+            />
+          )}
       </div>
       <div className="flex-1 px-1.5 lg:px-0 py-1 md:py-1.5 lg:py-2 flex flex-col justify-between overflow-hidden">
         <span className="line-clamp-1 lg:line-clamp-2 text-base text-gray-900 font-header">

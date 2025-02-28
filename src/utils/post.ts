@@ -39,25 +39,18 @@ export const getAllPostSlugs = () => {
   })
 }
 
-export const getAllPosts = ({ limit = undefined }: { limit?: number } = {}) => {
-  const fileNames = fs.readdirSync(postsDirectory)
-  return fileNames
-    .map((fileName) => {
-      const slug = fileName.replace(/\.md$/, '')
-      const filePath = path.join(postsDirectory, slug + '.md')
-      const fileContents = fs.readFileSync(filePath, 'utf8')
-      const { content, data } = matter(fileContents)
-      return {
-        slug,
-        body: content,
-        // ...data,
-        ...data,
-        // ...postToAppPost(data),
-      } as unknown as PostParams
-    })
-    .map(p => postToAppPost(p))
+export async function getAllPosts({
+  limit = undefined,
+}: { limit?: number } = {}) {
+  const payload = await getPayload({ config })
+  const query = await payload.find({
+    collection: 'posts',
+  })
+  const posts = query.docs
+    .map(postToAppPost)
     .toSorted((a, b) => b.publishedAt.getTime() - a.publishedAt.getTime())
     .slice(0, limit)
+  return posts
 }
 
 export async function getPostsByHiddenTags(
@@ -82,7 +75,6 @@ export async function getPostsByHiddenTags(
     .toSorted((a, b) => b.publishedAt.getTime() - a.publishedAt.getTime())
     .slice(0, limit)
 }
-
 
 export function postToAppPost(post: Post): AppPost {
   return {

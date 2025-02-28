@@ -1,6 +1,7 @@
 import AppSpace from '@/components/app-space'
 import AppTabbedPostGroup from '@/components/app-tabbed-post-group'
 import TheBibleVerse from '@/components/the-bible-verse'
+import TheLatestPosts from '@/components/the-latest-posts'
 import { BlockType } from '@/definitions'
 
 const componentsMap: {
@@ -9,6 +10,7 @@ const componentsMap: {
   bibleVerseBlock: TheBibleVerse,
   tabbedPostGroupBlock: AppTabbedPostGroup,
   spaceBlock: AppSpace,
+  latestPostGridBlock: TheLatestPosts,
 }
 
 function mapComponentProps(block: BlockType) {
@@ -22,6 +24,9 @@ function mapComponentProps(block: BlockType) {
           },
         ],
       }
+
+      case 'latestPostGridBlock':
+        return {}
 
     case 'tabbedPostGroupBlock':
       return {
