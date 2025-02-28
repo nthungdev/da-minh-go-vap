@@ -51,7 +51,6 @@ const Posts: CollectionConfig = {
     {
       name: 'videos',
       type: 'array',
-      required: true,
       defaultValue: [],
       fields: [
         {
