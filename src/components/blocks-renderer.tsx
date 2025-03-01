@@ -1,3 +1,4 @@
+import { AppAccordionDefault } from '@/components/app-accordion'
 import AppCardTabs from '@/components/app-card-tabs'
 import AppMarkdown from '@/components/app-markdown'
 import AppSpace from '@/components/app-space'
@@ -9,6 +10,7 @@ import { BlockType } from '@/definitions'
 const componentsMap: {
   [key in BlockType['blockType']]?: React.ComponentType<any>
 } = {
+  accordionContentBlock: AppAccordionDefault,
   bibleVerseBlock: TheBibleVerse,
   tabbedPostGroupBlock: AppTabbedPostGroup,
   spaceBlock: AppSpace,
@@ -19,6 +21,22 @@ const componentsMap: {
 
 function mapComponentProps(block: BlockType) {
   switch (block.blockType) {
+    case 'accordionContentBlock':
+      return {
+        items: block.items.map((item) => ({
+          title: item.title,
+          body: item.content,
+          items: item.children?.map((subItem) => ({
+            title: subItem.title,
+            body: subItem.content,
+            items: subItem.children?.map((subSubItem) => ({
+              title: subSubItem.title,
+              body: subSubItem.content,
+            })),
+          })),
+        })),
+      }
+
     case 'bibleVerseBlock':
       return {
         verses: [
