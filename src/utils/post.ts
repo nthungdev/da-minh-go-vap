@@ -1,34 +1,32 @@
 import path from 'path'
 import fs from 'fs'
-import matter from 'gray-matter'
 import { getPayload } from 'payload'
 import config from '@payload-config'
-import { AppPost, PostParams } from '@/definitions'
+import { AppPost } from '@/definitions'
 import { Post } from '@/payload-types'
 
 const postsDirectory = path.join(process.cwd(), 'src/content/posts')
 
-// TODO update to use Payload
-export const getPostBySlug = (slug: string) => {
-  const filePath = path.join(postsDirectory, slug + '.md')
+export const getPostBySlug = async (slug: string) => {
   try {
-    const fileContents = fs.readFileSync(filePath, 'utf8')
-    const { content, data } = matter(fileContents)
-    return {
-      slug,
-      body: content,
-      ...data,
-    } as PostParams
+    const payload = await getPayload({ config })
+    const query = await payload.find({
+      collection: 'posts',
+      where: { slug: { equals: slug } },
+    })
+    const post = query.docs[0]
+    if (!post) {
+      return null
+    }
+    return postToAppPost(post)
   } catch (error) {
-    console.error('Error reading file', { filePath, error })
     return null
   }
 }
 
-export const getPostsBySlugs = (slugs: string[]): PostParams[] => {
-  return slugs
-    .map((slug) => getPostBySlug(slug))
-    .filter((post) => post !== null) as PostParams[]
+export const getPostsBySlugs = async (slugs: string[]) => {
+  const posts = await Promise.all(slugs.map((slug) => getPostBySlug(slug)))
+  return posts.filter((post) => post !== null)
 }
 
 // TODO update to use Payload

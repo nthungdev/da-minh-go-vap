@@ -7,16 +7,15 @@ import * as postUtils from '@/utils/post'
  * @returns PostParams object or null if the post is not published yet or not found
  */
 export const fetchPostBySlug = async (slug: string) => {
-  const post = postUtils.getPostBySlug(slug)
+  const post = await postUtils.getPostBySlug(slug)
   if (!post) {
     return null
   }
-  const appPost = postUtils.postToAppPost(post)
-  return appPost.publishedAt < new Date() ? appPost : null
+  return post.publishedAt < new Date() ? post : null
 }
 
 export const fetchPostsBySlugs = async (slugs: string[]) => {
-  const posts = postUtils.getPostsBySlugs(slugs).map(postUtils.postToAppPost)
+  const posts = await postUtils.getPostsBySlugs(slugs)
   return posts.filter((post) => post.publishedAt < new Date())
 }
 
