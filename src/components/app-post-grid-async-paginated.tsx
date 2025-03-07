@@ -6,6 +6,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
 import AppPostGridSkeleton from './app-post-grid-skeleton'
+import { AppPost } from '@/definitions'
 
 const DEFAULT_PAGE_SIZE = 12
 
@@ -14,7 +15,7 @@ interface AppPostGridPaginatedProps {
   pageSize?: number
   classNames?: string
   skipSlug?: string
-  posts?: PostParams[]
+  posts?: AppPost[]
 }
 
 export default function AppPostGridPaginated({
@@ -66,13 +67,16 @@ export default function AppPostGridPaginated({
                   className="block overflow-hidden border"
                 >
                   <div className="relative aspect-video">
-                    <Image
-                      className="object-cover"
-                      src={post.thumbnail}
-                      fill
-                      sizes="100%"
-                      alt={`${post.title}'s thumbnail`}
-                    />
+                    {typeof post.thumbnail !== 'string' &&
+                      typeof post.thumbnail.url === 'string' && (
+                        <Image
+                          className="object-cover"
+                          src={post.thumbnail.url}
+                          fill
+                          sizes="100%"
+                          alt={`${post.title}'s thumbnail`}
+                        />
+                      )}
                   </div>
                   <div className="p-2 space-y-2">
                     <h2 className="text-center block text-xl truncate">
