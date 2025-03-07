@@ -2,8 +2,10 @@ import { AppAccordionDefault } from '@/components/app-accordion'
 import AppCardTabs from '@/components/app-card-tabs'
 import AppMarkdown from '@/components/app-markdown'
 import AppPostGrid from '@/components/app-post-grid-async'
+import AppQuote from '@/components/app-quote'
 import AppSpace from '@/components/app-space'
 import AppTabbedPostGroup from '@/components/app-tabbed-post-group'
+import AppTimelineCards from '@/components/app-timeline-cards'
 import TheBibleVerse from '@/components/the-bible-verse'
 import TheLatestPosts from '@/components/the-latest-posts'
 import { BlockType } from '@/definitions'
@@ -19,6 +21,8 @@ const componentsMap: {
   postGroupBlock: AppPostGrid,
   tabbedContentBlock: AppCardTabs,
   textBlock: AppMarkdown,
+  quoteBlock: AppQuote,
+  timelineBlock: AppTimelineCards,
 }
 
 function mapComponentProps(block: BlockType) {
@@ -87,6 +91,21 @@ function mapComponentProps(block: BlockType) {
     case 'textBlock':
       return {
         children: block.content,
+      }
+
+    case 'quoteBlock':
+      return {
+        quote: block.content,
+      }
+
+    case 'timelineBlock':
+      return {
+        title: block.title,
+        cards: block.tabs.map((tab) => ({
+          title: tab.title,
+          thumbnail: tab.thumbnail,
+          url: typeof tab.link !== 'string' ? tab.link?.path : undefined,
+        })),
       }
 
     default:
