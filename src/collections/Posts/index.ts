@@ -20,6 +20,7 @@ const Posts: CollectionConfig = {
       label: 'Slug',
       required: true,
       hasMany: false,
+      unique: true,
       validate: validateSlug,
       admin: {
         position: 'sidebar',
