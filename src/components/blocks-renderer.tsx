@@ -1,6 +1,7 @@
 import { AppAccordionDefault } from '@/components/app-accordion'
 import AppCardTabs from '@/components/app-card-tabs'
 import AppMarkdown from '@/components/app-markdown'
+import AppPostGrid from '@/components/app-post-grid-async'
 import AppSpace from '@/components/app-space'
 import AppTabbedPostGroup from '@/components/app-tabbed-post-group'
 import TheBibleVerse from '@/components/the-bible-verse'
@@ -15,6 +16,7 @@ const componentsMap: {
   tabbedPostGroupBlock: AppTabbedPostGroup,
   spaceBlock: AppSpace,
   latestPostGridBlock: TheLatestPosts,
+  postGroupBlock: AppPostGrid,
   tabbedContentBlock: AppCardTabs,
   textBlock: AppMarkdown,
 }
@@ -49,6 +51,16 @@ function mapComponentProps(block: BlockType) {
 
     case 'latestPostGridBlock':
       return {}
+
+    case 'postGroupBlock':
+      return {
+        title: block.title,
+        limit: block.limit,
+        hasMore: block.viewMoreButton.enableViewMoreButton,
+        hiddenTags: block.hiddenTags
+          .filter((tag) => typeof tag !== 'string')
+          .map((tag) => tag.tag),
+      }
 
     case 'tabbedPostGroupBlock':
       return {
