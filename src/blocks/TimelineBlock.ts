@@ -1,7 +1,7 @@
 import { Block } from 'payload'
 
 const TimelineBlock: Block = {
-  slug: 'TimelineBlock',
+  slug: 'timelineBlock',
   labels: {
     singular: 'Timeline',
     plural: 'Timelines',
