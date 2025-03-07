@@ -36,12 +36,12 @@ const PostGroupBlock: Block = {
           defaultValue: false,
           required: true,
         },
-        {
-          name: 'relativeUrl',
-          type: 'relationship',
-          relationTo: 'posts',
-          hasMany: false,
-        },
+        // {
+        //   name: 'relativeUrl',
+        //   type: 'relationship',
+        //   relationTo: 'posts',
+        //   hasMany: false,
+        // },
       ],
     },
   ],
