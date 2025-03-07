@@ -1,4 +1,3 @@
-import markdownField from '@/fields/markdown'
 import { Block } from 'payload'
 
 const QuoteBlock: Block = {
@@ -10,9 +9,10 @@ const QuoteBlock: Block = {
   interfaceName: 'QuoteBlock',
   fields: [
     {
-      ...markdownField('content'),
+      name: 'content',
+      type: 'text',
       required: true,
-    },
+    }
   ],
 }
 
