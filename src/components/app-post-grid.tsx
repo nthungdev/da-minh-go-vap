@@ -1,15 +1,16 @@
+import { PostParams } from '@/definitions'
 import Image from 'next/image'
 import Link from 'next/link'
 
 interface AppPostGridProps {
   posts: PostParams[]
-  classNames?: string
+  className?: string
 }
 
-export default function AppPostGrid({ posts, classNames }: AppPostGridProps) {
+export default function AppPostGrid({ posts, className: clsx }: AppPostGridProps) {
   return (
     <ul
-      className={`relative grid grid-flow-row md:grid-cols-2 lg:grid-cols-4 gap-4 ${classNames}`}
+      className={`relative grid grid-flow-row md:grid-cols-2 lg:grid-cols-4 gap-4 ${clsx}`}
     >
       {posts.map((post, index) => (
         // min-w-0 to override min-width: min-content that cause post title to not be truncated

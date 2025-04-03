@@ -1,5 +1,5 @@
 import { AppPost } from '@/definitions'
-import classNames from 'classnames'
+import clsx from 'clsx'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -14,7 +14,7 @@ export default function AppPostCard(props: AppPostCardProps) {
   return (
     <Link
       href={`/posts/${post.slug}`}
-      className={classNames(
+      className={clsx(
         'w-full h-full overflow-hidden flex flex-col lg:flex-row gap-x-2 border border-transparent hover:ring hover:cursor-pointer lg:aspect-[3.5]',
         className
       )}

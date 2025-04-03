@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import classNames from 'classnames'
+import clsx from 'clsx'
 import type { PostParams } from '@/definitions'
 
 interface AppPostGridFiveProps {
@@ -31,7 +31,7 @@ export default function AppPostGridSix({
         // min-w-0 to override min-width: min-content that cause post title to not be truncated
         <li
           key={index}
-          className={classNames(
+          className={clsx(
             'relative md:aspect-video overflow-hidden block w-full min-w-0 bg-white border md:border-transparent hover:ring',
             cellClasses[index]
           )}

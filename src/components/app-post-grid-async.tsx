@@ -15,7 +15,7 @@ interface AppPostGridProps {
   title: string
   posts?: AppPost[]
   hasMore?: boolean
-  classNames?: string
+  className?: string
 }
 
 export default function AppPostGrid({
@@ -24,7 +24,7 @@ export default function AppPostGrid({
   title,
   posts,
   hasMore,
-  classNames,
+  className,
 }: AppPostGridProps) {
   const { data, error, isPending } = useQuery({
     queryKey: ['fetchPostsByHiddenTags', hiddenTags],
@@ -43,7 +43,6 @@ export default function AppPostGrid({
 
   if (data) {
     const { posts, hasMore } = data
-    console.log({ posts })
     const jointHiddenTags = hiddenTags.join(',')
     const viewMoreHref = `/posts?ht=${encodeURIComponent(jointHiddenTags)}&ti=${encodeURIComponent(title)}`
 
@@ -51,7 +50,7 @@ export default function AppPostGrid({
       <div className="space-y-2 my-2">
         <AppGridHeader text={title} />
         <ul
-          className={`relative grid grid-flow-row md:grid-cols-2 lg:grid-cols-4 gap-4 ${classNames}`}
+          className={`relative grid grid-flow-row md:grid-cols-2 lg:grid-cols-4 gap-4 ${className}`}
         >
           {posts.map((post, index) => (
             // min-w-0 to override min-width: min-content that cause post title to not be truncated

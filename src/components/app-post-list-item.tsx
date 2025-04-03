@@ -1,4 +1,4 @@
-import classNames from 'classnames'
+import clsx from 'clsx'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -13,7 +13,7 @@ export default function AppPostListItem(props: AppPostListItemProps) {
   return (
     <Link
       href={`/posts/${post.slug}`}
-      className={classNames('@container block w-full h-full', className)}
+      className={clsx('@container block w-full h-full', className)}
     >
       <div className="hover:ring-2 hover:cursor-pointer w-full h-full overflow-hidden flex flex-row gap-x-2 aspect-[3.5]">
         <div className="relative w-auto h-full aspect-video overflow-hidden bg-gray-300">

@@ -12,7 +12,7 @@ import {
 } from 'react'
 import SearchIcon from '@/public/svgs/search.svg'
 import { searchPosts } from '@/actions/search'
-import classNames from 'classnames'
+import clsx from 'clsx'
 import { HSOverlay } from 'preline/preline'
 import AppPostListItem from './app-post-list-item'
 import { createPortal } from 'react-dom'
@@ -110,7 +110,7 @@ const SearchModal = forwardRef<HTMLDivElement, SearchModalProps>(
                         <div key={post.slug} className="h-[60px] w-full">
                           <AppPostListItem
                             post={post}
-                            className={classNames(
+                            className={clsx(
                               index % 2 === 0
                                 ? 'bg-primary-50'
                                 : 'bg-primary-100'

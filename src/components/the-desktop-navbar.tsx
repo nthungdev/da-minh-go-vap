@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { attributes as siteAttributes } from '@/content/settings/site.md'
 import Image from 'next/image'
 import menu from '@/utils/menu'
-import classNames from 'classnames'
+import clsx from 'clsx'
 import AppPostSearchButton from './app-post-search-button'
 
 interface TheDesktopNavbarProps {
@@ -14,7 +14,7 @@ export default function TheDesktopNavbar({ className }: TheDesktopNavbarProps) {
 
   return (
     <nav
-      className={classNames(
+      className={clsx(
         `bg-primary text-gray-50 xl:flex flex-row flex-wrap lg:justify-center`,
         className
       )}
@@ -48,7 +48,7 @@ export default function TheDesktopNavbar({ className }: TheDesktopNavbarProps) {
                     <li key={child.href} className="block relative">
                       <Link
                         href={`${link.href}${child.href}`}
-                        className={classNames(
+                        className={clsx(
                           'flex flex-row justify-between space-x-2 peer text-nowrap pl-4 pr-2 py-2 hover:bg-primary-800 hover:text-gray-50',
                           !child.children && 'pr-4'
                         )}

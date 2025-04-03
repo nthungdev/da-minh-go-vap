@@ -1,6 +1,6 @@
 'use client'
 
-import classNames from 'classnames'
+import clsx from 'clsx'
 import { usePathname } from 'next/navigation'
 
 interface AppPageProps {
@@ -17,7 +17,7 @@ export default function AppPage({
 
   return (
     <main
-      className={classNames(
+      className={clsx(
         'w-full py-8 px-4 mx-auto max-w-screen-xl',
         {
           'pt-16': pathname !== '/',

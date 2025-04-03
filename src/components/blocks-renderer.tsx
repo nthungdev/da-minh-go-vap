@@ -101,10 +101,10 @@ function mapComponentProps(block: BlockType) {
     case 'timelineBlock':
       return {
         title: block.title,
-        cards: block.tabs.map((tab) => ({
-          title: tab.title,
-          thumbnail: tab.thumbnail,
-          url: typeof tab.link !== 'string' ? tab.link?.path : undefined,
+        cards: block.items.map((item) => ({
+          title: item.title,
+          thumbnail: item.thumbnail,
+          url: typeof item.link !== 'string' ? item.link?.path : undefined,
         })),
       }
 

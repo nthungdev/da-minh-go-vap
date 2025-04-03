@@ -1,6 +1,6 @@
 import AppSectionHeader from '@/components/app-section-header'
 import { Media } from '@/payload-types'
-import classNames from 'classnames'
+import clsx from 'clsx'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -55,7 +55,7 @@ export default function AppTimelineCards({
 
             <div className="relative px-2">
               <div
-                className={classNames(
+                className={clsx(
                   `absolute left-0 right-0 top-0 h-full w-1 bg-primary mx-auto`,
                   index === 0 ? 'rounded-t-full' : '',
                   index === cards.length - 1 ? 'rounded-b-full' : ''

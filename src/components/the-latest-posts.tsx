@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import AppPostCard from './app-post-card'
-import classNames from 'classnames'
+import clsx from 'clsx'
 import { fetchAllPosts } from '@/actions/post'
 
 interface TheLatestPostsProps {
@@ -57,7 +57,7 @@ export default async function TheLatestPosts(props: TheLatestPostsProps) {
           <AppPostCard
             key={index}
             post={post}
-            className={classNames('border lg:border-transparent bg-primary-1')}
+            className={clsx('border lg:border-transparent bg-primary-1')}
           />
         ))}
       </div>

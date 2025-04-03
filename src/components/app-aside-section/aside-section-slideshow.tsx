@@ -1,7 +1,7 @@
 'use client'
 
 import NextImage from 'next/image'
-import classNames from 'classnames'
+import clsx from 'clsx'
 import AppCarousel from '@/components/app-carousel'
 import { Image } from '@/definitions'
 
@@ -16,7 +16,7 @@ export default function AsideSectionSlideshow({
 }) {
   return (
     <div
-      className={classNames('w-full aspect-[2/3] overflow-hidden', className)}
+      className={clsx('w-full aspect-[2/3] overflow-hidden', className)}
     >
       <AppCarousel>
         {slides.map((slide, index) => (

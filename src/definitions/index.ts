@@ -16,11 +16,11 @@ import type {
   VideoGridBlock,
 } from '@/payload-types'
 
-type SiteAttributes = {
+export type SiteAttributes = {
   logo: Image
 }
 
-type NavbarAttributes = {
+export type NavbarAttributes = {
   pageBanners: {
     path: string
     banners: Image[]
@@ -28,7 +28,7 @@ type NavbarAttributes = {
   bottomDecorativeGraphic: DynamicImage
 }
 
-type AppAccordionItem = {
+export type AppAccordionItem = {
   title: string
   body?: string
   items?: {

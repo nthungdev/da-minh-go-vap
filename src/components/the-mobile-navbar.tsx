@@ -1,7 +1,7 @@
 'use client'
 
 import menu, { MenuItem } from '@/utils/menu'
-import classNames from 'classnames'
+import clsx from 'clsx'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import AppPostSearchButton from './app-post-search-button'
@@ -170,7 +170,7 @@ export default function TheMobileNavbar({ className }: { className?: string }) {
   }
 
   return (
-    <nav className={classNames('bg-primary text-gray-50 p-2', className)}>
+    <nav className={clsx('bg-primary text-gray-50 p-2', className)}>
       {/* Navigation Toggle */}
       <div className="flex flex-row items-center">
         <button

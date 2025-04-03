@@ -1,4 +1,5 @@
-import classNames from 'classnames'
+import { PostParams } from '@/definitions'
+import clsx from 'clsx'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -33,7 +34,7 @@ export default function AppPostList(props: AppPostListProps) {
   const ItemComponent = itemComponent ? itemComponent : DefaultItemComponent
 
   return (
-    <ul className={classNames('relative flex flex-col gap-4 rounded-sm', className)}>
+    <ul className={clsx('relative flex flex-col gap-4 rounded-sm', className)}>
       {posts.map((post, index) => (
         <li className="block w-full" key={index}>
           <ItemComponent post={post} />
