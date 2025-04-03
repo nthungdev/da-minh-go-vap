@@ -14,7 +14,7 @@ const TimelineBlock: Block = {
       required: true,
     },
     {
-      name: 'tabs',
+      name: 'items',
       type: 'array',
       required: true,
       fields: [
