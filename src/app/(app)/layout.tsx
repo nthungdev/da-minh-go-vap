@@ -1,14 +1,15 @@
 import type { Metadata } from 'next'
 import { Montserrat, Nunito } from 'next/font/google'
-import './globals.css'
+import { twMerge } from 'tailwind-merge'
 import ThePrelineScript from '@/components/the-preline-script'
 import TheFooter from '@/components/the-footer'
 import { attributes as navbarAttributes } from '@/content/settings/navbar.md'
 import TheTopBanners from '@/components/the-top-banners'
-import classNames from 'classnames'
 import TheMobileNavbar from '@/components/the-mobile-navbar'
 import TheDesktopNavbar from '@/components/the-desktop-navbar'
 import ReactQueryProvider from '@/components/providers/react-query-provider'
+import { NavbarAttributes } from '@/definitions'
+import './globals.css'
 
 const montserrat = Montserrat({
   subsets: ['vietnamese'],
@@ -35,12 +36,12 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={classNames(nunito.className, montserrat.className)}
+      className={twMerge(nunito.className, montserrat.className)}
     >
       <ThePrelineScript />
 
       <body
-        className={classNames(
+        className={twMerge(
           'relative bg-white flex flex-col w-full min-h-screen'
         )}
       >
