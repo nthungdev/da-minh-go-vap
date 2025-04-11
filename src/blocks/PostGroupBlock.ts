@@ -44,6 +44,22 @@ const PostGroupBlock: Block = {
         // },
       ],
     },
+    {
+      name: 'displayType',
+      type: 'select',
+      required: true,
+      defaultValue: 'grid',
+      options: [
+        {
+          label: 'Grid',
+          value: 'grid',
+        },
+        {
+          label: 'List',
+          value: 'list',
+        },
+      ]
+    }
   ],
 }
 
