@@ -21,7 +21,6 @@ export default async function Page(props: {
 }) {
   const params = await props.params
   const path = '/' + (params.path || []).join('/')
-  // console.log({ params, path })
   const payload = await getPayload({ config })
   const query = await payload.find({
     collection: 'pages',
