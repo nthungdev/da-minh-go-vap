@@ -87,10 +87,10 @@ const Pages: CollectionConfig = {
           ],
         },
         {
-          label: 'Side',
+          label: 'Aside',
           fields: [
             {
-              name: 'side',
+              name: 'aside',
               type: 'blocks',
               blocks: [
                 DynamicImageBlock,
