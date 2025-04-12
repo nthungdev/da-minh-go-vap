@@ -41,7 +41,6 @@ export default function AppPostGridSix({
             className="relative w-full h-full block overflow-hidden hover:ring-2"
           >
             <div className="relative aspect-video bg-gray-50">
-              {/* TODO if thumbnail is not available */}
               {typeof post.thumbnail !== 'string' &&
                 typeof post.thumbnail?.url === 'string' && (
                   <Image
