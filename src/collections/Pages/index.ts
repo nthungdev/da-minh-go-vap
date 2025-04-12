@@ -3,6 +3,7 @@ import BibleVerseBlock from '@/blocks/BibleVerseBlock'
 import DynamicImageBlock from '@/blocks/DynamicImageBlock'
 import ImageBlock from '@/blocks/ImageBlock'
 import LatestPostGridBlock from '@/blocks/LatestPostGridBlock'
+import LinksBlock from '@/blocks/links-block'
 import MapBlock from '@/blocks/MapBlock'
 import PostGroupBlock from '@/blocks/PostGroupBlock'
 import QuoteBlock from '@/blocks/QuoteBlock'
@@ -59,11 +60,6 @@ const Pages: CollectionConfig = {
               label: 'Tiêu đề',
               required: true,
             },
-            // {
-            //   name: 'thumbnail',
-            //   type: 'upload',
-            //   relationTo: 'media',
-            // },
             {
               name: 'main',
               type: 'blocks',
@@ -87,6 +83,18 @@ const Pages: CollectionConfig = {
           ],
         },
         {
+          label: 'Before Main',
+          fields: [
+            {
+              name: 'beforeMain',
+              type: 'blocks',
+              blocks: [
+                BibleVerseBlock,
+              ],
+            },
+          ]
+        },
+        {
           label: 'Aside',
           fields: [
             {
@@ -100,6 +108,7 @@ const Pages: CollectionConfig = {
                 TextBlock,
                 SpaceBlock,
                 QuoteBlock,
+                LinksBlock,
               ],
             },
           ],

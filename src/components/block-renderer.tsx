@@ -6,6 +6,7 @@ import AppQuote from '@/components/app-quote'
 import AppSpace from '@/components/app-space'
 import AppTabbedPostGroup from '@/components/app-tabbed-post-group'
 import AppTimelineCards from '@/components/app-timeline-cards'
+import PostGroup from '@/components/post-group'
 import TheBibleVerse from '@/components/the-bible-verse'
 import TheLatestPosts from '@/components/the-latest-posts'
 import { BlockType } from '@/definitions'
@@ -15,14 +16,14 @@ const componentsMap: {
 } = {
   accordionContentBlock: AppAccordionDefault,
   bibleVerseBlock: TheBibleVerse,
-  tabbedPostGroupBlock: AppTabbedPostGroup,
-  spaceBlock: AppSpace,
   latestPostGridBlock: TheLatestPosts,
-  postGroupBlock: AppPostGrid,
+  postGroupBlock: PostGroup,
+  spaceBlock: AppSpace,
   tabbedContentBlock: AppCardTabs,
+  tabbedPostGroupBlock: AppTabbedPostGroup,
   textBlock: AppMarkdown,
-  quoteBlock: AppQuote,
   timelineBlock: AppTimelineCards,
+  quoteBlock: AppQuote,
 }
 
 function mapComponentProps(block: BlockType) {
@@ -64,6 +65,7 @@ function mapComponentProps(block: BlockType) {
         hiddenTags: block.hiddenTags
           .filter((tag) => typeof tag !== 'string')
           .map((tag) => tag.tag),
+        type: block.displayType,
       }
 
     case 'tabbedPostGroupBlock':

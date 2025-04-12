@@ -4,6 +4,7 @@ import type {
   DynamicImageBlock,
   ImageBlock,
   LatestPostGridBlock,
+  LinksBlock,
   MapBlock,
   Post,
   PostGroupBlock,
@@ -353,6 +354,7 @@ export type BlockType =
   | DynamicImageBlock
   | ImageBlock
   | LatestPostGridBlock
+  | LinksBlock
   | MapBlock
   | PostGroupBlock
   | TabbedContentBlock
