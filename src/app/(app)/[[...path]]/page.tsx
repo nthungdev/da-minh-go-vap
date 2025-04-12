@@ -36,15 +36,20 @@ export default async function Page(props: {
   return (
     <AppPage>
       <h1 className="sr-only">{page.title}</h1>
-      <div className="lg:flex flex-row gap-x-4">
-        <main>
-          <BlocksRenderer blocks={page.main || []} />
-        </main>
-        {page?.aside && (
-          <aside className="hidden lg:block">
-            <BlocksRenderer blocks={page.aside} />
-          </aside>
-        )}
+      <div className="space-y-4 lg:space-y-8">
+        <section>
+          <BlocksRenderer blocks={page.beforeMain || []} />
+        </section>
+        <div className="lg:flex flex-row items-start gap-x-4">
+          <main className="flex-1">
+            <BlocksRenderer blocks={page.main || []} />
+          </main>
+          {page?.aside && (
+            <aside className="hidden lg:block w-56 lg:w-64 bg-primary-1">
+              <BlocksRenderer blocks={page.aside} />
+            </aside>
+          )}
+        </div>
       </div>
     </AppPage>
   )

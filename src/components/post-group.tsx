@@ -1,5 +1,4 @@
 import AppPostGrid from '@/components/app-post-grid-async'
-import AppPostList from '@/components/app-post-list'
 import AppPostListAsync from '@/components/app-post-list-async'
 import { AppPost } from '@/definitions'
 import { ComponentProps } from 'react'
