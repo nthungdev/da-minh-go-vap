@@ -28,7 +28,7 @@ export default async function TheLatestPosts(props: TheLatestPostsProps) {
       >
         <div className="w-full h-full bg-blue-200 relative overflow-hidden hover:cursor-pointer hover:ring-2">
           {typeof latestPost.thumbnail !== 'string' &&
-            latestPost.thumbnail?.url === 'string' && (
+            typeof latestPost.thumbnail?.url === 'string' && (
               <Image
                 className="object-cover"
                 src={latestPost.thumbnail.url}

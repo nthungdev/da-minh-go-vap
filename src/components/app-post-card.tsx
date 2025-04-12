@@ -1,10 +1,10 @@
-import { AppPost } from '@/definitions'
+import { PostParams } from '@/definitions'
 import clsx from 'clsx'
 import Image from 'next/image'
 import Link from 'next/link'
 
 interface AppPostCardProps {
-  post: AppPost
+  post: PostParams
   className?: string
 }
 
@@ -21,7 +21,7 @@ export default function AppPostCard(props: AppPostCardProps) {
     >
       <div className="relative lg:w-auto lg:h-full aspect-video overflow-hidden">
         {typeof post.thumbnail !== 'string' &&
-          post.thumbnail?.url === 'string' && (
+          typeof post.thumbnail.url === 'string' && (
             <Image
               src={post.thumbnail.url}
               alt={post.title}

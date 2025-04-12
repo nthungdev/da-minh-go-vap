@@ -43,7 +43,7 @@ export default function AppPostGridSix({
             <div className="relative aspect-video bg-gray-50">
               {/* TODO if thumbnail is not available */}
               {typeof post.thumbnail !== 'string' &&
-                post.thumbnail?.url === 'string' && (
+                typeof post.thumbnail?.url === 'string' && (
                   <Image
                     className="object-cover"
                     src={post.thumbnail.url}
