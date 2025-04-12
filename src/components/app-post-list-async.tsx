@@ -1,4 +1,7 @@
+'use client'
+
 import { fetchPostsByHiddenTags } from '@/actions/post'
+import AppPostCard from '@/components/app-post-card'
 import AppSectionHeader from '@/components/app-section-header'
 import { AppPost, PostParams } from '@/definitions'
 import { useQuery } from '@tanstack/react-query'
@@ -43,7 +46,7 @@ export default function AppPostListAsync({
   posts,
   itemComponent,
 }: AppPostListAsyncProps) {
-  const ItemComponent = itemComponent ? itemComponent : DefaultItemComponent
+  const ItemComponent = itemComponent ? itemComponent : AppPostCard
 
   const { data, error, isPending } = useQuery({
     queryKey: ['fetchPostsByHiddenTags', hiddenTags],
@@ -60,11 +63,11 @@ export default function AppPostListAsync({
   if (error) return <p>Error: {error.message}</p>
 
   return (
-    <div className="space-y-2">
+    <div>
       {title && (
         <AppSectionHeader className="uppercase">{title}</AppSectionHeader>
       )}
-      <ul className="relative flex flex-col gap-4 rounded-sm">
+      <ul className="relative flex flex-col gap-2 rounded-sm p-2">
         {data.posts.map((post, index) => (
           <li className="block w-full" key={index}>
             <ItemComponent post={post} />
