@@ -1,3 +1,5 @@
+// TODO what is this file for?
+
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 
