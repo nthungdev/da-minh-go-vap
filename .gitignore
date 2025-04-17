@@ -42,3 +42,8 @@ certificates
 media
 temp
 src/payload-types.ts
+src/app/(payload)/api/\[...slug]/route.ts
+src/app/(payload)/api/graphql/route.ts
+.gitignore
+src/app/(payload)/layout.tsx
+src/app/(payload)/api/graphql-playground/route.ts
