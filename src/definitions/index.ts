@@ -3,6 +3,7 @@ import type {
   BibleVerseBlock,
   DynamicImageBlock,
   ImageBlock,
+  ImageSlideShowBlock,
   LatestPostGridBlock,
   LinksBlock,
   MapBlock,
@@ -364,3 +365,4 @@ export type BlockType =
   | VideoGridBlock
   | SpaceBlock
   | QuoteBlock
+  | ImageSlideShowBlock

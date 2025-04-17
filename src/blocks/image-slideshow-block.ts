@@ -3,16 +3,18 @@ import { Block } from 'payload'
 const ImageSlideshowBlock: Block = {
   slug: 'imageSlideshowBlock',
   labels: {
-    singular: 'ImageSlideshowBlock',
-    plural: 'ImageSlideshowBlocks',
+    singular: 'Image Slideshow Block',
+    plural: 'Image Slideshow Blocks',
   },
-  interfaceName: 'ImageSlideShow',
+  interfaceName: 'ImageSlideShowBlock',
   fields: [
     {
-      name: 'slides',
+      name: 'images',
       type: 'upload',
       relationTo: 'media',
       required: true,
+      unique: false,
+      hasMany: true,
     },
   ],
 }

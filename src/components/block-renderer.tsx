@@ -1,11 +1,11 @@
 import { AppAccordionDefault } from '@/components/app-accordion'
 import AppCardTabs from '@/components/app-card-tabs'
 import AppMarkdown from '@/components/app-markdown'
-import AppPostGrid from '@/components/app-post-grid-async'
 import AppQuote from '@/components/app-quote'
 import AppSpace from '@/components/app-space'
 import AppTabbedPostGroup from '@/components/app-tabbed-post-group'
 import AppTimelineCards from '@/components/app-timeline-cards'
+import ImageSlideshow from '@/components/image-slideshow'
 import PostGroup from '@/components/post-group'
 import TheBibleVerse from '@/components/the-bible-verse'
 import TheLatestPosts from '@/components/the-latest-posts'
@@ -24,6 +24,7 @@ const componentsMap: {
   textBlock: AppMarkdown,
   timelineBlock: AppTimelineCards,
   quoteBlock: AppQuote,
+  imageSlideshowBlock: ImageSlideshow,
 }
 
 function mapComponentProps(block: BlockType) {
@@ -108,6 +109,11 @@ function mapComponentProps(block: BlockType) {
           thumbnail: item.thumbnail,
           url: typeof item.link !== 'string' ? item.link?.path : undefined,
         })),
+      }
+
+    case 'imageSlideshowBlock':
+      return {
+        slides: block.images?.filter(image => typeof image !== 'string') || []
       }
 
     default:
