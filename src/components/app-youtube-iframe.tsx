@@ -1,4 +1,4 @@
-import clsx from 'clsx'
+import { twMerge } from 'tailwind-merge'
 
 export default function YoutubeIframe({
   url,
@@ -9,7 +9,7 @@ export default function YoutubeIframe({
 }) {
   return (
     <iframe
-      className={clsx('w-full aspect-video', className)}
+      className={twMerge('w-full aspect-video', className)}
       src={url}
       allowFullScreen
     />

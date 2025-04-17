@@ -1,7 +1,7 @@
 'use client'
 
-import clsx from 'clsx'
 import { usePathname } from 'next/navigation'
+import { twMerge } from 'tailwind-merge'
 
 interface AppPageProps {
   className?: string
@@ -17,11 +17,9 @@ export default function AppPage({
 
   return (
     <main
-      className={clsx(
+      className={twMerge(
         'w-full py-8 px-4 mx-auto max-w-screen-xl',
-        {
-          'pt-16': pathname !== '/',
-        },
+        pathname !== '/' && 'pt-16',
         className
       )}
       {...props}

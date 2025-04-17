@@ -1,10 +1,10 @@
-import { PostParams } from '@/definitions'
-import clsx from 'clsx'
+import { AppPost } from '@/definitions'
 import Image from 'next/image'
 import Link from 'next/link'
+import { twMerge } from 'tailwind-merge'
 
 interface AppPostCardProps {
-  post: PostParams
+  post: AppPost
   className?: string
 }
 
@@ -14,7 +14,7 @@ export default function AppPostCard(props: AppPostCardProps) {
   return (
     <Link
       href={`/posts/${post.slug}`}
-      className={clsx(
+      className={twMerge(
         'w-full h-full overflow-hidden flex flex-col lg:flex-row gap-x-2 border border-transparent hover:ring hover:cursor-pointer lg:aspect-[3.5]',
         className
       )}

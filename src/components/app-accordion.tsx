@@ -1,5 +1,5 @@
-import clsx from 'clsx'
 import AppMarkdown from './app-markdown'
+import { twMerge } from 'tailwind-merge'
 
 interface AppAccordionToggle {
   title: string
@@ -18,7 +18,7 @@ function AppAccordionToggle(props: AppAccordionToggle) {
 
   return (
     <button
-      className={clsx(
+      className={twMerge(
         'hs-accordion-toggle hs-accordion-active:hover:text-gray-50 py-3 px-2 inline-flex items-center gap-x-3 w-full font-semibold text-start text-gray-800 hover:text-gray-50 focus:outline-none rounded-lg disabled:opacity-50 disabled:pointer-events-none',
         colorVariants[colorLevel],
         'hover:bg-[#01919F] hs-accordion-active:text-gray-800'

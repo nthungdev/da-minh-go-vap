@@ -1,8 +1,8 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import AppPostCard from './app-post-card'
-import clsx from 'clsx'
 import { fetchAllPosts } from '@/actions/post'
+import { twMerge } from 'tailwind-merge'
 
 interface TheLatestPostsProps {
   className?: string
@@ -57,7 +57,7 @@ export default async function TheLatestPosts(props: TheLatestPostsProps) {
           <AppPostCard
             key={index}
             post={post}
-            className={clsx('border lg:border-transparent bg-primary-1')}
+            className={twMerge('border lg:border-transparent bg-primary-1')}
           />
         ))}
       </div>

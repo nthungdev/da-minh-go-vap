@@ -1,7 +1,7 @@
 'use client'
 
-import clsx from 'clsx'
 import { useEffect, useState } from 'react'
+import { twMerge } from 'tailwind-merge'
 
 interface TheBibleVerseProps {
   className?: string
@@ -34,7 +34,7 @@ export default function TheBibleVerse(props: TheBibleVerseProps) {
 
   return (
     <blockquote
-      className={clsx(
+      className={twMerge(
         'mx-auto max-w-max relative border-2 border-secondary rounded-full flex flex-col items-center justify-center pt-3 pb-2 px-10 md:px-20 bg-white text-primary shadow-neon transition-shadow',
         className
       )}

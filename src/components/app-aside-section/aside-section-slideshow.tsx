@@ -1,22 +1,20 @@
 'use client'
 
 import NextImage from 'next/image'
-import clsx from 'clsx'
 import AppCarousel from '@/components/app-carousel'
 import { Image } from '@/definitions'
+import { twMerge } from 'tailwind-merge'
 
 export default function AsideSectionSlideshow({
-  id,
   slides,
   className,
 }: {
-  id: string
   slides: Image[]
   className?: string
 }) {
   return (
     <div
-      className={clsx('w-full aspect-[2/3] overflow-hidden', className)}
+      className={twMerge('w-full aspect-[2/3] overflow-hidden', className)}
     >
       <AppCarousel>
         {slides.map((slide, index) => (
