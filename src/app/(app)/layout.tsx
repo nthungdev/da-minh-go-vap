@@ -28,6 +28,8 @@ export const metadata: Metadata = {
   description: 'Hội dòng Đa Minh Gò Vấp',
 }
 
+const language = 'vi'
+
 export default async function RootLayout({
   children,
 }: Readonly<{
@@ -39,7 +41,7 @@ export default async function RootLayout({
 
   return (
     <html
-      lang="en"
+      lang={language}
       className={twMerge(nunito.className, montserrat.className)}
     >
       <ThePrelineScript />
