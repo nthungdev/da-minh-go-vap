@@ -1,6 +1,7 @@
 import AccordionContentBlock from '@/blocks/AccordionContentBlock'
 import BibleVerseBlock from '@/blocks/BibleVerseBlock'
 import DynamicImageBlock from '@/blocks/DynamicImageBlock'
+import ImageSlideshowBlock from '@/blocks/image-slideshow-block'
 import ImageBlock from '@/blocks/ImageBlock'
 import LatestPostGridBlock from '@/blocks/LatestPostGridBlock'
 import LinksBlock from '@/blocks/links-block'
@@ -103,6 +104,7 @@ const Pages: CollectionConfig = {
               blocks: [
                 DynamicImageBlock,
                 ImageBlock,
+                ImageSlideshowBlock,
                 PostGroupBlock,
                 TabbedContentBlock,
                 TextBlock,
