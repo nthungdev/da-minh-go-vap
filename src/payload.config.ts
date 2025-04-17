@@ -13,7 +13,6 @@ import Posts from '@/collections/Posts'
 import Pages from '@/collections/Pages'
 import HiddenTags from '@/collections/HiddenTags'
 
-import AsideSection from '@/globals/AsideSection'
 import SiteSettings from '@/globals/SiteSettings'
 import NavBar from '@/globals/NavBar'
 import Footer from '@/globals/Footer'
@@ -29,7 +28,7 @@ export default buildConfig({
     },
   },
   collections: [HiddenTags, Media, Pages, Posts, Users],
-  globals: [NavBar, AsideSection, Footer, SiteSettings],
+  globals: [NavBar, Footer, SiteSettings],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
