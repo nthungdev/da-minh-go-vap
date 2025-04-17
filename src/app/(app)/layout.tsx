@@ -10,6 +10,8 @@ import TheDesktopNavbar from '@/components/the-desktop-navbar'
 import ReactQueryProvider from '@/components/providers/react-query-provider'
 import { NavbarAttributes } from '@/definitions'
 import './globals.css'
+import { getMenu } from '@/utils/menu'
+import { getLogo } from '@/utils/siteSettings'
 
 const montserrat = Montserrat({
   subsets: ['vietnamese'],
@@ -26,12 +28,14 @@ export const metadata: Metadata = {
   description: 'Hội dòng Đa Minh Gò Vấp',
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
   const { bottomDecorativeGraphic } = navbarAttributes as NavbarAttributes
+  const menu = await getMenu()
+  const logo = await getLogo()
 
   return (
     <html
@@ -45,9 +49,9 @@ export default function RootLayout({
           'relative bg-white flex flex-col w-full min-h-screen'
         )}
       >
-        <TheDesktopNavbar className="z-20 sticky top-0 hidden xl:flex" />
+        <TheDesktopNavbar logo={logo} menu={menu} className="z-20 sticky top-0 hidden xl:flex" />
         {/* z-60 because backdrop from Preline is z-59 */}
-        <TheMobileNavbar className="z-[60] sticky top-0 xl:hidden" />
+        <TheMobileNavbar menu={menu} className="z-[60] sticky top-0 xl:hidden" />
 
         <div className="relative">
           <TheTopBanners />
