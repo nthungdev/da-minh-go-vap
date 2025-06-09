@@ -1,6 +1,6 @@
 'use client'
 
-import NextImage from 'next/image'
+import Image from 'next/image'
 import AppCarousel from '@/components/app-carousel'
 import { twMerge } from 'tailwind-merge'
 import { Media } from '@/payload-types'
@@ -20,7 +20,7 @@ export default function ImageSlideshow({
         {slides
           .filter(slide => typeof slide.url === 'string')
           .map((slide, index) => (
-            <NextImage
+            <Image
               key={index}
               className="object-cover h-full w-full"
               src={slide.url as string}
