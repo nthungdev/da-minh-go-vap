@@ -1,7 +1,7 @@
 export default function AppGridHeader({
   text,
 }: {
-  text: String
+  text: string
 }) {
   return (
     <div className="flex flex-row text-center text-primary-800 items-center">

@@ -110,7 +110,7 @@ function MobileMenuToggle(props: MobileMenuToggleProps) {
   )
 }
 
-const defaultItemRender = (onClick: Function) =>
+const defaultItemRender = (onClick: () => void) =>
   function Item(item: MenuItem, index: number) {
     const pathname = usePathname()
 

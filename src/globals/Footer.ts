@@ -15,22 +15,27 @@ const Footer: GlobalConfig = {
         {
           name: 'name',
           type: 'text',
+          required: true,
         },
         {
           name: 'address',
           type: 'text',
+          required: true,
         },
         {
           name: 'phone',
           type: 'text',
+          required: true,
         },
         {
           name: 'email',
           type: 'text',
+          required: true,
         },
         {
           name: 'marketingEmail',
           type: 'text',
+          required: true,
         },
       ],
     },

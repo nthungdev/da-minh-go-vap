@@ -15,7 +15,11 @@ export default async function TheLatestPosts(props: TheLatestPostsProps) {
 
   const latestPosts = await fetchAllPosts({ limit: POST_COUNT })
 
-  const latestPost = latestPosts[0]
+  if (latestPosts.length < 1) {
+    return <div>No post found</div>
+  }
+
+  const latestPost = latestPosts[0]!
   const otherPosts = latestPosts.slice(1, 5)
 
   return (

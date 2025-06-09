@@ -29,11 +29,13 @@ const NavBar: GlobalConfig = {
           name: 'imageDesktop',
           type: 'upload',
           relationTo: 'media',
+          required: true,
         },
         {
           name: 'imageMobile',
           type: 'upload',
           relationTo: 'media',
+          required: true,
         },
       ],
     },
