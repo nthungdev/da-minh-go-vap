@@ -3,7 +3,7 @@
 import { getAllPosts } from '@/utils/post'
 import Fuse from 'fuse.js'
 
-const posts = getAllPosts()
+const posts = await getAllPosts()
 
 const postFuse = new Fuse(posts, {
   keys: ['title'],

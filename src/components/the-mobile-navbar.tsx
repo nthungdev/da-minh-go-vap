@@ -1,10 +1,11 @@
 'use client'
 
-import menu, { MenuItem } from '@/utils/menu'
-import classNames from 'classnames'
+import { MenuItem } from '@/utils/menu'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import AppPostSearchButton from './app-post-search-button'
+import { HTMLAttributes } from 'react'
+import { twMerge } from 'tailwind-merge'
 
 const MENU_ID = 'hs-the-mobile-menu'
 
@@ -113,7 +114,7 @@ const defaultItemRender = (onClick: Function) =>
   function Item(item: MenuItem, index: number) {
     const pathname = usePathname()
 
-    if (item.children) {
+    if (item.children?.length) {
       return (
         <li
           key={`${item.normalizedName}-accordion-item`}
@@ -142,11 +143,10 @@ const defaultItemRender = (onClick: Function) =>
       return (
         <li key={`${item.normalizedName}-accordion-item`}>
           <Link
-            className={`flex items-center gap-x-3.5 py-2 px-2.5 text-sm rounded-lg w-full text-start hover:text-gray-50 hover:bg-primary-600 focus:outline-none focus:bg-primary-600 focus:text-gray-50 ${
-              item.absoluteHref === pathname
+            className={`flex items-center gap-x-3.5 py-2 px-2.5 text-sm rounded-lg w-full text-start hover:text-gray-50 hover:bg-primary-600 focus:outline-none focus:bg-primary-600 focus:text-gray-50 ${item.absoluteHref === pathname
                 ? 'text-gray-50 bg-primary-600 hover:bg-primary-600'
                 : 'text-gray-900'
-            }`}
+              }`}
             href={item.absoluteHref}
             onClick={() => onClick()}
           >
@@ -157,7 +157,11 @@ const defaultItemRender = (onClick: Function) =>
     }
   }
 
-export default function TheMobileNavbar({ className }: { className?: string }) {
+interface TheMobileNavbarProps extends HTMLAttributes<HTMLElement> {
+  menu: MenuItem[]
+}
+
+export default function TheMobileNavbar({ className, menu }: TheMobileNavbarProps) {
   const closeMenu = async () => {
     const menuElement = document.querySelector<HTMLElement>(`#${MENU_ID}`)
     if (!menuElement) {
@@ -170,7 +174,7 @@ export default function TheMobileNavbar({ className }: { className?: string }) {
   }
 
   return (
-    <nav className={classNames('bg-primary text-gray-50 p-2', className)}>
+    <nav className={twMerge('bg-primary text-gray-50 p-2', className)}>
       {/* Navigation Toggle */}
       <div className="flex flex-row items-center">
         <button

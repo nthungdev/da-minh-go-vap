@@ -1,8 +1,28 @@
-type SiteAttributes = {
+import type {
+  AccordionContentBlock,
+  BibleVerseBlock,
+  DynamicImageBlock,
+  ImageBlock,
+  ImageSlideShowBlock,
+  LatestPostGridBlock,
+  LinksBlock,
+  MapBlock,
+  Post,
+  PostGroupBlock,
+  QuoteBlock,
+  SpaceBlock,
+  TabbedContentBlock,
+  TabbedPostGroupBlock,
+  TextBlock,
+  TimelineBlock,
+  VideoGridBlock,
+} from '@/payload-types'
+
+export type SiteAttributes = {
   logo: Image
 }
 
-type NavbarAttributes = {
+export type NavbarAttributes = {
   pageBanners: {
     path: string
     banners: Image[]
@@ -10,7 +30,7 @@ type NavbarAttributes = {
   bottomDecorativeGraphic: DynamicImage
 }
 
-type AppAccordionItem = {
+export type AppAccordionItem = {
   title: string
   body?: string
   items?: {
@@ -20,13 +40,10 @@ type AppAccordionItem = {
   }[]
 }
 
-type Post = {
-  title: string
-  date: Date
-  videos: Video[]
-  hiddenTags: string[]
-  thumbnail: string
-  body: string
+export type AppPost = Omit<Post, 'publishedAt' | 'createdAt' | 'updatedAt'> & {
+  publishedAt: Date
+  updatedAt: Date
+  createdAt: Date
 }
 
 type TextTab = {
@@ -60,12 +77,12 @@ type PostByCategorySection = {
 
 type Video = {
   title: string
-  thumbnail: string
+  // thumbnail: string
   url: string
   type: 'facebook' | 'youtube'
 }
 
-type Image = {
+export type Image = {
   alt: string
   url: string
 }
@@ -76,7 +93,7 @@ type DynamicImage = {
   alt: string
 }
 
-type PostParams = Post & {
+export type PostParams = Post & {
   slug: string
 }
 
@@ -96,7 +113,7 @@ type GroupedPostsPage = {
 }
 // END Reuse page types
 
-type PageHome = {
+export type PageHome = {
   banners: Image[]
   decorativeGraphic: Image
   bibleVerses: {
@@ -303,7 +320,7 @@ type PageContact = {
   }
 }
 
-type AsideSection = {
+export type AsideSection = {
   slideshow: {
     enable: boolean
     slides: Image[]
@@ -331,3 +348,21 @@ type AsideSection = {
     }[]
   }
 }
+
+export type BlockType =
+  | AccordionContentBlock
+  | BibleVerseBlock
+  | DynamicImageBlock
+  | ImageBlock
+  | LatestPostGridBlock
+  | LinksBlock
+  | MapBlock
+  | PostGroupBlock
+  | TabbedContentBlock
+  | TabbedPostGroupBlock
+  | TextBlock
+  | TimelineBlock
+  | VideoGridBlock
+  | SpaceBlock
+  | QuoteBlock
+  | ImageSlideShowBlock

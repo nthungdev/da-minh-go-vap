@@ -6,21 +6,22 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
 import AppPostGridSkeleton from './app-post-grid-skeleton'
+import { AppPost } from '@/definitions'
 
 const DEFAULT_PAGE_SIZE = 12
 
 interface AppPostGridPaginatedProps {
   hiddenTags: string[]
   pageSize?: number
-  classNames?: string
+  className?: string
   skipSlug?: string
-  posts?: PostParams[]
+  posts?: AppPost[]
 }
 
 export default function AppPostGridPaginated({
   hiddenTags,
   pageSize = DEFAULT_PAGE_SIZE,
-  classNames,
+  className,
   skipSlug,
   posts,
 }: AppPostGridPaginatedProps) {
@@ -53,7 +54,7 @@ export default function AppPostGridPaginated({
           <p>Error: {error.message}</p>
         ) : (
           <ul
-            className={`relative grid grid-flow-row md:grid-cols-2 lg:grid-cols-4 gap-4 ${classNames}`}
+            className={`relative grid grid-flow-row md:grid-cols-2 lg:grid-cols-4 gap-4 ${className}`}
           >
             {posts.map((post, index) => (
               // min-w-0 to override min-width: min-content that cause post title to not be truncated
@@ -66,13 +67,16 @@ export default function AppPostGridPaginated({
                   className="block overflow-hidden border"
                 >
                   <div className="relative aspect-video">
-                    <Image
-                      className="object-cover"
-                      src={post.thumbnail}
-                      fill
-                      sizes="100%"
-                      alt={`${post.title}'s thumbnail`}
-                    />
+                    {typeof post.thumbnail !== 'string' &&
+                      typeof post.thumbnail.url === 'string' && (
+                        <Image
+                          className="object-cover"
+                          src={post.thumbnail.url}
+                          fill
+                          sizes="100%"
+                          alt={`${post.title}'s thumbnail`}
+                        />
+                      )}
                   </div>
                   <div className="p-2 space-y-2">
                     <h2 className="text-center block text-xl truncate">

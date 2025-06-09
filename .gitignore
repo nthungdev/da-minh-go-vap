@@ -26,6 +26,7 @@ yarn-debug.log*
 yarn-error.log*
 
 # local env files
+.env
 .env*.local
 
 # vercel
@@ -36,3 +37,13 @@ yarn-error.log*
 next-env.d.ts
 
 certificates
+
+# Payload
+media
+temp
+src/payload-types.ts
+src/app/(payload)/api/\[...slug]/route.ts
+src/app/(payload)/api/graphql/route.ts
+.gitignore
+src/app/(payload)/layout.tsx
+src/app/(payload)/api/graphql-playground/route.ts

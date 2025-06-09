@@ -6,6 +6,7 @@ import AppPostList from '@/components/app-post-list'
 import AppPostCard from '@/components/app-post-card'
 import AsideSectionSlideshow from './aside-section-slideshow'
 import Image from 'next/image'
+import { AsideSection } from '@/definitions'
 
 export default async function AppAsideSection() {
   const { slideshow, curatedPosts, postGroups, links } =

@@ -3,7 +3,9 @@
 import Image from 'next/image'
 import AppCarousel from './app-carousel'
 import dynamic from 'next/dynamic'
-import { useState } from 'react'
+import { HTMLAttributes, useState } from 'react'
+import { twMerge } from 'tailwind-merge'
+import { Media } from '@/payload-types'
 
 const CAROUSEL_ID = 'app-banners-carousel'
 const PHOTO_DURATION = 5000 // 3 seconds
@@ -13,12 +15,8 @@ const checkVideo = (url: string) => {
   return videoExtensions.some((ext) => url.includes(ext))
 }
 
-interface AppBannersProps {
-  banners: {
-    url: string
-    alt?: string
-  }[]
-  className?: string
+interface AppBannersProps extends HTMLAttributes<HTMLElement> {
+  banners: Media[]
 }
 
 export default function AppBanners(props: AppBannersProps) {
@@ -36,7 +34,7 @@ export default function AppBanners(props: AppBannersProps) {
   const duration = videosDuration[bannerIndex] || PHOTO_DURATION
   const gotAllVideosDuration =
     Object.keys(videosDuration).length ===
-    banners.filter((banner) => checkVideo(banner.url)).length
+    banners.filter((banner) => typeof banner.url === 'string' && checkVideo(banner.url)).length
 
   const AppBannerVideo = dynamic(
     () => import('@/components/app-banner-video'),
@@ -89,9 +87,9 @@ export default function AppBanners(props: AppBannersProps) {
   // }, [gotAllVideosDuration, bannerIndex])
 
   return (
-    <div className={`w-full aspect-[4/1.2] ${className || ''}`}>
+    <div className={twMerge('w-full aspect-[4/1.2]', className)}>
       <AppCarousel id={CAROUSEL_ID} slideInterval={PHOTO_DURATION}>
-        {banners.map((banner, index) => (
+        {banners.map((banner, index) => typeof banner.url === 'string' && (
           <div
             key={index}
             id={`${CAROUSEL_ID}-item-${index}`}

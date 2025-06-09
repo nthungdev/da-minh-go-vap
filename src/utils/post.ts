@@ -1,31 +1,35 @@
 import path from 'path'
 import fs from 'fs'
-import matter from 'gray-matter'
+import { getPayload } from 'payload'
+import config from '@payload-config'
+import { AppPost } from '@/definitions'
+import { Post } from '@/payload-types'
 
 const postsDirectory = path.join(process.cwd(), 'src/content/posts')
 
-export const getPostBySlug = (slug: string) => {
-  const filePath = path.join(postsDirectory, slug + '.md')
+export const getPostBySlug = async (slug: string) => {
   try {
-    const fileContents = fs.readFileSync(filePath, 'utf8')
-    const { content, data } = matter(fileContents)
-    return {
-      slug,
-      body: content,
-      ...data,
-    } as PostParams
+    const payload = await getPayload({ config })
+    const query = await payload.find({
+      collection: 'posts',
+      where: { slug: { equals: slug } },
+    })
+    const post = query.docs[0]
+    if (!post) {
+      return null
+    }
+    return postToAppPost(post)
   } catch (error) {
-    console.error('Error reading file', { filePath, error })
     return null
   }
 }
 
-export const getPostsBySlugs = (slugs: string[]): PostParams[] => {
-  return slugs
-    .map((slug) => getPostBySlug(slug))
-    .filter((post) => post !== null) as PostParams[]
+export const getPostsBySlugs = async (slugs: string[]) => {
+  const posts = await Promise.all(slugs.map((slug) => getPostBySlug(slug)))
+  return posts.filter((post) => post !== null)
 }
 
+// TODO update to use Payload
 export const getAllPostSlugs = () => {
   const fileNames = fs.readdirSync(postsDirectory)
   return fileNames.map((fileName) => {
@@ -33,45 +37,48 @@ export const getAllPostSlugs = () => {
   })
 }
 
-export const getAllPosts = ({ limit = undefined }: { limit?: number } = {}) => {
-  const fileNames = fs.readdirSync(postsDirectory)
-  return fileNames
-    .map((fileName) => {
-      const slug = fileName.replace(/\.md$/, '')
-      const filePath = path.join(postsDirectory, slug + '.md')
-      const fileContents = fs.readFileSync(filePath, 'utf8')
-      const { content, data } = matter(fileContents)
-      return {
-        slug,
-        body: content,
-        ...data,
-      } as PostParams
+export async function getAllPosts({
+  limit = undefined,
+}: { limit?: number } = {}) {
+  const payload = await getPayload({ config })
+  const query = await payload.find({
+    collection: 'posts',
+  })
+  const posts = query.docs
+    .map(postToAppPost)
+    .toSorted((a, b) => b.publishedAt.getTime() - a.publishedAt.getTime())
+    .slice(0, limit)
+  return posts
+}
+
+export async function getPostsByHiddenTags(
+  hiddenTags: string[],
+  { limit = undefined }: { limit?: number } = {}
+) {
+  const payload = await getPayload({ config })
+  const query = await payload.find({
+    collection: 'posts',
+  })
+  const posts = query.docs.map(postToAppPost)
+  return posts
+    .filter((post) => {
+      const postHiddenTags = new Set(
+        post.hiddenTags
+          // tag is a string when reference not found
+          .filter((a) => typeof a !== 'string')
+          .map((a) => a.tag)
+      )
+      return hiddenTags.some((tag) => postHiddenTags.has(tag))
     })
-    .toSorted((a, b) => b.date.getTime() - a.date.getTime())
+    .toSorted((a, b) => b.publishedAt.getTime() - a.publishedAt.getTime())
     .slice(0, limit)
 }
 
-export const getPostsByHiddenTags = (
-  hiddenTags: string[],
-  { limit = undefined }: { limit?: number } = {}
-) => {
-  const fileNames = fs.readdirSync(postsDirectory)
-  const allPosts = fileNames.map((fileName) => {
-    const slug = fileName.replace(/\.md$/, '')
-    const filePath = path.join(postsDirectory, slug + '.md')
-    const fileContents = fs.readFileSync(filePath, 'utf8')
-    const { content, data } = matter(fileContents)
-    return {
-      slug,
-      body: content,
-      ...data,
-    } as PostParams
-  })
-  return allPosts
-    .filter((post) => {
-      const postHiddenTags = new Set(post.hiddenTags)
-      return hiddenTags.some((tag) => postHiddenTags.has(tag))
-    })
-    .toSorted((a, b) => b.date.getTime() - a.date.getTime())
-    .slice(0, limit)
+export function postToAppPost(post: Post): AppPost {
+  return {
+    ...post,
+    publishedAt: new Date(post.publishedAt),
+    createdAt: new Date(post.createdAt),
+    updatedAt: new Date(post.updatedAt),
+  }
 }

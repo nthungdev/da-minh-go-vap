@@ -1,20 +1,22 @@
-'use client'
-
 import Image from 'next/image'
 import Link from 'next/link'
 import AppPostCard from './app-post-card'
-import classNames from 'classnames'
+import { fetchAllPosts } from '@/actions/post'
+import { twMerge } from 'tailwind-merge'
 
 interface TheLatestPostsProps {
-  posts: PostParams[]
   className?: string
 }
 
-export default function TheLatestPosts(props: TheLatestPostsProps) {
-  const { posts, className } = props
+const POST_COUNT = 5
 
-  const latestPost = posts[0]
-  const otherPosts = posts.slice(1, 5)
+export default async function TheLatestPosts(props: TheLatestPostsProps) {
+  const { className } = props
+
+  const latestPosts = await fetchAllPosts({ limit: POST_COUNT })
+
+  const latestPost = latestPosts[0]
+  const otherPosts = latestPosts.slice(1, 5)
 
   return (
     <div
@@ -25,14 +27,17 @@ export default function TheLatestPosts(props: TheLatestPostsProps) {
         className="col-span-2 aspect-video lg:aspect-auto"
       >
         <div className="w-full h-full bg-blue-200 relative overflow-hidden hover:cursor-pointer hover:ring-2">
-          <Image
-            className="object-cover"
-            src={latestPost.thumbnail}
-            alt={latestPost.title}
-            sizes="100%"
-            priority
-            fill
-          />
+          {typeof latestPost.thumbnail !== 'string' &&
+            typeof latestPost.thumbnail?.url === 'string' && (
+              <Image
+                className="object-cover"
+                src={latestPost.thumbnail.url}
+                alt={latestPost.title}
+                sizes="100%"
+                priority
+                fill
+              />
+            )}
           {/* Gradient overlay */}
           <div className="absolute left-0 top-0 w-full h-full bg-gradient-to-b from-transparent to-black from-60%"></div>
           {/* Post text */}
@@ -41,7 +46,7 @@ export default function TheLatestPosts(props: TheLatestPostsProps) {
               {latestPost.title}
             </span>
             <span className="text-xs lg:text-sm text-gray-200">
-              {latestPost.date.toLocaleDateString('vi-VN')}
+              {latestPost.publishedAt.toLocaleDateString('vi-VN')}
             </span>
           </div>
         </div>
@@ -52,7 +57,7 @@ export default function TheLatestPosts(props: TheLatestPostsProps) {
           <AppPostCard
             key={index}
             post={post}
-            className={classNames('border lg:border-transparent bg-primary-1')}
+            className={twMerge('border lg:border-transparent bg-primary-1')}
           />
         ))}
       </div>

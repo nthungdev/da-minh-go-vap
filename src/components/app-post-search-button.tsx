@@ -12,10 +12,12 @@ import {
 } from 'react'
 import SearchIcon from '@/public/svgs/search.svg'
 import { searchPosts } from '@/actions/search'
-import classNames from 'classnames'
-import { HSOverlay } from 'preline/preline'
+import { HSOverlay, ICollectionItem } from 'preline/preline'
 import AppPostListItem from './app-post-list-item'
 import { createPortal } from 'react-dom'
+import Image from 'next/image'
+import { AppPost } from '@/definitions'
+import { twMerge } from 'tailwind-merge'
 
 const PLACEHOLDER = 'Tìm kiếm...'
 
@@ -28,10 +30,10 @@ enum ModalState {
 
 interface SearchModalProps {
   id: string
-  posts: PostParams[]
+  posts: AppPost[]
   input: string
   state: ModalState
-  containerRef: RefObject<HTMLElement>
+  containerRef: RefObject<HTMLElement | null>
   onInputSubmit: FormEventHandler<HTMLFormElement>
   onInputChange: ChangeEventHandler<HTMLInputElement>
 }
@@ -71,7 +73,12 @@ const SearchModal = forwardRef<HTMLDivElement, SearchModalProps>(
                       Search input
                     </label>
                     <div className="absolute inset-y-0 start-0 flex items-center pointer-events-none z-20 ps-3.5">
-                      <SearchIcon className="shrink-0 size-4 text-gray-400" />
+                      {/* <SearchIcon className="shrink-0 size-4 text-gray-400" /> */}
+                      <Image
+                        src={SearchIcon}
+                        alt=""
+                        className="shrink-0 size-4 text-gray-400"
+                      />
                     </div>
                     <input
                       id={`${id}-input`}
@@ -104,7 +111,7 @@ const SearchModal = forwardRef<HTMLDivElement, SearchModalProps>(
                         <div key={post.slug} className="h-[60px] w-full">
                           <AppPostListItem
                             post={post}
-                            className={classNames(
+                            className={twMerge(
                               index % 2 === 0
                                 ? 'bg-primary-50'
                                 : 'bg-primary-100'
@@ -125,16 +132,16 @@ const SearchModal = forwardRef<HTMLDivElement, SearchModalProps>(
 )
 
 export default function AppPostSearchButton({ id }: { id: string }) {
-  const bodyRef = useRef<HTMLElement | null>(null)
+  const bodyRef = useRef<HTMLBodyElement | null>(null)
   const overlayRef = useRef<HTMLDivElement>(null)
   const [input, setInput] = useState('')
-  const [posts, setPosts] = useState<PostParams[]>([])
+  const [posts, setPosts] = useState<AppPost[]>([])
   const [overlay, setOverlay] = useState<HSOverlay | null>(null)
   const [_, forceUpdate] = useReducer((x) => x + 1, 0)
   const [state, setState] = useState(ModalState.EMPTY)
 
   const getOverlay = async () => {
-    if (overlay && overlay.overlay) {
+    if (overlay) {
       return overlay
     }
 
@@ -148,7 +155,9 @@ export default function AppPostSearchButton({ id }: { id: string }) {
 
     const { HSOverlay } = await import('preline/preline')
 
-    const o = new HSOverlay(overlayElement)
+    const overlayInstance = HSOverlay.getInstance(overlayElement, true) as ICollectionItem<HSOverlay>
+    const o = overlayInstance.element
+
     setOverlay(o)
 
     o.on('close', () => {
@@ -207,10 +216,13 @@ export default function AppPostSearchButton({ id }: { id: string }) {
         className="relative hover:cursor-pointer bg-white flex flex-row items-center space-x-2 p-2 hover:ring-2 ring-primary border rounded-full"
         onClick={openSearchModal}
       >
-        <SearchIcon className="shrink-0 size-4 text-gray-400" />
+        <Image
+          src={SearchIcon}
+          alt=""
+          className="shrink-0 size-4 text-gray-400"
+        />
       </button>
 
-      {/* {bodyRef.current && ( */}
       <SearchModal
         id={id}
         ref={overlayRef}

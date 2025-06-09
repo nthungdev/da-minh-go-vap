@@ -3,7 +3,8 @@
 import { ChangeEvent } from 'react'
 import AppPostGrid from './app-post-grid'
 import AppSelectBasic from './app-select-basic'
-import classNames from 'classnames'
+import { AppPost } from '@/definitions'
+import { twMerge } from 'tailwind-merge'
 
 const ALL_POSTS_CONTROL_LABEL = 'Tất cả'
 
@@ -13,7 +14,7 @@ interface AppPostTabGridProps {
   className?: string
   postGroups: {
     title: string
-    posts: PostParams[]
+    posts: AppPost[]
   }[]
   allPostsLimit?: number
   component?: React.ElementType
@@ -31,8 +32,8 @@ export default function AppPostTabGrid(props: AppPostTabGridProps) {
   const DataComponent = component ? component : AppPostGrid
 
   const allPosts = postGroups
-    .reduce((acc, { posts }) => [...acc, ...posts], [] as PostParams[])
-    .toSorted((a, b) => b.date.getTime() - a.date.getTime())
+    .reduce((acc, { posts }) => [...acc, ...posts], [] as AppPost[])
+    .toSorted((a, b) => b.publishedAt.getTime() - a.publishedAt.getTime())
     .slice(0, allPostsLimit)
 
   const postGroupsData = [
@@ -87,7 +88,7 @@ export default function AppPostTabGrid(props: AppPostTabGridProps) {
             <button
               key={`${id}-control-${index}`}
               type="button"
-              className={classNames(
+              className={twMerge(
                 'peer relative -mr-12 py-1 px-12 text-center inline-flex justify-center items-center gap-x-2 text-xl rounded-full border-[6px] border-secondary-400 text-white font-bold font-header bg-[#70C7D0] disabled:opacity-50 disabled:pointer-events-none transition text-nowrap',
                 'hs-tab-active:bg-primary hs-tab-active:border-secondary-500 hs-tab-active:z-10',
                 'hover:z-20 hover:shadow-neon hover:border-secondary-300',
@@ -106,7 +107,7 @@ export default function AppPostTabGrid(props: AppPostTabGridProps) {
         </nav>
       </div>
 
-      <div className="">
+      <div>
         {postGroupsDataReversed.map(({ posts }, index) => (
           <div
             key={`${id}-content-${index}`}
@@ -115,7 +116,7 @@ export default function AppPostTabGrid(props: AppPostTabGridProps) {
             role="tabpanel"
             aria-labelledby={`${id}-control-${index}`}
           >
-            <DataComponent classNames="lg:grid-cols-3" posts={posts} />
+            <DataComponent className="lg:grid-cols-3" posts={posts} />
           </div>
         ))}
       </div>

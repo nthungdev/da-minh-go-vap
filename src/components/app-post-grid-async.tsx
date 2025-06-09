@@ -6,14 +6,16 @@ import Image from 'next/image'
 import Link from 'next/link'
 import AppViewMoreLink from './app-view-more-link'
 import AppPostGridSkeleton from './app-post-grid-skeleton'
+import { AppPost } from '@/definitions'
+import AppGridHeader from '@/components/app-grid-header'
 
 interface AppPostGridProps {
   hiddenTags: string[]
   limit: number
   title: string
-  posts?: PostParams[]
+  posts?: AppPost[]
   hasMore?: boolean
-  classNames?: string
+  className?: string
 }
 
 export default function AppPostGrid({
@@ -22,7 +24,7 @@ export default function AppPostGrid({
   title,
   posts,
   hasMore,
-  classNames,
+  className,
 }: AppPostGridProps) {
   const { data, error, isPending } = useQuery({
     queryKey: ['fetchPostsByHiddenTags', hiddenTags],
@@ -41,14 +43,14 @@ export default function AppPostGrid({
 
   if (data) {
     const { posts, hasMore } = data
-    const viewMoreHref = `/posts?ht=${encodeURIComponent(
-      hiddenTags.join(',')
-    )}&ti=${encodeURIComponent(title)}`
+    const jointHiddenTags = hiddenTags.join(',')
+    const viewMoreHref = `/posts?ht=${encodeURIComponent(jointHiddenTags)}&ti=${encodeURIComponent(title)}`
 
     return (
-      <div className="space-y-2">
+      <div className="space-y-2 my-2">
+        <AppGridHeader text={title} />
         <ul
-          className={`relative grid grid-flow-row md:grid-cols-2 lg:grid-cols-4 gap-4 ${classNames}`}
+          className={`relative grid grid-flow-row md:grid-cols-2 lg:grid-cols-4 gap-4 ${className}`}
         >
           {posts.map((post, index) => (
             // min-w-0 to override min-width: min-content that cause post title to not be truncated
@@ -61,13 +63,16 @@ export default function AppPostGrid({
                 className="block overflow-hidden border"
               >
                 <div className="relative aspect-video">
-                  <Image
-                    className="object-cover"
-                    src={post.thumbnail}
-                    fill
-                    sizes="100%"
-                    alt={`${post.title}'s thumbnail`}
-                  />
+                  {typeof post.thumbnail !== 'string' &&
+                    typeof post.thumbnail.url === 'string' && (
+                      <Image
+                        className="object-cover"
+                        src={post.thumbnail.url}
+                        fill
+                        sizes="100%"
+                        alt={`${post.title}'s thumbnail`}
+                      />
+                    )}
                 </div>
                 <div className="p-2 space-y-2">
                   <span className="text-center block text-xl truncate">

@@ -1,4 +1,4 @@
-import classNames from 'classnames'
+import { twMerge } from 'tailwind-merge'
 
 export default function FacebookIframe({
   url,
@@ -9,7 +9,7 @@ export default function FacebookIframe({
 }) {
   return (
     <iframe
-      className={classNames('w-full aspect-video border-none overflow-hidden', className)}
+      className={twMerge('w-full aspect-video border-none overflow-hidden', className)}
       src={`https://www.facebook.com/plugins/video.php?href=${decodeURIComponent(url)}&width=500&show_text=false&height=281&appId`}
       allowFullScreen
       allow='autoplay; clipboard-write; encrypted-media; web-share'

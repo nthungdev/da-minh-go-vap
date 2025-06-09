@@ -1,14 +1,16 @@
 import type { Metadata } from 'next'
 import { Montserrat, Nunito } from 'next/font/google'
-import './globals.css'
+import { twMerge } from 'tailwind-merge'
 import ThePrelineScript from '@/components/the-preline-script'
 import TheFooter from '@/components/the-footer'
 import { attributes as navbarAttributes } from '@/content/settings/navbar.md'
-import TheTopBanners from '@/components/the-top-banners'
-import classNames from 'classnames'
 import TheMobileNavbar from '@/components/the-mobile-navbar'
 import TheDesktopNavbar from '@/components/the-desktop-navbar'
 import ReactQueryProvider from '@/components/providers/react-query-provider'
+import { NavbarAttributes } from '@/definitions'
+import './globals.css'
+import { getMenu } from '@/utils/menu'
+import { getLogo } from '@/utils/siteSettings'
 
 const montserrat = Montserrat({
   subsets: ['vietnamese'],
@@ -25,31 +27,34 @@ export const metadata: Metadata = {
   description: 'Hội dòng Đa Minh Gò Vấp',
 }
 
-export default function RootLayout({
+const language = 'vi'
+
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
   const { bottomDecorativeGraphic } = navbarAttributes as NavbarAttributes
+  const menu = await getMenu()
+  const logo = await getLogo()
 
   return (
     <html
-      lang="en"
-      className={classNames(nunito.className, montserrat.className)}
+      lang={language}
+      className={twMerge(nunito.className, montserrat.className)}
     >
       <ThePrelineScript />
 
       <body
-        className={classNames(
+        className={twMerge(
           'relative bg-white flex flex-col w-full min-h-screen'
         )}
       >
-        <TheDesktopNavbar className="z-20 sticky top-0 hidden xl:flex" />
+        <TheDesktopNavbar logo={logo} menu={menu} className="z-20 sticky top-0 hidden xl:flex" />
         {/* z-60 because backdrop from Preline is z-59 */}
-        <TheMobileNavbar className="z-[60] sticky top-0 xl:hidden" />
+        <TheMobileNavbar menu={menu} className="z-[60] sticky top-0 xl:hidden" />
 
         <div className="relative">
-          <TheTopBanners />
           <picture className="w-full block absolute -bottom-[1px] z-10">
             <source
               media="(max-width: 799px)"

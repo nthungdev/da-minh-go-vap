@@ -1,9 +1,10 @@
-import classNames from 'classnames'
+import { AppPost } from '@/definitions'
 import Image from 'next/image'
 import Link from 'next/link'
+import { twMerge } from 'tailwind-merge'
 
 interface AppPostCardProps {
-  post: PostParams
+  post: AppPost
   className?: string
 }
 
@@ -13,19 +14,22 @@ export default function AppPostCard(props: AppPostCardProps) {
   return (
     <Link
       href={`/posts/${post.slug}`}
-      className={classNames(
+      className={twMerge(
         'w-full h-full overflow-hidden flex flex-col lg:flex-row gap-x-2 border border-transparent hover:ring hover:cursor-pointer lg:aspect-[3.5]',
         className
       )}
     >
       <div className="relative lg:w-auto lg:h-full aspect-video overflow-hidden">
-        <Image
-          src={post.thumbnail}
-          alt={post.title}
-          fill
-          sizes="100%"
-          className="object-cover"
-        />
+        {typeof post.thumbnail !== 'string' &&
+          typeof post.thumbnail.url === 'string' && (
+            <Image
+              src={post.thumbnail.url}
+              alt={post.title}
+              fill
+              sizes="100%"
+              className="object-cover"
+            />
+          )}
       </div>
       <div className="flex-1 px-1.5 lg:px-0 py-1 md:py-1.5 lg:py-2 flex flex-col justify-between overflow-hidden">
         <span className="line-clamp-1 lg:line-clamp-2 text-base text-gray-900 font-header">

@@ -7,23 +7,23 @@ import * as postUtils from '@/utils/post'
  * @returns PostParams object or null if the post is not published yet or not found
  */
 export const fetchPostBySlug = async (slug: string) => {
-  const post = postUtils.getPostBySlug(slug)
+  const post = await postUtils.getPostBySlug(slug)
   if (!post) {
     return null
   }
-  return post.date < new Date() ? post : null
+  return post.publishedAt < new Date() ? post : null
 }
 
 export const fetchPostsBySlugs = async (slugs: string[]) => {
-  const posts = postUtils.getPostsBySlugs(slugs)
-  return posts.filter((post) => post.date < new Date())
+  const posts = await postUtils.getPostsBySlugs(slugs)
+  return posts.filter((post) => post.publishedAt < new Date())
 }
 
-export const fetchAllPosts = async ({
+export async function fetchAllPosts({
   limit = undefined,
-}: { limit?: number } = {}) => {
-  const posts = postUtils.getAllPosts()
-  return posts.filter((post) => post.date < new Date()).slice(0, limit)
+}: { limit?: number } = {}) {
+  const posts = (await postUtils.getAllPosts()).filter((post) => !!post.slug)
+  return posts.filter((post) => post.publishedAt < new Date()).slice(0, limit)
 }
 
 export const fetchPostsByHiddenTags = async (
@@ -34,9 +34,9 @@ export const fetchPostsByHiddenTags = async (
     skipSlug,
   }: { limit?: number; offset?: number; skipSlug?: string } = {}
 ) => {
-  const posts = postUtils.getPostsByHiddenTags(hiddenTags)
+  const posts = await postUtils.getPostsByHiddenTags(hiddenTags)
   const plus1 = posts
-    .filter((post) => post.date < new Date())
+    .filter((post) => post.publishedAt < new Date())
     .filter((post) => post.slug !== skipSlug)
     .slice(offset || 0, limit ? limit + 1 : undefined)
   const results = limit ? plus1.slice(0, limit) : plus1
