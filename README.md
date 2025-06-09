@@ -20,10 +20,12 @@ Run the development server:
 yarn dev
 ```
 
-Run local decap cms server:
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+## PayloadCMS
+
+Whenever you make changes to the PayloadCMS configuration, you need to re-generate the types
 
 ```bash
-yarn decap
+yarn generate
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
