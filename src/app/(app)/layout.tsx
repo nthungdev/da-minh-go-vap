@@ -4,7 +4,6 @@ import { twMerge } from 'tailwind-merge'
 import ThePrelineScript from '@/components/the-preline-script'
 import TheFooter from '@/components/the-footer'
 import { attributes as navbarAttributes } from '@/content/settings/navbar.md'
-import TheTopBanners from '@/components/the-top-banners'
 import TheMobileNavbar from '@/components/the-mobile-navbar'
 import TheDesktopNavbar from '@/components/the-desktop-navbar'
 import ReactQueryProvider from '@/components/providers/react-query-provider'
@@ -56,7 +55,6 @@ export default async function RootLayout({
         <TheMobileNavbar menu={menu} className="z-[60] sticky top-0 xl:hidden" />
 
         <div className="relative">
-          <TheTopBanners />
           <picture className="w-full block absolute -bottom-[1px] z-10">
             <source
               media="(max-width: 799px)"

@@ -87,13 +87,19 @@ const Pages: CollectionConfig = {
           label: 'Before Main',
           fields: [
             {
+              name: 'banners',
+              type: 'upload',
+              relationTo: 'media',
+              required: false,
+              unique: false,
+              hasMany: true,
+            },
+            {
               name: 'beforeMain',
               type: 'blocks',
-              blocks: [
-                BibleVerseBlock,
-              ],
+              blocks: [BibleVerseBlock],
             },
-          ]
+          ],
         },
         {
           label: 'Aside',

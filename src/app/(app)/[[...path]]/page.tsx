@@ -33,17 +33,23 @@ export default async function Page(props: {
     notFound()
   }
 
+  const banners =
+    (page.banners &&
+      page.banners.every((b) => typeof b === 'object') &&
+      page.banners) ||
+    []
+
   return (
-    <AppPage>
+    <AppPage banners={banners}>
       <h1 className="sr-only">{page.title}</h1>
       <div className="space-y-4 lg:space-y-8">
         <section>
           <BlocksRenderer blocks={page.beforeMain || []} />
         </section>
         <div className="lg:flex flex-row items-start gap-x-4">
-          <main className="flex-1">
+          <section className="flex-1">
             <BlocksRenderer blocks={page.main || []} />
-          </main>
+          </section>
           {page?.aside && (
             <aside className="hidden lg:block w-56 lg:w-64 bg-primary-1">
               <BlocksRenderer blocks={page.aside} />
