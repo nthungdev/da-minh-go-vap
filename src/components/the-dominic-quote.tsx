@@ -23,7 +23,7 @@ export default function TheDominicQuote(props: TheDominicQuoteProps) {
     return () => clearInterval(interval)
   })
 
-  const currentQuote = quotes[currentIndex]
+  const currentQuote = quotes[currentIndex]!
   const quote = currentQuote.quote
 
   return (

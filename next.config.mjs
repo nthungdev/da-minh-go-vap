@@ -1,6 +1,7 @@
 import { withPayload } from '@payloadcms/next/withPayload'
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'standalone',
   webpack: (config) => {
     config.module.rules.push({
       test: /\.md$/,
@@ -9,21 +10,6 @@ const nextConfig = {
     })
 
     return config
-  },
-  redirects: async () => {
-    return [
-      // TODO remove this redirect
-      // {
-      //   source: '/admin',
-      //   destination: '/admin/index.html',
-      //   permanent: false,
-      // },
-      {
-        source: '/vocation',
-        destination: '/vocation/introduction',
-        permanent: true,
-      },
-    ]
   },
   images: {
     remotePatterns: [

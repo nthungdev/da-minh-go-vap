@@ -28,7 +28,7 @@ export default function TheBibleVerse(props: TheBibleVerseProps) {
     return () => clearInterval(interval)
   })
 
-  const currentVerse = verses[currentIndex]
+  const currentVerse = verses[currentIndex]!
   const verse = currentVerse.verse
   const reference = currentVerse.reference
 

@@ -1,3 +1,0 @@
----
-title: Walking with Jesus
----

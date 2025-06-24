@@ -13,7 +13,7 @@ interface AppCardTabsProps {
 export default function AppCardTabs({ tabs }: AppCardTabsProps) {
   const [activeTab, setActiveTab] = useState(0)
 
-  const activeBody = tabs[activeTab].body
+  const activeBody = tabs[activeTab]?.body
   const isReactNode = typeof activeBody === 'object'
 
   return (
@@ -37,7 +37,7 @@ export default function AppCardTabs({ tabs }: AppCardTabsProps) {
         </nav>
       </div>
       <div className="relative border border-gray-200 dark:border-neutral-700 rounded-b-lg rounded-tr-lg bg-primary-50 p-4">
-        {isReactNode ? (
+        {activeBody === undefined ? null : isReactNode ? (
           activeBody
         ) : (
           <AppMarkdown>{activeBody as string}</AppMarkdown>
