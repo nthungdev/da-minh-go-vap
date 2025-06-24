@@ -1,0 +1,37 @@
+name: da-minh-go-vap-dev
+
+services:
+  mongo:
+    image: mongo:latest
+    restart: always
+    volumes:
+      - mongo-data:/data/db
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: da-minh-go-vap
+    networks:
+      - webnet
+
+  app:
+    image: da-minh-go-vap:latest
+    build:
+      context: .
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: development
+    env_file:
+      - .env.development
+    depends_on:
+      - mongo
+    networks:
+      - webnet
+
+volumes:
+  mongo-data:
+
+
+networks:
+  webnet:
+    driver: bridge
