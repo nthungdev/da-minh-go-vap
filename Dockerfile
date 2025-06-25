@@ -1,20 +1,17 @@
-# syntax=docker.io/docker/dockerfile:1
-
 ARG NODE_VERSION=22
 
-
-FROM node:${NODE_VERSION}-slim AS base
+FROM node:${NODE_VERSION}-alpine AS base
 
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 RUN corepack enable
 
-COPY . /app
-WORKDIR /app
-
 
 FROM base AS builder
 
+WORKDIR /app
+
+COPY . .
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 RUN pnpm run build
 
