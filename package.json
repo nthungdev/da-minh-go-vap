@@ -28,7 +28,7 @@
     "fuse.js": "^7.1.0",
     "graphql": "^16.10.0",
     "gray-matter": "^4.0.3",
-    "next": "15.2.4",
+    "next": "15.3.4",
     "normalize-text": "^2.6.0",
     "payload": "^3.32.0",
     "preline": "^2.7.0",
