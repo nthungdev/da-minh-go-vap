@@ -1,7 +1,7 @@
 name: da-minh-go-vap-dev
 
 services:
-  mongo:
+  db:
     image: mongo:latest
     restart: always
     volumes:
@@ -10,13 +10,17 @@ services:
       - "27017:27017"
     environment:
       MONGO_INITDB_DATABASE: da-minh-go-vap
-    networks:
-      - webnet
+    command:
+      - --storageEngine=wiredTiger
+    # networks:
+    #   - webnet
 
   app:
-    image: da-minh-go-vap:latest
+    # image: da-minh-go-vap:latest
+    image: node:22-alpine
     build:
       context: .
+      dockerfile: Dockerfile
     ports:
       - "3000:3000"
     environment:
@@ -24,14 +28,14 @@ services:
     env_file:
       - .env.development
     depends_on:
-      - mongo
-    networks:
-      - webnet
+      - db
+    # networks:
+    #   - webnet
 
 volumes:
   mongo-data:
 
 
-networks:
-  webnet:
-    driver: bridge
+# networks:
+#   webnet:
+#     driver: bridge
