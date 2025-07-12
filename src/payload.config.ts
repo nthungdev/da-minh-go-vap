@@ -3,7 +3,7 @@ import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { payloadCloudPlugin } from '@payloadcms/payload-cloud'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import path from 'path'
-import { buildConfig } from 'payload'
+import { buildConfig, Payload } from 'payload'
 import { fileURLToPath } from 'url'
 import sharp from 'sharp'
 
@@ -42,4 +42,41 @@ export default buildConfig({
     payloadCloudPlugin(),
     // storage-adapter-placeholder
   ],
+  onInit: createDefaultAdmin,
 })
+
+
+async function createDefaultAdmin(payload: Payload) {
+  const adminEmail = process.env.PAYLOAD_ADMIN_EMAIL;
+  const adminPassword = process.env.PAYLOAD_ADMIN_PASSWORD;
+
+  if (!adminEmail || !adminPassword) {
+    console.error(
+      "Environment variables PAYLOAD_ADMIN_EMAIL and PAYLOAD_ADMIN_PASSWORD must be set.",
+    );
+    return;
+  }
+
+  const admins = await payload.find({
+    collection: "users",
+    where: {
+      email: {
+        equals: adminEmail,
+      },
+    },
+  });
+  const hasAdminUser = admins.docs.length > 0;
+
+  if (hasAdminUser) return;
+
+  console.log("Creating default admin user...");
+
+  await payload.create({
+    collection: "users",
+    data: {
+      email: adminEmail,
+      password: adminPassword,
+      role: "admin",
+    },
+  });
+}
