@@ -7,6 +7,8 @@
     "decap": "npx decap-server",
     "dev": "next dev",
     "build": "next build",
+    "build:compile": "next build --experimental-build-mode compile",
+    "build:generate": "next build --experimental-build-mode generate",
     "start": "next start",
     "lint": "next lint",
     "reinstall": "cross-env NODE_OPTIONS=--no-deprecation rm -rf node_modules && rm pnpm-lock.yaml && pnpm --ignore-workspace install",

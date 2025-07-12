@@ -5,7 +5,7 @@ import BlocksRenderer from '@/components/blocks-renderer'
 import { notFound } from 'next/navigation'
 
 // export const dynamicParams = true // or false, to 404 on unknown paths
-export const dynamic = 'force-static'
+// export const dynamic = 'force-static'
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config })
