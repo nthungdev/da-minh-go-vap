@@ -13,6 +13,7 @@ const Media: CollectionConfig = {
     },
   ],
   upload: {
+    staticDir: 'media',
     imageSizes: [
       {
         width: 300,

@@ -5,6 +5,8 @@ services:
     image: node:22-alpine
     ports:
       - "3000:3000"
+    volumes:
+      - ./media:/app/media
     depends_on:
       - mongo
     env_file:
