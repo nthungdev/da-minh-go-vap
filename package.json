@@ -10,6 +10,7 @@
     "build:compile": "next build --experimental-build-mode compile",
     "build:generate": "next build --experimental-build-mode generate",
     "start": "next start",
+    "start:standalone": "pnpm run payload migrate && pnpm run build:generate && node ./.next/standalone/server.js",
     "lint": "next lint",
     "reinstall": "cross-env NODE_OPTIONS=--no-deprecation rm -rf node_modules && rm pnpm-lock.yaml && pnpm --ignore-workspace install",
     "generate:importmap": "cross-env NODE_OPTIONS=--no-deprecation payload generate:importmap",
