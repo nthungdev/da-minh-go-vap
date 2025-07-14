@@ -27,7 +27,6 @@ const TabbedPostGroupBlock: Block = {
           relationTo: 'hiddenTags',
           hasMany: true,
           required: true,
-          unique: true,
         },
         {
           name: 'limit',
