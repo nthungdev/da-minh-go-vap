@@ -38,15 +38,12 @@ ENV NODE_ENV=production
 
 COPY --from=deps /app/node_modules ./node_modules
 COPY --from=builder /app/.next ./.next
-COPY --from=builder /app/.next/standalone ./
-COPY --from=builder /app/.next/static ./.next/static
 
 RUN corepack enable pnpm
-# RUN pnpm install
 
 EXPOSE 3000
 
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
 
-CMD ["sh", "-c", "pnpm run payload migrate && pnpm run build:generate && node server.js"]
+CMD ["sh", "-c", "pnpm standalone"]
