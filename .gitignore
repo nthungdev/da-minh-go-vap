@@ -45,3 +45,5 @@ media
 temp
 src/payload-types.ts
 .gitignore
+
+certbot/conf
