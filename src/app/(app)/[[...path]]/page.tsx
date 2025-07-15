@@ -1,43 +1,43 @@
-import { getPayload } from 'payload'
-import config from '@payload-config'
-import AppPage from '@/components/app-page'
-import BlocksRenderer from '@/components/blocks-renderer'
-import { notFound } from 'next/navigation'
-
-// export const dynamicParams = true // or false, to 404 on unknown paths
-// export const dynamic = 'force-static'
+import { getPayload } from "payload";
+import config from "@payload-config";
+import AppPage from "@/components/app-page";
+import BlocksRenderer from "@/components/blocks-renderer";
+import { notFound } from "next/navigation";
 
 export async function generateStaticParams() {
-  const payload = await getPayload({ config })
-  const pages = await payload.find({ collection: 'pages' })
+  const payload = await getPayload({ config });
+  const pages = await payload.find({ collection: "pages" });
   const params = pages.docs.map((page) => ({
-    path: page.path.split('/'),
-  }))
-  return params
+    // skip the leading slash
+    path: page.path.substring(1).split("/"),
+  }));
+  return params;
 }
 
 export default async function Page(props: {
-  params: Promise<{ path?: string[] }>
+  // path must be an array of strings 🤷
+  params: Promise<{ path?: string[] }>;
 }) {
-  const params = await props.params
-  const path = '/' + (params.path || []).join('/')
-  const payload = await getPayload({ config })
+  const params = await props.params;
+  const path = "/" + (params.path || []).join("/");
+  const payload = await getPayload({ config });
   const query = await payload.find({
-    collection: 'pages',
+    collection: "pages",
     where: {
       path: { equals: path },
     },
-  })
-  const page = query.docs[0]
+  });
+  const page = query.docs[0];
   if (!page) {
-    notFound()
+    console.log("Page not found for path:", path);
+    notFound();
   }
 
   const banners =
     (page.banners &&
-      page.banners.every((b) => typeof b === 'object') &&
+      page.banners.every((b) => typeof b === "object") &&
       page.banners) ||
-    []
+    [];
 
   return (
     <AppPage banners={banners}>
@@ -58,5 +58,5 @@ export default async function Page(props: {
         </div>
       </div>
     </AppPage>
-  )
+  );
 }
