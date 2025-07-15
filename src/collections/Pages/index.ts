@@ -21,13 +21,13 @@ const Pages: CollectionConfig = {
   admin: {
     useAsTitle: 'title',
   },
-  access: {
+  // access: {
     // read: () => ({
     //   publishedAt: {
     //     greater_than: new Date(),
     //   },
     // }),
-  },
+  // },
   fields: [
     {
       name: 'publishedAt',
@@ -47,7 +47,10 @@ const Pages: CollectionConfig = {
       label: 'Đường dẫn',
       required: true,
       unique: true,
-      admin: { position: 'sidebar' },
+      admin: {
+        position: 'sidebar',
+        description: 'Đường dẫn sẽ được sử dụng để truy cập trang này. Ví dụ: "/gioi-thieu".',
+      },
     },
     {
       type: 'tabs',
