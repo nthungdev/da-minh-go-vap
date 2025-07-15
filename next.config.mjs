@@ -1,15 +1,16 @@
-import { withPayload } from '@payloadcms/next/withPayload'
+import { withPayload } from "@payloadcms/next/withPayload";
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'standalone',
+  output: "standalone",
   webpack: (config) => {
     config.module.rules.push({
       test: /\.md$/,
-      loader: 'frontmatter-markdown-loader',
-      options: { mode: ['react-component', 'body'] },
-    })
+      loader: "frontmatter-markdown-loader",
+      options: { mode: ["react-component", "body"] },
+    });
 
-    return config
+    return config;
   },
   images: {
     remotePatterns: [
@@ -18,12 +19,12 @@ const nextConfig = {
       //   hostname: 'res.cloudinary.com',
       // },
       {
-        hostname: '*',
+        hostname: "*",
       },
     ],
   },
-}
+};
 
 export default withPayload(nextConfig, {
-  devBundleServerPackages: false
-})
+  devBundleServerPackages: false,
+});
