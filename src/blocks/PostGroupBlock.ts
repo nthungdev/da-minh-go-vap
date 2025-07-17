@@ -1,37 +1,37 @@
-import { Block } from 'payload'
+import { Block } from "payload";
 
 const PostGroupBlock: Block = {
-  slug: 'postGroupBlock',
+  slug: "postGroupBlock",
   labels: {
-    singular: 'Post Group',
-    plural: 'Post Groups',
+    singular: "Post Group",
+    plural: "Post Groups",
   },
-  interfaceName: 'PostGroupBlock',
+  interfaceName: "PostGroupBlock",
   fields: [
     {
-      name: 'title',
-      type: 'text',
+      name: "title",
+      type: "text",
       required: true,
     },
     {
-      name: 'hiddenTags',
-      type: 'relationship',
-      relationTo: 'hiddenTags',
+      name: "hiddenTags",
+      type: "relationship",
+      relationTo: "hiddenTags",
       hasMany: true,
       required: true,
     },
     {
-      name: 'limit',
-      type: 'number',
+      name: "limit",
+      type: "number",
       defaultValue: 4,
     },
     {
-      name: 'viewMoreButton',
-      type: 'group',
+      name: "viewMoreButton",
+      type: "group",
       fields: [
         {
-          name: 'enableViewMoreButton',
-          type: 'checkbox',
+          name: "enableViewMoreButton",
+          type: "checkbox",
           defaultValue: false,
           required: true,
         },
@@ -44,22 +44,22 @@ const PostGroupBlock: Block = {
       ],
     },
     {
-      name: 'displayType',
-      type: 'select',
+      name: "displayType",
+      type: "select",
       required: true,
-      defaultValue: 'grid',
+      defaultValue: "grid",
       options: [
         {
-          label: 'Grid',
-          value: 'grid',
+          label: "Grid",
+          value: "grid",
         },
         {
-          label: 'List',
-          value: 'list',
+          label: "List",
+          value: "list",
         },
-      ]
-    }
+      ],
+    },
   ],
-}
+};
 
-export default PostGroupBlock
+export default PostGroupBlock;

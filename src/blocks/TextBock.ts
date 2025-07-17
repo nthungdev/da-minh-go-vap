@@ -1,19 +1,19 @@
-import markdownField from '@/fields/markdown'
-import { Block } from 'payload'
+import markdownField from "@/fields/markdown";
+import { Block } from "payload";
 
 const TextBlock: Block = {
-  slug: 'textBlock',
+  slug: "textBlock",
   labels: {
-    singular: 'Text',
-    plural: 'Texts',
+    singular: "Text",
+    plural: "Texts",
   },
-  interfaceName: 'TextBlock',
+  interfaceName: "TextBlock",
   fields: [
     {
-      ...markdownField('content'),
+      ...markdownField("content"),
       required: true,
     },
   ],
-}
+};
 
-export default TextBlock
+export default TextBlock;

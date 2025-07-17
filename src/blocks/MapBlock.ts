@@ -1,19 +1,19 @@
-import { Block } from 'payload'
+import { Block } from "payload";
 
 const MapBlock: Block = {
-  slug: 'mapBlock',
+  slug: "mapBlock",
   labels: {
-    singular: 'Map',
-    plural: 'Maps',
+    singular: "Map",
+    plural: "Maps",
   },
-  interfaceName: 'MapBlock',
+  interfaceName: "MapBlock",
   fields: [
     {
-      name: 'address',
-      type: 'text',
+      name: "address",
+      type: "text",
       required: true,
-    }
+    },
   ],
-}
+};
 
-export default MapBlock
+export default MapBlock;

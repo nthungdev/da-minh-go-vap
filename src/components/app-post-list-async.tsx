@@ -1,19 +1,19 @@
-'use client'
+"use client";
 
-import { fetchPostsByHiddenTags } from '@/actions/post'
-import AppPostCard from '@/components/app-post-card'
-import AppSectionHeader from '@/components/app-section-header'
-import { AppPost, PostParams } from '@/definitions'
-import { useQuery } from '@tanstack/react-query'
-import Image from 'next/image'
-import Link from 'next/link'
+import { fetchPostsByHiddenTags } from "@/actions/post";
+import AppPostCard from "@/components/app-post-card";
+import AppSectionHeader from "@/components/app-section-header";
+import { AppPost, PostParams } from "@/definitions";
+import { useQuery } from "@tanstack/react-query";
+import Image from "next/image";
+import Link from "next/link";
 
 function DefaultItemComponent({ post }: { post: PostParams }) {
   return (
     <Link href={`/posts/${post.slug}`} className="w-full">
       <div className="w-full rounded-lg overflow-hidden border-2 hover:ring-2">
-        {typeof post.thumbnail !== 'string' &&
-          typeof post.thumbnail.url === 'string' && (
+        {typeof post.thumbnail !== "string" &&
+          typeof post.thumbnail.url === "string" && (
             <Image
               className="w-full aspect-video object-cover"
               src={post.thumbnail.url}
@@ -28,15 +28,15 @@ function DefaultItemComponent({ post }: { post: PostParams }) {
         </div>
       </div>
     </Link>
-  )
+  );
 }
 
 interface AppPostListAsyncProps {
-  hiddenTags: string[]
-  limit: number
-  title?: string
-  posts?: AppPost[]
-  itemComponent?: React.ElementType
+  hiddenTags: string[];
+  limit: number;
+  title?: string;
+  posts?: AppPost[];
+  itemComponent?: React.ElementType;
 }
 
 export default function AppPostListAsync({
@@ -46,21 +46,21 @@ export default function AppPostListAsync({
   posts,
   itemComponent,
 }: AppPostListAsyncProps) {
-  const ItemComponent = itemComponent ? itemComponent : AppPostCard
+  const ItemComponent = itemComponent ? itemComponent : AppPostCard;
 
   const { data, error, isPending } = useQuery({
-    queryKey: ['fetchPostsByHiddenTags', hiddenTags],
+    queryKey: ["fetchPostsByHiddenTags", hiddenTags],
     queryFn: async () => {
-      const posts = await fetchPostsByHiddenTags(hiddenTags, { limit })
-      return posts
+      const posts = await fetchPostsByHiddenTags(hiddenTags, { limit });
+      return posts;
     },
     initialData: { posts: posts || [], hasMore: false },
-  })
+  });
 
   // TODO make skeleton component
-  if (isPending) return null
+  if (isPending) return null;
 
-  if (error) return <p>Error: {error.message}</p>
+  if (error) return <p>Error: {error.message}</p>;
 
   return (
     <div>
@@ -75,5 +75,5 @@ export default function AppPostListAsync({
         ))}
       </ul>
     </div>
-  )
+  );
 }

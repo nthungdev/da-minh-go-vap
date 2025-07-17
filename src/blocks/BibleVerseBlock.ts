@@ -1,24 +1,24 @@
-import { Block } from 'payload'
+import { Block } from "payload";
 
 const BibleVerseBlock: Block = {
-  slug: 'bibleVerseBlock',
+  slug: "bibleVerseBlock",
   labels: {
-    singular: 'Bible Verse',
-    plural: 'Bible Verses',
+    singular: "Bible Verse",
+    plural: "Bible Verses",
   },
-  interfaceName: 'BibleVerseBlock',
+  interfaceName: "BibleVerseBlock",
   fields: [
     {
-      name: 'verse',
-      type: 'text',
+      name: "verse",
+      type: "text",
       required: true,
     },
     {
-      name: 'reference',
-      type: 'text',
+      name: "reference",
+      type: "text",
       required: true,
     },
   ],
-}
+};
 
-export default BibleVerseBlock
+export default BibleVerseBlock;

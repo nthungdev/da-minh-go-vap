@@ -1,6 +1,6 @@
 interface AppSectionHeaderProps {
-  className?: string
-  children: React.ReactNode
+  className?: string;
+  children: React.ReactNode;
 }
 
 export default function AppSectionHeader({
@@ -15,5 +15,5 @@ export default function AppSectionHeader({
     >
       {children}
     </div>
-  )
+  );
 }

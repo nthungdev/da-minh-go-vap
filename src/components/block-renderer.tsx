@@ -1,18 +1,18 @@
-import { AppAccordionDefault } from '@/components/app-accordion'
-import AppCardTabs from '@/components/app-card-tabs'
-import AppMarkdown from '@/components/app-markdown'
-import AppQuote from '@/components/app-quote'
-import AppSpace from '@/components/app-space'
-import AppTabbedPostGroup from '@/components/app-tabbed-post-group'
-import AppTimelineCards from '@/components/app-timeline-cards'
-import ImageSlideshow from '@/components/image-slideshow'
-import PostGroup from '@/components/post-group'
-import TheBibleVerse from '@/components/the-bible-verse'
-import TheLatestPosts from '@/components/the-latest-posts'
-import { BlockType } from '@/definitions'
+import { AppAccordionDefault } from "@/components/app-accordion";
+import AppCardTabs from "@/components/app-card-tabs";
+import AppMarkdown from "@/components/app-markdown";
+import AppQuote from "@/components/app-quote";
+import AppSpace from "@/components/app-space";
+import AppTabbedPostGroup from "@/components/app-tabbed-post-group";
+import AppTimelineCards from "@/components/app-timeline-cards";
+import ImageSlideshow from "@/components/image-slideshow";
+import PostGroup from "@/components/post-group";
+import TheBibleVerse from "@/components/the-bible-verse";
+import TheLatestPosts from "@/components/the-latest-posts";
+import { BlockType } from "@/definitions";
 
 const componentsMap: {
-  [key in BlockType['blockType']]?: React.ComponentType<any>
+  [key in BlockType["blockType"]]?: React.ComponentType<any>;
 } = {
   accordionContentBlock: AppAccordionDefault,
   bibleVerseBlock: TheBibleVerse,
@@ -25,11 +25,11 @@ const componentsMap: {
   timelineBlock: AppTimelineCards,
   quoteBlock: AppQuote,
   imageSlideshowBlock: ImageSlideshow,
-}
+};
 
 function mapComponentProps(block: BlockType) {
   switch (block.blockType) {
-    case 'accordionContentBlock':
+    case "accordionContentBlock":
       return {
         items: block.items.map((item) => ({
           title: item.title,
@@ -43,9 +43,9 @@ function mapComponentProps(block: BlockType) {
             })),
           })),
         })),
-      }
+      };
 
-    case 'bibleVerseBlock':
+    case "bibleVerseBlock":
       return {
         verses: [
           {
@@ -53,78 +53,79 @@ function mapComponentProps(block: BlockType) {
             reference: block.reference as string,
           },
         ],
-      }
+      };
 
-    case 'latestPostGridBlock':
-      return {}
+    case "latestPostGridBlock":
+      return {};
 
-    case 'postGroupBlock':
+    case "postGroupBlock":
       return {
         title: block.title,
         limit: block.limit,
         hasMore: block.viewMoreButton.enableViewMoreButton,
         hiddenTags: block.hiddenTags
-          .filter((tag) => typeof tag !== 'string')
+          .filter((tag) => typeof tag !== "string")
           .map((tag) => tag.tag),
         type: block.displayType,
-      }
+      };
 
-    case 'tabbedPostGroupBlock':
+    case "tabbedPostGroupBlock":
       return {
         title: block.title,
         groups: (block.tabs as any[]).map((tab) => ({
           title: tab.title,
           hiddenTags: tab.hiddenTags.map((t: any) => t.tag),
         })),
-      }
+      };
 
-    case 'tabbedContentBlock':
+    case "tabbedContentBlock":
       return {
         tabs: block.tabs.map((t) => ({
           title: t.title,
           body: t.content,
         })),
-      }
+      };
 
-    case 'spaceBlock':
+    case "spaceBlock":
       return {
         size: block.size,
-      }
+      };
 
-    case 'textBlock':
+    case "textBlock":
       return {
         children: block.content,
-      }
+      };
 
-    case 'quoteBlock':
+    case "quoteBlock":
       return {
         quote: block.content,
-      }
+      };
 
-    case 'timelineBlock':
+    case "timelineBlock":
       return {
         title: block.title,
         cards: block.items.map((item) => ({
           title: item.title,
           thumbnail: item.thumbnail,
-          url: typeof item.link !== 'string' ? item.link?.path : undefined,
+          url: typeof item.link !== "string" ? item.link?.path : undefined,
         })),
-      }
+      };
 
-    case 'imageSlideshowBlock':
+    case "imageSlideshowBlock":
       return {
-        slides: block.images?.filter(image => typeof image !== 'string') || []
-      }
+        slides:
+          block.images?.filter((image) => typeof image !== "string") || [],
+      };
 
     default:
-      return null
+      return null;
   }
 }
 
 const BlockRenderer = ({ block }: { block: BlockType }) => {
-  const Component = componentsMap[block.blockType]
-  if (!Component) return null
-  return <Component {...mapComponentProps(block)!} />
-}
+  const Component = componentsMap[block.blockType];
+  if (!Component) return null;
+  return <Component {...mapComponentProps(block)!} />;
+};
 
-export default BlockRenderer
+export default BlockRenderer;

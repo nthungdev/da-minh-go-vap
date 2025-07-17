@@ -1,9 +1,9 @@
-import AppPage from './app-page'
-import AppPostGridPaginated from './app-post-grid-async-paginated'
+import AppPage from "./app-page";
+import AppPostGridPaginated from "./app-post-grid-async-paginated";
 
 interface AppPageProps {
-  title: string
-  hiddenTags: string[]
+  title: string;
+  hiddenTags: string[];
 }
 
 export default function AppPostsPage({ hiddenTags, title }: AppPageProps) {
@@ -12,5 +12,5 @@ export default function AppPostsPage({ hiddenTags, title }: AppPageProps) {
       <h1 className="uppercase text-2xl">{title}</h1>
       <AppPostGridPaginated hiddenTags={hiddenTags} />
     </AppPage>
-  )
+  );
 }

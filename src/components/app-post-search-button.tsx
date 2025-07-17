@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import {
   ChangeEventHandler,
@@ -9,17 +9,17 @@ import {
   useReducer,
   useRef,
   useState,
-} from 'react'
-import SearchIcon from '@/public/svgs/search.svg'
-import { searchPosts } from '@/actions/search'
-import { HSOverlay, ICollectionItem } from 'preline/preline'
-import AppPostListItem from './app-post-list-item'
-import { createPortal } from 'react-dom'
-import Image from 'next/image'
-import { AppPost } from '@/definitions'
-import { twMerge } from 'tailwind-merge'
+} from "react";
+import SearchIcon from "@/public/svgs/search.svg";
+import { searchPosts } from "@/actions/search";
+import { HSOverlay, ICollectionItem } from "preline/preline";
+import AppPostListItem from "./app-post-list-item";
+import { createPortal } from "react-dom";
+import Image from "next/image";
+import { AppPost } from "@/definitions";
+import { twMerge } from "tailwind-merge";
 
-const PLACEHOLDER = 'Tìm kiếm...'
+const PLACEHOLDER = "Tìm kiếm...";
 
 enum ModalState {
   LOADING,
@@ -29,13 +29,13 @@ enum ModalState {
 }
 
 interface SearchModalProps {
-  id: string
-  posts: AppPost[]
-  input: string
-  state: ModalState
-  containerRef: RefObject<HTMLElement | null>
-  onInputSubmit: FormEventHandler<HTMLFormElement>
-  onInputChange: ChangeEventHandler<HTMLInputElement>
+  id: string;
+  posts: AppPost[];
+  input: string;
+  state: ModalState;
+  containerRef: RefObject<HTMLElement | null>;
+  onInputSubmit: FormEventHandler<HTMLFormElement>;
+  onInputChange: ChangeEventHandler<HTMLInputElement>;
 }
 
 // eslint-disable-next-line react/display-name
@@ -49,7 +49,7 @@ const SearchModal = forwardRef<HTMLDivElement, SearchModalProps>(
       containerRef,
       onInputChange,
       onInputSubmit,
-    } = props
+    } = props;
 
     return containerRef.current
       ? createPortal(
@@ -113,8 +113,8 @@ const SearchModal = forwardRef<HTMLDivElement, SearchModalProps>(
                             post={post}
                             className={twMerge(
                               index % 2 === 0
-                                ? 'bg-primary-50'
-                                : 'bg-primary-100'
+                                ? "bg-primary-50"
+                                : "bg-primary-100",
                             )}
                           />
                         </div>
@@ -125,80 +125,83 @@ const SearchModal = forwardRef<HTMLDivElement, SearchModalProps>(
               </div>
             </div>
           </div>,
-          containerRef.current
+          containerRef.current,
         )
-      : null
-  }
-)
+      : null;
+  },
+);
 
 export default function AppPostSearchButton({ id }: { id: string }) {
-  const bodyRef = useRef<HTMLBodyElement | null>(null)
-  const overlayRef = useRef<HTMLDivElement>(null)
-  const [input, setInput] = useState('')
-  const [posts, setPosts] = useState<AppPost[]>([])
-  const [overlay, setOverlay] = useState<HSOverlay | null>(null)
-  const [_, forceUpdate] = useReducer((x) => x + 1, 0)
-  const [state, setState] = useState(ModalState.EMPTY)
+  const bodyRef = useRef<HTMLBodyElement | null>(null);
+  const overlayRef = useRef<HTMLDivElement>(null);
+  const [input, setInput] = useState("");
+  const [posts, setPosts] = useState<AppPost[]>([]);
+  const [overlay, setOverlay] = useState<HSOverlay | null>(null);
+  const [_, forceUpdate] = useReducer((x) => x + 1, 0);
+  const [state, setState] = useState(ModalState.EMPTY);
 
   const getOverlay = async () => {
     if (overlay) {
-      return overlay
+      return overlay;
     }
 
     const overlayElement = document.querySelector<HTMLElement>(
-      `[data-hs-overlay="#${id}"]`
-    )
+      `[data-hs-overlay="#${id}"]`,
+    );
     if (overlayElement === null) {
-      console.log('element not found')
-      return null
+      console.log("element not found");
+      return null;
     }
 
-    const { HSOverlay } = await import('preline/preline')
+    const { HSOverlay } = await import("preline/preline");
 
-    const overlayInstance = HSOverlay.getInstance(overlayElement, true) as ICollectionItem<HSOverlay>
-    const o = overlayInstance.element
+    const overlayInstance = HSOverlay.getInstance(
+      overlayElement,
+      true,
+    ) as ICollectionItem<HSOverlay>;
+    const o = overlayInstance.element;
 
-    setOverlay(o)
+    setOverlay(o);
 
-    o.on('close', () => {
-      setPosts([])
-      setInput('')
-    })
+    o.on("close", () => {
+      setPosts([]);
+      setInput("");
+    });
 
-    return o
-  }
+    return o;
+  };
 
   const handleInputChange: ChangeEventHandler<HTMLInputElement> = (event) => {
-    setInput(event.target.value)
-  }
+    setInput(event.target.value);
+  };
 
   const handleInputSubmit: FormEventHandler<HTMLFormElement> = async (
-    event
+    event,
   ) => {
-    event.preventDefault()
-    setState(ModalState.LOADING)
-    const results = await searchPosts(input)
-    setPosts(results.map((r) => r.item))
-    setState(ModalState.LOADED)
-  }
+    event.preventDefault();
+    setState(ModalState.LOADING);
+    const results = await searchPosts(input);
+    setPosts(results.map((r) => r.item));
+    setState(ModalState.LOADED);
+  };
 
   const openSearchModal = async () => {
-    const overlay = await getOverlay()
+    const overlay = await getOverlay();
     if (!overlay) {
-      console.log('overlay not found')
-      return
+      console.log("overlay not found");
+      return;
     }
-    overlay.open()
-    overlay.on('close', () => {
-      setPosts([])
-      setInput('')
-    })
-  }
+    overlay.open();
+    overlay.on("close", () => {
+      setPosts([]);
+      setInput("");
+    });
+  };
 
   useEffect(() => {
-    bodyRef.current = document.querySelector('body')
-    forceUpdate()
-  }, [])
+    bodyRef.current = document.querySelector("body");
+    forceUpdate();
+  }, []);
 
   return (
     <div>
@@ -234,5 +237,5 @@ export default function AppPostSearchButton({ id }: { id: string }) {
         onInputSubmit={handleInputSubmit}
       />
     </div>
-  )
+  );
 }

@@ -1,61 +1,61 @@
-import markdownField from '@/fields/markdown'
-import { Block } from 'payload'
+import markdownField from "@/fields/markdown";
+import { Block } from "payload";
 
 const AccordionContentBlock: Block = {
-  slug: 'accordionContentBlock',
+  slug: "accordionContentBlock",
   labels: {
-    singular: 'Accordion',
-    plural: 'Accordions',
+    singular: "Accordion",
+    plural: "Accordions",
   },
-  interfaceName: 'AccordionContentBlock',
+  interfaceName: "AccordionContentBlock",
   fields: [
     {
-      name: 'items',
-      type: 'array',
+      name: "items",
+      type: "array",
       required: true,
       fields: [
         {
-          name: 'title',
-          type: 'text',
+          name: "title",
+          type: "text",
           required: true,
         },
         {
-          ...markdownField('content'),
+          ...markdownField("content"),
           required: true,
         },
         {
-          name: 'children',
-          type: 'array',
+          name: "children",
+          type: "array",
           fields: [
             {
-              name: 'title',
-              type: 'text',
+              name: "title",
+              type: "text",
               required: true,
             },
             {
-              ...markdownField('content'),
+              ...markdownField("content"),
               required: true,
             },
             {
-              name: 'children',
-              type: 'array',
+              name: "children",
+              type: "array",
               fields: [
                 {
-                  name: 'title',
-                  type: 'text',
+                  name: "title",
+                  type: "text",
                   required: true,
                 },
                 {
-                  ...markdownField('content'),
+                  ...markdownField("content"),
                   required: true,
                 },
               ],
-            }
+            },
           ],
-        }
+        },
       ],
-    }
+    },
   ],
-}
+};
 
-export default AccordionContentBlock
+export default AccordionContentBlock;

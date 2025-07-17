@@ -1,13 +1,13 @@
-import AppMultiplePostGrids from './app-multiple-post-grids'
-import AppPage from './app-page'
+import AppMultiplePostGrids from "./app-multiple-post-grids";
+import AppPage from "./app-page";
 
 interface AppGroupedPostsPageProps {
-  title: string
+  title: string;
   categories: {
-    title: string
-    limit?: number
-    hiddenTags: string[]
-  }[]
+    title: string;
+    limit?: number;
+    hiddenTags: string[];
+  }[];
 }
 
 export default async function AppGroupedPostsPage({
@@ -19,5 +19,5 @@ export default async function AppGroupedPostsPage({
       <h1 className="sr-only">{title}</h1>
       <AppMultiplePostGrids postGroups={categories} />
     </AppPage>
-  )
+  );
 }

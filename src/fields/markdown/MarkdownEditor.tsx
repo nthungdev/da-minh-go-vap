@@ -1,20 +1,20 @@
-import React, { useState } from 'react'
-import MDEditor from '@uiw/react-md-editor'
-import rehypeSanitize from 'rehype-sanitize'
+import React, { useState } from "react";
+import MDEditor from "@uiw/react-md-editor";
+import rehypeSanitize from "rehype-sanitize";
 
 interface MarkdownEditorProps {
-  id: string
-  value: string
-  setValue: (value: string) => void
+  id: string;
+  value: string;
+  setValue: (value: string) => void;
 }
 
 export default function MarkdownEditor(props: MarkdownEditorProps) {
-  const [value, setValue] = useState(props.value || '')
+  const [value, setValue] = useState(props.value || "");
 
   function onChange(value?: string) {
-    if (value === undefined) return
-    setValue(value)
-    props.setValue(value)
+    if (value === undefined) return;
+    setValue(value);
+    props.setValue(value);
   }
 
   return (
@@ -27,5 +27,5 @@ export default function MarkdownEditor(props: MarkdownEditorProps) {
         }}
       />
     </div>
-  )
+  );
 }

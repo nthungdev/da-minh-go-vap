@@ -1,5 +1,5 @@
 interface AppSpaceProps {
-  size: number
+  size: number;
 }
 
 function AppSpace(props: AppSpaceProps) {
@@ -9,7 +9,7 @@ function AppSpace(props: AppSpaceProps) {
         height: `${props.size}rem`,
       }}
     ></div>
-  )
+  );
 }
 
-export default AppSpace
+export default AppSpace;

@@ -1,14 +1,14 @@
-'use server'
+"use server";
 
-import { getAllPosts } from '@/utils/post'
-import Fuse from 'fuse.js'
+import { getAllPosts } from "@/utils/post";
+import Fuse from "fuse.js";
 
-const posts = await getAllPosts()
+const posts = await getAllPosts();
 
 const postFuse = new Fuse(posts, {
-  keys: ['title'],
-})
+  keys: ["title"],
+});
 
 export const searchPosts = async (query: string) => {
-  return postFuse.search(query)
-}
+  return postFuse.search(query);
+};

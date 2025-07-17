@@ -1,5 +1,5 @@
 interface AppQuoteProps {
-  quote: string
+  quote: string;
 }
 
 export default function AppQuote(props: AppQuoteProps) {
@@ -11,5 +11,5 @@ export default function AppQuote(props: AppQuoteProps) {
         </p>
       </div>
     </blockquote>
-  )
+  );
 }

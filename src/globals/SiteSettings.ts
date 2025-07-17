@@ -1,14 +1,14 @@
-import { GlobalConfig } from 'payload'
+import { GlobalConfig } from "payload";
 
 const SiteSettings: GlobalConfig = {
-  slug: 'siteSettings',
+  slug: "siteSettings",
   fields: [
     {
-      name: 'logo',
-      type: 'upload',
-      relationTo: 'media',
-    }
+      name: "logo",
+      type: "upload",
+      relationTo: "media",
+    },
   ],
-}
+};
 
-export default SiteSettings
+export default SiteSettings;

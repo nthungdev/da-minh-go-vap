@@ -1,19 +1,19 @@
-import { Block } from 'payload'
+import { Block } from "payload";
 
 const SpaceBlock: Block = {
-  slug: 'spaceBlock',
+  slug: "spaceBlock",
   labels: {
-    singular: 'Space',
-    plural: 'Spaces',
+    singular: "Space",
+    plural: "Spaces",
   },
-  interfaceName: 'SpaceBlock',
+  interfaceName: "SpaceBlock",
   fields: [
     {
-      name: 'size',
-      type: 'number',
+      name: "size",
+      type: "number",
       required: true,
-    }
+    },
   ],
-}
+};
 
-export default SpaceBlock
+export default SpaceBlock;

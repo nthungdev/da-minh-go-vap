@@ -15,5 +15,5 @@ export default function AppPostGridSkeleton({ count }: { count: number }) {
         </li>
       ))}
     </ul>
-  )
+  );
 }

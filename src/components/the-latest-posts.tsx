@@ -1,26 +1,26 @@
-import Image from 'next/image'
-import Link from 'next/link'
-import AppPostCard from './app-post-card'
-import { fetchAllPosts } from '@/actions/post'
-import { twMerge } from 'tailwind-merge'
+import Image from "next/image";
+import Link from "next/link";
+import AppPostCard from "./app-post-card";
+import { fetchAllPosts } from "@/actions/post";
+import { twMerge } from "tailwind-merge";
 
 interface TheLatestPostsProps {
-  className?: string
+  className?: string;
 }
 
-const POST_COUNT = 5
+const POST_COUNT = 5;
 
 export default async function TheLatestPosts(props: TheLatestPostsProps) {
-  const { className } = props
+  const { className } = props;
 
-  const latestPosts = await fetchAllPosts({ limit: POST_COUNT })
+  const latestPosts = await fetchAllPosts({ limit: POST_COUNT });
 
   if (latestPosts.length < 1) {
-    return <div>No post found</div>
+    return <div>No post found</div>;
   }
 
-  const latestPost = latestPosts[0]!
-  const otherPosts = latestPosts.slice(1, 5)
+  const latestPost = latestPosts[0]!;
+  const otherPosts = latestPosts.slice(1, 5);
 
   return (
     <div
@@ -31,8 +31,8 @@ export default async function TheLatestPosts(props: TheLatestPostsProps) {
         className="col-span-2 aspect-video lg:aspect-auto"
       >
         <div className="w-full h-full bg-blue-200 relative overflow-hidden hover:cursor-pointer hover:ring-2">
-          {typeof latestPost.thumbnail !== 'string' &&
-            typeof latestPost.thumbnail?.url === 'string' && (
+          {typeof latestPost.thumbnail !== "string" &&
+            typeof latestPost.thumbnail?.url === "string" && (
               <Image
                 className="object-cover"
                 src={latestPost.thumbnail.url}
@@ -50,7 +50,7 @@ export default async function TheLatestPosts(props: TheLatestPostsProps) {
               {latestPost.title}
             </span>
             <span className="text-xs lg:text-sm text-gray-200">
-              {latestPost.publishedAt.toLocaleDateString('vi-VN')}
+              {latestPost.publishedAt.toLocaleDateString("vi-VN")}
             </span>
           </div>
         </div>
@@ -61,10 +61,10 @@ export default async function TheLatestPosts(props: TheLatestPostsProps) {
           <AppPostCard
             key={index}
             post={post}
-            className={twMerge('border lg:border-transparent bg-primary-1')}
+            className={twMerge("border lg:border-transparent bg-primary-1")}
           />
         ))}
       </div>
     </div>
-  )
+  );
 }

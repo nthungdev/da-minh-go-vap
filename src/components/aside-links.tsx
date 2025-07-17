@@ -1,14 +1,14 @@
-import AppSectionHeader from '@/components/app-section-header'
-import { Media } from '@/payload-types'
-import Image from 'next/image'
-import Link from 'next/link'
+import AppSectionHeader from "@/components/app-section-header";
+import { Media } from "@/payload-types";
+import Image from "next/image";
+import Link from "next/link";
 
 interface AsideLinksProps {
-  title: string
+  title: string;
   links: {
-    url: string
-    image: Media
-  }[]
+    url: string;
+    image: Media;
+  }[];
 }
 
 export default function AsideLinks({ title, links = [] }: AsideLinksProps) {
@@ -23,8 +23,8 @@ export default function AsideLinks({ title, links = [] }: AsideLinksProps) {
               href={link.url}
               className="relative w-full block aspect-[4] border border-transparent hover:ring"
             >
-              {typeof link.image !== 'string' &&
-                typeof link.image.url === 'string' && (
+              {typeof link.image !== "string" &&
+                typeof link.image.url === "string" && (
                   <Image
                     className="object-cover"
                     src={link.image.url}
@@ -37,5 +37,5 @@ export default function AsideLinks({ title, links = [] }: AsideLinksProps) {
         ))}
       </ul>
     </div>
-  )
+  );
 }

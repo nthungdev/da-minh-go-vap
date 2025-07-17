@@ -13,6 +13,8 @@
     "prestandalone": "pnpm run payload migrate && pnpm run build:generate && cp -r public .next/standalone/ && cp -r .next/static .next/standalone/.next/",
     "standalone": "node ./.next/standalone/server.js",
     "lint": "next lint",
+    "prettier": "prettier --check .",
+    "prettier:fix": "prettier --write .",
     "reinstall": "cross-env NODE_OPTIONS=--no-deprecation rm -rf node_modules && rm pnpm-lock.yaml && pnpm --ignore-workspace install",
     "generate:importmap": "cross-env NODE_OPTIONS=--no-deprecation payload generate:importmap",
     "generate:types": "cross-env NODE_OPTIONS=--no-deprecation payload generate:types",
@@ -61,6 +63,7 @@
     "eslint-config-next": "15.1.3",
     "frontmatter-markdown-loader": "^3.7.0",
     "postcss": "^8.5.3",
+    "prettier": "^3.6.2",
     "tailwindcss": "^3.4.17",
     "typescript": "^5.8.2"
   },

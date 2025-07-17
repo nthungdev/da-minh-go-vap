@@ -1,18 +1,18 @@
-'use client'
+"use client";
 
-import { Carousel } from 'flowbite-react'
-import type { CarouselProps } from 'flowbite-react'
-import { Children } from 'react'
+import { Carousel } from "flowbite-react";
+import type { CarouselProps } from "flowbite-react";
+import { Children } from "react";
 
-const DEFAULT_SLIDE_INTERVAL = 5000 // 5 seconds
+const DEFAULT_SLIDE_INTERVAL = 5000; // 5 seconds
 
 interface AppCarouselProps extends CarouselProps {}
 
 export default function AppCarousel(props: AppCarouselProps) {
-  const { children, ...otherProps } = props
+  const { children, ...otherProps } = props;
 
-  const childrenCount = Children.count(children)
-  const singleChild = childrenCount === 1
+  const childrenCount = Children.count(children);
+  const singleChild = childrenCount === 1;
 
   return (
     <Carousel
@@ -22,7 +22,7 @@ export default function AppCarousel(props: AppCarouselProps) {
       draggable={false}
       theme={{
         scrollContainer: {
-          base: 'flex h-full snap-mandatory overflow-y-hidden overflow-x-scroll scroll-smooth rounded-none',
+          base: "flex h-full snap-mandatory overflow-y-hidden overflow-x-scroll scroll-smooth rounded-none",
         },
       }}
       // Hide controls and indicators if there is only one child
@@ -32,5 +32,5 @@ export default function AppCarousel(props: AppCarouselProps) {
     >
       {children}
     </Carousel>
-  )
+  );
 }

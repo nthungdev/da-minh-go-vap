@@ -1,190 +1,193 @@
-import { GlobalConfig } from 'payload'
+import { GlobalConfig } from "payload";
 
-function linkValidation(linkType: 'internal' | 'external') {
+function linkValidation(linkType: "internal" | "external") {
   return function (val: any, { siblingData }: { siblingData: Partial<any> }) {
     if (siblingData.linkType === linkType && !val) {
-      return 'This field is required'
+      return "This field is required";
     }
-    return true
-  }
+    return true;
+  };
 }
 
 const NavBar: GlobalConfig = {
-  slug: 'navBar',
+  slug: "navBar",
   typescript: {
-    interface: 'NavBar',
+    interface: "NavBar",
   },
   fields: [
     // TODO pageBanners ?
     {
-      name: 'bottomDecorativeGraphic',
-      type: 'group',
+      name: "bottomDecorativeGraphic",
+      type: "group",
       fields: [
         {
-          name: 'enable',
-          type: 'checkbox',
+          name: "enable",
+          type: "checkbox",
           defaultValue: true,
         },
         {
-          name: 'imageDesktop',
-          type: 'upload',
-          relationTo: 'media',
+          name: "imageDesktop",
+          type: "upload",
+          relationTo: "media",
           required: true,
         },
         {
-          name: 'imageMobile',
-          type: 'upload',
-          relationTo: 'media',
+          name: "imageMobile",
+          type: "upload",
+          relationTo: "media",
           required: true,
         },
       ],
+      admin: {
+        description: "Hình trang trí bên dưới thanh điều hướng",
+      },
     },
     {
-      name: 'menu',
-      type: 'array',
+      name: "menu",
+      type: "array",
       required: true,
       minRows: 0,
       fields: [
         {
-          name: 'label',
-          type: 'text',
+          name: "label",
+          type: "text",
           required: true,
         },
         {
-          name: 'linkType',
-          label: 'Link Type',
-          type: 'radio',
+          name: "linkType",
+          label: "Link Type",
+          type: "radio",
           required: true,
           options: [
             {
-              label: 'Internal Page',
-              value: 'internal',
+              label: "Internal Page",
+              value: "internal",
             },
             {
-              label: 'External URL',
-              value: 'external',
+              label: "External URL",
+              value: "external",
             },
           ],
-          defaultValue: 'internal',
+          defaultValue: "internal",
           admin: {
-            layout: 'horizontal',
+            layout: "horizontal",
           },
         },
         {
-          name: 'internalLink',
-          label: 'Internal Page',
-          type: 'relationship',
-          relationTo: 'pages',
+          name: "internalLink",
+          label: "Internal Page",
+          type: "relationship",
+          relationTo: "pages",
           admin: {
-            condition: (_, siblingData) => siblingData.linkType === 'internal',
+            condition: (_, siblingData) => siblingData.linkType === "internal",
           },
-          validate: linkValidation('internal'),
+          validate: linkValidation("internal"),
         },
         {
-          name: 'externalLink',
-          label: 'External URL',
-          type: 'text',
+          name: "externalLink",
+          label: "External URL",
+          type: "text",
           admin: {
-            condition: (_, siblingData) => siblingData.linkType === 'external',
+            condition: (_, siblingData) => siblingData.linkType === "external",
           },
 
-          validate: linkValidation('external'),
+          validate: linkValidation("external"),
         },
         {
-          name: 'subMenu',
-          type: 'array',
+          name: "subMenu",
+          type: "array",
           fields: [
             {
-              name: 'label',
-              type: 'text',
+              name: "label",
+              type: "text",
               required: true,
             },
             {
-              name: 'linkType',
-              label: 'Link Type',
-              type: 'radio',
+              name: "linkType",
+              label: "Link Type",
+              type: "radio",
               required: true,
               options: [
                 {
-                  label: 'Internal Page',
-                  value: 'internal',
+                  label: "Internal Page",
+                  value: "internal",
                 },
                 {
-                  label: 'External URL',
-                  value: 'external',
+                  label: "External URL",
+                  value: "external",
                 },
               ],
-              defaultValue: 'internal',
-              admin: { layout: 'horizontal' },
+              defaultValue: "internal",
+              admin: { layout: "horizontal" },
             },
             {
-              name: 'internalLink',
-              label: 'Internal Page',
-              type: 'relationship',
-              relationTo: 'pages',
+              name: "internalLink",
+              label: "Internal Page",
+              type: "relationship",
+              relationTo: "pages",
               admin: {
                 condition: (_, siblingData) =>
-                  siblingData.linkType === 'internal',
+                  siblingData.linkType === "internal",
               },
-              validate: linkValidation('internal'),
+              validate: linkValidation("internal"),
             },
             {
-              name: 'externalLink',
-              label: 'External URL',
-              type: 'text',
+              name: "externalLink",
+              label: "External URL",
+              type: "text",
               admin: {
                 condition: (_, siblingData) =>
-                  siblingData.linkType === 'external',
+                  siblingData.linkType === "external",
               },
-              validate: linkValidation('external'),
+              validate: linkValidation("external"),
             },
             {
-              name: 'subMenu',
-              type: 'array',
+              name: "subMenu",
+              type: "array",
               fields: [
                 {
-                  name: 'label',
-                  type: 'text',
+                  name: "label",
+                  type: "text",
                   required: true,
                 },
                 {
-                  name: 'linkType',
-                  label: 'Link Type',
-                  type: 'radio',
+                  name: "linkType",
+                  label: "Link Type",
+                  type: "radio",
                   required: true,
                   options: [
                     {
-                      label: 'Internal Page',
-                      value: 'internal',
+                      label: "Internal Page",
+                      value: "internal",
                     },
                     {
-                      label: 'External URL',
-                      value: 'external',
+                      label: "External URL",
+                      value: "external",
                     },
                   ],
-                  defaultValue: 'internal',
-                  admin: { layout: 'horizontal' },
+                  defaultValue: "internal",
+                  admin: { layout: "horizontal" },
                 },
                 {
-                  name: 'internalLink',
-                  label: 'Internal Page',
-                  type: 'relationship',
-                  relationTo: 'pages',
+                  name: "internalLink",
+                  label: "Internal Page",
+                  type: "relationship",
+                  relationTo: "pages",
                   admin: {
                     condition: (_, siblingData) =>
-                      siblingData.linkType === 'internal',
+                      siblingData.linkType === "internal",
                   },
-                  validate: linkValidation('internal'),
+                  validate: linkValidation("internal"),
                 },
                 {
-                  name: 'externalLink',
-                  label: 'External URL',
-                  type: 'text',
+                  name: "externalLink",
+                  label: "External URL",
+                  type: "text",
                   admin: {
                     condition: (_, siblingData) =>
-                      siblingData.linkType === 'external',
+                      siblingData.linkType === "external",
                   },
-                  validate: linkValidation('external'),
+                  validate: linkValidation("external"),
                 },
               ],
             },
@@ -193,6 +196,6 @@ const NavBar: GlobalConfig = {
       ],
     },
   ],
-}
+};
 
-export default NavBar
+export default NavBar;
