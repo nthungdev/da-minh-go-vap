@@ -31,7 +31,7 @@ const eslintConfig = [
     },
   },
   {
-    ignores: [".next/"],
+    ignores: [".next", ".pnpm-store", "node_modules"],
   },
 ];
 
