@@ -21,7 +21,7 @@ export default function AppPage({
 
   return (
     <main className='w-full' {...props}>
-      {banners && <AppBanners banners={banners} />}
+      {!!banners?.length && <AppBanners banners={banners} />}
       <div
         className={twMerge(
           'w-full py-8 px-4 mx-auto max-w-screen-xl',
