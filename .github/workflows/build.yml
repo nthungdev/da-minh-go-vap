@@ -1,0 +1,62 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [22]
+    services:
+      mongo:
+        image: mongo:latest
+        ports:
+          - 27017:27017
+        env:
+          MONGO_INITDB_ROOT_USERNAME: ${{ secrets.MONGO_INITDB_ROOT_USERNAME }}
+          MONGO_INITDB_ROOT_PASSWORD: ${{ secrets.MONGO_INITDB_ROOT_PASSWORD }}
+        options: >-
+          --health-cmd="mongosh --eval 'db.adminCommand(\"ping\")'"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
+    env:
+      PAYLOAD_SECRET: ${{ secrets.PAYLOAD_SECRET }}
+      PAYLOAD_ADMIN_EMAIL: ${{ secrets.PAYLOAD_ADMIN_EMAIL }}
+      PAYLOAD_ADMIN_PASSWORD: ${{ secrets.PAYLOAD_ADMIN_PASSWORD }}
+      DATABASE_URI: ${{ secrets.DATABASE_URI }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Create .env file
+        run: touch .env
+
+      # - name: Inject environment secrets
+      #   run: |
+      #     echo "PAYLOAD_SECRET=${{ secrets.PAYLOAD_SECRET }}" >> .env
+      #     echo "PAYLOAD_ADMIN_EMAIL=${{ secrets.PAYLOAD_ADMIN_PASSWORD }}" >> .env
+      #     echo "UPSTASH_REDIS_REST_URL=${{ secrets.UPSTASH_REDIS_REST_URL }}" >> .env
+      #     echo "VENERA_API_BASE_URL=${{ secrets.VENERA_API_BASE_URL }}" >> .env
+
+      - name: Build
+        run: pnpm build

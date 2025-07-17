@@ -1,0 +1,61 @@
+name: Lint
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  lint:
+    name: Lint and Format Check
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [20]
+    permissions:
+      contents: read
+      security-events: write
+      actions: read # Needed for SARIF upload in private repos
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Run ESLint and Prettier
+        run: |
+          hasError=false
+
+          echo "Running ESLint..."
+          pnpm lint || { hasError=true; }
+
+          echo "Running Prettier..."
+          pnpm prettier || { hasError=true; }
+
+          if [ "$hasError" = true ]; then
+            echo "Lint failed. Please fix the errors.";
+            echo "Try running 'pnpm lint:fix'";
+            exit 1;
+          fi
+
+        continue-on-error: false
+
+      ## Requires GitHub Advanced Security to be enabled
+      ## https://github.com/enterprise/advanced-security#pricing
+      ## Make sure to format ESLint report as SARIF
+      # - name: Upload analysis results to GitHub
+      #   uses: github/codeql-action/upload-sarif@v3
+      #   with:
+      #     sarif_file: eslint-results.sarif
+      #     wait-for-processing: true
