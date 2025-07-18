@@ -4,37 +4,6 @@ import Link from "next/link";
 import { getPayload } from "payload";
 import config from "@payload-config";
 
-function Contact({
-  name,
-  phone,
-  email,
-  address,
-  marketingEmail,
-}: {
-  name: string;
-  phone: string;
-  email: string;
-  address: string;
-  marketingEmail: string;
-}) {
-  return (
-    <div>
-      <p className="font-bold mb-1">{name}</p>
-      <Markdown>{address}</Markdown>
-      <p>
-        Đt: <a href={`tel:${phone}`}>{phone}</a>
-      </p>
-      <p>
-        Email: <a href={`mailto:${email}`}>{email}</a>
-      </p>
-      <p>
-        Ban truyền thông:{" "}
-        <a href={`mailto:${marketingEmail}`}>{marketingEmail}</a>
-      </p>
-    </div>
-  );
-}
-
 export default async function TheFooter() {
   const payload = await getPayload({ config });
   const footer = await payload.findGlobal({ slug: "footer" });
@@ -68,13 +37,14 @@ export default async function TheFooter() {
         )}
 
       <div className="bg-primary">
+        {/* layout for small screens */}
         <div className="p-4 max-w-screen-xl sm:hidden flex flex-col md:flex-row gap-8 text-white text-left">
           <Contact
-            name={footer.contact.name || ""}
-            phone={footer.contact.phone || ""}
-            email={footer.contact.email || ""}
-            address={footer.contact.address || ""}
-            marketingEmail={footer.contact.marketingEmail || ""}
+            name={footer.contact.name}
+            phone={footer.contact.phone}
+            email={footer.contact.email}
+            address={footer.contact.address}
+            marketingEmail={footer.contact.marketingEmail}
           />
 
           <div className="flex flex-col md:flex-row gap-x-4">
@@ -92,13 +62,13 @@ export default async function TheFooter() {
       </div>
 
       {/* layout for large screens */}
-      <div className="hidden sm:flex flex-col md:flex-row absolute left-0 bottom-0 px-4 py-4 max-w-screen-xl gap-8 text-white text-left text-[0.9vw] 3xl:text-xl">
+      <div className="hidden sm:flex flex-col md:flex-row left-0 bottom-0 px-4 py-4 max-w-screen-xl gap-8 bg-primary text-white text-left text-[0.9vw] 3xl:text-xl">
         <Contact
-          name={footer.contact.name || ""}
-          phone={footer.contact.phone || ""}
-          email={footer.contact.email || ""}
-          address={footer.contact.address || ""}
-          marketingEmail={footer.contact.marketingEmail || ""}
+          name={footer.contact.name}
+          phone={footer.contact.phone}
+          email={footer.contact.email}
+          address={footer.contact.address}
+          marketingEmail={footer.contact.marketingEmail}
         />
 
         <div className="flex flex-col md:flex-row gap-x-4">
@@ -114,5 +84,36 @@ export default async function TheFooter() {
         </div>
       </div>
     </footer>
+  );
+}
+
+function Contact({
+  name,
+  phone,
+  email,
+  address,
+  marketingEmail,
+}: {
+  name: string;
+  phone: string;
+  email: string;
+  address: string;
+  marketingEmail: string;
+}) {
+  return (
+    <div>
+      <p className="font-bold mb-1">{name}</p>
+      <Markdown>{address}</Markdown>
+      <p>
+        Đt: <a href={`tel:${phone}`}>{phone}</a>
+      </p>
+      <p>
+        Email: <a href={`mailto:${email}`}>{email}</a>
+      </p>
+      <p>
+        Ban truyền thông:{" "}
+        <a href={`mailto:${marketingEmail}`}>{marketingEmail}</a>
+      </p>
+    </div>
   );
 }

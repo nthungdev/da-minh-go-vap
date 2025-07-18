@@ -98,6 +98,7 @@ export default async function RootLayout({
         <ReactQueryProvider>
           <div className="flex-1">{children}</div>
         </ReactQueryProvider>
+
         <TheFooter />
       </body>
     </html>
