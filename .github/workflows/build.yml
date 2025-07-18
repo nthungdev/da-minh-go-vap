@@ -18,8 +18,8 @@ jobs:
         ports:
           - 27017:27017
         env:
-          MONGO_INITDB_ROOT_USERNAME: ${{ secrets.MONGO_INITDB_ROOT_USERNAME }}
-          MONGO_INITDB_ROOT_PASSWORD: ${{ secrets.MONGO_INITDB_ROOT_PASSWORD }}
+          MONGO_INITDB_ROOT_USERNAME: admin
+          MONGO_INITDB_ROOT_PASSWORD: admin
         options: >-
           --health-cmd="mongosh --eval 'db.adminCommand(\"ping\")'"
           --health-interval=10s
@@ -30,7 +30,8 @@ jobs:
       PAYLOAD_SECRET: ${{ secrets.PAYLOAD_SECRET }}
       PAYLOAD_ADMIN_EMAIL: ${{ secrets.PAYLOAD_ADMIN_EMAIL }}
       PAYLOAD_ADMIN_PASSWORD: ${{ secrets.PAYLOAD_ADMIN_PASSWORD }}
-      DATABASE_URI: ${{ secrets.DATABASE_URI }}
+      # DATABASE_URI: ${{ secrets.DATABASE_URI }}
+      DATABASE_URI: mongodb://admin:admin@localhost:27017/da-minh-go-vap?authSource=admin
 
     steps:
       - name: Checkout code
