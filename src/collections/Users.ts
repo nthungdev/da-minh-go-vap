@@ -11,10 +11,12 @@ const Users: CollectionConfig = {
       if (!req.user) return false;
       return true;
     },
-    update: ({ req }) => {
+    update: ({ req, id }) => {
       if (!req.user) return false;
       if (req.user.role === "admin") return true;
-      return req.user.id === req?.data?.id;
+      // Allow users to update their own data
+      if (req.user.id === id) return true;
+      return false;
     },
     create: ({ req }) => {
       return req?.user?.role === "admin";
