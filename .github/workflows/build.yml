@@ -48,8 +48,8 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Create .env file
-        run: touch .env
+      # - name: Create .env file
+        # run: touch .env
 
       # - name: Inject environment secrets
       #   run: |
@@ -57,6 +57,9 @@ jobs:
       #     echo "PAYLOAD_ADMIN_EMAIL=${{ secrets.PAYLOAD_ADMIN_PASSWORD }}" >> .env
       #     echo "UPSTASH_REDIS_REST_URL=${{ secrets.UPSTASH_REDIS_REST_URL }}" >> .env
       #     echo "VENERA_API_BASE_URL=${{ secrets.VENERA_API_BASE_URL }}" >> .env
+
+      - name: Generate Payload types
+        run: pnpm generate
 
       - name: Build
         run: pnpm build
