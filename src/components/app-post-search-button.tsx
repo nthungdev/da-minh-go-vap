@@ -19,8 +19,6 @@ import Image from "next/image";
 import { AppPost } from "@/definitions";
 import { twMerge } from "tailwind-merge";
 
-const PLACEHOLDER = "Tìm kiếm...";
-
 enum ModalState {
   LOADING,
   LOADED,
@@ -137,7 +135,7 @@ export default function AppPostSearchButton({ id }: { id: string }) {
   const [input, setInput] = useState("");
   const [posts, setPosts] = useState<AppPost[]>([]);
   const [overlay, setOverlay] = useState<HSOverlay | null>(null);
-  const [_, forceUpdate] = useReducer((x) => x + 1, 0);
+  const [, forceUpdate] = useReducer((x) => x + 1, 0);
   const [state, setState] = useState(ModalState.EMPTY);
 
   const getOverlay = async () => {

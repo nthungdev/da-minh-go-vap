@@ -6,9 +6,7 @@ import { Children } from "react";
 
 const DEFAULT_SLIDE_INTERVAL = 5000; // 5 seconds
 
-interface AppCarouselProps extends CarouselProps {}
-
-export default function AppCarousel(props: AppCarouselProps) {
+export default function AppCarousel(props: CarouselProps) {
   const { children, ...otherProps } = props;
 
   const childrenCount = Children.count(children);

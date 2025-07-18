@@ -1,9 +1,9 @@
 import { VideoHTMLAttributes } from "react";
 import { twMerge } from "tailwind-merge";
 
-interface AppBannerVideoProps extends VideoHTMLAttributes<HTMLVideoElement> {}
-
-export default function AppBannerVideo(props: AppBannerVideoProps) {
+export default function AppBannerVideo(
+  props: VideoHTMLAttributes<HTMLVideoElement>,
+) {
   return (
     <video
       className={twMerge("object-cover h-full w-full", props.className)}

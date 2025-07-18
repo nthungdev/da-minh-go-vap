@@ -12,6 +12,7 @@
     "start": "next start",
     "prestandalone": "pnpm run payload migrate && pnpm run build:generate && cp -r public .next/standalone/ && cp -r .next/static .next/standalone/.next/",
     "standalone": "node ./.next/standalone/server.js",
+    "check-types": "tsc --noemit",
     "lint": "next lint",
     "prettier": "prettier --check .",
     "prettier:fix": "prettier --write .",

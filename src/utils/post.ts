@@ -19,7 +19,7 @@ export const getPostBySlug = async (slug: string) => {
       return null;
     }
     return postToAppPost(post);
-  } catch (error) {
+  } catch {
     return null;
   }
 };
