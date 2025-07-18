@@ -1,13 +1,13 @@
-import { Block } from 'payload'
+import { Block } from "payload";
 
 const LatestPostGridBlock: Block = {
-  slug: 'latestPostGridBlock',
+  slug: "latestPostGridBlock",
   labels: {
-    singular: 'Latest Post Grid',
-    plural: 'Latest Post Grids',
+    singular: "Latest Post Grid",
+    plural: "Latest Post Grids",
   },
-  interfaceName: 'LatestPostGridBlock',
+  interfaceName: "LatestPostGridBlock",
   fields: [],
-}
+};
 
-export default LatestPostGridBlock
+export default LatestPostGridBlock;

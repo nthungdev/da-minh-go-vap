@@ -20,7 +20,12 @@ body {
   @apply text-gray-900;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   @apply font-header;
 }
 
@@ -44,7 +49,12 @@ h1, h2, h3, h4, h5, h6 {
   .markdown {
     @apply leading-6;
 
-    h1, h2, h3, h4, h5, h6 {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
       @apply mt-4 mb-1;
     }
     h1 {
@@ -58,4 +68,3 @@ h1, h2, h3, h4, h5, h6 {
     }
   }
 }
-

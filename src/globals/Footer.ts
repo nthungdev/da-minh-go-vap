@@ -1,61 +1,61 @@
-import { GlobalConfig } from 'payload'
+import { GlobalConfig } from "payload";
 
 const Footer: GlobalConfig = {
-  slug: 'footer',
+  slug: "footer",
   fields: [
     {
-      name: 'topFooterDecorativeGraphic',
-      type: 'upload',
-      relationTo: 'media',
+      name: "topFooterDecorativeGraphic",
+      type: "upload",
+      relationTo: "media",
     },
     {
-      name: 'contact',
-      type: 'group',
+      name: "contact",
+      type: "group",
       fields: [
         {
-          name: 'name',
-          type: 'text',
+          name: "name",
+          type: "text",
           required: true,
         },
         {
-          name: 'address',
-          type: 'text',
+          name: "address",
+          type: "text",
           required: true,
         },
         {
-          name: 'phone',
-          type: 'text',
+          name: "phone",
+          type: "text",
           required: true,
         },
         {
-          name: 'email',
-          type: 'text',
+          name: "email",
+          type: "text",
           required: true,
         },
         {
-          name: 'marketingEmail',
-          type: 'text',
+          name: "marketingEmail",
+          type: "text",
           required: true,
         },
       ],
     },
     {
-      name: 'externalLinks',
-      type: 'array',
+      name: "externalLinks",
+      type: "array",
       fields: [
         {
-          name: 'name',
-          type: 'text',
+          name: "name",
+          type: "text",
           required: true,
         },
         {
-          name: 'url',
-          type: 'text',
+          name: "url",
+          type: "text",
           required: true,
         },
       ],
     },
   ],
-}
+};
 
-export default Footer
+export default Footer;

@@ -1,44 +1,44 @@
-import type { Metadata } from 'next'
-import { Montserrat, Nunito } from 'next/font/google'
-import { twMerge } from 'tailwind-merge'
-import ThePrelineScript from '@/components/the-preline-script'
-import TheFooter from '@/components/the-footer'
-import TheMobileNavbar from '@/components/the-mobile-navbar'
-import TheDesktopNavbar from '@/components/the-desktop-navbar'
-import ReactQueryProvider from '@/components/providers/react-query-provider'
-import { getMenu } from '@/utils/menu'
-import { getLogo } from '@/utils/siteSettings'
-import { getPayload } from 'payload'
-import config from '@payload-config'
-import './globals.css'
+import type { Metadata } from "next";
+import { Montserrat, Nunito } from "next/font/google";
+import { twMerge } from "tailwind-merge";
+import ThePrelineScript from "@/components/the-preline-script";
+import TheFooter from "@/components/the-footer";
+import TheMobileNavbar from "@/components/the-mobile-navbar";
+import TheDesktopNavbar from "@/components/the-desktop-navbar";
+import ReactQueryProvider from "@/components/providers/react-query-provider";
+import { getMenu } from "@/utils/menu";
+import { getLogo } from "@/utils/siteSettings";
+import { getPayload } from "payload";
+import config from "@payload-config";
+import "./globals.css";
 
 const montserrat = Montserrat({
-  subsets: ['vietnamese'],
-  variable: '--font-montserrat',
-})
+  subsets: ["vietnamese"],
+  variable: "--font-montserrat",
+});
 
 const nunito = Nunito({
-  subsets: ['vietnamese'],
-  variable: '--font-nunito',
-})
+  subsets: ["vietnamese"],
+  variable: "--font-nunito",
+});
 
 export const metadata: Metadata = {
-  title: 'Đa Minh Gò Vấp',
-  description: 'Hội dòng Đa Minh Gò Vấp',
-}
+  title: "Đa Minh Gò Vấp",
+  description: "Hội dòng Đa Minh Gò Vấp",
+};
 
-const language = 'vi'
+const language = "vi";
 
 export default async function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode
+  children: React.ReactNode;
 }>) {
-  const payload = await getPayload({ config })
-  const navBar = await payload.findGlobal({ slug: 'navBar' })
+  const payload = await getPayload({ config });
+  const navBar = await payload.findGlobal({ slug: "navBar" });
 
-  const menu = await getMenu()
-  const logo = await getLogo()
+  const menu = await getMenu();
+  const logo = await getLogo();
 
   return (
     <html
@@ -49,7 +49,7 @@ export default async function RootLayout({
 
       <body
         className={twMerge(
-          'relative bg-white flex flex-col w-full min-h-screen'
+          "relative bg-white flex flex-col w-full min-h-screen",
         )}
       >
         <TheDesktopNavbar
@@ -65,27 +65,27 @@ export default async function RootLayout({
 
         <div className="relative">
           <picture className="w-full block absolute -bottom-[1px] z-10">
-            {typeof navBar.bottomDecorativeGraphic?.imageMobile !== 'string' &&
+            {typeof navBar.bottomDecorativeGraphic?.imageMobile !== "string" &&
               typeof navBar.bottomDecorativeGraphic?.imageMobile?.url ===
-                'string' && (
+                "string" && (
                 <source
                   media="(max-width: 799px)"
                   srcSet={navBar.bottomDecorativeGraphic.imageMobile.url}
                 />
               )}
 
-            {typeof navBar.bottomDecorativeGraphic?.imageDesktop !== 'string' &&
+            {typeof navBar.bottomDecorativeGraphic?.imageDesktop !== "string" &&
               typeof navBar.bottomDecorativeGraphic?.imageDesktop?.url ===
-                'string' && (
+                "string" && (
                 <source
                   media="(min-width: 800px)"
                   srcSet={navBar.bottomDecorativeGraphic.imageDesktop.url}
                 />
               )}
 
-            {typeof navBar.bottomDecorativeGraphic?.imageMobile !== 'string' &&
+            {typeof navBar.bottomDecorativeGraphic?.imageMobile !== "string" &&
               typeof navBar.bottomDecorativeGraphic?.imageMobile?.url ===
-                'string' && (
+                "string" && (
                 <img
                   className="w-full"
                   src={navBar.bottomDecorativeGraphic.imageMobile.url}
@@ -101,5 +101,5 @@ export default async function RootLayout({
         <TheFooter />
       </body>
     </html>
-  )
+  );
 }

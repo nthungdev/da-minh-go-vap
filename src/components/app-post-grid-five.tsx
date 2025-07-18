@@ -1,13 +1,13 @@
-'use client'
+"use client";
 
-import Image from 'next/image'
-import Link from 'next/link'
-import type { PostParams } from '@/definitions'
-import { twMerge } from 'tailwind-merge'
+import Image from "next/image";
+import Link from "next/link";
+import type { PostParams } from "@/definitions";
+import { twMerge } from "tailwind-merge";
 
 interface AppPostGridFiveProps {
-  posts: PostParams[]
-  className?: string
+  posts: PostParams[];
+  className?: string;
 }
 
 export default function AppPostGridSix({
@@ -15,13 +15,13 @@ export default function AppPostGridSix({
   className,
 }: AppPostGridFiveProps) {
   const cellClasses: Record<number, string> = {
-    0: '',
-    1: 'row-start-2 col-start-1',
-    2: 'md:col-start-2 row-start-1 md:row-span-2 md:col-span-2',
-    3: '',
-    4: '',
-    5: '',
-  }
+    0: "",
+    1: "row-start-2 col-start-1",
+    2: "md:col-start-2 row-start-1 md:row-span-2 md:col-span-2",
+    3: "",
+    4: "",
+    5: "",
+  };
 
   return (
     <ul
@@ -32,8 +32,8 @@ export default function AppPostGridSix({
         <li
           key={index}
           className={twMerge(
-            'relative md:aspect-video overflow-hidden block w-full min-w-0 bg-white border md:border-transparent hover:ring',
-            cellClasses[index]
+            "relative md:aspect-video overflow-hidden block w-full min-w-0 bg-white border md:border-transparent hover:ring",
+            cellClasses[index],
           )}
         >
           <Link
@@ -41,8 +41,8 @@ export default function AppPostGridSix({
             className="relative w-full h-full block overflow-hidden hover:ring-2"
           >
             <div className="relative aspect-video bg-gray-50">
-              {typeof post.thumbnail !== 'string' &&
-                typeof post.thumbnail?.url === 'string' && (
+              {typeof post.thumbnail !== "string" &&
+                typeof post.thumbnail?.url === "string" && (
                   <Image
                     className="object-cover"
                     src={post.thumbnail.url}
@@ -75,5 +75,5 @@ export default function AppPostGridSix({
         </li>
       ))}
     </ul>
-  )
+  );
 }

@@ -1,9 +1,9 @@
-import type { CollectionConfig } from 'payload'
+import type { CollectionConfig } from "payload";
 
 const Users: CollectionConfig = {
-  slug: 'users',
+  slug: "users",
   admin: {
-    useAsTitle: 'email',
+    useAsTitle: "email",
   },
   auth: true,
   access: {
@@ -39,14 +39,14 @@ const Users: CollectionConfig = {
       },
     },
     {
-      name: 'firstName',
-      type: 'text',
+      name: "firstName",
+      type: "text",
     },
     {
-      name: 'lastName',
-      type: 'text',
+      name: "lastName",
+      type: "text",
     },
   ],
-}
+};
 
-export default Users
+export default Users;

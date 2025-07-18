@@ -1,17 +1,17 @@
-import AppSectionHeader from '@/components/app-section-header'
-import { Media } from '@/payload-types'
-import Image from 'next/image'
-import Link from 'next/link'
-import { twMerge } from 'tailwind-merge'
+import AppSectionHeader from "@/components/app-section-header";
+import { Media } from "@/payload-types";
+import Image from "next/image";
+import Link from "next/link";
+import { twMerge } from "tailwind-merge";
 
 interface AppTimelineCardsProps {
-  className?: string
+  className?: string;
   cards: {
-    title: string
-    thumbnail: Media
-    url: string
-  }[]
-  title: string
+    title: string;
+    thumbnail: Media;
+    url: string;
+  }[];
+  title: string;
 }
 
 export default function AppTimelineCards({
@@ -30,16 +30,16 @@ export default function AppTimelineCards({
           <div
             key={index}
             className={`flex ${
-              index % 2 === 0 ? 'flex-row' : 'md:flex-row-reverse'
+              index % 2 === 0 ? "flex-row" : "md:flex-row-reverse"
             }`}
           >
             <Link
-              href={card.url || '#'}
+              href={card.url || "#"}
               className={`my-2 flex-1 space-y-2 hover:ring-2 rounded-lg order-last md:order-none`}
             >
               <div className="relative aspect-video w-full">
-                {typeof card.thumbnail !== 'string' &&
-                  typeof card.thumbnail.url === 'string' && (
+                {typeof card.thumbnail !== "string" &&
+                  typeof card.thumbnail.url === "string" && (
                     <Image
                       src={card.thumbnail.url}
                       alt={card.thumbnail.alt}
@@ -57,13 +57,13 @@ export default function AppTimelineCards({
               <div
                 className={twMerge(
                   `absolute left-0 right-0 top-0 h-full w-1 bg-primary mx-auto`,
-                  index === 0 ? 'rounded-t-full' : '',
-                  index === cards.length - 1 ? 'rounded-b-full' : ''
+                  index === 0 ? "rounded-t-full" : "",
+                  index === cards.length - 1 ? "rounded-b-full" : "",
                 )}
               ></div>
               <div className="relative mt-2 bg-red-300 rounded-full w-8 h-8">
-                {typeof card.thumbnail !== 'string' &&
-                  typeof card.thumbnail.url === 'string' && (
+                {typeof card.thumbnail !== "string" &&
+                  typeof card.thumbnail.url === "string" && (
                     <Image
                       src={card.thumbnail.url}
                       alt={card.thumbnail.alt}
@@ -79,5 +79,5 @@ export default function AppTimelineCards({
         ))}
       </div>
     </div>
-  )
+  );
 }

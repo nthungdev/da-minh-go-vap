@@ -1,8 +1,8 @@
-import Image from 'next/image'
-import Markdown from 'react-markdown'
-import Link from 'next/link'
-import { getPayload } from 'payload'
-import config from '@payload-config'
+import Image from "next/image";
+import Markdown from "react-markdown";
+import Link from "next/link";
+import { getPayload } from "payload";
+import config from "@payload-config";
 
 function Contact({
   name,
@@ -11,11 +11,11 @@ function Contact({
   address,
   marketingEmail,
 }: {
-  name: string
-  phone: string
-  email: string
-  address: string
-  marketingEmail: string
+  name: string;
+  phone: string;
+  email: string;
+  address: string;
+  marketingEmail: string;
 }) {
   return (
     <div>
@@ -28,32 +28,35 @@ function Contact({
         Email: <a href={`mailto:${email}`}>{email}</a>
       </p>
       <p>
-        Ban truyền thông:{' '}
+        Ban truyền thông:{" "}
         <a href={`mailto:${marketingEmail}`}>{marketingEmail}</a>
       </p>
     </div>
-  )
+  );
 }
 
 export default async function TheFooter() {
-  const payload = await getPayload({ config })
-  const footer = await payload.findGlobal({ slug: 'footer' })
+  const payload = await getPayload({ config });
+  const footer = await payload.findGlobal({ slug: "footer" });
 
   const splitExternalLinks = (links: any[], chunkSize: number) => {
-    const result: any[][] = []
+    const result: any[][] = [];
     for (let i = 0; i < links.length; i += chunkSize) {
-      result.push(links.slice(i, i + chunkSize))
+      result.push(links.slice(i, i + chunkSize));
     }
-    return result
-  }
+    return result;
+  };
 
-  const chunkedExternalLinks = splitExternalLinks(footer.externalLinks ?? [], 4)
+  const chunkedExternalLinks = splitExternalLinks(
+    footer.externalLinks ?? [],
+    4,
+  );
 
   return (
     <footer className="relative">
       {footer.topFooterDecorativeGraphic &&
-        typeof footer.topFooterDecorativeGraphic !== 'string' &&
-        typeof footer.topFooterDecorativeGraphic.url === 'string' && (
+        typeof footer.topFooterDecorativeGraphic !== "string" &&
+        typeof footer.topFooterDecorativeGraphic.url === "string" && (
           <Image
             src={footer.topFooterDecorativeGraphic.url}
             alt="Footer background"
@@ -67,11 +70,11 @@ export default async function TheFooter() {
       <div className="bg-primary">
         <div className="p-4 max-w-screen-xl sm:hidden flex flex-col md:flex-row gap-8 text-white text-left">
           <Contact
-            name={footer.contact.name || ''}
-            phone={footer.contact.phone || ''}
-            email={footer.contact.email || ''}
-            address={footer.contact.address || ''}
-            marketingEmail={footer.contact.marketingEmail || ''}
+            name={footer.contact.name || ""}
+            phone={footer.contact.phone || ""}
+            email={footer.contact.email || ""}
+            address={footer.contact.address || ""}
+            marketingEmail={footer.contact.marketingEmail || ""}
           />
 
           <div className="flex flex-col md:flex-row gap-x-4">
@@ -91,11 +94,11 @@ export default async function TheFooter() {
       {/* layout for large screens */}
       <div className="hidden sm:flex flex-col md:flex-row absolute left-0 bottom-0 px-4 py-4 max-w-screen-xl gap-8 text-white text-left text-[0.9vw] 3xl:text-xl">
         <Contact
-          name={footer.contact.name || ''}
-          phone={footer.contact.phone || ''}
-          email={footer.contact.email || ''}
-          address={footer.contact.address || ''}
-          marketingEmail={footer.contact.marketingEmail || ''}
+          name={footer.contact.name || ""}
+          phone={footer.contact.phone || ""}
+          email={footer.contact.email || ""}
+          address={footer.contact.address || ""}
+          marketingEmail={footer.contact.marketingEmail || ""}
         />
 
         <div className="flex flex-col md:flex-row gap-x-4">
@@ -111,5 +114,5 @@ export default async function TheFooter() {
         </div>
       </div>
     </footer>
-  )
+  );
 }

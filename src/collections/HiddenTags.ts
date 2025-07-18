@@ -1,25 +1,25 @@
-import { CollectionConfig } from "payload"
+import { CollectionConfig } from "payload";
 
 const HiddenTags: CollectionConfig = {
-  slug: 'hiddenTags',
+  slug: "hiddenTags",
   admin: {
-    useAsTitle: 'label',
+    useAsTitle: "label",
   },
   fields: [
     {
-      name: 'label',
-      type: 'text',
-      label: 'Tên',
+      name: "label",
+      type: "text",
+      label: "Tên",
       required: true,
     },
     {
-      name: 'tag',
-      type: 'text',
-      label: 'tag',
+      name: "tag",
+      type: "text",
+      label: "tag",
       unique: true,
       required: true,
-    }
+    },
   ],
-}
+};
 
-export default HiddenTags
+export default HiddenTags;

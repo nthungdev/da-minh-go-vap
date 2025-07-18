@@ -59,7 +59,7 @@ async function createDefaultAdmin(payload: Payload) {
 
   if (!adminEmail || !adminPassword) {
     console.error(
-      "Environment variables PAYLOAD_ADMIN_EMAIL and PAYLOAD_ADMIN_PASSWORD must be set."
+      "Environment variables PAYLOAD_ADMIN_EMAIL and PAYLOAD_ADMIN_PASSWORD must be set.",
     );
     return;
   }

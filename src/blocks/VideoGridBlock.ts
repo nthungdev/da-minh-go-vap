@@ -1,46 +1,46 @@
-import { Block } from 'payload'
+import { Block } from "payload";
 
 const VideoGridBlock: Block = {
-  slug: 'videoGridBlock',
+  slug: "videoGridBlock",
   labels: {
-    singular: 'Video Grid',
-    plural: 'Video Grids',
+    singular: "Video Grid",
+    plural: "Video Grids",
   },
-  interfaceName: 'VideoGridBlock',
+  interfaceName: "VideoGridBlock",
   fields: [
     {
-      name: 'videos',
-      type: 'array',
+      name: "videos",
+      type: "array",
       required: true,
       fields: [
         {
-          name: 'title',
-          type: 'text',
+          name: "title",
+          type: "text",
           required: true,
         },
         {
-          name: 'type',
-          type: 'select',
+          name: "type",
+          type: "select",
           required: true,
           options: [
             {
-              label: 'YouTube',
-              value: 'youtube',
+              label: "YouTube",
+              value: "youtube",
             },
             {
-              label: 'Facebook',
-              value: 'facebook',
+              label: "Facebook",
+              value: "facebook",
             },
           ],
         },
         {
-          name: 'url',
-          type: 'text',
+          name: "url",
+          type: "text",
           required: true,
         },
       ],
-    }
+    },
   ],
-}
+};
 
-export default VideoGridBlock
+export default VideoGridBlock;

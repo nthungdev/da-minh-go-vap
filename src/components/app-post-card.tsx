@@ -1,27 +1,27 @@
-import { AppPost } from '@/definitions'
-import Image from 'next/image'
-import Link from 'next/link'
-import { twMerge } from 'tailwind-merge'
+import { AppPost } from "@/definitions";
+import Image from "next/image";
+import Link from "next/link";
+import { twMerge } from "tailwind-merge";
 
 interface AppPostCardProps {
-  post: AppPost
-  className?: string
+  post: AppPost;
+  className?: string;
 }
 
 export default function AppPostCard(props: AppPostCardProps) {
-  const { post, className } = props
+  const { post, className } = props;
 
   return (
     <Link
       href={`/posts/${post.slug}`}
       className={twMerge(
-        'w-full h-full overflow-hidden flex flex-col lg:flex-row gap-x-2 border border-transparent hover:ring hover:cursor-pointer lg:aspect-[3.5]',
-        className
+        "w-full h-full overflow-hidden flex flex-col lg:flex-row gap-x-2 border border-transparent hover:ring hover:cursor-pointer lg:aspect-[3.5]",
+        className,
       )}
     >
       <div className="relative lg:w-auto lg:h-full aspect-video overflow-hidden">
-        {typeof post.thumbnail !== 'string' &&
-          typeof post.thumbnail.url === 'string' && (
+        {typeof post.thumbnail !== "string" &&
+          typeof post.thumbnail.url === "string" && (
             <Image
               src={post.thumbnail.url}
               alt={post.title}
@@ -37,5 +37,5 @@ export default function AppPostCard(props: AppPostCardProps) {
         </span>
       </div>
     </Link>
-  )
+  );
 }

@@ -1,23 +1,23 @@
-'use client'
+"use client";
 
-import { MenuItem } from '@/utils/menu'
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
-import AppPostSearchButton from './app-post-search-button'
-import { HTMLAttributes } from 'react'
-import { twMerge } from 'tailwind-merge'
+import { MenuItem } from "@/utils/menu";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import AppPostSearchButton from "./app-post-search-button";
+import { HTMLAttributes } from "react";
+import { twMerge } from "tailwind-merge";
 
-const MENU_ID = 'hs-the-mobile-menu'
+const MENU_ID = "hs-the-mobile-menu";
 
 // TODO - Refactor this component
 
 interface MobileMenuRootProps {
-  items: MenuItem[]
-  itemRender: (item: MenuItem, index: number) => React.ReactNode
+  items: MenuItem[];
+  itemRender: (item: MenuItem, index: number) => React.ReactNode;
 }
 
 function MobileMenuRoot(props: MobileMenuRootProps) {
-  const { items, itemRender } = props
+  const { items, itemRender } = props;
 
   return (
     <div
@@ -26,17 +26,17 @@ function MobileMenuRoot(props: MobileMenuRootProps) {
     >
       <ul className="space-y-1.5">{items.map(itemRender)}</ul>
     </div>
-  )
+  );
 }
 
 interface MobileMenuContentProps {
-  id: string
-  labelledbyId: string
-  children: React.ReactNode
+  id: string;
+  labelledbyId: string;
+  children: React.ReactNode;
 }
 
 function MobileMenuContent(props: MobileMenuContentProps) {
-  const { id, labelledbyId, children } = props
+  const { id, labelledbyId, children } = props;
 
   return (
     <div
@@ -47,17 +47,17 @@ function MobileMenuContent(props: MobileMenuContentProps) {
     >
       {children}
     </div>
-  )
+  );
 }
 
 interface MobileMenuToggleProps {
-  label: string
-  controlsId: string
-  href: string
+  label: string;
+  controlsId: string;
+  href: string;
 }
 
 function MobileMenuToggle(props: MobileMenuToggleProps) {
-  const { label, controlsId, href } = props
+  const { label, controlsId, href } = props;
 
   return (
     <button
@@ -70,7 +70,7 @@ function MobileMenuToggle(props: MobileMenuToggleProps) {
         className="pr-2"
         href={href}
         onMouseOver={(event) => {
-          event.stopPropagation()
+          event.stopPropagation();
         }}
       >
         {label}
@@ -107,12 +107,12 @@ function MobileMenuToggle(props: MobileMenuToggleProps) {
         <path d="m6 9 6 6 6-6" />
       </svg>
     </button>
-  )
+  );
 }
 
 const defaultItemRender = (onClick: () => void) =>
   function Item(item: MenuItem, index: number) {
-    const pathname = usePathname()
+    const pathname = usePathname();
 
     if (item.children?.length) {
       return (
@@ -133,48 +133,52 @@ const defaultItemRender = (onClick: () => void) =>
           >
             <ul className="pt-2 ps-2 space-y-1">
               {item.children.map((child) =>
-                defaultItemRender(onClick)(child, index)
+                defaultItemRender(onClick)(child, index),
               )}
             </ul>
           </MobileMenuContent>
         </li>
-      )
+      );
     } else {
       return (
         <li key={`${item.normalizedName}-accordion-item`}>
           <Link
-            className={`flex items-center gap-x-3.5 py-2 px-2.5 text-sm rounded-lg w-full text-start hover:text-gray-50 hover:bg-primary-600 focus:outline-none focus:bg-primary-600 focus:text-gray-50 ${item.absoluteHref === pathname
-                ? 'text-gray-50 bg-primary-600 hover:bg-primary-600'
-                : 'text-gray-900'
-              }`}
+            className={`flex items-center gap-x-3.5 py-2 px-2.5 text-sm rounded-lg w-full text-start hover:text-gray-50 hover:bg-primary-600 focus:outline-none focus:bg-primary-600 focus:text-gray-50 ${
+              item.absoluteHref === pathname
+                ? "text-gray-50 bg-primary-600 hover:bg-primary-600"
+                : "text-gray-900"
+            }`}
             href={item.absoluteHref}
             onClick={() => onClick()}
           >
             {item.name}
           </Link>
         </li>
-      )
+      );
     }
-  }
+  };
 
 interface TheMobileNavbarProps extends HTMLAttributes<HTMLElement> {
-  menu: MenuItem[]
+  menu: MenuItem[];
 }
 
-export default function TheMobileNavbar({ className, menu }: TheMobileNavbarProps) {
+export default function TheMobileNavbar({
+  className,
+  menu,
+}: TheMobileNavbarProps) {
   const closeMenu = async () => {
-    const menuElement = document.querySelector<HTMLElement>(`#${MENU_ID}`)
+    const menuElement = document.querySelector<HTMLElement>(`#${MENU_ID}`);
     if (!menuElement) {
-      console.error('Menu element not found')
-      return
+      console.error("Menu element not found");
+      return;
     }
     // import preline on the client side
-    const { HSOverlay } = await import('preline/preline')
-    HSOverlay.close(menuElement)
-  }
+    const { HSOverlay } = await import("preline/preline");
+    HSOverlay.close(menuElement);
+  };
 
   return (
-    <nav className={twMerge('bg-primary text-gray-50 p-2', className)}>
+    <nav className={twMerge("bg-primary text-gray-50 p-2", className)}>
       {/* Navigation Toggle */}
       <div className="flex flex-row items-center">
         <button
@@ -231,28 +235,28 @@ export default function TheMobileNavbar({ className, menu }: TheMobileNavbarProp
       </div>
       {/* End Sidebar */}
     </nav>
-  )
+  );
 }
 
 interface MobileMenuDefaultProps {
-  items: MenuItem[]
+  items: MenuItem[];
 }
 
 function MobileMenuDefault(props: MobileMenuDefaultProps) {
-  const { items } = props
+  const { items } = props;
 
   const closeMenu = async () => {
-    const menuElement = document.querySelector<HTMLElement>(`#${MENU_ID}`)
+    const menuElement = document.querySelector<HTMLElement>(`#${MENU_ID}`);
     if (!menuElement) {
-      console.error('Menu element not found')
-      return
+      console.error("Menu element not found");
+      return;
     }
     // import preline on the client side
-    const { HSOverlay } = await import('preline/preline')
-    HSOverlay.close(menuElement)
-  }
+    const { HSOverlay } = await import("preline/preline");
+    HSOverlay.close(menuElement);
+  };
 
   return (
     <MobileMenuRoot items={items} itemRender={defaultItemRender(closeMenu)} />
-  )
+  );
 }

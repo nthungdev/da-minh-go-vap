@@ -1,19 +1,19 @@
-import { Block } from 'payload'
+import { Block } from "payload";
 
 const QuoteBlock: Block = {
-  slug: 'quoteBlock',
+  slug: "quoteBlock",
   labels: {
-    singular: 'Quote',
-    plural: 'Quotes',
+    singular: "Quote",
+    plural: "Quotes",
   },
-  interfaceName: 'QuoteBlock',
+  interfaceName: "QuoteBlock",
   fields: [
     {
-      name: 'content',
-      type: 'text',
+      name: "content",
+      type: "text",
       required: true,
-    }
+    },
   ],
-}
+};
 
-export default QuoteBlock
+export default QuoteBlock;

@@ -1,21 +1,21 @@
-'use client'
+"use client";
 
-import { fetchPostsByHiddenTags } from '@/actions/post'
-import { useQuery } from '@tanstack/react-query'
-import Image from 'next/image'
-import Link from 'next/link'
-import AppViewMoreLink from './app-view-more-link'
-import AppPostGridSkeleton from './app-post-grid-skeleton'
-import { AppPost } from '@/definitions'
-import AppGridHeader from '@/components/app-grid-header'
+import { fetchPostsByHiddenTags } from "@/actions/post";
+import { useQuery } from "@tanstack/react-query";
+import Image from "next/image";
+import Link from "next/link";
+import AppViewMoreLink from "./app-view-more-link";
+import AppPostGridSkeleton from "./app-post-grid-skeleton";
+import { AppPost } from "@/definitions";
+import AppGridHeader from "@/components/app-grid-header";
 
 interface AppPostGridProps {
-  hiddenTags: string[]
-  limit: number
-  title: string
-  posts?: AppPost[]
-  hasMore?: boolean
-  className?: string
+  hiddenTags: string[];
+  limit: number;
+  title: string;
+  posts?: AppPost[];
+  hasMore?: boolean;
+  className?: string;
 }
 
 export default function AppPostGrid({
@@ -27,24 +27,24 @@ export default function AppPostGrid({
   className,
 }: AppPostGridProps) {
   const { data, error, isPending } = useQuery({
-    queryKey: ['fetchPostsByHiddenTags', hiddenTags],
+    queryKey: ["fetchPostsByHiddenTags", hiddenTags],
     queryFn: async () => {
       const posts = await fetchPostsByHiddenTags(hiddenTags, {
         limit,
-      })
-      return posts
+      });
+      return posts;
     },
     initialData: { posts: posts || [], hasMore: hasMore || false },
-  })
+  });
 
-  if (isPending) return <AppPostGridSkeleton count={limit} />
+  if (isPending) return <AppPostGridSkeleton count={limit} />;
 
-  if (error) return <p>Error: {error.message}</p>
+  if (error) return <p>Error: {error.message}</p>;
 
   if (data) {
-    const { posts, hasMore } = data
-    const jointHiddenTags = hiddenTags.join(',')
-    const viewMoreHref = `/posts?ht=${encodeURIComponent(jointHiddenTags)}&ti=${encodeURIComponent(title)}`
+    const { posts, hasMore } = data;
+    const jointHiddenTags = hiddenTags.join(",");
+    const viewMoreHref = `/posts?ht=${encodeURIComponent(jointHiddenTags)}&ti=${encodeURIComponent(title)}`;
 
     return (
       <div className="space-y-2 my-2">
@@ -63,8 +63,8 @@ export default function AppPostGrid({
                 className="block overflow-hidden border"
               >
                 <div className="relative aspect-video">
-                  {typeof post.thumbnail !== 'string' &&
-                    typeof post.thumbnail.url === 'string' && (
+                  {typeof post.thumbnail !== "string" &&
+                    typeof post.thumbnail.url === "string" && (
                       <Image
                         className="object-cover"
                         src={post.thumbnail.url}
@@ -90,6 +90,6 @@ export default function AppPostGrid({
           </div>
         )}
       </div>
-    )
+    );
   }
 }

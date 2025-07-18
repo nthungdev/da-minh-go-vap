@@ -1,46 +1,48 @@
-'use client'
+"use client";
 
-import { useEffect, useState } from 'react'
-import { twMerge } from 'tailwind-merge'
+import { useEffect, useState } from "react";
+import { twMerge } from "tailwind-merge";
 
 interface TheBibleVerseProps {
-  className?: string
+  className?: string;
   verses: {
-    verse: string
-    reference: string
-  }[]
+    verse: string;
+    reference: string;
+  }[];
 }
 
 export default function TheBibleVerse(props: TheBibleVerseProps) {
-  const { verses, className } = props
+  const { verses, className } = props;
 
-  const [currentIndex, setCurrentIndex] = useState(0)
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
-    if (verses.length === 0) return
+    if (verses.length === 0) return;
 
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) =>
-        prevIndex === verses.length - 1 ? 0 : prevIndex + 1
-      )
-    }, 5000)
+        prevIndex === verses.length - 1 ? 0 : prevIndex + 1,
+      );
+    }, 5000);
 
-    return () => clearInterval(interval)
-  })
+    return () => clearInterval(interval);
+  });
 
-  const currentVerse = verses[currentIndex]!
-  const verse = currentVerse.verse
-  const reference = currentVerse.reference
+  const currentVerse = verses[currentIndex]!;
+  const verse = currentVerse.verse;
+  const reference = currentVerse.reference;
 
   return (
     <blockquote
       className={twMerge(
-        'mx-auto max-w-max relative border-2 border-secondary rounded-full flex flex-col items-center justify-center pt-3 pb-2 px-10 md:px-20 bg-white text-primary shadow-neon transition-shadow',
-        className
+        "mx-auto max-w-max relative border-2 border-secondary rounded-full flex flex-col items-center justify-center pt-3 pb-2 px-10 md:px-20 bg-white text-primary shadow-neon transition-shadow",
+        className,
       )}
     >
       <p className="text-center font-bold text-xl">{verse}</p>
-      <cite className="block w-full text-right text-xs not-italic font-semibold">{reference}</cite>
+      <cite className="block w-full text-right text-xs not-italic font-semibold">
+        {reference}
+      </cite>
     </blockquote>
-  )
+  );
 }

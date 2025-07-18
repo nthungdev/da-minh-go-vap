@@ -1,43 +1,43 @@
-import { Block } from 'payload'
+import { Block } from "payload";
 
 const LinksBlock: Block = {
-  slug: 'linksBlock',
+  slug: "linksBlock",
   labels: {
-    singular: 'Links',
-    plural: 'Links',
+    singular: "Links",
+    plural: "Links",
   },
-  interfaceName: 'LinksBlock',
+  interfaceName: "LinksBlock",
   fields: [
     {
-      name: 'title',
-      type: 'text',
+      name: "title",
+      type: "text",
       required: true,
     },
     {
-      name: 'links',
-      type: 'array',
+      name: "links",
+      type: "array",
       required: true,
       fields: [
         {
-          name: 'title',
-          type: 'text',
+          name: "title",
+          type: "text",
           required: true,
         },
         {
-          name: 'url',
-          type: 'text',
+          name: "url",
+          type: "text",
           required: true,
         },
         {
-          name: 'image',
-          type: 'relationship',
-          relationTo: 'media',
+          name: "image",
+          type: "relationship",
+          relationTo: "media",
           hasMany: false,
           required: true,
-        }
-      ]
-    }
+        },
+      ],
+    },
   ],
-}
+};
 
-export default LinksBlock
+export default LinksBlock;

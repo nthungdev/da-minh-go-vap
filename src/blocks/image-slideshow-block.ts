@@ -1,22 +1,22 @@
-import { Block } from 'payload'
+import { Block } from "payload";
 
 const ImageSlideshowBlock: Block = {
-  slug: 'imageSlideshowBlock',
+  slug: "imageSlideshowBlock",
   labels: {
-    singular: 'Image Slideshow Block',
-    plural: 'Image Slideshow Blocks',
+    singular: "Image Slideshow Block",
+    plural: "Image Slideshow Blocks",
   },
-  interfaceName: 'ImageSlideShowBlock',
+  interfaceName: "ImageSlideShowBlock",
   fields: [
     {
-      name: 'images',
-      type: 'upload',
-      relationTo: 'media',
+      name: "images",
+      type: "upload",
+      relationTo: "media",
       required: true,
       unique: false,
       hasMany: true,
     },
   ],
-}
+};
 
-export default ImageSlideshowBlock
+export default ImageSlideshowBlock;

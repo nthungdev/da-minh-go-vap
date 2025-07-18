@@ -1,50 +1,50 @@
-import { normalizeText } from 'normalize-text'
-import config from '@payload-config'
-import { getPayload } from 'payload'
-import { NavBar } from '@/payload-types'
+import { normalizeText } from "normalize-text";
+import config from "@payload-config";
+import { getPayload } from "payload";
+import { NavBar } from "@/payload-types";
 
 export interface MenuItem {
-  href: string
-  absoluteHref: string
-  name: string
-  normalizedName: string
-  children?: MenuItem[]
+  href: string;
+  absoluteHref: string;
+  name: string;
+  normalizedName: string;
+  children?: MenuItem[];
 }
 
-function getMenuItemLink(menuItem: NavBar['menu'][number]) {
-  if (menuItem.linkType === 'internal') {
-    if (typeof menuItem.internalLink !== 'string') {
-      return menuItem.internalLink?.path
+function getMenuItemLink(menuItem: NavBar["menu"][number]) {
+  if (menuItem.linkType === "internal") {
+    if (typeof menuItem.internalLink !== "string") {
+      return menuItem.internalLink?.path;
     } else {
-      return undefined
+      return undefined;
     }
   } else {
-    return menuItem.externalLink
+    return menuItem.externalLink;
   }
 }
 
 export async function getMenu() {
-  const payload = await getPayload({ config })
-  const navBar = await payload.findGlobal({ slug: 'navBar' })
+  const payload = await getPayload({ config });
+  const navBar = await payload.findGlobal({ slug: "navBar" });
   const menu: MenuItem[] = navBar.menu.map((menuItem) => ({
-    href: getMenuItemLink(menuItem) || '',
-    absoluteHref: getMenuItemLink(menuItem) || '',
+    href: getMenuItemLink(menuItem) || "",
+    absoluteHref: getMenuItemLink(menuItem) || "",
     name: menuItem.label,
     normalizedName: normalizeText(menuItem.label),
     children: menuItem.subMenu?.map((subMenuItem) => ({
-      href: getMenuItemLink(subMenuItem) || '',
-      absoluteHref: getMenuItemLink(subMenuItem) || '',
+      href: getMenuItemLink(subMenuItem) || "",
+      absoluteHref: getMenuItemLink(subMenuItem) || "",
       name: subMenuItem.label,
       normalizedName: normalizeText(subMenuItem.label),
       children: subMenuItem.subMenu?.map((subSubMenuItem) => ({
-        href: getMenuItemLink(subSubMenuItem) || '',
-        absoluteHref: getMenuItemLink(subSubMenuItem) || '',
+        href: getMenuItemLink(subSubMenuItem) || "",
+        absoluteHref: getMenuItemLink(subSubMenuItem) || "",
         name: subSubMenuItem.label,
         normalizedName: normalizeText(subSubMenuItem.label),
       })),
     })),
-  }))
-  return menu
+  }));
+  return menu;
 }
 
 // const menu: MenuItem[] = [

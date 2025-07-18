@@ -43,14 +43,18 @@ export default async function Page(props: {
     <AppPage banners={banners}>
       <h1 className="sr-only">{page.title}</h1>
       <div className="space-y-4 lg:space-y-8">
-        <section>
-          <BlocksRenderer blocks={page.beforeMain || []} />
-        </section>
-        <div className="lg:flex flex-row items-start gap-x-4">
-          <section className="flex-1">
-            <BlocksRenderer blocks={page.main || []} />
+        {!!page.beforeMain?.length && (
+          <section>
+            <BlocksRenderer blocks={page.beforeMain} />
           </section>
-          {page?.aside && (
+        )}
+        <div className="lg:flex flex-row items-start gap-x-4">
+          {!!page.main?.length && (
+            <section className="flex-1">
+              <BlocksRenderer blocks={page.main} />
+            </section>
+          )}
+          {!!page?.aside?.length && (
             <aside className="hidden lg:block w-56 lg:w-64 bg-primary-1">
               <BlocksRenderer blocks={page.aside} />
             </aside>

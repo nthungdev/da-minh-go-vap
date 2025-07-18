@@ -1,31 +1,31 @@
-import markdownField from '@/fields/markdown'
-import { Block } from 'payload'
+import markdownField from "@/fields/markdown";
+import { Block } from "payload";
 
 const TabbedContentBlock: Block = {
-  slug: 'tabbedContentBlock',
+  slug: "tabbedContentBlock",
   labels: {
-    singular: 'Tabbed Content',
-    plural: 'Tabbed Contents',
+    singular: "Tabbed Content",
+    plural: "Tabbed Contents",
   },
-  interfaceName: 'TabbedContentBlock',
+  interfaceName: "TabbedContentBlock",
   fields: [
     {
-      name: 'tabs',
-      type: 'array',
+      name: "tabs",
+      type: "array",
       required: true,
       fields: [
         {
-          name: 'title',
-          type: 'text',
+          name: "title",
+          type: "text",
           required: true,
         },
         {
-          ...markdownField('content'),
+          ...markdownField("content"),
           required: true,
         },
       ],
-    }
+    },
   ],
-}
+};
 
-export default TabbedContentBlock
+export default TabbedContentBlock;

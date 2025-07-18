@@ -1,26 +1,26 @@
-import { Block } from 'payload'
+import { Block } from "payload";
 
 const DynamicImageBlock: Block = {
-  slug: 'dynamicImageBlock',
+  slug: "dynamicImageBlock",
   labels: {
-    singular: 'Dynamic Image',
-    plural: 'Dynamic Images',
+    singular: "Dynamic Image",
+    plural: "Dynamic Images",
   },
-  interfaceName: 'DynamicImageBlock',
+  interfaceName: "DynamicImageBlock",
   fields: [
     {
-      name: 'desktopImage',
-      type: 'upload',
-      relationTo: 'media',
+      name: "desktopImage",
+      type: "upload",
+      relationTo: "media",
       required: true,
     },
     {
-      name: 'mobileImage',
-      type: 'upload',
-      relationTo: 'media',
+      name: "mobileImage",
+      type: "upload",
+      relationTo: "media",
       required: true,
     },
   ],
-}
+};
 
-export default DynamicImageBlock
+export default DynamicImageBlock;

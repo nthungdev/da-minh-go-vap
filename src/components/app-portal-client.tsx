@@ -1,20 +1,20 @@
-'use client'
+"use client";
 
-import { useEffect, useRef } from 'react'
-import { createPortal } from 'react-dom'
+import { useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 
 type AppClientPortalInterface = {
-  children: React.ReactNode
-  selector: string
-  onClose?: () => void
-}
+  children: React.ReactNode;
+  selector: string;
+  onClose?: () => void;
+};
 
 const AppClientPortal = ({ children, selector }: AppClientPortalInterface) => {
-  const ref = useRef<Element | null>(null)
+  const ref = useRef<Element | null>(null);
   useEffect(() => {
-    ref.current = document.getElementById(selector)
-  }, [selector])
-  return ref.current ? createPortal(children, ref.current) : null
-}
+    ref.current = document.getElementById(selector);
+  }, [selector]);
+  return ref.current ? createPortal(children, ref.current) : null;
+};
 
-export default AppClientPortal
+export default AppClientPortal;
