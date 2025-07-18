@@ -1,6 +1,9 @@
 import type { Config } from "tailwindcss";
 import defaultColors from "tailwindcss/colors";
-import Flowbite from "flowbite-react/tailwind";
+import * as Flowbite from "flowbite-react/tailwind";
+import tailwindForms from "@tailwindcss/forms";
+import prelinePlugin from "preline/plugin";
+import containerQueries from "@tailwindcss/container-queries";
 
 const colorPalette = {
   chill: {
@@ -143,11 +146,6 @@ const config: Config = {
       },
     },
   },
-  plugins: [
-    require("@tailwindcss/forms"),
-    require("preline/plugin"),
-    require("@tailwindcss/container-queries"),
-    Flowbite.plugin(),
-  ],
+  plugins: [tailwindForms, prelinePlugin, containerQueries, Flowbite.plugin()],
 };
 export default config;
