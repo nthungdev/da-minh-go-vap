@@ -1,4 +1,4 @@
-name: Lint
+name: CI
 
 on:
   push:
@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [20]
+        node-version: [22]
     permissions:
       contents: read
       security-events: write
@@ -59,3 +59,50 @@ jobs:
       #   with:
       #     sarif_file: eslint-results.sarif
       #     wait-for-processing: true
+
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [22]
+    services:
+      mongo:
+        image: mongo:latest
+        ports:
+          - 27017:27017
+        env:
+          MONGO_INITDB_ROOT_USERNAME: admin
+          MONGO_INITDB_ROOT_PASSWORD: admin
+        options: >-
+          --health-cmd="mongosh --eval 'db.adminCommand(\"ping\")'"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
+    env:
+      PAYLOAD_SECRET: payloadsecret
+      PAYLOAD_ADMIN_EMAIL: admin@example.com
+      PAYLOAD_ADMIN_PASSWORD: admin
+      DATABASE_URI: mongodb://admin:admin@localhost:27017/da-minh-go-vap?authSource=admin
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Generate Payload types
+        run: pnpm generate
+
+      - name: Build
+        run: pnpm build
