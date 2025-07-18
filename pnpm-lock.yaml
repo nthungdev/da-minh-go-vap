@@ -92,7 +92,10 @@ importers:
       "@eslint/eslintrc":
         specifier: ^3.3.1
         version: 3.3.1
-      "@tailwindcss/forms":
+      '@next/eslint-plugin-next':
+        specifier: ^15.4.1
+        version: 15.4.1
+      '@tailwindcss/forms':
         specifier: ^0.5.10
         version: 0.5.10(tailwindcss@3.4.17)
       "@tanstack/eslint-plugin-query":
@@ -1602,12 +1605,12 @@ packages:
         integrity: sha512-oeP1vnc5Cq9UoOb8SYHAEPbCXMzOgG70l+Zfd+Ie00R25FOm+CCVNrcIubJvB1tvBgakXE37MmqSycksXVPRqg==,
       }
 
-  "@next/swc-darwin-arm64@15.3.4":
-    resolution:
-      {
-        integrity: sha512-z0qIYTONmPRbwHWvpyrFXJd5F9YWLCsw3Sjrzj2ZvMYy9NPQMPZ1NjOJh4ojr4oQzcGYwgJKfidzehaNa1BpEg==,
-      }
-    engines: { node: ">= 10" }
+  '@next/eslint-plugin-next@15.4.1':
+    resolution: {integrity: sha512-lQnHUxN7mMksK7IxgKDIXNMWFOBmksVrjamMEURXiYfo7zgsc30lnU8u4y/MJktSh+nB80ktTQeQbWdQO6c8Ow==}
+
+  '@next/swc-darwin-arm64@15.3.4':
+    resolution: {integrity: sha512-z0qIYTONmPRbwHWvpyrFXJd5F9YWLCsw3Sjrzj2ZvMYy9NPQMPZ1NjOJh4ojr4oQzcGYwgJKfidzehaNa1BpEg==}
+    engines: {node: '>= 10'}
     cpu: [arm64]
     os: [darwin]
 
@@ -5875,11 +5878,8 @@ packages:
     engines: { node: ">= 0.8.0" }
 
   prettier@3.6.2:
-    resolution:
-      {
-        integrity: sha512-I7AIg5boAr5R0FFtJ6rCfD+LFsWHp81dolrFD8S79U9tb8Az2nGrJncnMSnys+bpQJfRUzqs9hnA81OAA3hCuQ==,
-      }
-    engines: { node: ">=14" }
+    resolution: {integrity: sha512-I7AIg5boAr5R0FFtJ6rCfD+LFsWHp81dolrFD8S79U9tb8Az2nGrJncnMSnys+bpQJfRUzqs9hnA81OAA3hCuQ==}
+    engines: {node: '>=14'}
     hasBin: true
 
   prismjs@1.30.0:
@@ -8558,7 +8558,11 @@ snapshots:
     dependencies:
       fast-glob: 3.3.1
 
-  "@next/swc-darwin-arm64@15.3.4":
+  '@next/eslint-plugin-next@15.4.1':
+    dependencies:
+      fast-glob: 3.3.1
+
+  '@next/swc-darwin-arm64@15.3.4':
     optional: true
 
   "@next/swc-darwin-x64@15.3.4":

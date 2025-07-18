@@ -25,18 +25,6 @@ export default function AppBanners(props: AppBannersProps) {
   const [videosDuration, setVideosDuration] = useState<Record<number, number>>(
     {},
   );
-  const [bannerIndex, setBannerIndex] = useState(0);
-  const [isSliding, setIsSliding] = useState(false);
-  const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
-
-  const nextIndex = (bannerIndex + 1) % banners.length;
-  const prevIndex = (bannerIndex - 1 + banners.length) % banners.length;
-  const duration = videosDuration[bannerIndex] || PHOTO_DURATION;
-  const gotAllVideosDuration =
-    Object.keys(videosDuration).length ===
-    banners.filter(
-      (banner) => typeof banner.url === "string" && checkVideo(banner.url),
-    ).length;
 
   const AppBannerVideo = dynamic(
     () => import("@/components/app-banner-video"),
@@ -50,43 +38,6 @@ export default function AppBanners(props: AppBannersProps) {
         [index]: event.currentTarget.duration * 1000,
       });
     };
-
-  const goNext = () => {
-    const nextButtonEl = document.querySelector(
-      `#${CAROUSEL_ID} [aria-label="Next slide"]`,
-    ) as HTMLButtonElement;
-    console.log({ nextButtonEl });
-    nextButtonEl.click();
-  };
-
-  const timeout = async () => {
-    const timeoutFn = () => {
-      // setBannerIndex(nextIndex)
-      console.log("carousel next");
-      setIsSliding(true);
-      goNext();
-    };
-    console.log("set timeout");
-    setTimeoutId(setTimeout(timeoutFn, duration));
-  };
-
-  // const handleSlideChange = (index: number) => {
-  //   console.log('handleSlideChange', index)
-  //   if (isSliding) {
-  //     console.log('set sliding off')
-  //     setIsSliding(false)
-  //   } else {
-  //     console.log('clearing timeout')
-  //     if (timeoutId) clearTimeout(timeoutId)
-  //     // setBannerIndex((new Date()).getTime())
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   if (banners.length < 2 || !gotAllVideosDuration) return
-  //   console.log('effect')
-  //   timeout()
-  // }, [gotAllVideosDuration, bannerIndex])
 
   return (
     <div className={twMerge("w-full aspect-[4/1.2]", className)}>
