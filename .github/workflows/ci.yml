@@ -6,13 +6,13 @@ on:
       - main
   pull_request:
 
+env:
+  NODE_VERSION: 22
+
 jobs:
   lint:
     name: Lint and Format Check
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [22]
     permissions:
       contents: read
       security-events: write
@@ -24,10 +24,10 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v4
 
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Use Node.js ${{ env.NODE_VERSION }}
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: ${{ env.NODE_VERSION }}
           cache: "pnpm"
 
       - name: Install dependencies
@@ -63,9 +63,6 @@ jobs:
   build:
     name: Validate Build
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [22]
     services:
       mongo:
         image: mongo:latest
@@ -93,10 +90,10 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v4
 
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Use Node.js ${{ env.NODE_VERSION }}
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: ${{ env.NODE_VERSION }}
           cache: "pnpm"
 
       - name: Install dependencies
