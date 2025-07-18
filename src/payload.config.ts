@@ -6,6 +6,8 @@ import path from "path";
 import { buildConfig, Payload } from "payload";
 import { fileURLToPath } from "url";
 import sharp from "sharp";
+import { en } from "@payloadcms/translations/languages/en";
+import { vi } from "@payloadcms/translations/languages/vi";
 
 import Users from "@/collections/Users";
 import Media from "@/collections/Media";
@@ -37,6 +39,9 @@ export default buildConfig({
   },
   collections: [HiddenTags, Media, Pages, Posts, Users],
   globals: [NavBar, Footer, SiteSettings],
+  i18n: {
+    supportedLanguages: { en, vi },
+  },
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET,
   typescript: {
