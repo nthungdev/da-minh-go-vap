@@ -35,7 +35,7 @@ export default async function Page(props: {
   return (
     <AppPage>
       {video && (
-        <VideoIframe className="mb-4" type={video.type} url={video.url} />
+        <VideoIframe className="mb-4" type={video.type} videoId={video.videoId} />
       )}
 
       <h2 className="text-3xl font-semibold">{post.title}</h2>

@@ -2,17 +2,17 @@ import FacebookIframe from "./app-facebook-iframe";
 import YoutubeIframe from "./app-youtube-iframe";
 
 export default function VideoIframe({
-  url,
+  videoId,
   type,
   className,
 }: {
-  url: string;
+  videoId: string;
   type: string;
   className?: string;
 }) {
   return type === "youtube" ? (
-    <YoutubeIframe url={url} className={className} />
+    <YoutubeIframe videoId={videoId} className={className} />
   ) : (
-    <FacebookIframe url={url} className={className} />
+    <FacebookIframe videoId={videoId} className={className} />
   );
 }
