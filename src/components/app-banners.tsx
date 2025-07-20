@@ -7,6 +7,10 @@ import { HTMLAttributes, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import { Media } from "@/payload-types";
 
+const AppBannerVideo = dynamic(() => import("@/components/app-banner-video"), {
+  ssr: false,
+});
+
 const CAROUSEL_ID = "app-banners-carousel";
 const PHOTO_DURATION = 5000; // 3 seconds
 
@@ -24,11 +28,6 @@ export default function AppBanners(props: AppBannersProps) {
 
   const [videosDuration, setVideosDuration] = useState<Record<number, number>>(
     {},
-  );
-
-  const AppBannerVideo = dynamic(
-    () => import("@/components/app-banner-video"),
-    { ssr: false },
   );
 
   const handleLoadedMetadata =
