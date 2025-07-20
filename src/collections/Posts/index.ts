@@ -82,7 +82,7 @@ const Posts: CollectionConfig = {
           admin: {
             description:
               "Ví dụ với YouTube, URL là https://www.youtube.com/watch?v=GnX7TN3uo5g thì Video ID là GnX7TN3uo5g. Với Facebook, URL là https://www.facebook.com/watch/?v=123456789 thì Video ID là 123456789.",
-          }
+          },
         },
       ],
     },

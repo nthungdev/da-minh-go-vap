@@ -4,9 +4,9 @@ import { fetchPostBySlug, fetchPostsByHiddenTags } from "@/actions/post";
 import { notFound } from "next/navigation";
 import VideoIframe from "@/components/app-video-iframe";
 import AppPostGridPaginated from "@/components/app-post-grid-async-paginated";
-import dayjs from 'dayjs'
-import 'dayjs/locale/vi'
-dayjs.locale('vi')
+import dayjs from "dayjs";
+import "dayjs/locale/vi";
+dayjs.locale("vi");
 
 // Netlify cannot ignore deploying upon new posts to support incremental static regeneration
 
@@ -30,12 +30,16 @@ export default async function Page(props: {
     skipSlug: post.slug,
   });
 
-  const publishedAt = dayjs(post.publishedAt).format("D MMMM YYYY")
+  const publishedAt = dayjs(post.publishedAt).format("D MMMM YYYY");
 
   return (
     <AppPage>
       {video && (
-        <VideoIframe className="mb-4" type={video.type} videoId={video.videoId} />
+        <VideoIframe
+          className="mb-4"
+          type={video.type}
+          videoId={video.videoId}
+        />
       )}
 
       <h2 className="text-3xl font-semibold">{post.title}</h2>

@@ -16,7 +16,7 @@ const nextConfig = {
           },
         ],
       },
-    }
+    },
   },
   webpack: (config) => {
     config.module.rules.push({

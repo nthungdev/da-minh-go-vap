@@ -204,10 +204,7 @@ export default function TheMobileNavbar({
           </svg>
         </button>
         <div className="ml-auto space-x-2 flex flex-row items-center">
-          <Link
-            href="/"
-            aria-label="Brand"
-          >
+          <Link href="/" aria-label="Brand">
             Hội Dòng Đa Minh Gò Vấp
           </Link>
           <AppPostSearchButton id="mobile-navbar-search" />
