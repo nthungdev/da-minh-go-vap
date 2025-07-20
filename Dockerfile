@@ -37,7 +37,8 @@ ENV NODE_ENV=production
 # ENV NEXT_TELEMETRY_DISABLED 1
 
 COPY --from=deps /app/node_modules ./node_modules
-COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/.next/standalone ./
+COPY --from=builder /app/.next/static ./.next/static
 
 RUN corepack enable pnpm
 
@@ -46,4 +47,4 @@ EXPOSE 3000
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
 
-CMD ["sh", "-c", "pnpm standalone"]
+CMD ["sh", "-c", "node server.js"]
