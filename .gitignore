@@ -47,3 +47,5 @@ src/payload-types.ts
 .gitignore
 
 certbot/conf
+
+.eslintcache
