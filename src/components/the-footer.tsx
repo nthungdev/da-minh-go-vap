@@ -22,7 +22,7 @@ export default async function TheFooter() {
   );
 
   return (
-    <footer className="relative bg-primary">
+    <footer className="relative">
       {footer.topFooterDecorativeGraphic &&
         typeof footer.topFooterDecorativeGraphic !== "string" &&
         typeof footer.topFooterDecorativeGraphic.url === "string" && (
@@ -36,8 +36,8 @@ export default async function TheFooter() {
           />
         )}
 
-      <div className="bg-primary">
-        {/* layout for small screens */}
+      {/* layout for small screens */}
+      <div className="bg-[#437CA8]">
         <div className="p-4 max-w-screen-xl sm:hidden flex flex-col md:flex-row gap-8 text-white text-left">
           <Contact
             name={footer.contact.name}
@@ -62,7 +62,7 @@ export default async function TheFooter() {
       </div>
 
       {/* layout for large screens */}
-      <div className="hidden sm:flex flex-col md:flex-row left-0 bottom-0 px-4 py-4 mx-auto max-w-screen-xl gap-8 text-white text-left text-[0.9vw] 3xl:text-xl">
+      <div className="hidden sm:flex flex-col md:flex-row absolute left-0 bottom-0 px-4 py-4 max-w-screen-xl gap-8 text-white text-left text-[0.9vw] 3xl:text-xl">
         <Contact
           name={footer.contact.name}
           phone={footer.contact.phone}
