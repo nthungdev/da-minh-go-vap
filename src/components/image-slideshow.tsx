@@ -13,14 +13,14 @@ export default function ImageSlideshow({
   className?: string;
 }) {
   return (
-    <div className={twMerge("w-full aspect-[2/3] overflow-hidden", className)}>
+    <div className={twMerge("aspect-2/3 w-full overflow-hidden", className)}>
       <AppCarousel>
         {slides
           .filter((slide) => typeof slide.url === "string")
           .map((slide, index) => (
             <Image
               key={index}
-              className="object-cover h-full w-full"
+              className="h-full w-full object-cover"
               src={slide.url as string}
               alt={slide.alt || ""}
               sizes="100%"

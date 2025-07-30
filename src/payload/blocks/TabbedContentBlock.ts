@@ -1,4 +1,4 @@
-import markdownField from "@/fields/markdown";
+import markdownField from "@/payload/fields/markdown";
 import { Block } from "payload";
 
 const TabbedContentBlock: Block = {

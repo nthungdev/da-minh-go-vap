@@ -39,7 +39,7 @@ export default function AppBanners(props: AppBannersProps) {
     };
 
   return (
-    <div className={twMerge("w-full aspect-[4/1.2]", className)}>
+    <div className={twMerge("aspect-[4/1.2] w-full", className)}>
       <AppCarousel id={CAROUSEL_ID} slideInterval={PHOTO_DURATION}>
         {banners.map(
           (banner, index) =>
@@ -52,7 +52,7 @@ export default function AppBanners(props: AppBannersProps) {
                 {checkVideo(banner.url) ? (
                   <AppBannerVideo
                     id={`banner-video-${index}`}
-                    className="object-cover h-full w-full"
+                    className="h-full w-full object-cover"
                     src={banner.url}
                     autoPlay
                     crossOrigin="anonymous"
@@ -64,7 +64,7 @@ export default function AppBanners(props: AppBannersProps) {
                   />
                 ) : (
                   <Image
-                    className="object-cover h-full w-full"
+                    className="h-full w-full object-cover"
                     src={banner.url}
                     alt={banner.alt || ""}
                     sizes="100%"

@@ -1,7 +1,7 @@
-import { default as default_69b4dd9c42683f32c2a91912fb464b80 } from '@/fields/markdown/Label'
-import { default as default_5534101746cc8759bc763d9d162b4e65 } from '@/fields/markdown/Field'
+import { default as default_ca6a0fbf3535f35ef0847a5cf854abfe } from '@/payload/fields/markdown/Label'
+import { default as default_8cbc64bd7b83ad69a9631721ac98586c } from '@/payload/fields/markdown/Field'
 
 export const importMap = {
-  "@/fields/markdown/Label#default": default_69b4dd9c42683f32c2a91912fb464b80,
-  "@/fields/markdown/Field#default": default_5534101746cc8759bc763d9d162b4e65
+  "@/payload/fields/markdown/Label#default": default_ca6a0fbf3535f35ef0847a5cf854abfe,
+  "@/payload/fields/markdown/Field#default": default_8cbc64bd7b83ad69a9631721ac98586c
 }

@@ -9,7 +9,7 @@ export default function YoutubeIframe({
 }) {
   return (
     <iframe
-      className={twMerge("w-full aspect-video", className)}
+      className={twMerge("aspect-video w-full", className)}
       src={`https://www.youtube.com/embed/${videoId}`}
       allowFullScreen
     />

@@ -22,7 +22,7 @@ export default function AppVideoTile({
       target="_blank"
     >
       <div className="w-full overflow-hidden border hover:ring-2">
-        <div className="w-full relative aspect-video">
+        <div className="relative aspect-video w-full">
           <Image
             className="w-full object-cover"
             src={thumbnail}
@@ -30,7 +30,7 @@ export default function AppVideoTile({
             alt={`${title}'s thumbnail`}
           />
         </div>
-        <TitleComponent className="text-center py-2 px-2 truncate block font-header">
+        <TitleComponent className="font-header block truncate px-2 py-2 text-center">
           {title}
         </TitleComponent>
       </div>

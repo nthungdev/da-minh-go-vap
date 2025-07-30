@@ -1,6 +1,6 @@
 "use client";
 
-import MarkdownEditor from "@/fields/markdown/MarkdownEditor";
+import MarkdownEditor from "@/payload/fields/markdown/MarkdownEditor";
 import { useField } from "@payloadcms/ui";
 import { CodeFieldClientComponent } from "payload";
 import React, { useCallback } from "react";

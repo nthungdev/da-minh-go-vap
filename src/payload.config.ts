@@ -9,15 +9,15 @@ import sharp from "sharp";
 import { en } from "@payloadcms/translations/languages/en";
 import { vi } from "@payloadcms/translations/languages/vi";
 
-import Users from "@/collections/Users";
-import Media from "@/collections/Media";
-import Posts from "@/collections/Posts";
-import Pages from "@/collections/Pages";
-import HiddenTags from "@/collections/HiddenTags";
+import Users from "@/payload/collections/Users";
+import Media from "@/payload/collections/Media";
+import Posts from "@/payload/collections/Posts";
+import Pages from "@/payload/collections/Pages";
+import HiddenTags from "@/payload/collections/HiddenTags";
 
-import SiteSettings from "@/globals/SiteSettings";
-import NavBar from "@/globals/NavBar";
-import Footer from "@/globals/Footer";
+import SiteSettings from "@/payload/globals/SiteSettings";
+import NavBar from "@/payload/globals/NavBar";
+import Footer from "@/payload/globals/Footer";
 
 if (!process.env.PAYLOAD_SECRET) {
   throw new Error("PAYLOAD_SECRET environment variable is required");

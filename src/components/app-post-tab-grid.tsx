@@ -79,7 +79,7 @@ export default function AppPostTabGrid(props: AppPostTabGridProps) {
           onChange={handleSelectChange}
         />
         <nav
-          className="hidden lg:flex flex-row-reverse justify-end group"
+          className="group hidden flex-row-reverse justify-end lg:flex"
           aria-label="Tabs"
           role="tablist"
           aria-orientation="horizontal"
@@ -89,10 +89,10 @@ export default function AppPostTabGrid(props: AppPostTabGridProps) {
               key={`${id}-control-${index}`}
               type="button"
               className={twMerge(
-                "peer relative -mr-12 py-1 px-12 text-center inline-flex justify-center items-center gap-x-2 text-xl rounded-full border-[6px] border-secondary-400 text-white font-bold font-header bg-[#70C7D0] disabled:opacity-50 disabled:pointer-events-none transition text-nowrap",
+                "peer border-secondary-400 font-header relative -mr-12 inline-flex items-center justify-center gap-x-2 rounded-full border-[6px] bg-[#70C7D0] px-12 py-1 text-center text-xl font-bold text-nowrap text-white transition disabled:pointer-events-none disabled:opacity-50",
                 "hs-tab-active:bg-primary hs-tab-active:border-secondary-500 hs-tab-active:z-10",
-                "hover:z-20 hover:shadow-neon hover:border-secondary-300",
-                "focus:outline-none",
+                "hover:shadow-neon hover:border-secondary-300 hover:z-20",
+                "focus:outline-hidden",
                 index === postGroupsData.length - 1 && "active",
               )}
               aria-selected={false}

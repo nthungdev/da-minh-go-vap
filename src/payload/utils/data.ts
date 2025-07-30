@@ -6,3 +6,10 @@
 export function getDataOrUndefined<T>(data: string | T | null | undefined) {
   return !data || typeof data === "string" ? undefined : data;
 }
+
+export function slugify(str: string): string {
+  return str
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+}

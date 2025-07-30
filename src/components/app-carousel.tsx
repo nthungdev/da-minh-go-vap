@@ -20,7 +20,7 @@ export default function AppCarousel(props: CarouselProps) {
       draggable={false}
       theme={{
         scrollContainer: {
-          base: "flex h-full snap-mandatory overflow-y-hidden overflow-x-scroll scroll-smooth rounded-none",
+          base: "flex h-full snap-mandatory overflow-x-scroll overflow-y-hidden scroll-smooth rounded-none",
         },
       }}
       // Hide controls and indicators if there is only one child

@@ -29,7 +29,7 @@ export default async function TheFooter() {
           <Image
             src={footer.topFooterDecorativeGraphic.url}
             alt="Footer background"
-            className="w-full z-0 pointer-events-none select-none"
+            className="pointer-events-none z-0 w-full select-none"
             height={229}
             width={991}
             sizes="100%"
@@ -37,8 +37,8 @@ export default async function TheFooter() {
         )}
 
       {/* layout for small screens */}
-      <div className="bg-[#437CA8]">
-        <div className="p-4 max-w-screen-xl sm:hidden flex flex-col md:flex-row gap-8 text-white text-left">
+      <div className="bg-primary">
+        <div className="flex max-w-(--breakpoint-xl) flex-col gap-8 p-4 text-left text-white sm:hidden md:flex-row">
           <Contact
             name={footer.contact.name}
             phone={footer.contact.phone}
@@ -47,22 +47,24 @@ export default async function TheFooter() {
             marketingEmail={footer.contact.marketingEmail}
           />
 
-          <div className="flex flex-col md:flex-row gap-x-4">
-            {chunkedExternalLinks.map((chunk, index) => (
-              <div key={index} className="flex flex-col justify-end">
-                {chunk.map((link, index) => (
-                  <div key={index}>
-                    <Link href={link.url}>{link.name}</Link>
-                  </div>
-                ))}
-              </div>
-            ))}
-          </div>
+          {chunkedExternalLinks.length > 0 && (
+            <div className="flex flex-col gap-x-4 md:flex-row">
+              {chunkedExternalLinks.map((chunk, index) => (
+                <div key={index} className="flex flex-col justify-end">
+                  {chunk.map((link, index) => (
+                    <div key={index}>
+                      <Link href={link.url}>{link.name}</Link>
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
 
       {/* layout for large screens */}
-      <div className="hidden sm:flex flex-col md:flex-row absolute left-0 bottom-0 px-4 py-4 max-w-screen-xl gap-8 text-white text-left text-[0.9vw] 3xl:text-xl">
+      <div className="3xl:text-xl absolute bottom-0 left-0 hidden max-w-(--breakpoint-xl) flex-col gap-8 px-4 py-4 text-left text-[0.9vw] text-white sm:flex md:flex-row">
         <Contact
           name={footer.contact.name}
           phone={footer.contact.phone}
@@ -71,7 +73,7 @@ export default async function TheFooter() {
           marketingEmail={footer.contact.marketingEmail}
         />
 
-        <div className="flex flex-col md:flex-row gap-x-4">
+        <div className="flex flex-col gap-x-4 md:flex-row">
           {chunkedExternalLinks.map((chunk, index) => (
             <div key={index} className="flex flex-col justify-end">
               {chunk.map((link, index) => (
@@ -102,7 +104,7 @@ function Contact({
 }) {
   return (
     <div>
-      <p className="font-bold mb-1">{name}</p>
+      <p className="mb-1 font-bold">{name}</p>
       <Markdown>{address}</Markdown>
       <p>
         Đt: <a href={`tel:${phone}`}>{phone}</a>

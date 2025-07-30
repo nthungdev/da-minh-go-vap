@@ -9,8 +9,8 @@ function markdownField(
     name,
     admin: {
       components: {
-        Field: "@/fields/markdown/Field",
-        Label: "@/fields/markdown/Label",
+        Field: "@/payload/fields/markdown/Field",
+        Label: "@/payload/fields/markdown/Label",
       },
     },
     ...override,

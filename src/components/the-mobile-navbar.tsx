@@ -21,7 +21,7 @@ function MobileMenuRoot(props: MobileMenuRootProps) {
 
   return (
     <div
-      className="hs-accordion-group p-6 w-full flex flex-col flex-wrap"
+      className="hs-accordion-group flex w-full flex-col flex-wrap p-6"
       data-hs-accordion-always-open
     >
       <ul className="space-y-1.5">{items.map(itemRender)}</ul>
@@ -41,7 +41,7 @@ function MobileMenuContent(props: MobileMenuContentProps) {
   return (
     <div
       id={id}
-      className="hs-accordion-content w-full overflow-hidden transition-[height] duration-300 hidden"
+      className="hs-accordion-content hidden w-full overflow-hidden transition-[height] duration-300"
       role="region"
       aria-labelledby={labelledbyId}
     >
@@ -62,7 +62,7 @@ function MobileMenuToggle(props: MobileMenuToggleProps) {
   return (
     <button
       type="button"
-      className="hs-accordion-toggle group w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-700 rounded-lg focus:outline-none"
+      className="hs-accordion-toggle group flex w-full items-center gap-x-3.5 rounded-lg px-2.5 py-2 text-start text-sm text-gray-700 focus:outline-hidden"
       aria-expanded="true"
       aria-controls={controlsId}
     >
@@ -131,7 +131,7 @@ const defaultItemRender = (onClick: () => void) =>
             id={`${item.normalizedName}-accordion`}
             labelledbyId={`${item.normalizedName}-accordion-item`}
           >
-            <ul className="pt-2 ps-2 space-y-1">
+            <ul className="space-y-1 ps-2 pt-2">
               {item.children.map((child) =>
                 defaultItemRender(onClick)(child, index),
               )}
@@ -143,9 +143,9 @@ const defaultItemRender = (onClick: () => void) =>
       return (
         <li key={`${item.normalizedName}-accordion-item`}>
           <Link
-            className={`flex items-center gap-x-3.5 py-2 px-2.5 text-sm rounded-lg w-full text-start hover:text-gray-50 hover:bg-primary-600 focus:outline-none focus:bg-primary-600 focus:text-gray-50 ${
+            className={`hover:bg-primary-600 focus:bg-primary-600 flex w-full items-center gap-x-3.5 rounded-lg px-2.5 py-2 text-start text-sm hover:text-gray-50 focus:text-gray-50 focus:outline-hidden ${
               item.absoluteHref === pathname
-                ? "text-gray-50 bg-primary-600 hover:bg-primary-600"
+                ? "bg-primary-600 hover:bg-primary-600 text-gray-50"
                 : "text-gray-900"
             }`}
             href={item.absoluteHref}
@@ -178,12 +178,12 @@ export default function TheMobileNavbar({
   };
 
   return (
-    <nav className={twMerge("bg-primary text-gray-50 p-2", className)}>
+    <nav className={twMerge("bg-primary p-2 text-gray-50", className)}>
       {/* Navigation Toggle */}
       <div className="flex flex-row items-center">
         <button
           type="button"
-          className="fill-gray-50 hover:fill-primary-900 focus:fill-primary-900 p-2 inline-flex justify-center items-center gap-x-2 text-start text-white text-sm font-medium rounded-lg shadow-sm align-middle focus:outline-none"
+          className="hover:fill-primary-900 focus:fill-primary-900 inline-flex items-center justify-center gap-x-2 rounded-lg fill-gray-50 p-2 text-start align-middle text-sm font-medium text-white shadow-xs focus:outline-hidden"
           aria-haspopup="dialog"
           aria-expanded="false"
           aria-controls={MENU_ID}
@@ -203,7 +203,7 @@ export default function TheMobileNavbar({
             <path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z"></path>
           </svg>
         </button>
-        <div className="ml-auto space-x-2 flex flex-row items-center">
+        <div className="ml-auto flex flex-row items-center space-x-2">
           <Link href="/" aria-label="Brand">
             Hội Dòng Đa Minh Gò Vấp
           </Link>
@@ -215,14 +215,14 @@ export default function TheMobileNavbar({
       {/* Sidebar */}
       <div
         id={MENU_ID}
-        className="hs-overlay [--auto-close:lg] hs-overlay-open:translate-x-0 -translate-x-full transition-all duration-300 transform hidden fixed top-0 start-0 bottom-0 z-[60] h-full w-72 bg-white border-e border-gray-200 pt-7 pb-10 overflow-y-auto xg:block xg:translate-x-0 xg:end-auto xg:bottom-0 [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:bg-gray-300"
+        className="hs-overlay hs-overlay-open:translate-x-0 xg:block xg:translate-x-0 xg:end-auto xg:bottom-0 fixed start-0 top-0 bottom-0 z-60 hidden h-full w-72 -translate-x-full transform overflow-y-auto border-e border-gray-200 bg-white pt-7 pb-10 transition-all duration-300 [--auto-close:lg] [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-gray-300 [&::-webkit-scrollbar-track]:bg-gray-100"
         role="dialog"
         tabIndex={-1}
         aria-label="Sidebar"
       >
         <div className="px-6">
           <Link
-            className="flex-none font-semibold text-xl text-black focus:outline-none focus:opacity-80"
+            className="flex-none text-xl font-semibold text-black focus:opacity-80 focus:outline-hidden"
             href="/"
             aria-label="Brand"
             onClick={closeMenu}

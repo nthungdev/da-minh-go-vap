@@ -1,11 +1,13 @@
-import path from "path";
-import fs from "fs";
-import { getPayload } from "payload";
+import { getPayload, Where } from "payload";
 import config from "@payload-config";
 import { AppPost } from "@/definitions";
 import { Post } from "@/payload-types";
 
-const postsDirectory = path.join(process.cwd(), "src/content/posts");
+interface GetOptions {
+  limit?: number;
+  page?: number;
+  skipSlug?: string;
+}
 
 export const getPostBySlug = async (slug: string) => {
   try {
@@ -13,11 +15,11 @@ export const getPostBySlug = async (slug: string) => {
     const query = await payload.find({
       collection: "posts",
       where: { slug: { equals: slug } },
+      limit: 1,
     });
     const post = query.docs[0];
-    if (!post) {
-      return null;
-    }
+    if (!post) return null;
+
     return postToAppPost(post);
   } catch {
     return null;
@@ -29,49 +31,50 @@ export const getPostsBySlugs = async (slugs: string[]) => {
   return posts.filter((post) => post !== null);
 };
 
-// TODO update to use Payload
-export const getAllPostSlugs = () => {
-  const fileNames = fs.readdirSync(postsDirectory);
-  return fileNames.map((fileName) => {
-    return fileName.replace(/\.md$/, "");
-  });
-};
-
-export async function getAllPosts({
-  limit = undefined,
-}: { limit?: number } = {}) {
+export async function queryAllPosts({ limit, page }: GetOptions = {}) {
   const payload = await getPayload({ config });
   const query = await payload.find({
     collection: "posts",
+    limit: limit ?? 100,
+    sort: "-publishedAt",
+    page: page ?? 1,
   });
-  const posts = query.docs
-    .map(postToAppPost)
-    .toSorted((a, b) => b.publishedAt.getTime() - a.publishedAt.getTime())
-    .slice(0, limit);
-  return posts;
+  return query;
 }
 
-export async function getPostsByHiddenTags(
+export async function queryPostsByHiddenTags(
   hiddenTags: string[],
-  { limit = undefined }: { limit?: number } = {},
+  { limit, page, skipSlug }: GetOptions = {},
 ) {
   const payload = await getPayload({ config });
+
+  const matchedHiddenTags = await payload.find({
+    collection: "hiddenTags",
+    where: { tag: { in: hiddenTags } },
+    limit: hiddenTags.length,
+  });
+
+  const queryConditions: Where[] = [
+    {
+      hiddenTags: {
+        in: matchedHiddenTags.docs.map((tag) => tag.id),
+      },
+    },
+  ];
+  if (skipSlug) {
+    queryConditions.push({
+      slug: { not_equals: skipSlug },
+    });
+  }
   const query = await payload.find({
     collection: "posts",
+    where: { and: queryConditions },
+    sort: "-publishedAt", // Sort by publishedAt DESC
+    limit: limit ?? 10,
+    page: page ?? 1,
   });
-  const posts = query.docs.map(postToAppPost);
-  return posts
-    .filter((post) => {
-      const postHiddenTags = new Set(
-        post.hiddenTags
-          // tag is a string when reference not found
-          .filter((a) => typeof a !== "string")
-          .map((a) => a.tag),
-      );
-      return hiddenTags.some((tag) => postHiddenTags.has(tag));
-    })
-    .toSorted((a, b) => b.publishedAt.getTime() - a.publishedAt.getTime())
-    .slice(0, limit);
+
+  return query;
 }
 
 export function postToAppPost(post: Post): AppPost {

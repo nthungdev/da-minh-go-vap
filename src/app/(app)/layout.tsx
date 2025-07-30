@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Montserrat, Nunito } from "next/font/google";
 import { twMerge } from "tailwind-merge";
+import { ThemeInit } from "../../../.flowbite-react/init";
 import ThePrelineScript from "@/components/the-preline-script";
 import TheFooter from "@/components/the-footer";
 import TheMobileNavbar from "@/components/the-mobile-navbar";
@@ -46,25 +47,23 @@ export default async function RootLayout({
       className={twMerge(nunito.className, montserrat.className)}
     >
       <ThePrelineScript />
+      <ThemeInit />
 
       <body
         className={twMerge(
-          "relative bg-white flex flex-col w-full min-h-screen",
+          "relative flex min-h-screen w-full flex-col bg-white",
         )}
       >
         <TheDesktopNavbar
           logo={logo}
           menu={menu}
-          className="z-20 sticky top-0 hidden xl:flex"
+          className="sticky top-0 z-20 hidden xl:flex"
         />
         {/* z-60 because backdrop from Preline is z-59 */}
-        <TheMobileNavbar
-          menu={menu}
-          className="z-[60] sticky top-0 xl:hidden"
-        />
+        <TheMobileNavbar menu={menu} className="sticky top-0 z-60 xl:hidden" />
 
         <div className="relative">
-          <picture className="w-full block absolute -bottom-[1px] z-10">
+          <picture className="absolute -bottom-px z-10 block w-full">
             {typeof navBar.bottomDecorativeGraphic?.imageMobile !== "string" &&
               typeof navBar.bottomDecorativeGraphic?.imageMobile?.url ===
                 "string" && (

@@ -10,7 +10,7 @@ export default function FacebookIframe({
   return (
     <iframe
       className={twMerge(
-        "w-full aspect-video border-none overflow-hidden",
+        "aspect-video w-full overflow-hidden border-none",
         className,
       )}
       src={`https://www.facebook.com/plugins/video.php?href=${decodeURIComponent(`https://www.facebook.com/watch/?v=${videoId}`)}&width=500&show_text=false&height=281&appId`}

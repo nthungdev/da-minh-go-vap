@@ -1,19 +1,19 @@
-import AccordionContentBlock from "@/blocks/AccordionContentBlock";
-import BibleVerseBlock from "@/blocks/BibleVerseBlock";
-import DynamicImageBlock from "@/blocks/DynamicImageBlock";
-import ImageSlideshowBlock from "@/blocks/image-slideshow-block";
-import ImageBlock from "@/blocks/ImageBlock";
-import LatestPostGridBlock from "@/blocks/LatestPostGridBlock";
-import LinksBlock from "@/blocks/links-block";
-import MapBlock from "@/blocks/MapBlock";
-import PostGroupBlock from "@/blocks/PostGroupBlock";
-import QuoteBlock from "@/blocks/QuoteBlock";
-import SpaceBlock from "@/blocks/SpaceBlock";
-import TabbedContentBlock from "@/blocks/TabbedContentBlock";
-import TabbedPostGroupBlock from "@/blocks/TabbedPostGroupBlock";
-import TextBlock from "@/blocks/TextBock";
-import TimelineBlock from "@/blocks/TimelineBlock";
-import VideoGridBlock from "@/blocks/VideoGridBlock";
+import AccordionContentBlock from "@/payload/blocks/AccordionContentBlock";
+import BibleVerseBlock from "@/payload/blocks/BibleVerseBlock";
+import DynamicImageBlock from "@/payload/blocks/DynamicImageBlock";
+import ImageSlideshowBlock from "@/payload/blocks/image-slideshow-block";
+import ImageBlock from "@/payload/blocks/ImageBlock";
+import LatestPostGridBlock from "@/payload/blocks/LatestPostGridBlock";
+import LinksBlock from "@/payload/blocks/links-block";
+import MapBlock from "@/payload/blocks/MapBlock";
+import PostGroupBlock from "@/payload/blocks/PostGroupBlock";
+import QuoteBlock from "@/payload/blocks/QuoteBlock";
+import SpaceBlock from "@/payload/blocks/SpaceBlock";
+import TabbedContentBlock from "@/payload/blocks/TabbedContentBlock";
+import TabbedPostGroupBlock from "@/payload/blocks/TabbedPostGroupBlock";
+import TextBlock from "@/payload/blocks/TextBock";
+import TimelineBlock from "@/payload/blocks/TimelineBlock";
+import VideoGridBlock from "@/payload/blocks/VideoGridBlock";
 import type { CollectionConfig } from "payload";
 
 const Pages: CollectionConfig = {

@@ -8,7 +8,7 @@ import dayjs from "dayjs";
 import "dayjs/locale/vi";
 dayjs.locale("vi");
 
-// Netlify cannot ignore deploying upon new posts to support incremental static regeneration
+const relatedPostsLimit = 12;
 
 export default async function Page(props: {
   params: Promise<{ slug: string }>;
@@ -26,7 +26,7 @@ export default async function Page(props: {
     .filter((t) => typeof t !== "string")
     .map((t) => t.tag);
   const { posts: relatedPosts } = await fetchPostsByHiddenTags(hiddenTags, {
-    limit: 12,
+    limit: relatedPostsLimit,
     skipSlug: post.slug,
   });
 
@@ -53,6 +53,7 @@ export default async function Page(props: {
           hiddenTags={hiddenTags}
           posts={relatedPosts}
           skipSlug={post.slug}
+          pageSize={relatedPostsLimit}
         />
       </div>
     </AppPage>

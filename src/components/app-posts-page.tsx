@@ -9,7 +9,7 @@ interface AppPageProps {
 export default function AppPostsPage({ hiddenTags, title }: AppPageProps) {
   return (
     <AppPage className="space-y-4">
-      <h1 className="uppercase text-2xl">{title}</h1>
+      <h1 className="text-2xl uppercase">{title}</h1>
       <AppPostGridPaginated hiddenTags={hiddenTags} />
     </AppPage>
   );

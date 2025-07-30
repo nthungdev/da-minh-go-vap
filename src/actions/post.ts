@@ -22,7 +22,10 @@ export const fetchPostsBySlugs = async (slugs: string[]) => {
 export async function fetchAllPosts({
   limit = undefined,
 }: { limit?: number } = {}) {
-  const posts = (await postUtils.getAllPosts()).filter((post) => !!post.slug);
+  const query = await postUtils.queryAllPosts({ limit });
+  const posts = query.docs
+    .map(postUtils.postToAppPost)
+    .filter((post) => !!post.slug);
   return posts.filter((post) => post.publishedAt < new Date()).slice(0, limit);
 }
 
@@ -30,18 +33,18 @@ export const fetchPostsByHiddenTags = async (
   hiddenTags: string[],
   {
     limit,
-    offset = undefined,
     skipSlug,
-  }: { limit?: number; offset?: number; skipSlug?: string } = {},
+    page = 1,
+  }: Parameters<typeof postUtils.queryPostsByHiddenTags>[1] = {},
 ) => {
-  const posts = await postUtils.getPostsByHiddenTags(hiddenTags);
-  const plus1 = posts
-    .filter((post) => post.publishedAt < new Date())
-    .filter((post) => post.slug !== skipSlug)
-    .slice(offset || 0, limit ? limit + 1 : undefined);
-  const results = limit ? plus1.slice(0, limit) : plus1;
+  const query = await postUtils.queryPostsByHiddenTags(hiddenTags, {
+    limit,
+    page,
+    skipSlug,
+  });
+  const posts = query.docs.map(postUtils.postToAppPost);
   return {
-    posts: results,
-    hasMore: plus1.length > results.length,
+    posts,
+    hasMore: query.hasNextPage,
   };
 };

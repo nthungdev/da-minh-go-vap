@@ -1,9 +1,13 @@
 "use server";
 
-import { getAllPosts } from "@/utils/post";
+import { postToAppPost, queryAllPosts } from "@/utils/post";
 import Fuse from "fuse.js";
 
-const posts = await getAllPosts();
+const query = await queryAllPosts({
+  limit: 9999,
+});
+
+const posts = query.docs.map(postToAppPost);
 
 const postFuse = new Fuse(posts, {
   keys: ["title"],

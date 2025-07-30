@@ -35,12 +35,12 @@ export default function TheBibleVerse(props: TheBibleVerseProps) {
   return (
     <blockquote
       className={twMerge(
-        "mx-auto max-w-max relative border-2 border-secondary rounded-full flex flex-col items-center justify-center pt-3 pb-2 px-10 md:px-20 bg-white text-primary shadow-neon transition-shadow",
+        "border-secondary text-primary shadow-neon relative mx-auto flex max-w-max flex-col items-center justify-center rounded-full border-2 bg-white px-10 pt-3 pb-2 transition-shadow md:px-20",
         className,
       )}
     >
-      <p className="text-center font-bold text-xl">{verse}</p>
-      <cite className="block w-full text-right text-xs not-italic font-semibold">
+      <p className="text-center text-xl font-bold">{verse}</p>
+      <cite className="block w-full text-right text-xs font-semibold not-italic">
         {reference}
       </cite>
     </blockquote>

@@ -1,35 +1,245 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+@source '../../../node_modules/preline/dist/*.js';
+
+/* Preline UI */
+@source "../../../node_modules/preline/dist/*.js";
+@import "../../../node_modules/preline/variants.css";
+
+/* Plugins */
+@plugin "@tailwindcss/forms";
+
+@plugin "flowbite-react/plugin/tailwindcss";
+@source "../../../.flowbite-react/class-list.json";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --default-ring-color: var(--ring-color-300);
+
+  --background-image-gradient-radial: radial-gradient(var(--tw-gradient-stops));
+  --background-image-gradient-conic: conic-gradient(
+    from 180deg at 50% 50%,
+    var(--tw-gradient-stops)
+  );
+
+  --color-chill-1: #daf2f3;
+  --color-chill-2: #b9e5e8;
+  --color-chill-3: #9dd9de;
+  --color-chill-4: #70c7d0;
+  --color-chill-50: #eafffd;
+  --color-chill-100: #cafffb;
+  --color-chill-200: #9cfffa;
+  --color-chill-300: #57fff9;
+  --color-chill-400: #0cfcff;
+  --color-chill-500: #00deea;
+  --color-chill-600: #00b0c4;
+  --color-chill-700: #008596;
+  --color-chill-800: #0b6f7f;
+  --color-chill-900: #0e5b6b;
+  --color-chill-950: #023d4a;
+  --color-chill: #008596;
+
+  --color-matisse-50: #f3f7fc;
+  --color-matisse-100: #e7eff7;
+  --color-matisse-200: #c9dcee;
+  --color-matisse-300: #9abfdf;
+  --color-matisse-400: #639dcd;
+  --color-matisse-500: #3f81b8;
+  --color-matisse-600: #2f689d;
+  --color-matisse-700: #27537d;
+  --color-matisse-800: #234669;
+  --color-matisse-900: #223c58;
+  --color-matisse-950: #17273a;
+  --color-matisse: #2f689d;
+
+  --color-dodger-blue-50: #effaff;
+  --color-dodger-blue-100: #daf3ff;
+  --color-dodger-blue-200: #bdecff;
+  --color-dodger-blue-300: #90e1ff;
+  --color-dodger-blue-400: #5ccffe;
+  --color-dodger-blue-500: #36b3fb;
+  --color-dodger-blue-600: #279af1;
+  --color-dodger-blue-700: #187edd;
+  --color-dodger-blue-800: #1a65b3;
+  --color-dodger-blue-900: #1b568d;
+  --color-dodger-blue-950: #153556;
+  --color-dodger-blue: #279af1;
+
+  --color-gun-powder-50: #f5f5f9;
+  --color-gun-powder-100: #e9e9f0;
+  --color-gun-powder-200: #d8d8e5;
+  --color-gun-powder-300: #bdbdd3;
+  --color-gun-powder-400: #9e9dbd;
+  --color-gun-powder-500: #8885ac;
+  --color-gun-powder-600: #79739d;
+  --color-gun-powder-700: #6f678e;
+  --color-gun-powder-800: #5e5776;
+  --color-gun-powder-900: #444054;
+  --color-gun-powder-950: #322f3c;
+  --color-gun-powder: #444054;
+
+  --color-light-apricot-50: #fff6ed;
+  --color-light-apricot-100: #ffebd5;
+  --color-light-apricot-200: #fed9b7;
+  --color-light-apricot-300: #fdb274;
+  --color-light-apricot-400: #fb873c;
+  --color-light-apricot-500: #f96616;
+  --color-light-apricot-600: #ea4b0c;
+  --color-light-apricot-700: #c2370c;
+  --color-light-apricot-800: #9a2c12;
+  --color-light-apricot-900: #7c2712;
+  --color-light-apricot-950: #431107;
+  --color-light-apricot: #fed9b7;
+
+  --color-keppel-50: #f3faf7;
+  --color-keppel-100: #d7f0e8;
+  --color-keppel-200: #aee1d2;
+  --color-keppel-300: #7ecab6;
+  --color-keppel-400: #58b09c;
+  --color-keppel-500: #3a9280;
+  --color-keppel-600: #2c7568;
+  --color-keppel-700: #275e54;
+  --color-keppel-800: #234c46;
+  --color-keppel-900: #21403b;
+  --color-keppel-950: #0e2523;
+  --color-keppel: #58b09c;
+
+  --color-viola-50: #f9f6f8;
+  --color-viola-100: #f5eef3;
+  --color-viola-200: #ebdfe7;
+  --color-viola-300: #dcc5d4;
+  --color-viola-400: #c6a0b7;
+  --color-viola-500: #b98ea7;
+  --color-viola-600: #9b6783;
+  --color-viola-700: #83536b;
+  --color-viola-800: #6d4759;
+  --color-viola-900: #5d3e4d;
+  --color-viola-950: #36212b;
+  --color-viola: #b98ea7;
+
+  --color-primary-1: #daf2f3;
+  --color-primary-2: #b9e5e8;
+  --color-primary-3: #9dd9de;
+  --color-primary-4: #70c7d0;
+  --color-primary-50: #eafffd;
+  --color-primary-100: #cafffb;
+  --color-primary-200: #9cfffa;
+  --color-primary-300: #57fff9;
+  --color-primary-400: #0cfcff;
+  --color-primary-500: #00deea;
+  --color-primary-600: #00b0c4;
+  --color-primary-700: #008596;
+  --color-primary-800: #0b6f7f;
+  --color-primary-900: #0e5b6b;
+  --color-primary-950: #023d4a;
+  --color-primary: #008596;
+
+  --color-secondary-50: #fff7ed;
+  --color-secondary-100: #ffedd5;
+  --color-secondary-200: #fed7aa;
+  --color-secondary-300: #fdba74;
+  --color-secondary-400: #fb923c;
+  --color-secondary-500: #f97316;
+  --color-secondary-600: #ea580c;
+  --color-secondary-700: #c2410c;
+  --color-secondary-800: #9a3412;
+  --color-secondary-900: #7c2d12;
+  --color-secondary-950: #431407;
+  --color-secondary: #ea580c;
+
+  --ring-color-50: #fff7ed;
+  --ring-color-100: #ffedd5;
+  --ring-color-200: #fed7aa;
+  --ring-color-300: #fdba74;
+  --ring-color-400: #fb923c;
+  --ring-color-500: #f97316;
+  --ring-color-600: #ea580c;
+  --ring-color-700: #c2410c;
+  --ring-color-800: #9a3412;
+  --ring-color-900: #7c2d12;
+  --ring-color-950: #431407;
+  --ring-color: #fdba74;
+
+  --shadow-neon:
+    0 0 10px 3px rgba(231, 131, 103, 0.8), 0 0 10px 3px rgba(230, 75, 32, 0.9);
+
+  --font-header: Montserrat, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
   }
 }
 
-body {
-  @apply text-gray-900;
+@utility text-balance {
+  text-wrap: balance;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  @apply font-header;
+@utility markdown {
+  @apply leading-6;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply mt-4 mb-1;
+  }
+  h1 {
+    @apply text-3xl;
+  }
+  h2 {
+    @apply text-2xl;
+  }
+  h3 {
+    @apply text-xl;
+  }
 }
 
-/* body {
+@layer utilities {
+  :root {
+    --foreground-rgb: 0, 0, 0;
+    --background-start-rgb: 214, 219, 220;
+    --background-end-rgb: 255, 255, 255;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --foreground-rgb: 255, 255, 255;
+      --background-start-rgb: 0, 0, 0;
+      --background-end-rgb: 0, 0, 0;
+    }
+  }
+
+  body {
+    @apply text-gray-900;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-header;
+  }
+
+  /* body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
       to bottom,
@@ -38,33 +248,4 @@ h6 {
     )
     rgb(var(--background-start-rgb));
 } */
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-}
-
-@layer components {
-  .markdown {
-    @apply leading-6;
-
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-      @apply mt-4 mb-1;
-    }
-    h1 {
-      @apply text-3xl;
-    }
-    h2 {
-      @apply text-2xl;
-    }
-    h3 {
-      @apply text-xl;
-    }
-  }
 }

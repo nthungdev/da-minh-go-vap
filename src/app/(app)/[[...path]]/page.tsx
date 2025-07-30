@@ -48,14 +48,14 @@ export default async function Page(props: {
             <BlocksRenderer blocks={page.beforeMain} />
           </section>
         )}
-        <div className="lg:flex flex-row items-start gap-x-4">
+        <div className="flex-row items-start gap-x-4 lg:flex">
           {!!page.main?.length && (
             <section className="flex-1">
               <BlocksRenderer blocks={page.main} />
             </section>
           )}
           {!!page?.aside?.length && (
-            <aside className="hidden lg:block w-56 lg:w-64 bg-primary-1">
+            <aside className="bg-primary-1 hidden w-56 lg:w-64 xl:block">
               <BlocksRenderer blocks={page.aside} />
             </aside>
           )}

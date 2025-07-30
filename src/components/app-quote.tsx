@@ -4,7 +4,7 @@ interface AppQuoteProps {
 
 export default function AppQuote(props: AppQuoteProps) {
   return (
-    <blockquote className="relative bg-primary-200 rounded-lg p-8">
+    <blockquote className="bg-primary-200 relative rounded-lg p-8">
       <div className="relative z-10">
         <p className="text-xl text-gray-800 md:text-3xl md:leading-normal">
           <em>{props.quote}</em>

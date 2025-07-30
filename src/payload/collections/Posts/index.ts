@@ -1,11 +1,32 @@
-import markdownField from "@/fields/markdown";
+import markdownField from "@/payload/fields/markdown";
+import { Post } from "@/payload-types";
+import { slugify } from "@/payload/utils/data";
 import { validateSlug } from "@/utils/slug";
-import type { CollectionConfig } from "payload";
+import type {
+  AccessArgs,
+  AccessResult,
+  CollectionConfig,
+  FieldHook,
+  FieldHookArgs,
+} from "payload";
 
 const Posts: CollectionConfig = {
   slug: "posts",
+  labels: {
+    singular: {
+      en: "Post",
+      vi: "Bài viết",
+    },
+    plural: {
+      en: "Posts",
+      vi: "Bài viết",
+    },
+  },
   access: {
-    read: () => true,
+    read: postsReadAccess,
+  },
+  admin: {
+    useAsTitle: "title",
   },
   fields: [
     {
@@ -13,6 +34,9 @@ const Posts: CollectionConfig = {
       type: "text",
       label: "Tiêu đề",
       required: true,
+      hooks: {
+        beforeDuplicate: [duplicateTitle],
+      },
     },
     {
       name: "slug",
@@ -26,6 +50,10 @@ const Posts: CollectionConfig = {
         position: "sidebar",
         description:
           "Can only use letters (a-z, A-Z), numbers (0-9), and dashes (-, _)",
+      },
+      hooks: {
+        beforeValidate: [autoGenerateSlug],
+        beforeDuplicate: [duplicateSlug],
       },
     },
     {
@@ -92,5 +120,43 @@ const Posts: CollectionConfig = {
     },
   ],
 };
+
+function duplicateTitle({ value }: FieldHookArgs): ReturnType<FieldHook> {
+  return `[Duplicate] ${value}`;
+}
+
+function isCmsPath(pathname: string) {
+  return pathname.startsWith("/admin");
+}
+
+function postsReadAccess({ req }: AccessArgs<Post>): AccessResult {
+  // Allow access to all posts in the admin panel
+  if (isCmsPath(req.pathname) && req.user) return true;
+
+  // For public (unauthenticated) access
+  return {
+    publishedAt: { less_than_equal: new Date().toISOString() },
+    and: [
+      {
+        // title and body can be undefined for unedited locales
+        title: { exists: true },
+        body: { exists: true },
+      },
+    ],
+  };
+}
+
+function autoGenerateSlug({ value, siblingData }: FieldHookArgs) {
+  if (!value) {
+    return slugify(siblingData.title || "");
+  }
+  return value;
+}
+
+function duplicateSlug({ value }: FieldHookArgs): ReturnType<FieldHook> {
+  const characters = 4;
+  const uniqueSuffix = Math.random().toString(36).slice(-characters);
+  return `${value}-${uniqueSuffix}`;
+}
 
 export default Posts;

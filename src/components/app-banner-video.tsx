@@ -6,7 +6,7 @@ export default function AppBannerVideo(
 ) {
   return (
     <video
-      className={twMerge("object-cover h-full w-full", props.className)}
+      className={twMerge("h-full w-full object-cover", props.className)}
       autoPlay
       loop
       muted

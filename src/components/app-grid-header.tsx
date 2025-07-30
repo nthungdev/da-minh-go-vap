@@ -1,11 +1,27 @@
-export default function AppGridHeader({ text }: { text: string }) {
+import { twMerge } from "tailwind-merge";
+
+interface AppGridHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
+  text: string;
+}
+
+export default function AppGridHeader({
+  text,
+  className,
+  ...props
+}: AppGridHeaderProps) {
   return (
-    <div className="flex flex-row text-center text-primary-800 items-center">
-      <div className="flex-1 h-[2px] bg-primary-800"></div>
-      <span className="mx-1.5 uppercase font-bold text-2xl font-header">
+    <div
+      className={twMerge(
+        "@container flex flex-row items-center gap-x-1.5",
+        className,
+      )}
+      {...props}
+    >
+      <div className="bg-primary-800 h-[2px] flex-1"></div>
+      <span className="text-primary-800 font-header text-base font-bold uppercase @md:text-2xl">
         {text}
       </span>
-      <div className="flex-1 h-[2px] bg-primary-800"></div>
+      <div className="bg-primary-800 h-[2px] flex-1"></div>
     </div>
   );
 }

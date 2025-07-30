@@ -29,7 +29,7 @@ export default function TheDominicQuote(props: TheDominicQuoteProps) {
   return (
     <div className="h-64 md:h-32">
       <blockquote>
-        <p className="text-center font-semibold text-2xl">{quote}</p>
+        <p className="text-center text-2xl font-semibold">{quote}</p>
       </blockquote>
     </div>
   );

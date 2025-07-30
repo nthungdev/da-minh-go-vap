@@ -21,7 +21,7 @@ export default function AsideLinks({ title, links = [] }: AsideLinksProps) {
             <Link
               target="_blank"
               href={link.url}
-              className="relative w-full block aspect-[4] border border-transparent hover:ring"
+              className="relative block aspect-[4] w-full border border-transparent hover:ring-3"
             >
               {typeof link.image !== "string" &&
                 typeof link.image.url === "string" && (

@@ -19,9 +19,9 @@ function AppAccordionToggle(props: AppAccordionToggle) {
   return (
     <button
       className={twMerge(
-        "hs-accordion-toggle hs-accordion-active:hover:text-gray-50 py-3 px-2 inline-flex items-center gap-x-3 w-full font-semibold text-start text-gray-800 hover:text-gray-50 focus:outline-none rounded-lg disabled:opacity-50 disabled:pointer-events-none",
+        "hs-accordion-toggle hs-accordion-active:hover:text-gray-50 inline-flex w-full items-center gap-x-3 rounded-lg px-2 py-3 text-start font-semibold text-gray-800 hover:text-gray-50 focus:outline-hidden disabled:pointer-events-none disabled:opacity-50",
         colorVariants[colorLevel],
-        "hover:bg-[#01919F] hs-accordion-active:text-gray-800",
+        "hs-accordion-active:text-gray-800 hover:bg-[#01919F]",
       )}
       aria-expanded={false}
       aria-controls={controlId}
@@ -77,7 +77,7 @@ function AppAccordionContent(props: AppAccordionContentProps) {
       aria-labelledby={labeledById}
       style={{ height: "0px" }}
     >
-      <div className="p-4 space-y-4">
+      <div className="space-y-4 p-4">
         {body && <AppMarkdown>{body}</AppMarkdown>}
         {children}
       </div>
@@ -125,7 +125,7 @@ function AppAccordionItem(props: AppAccordionItemProps) {
   const { id, children } = props;
 
   return (
-    <div className={`hs-accordion rounded-lg bg-primary-50`} id={id}>
+    <div className={`hs-accordion bg-primary-50 rounded-lg`} id={id}>
       {children}
     </div>
   );
