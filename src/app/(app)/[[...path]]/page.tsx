@@ -40,7 +40,10 @@ export default async function Page(props: {
     [];
 
   return (
-    <AppPage banners={banners}>
+    <AppPage
+      banners={banners}
+      showDecorativeGraphic={page.showBannersDecorativeGraphic ?? false}
+    >
       <h1 className="sr-only">{page.title}</h1>
       <div className="space-y-4 lg:space-y-8">
         {!!page.beforeMain?.length && (

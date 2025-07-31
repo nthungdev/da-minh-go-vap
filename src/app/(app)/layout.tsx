@@ -9,8 +9,6 @@ import TheDesktopNavbar from "@/components/the-desktop-navbar";
 import ReactQueryProvider from "@/components/providers/react-query-provider";
 import { getMenu } from "@/utils/menu";
 import { getLogo } from "@/utils/siteSettings";
-import { getPayload } from "payload";
-import config from "@payload-config";
 import "./globals.css";
 
 const montserrat = Montserrat({
@@ -35,9 +33,6 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const payload = await getPayload({ config });
-  const navBar = await payload.findGlobal({ slug: "navBar" });
-
   const menu = await getMenu();
   const logo = await getLogo();
 
@@ -61,38 +56,6 @@ export default async function RootLayout({
         />
         {/* z-60 because backdrop from Preline is z-59 */}
         <TheMobileNavbar menu={menu} className="sticky top-0 z-60 xl:hidden" />
-
-        <div className="relative">
-          <picture className="absolute -bottom-px z-10 block w-full">
-            {typeof navBar.bottomDecorativeGraphic?.imageMobile !== "string" &&
-              typeof navBar.bottomDecorativeGraphic?.imageMobile?.url ===
-                "string" && (
-                <source
-                  media="(max-width: 799px)"
-                  srcSet={navBar.bottomDecorativeGraphic.imageMobile.url}
-                />
-              )}
-
-            {typeof navBar.bottomDecorativeGraphic?.imageDesktop !== "string" &&
-              typeof navBar.bottomDecorativeGraphic?.imageDesktop?.url ===
-                "string" && (
-                <source
-                  media="(min-width: 800px)"
-                  srcSet={navBar.bottomDecorativeGraphic.imageDesktop.url}
-                />
-              )}
-
-            {typeof navBar.bottomDecorativeGraphic?.imageMobile !== "string" &&
-              typeof navBar.bottomDecorativeGraphic?.imageMobile?.url ===
-                "string" && (
-                <img
-                  className="w-full"
-                  src={navBar.bottomDecorativeGraphic.imageMobile.url}
-                  alt=""
-                />
-              )}
-          </picture>
-        </div>
 
         <ReactQueryProvider>
           <div className="flex-1">{children}</div>
