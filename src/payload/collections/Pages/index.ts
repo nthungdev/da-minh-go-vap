@@ -18,16 +18,19 @@ import type { CollectionConfig } from "payload";
 
 const Pages: CollectionConfig = {
   slug: "pages",
+  labels: {
+    singular: {
+      en: "Page",
+      vi: "Trang",
+    },
+    plural: {
+      en: "Pages",
+      vi: "Các trang",
+    },
+  },
   admin: {
     useAsTitle: "title",
   },
-  // access: {
-  // read: () => ({
-  //   publishedAt: {
-  //     greater_than: new Date(),
-  //   },
-  // }),
-  // },
   fields: [
     {
       name: "publishedAt",
@@ -57,7 +60,10 @@ const Pages: CollectionConfig = {
       type: "tabs",
       tabs: [
         {
-          label: "Main",
+          label: {
+            en: "Main",
+            vi: "Nội dung chính",
+          },
           fields: [
             {
               name: "title",
@@ -88,7 +94,10 @@ const Pages: CollectionConfig = {
           ],
         },
         {
-          label: "Before Main",
+          label: {
+            en: "Before main",
+            vi: "Trước phần chính",
+          },
           fields: [
             {
               name: "banners",
@@ -99,6 +108,15 @@ const Pages: CollectionConfig = {
               hasMany: true,
             },
             {
+              name: "showBannersDecorativeGraphic",
+              type: "checkbox",
+              label: "Hiển thị hình trang trí đè lên banner",
+              admin: {
+                description: "Tùy chỉnh hình trang trí ở mục NavBar",
+              },
+              defaultValue: false,
+            },
+            {
               name: "beforeMain",
               type: "blocks",
               blocks: [BibleVerseBlock],
@@ -106,7 +124,10 @@ const Pages: CollectionConfig = {
           ],
         },
         {
-          label: "Aside",
+          label: {
+            en: "Aside (right)",
+            vi: "Bên cạnh (phải)",
+          },
           fields: [
             {
               name: "aside",
