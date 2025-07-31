@@ -178,7 +178,10 @@ export default function TheMobileNavbar({
   };
 
   return (
-    <nav className={twMerge("bg-primary p-2 text-gray-50", className)}>
+    <nav
+      id="mobile-navbar"
+      className={twMerge("bg-primary p-2 text-gray-50", className)}
+    >
       {/* Navigation Toggle */}
       <div className="flex flex-row items-center">
         <button
