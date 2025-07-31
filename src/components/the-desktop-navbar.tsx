@@ -23,7 +23,7 @@ export default async function TheDesktopNavbar({
         props.className,
       )}
     >
-      <div className="max-w-(--breakpoint-xl) flex-row flex-wrap items-center lg:flex">
+      <div className="max-w-7xl flex-row flex-wrap items-center lg:flex">
         <div className="relative z-20 h-full w-20 self-start">
           <div className="absolute top-[20%] left-0 size-20 overflow-auto">
             {typeof logo?.url === "string" && (

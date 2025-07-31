@@ -38,7 +38,7 @@ export default async function TheFooter() {
 
       {/* layout for small screens */}
       <div className="bg-primary">
-        <div className="flex max-w-(--breakpoint-xl) flex-col gap-8 p-4 text-left text-white sm:hidden md:flex-row">
+        <div className="flex flex-col gap-8 p-4 text-left text-white sm:hidden md:flex-row">
           <Contact
             name={footer.contact.name}
             phone={footer.contact.phone}
@@ -64,7 +64,7 @@ export default async function TheFooter() {
       </div>
 
       {/* layout for large screens */}
-      <div className="3xl:text-xl absolute bottom-0 left-0 hidden max-w-(--breakpoint-xl) flex-col gap-8 px-4 py-4 text-left text-[0.9vw] text-white sm:flex md:flex-row">
+      <div className="3xl:text-xl absolute bottom-0 left-0 hidden max-w-7xl flex-col gap-8 px-4 py-4 text-left text-[0.9vw] text-white sm:flex md:flex-row">
         <Contact
           name={footer.contact.name}
           phone={footer.contact.phone}
