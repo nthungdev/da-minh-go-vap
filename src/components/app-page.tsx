@@ -24,7 +24,7 @@ export default function AppPage({
       {!!banners?.length && <AppBanners banners={banners} />}
       <div
         className={twMerge(
-          "mx-auto w-full max-w-(--breakpoint-xl) px-4 py-8",
+          "mx-auto w-full max-w-7xl px-4 py-8",
           pathname !== "/" && "pt-16",
           className,
         )}
