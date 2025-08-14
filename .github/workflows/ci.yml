@@ -102,5 +102,8 @@ jobs:
       - name: Generate Payload types
         run: pnpm generate
 
-      - name: Build
-        run: pnpm build
+      - name: Build in compile mode
+        run: pnpm build:compile
+
+      - name: Build in generate mode
+        run: pnpm build:generate
