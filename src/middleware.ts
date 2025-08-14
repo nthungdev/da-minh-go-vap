@@ -8,8 +8,12 @@ if (!AUTH_USER || !AUTH_PASSWORD) {
   throw new Error("Missing BASIC_AUTH_USER or BASIC_AUTH_PASSWORD");
 }
 
-// Runs on every request
 export function middleware(request: NextRequest) {
+  const { pathname } = request.nextUrl;
+  if (pathname.match(/^\/(admin|api)/)) {
+    return NextResponse.next();
+  }
+
   const authHeader = request.headers.get("authorization");
 
   // Expected format: "Basic base64encoded(user:pass)"
