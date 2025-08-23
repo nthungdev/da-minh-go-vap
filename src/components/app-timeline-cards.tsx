@@ -8,8 +8,8 @@ interface AppTimelineCardsProps {
   className?: string;
   cards: {
     title: string;
-    thumbnail: Media;
-    url: string;
+    thumbnail: Media | string;
+    url?: string;
   }[];
   title: string;
 }

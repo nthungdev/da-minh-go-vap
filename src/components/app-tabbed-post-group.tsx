@@ -7,7 +7,7 @@ import AppViewMoreLink from "@/components/app-view-more-link";
 const POST_COUNT = 6;
 
 interface AppTabbedPostGroupProps {
-  title: string;
+  title?: string;
   groups: {
     title: string;
     hiddenTags: string[];
@@ -34,7 +34,6 @@ async function AppTabbedPostGroup(props: AppTabbedPostGroupProps) {
     <div className="space-y-4">
       {props.title && <AppGridHeader text={props.title} />}
       <AppPostTabGrid
-        id={`home-posts-group-${props.title.replace(/\s/g, "-")}`}
         postGroups={postGroups}
         allPostsLimit={POST_COUNT}
         component={AppPostGridSix}
