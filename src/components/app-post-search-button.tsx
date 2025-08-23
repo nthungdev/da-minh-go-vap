@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import {
   ChangeEventHandler,
@@ -9,15 +9,15 @@ import {
   useReducer,
   useRef,
   useState,
-} from 'react'
-import SearchIcon from '@/public/svgs/search.svg'
-import { searchPosts } from '@/actions/search'
-import classNames from 'classnames'
-import { HSOverlay } from 'preline/preline'
-import AppPostListItem from './app-post-list-item'
-import { createPortal } from 'react-dom'
-
-const PLACEHOLDER = 'Tìm kiếm...'
+} from "react";
+import SearchIcon from "@/public/svgs/search.svg";
+import { searchPosts } from "@/actions/search";
+import { HSOverlay, ICollectionItem } from "preline/preline";
+import AppPostListItem from "./app-post-list-item";
+import { createPortal } from "react-dom";
+import Image from "next/image";
+import { AppPost } from "@/definitions";
+import { twMerge } from "tailwind-merge";
 
 enum ModalState {
   LOADING,
@@ -27,13 +27,13 @@ enum ModalState {
 }
 
 interface SearchModalProps {
-  id: string
-  posts: PostParams[]
-  input: string
-  state: ModalState
-  containerRef: RefObject<HTMLElement>
-  onInputSubmit: FormEventHandler<HTMLFormElement>
-  onInputChange: ChangeEventHandler<HTMLInputElement>
+  id: string;
+  posts: AppPost[];
+  input: string;
+  state: ModalState;
+  containerRef: RefObject<HTMLElement | null>;
+  onInputSubmit: FormEventHandler<HTMLFormElement>;
+  onInputChange: ChangeEventHandler<HTMLInputElement>;
 }
 
 // eslint-disable-next-line react/display-name
@@ -47,21 +47,21 @@ const SearchModal = forwardRef<HTMLDivElement, SearchModalProps>(
       containerRef,
       onInputChange,
       onInputSubmit,
-    } = props
+    } = props;
 
     return containerRef.current
       ? createPortal(
           <div
             ref={ref}
             id={id}
-            className="hs-overlay hs-overlay-open:opacity-100 hs-overlay-open:duration-500 hidden size-full fixed top-0 start-0 z-[80] opacity-0 overflow-x-hidden transition-all overflow-y-auto pointer-events-none"
+            className="hs-overlay hs-overlay-open:opacity-100 hs-overlay-open:duration-500 pointer-events-none fixed start-0 top-0 z-80 hidden size-full overflow-x-hidden overflow-y-auto opacity-0 transition-all"
             role="dialog"
             tabIndex={-1}
             aria-labelledby={`${id}-label`}
           >
-            <div className="hs-overlay-open:opacity-100 hs-overlay-open:duration-500 opacity-0 transition-all sm:max-w-lg sm:w-full m-3 sm:mx-auto">
-              <div className="flex flex-col bg-white border shadow-sm rounded-xl pointer-events-auto overflow-hidden">
-                <div className="relative p-4 border-b border-gray-200">
+            <div className="hs-overlay-open:opacity-100 hs-overlay-open:duration-500 m-3 opacity-0 transition-all sm:mx-auto sm:w-full sm:max-w-lg">
+              <div className="pointer-events-auto flex flex-col overflow-hidden rounded-xl border bg-white shadow-xs">
+                <div className="relative border-b border-gray-200 p-4">
                   <form className="relative" onSubmit={onInputSubmit}>
                     <label
                       id={`${id}-label`}
@@ -70,12 +70,17 @@ const SearchModal = forwardRef<HTMLDivElement, SearchModalProps>(
                     >
                       Search input
                     </label>
-                    <div className="absolute inset-y-0 start-0 flex items-center pointer-events-none z-20 ps-3.5">
-                      <SearchIcon className="shrink-0 size-4 text-gray-400" />
+                    <div className="pointer-events-none absolute inset-y-0 start-0 z-20 flex items-center ps-3.5">
+                      {/* <SearchIcon className="shrink-0 size-4 text-gray-400" /> */}
+                      <Image
+                        src={SearchIcon}
+                        alt=""
+                        className="size-4 shrink-0 text-gray-400"
+                      />
                     </div>
                     <input
                       id={`${id}-input`}
-                      className="py-3 ps-10 pe-4 block w-full border-gray-200 rounded-lg text-sm focus:border-secondary          focus:ring-secondary disabled:opacity-50 disabled:pointer-events-none"
+                      className="focus:border-secondary focus:ring-secondary block w-full rounded-lg border-gray-200 py-3 ps-10 pe-4 text-sm disabled:pointer-events-none disabled:opacity-50"
                       type="text"
                       role="search"
                       value={input}
@@ -85,11 +90,11 @@ const SearchModal = forwardRef<HTMLDivElement, SearchModalProps>(
                   </form>
                 </div>
 
-                <div className="max-h-[75vh] overflow-y-scroll rounded-sm relative w-full">
+                <div className="relative max-h-[75vh] w-full overflow-y-auto rounded-xs">
                   {state === ModalState.LOADING && (
                     <div className="py-4 text-center">
                       <div
-                        className="animate-spin inline-block size-4 border-[3px] border-current border-t-transparent text-primary rounded-full"
+                        className="text-primary inline-block size-4 animate-spin rounded-full border-[3px] border-current border-t-transparent"
                         role="status"
                         aria-label="loading"
                       >
@@ -99,15 +104,15 @@ const SearchModal = forwardRef<HTMLDivElement, SearchModalProps>(
                   )}
 
                   {state === ModalState.LOADED && (
-                    <div className="p-1 space-y-1">
+                    <div className="space-y-1 p-1">
                       {posts.map((post, index) => (
                         <div key={post.slug} className="h-[60px] w-full">
                           <AppPostListItem
                             post={post}
-                            className={classNames(
+                            className={twMerge(
                               index % 2 === 0
-                                ? 'bg-primary-50'
-                                : 'bg-primary-100'
+                                ? "bg-primary-50"
+                                : "bg-primary-100",
                             )}
                           />
                         </div>
@@ -118,78 +123,83 @@ const SearchModal = forwardRef<HTMLDivElement, SearchModalProps>(
               </div>
             </div>
           </div>,
-          containerRef.current
+          containerRef.current,
         )
-      : null
-  }
-)
+      : null;
+  },
+);
 
 export default function AppPostSearchButton({ id }: { id: string }) {
-  const bodyRef = useRef<HTMLElement | null>(null)
-  const overlayRef = useRef<HTMLDivElement>(null)
-  const [input, setInput] = useState('')
-  const [posts, setPosts] = useState<PostParams[]>([])
-  const [overlay, setOverlay] = useState<HSOverlay | null>(null)
-  const [_, forceUpdate] = useReducer((x) => x + 1, 0)
-  const [state, setState] = useState(ModalState.EMPTY)
+  const bodyRef = useRef<HTMLBodyElement | null>(null);
+  const overlayRef = useRef<HTMLDivElement>(null);
+  const [input, setInput] = useState("");
+  const [posts, setPosts] = useState<AppPost[]>([]);
+  const [overlay, setOverlay] = useState<HSOverlay | null>(null);
+  const [, forceUpdate] = useReducer((x) => x + 1, 0);
+  const [state, setState] = useState(ModalState.EMPTY);
 
   const getOverlay = async () => {
-    if (overlay && overlay.overlay) {
-      return overlay
+    if (overlay) {
+      return overlay;
     }
 
     const overlayElement = document.querySelector<HTMLElement>(
-      `[data-hs-overlay="#${id}"]`
-    )
+      `[data-hs-overlay="#${id}"]`,
+    );
     if (overlayElement === null) {
-      console.log('element not found')
-      return null
+      console.log("element not found");
+      return null;
     }
 
-    const { HSOverlay } = await import('preline/preline')
+    const { HSOverlay } = await import("preline/preline");
 
-    const o = new HSOverlay(overlayElement)
-    setOverlay(o)
+    const overlayInstance = HSOverlay.getInstance(
+      overlayElement,
+      true,
+    ) as ICollectionItem<HSOverlay>;
+    const o = overlayInstance.element;
 
-    o.on('close', () => {
-      setPosts([])
-      setInput('')
-    })
+    setOverlay(o);
 
-    return o
-  }
+    o.on("close", () => {
+      setPosts([]);
+      setInput("");
+    });
+
+    return o;
+  };
 
   const handleInputChange: ChangeEventHandler<HTMLInputElement> = (event) => {
-    setInput(event.target.value)
-  }
+    setInput(event.target.value);
+  };
 
   const handleInputSubmit: FormEventHandler<HTMLFormElement> = async (
-    event
+    event,
   ) => {
-    event.preventDefault()
-    setState(ModalState.LOADING)
-    const results = await searchPosts(input)
-    setPosts(results.map((r) => r.item))
-    setState(ModalState.LOADED)
-  }
+    event.preventDefault();
+    setState(ModalState.LOADING);
+    const results = await searchPosts(input);
+    setPosts(results.map((r) => r.item));
+    setState(ModalState.LOADED);
+  };
 
   const openSearchModal = async () => {
-    const overlay = await getOverlay()
+    const overlay = await getOverlay();
     if (!overlay) {
-      console.log('overlay not found')
-      return
+      console.log("overlay not found");
+      return;
     }
-    overlay.open()
-    overlay.on('close', () => {
-      setPosts([])
-      setInput('')
-    })
-  }
+    overlay.open();
+    overlay.on("close", () => {
+      setPosts([]);
+      setInput("");
+    });
+  };
 
   useEffect(() => {
-    bodyRef.current = document.querySelector('body')
-    forceUpdate()
-  }, [])
+    bodyRef.current = document.querySelector("body");
+    forceUpdate();
+  }, []);
 
   return (
     <div>
@@ -204,13 +214,16 @@ export default function AppPostSearchButton({ id }: { id: string }) {
       ></button>
 
       <button
-        className="relative hover:cursor-pointer bg-white flex flex-row items-center space-x-2 p-2 hover:ring-2 ring-primary border rounded-full"
+        className="ring-primary relative flex flex-row items-center space-x-2 rounded-full border bg-white p-2 hover:cursor-pointer hover:ring-2"
         onClick={openSearchModal}
       >
-        <SearchIcon className="shrink-0 size-4 text-gray-400" />
+        <Image
+          src={SearchIcon}
+          alt=""
+          className="size-4 shrink-0 text-gray-400"
+        />
       </button>
 
-      {/* {bodyRef.current && ( */}
       <SearchModal
         id={id}
         ref={overlayRef}
@@ -222,5 +235,5 @@ export default function AppPostSearchButton({ id }: { id: string }) {
         onInputSubmit={handleInputSubmit}
       />
     </div>
-  )
+  );
 }

@@ -1,77 +1,87 @@
-import path from 'path'
-import fs from 'fs'
-import matter from 'gray-matter'
+import { getPayload, Where } from "payload";
+import config from "@payload-config";
+import { AppPost } from "@/definitions";
+import { Post } from "@/payload-types";
 
-const postsDirectory = path.join(process.cwd(), 'src/content/posts')
+interface GetOptions {
+  limit?: number;
+  page?: number;
+  skipSlug?: string;
+}
 
-export const getPostBySlug = (slug: string) => {
-  const filePath = path.join(postsDirectory, slug + '.md')
+export const getPostBySlug = async (slug: string) => {
   try {
-    const fileContents = fs.readFileSync(filePath, 'utf8')
-    const { content, data } = matter(fileContents)
-    return {
-      slug,
-      body: content,
-      ...data,
-    } as PostParams
-  } catch (error) {
-    console.error('Error reading file', { filePath, error })
-    return null
+    const payload = await getPayload({ config });
+    const query = await payload.find({
+      collection: "posts",
+      where: { slug: { equals: slug } },
+      limit: 1,
+    });
+    const post = query.docs[0];
+    if (!post) return null;
+
+    return postToAppPost(post);
+  } catch {
+    return null;
   }
+};
+
+export const getPostsBySlugs = async (slugs: string[]) => {
+  const posts = await Promise.all(slugs.map((slug) => getPostBySlug(slug)));
+  return posts.filter((post) => post !== null);
+};
+
+export async function queryAllPosts({ limit, page }: GetOptions = {}) {
+  const payload = await getPayload({ config });
+  const query = await payload.find({
+    collection: "posts",
+    limit: limit ?? 100,
+    sort: "-publishedAt",
+    page: page ?? 1,
+  });
+  return query;
 }
 
-export const getPostsBySlugs = (slugs: string[]): PostParams[] => {
-  return slugs
-    .map((slug) => getPostBySlug(slug))
-    .filter((post) => post !== null) as PostParams[]
-}
-
-export const getAllPostSlugs = () => {
-  const fileNames = fs.readdirSync(postsDirectory)
-  return fileNames.map((fileName) => {
-    return fileName.replace(/\.md$/, '')
-  })
-}
-
-export const getAllPosts = ({ limit = undefined }: { limit?: number } = {}) => {
-  const fileNames = fs.readdirSync(postsDirectory)
-  return fileNames
-    .map((fileName) => {
-      const slug = fileName.replace(/\.md$/, '')
-      const filePath = path.join(postsDirectory, slug + '.md')
-      const fileContents = fs.readFileSync(filePath, 'utf8')
-      const { content, data } = matter(fileContents)
-      return {
-        slug,
-        body: content,
-        ...data,
-      } as PostParams
-    })
-    .toSorted((a, b) => b.date.getTime() - a.date.getTime())
-    .slice(0, limit)
-}
-
-export const getPostsByHiddenTags = (
+export async function queryPostsByHiddenTags(
   hiddenTags: string[],
-  { limit = undefined }: { limit?: number } = {}
-) => {
-  const fileNames = fs.readdirSync(postsDirectory)
-  const allPosts = fileNames.map((fileName) => {
-    const slug = fileName.replace(/\.md$/, '')
-    const filePath = path.join(postsDirectory, slug + '.md')
-    const fileContents = fs.readFileSync(filePath, 'utf8')
-    const { content, data } = matter(fileContents)
-    return {
-      slug,
-      body: content,
-      ...data,
-    } as PostParams
-  })
-  return allPosts
-    .filter((post) => {
-      const postHiddenTags = new Set(post.hiddenTags)
-      return hiddenTags.some((tag) => postHiddenTags.has(tag))
-    })
-    .toSorted((a, b) => b.date.getTime() - a.date.getTime())
-    .slice(0, limit)
+  { limit, page, skipSlug }: GetOptions = {},
+) {
+  const payload = await getPayload({ config });
+
+  const matchedHiddenTags = await payload.find({
+    collection: "hiddenTags",
+    where: { tag: { in: hiddenTags } },
+    limit: hiddenTags.length,
+  });
+
+  const queryConditions: Where[] = [
+    {
+      hiddenTags: {
+        in: matchedHiddenTags.docs.map((tag) => tag.id),
+      },
+    },
+  ];
+  if (skipSlug) {
+    queryConditions.push({
+      slug: { not_equals: skipSlug },
+    });
+  }
+  const query = await payload.find({
+    collection: "posts",
+    where: { and: queryConditions },
+    sort: "-publishedAt", // Sort by publishedAt DESC
+    limit: limit ?? 10,
+    page: page ?? 1,
+  });
+
+  return query;
+}
+
+export function postToAppPost(post: Post): AppPost {
+  return {
+    ...post,
+    publishedAt: new Date(post.publishedAt),
+    createdAt: new Date(post.createdAt),
+    updatedAt: new Date(post.updatedAt),
+  };
 }

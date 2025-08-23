@@ -4,6 +4,7 @@
 /node_modules
 /.pnp
 .pnp.js
+.pnpm-store
 .yarn/install-state.gz
 
 # testing
@@ -26,7 +27,9 @@ yarn-debug.log*
 yarn-error.log*
 
 # local env files
-.env*.local
+.env
+.env.*
+!.env.example
 
 # vercel
 .vercel
@@ -36,3 +39,15 @@ yarn-error.log*
 next-env.d.ts
 
 certificates
+
+# Payload
+media
+temp
+src/payload-types.ts
+.gitignore
+
+certbot/conf
+
+.eslintcache
+
+.pnpm-store

@@ -1,6 +1,6 @@
-import Markdown from 'react-markdown'
-import rehypeRaw from 'rehype-raw'
-import remarkGfm from 'remark-gfm'
+import Markdown from "react-markdown";
+import rehypeRaw from "rehype-raw";
+import remarkGfm from "remark-gfm";
 
 interface AppMarkdownProps {
   className?: string;
@@ -21,5 +21,5 @@ export default function AppMarkdown({
     >
       {children}
     </Markdown>
-  )
+  );
 }

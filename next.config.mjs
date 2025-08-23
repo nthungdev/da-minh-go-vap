@@ -1,40 +1,32 @@
+import { withPayload } from "@payloadcms/next/withPayload";
+import withFlowbiteReact from "flowbite-react/plugin/nextjs";
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: "standalone",
+  turbopack: {
+    rules: {
+      "*.md": {
+        as: "*.js",
+        loaders: [
+          {
+            loader: "frontmatter-markdown-loader",
+            options: {
+              mode: ["react-component", "html", "body", "meta"],
+            },
+          },
+        ],
+      },
+    },
+  },
   webpack: (config) => {
     config.module.rules.push({
       test: /\.md$/,
-      loader: 'frontmatter-markdown-loader',
-      options: { mode: ['react-component', 'body'] },
-    })
-    config.module.rules.push({
-      test: /\.svg$/i,
-      issuer: /\.[jt]sx?$/,
-      use: [
-        {
-          loader: '@svgr/webpack',
-          options: {
-            // disable removing viewBox
-            icon: true,
-          },
-        },
-      ],
-    })
+      loader: "frontmatter-markdown-loader",
+      options: { mode: ["react-component", "body"] },
+    });
 
-    return config
-  },
-  redirects: async () => {
-    return [
-      {
-        source: '/admin',
-        destination: '/admin/index.html',
-        permanent: false,
-      },
-      {
-        source: '/vocation',
-        destination: '/vocation/introduction',
-        permanent: true,
-      },
-    ]
+    return config;
   },
   images: {
     remotePatterns: [
@@ -43,10 +35,14 @@ const nextConfig = {
       //   hostname: 'res.cloudinary.com',
       // },
       {
-        hostname: '*',
+        hostname: "*",
       },
     ],
   },
-}
+};
 
-export default nextConfig
+export default withPayload(
+  withFlowbiteReact(nextConfig, {
+    devBundleServerPackages: false,
+  }),
+);

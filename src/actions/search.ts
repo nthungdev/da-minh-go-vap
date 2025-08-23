@@ -1,14 +1,18 @@
-'use server'
+"use server";
 
-import { getAllPosts } from '@/utils/post'
-import Fuse from 'fuse.js'
+import { postToAppPost, queryAllPosts } from "@/utils/post";
+import Fuse from "fuse.js";
 
-const posts = getAllPosts()
+const query = await queryAllPosts({
+  limit: 9999,
+});
+
+const posts = query.docs.map(postToAppPost);
 
 const postFuse = new Fuse(posts, {
-  keys: ['title'],
-})
+  keys: ["title"],
+});
 
 export const searchPosts = async (query: string) => {
-  return postFuse.search(query)
-}
+  return postFuse.search(query);
+};

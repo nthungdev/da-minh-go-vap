@@ -1,3 +1,0 @@
----
-title: Gp Phan Thiết
----

@@ -1,0 +1,201 @@
+import { GlobalConfig } from "payload";
+
+function linkValidation(linkType: "internal" | "external") {
+  return function (val: any, { siblingData }: { siblingData: Partial<any> }) {
+    if (siblingData.linkType === linkType && !val) {
+      return "This field is required";
+    }
+    return true;
+  };
+}
+
+const NavBar: GlobalConfig = {
+  slug: "navBar",
+  typescript: {
+    interface: "NavBar",
+  },
+  fields: [
+    // TODO pageBanners ?
+    {
+      name: "bottomDecorativeGraphic",
+      type: "group",
+      fields: [
+        {
+          name: "enable",
+          type: "checkbox",
+          defaultValue: true,
+        },
+        {
+          name: "imageDesktop",
+          type: "upload",
+          relationTo: "media",
+          required: true,
+        },
+        {
+          name: "imageMobile",
+          type: "upload",
+          relationTo: "media",
+          required: true,
+        },
+      ],
+      admin: {
+        description: "Hình trang trí bên dưới thanh điều hướng",
+      },
+    },
+    {
+      name: "menu",
+      type: "array",
+      required: true,
+      minRows: 0,
+      fields: [
+        {
+          name: "label",
+          type: "text",
+          required: true,
+        },
+        {
+          name: "linkType",
+          label: "Link Type",
+          type: "radio",
+          required: true,
+          options: [
+            {
+              label: "Internal Page",
+              value: "internal",
+            },
+            {
+              label: "External URL",
+              value: "external",
+            },
+          ],
+          defaultValue: "internal",
+          admin: {
+            layout: "horizontal",
+          },
+        },
+        {
+          name: "internalLink",
+          label: "Internal Page",
+          type: "relationship",
+          relationTo: "pages",
+          admin: {
+            condition: (_, siblingData) => siblingData.linkType === "internal",
+          },
+          validate: linkValidation("internal"),
+        },
+        {
+          name: "externalLink",
+          label: "External URL",
+          type: "text",
+          admin: {
+            condition: (_, siblingData) => siblingData.linkType === "external",
+          },
+
+          validate: linkValidation("external"),
+        },
+        {
+          name: "subMenu",
+          type: "array",
+          fields: [
+            {
+              name: "label",
+              type: "text",
+              required: true,
+            },
+            {
+              name: "linkType",
+              label: "Link Type",
+              type: "radio",
+              required: true,
+              options: [
+                {
+                  label: "Internal Page",
+                  value: "internal",
+                },
+                {
+                  label: "External URL",
+                  value: "external",
+                },
+              ],
+              defaultValue: "internal",
+              admin: { layout: "horizontal" },
+            },
+            {
+              name: "internalLink",
+              label: "Internal Page",
+              type: "relationship",
+              relationTo: "pages",
+              admin: {
+                condition: (_, siblingData) =>
+                  siblingData.linkType === "internal",
+              },
+              validate: linkValidation("internal"),
+            },
+            {
+              name: "externalLink",
+              label: "External URL",
+              type: "text",
+              admin: {
+                condition: (_, siblingData) =>
+                  siblingData.linkType === "external",
+              },
+              validate: linkValidation("external"),
+            },
+            {
+              name: "subMenu",
+              type: "array",
+              fields: [
+                {
+                  name: "label",
+                  type: "text",
+                  required: true,
+                },
+                {
+                  name: "linkType",
+                  label: "Link Type",
+                  type: "radio",
+                  required: true,
+                  options: [
+                    {
+                      label: "Internal Page",
+                      value: "internal",
+                    },
+                    {
+                      label: "External URL",
+                      value: "external",
+                    },
+                  ],
+                  defaultValue: "internal",
+                  admin: { layout: "horizontal" },
+                },
+                {
+                  name: "internalLink",
+                  label: "Internal Page",
+                  type: "relationship",
+                  relationTo: "pages",
+                  admin: {
+                    condition: (_, siblingData) =>
+                      siblingData.linkType === "internal",
+                  },
+                  validate: linkValidation("internal"),
+                },
+                {
+                  name: "externalLink",
+                  label: "External URL",
+                  type: "text",
+                  admin: {
+                    condition: (_, siblingData) =>
+                      siblingData.linkType === "external",
+                  },
+                  validate: linkValidation("external"),
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  ],
+};
+
+export default NavBar;

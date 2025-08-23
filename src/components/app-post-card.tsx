@@ -1,37 +1,41 @@
-import classNames from 'classnames'
-import Image from 'next/image'
-import Link from 'next/link'
+import { AppPost } from "@/definitions";
+import Image from "next/image";
+import Link from "next/link";
+import { twMerge } from "tailwind-merge";
 
 interface AppPostCardProps {
-  post: PostParams
-  className?: string
+  post: AppPost;
+  className?: string;
 }
 
 export default function AppPostCard(props: AppPostCardProps) {
-  const { post, className } = props
+  const { post, className } = props;
 
   return (
     <Link
       href={`/posts/${post.slug}`}
-      className={classNames(
-        'w-full h-full overflow-hidden flex flex-col lg:flex-row gap-x-2 border border-transparent hover:ring hover:cursor-pointer lg:aspect-[3.5]',
-        className
+      className={twMerge(
+        "flex h-full w-full flex-col gap-x-2 overflow-hidden border border-transparent text-base hover:cursor-pointer hover:ring-3 lg:flex-row",
+        className,
       )}
     >
-      <div className="relative lg:w-auto lg:h-full aspect-video overflow-hidden">
-        <Image
-          src={post.thumbnail}
-          alt={post.title}
-          fill
-          sizes="100%"
-          className="object-cover"
-        />
+      <div className="relative aspect-video overflow-hidden lg:h-full lg:w-auto">
+        {typeof post.thumbnail !== "string" &&
+          typeof post.thumbnail.url === "string" && (
+            <Image
+              src={post.thumbnail.url}
+              alt={post.title}
+              fill
+              sizes="100%"
+              className="object-cover"
+            />
+          )}
       </div>
-      <div className="flex-1 px-1.5 lg:px-0 py-1 md:py-1.5 lg:py-2 flex flex-col justify-between overflow-hidden">
-        <span className="line-clamp-1 lg:line-clamp-2 text-base text-gray-900 font-header">
+      <div className="flex flex-1 flex-col justify-between overflow-hidden px-1.5 py-1 md:py-1.5 lg:px-0 lg:py-2">
+        <span className="font-header line-clamp-1 text-gray-900 lg:line-clamp-2">
           {post.title}
         </span>
       </div>
     </Link>
-  )
+  );
 }

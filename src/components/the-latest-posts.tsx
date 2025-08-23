@@ -1,61 +1,75 @@
-'use client'
-
-import Image from 'next/image'
-import Link from 'next/link'
-import AppPostCard from './app-post-card'
-import classNames from 'classnames'
+import Image from "next/image";
+import Link from "next/link";
+import AppPostCard from "./app-post-card";
+import { fetchAllPosts } from "@/actions/post";
+import { twMerge } from "tailwind-merge";
 
 interface TheLatestPostsProps {
-  posts: PostParams[]
-  className?: string
+  className?: string;
 }
 
-export default function TheLatestPosts(props: TheLatestPostsProps) {
-  const { posts, className } = props
+const POST_COUNT = 5;
 
-  const latestPost = posts[0]
-  const otherPosts = posts.slice(1, 5)
+export default async function TheLatestPosts(props: TheLatestPostsProps) {
+  const { className } = props;
+
+  const latestPosts = await fetchAllPosts({ limit: POST_COUNT });
+
+  if (latestPosts.length < 1) {
+    return <div>No post found</div>;
+  }
+
+  const latestPost = latestPosts[0]!;
+  const otherPosts = latestPosts.slice(1, 5);
 
   return (
     <div
-      className={`flex flex-col lg:grid lg:grid-flow-row lg:grid-cols-3 aspect-[2.5] gap-2 w-full ${className}`}
+      className={twMerge(
+        "flex w-full flex-col gap-2 lg:grid lg:grid-flow-row lg:grid-cols-3",
+        className,
+      )}
     >
+      {/* The latest post */}
       <Link
         href={`/posts/${latestPost.slug}`}
-        className="col-span-2 aspect-video lg:aspect-auto"
+        className="col-span-2 aspect-video"
       >
-        <div className="w-full h-full bg-blue-200 relative overflow-hidden hover:cursor-pointer hover:ring-2">
-          <Image
-            className="object-cover"
-            src={latestPost.thumbnail}
-            alt={latestPost.title}
-            sizes="100%"
-            priority
-            fill
-          />
+        <div className="relative h-full w-full overflow-hidden bg-blue-200 hover:cursor-pointer hover:ring-3">
+          {typeof latestPost.thumbnail !== "string" &&
+            typeof latestPost.thumbnail?.url === "string" && (
+              <Image
+                className="object-cover"
+                src={latestPost.thumbnail.url}
+                alt={latestPost.title}
+                sizes="100%"
+                priority
+                fill
+              />
+            )}
           {/* Gradient overlay */}
-          <div className="absolute left-0 top-0 w-full h-full bg-gradient-to-b from-transparent to-black from-60%"></div>
+          <div className="absolute top-0 left-0 h-full w-full bg-linear-to-b from-transparent from-60% to-black"></div>
           {/* Post text */}
-          <div className="absolute flex flex-col bottom-0 left-0 p-3 lg:p-4 text-gray-100 gap-y-1 lg:gap-y-2">
-            <span className="text-lg lg:text-2xl line-clamp-1 lg:line-clamp-2 text-gray-100 font-header">
+          <div className="absolute bottom-0 left-0 flex flex-col gap-y-1 p-3 text-gray-100 lg:gap-y-2 lg:p-4">
+            <span className="font-header line-clamp-1 text-lg text-gray-100 lg:line-clamp-2 lg:text-2xl">
               {latestPost.title}
             </span>
-            <span className="text-xs lg:text-sm text-gray-200">
-              {latestPost.date.toLocaleDateString('vi-VN')}
+            <span className="text-xs text-gray-200 lg:text-sm">
+              {latestPost.publishedAt.toLocaleDateString("vi-VN")}
             </span>
           </div>
         </div>
       </Link>
 
-      <div className="grid grid-flow-row lg:grid-flow-col grid-cols-2 lg:grid-cols-1 lg:grid-rows-4 gap-2 relative lg:max-w-full lg:h-full">
+      {/* Next 4 latest posts */}
+      <div className="relative grid grid-flow-row grid-cols-2 gap-2 lg:h-full lg:max-w-full lg:grid-flow-col lg:grid-cols-1 lg:grid-rows-4">
         {otherPosts.map((post, index) => (
           <AppPostCard
             key={index}
             post={post}
-            className={classNames('border lg:border-transparent bg-primary-1')}
+            className={twMerge("bg-primary-1 border lg:border-transparent")}
           />
         ))}
       </div>
     </div>
-  )
+  );
 }

@@ -1,3 +1,0 @@
----
-title: tiền tập viện
----

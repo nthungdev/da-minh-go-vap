@@ -1,17 +1,17 @@
-import classNames from 'classnames'
+import { twMerge } from "tailwind-merge";
 
 export default function YoutubeIframe({
-  url,
+  videoId,
   className,
 }: {
-  url: string
-  className?: string
+  videoId: string;
+  className?: string;
 }) {
   return (
     <iframe
-      className={classNames('w-full aspect-video', className)}
-      src={url}
+      className={twMerge("aspect-video w-full", className)}
+      src={`https://www.youtube.com/embed/${videoId}`}
       allowFullScreen
     />
-  )
+  );
 }

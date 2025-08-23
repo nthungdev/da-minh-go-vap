@@ -1,27 +1,27 @@
-import classNames from 'classnames'
-import AppMarkdown from './app-markdown'
+import AppMarkdown from "./app-markdown";
+import { twMerge } from "tailwind-merge";
 
 interface AppAccordionToggle {
-  title: string
-  controlId: string
-  colorLevel?: number
+  title: string;
+  controlId: string;
+  colorLevel?: number;
 }
 
 function AppAccordionToggle(props: AppAccordionToggle) {
-  const { controlId, title, colorLevel = 0 } = props
+  const { controlId, title, colorLevel = 0 } = props;
 
   const colorVariants: Record<number, string> = {
-    0: 'bg-chill-4',
-    1: 'bg-chill-3',
-    2: 'bg-chill-2',
-  }
+    0: "bg-chill-4",
+    1: "bg-chill-3",
+    2: "bg-chill-2",
+  };
 
   return (
     <button
-      className={classNames(
-        'hs-accordion-toggle hs-accordion-active:hover:text-gray-50 py-3 px-2 inline-flex items-center gap-x-3 w-full font-semibold text-start text-gray-800 hover:text-gray-50 focus:outline-none rounded-lg disabled:opacity-50 disabled:pointer-events-none',
+      className={twMerge(
+        "hs-accordion-toggle hs-accordion-active:hover:text-gray-50 inline-flex w-full items-center gap-x-3 rounded-lg px-2 py-3 text-start font-semibold text-gray-800 hover:text-gray-50 focus:outline-hidden disabled:pointer-events-none disabled:opacity-50",
         colorVariants[colorLevel],
-        'hover:bg-[#01919F] hs-accordion-active:text-gray-800'
+        "hs-accordion-active:text-gray-800 hover:bg-[#01919F]",
       )}
       aria-expanded={false}
       aria-controls={controlId}
@@ -56,18 +56,18 @@ function AppAccordionToggle(props: AppAccordionToggle) {
       </svg>
       {title}
     </button>
-  )
+  );
 }
 
 interface AppAccordionContentProps {
-  id: string
-  labeledById: string
-  body?: string
-  children?: React.ReactNode
+  id: string;
+  labeledById: string;
+  body?: string;
+  children?: React.ReactNode;
 }
 
 function AppAccordionContent(props: AppAccordionContentProps) {
-  const { id, labeledById, body, children } = props
+  const { id, labeledById, body, children } = props;
 
   return (
     <div
@@ -75,35 +75,35 @@ function AppAccordionContent(props: AppAccordionContentProps) {
       className={`hs-accordion-content w-full overflow-hidden transition-[height] duration-300`}
       role="region"
       aria-labelledby={labeledById}
-      style={{ height: '0px' }}
+      style={{ height: "0px" }}
     >
-      <div className="p-4 space-y-4">
+      <div className="space-y-4 p-4">
         {body && <AppMarkdown>{body}</AppMarkdown>}
         {children}
       </div>
     </div>
-  )
+  );
 }
 
 export interface AppAccordionItem {
-  title: string
-  body?: string
+  title: string;
+  body?: string;
   items?: {
-    title: string
-    body?: string
-    items?: AppAccordionItem[]
-  }[]
+    title: string;
+    body?: string;
+    items?: AppAccordionItem[];
+  }[];
 }
 
 interface AppAccordionRootProps {
-  children?: React.ReactNode
-  items: AppAccordionItem[]
-  alwaysOpen?: boolean
-  itemRender: (item: AppAccordionItem, index: number) => React.ReactNode
+  children?: React.ReactNode;
+  items: AppAccordionItem[];
+  alwaysOpen?: boolean;
+  itemRender: (item: AppAccordionItem, index: number) => React.ReactNode;
 }
 
 function AppAccordionRoot(props: AppAccordionRootProps) {
-  const { children, items, alwaysOpen, itemRender } = props
+  const { children, items, alwaysOpen, itemRender } = props;
 
   return (
     <div
@@ -113,27 +113,27 @@ function AppAccordionRoot(props: AppAccordionRootProps) {
       {items.map(itemRender)}
       {children}
     </div>
-  )
+  );
 }
 
 interface AppAccordionItemProps {
-  id: string
-  children: React.ReactNode
+  id: string;
+  children: React.ReactNode;
 }
 
 function AppAccordionItem(props: AppAccordionItemProps) {
-  const { id, children } = props
+  const { id, children } = props;
 
   return (
-    <div className={`hs-accordion rounded-lg bg-primary-50`} id={id}>
+    <div className={`hs-accordion bg-primary-50 rounded-lg`} id={id}>
       {children}
     </div>
-  )
+  );
 }
 
 const defaultItemRender = (alwaysOpen?: boolean, level: number = 0) =>
   function AppAccordionItemDefault(item: AppAccordionItem, index: number) {
-    const loopedLevel = level % 3
+    const loopedLevel = level % 3;
 
     return (
       <AppAccordion.Item key={index} id={`${item.title}-item-${index}`}>
@@ -156,8 +156,8 @@ const defaultItemRender = (alwaysOpen?: boolean, level: number = 0) =>
           )}
         </AppAccordion.Content>
       </AppAccordion.Item>
-    )
-  }
+    );
+  };
 
 const AppAccordion = {
   Root: AppAccordionRoot,
@@ -165,15 +165,15 @@ const AppAccordion = {
   Content: AppAccordionContent,
   Item: AppAccordionItem,
   itemRender: defaultItemRender,
-}
+};
 
 interface AppAccordionDefaultProps {
-  items: AppAccordionItem[]
-  alwaysOpen?: boolean
+  items: AppAccordionItem[];
+  alwaysOpen?: boolean;
 }
 
 function AppAccordionDefault(props: AppAccordionDefaultProps) {
-  const { items, alwaysOpen } = props
+  const { items, alwaysOpen } = props;
 
   return (
     <AppAccordionRoot
@@ -181,9 +181,9 @@ function AppAccordionDefault(props: AppAccordionDefaultProps) {
       items={items}
       alwaysOpen={true}
     />
-  )
+  );
 }
 
-export default AppAccordion
+export default AppAccordion;
 
-export { AppAccordionDefault }
+export { AppAccordionDefault };
