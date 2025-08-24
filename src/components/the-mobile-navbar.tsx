@@ -117,8 +117,8 @@ const defaultItemRender = (onClick: () => void) =>
     if (item.children?.length) {
       return (
         <li
-          key={`${item.normalizedName}-accordion-item`}
-          id={`${item.normalizedName}-accordion-item`}
+          key={`accordion-item-${index}`}
+          id={`accordion-item-${index}`}
           className="hs-accordion"
         >
           <MobileMenuToggle
