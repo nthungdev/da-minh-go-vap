@@ -6,6 +6,7 @@ import AppSelectBasic from "./app-select-basic";
 import { twMerge } from "tailwind-merge";
 import { Page } from "@/payload-types";
 import AppPostTabContentAsync from "@/components/app-post-tab-content-async";
+import { makePostsPath } from "@/utils/post";
 
 const ALL_POSTS_CONTROL_LABEL = "Tất cả";
 
@@ -37,11 +38,10 @@ export default function AppPostTabGridAsync(props: AppPostTabGridAsyncProps) {
     {
       title: ALL_POSTS_CONTROL_LABEL,
       hiddenTags: allUniqueHiddenTags,
-      // TODO set proper values
       limit: 6,
       viewMoreButton: {
-        enable: false,
-        relativeUrl: "/posts",
+        enable: true,
+        relativeUrl: makePostsPath(allUniqueHiddenTags, "Các bài viết"),
       },
     },
     ...postGroups,

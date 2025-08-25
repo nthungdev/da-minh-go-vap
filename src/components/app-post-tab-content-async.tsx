@@ -9,6 +9,7 @@ import { getDataOrUndefined } from "@/payload/utils/data";
 import { fetchPostsByHiddenTags } from "@/actions/post";
 import { useQuery } from "@tanstack/react-query";
 import { Spinner } from "flowbite-react";
+import { makePostsPath } from "@/utils/post";
 
 const POST_COUNT = 6;
 
@@ -28,6 +29,7 @@ export default function AppPostTabContentAsync({
   component,
   hiddenTags,
   viewMoreButton,
+  title,
   ...props
 }: AppPostTabContentAsyncProps) {
   const { isPending, error, data } = useQuery({
@@ -50,12 +52,13 @@ export default function AppPostTabContentAsync({
 
   const DataComponent = component ? component : AppPostGrid;
   const page = getDataOrUndefined<Page>(viewMoreButton?.relativeUrl);
-  const viewMoreHref = page ? page.path : "";
+
+  const viewMoreHref = page ? page.path : makePostsPath(hiddenTags, title);
 
   return (
-    <div className={twMerge(className)} {...props}>
+    <div className={twMerge("space-y-2", className)} {...props}>
       <DataComponent className="lg:grid-cols-3" posts={data.posts} />
-      {viewMoreButton?.enable && (
+      {!!viewMoreButton?.enable && (
         <div className="flex flex-row justify-end">
           <AppViewMoreLink href={viewMoreHref} />
         </div>

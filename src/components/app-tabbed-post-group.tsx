@@ -21,6 +21,7 @@ async function AppTabbedPostGroup(props: AppTabbedPostGroupProps) {
     <div className="space-y-4">
       {props.title && <AppGridHeader text={props.title} />}
       <AppPostTabGridAsync
+        id={props.title?.replace(/\s+/g, "-").toLowerCase()}
         postGroups={props.groups}
         component={AppPostGridSix}
       />
