@@ -2,7 +2,7 @@ import { fetchPostsByHiddenTags } from "@/actions/post";
 import AppGridHeader from "@/components/app-grid-header";
 import AppPostGridSix from "@/components/app-post-grid-five";
 import AppPostTabGrid from "@/components/app-post-tab-grid";
-import AppViewMoreLink from "@/components/app-view-more-link";
+import { Page } from "@/payload-types";
 
 const POST_COUNT = 6;
 
@@ -11,11 +11,12 @@ interface AppTabbedPostGroupProps {
   groups: {
     title: string;
     hiddenTags: string[];
+    limit: number;
+    viewMoreButton?: {
+      enable: boolean;
+      relativeUrl: Page | string | undefined | null;
+    };
   }[];
-  viewMoreButton?: {
-    enable: boolean;
-    relativeUrl: string;
-  };
 }
 
 async function AppTabbedPostGroup(props: AppTabbedPostGroupProps) {
@@ -27,6 +28,8 @@ async function AppTabbedPostGroup(props: AppTabbedPostGroupProps) {
     postGroups.push({
       title: group.title,
       posts,
+      viewMoreButton: group.viewMoreButton,
+      limit: group.limit,
     });
   }
 
@@ -38,11 +41,6 @@ async function AppTabbedPostGroup(props: AppTabbedPostGroupProps) {
         allPostsLimit={POST_COUNT}
         component={AppPostGridSix}
       />
-      {props.viewMoreButton?.enable && (
-        <div className="flex flex-row justify-end">
-          <AppViewMoreLink href={props.viewMoreButton.relativeUrl} />
-        </div>
-      )}
     </div>
   );
 }

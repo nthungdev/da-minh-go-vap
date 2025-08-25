@@ -105,6 +105,11 @@ const mapBlockToProps: BlockToPropsMap = {
         hiddenTags: tab.hiddenTags
           .filter((t) => typeof t !== "string")
           .map((t) => t.tag),
+        limit: tab.limit,
+        viewMoreButton: {
+          enable: tab.viewMoreButton.enableViewMoreButton,
+          relativeUrl: tab.viewMoreButton.relativeUrl,
+        },
       })) ?? [],
   }),
   textBlock: (block) => ({
