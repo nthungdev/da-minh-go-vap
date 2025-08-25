@@ -11,6 +11,7 @@ const TabbedPostGroupBlock: Block = {
     {
       name: "title",
       type: "text",
+      required: true,
     },
     {
       name: "tabs",
@@ -31,6 +32,7 @@ const TabbedPostGroupBlock: Block = {
         {
           name: "limit",
           type: "number",
+          required: true,
           defaultValue: 6,
           // locked to 6 until other values are supported
           access: {
@@ -52,7 +54,7 @@ const TabbedPostGroupBlock: Block = {
             {
               name: "relativeUrl",
               type: "relationship",
-              relationTo: "posts",
+              relationTo: "pages",
               hasMany: false,
             },
           ],

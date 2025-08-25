@@ -16,6 +16,7 @@ export default async function AppPage({
   children,
   className,
   banners,
+  showDecorativeGraphic,
   ...props
 }: AppPageProps) {
   const payload = await getPayload({ config: config });
@@ -29,7 +30,9 @@ export default async function AppPage({
     navBar.bottomDecorativeGraphic?.imageDesktop,
   )?.url;
   const shouldShowDecorativeGraphic =
-    hasBanners && !!(imageMobileUrl || imageDesktopUrl);
+    showDecorativeGraphic &&
+    hasBanners &&
+    !!(imageMobileUrl || imageDesktopUrl);
 
   return (
     <div className="w-full" {...props}>

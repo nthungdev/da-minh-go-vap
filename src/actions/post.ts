@@ -1,6 +1,7 @@
 "use server";
 
-import * as postUtils from "@/utils/post";
+import { postToAppPost } from "@/utils/post";
+import * as postUtils from "@/utils/post-server";
 
 /**
  * @param slug Slug of the post
@@ -23,9 +24,7 @@ export async function fetchAllPosts({
   limit = undefined,
 }: { limit?: number } = {}) {
   const query = await postUtils.queryAllPosts({ limit });
-  const posts = query.docs
-    .map(postUtils.postToAppPost)
-    .filter((post) => !!post.slug);
+  const posts = query.docs.map(postToAppPost).filter((post) => !!post.slug);
   return posts.filter((post) => post.publishedAt < new Date()).slice(0, limit);
 }
 
@@ -42,7 +41,7 @@ export const fetchPostsByHiddenTags = async (
     page,
     skipSlug,
   });
-  const posts = query.docs.map(postUtils.postToAppPost);
+  const posts = query.docs.map(postToAppPost);
   return {
     posts,
     hasMore: query.hasNextPage,

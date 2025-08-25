@@ -85,8 +85,8 @@ export default async function TheDesktopNavbar({
 
                       {child.children && child.children.length !== 0 && (
                         <ul className="bg-primary-600 absolute top-0 left-full ml-px hidden divide-y peer-hover:block hover:block">
-                          {child.children.map((grandchild) => (
-                            <li key={grandchild.href} className="block">
+                          {child.children.map((grandchild, index) => (
+                            <li key={index} className="block">
                               <Link
                                 href={`${grandchild.absoluteHref}`}
                                 className="hover:bg-primary-700 block px-4 py-2 text-nowrap hover:text-gray-50"
