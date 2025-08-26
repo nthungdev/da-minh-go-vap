@@ -55,6 +55,14 @@ export default buildConfig({
     payloadCloudPlugin(),
     // storage-adapter-placeholder
   ],
+  upload: {
+    abortOnLimit: true,
+    responseOnLimit: "File không được vượt quá 10MB.",
+    limits: {
+      // Make sure to also update the client_max_body_size in nginx.conf if you change this
+      fileSize: 10 * 1024 * 1024, // 10 MB
+    },
+  },
   onInit: createDefaultAdmin,
 });
 
