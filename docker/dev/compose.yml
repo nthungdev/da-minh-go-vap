@@ -1,0 +1,56 @@
+name: daminhgovap-dev
+services:
+  webapp:
+    image: node:22
+    working_dir: /app
+    ports:
+      - "3000:3000"
+    volumes:
+      # unbind these directories from the host
+      - /app/node_modules
+      - /app/.next
+      - /app/.pnpm-store
+      # bind source code to the container
+      - ../../:/app
+    env_file:
+      - ../../.env.local
+    environment:
+      - NODE_ENV=development
+      - DATABASE_HOST=mongo
+    command: >
+      bash -c "
+        corepack enable pnpm &&
+        pnpm install &&
+        pnpm dev
+      "
+    depends_on:
+      mongo:
+        condition: service_healthy
+
+  mongo:
+    image: mongo:latest
+    restart: always
+    ports:
+      - "27017:27017"
+    command:
+      - --storageEngine=wiredTiger
+    volumes:
+      - data:/data/mongo
+    logging:
+      driver: none
+    env_file:
+      - ../../.env.local
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          'echo ''db.runCommand("ping").ok'' | mongosh "mongodb://$${MONGO_INITDB_ROOT_USERNAME}:$${MONGO_INITDB_ROOT_PASSWORD}@localhost:27017/$${DATABASE_NAME}?authSource=admin" --quiet',
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+
+volumes:
+  data:
+    name: daminhgovap-data-dev

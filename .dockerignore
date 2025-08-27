@@ -9,9 +9,9 @@ npm-debug.log
 
 .git
 .gitignore
-
+.pnpm-store
+.vscode
 .next
 dist
-.vscode
 media
 # certificates
