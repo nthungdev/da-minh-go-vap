@@ -5,8 +5,6 @@ set -e
 pnpm run build:generate-env
 pnpm run build:generate
 
-# Copy over static assets
-cp -r public .next/standalone/
-cp -r .next/static .next/standalone/.next/
+cp -r .next/standalone ./
 
-exec node .next/standalone/server.js
+exec node server.js
