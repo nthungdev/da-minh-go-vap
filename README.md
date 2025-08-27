@@ -66,3 +66,17 @@ MEDIA_PATH=<path/for/media>
 `MEDIA_PATH` is the path where media files will be stored. It should be a directory other than the project directory to ensure persistence of media files across container restarts. For example, you can use `/srv/www/<domain>/media` with domain replaced with the actual domain name.
 
 Then follows: [https://beease.fr/blog/guide-payload-nextjs-docker-vps]
+
+## Test environment
+
+Create a [.env.test](.env.test) file using the [.env.example](.env.example) file as a template.
+
+Run
+
+```sh
+MEDIA_PATH=<path/for/media> docker compose -f docker/test/compose.yml up -d --build
+```
+
+Note that `MEDIA_PATH` is relative to the compose file.
+
+Test environment is similar to production without SSL/HTTPS and with isolated db. Test environment is opened on port 3001.

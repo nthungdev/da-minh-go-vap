@@ -5,7 +5,7 @@ services:
       context: ../../
       dockerfile: docker/test/Dockerfile
     ports:
-      - "3000:3000"
+      - "3000"
     volumes:
       - ${MEDIA_PATH}:/app/media
     depends_on:
@@ -13,15 +13,11 @@ services:
         condition: service_healthy
     env_file:
       - ../../.env.test
-    environment:
-      - NODE_ENV=production
-      - DATABASE_HOST=mongo
 
   mongo:
     image: mongo:latest
-    restart: always
     ports:
-      - "27017:27017"
+      - "27017"
     command:
       - --storageEngine=wiredTiger
     volumes:
@@ -44,7 +40,6 @@ services:
 
   nginx:
     image: nginx:latest
-    restart: always
     ports:
       - "3001:80"
     volumes:
