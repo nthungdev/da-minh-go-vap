@@ -42,4 +42,4 @@ EXPOSE 3000
 
 RUN corepack enable pnpm
 
-ENTRYPOINT ["sh", "./docker-entrypoint.sh"]
+ENTRYPOINT ["sh", "./docker/docker-entrypoint.sh"]
