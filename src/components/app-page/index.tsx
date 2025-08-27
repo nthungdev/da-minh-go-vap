@@ -40,7 +40,7 @@ export default async function AppPage({
 
       {shouldShowDecorativeGraphic && (
         <div className="relative">
-          <picture className="absolute right-0 bottom-px left-0 z-10 block w-full">
+          <picture className="absolute right-0 bottom-0 left-0 z-10 block w-full">
             {imageMobileUrl && (
               <source media="(max-width: 799px)" srcSet={imageMobileUrl} />
             )}
