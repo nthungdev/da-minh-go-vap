@@ -19,6 +19,11 @@ const nextConfig = {
       },
     },
   },
+  experimental: {
+    serverActions: {
+      allowedOrigins: process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(",") : undefined
+    }
+  },
   webpack: (config) => {
     config.module.rules.push({
       test: /\.md$/,
