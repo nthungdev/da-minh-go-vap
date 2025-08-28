@@ -22,7 +22,7 @@ services:
     command:
       - --storageEngine=wiredTiger
     volumes:
-      - data:/data/mongo
+      - data:/data/db
     # turn off logging to save disk storage
     logging:
       driver: none

@@ -35,7 +35,7 @@ services:
     command:
       - --storageEngine=wiredTiger
     volumes:
-      - data:/data/mongo
+      - data:/data/db
     logging:
       driver: none
     env_file:
