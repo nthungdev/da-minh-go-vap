@@ -1,3 +1,4 @@
+import { Page } from "@/payload-types";
 import AccordionContentBlock from "@/payload/blocks/AccordionContentBlock";
 import BibleVerseBlock from "@/payload/blocks/BibleVerseBlock";
 import DynamicImageBlock from "@/payload/blocks/DynamicImageBlock";
@@ -149,6 +150,17 @@ const Pages: CollectionConfig = {
       ],
     },
   ],
+  hooks: {
+    afterChange: [
+      async function ({ doc }: { doc: Page }) {
+        // revalidate cache
+        await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/revalidate`, {
+          method: "POST",
+          body: JSON.stringify({ path: doc.path }),
+        });
+      },
+    ],
+  },
 };
 
 export default Pages;
