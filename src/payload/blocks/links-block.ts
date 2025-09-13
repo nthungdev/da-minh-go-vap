@@ -34,6 +34,10 @@ const LinksBlock: Block = {
           relationTo: "media",
           hasMany: false,
           required: true,
+          admin: {
+            description:
+              "Hình ảnh hiển thị để bấm vào mở liên kết. Hình ảnh sẽ được hiển thị trong khung tỷ lệ 4:1.",
+          },
         },
       ],
     },
