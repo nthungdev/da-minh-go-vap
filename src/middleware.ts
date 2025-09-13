@@ -14,6 +14,10 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
+  if (process.env.NODE_ENV === "development") {
+    return NextResponse.next();
+  }
+
   const authHeader = request.headers.get("authorization");
 
   // Expected format: "Basic base64encoded(user:pass)"
