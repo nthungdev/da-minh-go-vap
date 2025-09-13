@@ -5,6 +5,7 @@ import AppQuote from "@/components/app-quote";
 import AppSpace from "@/components/app-space";
 import AppTabbedPostGroup from "@/components/app-tabbed-post-group";
 import AppTimelineCards from "@/components/app-timeline-cards";
+import ImageLinkList from "@/components/image-link-list";
 import ImageSlideshow from "@/components/image-slideshow";
 import PostGroup from "@/components/post-group";
 import TheBibleVerse from "@/components/the-bible-verse";
@@ -34,7 +35,7 @@ const componentsMap = {
   // TODO
   dynamicImageBlock: NotImplementedBlock,
   imageBlock: NotImplementedBlock,
-  linksBlock: NotImplementedBlock,
+  linksBlock: ImageLinkList,
   mapBlock: NotImplementedBlock,
   videoGridBlock: NotImplementedBlock,
 } satisfies BlockTypeMap;
@@ -74,7 +75,10 @@ const mapBlockToProps: BlockToPropsMap = {
     slides: block.images?.filter((image) => typeof image !== "string") || [],
   }),
   latestPostGridBlock: () => ({}),
-  linksBlock: () => ({}),
+  linksBlock: (block) => ({
+    title: block.title,
+    links: block.links,
+  }),
   mapBlock: () => ({}),
   postGroupBlock: (block) => ({
     title: block.title,
