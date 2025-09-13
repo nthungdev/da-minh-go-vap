@@ -113,14 +113,21 @@ const Pages: CollectionConfig = {
               type: "checkbox",
               label: "Hiển thị hình trang trí đè lên banner",
               admin: {
-                description: "Tùy chỉnh hình trang trí ở mục NavBar",
+                description: "Tùy chỉnh hình trang trí ở mục Nav Bar",
               },
               defaultValue: false,
             },
             {
               name: "beforeMain",
               type: "blocks",
-              blocks: [BibleVerseBlock],
+              blocks: [
+                BibleVerseBlock,
+                DynamicImageBlock,
+                ImageBlock,
+                SpaceBlock,
+                TextBlock,
+                QuoteBlock,
+              ],
             },
           ],
         },
