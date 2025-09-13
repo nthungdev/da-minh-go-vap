@@ -1,14 +1,5 @@
 import { GlobalConfig } from "payload";
 
-function linkValidation(linkType: "internal" | "external") {
-  return function (val: any, { siblingData }: { siblingData: Partial<any> }) {
-    if (siblingData.linkType === linkType && !val) {
-      return "This field is required";
-    }
-    return true;
-  };
-}
-
 const NavBar: GlobalConfig = {
   slug: "navBar",
   typescript: {
@@ -196,6 +187,31 @@ const NavBar: GlobalConfig = {
       ],
     },
   ],
+  hooks: {
+    afterChange: [revalidateRoot],
+  },
 };
+
+async function revalidateRoot() {
+  // revalidate cache
+  await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/revalidate`, {
+    method: "POST",
+    body: JSON.stringify({ path: "/" }),
+  });
+}
+
+function linkValidation(linkType: "internal" | "external") {
+  return function (
+    val: unknown,
+    {
+      siblingData,
+    }: { siblingData: Partial<{ linkType?: "internal" | "external" }> },
+  ) {
+    if (siblingData.linkType === linkType && !val) {
+      return "This field is required";
+    }
+    return true;
+  };
+}
 
 export default NavBar;
