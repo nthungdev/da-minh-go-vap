@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Montserrat, Nunito } from "next/font/google";
 import { twMerge } from "tailwind-merge";
 import { ThemeInit } from "../../../.flowbite-react/init";
-import ThePrelineScript from "@/components/the-preline-script";
 import TheFooter from "@/components/the-footer";
 import TheMobileNavbar from "@/components/the-mobile-navbar";
 import TheDesktopNavbar from "@/components/the-desktop-navbar";
@@ -10,6 +9,7 @@ import ReactQueryProvider from "@/components/providers/react-query-provider";
 import { getMenu } from "@/utils/menu";
 import { getLogo } from "@/utils/siteSettings";
 import "./globals.css";
+import PrelineScriptWrapper from "@/components/preline-script-wrapper";
 
 const montserrat = Montserrat({
   subsets: ["vietnamese"],
@@ -41,7 +41,7 @@ export default async function RootLayout({
       lang={language}
       className={twMerge(nunito.className, montserrat.className)}
     >
-      <ThePrelineScript />
+      <PrelineScriptWrapper />
       <ThemeInit />
 
       <body

@@ -10,7 +10,7 @@ declare global {
   }
 }
 
-export default function ThePrelineScript() {
+export default function PrelineScript() {
   const path = usePathname();
 
   useEffect(() => {
