@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 TEMP_DIR="$SCRIPT_DIR/../tmp"
 mkdir -p "$TEMP_DIR"
 BACKUPS_DIR="$SCRIPT_DIR/../out/backups"
