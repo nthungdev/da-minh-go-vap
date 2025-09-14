@@ -63,7 +63,7 @@ export default function AppCarousel({
         <>
           <button
             type="button"
-            className="hs-carousel-prev hs-carousel-disabled:opacity-50 absolute inset-y-0 start-0 inline-flex h-full w-11.5 items-center justify-center rounded-s-lg text-gray-800 hover:bg-gray-800/10 focus:bg-gray-800/10 focus:outline-hidden disabled:pointer-events-none dark:text-white dark:hover:bg-white/10 dark:focus:bg-white/10"
+            className="hs-carousel-prev hs-carousel-disabled:opacity-50 absolute inset-y-0 start-0 inline-flex h-full w-11.5 items-center justify-center text-gray-800 hover:bg-gray-800/10 focus:bg-gray-800/10 focus:outline-hidden disabled:pointer-events-none dark:text-white dark:hover:bg-white/10 dark:focus:bg-white/10"
           >
             <span className="text-2xl" aria-hidden="true">
               <svg
@@ -85,7 +85,7 @@ export default function AppCarousel({
           </button>
           <button
             type="button"
-            className="hs-carousel-next hs-carousel-disabled:opacity-50 absolute inset-y-0 end-0 inline-flex h-full w-11.5 items-center justify-center rounded-e-lg text-gray-800 hover:bg-gray-800/10 focus:bg-gray-800/10 focus:outline-hidden disabled:pointer-events-none dark:text-white dark:hover:bg-white/10 dark:focus:bg-white/10"
+            className="hs-carousel-next hs-carousel-disabled:opacity-50 absolute inset-y-0 end-0 inline-flex h-full w-11.5 items-center justify-center text-gray-800 hover:bg-gray-800/10 focus:bg-gray-800/10 focus:outline-hidden disabled:pointer-events-none dark:text-white dark:hover:bg-white/10 dark:focus:bg-white/10"
           >
             <span className="sr-only">Next</span>
             <span className="text-2xl" aria-hidden="true">
