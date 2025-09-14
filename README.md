@@ -17,7 +17,7 @@ pnpm install
 Generate typescript types for PayloadCMS:
 
 ```bash
-yarn generate
+pnpm generate
 ```
 
 Generate PayloadCMS secret:
@@ -41,7 +41,7 @@ docker compose -f docker/dev/compose.yml up mongo -d
 Run the web app:
 
 ```bash
-yarn dev
+pnpm dev
 ```
 
 Go to [http://localhost:3000](http://localhost:3000) to view the web app.
@@ -52,7 +52,7 @@ Go to [http://localhost:3000/admin](http://localhost:3000/admin) to view the Pay
 Whenever you make changes to the PayloadCMS configuration, you need to re-generate the types
 
 ```bash
-yarn generate
+pnpm generate
 ```
 
 ## Production
