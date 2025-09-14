@@ -48,8 +48,4 @@ const nextConfig = {
   },
 };
 
-export default withPayload(
-  withFlowbiteReact(nextConfig, {
-    devBundleServerPackages: false,
-  }),
-);
+export default withPayload(withFlowbiteReact(nextConfig));

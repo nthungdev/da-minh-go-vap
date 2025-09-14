@@ -30,6 +30,9 @@ importers:
       '@payloadcms/ui':
         specifier: ^3.42.0
         version: 3.42.0(@types/react@19.1.12)(monaco-editor@0.52.2)(next@15.5.2(@babel/core@7.27.4)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(sass@1.77.4))(payload@3.42.0(graphql@16.11.0)(typescript@5.8.3))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@5.8.3)
+      '@preline/carousel':
+        specifier: ^3.2.3
+        version: 3.2.3
       '@tailwindcss/container-queries':
         specifier: ^0.1.1
         version: 0.1.1(tailwindcss@4.1.11)
@@ -43,8 +46,8 @@ importers:
         specifier: ^1.11.13
         version: 1.11.13
       flowbite-react:
-        specifier: ^0.12.4
-        version: 0.12.5(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(tailwindcss@4.1.11)(typescript@5.8.3)
+        specifier: ^0.12.9
+        version: 0.12.9(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(tailwindcss@4.1.11)(typescript@5.8.3)
       fuse.js:
         specifier: ^7.1.0
         version: 7.1.0
@@ -1280,6 +1283,9 @@ packages:
       payload: 3.42.0
       react: ^19.0.0 || ^19.0.0-rc-65a56d0e-20241020
       react-dom: ^19.0.0 || ^19.0.0-rc-65a56d0e-20241020
+
+  '@preline/carousel@3.2.3':
+    resolution: {integrity: sha512-DrxJY4d8moTnLYV+blG6GowlDRytGT9zzJSwDUJ31LwIBLPwVaO9lklenqhnlTBqQbBqKinZqZJ2eIGW5S0SoQ==}
 
   '@rtsao/scc@1.1.0':
     resolution: {integrity: sha512-zt6OdqaDoOnJ1ZYsCYGt9YmWzDXl4vQdKTyJev62gFhRGKdx7mcT54V9KIjg+d2wi9EXsPvAPKe7i7WjfVWB8g==}
@@ -2649,8 +2655,8 @@ packages:
   flatted@3.3.3:
     resolution: {integrity: sha512-GX+ysw4PBCz0PzosHDepZGANEuFCMLrnRTiEy9McGjmkCQYwRq4A/X786G/fjM/+OjsWSU1ZrY5qyARZmO/uwg==}
 
-  flowbite-react@0.12.5:
-    resolution: {integrity: sha512-lZ8whSA0drHJqyO63jmC5kL02E8YZw9aWbzH7M17tlRXvDUKG5EDELvEtJiWb1tPL19rjd16+Tjc3jOS3IX6iw==}
+  flowbite-react@0.12.9:
+    resolution: {integrity: sha512-8Zm0aOQn1ocTTzDVYARpzUGdBuXg4W2HYLPHXDHKUeNsVePIfYKQiQkh7JbqLbzvlKdYChmQEayljFVbZ1sU5A==}
     hasBin: true
     peerDependencies:
       react: ^18 || ^19
@@ -6253,6 +6259,8 @@ snapshots:
       - supports-color
       - typescript
 
+  '@preline/carousel@3.2.3': {}
+
   '@rtsao/scc@1.1.0': {}
 
   '@rushstack/eslint-patch@1.11.0': {}
@@ -7910,7 +7918,7 @@ snapshots:
 
   flatted@3.3.3: {}
 
-  flowbite-react@0.12.5(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(tailwindcss@4.1.11)(typescript@5.8.3):
+  flowbite-react@0.12.9(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(tailwindcss@4.1.11)(typescript@5.8.3):
     dependencies:
       '@floating-ui/core': 1.6.9
       '@floating-ui/react': 0.27.3(react-dom@19.1.1(react@19.1.1))(react@19.1.1)

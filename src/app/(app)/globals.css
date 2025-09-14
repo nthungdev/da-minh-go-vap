@@ -1,7 +1,5 @@
 @import "tailwindcss";
 
-@source '../../../node_modules/preline/dist/*.js';
-
 /* Preline UI */
 @source "../../../node_modules/preline/dist/*.js";
 @import "../../../node_modules/preline/variants.css";
@@ -9,6 +7,7 @@
 /* Plugins */
 @plugin "@tailwindcss/forms";
 
+/* Flowbite */
 @plugin "flowbite-react/plugin/tailwindcss";
 @source "../../../.flowbite-react/class-list.json";
 
