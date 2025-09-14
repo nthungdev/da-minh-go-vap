@@ -9,6 +9,7 @@ import { getDataOrUndefined } from "@/payload/utils/data";
 import { fetchPostsByHiddenTags } from "@/actions/post";
 import { useQuery } from "@tanstack/react-query";
 import { makePostsPath } from "@/utils/post";
+import Spinner from "@/components/spinner";
 
 const POST_COUNT = 6;
 
@@ -39,13 +40,7 @@ export default function AppPostTabContentAsync({
   if (isPending) {
     return (
       <div className="flex aspect-video items-center justify-center">
-        <div
-          className="inline-block size-6 animate-spin rounded-full border-3 border-current border-t-transparent text-blue-600 dark:text-blue-500"
-          role="status"
-          aria-label="loading"
-        >
-          <span className="sr-only">Loading...</span>
-        </div>
+        <Spinner />
       </div>
     );
   }
