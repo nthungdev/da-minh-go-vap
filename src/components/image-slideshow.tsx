@@ -28,15 +28,16 @@ export default function ImageSlideshow({
       {slides
         .filter((slide) => typeof slide.url === "string")
         .map((slide, index) => (
-          <Image
-            key={index}
-            className="h-full w-full object-cover"
-            src={slide.url!}
-            alt={slide.alt}
-            sizes="100%"
-            width={0}
-            height={0}
-          />
+          <div key={index} className="hs-carousel-slide">
+            <Image
+              className="h-full w-full object-cover"
+              src={slide.url!}
+              alt={slide.alt}
+              sizes="100%"
+              width={0}
+              height={0}
+            />
+          </div>
         ))}
     </AppCarousel>
   );
