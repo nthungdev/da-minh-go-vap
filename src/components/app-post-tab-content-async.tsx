@@ -8,7 +8,6 @@ import AppViewMoreLink from "@/components/app-view-more-link";
 import { getDataOrUndefined } from "@/payload/utils/data";
 import { fetchPostsByHiddenTags } from "@/actions/post";
 import { useQuery } from "@tanstack/react-query";
-import { Spinner } from "flowbite-react";
 import { makePostsPath } from "@/utils/post";
 
 const POST_COUNT = 6;
@@ -40,7 +39,13 @@ export default function AppPostTabContentAsync({
   if (isPending) {
     return (
       <div className="flex aspect-video items-center justify-center">
-        <Spinner />
+        <div
+          className="inline-block size-6 animate-spin rounded-full border-3 border-current border-t-transparent text-blue-600 dark:text-blue-500"
+          role="status"
+          aria-label="loading"
+        >
+          <span className="sr-only">Loading...</span>
+        </div>
       </div>
     );
   }

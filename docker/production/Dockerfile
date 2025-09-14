@@ -5,7 +5,7 @@ FROM node:22-slim AS base
 FROM base AS deps
 
 WORKDIR /app
-COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
+COPY package.json pnpm-lock.yaml* ./
 
 RUN corepack enable pnpm
 RUN pnpm i --frozen-lockfile

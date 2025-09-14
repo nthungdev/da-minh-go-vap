@@ -7,10 +7,6 @@
 /* Plugins */
 @plugin "@tailwindcss/forms";
 
-/* Flowbite */
-@plugin "flowbite-react/plugin/tailwindcss";
-@source "../../../.flowbite-react/class-list.json";
-
 @custom-variant dark (&:is(.dark *));
 
 @theme {
