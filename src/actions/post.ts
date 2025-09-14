@@ -9,15 +9,12 @@ import * as postUtils from "@/utils/post-server";
  */
 export const fetchPostBySlug = async (slug: string) => {
   const post = await postUtils.getPostBySlug(slug);
-  if (!post) {
-    return null;
-  }
-  return post.publishedAt < new Date() ? post : null;
+  return post;
 };
 
 export const fetchPostsBySlugs = async (slugs: string[]) => {
   const posts = await postUtils.getPostsBySlugs(slugs);
-  return posts.filter((post) => post.publishedAt < new Date());
+  return posts;
 };
 
 export async function fetchAllPosts({
@@ -25,7 +22,7 @@ export async function fetchAllPosts({
 }: { limit?: number } = {}) {
   const query = await postUtils.queryAllPosts({ limit });
   const posts = query.docs.map(postToAppPost).filter((post) => !!post.slug);
-  return posts.filter((post) => post.publishedAt < new Date()).slice(0, limit);
+  return posts;
 }
 
 export const fetchPostsByHiddenTags = async (
