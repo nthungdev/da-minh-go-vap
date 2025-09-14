@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Montserrat, Nunito } from "next/font/google";
 import { twMerge } from "tailwind-merge";
-import { ThemeInit } from "../../../.flowbite-react/init";
 import TheFooter from "@/components/the-footer";
 import TheMobileNavbar from "@/components/the-mobile-navbar";
 import TheDesktopNavbar from "@/components/the-desktop-navbar";
@@ -42,8 +41,6 @@ export default async function RootLayout({
       className={twMerge(nunito.className, montserrat.className)}
     >
       <PrelineScriptWrapper />
-      <ThemeInit />
-
       <body
         className={twMerge(
           "relative flex min-h-screen w-full flex-col bg-white",
