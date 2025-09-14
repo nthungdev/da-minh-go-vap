@@ -19,11 +19,11 @@ export default async function TheDesktopNavbar({
   return (
     <nav
       className={twMerge(
-        `bg-primary flex-row flex-wrap text-gray-50 lg:justify-center xl:flex`,
+        "bg-primary flex-row flex-wrap text-gray-50 lg:justify-center xl:flex",
         props.className,
       )}
     >
-      <div className="max-w-7xl flex-row flex-wrap items-center lg:flex">
+      <div className="max-w-9xl flex flex-row flex-wrap items-center">
         <div className="relative z-20 h-full w-20 self-start">
           <div className="absolute top-[20%] left-0 size-20 overflow-auto">
             {typeof logo?.url === "string" && (
@@ -39,7 +39,7 @@ export default async function TheDesktopNavbar({
           </div>
         </div>
 
-        <ul className="flex-row flex-wrap items-center lg:flex">
+        <ul className="flex flex-row flex-wrap items-center">
           {menu.map((link, index) => (
             <li key={index} className="relative z-30 flex flex-row">
               {index !== 0 && <div className="my-2 border-l"></div>}
@@ -53,34 +53,14 @@ export default async function TheDesktopNavbar({
                   {link.children.map((child, index) => (
                     <li key={index} className="relative block">
                       <Link
-                        href={`${child.absoluteHref}`}
+                        href={child.absoluteHref}
                         className={twMerge(
                           "peer hover:bg-primary-800 flex flex-row justify-between space-x-2 py-2 pr-2 pl-4 text-nowrap hover:text-gray-50",
                           !child.children && "pr-4",
                         )}
                       >
                         <span>{child.name}</span>
-                        {!!child.children?.length && (
-                          <span>
-                            <svg
-                              className="h-6 w-6"
-                              aria-hidden="true"
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="24"
-                              height="24"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                            >
-                              <path
-                                stroke="currentColor"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth="2"
-                                d="m10 16 4-4-4-4"
-                              />
-                            </svg>
-                          </span>
-                        )}
+                        {!!child.children?.length && <RightArrowIcon />}
                       </Link>
 
                       {child.children && child.children.length !== 0 && (
@@ -88,7 +68,7 @@ export default async function TheDesktopNavbar({
                           {child.children.map((grandchild, index) => (
                             <li key={index} className="block">
                               <Link
-                                href={`${grandchild.absoluteHref}`}
+                                href={grandchild.absoluteHref}
                                 className="hover:bg-primary-700 block px-4 py-2 text-nowrap hover:text-gray-50"
                               >
                                 {grandchild.name}
@@ -110,5 +90,27 @@ export default async function TheDesktopNavbar({
         </div>
       </div>
     </nav>
+  );
+}
+
+function RightArrowIcon() {
+  return (
+    <svg
+      className="size-6"
+      aria-hidden="true"
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      fill="none"
+      viewBox="0 0 24 24"
+    >
+      <path
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        d="m10 16 4-4-4-4"
+      />
+    </svg>
   );
 }
