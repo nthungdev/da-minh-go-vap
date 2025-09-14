@@ -35,7 +35,7 @@ Create a `.env.local` file in the root directory using the `.env.example` file a
 Run the MongoDB database:
 
 ```bash
-docker compose up mongo -d
+docker compose -f docker/dev/compose.yml up mongo -d
 ```
 
 Run the web app:
