@@ -11,6 +11,7 @@ import PostGroup from "@/components/post-group";
 import TheBibleVerse from "@/components/the-bible-verse";
 import TheLatestPosts from "@/components/the-latest-posts";
 import { BlockType } from "@/definitions";
+import { createRandomAlphaString } from "@/utils/common";
 
 function NotImplementedBlock() {
   return <div>Not Implemented</div>;
@@ -72,6 +73,7 @@ const mapBlockToProps: BlockToPropsMap = {
   dynamicImageBlock: () => ({}),
   imageBlock: () => ({}),
   imageSlideshowBlock: (block) => ({
+    id: createRandomAlphaString(4),
     slides: block.images?.filter((image) => typeof image !== "string") || [],
   }),
   latestPostGridBlock: () => ({}),
