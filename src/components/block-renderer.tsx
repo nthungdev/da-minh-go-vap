@@ -72,6 +72,7 @@ const mapBlockToProps: BlockToPropsMap = {
   dynamicImageBlock: () => ({}),
   imageBlock: () => ({}),
   imageSlideshowBlock: (block) => ({
+    id: Math.floor(Math.random() * 100).toString(),
     slides: block.images?.filter((image) => typeof image !== "string") || [],
   }),
   latestPostGridBlock: () => ({}),
