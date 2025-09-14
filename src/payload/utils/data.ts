@@ -21,3 +21,11 @@ export function slugify(str: string): string {
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-|-$/g, "");
 }
+
+/** revalidate cache */
+export async function revalidatePath(path: string) {
+  await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/revalidate`, {
+    method: "POST",
+    body: JSON.stringify({ path }),
+  });
+}

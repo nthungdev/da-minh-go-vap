@@ -1,3 +1,4 @@
+import { revalidatePath } from "@/payload/utils/data";
 import { GlobalConfig } from "payload";
 
 const NavBar: GlobalConfig = {
@@ -188,17 +189,9 @@ const NavBar: GlobalConfig = {
     },
   ],
   hooks: {
-    afterChange: [revalidateRoot],
+    afterChange: [() => revalidatePath("/")],
   },
 };
-
-async function revalidateRoot() {
-  // revalidate cache
-  await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/revalidate`, {
-    method: "POST",
-    body: JSON.stringify({ path: "/" }),
-  });
-}
 
 function linkValidation(linkType: "internal" | "external") {
   return function (

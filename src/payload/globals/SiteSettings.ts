@@ -1,3 +1,4 @@
+import { revalidatePath } from "@/payload/utils/data";
 import { GlobalConfig } from "payload";
 
 const SiteSettings: GlobalConfig = {
@@ -9,6 +10,9 @@ const SiteSettings: GlobalConfig = {
       relationTo: "media",
     },
   ],
+  hooks: {
+    afterChange: [() => revalidatePath("/")],
+  },
 };
 
 export default SiteSettings;
