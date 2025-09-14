@@ -1,3 +1,5 @@
+import "server-only";
+
 import { getPayload, Where } from "payload";
 import config from "@payload-config";
 import { postToAppPost } from "@/utils/post";
@@ -13,7 +15,13 @@ export const getPostBySlug = async (slug: string) => {
     const payload = await getPayload({ config });
     const query = await payload.find({
       collection: "posts",
-      where: { slug: { equals: slug } },
+      where: {
+        slug: { equals: slug },
+        // Only get published posts
+        publishedAt: {
+          less_than: new Date().toISOString(),
+        },
+      },
       limit: 1,
     });
     const post = query.docs[0];
@@ -37,6 +45,12 @@ export async function queryAllPosts({ limit, page }: GetOptions = {}) {
     limit: limit ?? 100,
     sort: "-publishedAt",
     page: page ?? 1,
+    where: {
+      // Only get published posts
+      publishedAt: {
+        less_than: new Date().toISOString(),
+      },
+    },
   });
   return query;
 }
@@ -49,7 +63,9 @@ export async function queryPostsByHiddenTags(
 
   const matchedHiddenTags = await payload.find({
     collection: "hiddenTags",
-    where: { tag: { in: hiddenTags } },
+    where: {
+      tag: { in: hiddenTags },
+    },
     limit: hiddenTags.length,
   });
 
@@ -57,6 +73,10 @@ export async function queryPostsByHiddenTags(
     {
       hiddenTags: {
         in: matchedHiddenTags.docs.map((tag) => tag.id),
+      },
+      // Only get published posts
+      publishedAt: {
+        less_than: new Date().toISOString(),
       },
     },
   ];

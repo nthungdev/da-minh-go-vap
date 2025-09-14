@@ -46,7 +46,6 @@ export default function AppBanners(props: AppBannersProps) {
           <div key={index} className="hs-carousel-slide">
             {checkVideo(banner.url!) ? (
               <AppBannerVideo
-                id={`banner-video-${index}`}
                 className="h-full w-full object-cover"
                 src={banner.url!}
                 autoPlay

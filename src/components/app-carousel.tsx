@@ -19,6 +19,15 @@ export default function AppCarousel({
   const [currentIndex, setCurrentIndex] = useState(0);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
+  function handleMoveButton(direction: "previous" | "next") {
+    resetTimeout();
+    const newIndex =
+      direction === "previous"
+        ? (currentIndex - 1 + durations.length) % durations.length
+        : (currentIndex + 1) % durations.length;
+    setCurrentIndex(newIndex);
+  }
+
   function resetTimeout() {
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
@@ -27,16 +36,22 @@ export default function AppCarousel({
 
   useEffect(() => {
     resetTimeout();
+
+    const _currentIndex = currentIndex;
     timeoutRef.current = setTimeout(async () => {
-      const newIndex =
-        currentIndex === durations.length - 1 ? 0 : currentIndex + 1;
-      setCurrentIndex(newIndex);
-      const { HSCarousel } = await import("preline/preline");
+      const newIndex = (currentIndex + 1) % durations.length;
       const carouselElement = document.querySelector<HTMLElement>(`#${id}`);
-      if (!carouselElement) return;
-      const carousel = new HSCarousel(carouselElement);
+      if (!carouselElement) {
+        console.warn("Carousel element not found");
+        return;
+      }
+      const { HSCarousel } = await import("preline/preline");
+      const carousel = new HSCarousel(carouselElement, {
+        currentIndex: currentIndex,
+      });
       carousel.goTo(newIndex);
-    }, durations[currentIndex]);
+      setCurrentIndex(newIndex);
+    }, durations[_currentIndex]);
 
     return () => resetTimeout();
   }, [currentIndex, durations, id]);
@@ -64,6 +79,7 @@ export default function AppCarousel({
           <button
             type="button"
             className="hs-carousel-prev hs-carousel-disabled:opacity-50 absolute inset-y-0 start-0 inline-flex h-full w-11.5 items-center justify-center text-gray-800 hover:bg-gray-800/10 focus:bg-gray-800/10 focus:outline-hidden disabled:pointer-events-none dark:text-white dark:hover:bg-white/10 dark:focus:bg-white/10"
+            onClick={() => handleMoveButton("previous")}
           >
             <span className="text-2xl" aria-hidden="true">
               <svg
@@ -86,6 +102,7 @@ export default function AppCarousel({
           <button
             type="button"
             className="hs-carousel-next hs-carousel-disabled:opacity-50 absolute inset-y-0 end-0 inline-flex h-full w-11.5 items-center justify-center text-gray-800 hover:bg-gray-800/10 focus:bg-gray-800/10 focus:outline-hidden disabled:pointer-events-none dark:text-white dark:hover:bg-white/10 dark:focus:bg-white/10"
+            onClick={() => handleMoveButton("next")}
           >
             <span className="sr-only">Next</span>
             <span className="text-2xl" aria-hidden="true">

@@ -1,21 +1,42 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import AppPostCard from "./app-post-card";
 import { fetchAllPosts } from "@/actions/post";
 import { twMerge } from "tailwind-merge";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import Spinner from "@/components/spinner";
+
+const POST_COUNT = 5;
 
 interface TheLatestPostsProps {
   className?: string;
 }
 
-const POST_COUNT = 5;
-
-export default async function TheLatestPosts(props: TheLatestPostsProps) {
+export default function TheLatestPosts(props: TheLatestPostsProps) {
   const { className } = props;
 
-  const latestPosts = await fetchAllPosts({ limit: POST_COUNT });
+  const {
+    data: latestPosts,
+    error,
+    isPending,
+  } = useQuery({
+    queryKey: ["fetchLatestPosts"],
+    queryFn: () => fetchAllPosts({ limit: POST_COUNT }),
+    placeholderData: keepPreviousData,
+  });
 
-  if (latestPosts.length < 1) {
+  if (isPending)
+    return (
+      <div className="flex aspect-[3/1] items-center justify-center">
+        <Spinner />
+      </div>
+    );
+
+  if (error) return <p>Error: {error.message}</p>;
+
+  if (!latestPosts.length) {
     return <div>No post found</div>;
   }
 
