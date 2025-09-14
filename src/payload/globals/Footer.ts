@@ -1,3 +1,4 @@
+import { revalidatePath } from "@/payload/utils/data";
 import { GlobalConfig } from "payload";
 
 const Footer: GlobalConfig = {
@@ -56,6 +57,9 @@ const Footer: GlobalConfig = {
       ],
     },
   ],
+  hooks: {
+    afterChange: [() => revalidatePath("/")],
+  },
 };
 
 export default Footer;

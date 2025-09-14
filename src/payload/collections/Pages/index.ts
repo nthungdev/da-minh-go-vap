@@ -15,6 +15,7 @@ import TabbedPostGroupBlock from "@/payload/blocks/TabbedPostGroupBlock";
 import TextBlock from "@/payload/blocks/TextBock";
 import TimelineBlock from "@/payload/blocks/TimelineBlock";
 import VideoGridBlock from "@/payload/blocks/VideoGridBlock";
+import { revalidatePath } from "@/payload/utils/data";
 import type { CollectionConfig } from "payload";
 
 const Pages: CollectionConfig = {
@@ -160,11 +161,7 @@ const Pages: CollectionConfig = {
   hooks: {
     afterChange: [
       async function ({ doc }: { doc: Page }) {
-        // revalidate cache
-        await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/revalidate`, {
-          method: "POST",
-          body: JSON.stringify({ path: doc.path }),
-        });
+        await revalidatePath(doc.path);
       },
     ],
   },

@@ -1,13 +1,5 @@
+import { revalidatePath } from "@/payload/utils/data";
 import { GlobalConfig } from "payload";
-
-function linkValidation(linkType: "internal" | "external") {
-  return function (val: any, { siblingData }: { siblingData: Partial<any> }) {
-    if (siblingData.linkType === linkType && !val) {
-      return "This field is required";
-    }
-    return true;
-  };
-}
 
 const NavBar: GlobalConfig = {
   slug: "navBar",
@@ -196,6 +188,23 @@ const NavBar: GlobalConfig = {
       ],
     },
   ],
+  hooks: {
+    afterChange: [() => revalidatePath("/")],
+  },
 };
+
+function linkValidation(linkType: "internal" | "external") {
+  return function (
+    val: unknown,
+    {
+      siblingData,
+    }: { siblingData: Partial<{ linkType?: "internal" | "external" }> },
+  ) {
+    if (siblingData.linkType === linkType && !val) {
+      return "This field is required";
+    }
+    return true;
+  };
+}
 
 export default NavBar;
