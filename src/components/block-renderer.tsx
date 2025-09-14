@@ -23,7 +23,9 @@ type BlockTypeMap = {
 const componentsMap = {
   accordionContentBlock: AppAccordionDefault,
   bibleVerseBlock: TheBibleVerse,
+  imageSlideshowBlock: ImageSlideshow,
   latestPostGridBlock: TheLatestPosts,
+  linksBlock: ImageLinkList,
   postGroupBlock: PostGroup,
   spaceBlock: AppSpace,
   tabbedContentBlock: AppCardTabs,
@@ -31,11 +33,9 @@ const componentsMap = {
   textBlock: AppMarkdown,
   timelineBlock: AppTimelineCards,
   quoteBlock: AppQuote,
-  imageSlideshowBlock: ImageSlideshow,
   // TODO
   dynamicImageBlock: NotImplementedBlock,
   imageBlock: NotImplementedBlock,
-  linksBlock: ImageLinkList,
   mapBlock: NotImplementedBlock,
   videoGridBlock: NotImplementedBlock,
 } satisfies BlockTypeMap;
