@@ -1,9 +1,11 @@
 "use client";
 
 import {
+  ChangeEvent,
   ChangeEventHandler,
-  FormEventHandler,
+  FormEvent,
   forwardRef,
+  KeyboardEvent,
   RefObject,
   useEffect,
   useReducer,
@@ -32,7 +34,7 @@ interface SearchModalProps {
   input: string;
   state: ModalState;
   containerRef: RefObject<HTMLElement | null>;
-  onInputSubmit: FormEventHandler<HTMLFormElement>;
+  onInputSubmit: (event: KeyboardEvent<HTMLInputElement>) => void;
   onInputChange: ChangeEventHandler<HTMLInputElement>;
 }
 
@@ -62,7 +64,7 @@ const SearchModal = forwardRef<HTMLDivElement, SearchModalProps>(
             <div className="hs-overlay-open:opacity-100 hs-overlay-open:duration-500 m-3 opacity-0 transition-all sm:mx-auto sm:w-full sm:max-w-lg">
               <div className="pointer-events-auto flex flex-col overflow-hidden rounded-xl border bg-white shadow-xs">
                 <div className="relative border-b border-gray-200 p-4">
-                  <form className="relative" onSubmit={onInputSubmit}>
+                  <form className="relative">
                     <label
                       id={`${id}-label`}
                       htmlFor={`${id}-input`}
@@ -86,6 +88,11 @@ const SearchModal = forwardRef<HTMLDivElement, SearchModalProps>(
                       value={input}
                       autoFocus
                       onChange={onInputChange}
+                      onKeyUp={(event) => {
+                        if (event.key === "Enter") {
+                          onInputSubmit(event);
+                        }
+                      }}
                     />
                   </form>
                 </div>
@@ -173,8 +180,11 @@ export default function AppPostSearchButton({ id }: { id: string }) {
     setInput(event.target.value);
   };
 
-  const handleInputSubmit: FormEventHandler<HTMLFormElement> = async (
-    event,
+  const handleInputSubmit = async (
+    event:
+      | ChangeEvent<HTMLInputElement>
+      | FormEvent<HTMLFormElement>
+      | KeyboardEvent<HTMLInputElement>,
   ) => {
     event.preventDefault();
     setState(ModalState.LOADING);
