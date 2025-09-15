@@ -9,6 +9,7 @@ import { getMenu } from "@/utils/menu";
 import { getLogo } from "@/utils/siteSettings";
 import "./globals.css";
 import PrelineScriptWrapper from "@/components/preline-script-wrapper";
+import ScrollToTopButton from "@/components/scroll-to-top-button";
 
 const montserrat = Montserrat({
   subsets: ["vietnamese"],
@@ -46,6 +47,8 @@ export default async function RootLayout({
           "relative flex min-h-screen w-full flex-col bg-white",
         )}
       >
+        <ScrollToTopButton />
+
         <TheDesktopNavbar
           logo={logo}
           menu={menu}
