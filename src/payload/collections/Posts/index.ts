@@ -119,6 +119,18 @@ const Posts: CollectionConfig = {
       required: true,
     },
   ],
+  hooks: {
+    // afterChange: [
+    //   async ({ operation, doc }) => {
+    //     if (operation === "create") {
+    //       console.log("add to fuse");
+    //       console.log({doc})
+    //       const postFuse = await Fuses.instance.getPostFuse()
+    //       postFuse.add(doc);
+    //     }
+    //   },
+    // ],
+  },
 };
 
 function duplicateTitle({ value }: FieldHookArgs): ReturnType<FieldHook> {
