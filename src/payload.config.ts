@@ -19,6 +19,8 @@ import SiteSettings from "@/payload/globals/SiteSettings";
 import NavBar from "@/payload/globals/NavBar";
 import Footer from "@/payload/globals/Footer";
 
+import { defaultLocale, locales } from "@/utils/constants";
+
 if (!process.env.PAYLOAD_SECRET) {
   throw new Error("PAYLOAD_SECRET environment variable is required");
 }
@@ -41,6 +43,10 @@ export default buildConfig({
   globals: [NavBar, Footer, SiteSettings],
   i18n: {
     supportedLanguages: { en, vi },
+  },
+  localization: {
+    locales,
+    defaultLocale,
   },
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET,
