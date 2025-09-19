@@ -1,4 +1,4 @@
-import { defaultLocale } from "@/utils/constants";
+import { defaultLocale } from "@/i18n/config";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 

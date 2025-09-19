@@ -18,8 +18,7 @@ import HiddenTags from "@/payload/collections/HiddenTags";
 import SiteSettings from "@/payload/globals/SiteSettings";
 import NavBar from "@/payload/globals/NavBar";
 import Footer from "@/payload/globals/Footer";
-
-import { defaultLocale, locales } from "@/utils/constants";
+import { defaultLocale, locales } from "@/i18n/config";
 
 if (!process.env.PAYLOAD_SECRET) {
   throw new Error("PAYLOAD_SECRET environment variable is required");
@@ -45,7 +44,7 @@ export default buildConfig({
     supportedLanguages: { en, vi },
   },
   localization: {
-    locales,
+    locales: locales as unknown as string[],
     defaultLocale,
   },
   editor: lexicalEditor(),

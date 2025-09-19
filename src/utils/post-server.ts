@@ -3,8 +3,8 @@ import "server-only";
 import { getPayload, Where } from "payload";
 import config from "@payload-config";
 import { postToAppPost } from "@/utils/post";
-import { defaultLocale } from "@/utils/constants";
 import { Config } from "@/payload-types";
+import { defaultLocale } from "@/i18n/config";
 
 interface GetOptions {
   limit?: number;
