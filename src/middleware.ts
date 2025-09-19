@@ -12,10 +12,7 @@ if (!AUTH_USER || !AUTH_PASSWORD) {
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  const locale = request.cookies.get("locale")?.value || defaultLocale;
-
   const response = NextResponse.next();
-  response.cookies.set("locale", locale);
 
   if (pathname.match(/^\/(admin|api)/)) {
     return response;
