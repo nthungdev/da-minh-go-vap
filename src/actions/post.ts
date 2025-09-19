@@ -10,7 +10,7 @@ import * as postUtils from "@/utils/post-server";
  */
 export const fetchPostBySlug = async (
   slug: string,
-  { locale }: { locale?: Config["locale"] },
+  { locale }: { locale?: Config["locale"] } = {},
 ) => {
   const post = await postUtils.getPostBySlug(slug, { locale });
   return post;
@@ -18,7 +18,7 @@ export const fetchPostBySlug = async (
 
 export const fetchPostsBySlugs = async (
   slugs: string[],
-  { locale }: { locale?: Config["locale"] },
+  { locale }: { locale?: Config["locale"] } = {},
 ) => {
   const posts = await postUtils.getPostsBySlugs(slugs, { locale });
   return posts;

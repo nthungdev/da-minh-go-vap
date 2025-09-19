@@ -15,7 +15,7 @@ interface GetOptions {
 
 export const getPostBySlug = async (
   slug: string,
-  { locale }: { locale?: Config["locale"] },
+  { locale }: { locale?: Config["locale"] } = {},
 ) => {
   try {
     const payload = await getPayload({ config });
@@ -42,7 +42,7 @@ export const getPostBySlug = async (
 
 export const getPostsBySlugs = async (
   slugs: string[],
-  { locale }: { locale?: Config["locale"] },
+  { locale }: { locale?: Config["locale"] } = {},
 ) => {
   const posts = await Promise.all(
     slugs.map((slug) => getPostBySlug(slug, { locale })),
