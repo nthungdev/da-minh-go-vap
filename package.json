@@ -41,6 +41,7 @@
     "graphql": "^16.10.0",
     "gray-matter": "^4.0.3",
     "next": "15.5.3",
+    "next-intl": "^4.3.9",
     "normalize-text": "^2.6.0",
     "payload": "^3.32.0",
     "preline": "^3.2.3",
