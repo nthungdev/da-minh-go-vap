@@ -10,6 +10,7 @@ import { getLogo } from "@/utils/siteSettings";
 import "./globals.css";
 import PrelineScriptWrapper from "@/components/preline-script-wrapper";
 import ScrollToTopButton from "@/components/scroll-to-top-button";
+import { getServerCookies } from "@/utils/cookies-server";
 
 const montserrat = Montserrat({
   subsets: ["vietnamese"],
@@ -26,8 +27,6 @@ export const metadata: Metadata = {
   description: "Hội dòng Đa Minh Gò Vấp",
 };
 
-const language = "vi";
-
 export default async function RootLayout({
   children,
 }: Readonly<{
@@ -35,10 +34,13 @@ export default async function RootLayout({
 }>) {
   const menu = await getMenu();
   const logo = await getLogo();
+  const locale = await getServerCookies();
+
+  console.log({ locale });
 
   return (
     <html
-      lang={language}
+      lang={locale}
       className={twMerge(nunito.className, montserrat.className)}
     >
       <PrelineScriptWrapper />
