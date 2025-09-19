@@ -1,3 +1,4 @@
+import { defaultLocale } from "@/utils/constants";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
@@ -10,12 +11,18 @@ if (!AUTH_USER || !AUTH_PASSWORD) {
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
+
+  const locale = request.cookies.get("locale")?.value || defaultLocale;
+
+  const response = NextResponse.next();
+  response.cookies.set("locale", locale);
+
   if (pathname.match(/^\/(admin|api)/)) {
-    return NextResponse.next();
+    return response;
   }
 
   if (process.env.NODE_ENV === "development") {
-    return NextResponse.next();
+    return response;
   }
 
   const authHeader = request.headers.get("authorization");
@@ -33,7 +40,7 @@ export function middleware(request: NextRequest) {
     });
   }
 
-  return NextResponse.next();
+  return response;
 }
 
 // Protect everything except static assets
