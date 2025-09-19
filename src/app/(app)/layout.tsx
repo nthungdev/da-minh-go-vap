@@ -5,12 +5,12 @@ import TheFooter from "@/components/the-footer";
 import TheMobileNavbar from "@/components/the-mobile-navbar";
 import TheDesktopNavbar from "@/components/the-desktop-navbar";
 import ReactQueryProvider from "@/components/providers/react-query-provider";
-import { getMenu } from "@/utils/menu";
-import { getLogo } from "@/utils/siteSettings";
-import "./globals.css";
 import PrelineScriptWrapper from "@/components/preline-script-wrapper";
 import ScrollToTopButton from "@/components/scroll-to-top-button";
+import { getMenu } from "@/utils/menu";
+import { getLogo } from "@/utils/site-settings-server";
 import { getServerCookies } from "@/utils/cookies-server";
+import "./globals.css";
 
 const montserrat = Montserrat({
   subsets: ["vietnamese"],
@@ -36,8 +36,6 @@ export default async function RootLayout({
   const logo = await getLogo();
   const locale = await getServerCookies();
 
-  console.log({ locale });
-
   return (
     <html
       lang={locale}
@@ -50,7 +48,6 @@ export default async function RootLayout({
         )}
       >
         <ScrollToTopButton />
-
         <TheDesktopNavbar
           logo={logo}
           menu={menu}
@@ -58,11 +55,9 @@ export default async function RootLayout({
         />
         {/* z-60 because backdrop from Preline is z-59 */}
         <TheMobileNavbar menu={menu} className="sticky top-0 z-60 xl:hidden" />
-
         <ReactQueryProvider>
           <div className="flex-1">{children}</div>
         </ReactQueryProvider>
-
         <TheFooter />
       </body>
     </html>
