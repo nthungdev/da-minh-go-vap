@@ -12,7 +12,7 @@ function markdownField(
         Field: "@/payload/fields/markdown/Field",
       },
     },
-    ...override,
+    ...(override ?? {}),
   };
 }
 

@@ -18,11 +18,12 @@ const AccordionContentBlock: Block = {
           name: "title",
           type: "text",
           required: true,
+          localized: true,
         },
-        {
-          ...markdownField("content"),
+        markdownField("content", {
           required: true,
-        },
+          localized: true,
+        }),
         {
           name: "children",
           type: "array",
@@ -31,11 +32,12 @@ const AccordionContentBlock: Block = {
               name: "title",
               type: "text",
               required: true,
+              localized: true,
             },
-            {
-              ...markdownField("content"),
+            markdownField("content", {
               required: true,
-            },
+              localized: true,
+            }),
             {
               name: "children",
               type: "array",
@@ -44,11 +46,12 @@ const AccordionContentBlock: Block = {
                   name: "title",
                   type: "text",
                   required: true,
+                  localized: true,
                 },
-                {
-                  ...markdownField("content"),
+                markdownField("content", {
                   required: true,
-                },
+                  localized: true,
+                }),
               ],
             },
           ],

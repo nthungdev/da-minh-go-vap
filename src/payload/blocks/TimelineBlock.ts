@@ -12,6 +12,7 @@ const TimelineBlock: Block = {
       name: "title",
       type: "text",
       required: true,
+      localized: true,
     },
     {
       name: "items",
@@ -22,6 +23,7 @@ const TimelineBlock: Block = {
           name: "title",
           type: "text",
           required: true,
+          localized: true,
         },
         {
           name: "thumbnail",

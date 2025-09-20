@@ -12,6 +12,7 @@ const PostGroupBlock: Block = {
       name: "title",
       type: "text",
       required: true,
+      localized: true,
     },
     {
       name: "hiddenTags",

@@ -12,11 +12,13 @@ const BibleVerseBlock: Block = {
       name: "verse",
       type: "text",
       required: true,
+      localized: true,
     },
     {
       name: "reference",
       type: "text",
       required: true,
+      localized: true,
     },
   ],
 };
