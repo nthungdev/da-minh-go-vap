@@ -7,6 +7,7 @@ import React from "react";
 
 const MarkdownField: CodeFieldClientComponent = ({ path, field }) => {
   const { value, setValue } = useField<string>({ path });
+  const id = `markdown-field-${path.replace(/\./g, "-")}`;
 
   return (
     <div className="field-type markdown">
@@ -14,12 +15,10 @@ const MarkdownField: CodeFieldClientComponent = ({ path, field }) => {
         label={field?.label || field?.name}
         path={path}
         required={field?.required}
+        localized={field?.localized}
+        htmlFor={id}
       />
-      <MarkdownEditor
-        id={`markdown-field-${path.replace(/W/g, "-")}`}
-        value={value || ""}
-        setValue={setValue}
-      />
+      <MarkdownEditor id={id} value={value || ""} setValue={setValue} />
     </div>
   );
 };
