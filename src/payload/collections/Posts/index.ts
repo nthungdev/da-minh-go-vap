@@ -116,11 +116,10 @@ const Posts: CollectionConfig = {
         },
       ],
     },
-    {
-      ...markdownField("body"),
+    markdownField("body", {
       required: true,
       localized: true,
-    },
+    }),
   ],
   hooks: {
     // afterChange: [

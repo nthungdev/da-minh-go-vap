@@ -20,10 +20,9 @@ const TabbedContentBlock: Block = {
           required: true,
           localized: true,
         },
-        {
-          ...markdownField("content"),
+        markdownField("content", {
           required: true,
-        },
+        }),
       ],
     },
   ],
