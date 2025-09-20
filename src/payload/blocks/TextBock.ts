@@ -12,6 +12,7 @@ const TextBlock: Block = {
     {
       ...markdownField("content"),
       required: true,
+      localized: true,
     },
   ],
 };
