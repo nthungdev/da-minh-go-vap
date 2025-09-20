@@ -1,30 +1,25 @@
 "use client";
 
 import MarkdownEditor from "@/payload/fields/markdown/MarkdownEditor";
-import { useField } from "@payloadcms/ui";
+import { FieldLabel, useField } from "@payloadcms/ui";
 import { CodeFieldClientComponent } from "payload";
-import React, { useCallback } from "react";
+import React from "react";
 
-const MarkdownField: CodeFieldClientComponent = (props) => {
-  const path = (props?.path || props?.field?.name || "") as string;
+const MarkdownField: CodeFieldClientComponent = ({ path, field }) => {
   const { value, setValue } = useField<string>({ path });
-
-  const onChange = useCallback(
-    (value: any) => {
-      setValue(value);
-    },
-    [path],
-  );
 
   return (
     <div className="field-type markdown">
-      {true && (
-        <MarkdownEditor
-          id={`markdown-field-${path.replace(/W/g, "-")}`}
-          value={value || ""}
-          setValue={onChange}
-        />
-      )}
+      <FieldLabel
+        label={field?.label || field?.name}
+        path={path}
+        required={field?.required}
+      />
+      <MarkdownEditor
+        id={`markdown-field-${path.replace(/W/g, "-")}`}
+        value={value || ""}
+        setValue={setValue}
+      />
     </div>
   );
 };
