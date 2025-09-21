@@ -44,6 +44,7 @@ const NavBar: GlobalConfig = {
           name: "label",
           type: "text",
           required: true,
+          localized: true,
         },
         {
           name: "linkType",
@@ -93,6 +94,7 @@ const NavBar: GlobalConfig = {
               name: "label",
               type: "text",
               required: true,
+              localized: true,
             },
             {
               name: "linkType",
@@ -141,6 +143,7 @@ const NavBar: GlobalConfig = {
                   name: "label",
                   type: "text",
                   required: true,
+                  localized: true,
                 },
                 {
                   name: "linkType",
