@@ -3,19 +3,18 @@ import "server-only";
 import { getPayload, Where } from "payload";
 import config from "@payload-config";
 import { postToAppPost } from "@/utils/post";
-import { Config } from "@/payload-types";
-import { defaultLocale } from "@/i18n/config";
+import { defaultLocale, Locale } from "@/i18n/config";
 
 interface GetOptions {
   limit?: number;
   page?: number;
   skipSlug?: string;
-  locale?: Config["locale"];
+  locale?: Locale;
 }
 
 export const getPostBySlug = async (
   slug: string,
-  { locale }: { locale?: Config["locale"] } = {},
+  { locale }: { locale?: Locale } = {},
 ) => {
   try {
     const payload = await getPayload({ config });
@@ -42,7 +41,7 @@ export const getPostBySlug = async (
 
 export const getPostsBySlugs = async (
   slugs: string[],
-  { locale }: { locale?: Config["locale"] } = {},
+  { locale }: { locale?: Locale } = {},
 ) => {
   const posts = await Promise.all(
     slugs.map((slug) => getPostBySlug(slug, { locale })),

@@ -2,19 +2,19 @@
 
 import { setLocale } from "@/actions/locale";
 import Spinner from "@/components/spinner";
-import { Config } from "@/payload-types";
+import { Locale } from "@/i18n/config";
 import { useLocale } from "next-intl";
 import { useTransition } from "react";
 import { twMerge } from "tailwind-merge";
 
-const localeLabels: Record<Config["locale"], string> = {
+const localeLabels: Record<Locale, string> = {
   en: "English",
   vi: "Tiếng Việt",
 };
 
 export default function LocaleSwitcher() {
   const [isPending, startTransition] = useTransition();
-  const locale = useLocale() as Config["locale"];
+  const locale = useLocale();
   const label = localeLabels[locale];
 
   async function switchLocale() {

@@ -1,6 +1,6 @@
 "use server";
 
-import { Config } from "@/payload-types";
+import { Locale } from "@/i18n/config";
 import { postToAppPost } from "@/utils/post";
 import * as postUtils from "@/utils/post-server";
 
@@ -10,7 +10,7 @@ import * as postUtils from "@/utils/post-server";
  */
 export const fetchPostBySlug = async (
   slug: string,
-  { locale }: { locale?: Config["locale"] } = {},
+  { locale }: { locale?: Locale } = {},
 ) => {
   const post = await postUtils.getPostBySlug(slug, { locale });
   return post;
@@ -18,7 +18,7 @@ export const fetchPostBySlug = async (
 
 export const fetchPostsBySlugs = async (
   slugs: string[],
-  { locale }: { locale?: Config["locale"] } = {},
+  { locale }: { locale?: Locale } = {},
 ) => {
   const posts = await postUtils.getPostsBySlugs(slugs, { locale });
   return posts;
@@ -27,7 +27,7 @@ export const fetchPostsBySlugs = async (
 export async function fetchAllPosts({
   limit = undefined,
   locale,
-}: { limit?: number; locale?: Config["locale"] } = {}) {
+}: { limit?: number; locale?: Locale } = {}) {
   const query = await postUtils.queryAllPosts({ limit, locale });
   const posts = query.docs.map(postToAppPost).filter((post) => !!post.slug);
   return posts;
