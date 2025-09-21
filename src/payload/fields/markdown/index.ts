@@ -9,7 +9,7 @@ function markdownField(
     name,
     admin: {
       components: {
-        Field: "/src/payload/fields/markdown/Field",
+        Field: "./src/payload/fields/markdown/Field",
       },
     },
     ...(override ?? {}),

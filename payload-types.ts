@@ -13,53 +13,53 @@
  * via the `definition` "supportedTimezones".
  */
 export type SupportedTimezones =
-  | "Pacific/Midway"
-  | "Pacific/Niue"
-  | "Pacific/Honolulu"
-  | "Pacific/Rarotonga"
-  | "America/Anchorage"
-  | "Pacific/Gambier"
-  | "America/Los_Angeles"
-  | "America/Tijuana"
-  | "America/Denver"
-  | "America/Phoenix"
-  | "America/Chicago"
-  | "America/Guatemala"
-  | "America/New_York"
-  | "America/Bogota"
-  | "America/Caracas"
-  | "America/Santiago"
-  | "America/Buenos_Aires"
-  | "America/Sao_Paulo"
-  | "Atlantic/South_Georgia"
-  | "Atlantic/Azores"
-  | "Atlantic/Cape_Verde"
-  | "Europe/London"
-  | "Europe/Berlin"
-  | "Africa/Lagos"
-  | "Europe/Athens"
-  | "Africa/Cairo"
-  | "Europe/Moscow"
-  | "Asia/Riyadh"
-  | "Asia/Dubai"
-  | "Asia/Baku"
-  | "Asia/Karachi"
-  | "Asia/Tashkent"
-  | "Asia/Calcutta"
-  | "Asia/Dhaka"
-  | "Asia/Almaty"
-  | "Asia/Jakarta"
-  | "Asia/Bangkok"
-  | "Asia/Shanghai"
-  | "Asia/Singapore"
-  | "Asia/Tokyo"
-  | "Asia/Seoul"
-  | "Australia/Brisbane"
-  | "Australia/Sydney"
-  | "Pacific/Guam"
-  | "Pacific/Noumea"
-  | "Pacific/Auckland"
-  | "Pacific/Fiji";
+  | 'Pacific/Midway'
+  | 'Pacific/Niue'
+  | 'Pacific/Honolulu'
+  | 'Pacific/Rarotonga'
+  | 'America/Anchorage'
+  | 'Pacific/Gambier'
+  | 'America/Los_Angeles'
+  | 'America/Tijuana'
+  | 'America/Denver'
+  | 'America/Phoenix'
+  | 'America/Chicago'
+  | 'America/Guatemala'
+  | 'America/New_York'
+  | 'America/Bogota'
+  | 'America/Caracas'
+  | 'America/Santiago'
+  | 'America/Buenos_Aires'
+  | 'America/Sao_Paulo'
+  | 'Atlantic/South_Georgia'
+  | 'Atlantic/Azores'
+  | 'Atlantic/Cape_Verde'
+  | 'Europe/London'
+  | 'Europe/Berlin'
+  | 'Africa/Lagos'
+  | 'Europe/Athens'
+  | 'Africa/Cairo'
+  | 'Europe/Moscow'
+  | 'Asia/Riyadh'
+  | 'Asia/Dubai'
+  | 'Asia/Baku'
+  | 'Asia/Karachi'
+  | 'Asia/Tashkent'
+  | 'Asia/Calcutta'
+  | 'Asia/Dhaka'
+  | 'Asia/Almaty'
+  | 'Asia/Jakarta'
+  | 'Asia/Bangkok'
+  | 'Asia/Shanghai'
+  | 'Asia/Singapore'
+  | 'Asia/Tokyo'
+  | 'Asia/Seoul'
+  | 'Australia/Brisbane'
+  | 'Australia/Sydney'
+  | 'Pacific/Guam'
+  | 'Pacific/Noumea'
+  | 'Pacific/Auckland'
+  | 'Pacific/Fiji';
 
 export interface Config {
   auth: {
@@ -72,9 +72,9 @@ export interface Config {
     pages: Page;
     posts: Post;
     users: User;
-    "payload-locked-documents": PayloadLockedDocument;
-    "payload-preferences": PayloadPreference;
-    "payload-migrations": PayloadMigration;
+    'payload-locked-documents': PayloadLockedDocument;
+    'payload-preferences': PayloadPreference;
+    'payload-migrations': PayloadMigration;
   };
   collectionsJoins: {};
   collectionsSelect: {
@@ -83,15 +83,9 @@ export interface Config {
     pages: PagesSelect<false> | PagesSelect<true>;
     posts: PostsSelect<false> | PostsSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
-    "payload-locked-documents":
-      | PayloadLockedDocumentsSelect<false>
-      | PayloadLockedDocumentsSelect<true>;
-    "payload-preferences":
-      | PayloadPreferencesSelect<false>
-      | PayloadPreferencesSelect<true>;
-    "payload-migrations":
-      | PayloadMigrationsSelect<false>
-      | PayloadMigrationsSelect<true>;
+    'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
+    'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
+    'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
   };
   db: {
     defaultIDType: string;
@@ -106,9 +100,9 @@ export interface Config {
     footer: FooterSelect<false> | FooterSelect<true>;
     siteSettings: SiteSettingsSelect<false> | SiteSettingsSelect<true>;
   };
-  locale: "en" | "vi";
+  locale: 'en' | 'vi';
   user: User & {
-    collection: "users";
+    collection: 'users';
   };
   jobs: {
     tasks: unknown;
@@ -163,7 +157,7 @@ export interface Media {
   focalX?: number | null;
   focalY?: number | null;
   sizes?: {
-    "thumbnail-square"?: {
+    'thumbnail-square'?: {
       url?: string | null;
       width?: number | null;
       height?: number | null;
@@ -171,7 +165,7 @@ export interface Media {
       filesize?: number | null;
       filename?: string | null;
     };
-    "thumbnail-square-mobile"?: {
+    'thumbnail-square-mobile'?: {
       url?: string | null;
       width?: number | null;
       height?: number | null;
@@ -216,16 +210,7 @@ export interface Page {
    * Tùy chỉnh hình trang trí ở mục Nav Bar
    */
   showBannersDecorativeGraphic?: boolean | null;
-  beforeMain?:
-    | (
-        | BibleVerseBlock
-        | DynamicImageBlock
-        | ImageBlock
-        | SpaceBlock
-        | TextBlock
-        | QuoteBlock
-      )[]
-    | null;
+  beforeMain?: (BibleVerseBlock | DynamicImageBlock | ImageBlock | SpaceBlock | TextBlock | QuoteBlock)[] | null;
   aside?:
     | (
         | DynamicImageBlock
@@ -268,7 +253,7 @@ export interface AccordionContentBlock {
   }[];
   id?: string | null;
   blockName?: string | null;
-  blockType: "accordionContentBlock";
+  blockType: 'accordionContentBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -279,7 +264,7 @@ export interface BibleVerseBlock {
   reference: string;
   id?: string | null;
   blockName?: string | null;
-  blockType: "bibleVerseBlock";
+  blockType: 'bibleVerseBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -290,7 +275,7 @@ export interface DynamicImageBlock {
   mobileImage: string | Media;
   id?: string | null;
   blockName?: string | null;
-  blockType: "dynamicImageBlock";
+  blockType: 'dynamicImageBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -300,7 +285,7 @@ export interface ImageBlock {
   image: string | Media;
   id?: string | null;
   blockName?: string | null;
-  blockType: "imageBlock";
+  blockType: 'imageBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -309,7 +294,7 @@ export interface ImageBlock {
 export interface LatestPostGridBlock {
   id?: string | null;
   blockName?: string | null;
-  blockType: "latestPostGridBlock";
+  blockType: 'latestPostGridBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -319,7 +304,7 @@ export interface MapBlock {
   address: string;
   id?: string | null;
   blockName?: string | null;
-  blockType: "mapBlock";
+  blockType: 'mapBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -332,10 +317,10 @@ export interface PostGroupBlock {
   viewMoreButton: {
     enableViewMoreButton: boolean;
   };
-  displayType: "grid" | "list";
+  displayType: 'grid' | 'list';
   id?: string | null;
   blockName?: string | null;
-  blockType: "postGroupBlock";
+  blockType: 'postGroupBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -349,7 +334,7 @@ export interface TabbedContentBlock {
   }[];
   id?: string | null;
   blockName?: string | null;
-  blockType: "tabbedContentBlock";
+  blockType: 'tabbedContentBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -371,7 +356,7 @@ export interface TabbedPostGroupBlock {
     | null;
   id?: string | null;
   blockName?: string | null;
-  blockType: "tabbedPostGroupBlock";
+  blockType: 'tabbedPostGroupBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -381,7 +366,7 @@ export interface TextBlock {
   content: string;
   id?: string | null;
   blockName?: string | null;
-  blockType: "textBlock";
+  blockType: 'textBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -397,7 +382,7 @@ export interface TimelineBlock {
   }[];
   id?: string | null;
   blockName?: string | null;
-  blockType: "timelineBlock";
+  blockType: 'timelineBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -406,13 +391,13 @@ export interface TimelineBlock {
 export interface VideoGridBlock {
   videos: {
     title: string;
-    type: "youtube" | "facebook";
+    type: 'youtube' | 'facebook';
     url: string;
     id?: string | null;
   }[];
   id?: string | null;
   blockName?: string | null;
-  blockType: "videoGridBlock";
+  blockType: 'videoGridBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -422,7 +407,7 @@ export interface SpaceBlock {
   size: number;
   id?: string | null;
   blockName?: string | null;
-  blockType: "spaceBlock";
+  blockType: 'spaceBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -432,7 +417,7 @@ export interface QuoteBlock {
   content: string;
   id?: string | null;
   blockName?: string | null;
-  blockType: "quoteBlock";
+  blockType: 'quoteBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -442,7 +427,7 @@ export interface ImageSlideShowBlock {
   images: (string | Media)[];
   id?: string | null;
   blockName?: string | null;
-  blockType: "imageSlideshowBlock";
+  blockType: 'imageSlideshowBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -461,7 +446,7 @@ export interface LinksBlock {
   }[];
   id?: string | null;
   blockName?: string | null;
-  blockType: "linksBlock";
+  blockType: 'linksBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -480,7 +465,7 @@ export interface Post {
   videos?:
     | {
         title: string;
-        type: "youtube" | "facebook";
+        type: 'youtube' | 'facebook';
         /**
          * Ví dụ với YouTube, URL là https://www.youtube.com/watch?v=GnX7TN3uo5g thì Video ID là GnX7TN3uo5g. Với Facebook, URL là https://www.facebook.com/watch/?v=123456789 thì Video ID là 123456789.
          */
@@ -498,7 +483,7 @@ export interface Post {
  */
 export interface User {
   id: string;
-  role: "admin" | "editor";
+  role: 'admin' | 'editor';
   firstName?: string | null;
   lastName?: string | null;
   updatedAt: string;
@@ -527,28 +512,28 @@ export interface PayloadLockedDocument {
   id: string;
   document?:
     | ({
-        relationTo: "hiddenTags";
+        relationTo: 'hiddenTags';
         value: string | HiddenTag;
       } | null)
     | ({
-        relationTo: "media";
+        relationTo: 'media';
         value: string | Media;
       } | null)
     | ({
-        relationTo: "pages";
+        relationTo: 'pages';
         value: string | Page;
       } | null)
     | ({
-        relationTo: "posts";
+        relationTo: 'posts';
         value: string | Post;
       } | null)
     | ({
-        relationTo: "users";
+        relationTo: 'users';
         value: string | User;
       } | null);
   globalSlug?: string | null;
   user: {
-    relationTo: "users";
+    relationTo: 'users';
     value: string | User;
   };
   updatedAt: string;
@@ -561,7 +546,7 @@ export interface PayloadLockedDocument {
 export interface PayloadPreference {
   id: string;
   user: {
-    relationTo: "users";
+    relationTo: 'users';
     value: string | User;
   };
   key?: string | null;
@@ -618,7 +603,7 @@ export interface MediaSelect<T extends boolean = true> {
   sizes?:
     | T
     | {
-        "thumbnail-square"?:
+        'thumbnail-square'?:
           | T
           | {
               url?: T;
@@ -628,7 +613,7 @@ export interface MediaSelect<T extends boolean = true> {
               filesize?: T;
               filename?: T;
             };
-        "thumbnail-square-mobile"?:
+        'thumbnail-square-mobile'?:
           | T
           | {
               url?: T;
@@ -1005,19 +990,19 @@ export interface NavBar {
   };
   menu: {
     label: string;
-    linkType: "internal" | "external";
+    linkType: 'internal' | 'external';
     internalLink?: (string | null) | Page;
     externalLink?: string | null;
     subMenu?:
       | {
           label: string;
-          linkType: "internal" | "external";
+          linkType: 'internal' | 'external';
           internalLink?: (string | null) | Page;
           externalLink?: string | null;
           subMenu?:
             | {
                 label: string;
-                linkType: "internal" | "external";
+                linkType: 'internal' | 'external';
                 internalLink?: (string | null) | Page;
                 externalLink?: string | null;
                 id?: string | null;
@@ -1152,6 +1137,7 @@ export interface Auth {
   [k: string]: unknown;
 }
 
-declare module "payload" {
+
+declare module 'payload' {
   export interface GeneratedTypes extends Config {}
 }
