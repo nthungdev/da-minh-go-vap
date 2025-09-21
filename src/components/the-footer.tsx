@@ -3,10 +3,12 @@ import Markdown from "react-markdown";
 import Link from "next/link";
 import { getPayload } from "payload";
 import config from "@payload-config";
+import { getLocale } from "next-intl/server";
 
 export default async function TheFooter() {
+  const locale = await getLocale();
   const payload = await getPayload({ config });
-  const footer = await payload.findGlobal({ slug: "footer" });
+  const footer = await payload.findGlobal({ slug: "footer", locale });
 
   const splitExternalLinks = (links: any[], chunkSize: number) => {
     const result: any[][] = [];

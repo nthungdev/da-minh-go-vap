@@ -33,9 +33,9 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const menu = await getMenu();
-  const logo = await getLogo();
   const locale = await getLocale();
+  const menu = await getMenu(locale);
+  const logo = await getLogo();
 
   return (
     <html
