@@ -5,6 +5,7 @@ import AppPostSearchButton from "./app-post-search-button";
 import { HTMLAttributes } from "react";
 import { Media } from "@/payload-types";
 import { twMerge } from "tailwind-merge";
+import LocaleSwitcher from "@/components/locale-switcher";
 
 interface TheDesktopNavbarProps extends HTMLAttributes<HTMLElement> {
   menu: MenuItem[];
@@ -85,9 +86,11 @@ export default async function TheDesktopNavbar({
           ))}
         </ul>
 
-        <div className="p-3">
+        <div className="p-1">
           <AppPostSearchButton id="desktop-navbar-search" />
         </div>
+
+        <LocaleSwitcher />
       </div>
     </nav>
   );

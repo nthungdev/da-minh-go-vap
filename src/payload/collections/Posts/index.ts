@@ -37,6 +37,7 @@ const Posts: CollectionConfig = {
       hooks: {
         beforeDuplicate: [duplicateTitle],
       },
+      localized: true,
     },
     {
       name: "slug",
@@ -92,6 +93,7 @@ const Posts: CollectionConfig = {
           type: "text",
           label: "Tiêu đề",
           required: true,
+          localized: true,
         },
         {
           name: "type",
@@ -114,10 +116,10 @@ const Posts: CollectionConfig = {
         },
       ],
     },
-    {
-      ...markdownField("body"),
+    markdownField("body", {
       required: true,
-    },
+      localized: true,
+    }),
   ],
   hooks: {
     // afterChange: [

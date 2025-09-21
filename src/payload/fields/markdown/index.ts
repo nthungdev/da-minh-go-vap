@@ -9,11 +9,10 @@ function markdownField(
     name,
     admin: {
       components: {
-        Field: "@/payload/fields/markdown/Field",
-        Label: "@/payload/fields/markdown/Label",
+        Field: "./src/payload/fields/markdown/Field",
       },
     },
-    ...override,
+    ...(override ?? {}),
   };
 }
 

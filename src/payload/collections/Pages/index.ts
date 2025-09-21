@@ -72,6 +72,7 @@ const Pages: CollectionConfig = {
               type: "text",
               label: "Tiêu đề",
               required: true,
+              localized: true,
             },
             {
               name: "main",

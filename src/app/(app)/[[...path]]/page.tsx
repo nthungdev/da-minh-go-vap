@@ -3,6 +3,7 @@ import config from "@payload-config";
 import AppPage from "@/components/app-page";
 import BlocksRenderer from "@/components/blocks-renderer";
 import { notFound } from "next/navigation";
+import { getLocale } from "next-intl/server";
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config });
@@ -18,6 +19,7 @@ export default async function Page(props: {
   // path must be an array of strings 🤷
   params: Promise<{ path?: string[] }>;
 }) {
+  const locale = await getLocale();
   const params = await props.params;
   const path = "/" + (params.path || []).join("/");
   const payload = await getPayload({ config });
@@ -26,6 +28,7 @@ export default async function Page(props: {
     where: {
       path: { equals: path },
     },
+    locale,
   });
   const page = query.docs[0];
   if (!page) {

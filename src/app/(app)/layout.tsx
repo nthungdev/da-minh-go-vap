@@ -1,15 +1,17 @@
 import type { Metadata } from "next";
 import { Montserrat, Nunito } from "next/font/google";
 import { twMerge } from "tailwind-merge";
+import { NextIntlClientProvider } from "next-intl";
 import TheFooter from "@/components/the-footer";
 import TheMobileNavbar from "@/components/the-mobile-navbar";
 import TheDesktopNavbar from "@/components/the-desktop-navbar";
 import ReactQueryProvider from "@/components/providers/react-query-provider";
-import { getMenu } from "@/utils/menu";
-import { getLogo } from "@/utils/siteSettings";
-import "./globals.css";
 import PrelineScriptWrapper from "@/components/preline-script-wrapper";
 import ScrollToTopButton from "@/components/scroll-to-top-button";
+import { getMenu } from "@/utils/menu";
+import { getLogo } from "@/utils/site-settings-server";
+import "./globals.css";
+import { getLocale } from "next-intl/server";
 
 const montserrat = Montserrat({
   subsets: ["vietnamese"],
@@ -26,8 +28,6 @@ export const metadata: Metadata = {
   description: "Hội dòng Đa Minh Gò Vấp",
 };
 
-const language = "vi";
-
 export default async function RootLayout({
   children,
 }: Readonly<{
@@ -35,10 +35,11 @@ export default async function RootLayout({
 }>) {
   const menu = await getMenu();
   const logo = await getLogo();
+  const locale = await getLocale();
 
   return (
     <html
-      lang={language}
+      lang={locale}
       className={twMerge(nunito.className, montserrat.className)}
     >
       <PrelineScriptWrapper />
@@ -47,21 +48,23 @@ export default async function RootLayout({
           "relative flex min-h-screen w-full flex-col bg-white",
         )}
       >
-        <ScrollToTopButton />
-
-        <TheDesktopNavbar
-          logo={logo}
-          menu={menu}
-          className="sticky top-0 z-20 hidden xl:flex"
-        />
-        {/* z-60 because backdrop from Preline is z-59 */}
-        <TheMobileNavbar menu={menu} className="sticky top-0 z-60 xl:hidden" />
-
-        <ReactQueryProvider>
-          <div className="flex-1">{children}</div>
-        </ReactQueryProvider>
-
-        <TheFooter />
+        <NextIntlClientProvider>
+          <ScrollToTopButton />
+          <TheDesktopNavbar
+            logo={logo}
+            menu={menu}
+            className="sticky top-0 z-20 hidden xl:flex"
+          />
+          {/* z-60 because backdrop from Preline is z-59 */}
+          <TheMobileNavbar
+            menu={menu}
+            className="sticky top-0 z-60 xl:hidden"
+          />
+          <ReactQueryProvider>
+            <div className="flex-1">{children}</div>
+          </ReactQueryProvider>
+          <TheFooter />
+        </NextIntlClientProvider>
       </body>
     </html>
   );

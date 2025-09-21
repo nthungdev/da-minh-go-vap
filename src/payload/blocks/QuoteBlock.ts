@@ -12,6 +12,7 @@ const QuoteBlock: Block = {
       name: "content",
       type: "text",
       required: true,
+      localized: true,
     },
   ],
 };

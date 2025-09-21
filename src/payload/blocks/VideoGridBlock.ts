@@ -17,6 +17,7 @@ const VideoGridBlock: Block = {
           name: "title",
           type: "text",
           required: true,
+          localized: true,
         },
         {
           name: "type",

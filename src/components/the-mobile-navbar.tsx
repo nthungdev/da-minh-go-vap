@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import AppPostSearchButton from "./app-post-search-button";
 import { HTMLAttributes } from "react";
 import { twMerge } from "tailwind-merge";
+import LocaleSwitcher from "@/components/locale-switcher";
 
 const MENU_ID = "hs-the-mobile-menu";
 
@@ -211,6 +212,7 @@ export default function TheMobileNavbar({
             Hội Dòng Đa Minh Gò Vấp
           </Link>
           <AppPostSearchButton id="mobile-navbar-search" />
+          <LocaleSwitcher />
         </div>
       </div>
       {/* End Navigation Toggle */}

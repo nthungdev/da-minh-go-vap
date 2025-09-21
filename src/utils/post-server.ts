@@ -3,14 +3,19 @@ import "server-only";
 import { getPayload, Where } from "payload";
 import config from "@payload-config";
 import { postToAppPost } from "@/utils/post";
+import { defaultLocale, Locale } from "@/i18n/config";
 
 interface GetOptions {
   limit?: number;
   page?: number;
   skipSlug?: string;
+  locale?: Locale;
 }
 
-export const getPostBySlug = async (slug: string) => {
+export const getPostBySlug = async (
+  slug: string,
+  { locale }: { locale?: Locale } = {},
+) => {
   try {
     const payload = await getPayload({ config });
     const query = await payload.find({
@@ -23,6 +28,7 @@ export const getPostBySlug = async (slug: string) => {
         },
       },
       limit: 1,
+      locale: locale ?? defaultLocale,
     });
     const post = query.docs[0];
     if (!post) return null;
@@ -33,12 +39,17 @@ export const getPostBySlug = async (slug: string) => {
   }
 };
 
-export const getPostsBySlugs = async (slugs: string[]) => {
-  const posts = await Promise.all(slugs.map((slug) => getPostBySlug(slug)));
+export const getPostsBySlugs = async (
+  slugs: string[],
+  { locale }: { locale?: Locale } = {},
+) => {
+  const posts = await Promise.all(
+    slugs.map((slug) => getPostBySlug(slug, { locale })),
+  );
   return posts.filter((post) => post !== null);
 };
 
-export async function queryAllPosts({ limit, page }: GetOptions = {}) {
+export async function queryAllPosts({ limit, page, locale }: GetOptions = {}) {
   const payload = await getPayload({ config });
   const query = await payload.find({
     collection: "posts",
@@ -51,13 +62,14 @@ export async function queryAllPosts({ limit, page }: GetOptions = {}) {
         less_than: new Date().toISOString(),
       },
     },
+    locale: locale ?? defaultLocale,
   });
   return query;
 }
 
 export async function queryPostsByHiddenTags(
   hiddenTags: string[],
-  { limit, page, skipSlug }: GetOptions = {},
+  { limit, page, skipSlug, locale }: GetOptions = {},
 ) {
   const payload = await getPayload({ config });
 
@@ -91,6 +103,7 @@ export async function queryPostsByHiddenTags(
     sort: "-publishedAt", // Sort by publishedAt DESC
     limit: limit ?? 10,
     page: page ?? 1,
+    locale: locale ?? defaultLocale,
   });
 
   return query;

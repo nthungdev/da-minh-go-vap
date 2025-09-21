@@ -12,6 +12,7 @@ const LinksBlock: Block = {
       name: "title",
       type: "text",
       required: true,
+      localized: true,
     },
     {
       name: "links",
@@ -22,6 +23,7 @@ const LinksBlock: Block = {
           name: "title",
           type: "text",
           required: true,
+          localized: true,
         },
         {
           name: "url",

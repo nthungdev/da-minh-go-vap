@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from "react";
 import MDEditor from "@uiw/react-md-editor";
 import rehypeSanitize from "rehype-sanitize";
@@ -8,19 +10,24 @@ interface MarkdownEditorProps {
   setValue: (value: string) => void;
 }
 
-export default function MarkdownEditor(props: MarkdownEditorProps) {
-  const [value, setValue] = useState(props.value || "");
+export default function MarkdownEditor({
+  value,
+  setValue,
+  id,
+}: MarkdownEditorProps) {
+  const [internalValue, setInternalValue] = useState(value || "");
 
   function onChange(value?: string) {
     if (value === undefined) return;
+    setInternalValue(value);
     setValue(value);
-    props.setValue(value);
   }
 
   return (
     <div className="container">
       <MDEditor
-        value={value}
+        textareaProps={{ id }}
+        value={internalValue}
         onChange={onChange}
         previewOptions={{
           rehypePlugins: [[rehypeSanitize]],

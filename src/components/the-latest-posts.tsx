@@ -7,6 +7,7 @@ import { fetchAllPosts } from "@/actions/post";
 import { twMerge } from "tailwind-merge";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import Spinner from "@/components/spinner";
+import { useLocale } from "next-intl";
 
 const POST_COUNT = 5;
 
@@ -16,14 +17,14 @@ interface TheLatestPostsProps {
 
 export default function TheLatestPosts(props: TheLatestPostsProps) {
   const { className } = props;
-
+  const locale = useLocale();
   const {
     data: latestPosts,
     error,
     isPending,
   } = useQuery({
     queryKey: ["fetchLatestPosts"],
-    queryFn: () => fetchAllPosts({ limit: POST_COUNT }),
+    queryFn: () => fetchAllPosts({ limit: POST_COUNT, locale: locale }),
     placeholderData: keepPreviousData,
   });
 

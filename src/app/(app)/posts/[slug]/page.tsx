@@ -6,6 +6,7 @@ import VideoIframe from "@/components/app-video-iframe";
 import AppPostGridPaginated from "@/components/app-post-grid-async-paginated";
 import dayjs from "dayjs";
 import "dayjs/locale/vi";
+import { getLocale } from "next-intl/server";
 dayjs.locale("vi");
 
 const relatedPostsLimit = 12;
@@ -13,13 +14,12 @@ const relatedPostsLimit = 12;
 export default async function Page(props: {
   params: Promise<{ slug: string }>;
 }) {
+  const locale = await getLocale();
   const params = await props.params;
   const decodedSlug = decodeURIComponent(params.slug);
-  const post = await fetchPostBySlug(decodedSlug);
+  const post = await fetchPostBySlug(decodedSlug, { locale });
 
-  if (!post) {
-    notFound();
-  }
+  if (!post) notFound();
 
   const video = post.videos?.[0];
   const hiddenTags = post.hiddenTags
