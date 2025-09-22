@@ -8,6 +8,7 @@ import AppViewMoreLink from "./app-view-more-link";
 import AppPostGridSkeleton from "./app-post-grid-skeleton";
 import { AppPost } from "@/definitions";
 import AppGridHeader from "@/components/app-grid-header";
+import { useLocale } from "next-intl";
 
 interface AppPostGridProps {
   hiddenTags: string[];
@@ -26,11 +27,13 @@ export default function AppPostGrid({
   hasMore,
   className,
 }: AppPostGridProps) {
+  const locale = useLocale();
   const { data, error, isPending } = useQuery({
-    queryKey: ["fetchPostsByHiddenTags", hiddenTags],
+    queryKey: ["fetchPostsByHiddenTags", hiddenTags, locale],
     queryFn: async () => {
       const posts = await fetchPostsByHiddenTags(hiddenTags, {
         limit,
+        locale,
       });
       return posts;
     },
