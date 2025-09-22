@@ -127,13 +127,12 @@ const defaultItemRender = (onClick: () => void) =>
             controlsId={`${item.normalizedName}-accordion`}
             href={item.absoluteHref}
           />
-
           <MobileMenuContent
             id={`${item.normalizedName}-accordion`}
-            labelledbyId={`${item.normalizedName}-accordion-item`}
+            labelledbyId={`${item.normalizedName}-accordion-item-${index}`}
           >
             <ul className="space-y-1 ps-2 pt-2">
-              {item.children.map((child) =>
+              {item.children.map((child, index) =>
                 defaultItemRender(onClick)(child, index),
               )}
             </ul>
@@ -142,7 +141,7 @@ const defaultItemRender = (onClick: () => void) =>
       );
     } else {
       return (
-        <li key={`${item.normalizedName}-accordion-item`}>
+        <li key={`${item.normalizedName}-accordion-item-${index}`}>
           <Link
             className={`hover:bg-primary-600 focus:bg-primary-600 flex w-full items-center gap-x-3.5 rounded-lg px-2.5 py-2 text-start text-sm hover:text-gray-50 focus:text-gray-50 focus:outline-hidden ${
               item.absoluteHref === pathname
@@ -150,7 +149,7 @@ const defaultItemRender = (onClick: () => void) =>
                 : "text-gray-900"
             }`}
             href={item.absoluteHref}
-            onClick={() => onClick()}
+            onClick={onClick}
           >
             {item.name}
           </Link>
