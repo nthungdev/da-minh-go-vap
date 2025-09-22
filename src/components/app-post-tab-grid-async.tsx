@@ -28,7 +28,7 @@ interface AppPostTabGridAsyncProps
 export default function AppPostTabGridAsync(props: AppPostTabGridAsyncProps) {
   const { id, postGroups, className, component } = props;
 
-  const ContentComponent = component ? component : AppPostGrid;
+  const ContentComponent = component ?? AppPostGrid;
 
   const allUniqueHiddenTags = Array.from(
     new Set(postGroups.flatMap((group) => group.hiddenTags)),
