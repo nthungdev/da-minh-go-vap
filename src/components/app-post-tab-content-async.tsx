@@ -10,6 +10,7 @@ import { fetchPostsByHiddenTags } from "@/actions/post";
 import { useQuery } from "@tanstack/react-query";
 import { makePostsPath } from "@/utils/post";
 import Spinner from "@/components/spinner";
+import { useLocale } from "next-intl";
 
 const POST_COUNT = 6;
 
@@ -32,9 +33,11 @@ export default function AppPostTabContentAsync({
   title,
   ...props
 }: AppPostTabContentAsyncProps) {
+  const locale = useLocale();
   const { isPending, error, data } = useQuery({
     queryKey: ["app-post-tab-content", ...hiddenTags],
-    queryFn: () => fetchPostsByHiddenTags(hiddenTags, { limit: POST_COUNT }),
+    queryFn: () =>
+      fetchPostsByHiddenTags(hiddenTags, { limit: POST_COUNT, locale }),
   });
 
   if (isPending) {
@@ -50,7 +53,7 @@ export default function AppPostTabContentAsync({
     return <div>Error</div>;
   }
 
-  const DataComponent = component ? component : AppPostGrid;
+  const DataComponent = component ?? AppPostGrid;
   const page = getDataOrUndefined<Page>(viewMoreButton?.relativeUrl);
 
   const viewMoreHref = page ? page.path : makePostsPath(hiddenTags, title);

@@ -5,6 +5,7 @@ import AppPostCard from "@/components/app-post-card";
 import AppSectionHeader from "@/components/app-section-header";
 import { AppPost } from "@/definitions";
 import { useQuery } from "@tanstack/react-query";
+import { useLocale } from "next-intl";
 
 interface AppPostListAsyncProps {
   hiddenTags: string[];
@@ -23,12 +24,10 @@ export default function AppPostListAsync({
 }: AppPostListAsyncProps) {
   const ItemComponent = itemComponent ?? AppPostCard;
 
+  const locale = useLocale();
   const { data, error, isPending } = useQuery({
-    queryKey: ["fetchPostsByHiddenTags", hiddenTags],
-    queryFn: async () => {
-      const posts = await fetchPostsByHiddenTags(hiddenTags, { limit });
-      return posts;
-    },
+    queryKey: ["fetchPostsByHiddenTags", hiddenTags, locale],
+    queryFn: async () => fetchPostsByHiddenTags(hiddenTags, { limit, locale }),
     initialData: { posts: posts || [], hasMore: false },
   });
 
