@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useState } from "react";
 import AppPostGridSkeleton from "./app-post-grid-skeleton";
 import { AppPost } from "@/definitions";
+import { useLocale } from "next-intl";
 
 const DEFAULT_PAGE_SIZE = 12;
 
@@ -25,6 +26,7 @@ export default function AppPostGridPaginated({
   skipSlug,
   posts: initialPosts,
 }: AppPostGridPaginatedProps) {
+  const locale = useLocale();
   const [page, setPage] = useState(1);
 
   const fetchPosts = async (page: number) => {
@@ -32,11 +34,12 @@ export default function AppPostGridPaginated({
       limit: pageSize,
       page,
       skipSlug,
+      locale,
     });
   };
 
   const { data, error, isError, isPending, isFetched, isFetching } = useQuery({
-    queryKey: ["fetchPostsByHiddenTags", hiddenTags, page],
+    queryKey: ["fetchPostsByHiddenTags", hiddenTags, page, locale],
     queryFn: () => fetchPosts(page),
     placeholderData: keepPreviousData,
     initialData: { posts: initialPosts || [], hasMore: false },
