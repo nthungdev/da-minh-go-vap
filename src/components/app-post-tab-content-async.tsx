@@ -35,7 +35,7 @@ export default function AppPostTabContentAsync({
 }: AppPostTabContentAsyncProps) {
   const locale = useLocale();
   const { isPending, error, data } = useQuery({
-    queryKey: ["app-post-tab-content", ...hiddenTags],
+    queryKey: ["app-post-tab-content", ...hiddenTags, locale],
     queryFn: () =>
       fetchPostsByHiddenTags(hiddenTags, { limit: POST_COUNT, locale }),
   });
