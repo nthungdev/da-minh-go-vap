@@ -82,6 +82,7 @@ jobs:
       PAYLOAD_ADMIN_EMAIL: admin@example.com
       PAYLOAD_ADMIN_PASSWORD: admin
       DATABASE_URI: mongodb://admin:admin@localhost:27017/da-minh-go-vap?authSource=admin
+      NEXT_PUBLIC_BASE_URL: http://localhost:3000
 
     steps:
       - name: Checkout code
@@ -104,6 +105,9 @@ jobs:
 
       - name: Build in compile mode
         run: pnpm build:compile
+
+      - name: Build in generate env mode
+        run: pnpm build:generate-env
 
       - name: Build in generate mode
         run: pnpm build:generate
