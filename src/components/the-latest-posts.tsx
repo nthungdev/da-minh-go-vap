@@ -23,7 +23,7 @@ export default function TheLatestPosts(props: TheLatestPostsProps) {
     error,
     isPending,
   } = useQuery({
-    queryKey: ["fetchLatestPosts"],
+    queryKey: ["fetchLatestPosts", locale],
     queryFn: () => fetchAllPosts({ limit: POST_COUNT, locale }),
     placeholderData: keepPreviousData,
   });
