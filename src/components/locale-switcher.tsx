@@ -15,11 +15,12 @@ const localeLabels: Record<Locale, string> = {
 export default function LocaleSwitcher() {
   const [isPending, startTransition] = useTransition();
   const locale = useLocale();
-  const label = localeLabels[locale];
+  const nextLocale = locale === "en" ? "vi" : "en";
+  const label = localeLabels[nextLocale];
 
   async function switchLocale() {
     startTransition(async function () {
-      await setLocale(locale === "en" ? "vi" : "en");
+      await setLocale(nextLocale);
     });
   }
 
