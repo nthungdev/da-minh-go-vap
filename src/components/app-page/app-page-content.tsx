@@ -14,7 +14,7 @@ export default function AppPageContent({
   return (
     <div
       className={twMerge(
-        "max-w-9xl mx-auto w-full px-4 py-8",
+        "mx-auto w-full max-w-7xl px-4 py-8",
         pathname !== "/" && "pt-16",
         className,
       )}
