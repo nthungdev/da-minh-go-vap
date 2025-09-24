@@ -16,6 +16,7 @@ interface AppPostGridProps {
   title: string;
   posts?: AppPost[];
   hasMore?: boolean;
+  hidePostTitles?: boolean;
   className?: string;
 }
 
@@ -25,8 +26,10 @@ export default function AppPostGrid({
   title,
   posts,
   hasMore,
+  hidePostTitles,
   className,
 }: AppPostGridProps) {
+  console.log({ hidePostTitles });
   const locale = useLocale();
   const { data, error, isPending } = useQuery({
     queryKey: ["fetchPostsByHiddenTags", hiddenTags, locale],
@@ -77,11 +80,13 @@ export default function AppPostGrid({
                       />
                     )}
                 </div>
-                <div className="space-y-2 p-2">
-                  <span className="block truncate text-center text-xl">
-                    {post.title}
-                  </span>
-                </div>
+                {!hidePostTitles && (
+                  <div className="space-y-2 p-2">
+                    <span className="block truncate text-center text-xl">
+                      {post.title}
+                    </span>
+                  </div>
+                )}
               </Link>
             </li>
           ))}

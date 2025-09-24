@@ -86,6 +86,7 @@ const mapBlockToProps: BlockToPropsMap = {
     title: block.title,
     limit: block.limit || 4,
     hasMore: block.viewMoreButton.enableViewMoreButton,
+    hidePostTitles: block.hidePostTitles,
     hiddenTags: block.hiddenTags
       .filter((tag) => typeof tag !== "string")
       .map((tag) => tag.tag),
