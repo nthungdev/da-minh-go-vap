@@ -9,6 +9,7 @@ import AppPostGridSkeleton from "./app-post-grid-skeleton";
 import { AppPost } from "@/definitions";
 import AppGridHeader from "@/components/app-grid-header";
 import { useLocale } from "next-intl";
+import { twMerge } from "tailwind-merge";
 
 interface AppPostGridProps {
   hiddenTags: string[];
@@ -16,6 +17,7 @@ interface AppPostGridProps {
   title: string;
   posts?: AppPost[];
   hasMore?: boolean;
+  hidePostTitles?: boolean;
   className?: string;
 }
 
@@ -25,6 +27,7 @@ export default function AppPostGrid({
   title,
   posts,
   hasMore,
+  hidePostTitles,
   className,
 }: AppPostGridProps) {
   const locale = useLocale();
@@ -53,17 +56,20 @@ export default function AppPostGrid({
       <div className="my-2 space-y-2">
         <AppGridHeader text={title} />
         <ul
-          className={`relative grid grid-flow-row gap-4 md:grid-cols-2 lg:grid-cols-4 ${className}`}
+          className={twMerge(
+            "relative grid grid-flow-row gap-4 md:grid-cols-2 lg:grid-cols-4",
+            className,
+          )}
         >
           {posts.map((post, index) => (
             // min-w-0 to override min-width: min-content that cause post title to not be truncated
             <li
-              className="block w-full min-w-0 border border-transparent bg-white hover:ring-3"
+              className="block h-full w-full min-w-0 border border-transparent bg-white hover:ring-3"
               key={index}
             >
               <Link
                 href={`/posts/${post.slug}`}
-                className="block overflow-hidden border"
+                className="block h-full overflow-hidden border"
               >
                 <div className="relative aspect-video">
                   {typeof post.thumbnail !== "string" &&
@@ -77,11 +83,13 @@ export default function AppPostGrid({
                       />
                     )}
                 </div>
-                <div className="space-y-2 p-2">
-                  <span className="block truncate text-center text-xl">
-                    {post.title}
-                  </span>
-                </div>
+                {!hidePostTitles && (
+                  <div className="space-y-2 p-1.5">
+                    <span className="line-clamp-2 block w-full text-center text-base lg:text-lg">
+                      {post.title}
+                    </span>
+                  </div>
+                )}
               </Link>
             </li>
           ))}

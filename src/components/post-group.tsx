@@ -10,6 +10,7 @@ interface PostGroupProps extends ComponentProps<"div"> {
   title?: string;
   posts?: AppPost[];
   hasMore?: boolean;
+  hidePostTitles?: boolean;
 }
 
 export default function PostGroup(props: PostGroupProps) {
@@ -20,6 +21,7 @@ export default function PostGroup(props: PostGroupProps) {
         hiddenTags={props.hiddenTags}
         limit={props.limit}
         hasMore={props.hasMore}
+        hidePostTitles={props.hidePostTitles}
       />
     );
   } else if (props.type === "list") {
