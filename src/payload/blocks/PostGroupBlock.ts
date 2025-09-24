@@ -15,6 +15,13 @@ const PostGroupBlock: Block = {
       localized: true,
     },
     {
+      name: "hidePostTitles",
+      label: "Ẩn hiển thị tiêu đề bài viết",
+      type: "checkbox",
+      defaultValue: false,
+      required: true,
+    },
+    {
       name: "hiddenTags",
       type: "relationship",
       relationTo: "hiddenTags",

@@ -312,6 +312,7 @@ export interface MapBlock {
  */
 export interface PostGroupBlock {
   title: string;
+  hidePostTitles: boolean;
   hiddenTags: (string | HiddenTag)[];
   limit?: number | null;
   viewMoreButton: {
@@ -760,6 +761,7 @@ export interface MapBlockSelect<T extends boolean = true> {
  */
 export interface PostGroupBlockSelect<T extends boolean = true> {
   title?: T;
+  hidePostTitles?: T;
   hiddenTags?: T;
   limit?: T;
   viewMoreButton?:
