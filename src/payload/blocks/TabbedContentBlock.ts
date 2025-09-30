@@ -23,6 +23,7 @@ const TabbedContentBlock: Block = {
         markdownField({
           name: "content",
           required: true,
+          localized: true,
         }),
       ],
     },
