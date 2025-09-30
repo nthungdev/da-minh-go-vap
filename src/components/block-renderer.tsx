@@ -126,6 +126,7 @@ const mapBlockToProps: BlockToPropsMap = {
     title: block.title,
     cards: block.items.map((item) => ({
       title: item.title,
+      description: item.description || undefined,
       thumbnail: item.thumbnail,
       url: typeof item.link !== "string" ? item.link?.path : undefined,
     })),
