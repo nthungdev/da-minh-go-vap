@@ -1,5 +1,5 @@
-import { default as default_7ecb0120c08f268cb86190531749b0d0 } from '../../../../src/payload/fields/markdown/Field'
+import { default as default_8cbc64bd7b83ad69a9631721ac98586c } from '@/payload/fields/markdown/Field'
 
 export const importMap = {
-  "./src/payload/fields/markdown/Field#default": default_7ecb0120c08f268cb86190531749b0d0
+  "@/payload/fields/markdown/Field#default": default_8cbc64bd7b83ad69a9631721ac98586c
 }

@@ -9,7 +9,6 @@ function markdownField(override: MarkdownFieldOptions): CodeField {
     admin: {
       components: {
         Field: "@/payload/fields/markdown/Field",
-        Label: "@/payload/fields/markdown/Label",
       },
     },
     ...override,
