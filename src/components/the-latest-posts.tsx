@@ -89,6 +89,7 @@ export default function TheLatestPosts(props: TheLatestPostsProps) {
             key={index}
             post={post}
             className={twMerge("bg-primary-1 border lg:border-transparent")}
+            showDate
           />
         ))}
       </div>
