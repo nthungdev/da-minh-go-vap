@@ -20,7 +20,8 @@ const AccordionContentBlock: Block = {
           required: true,
           localized: true,
         },
-        markdownField("content", {
+        markdownField({
+          name: "content",
           required: true,
           localized: true,
         }),
@@ -34,7 +35,8 @@ const AccordionContentBlock: Block = {
               required: true,
               localized: true,
             },
-            markdownField("content", {
+            markdownField({
+              name: "content",
               required: true,
               localized: true,
             }),
@@ -48,7 +50,8 @@ const AccordionContentBlock: Block = {
                   required: true,
                   localized: true,
                 },
-                markdownField("content", {
+                markdownField({
+                  name: "content",
                   required: true,
                   localized: true,
                 }),

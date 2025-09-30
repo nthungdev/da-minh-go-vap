@@ -116,7 +116,8 @@ const Posts: CollectionConfig = {
         },
       ],
     },
-    markdownField("body", {
+    markdownField({
+      name: "body",
       required: true,
       localized: true,
     }),
