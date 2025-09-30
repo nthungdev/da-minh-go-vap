@@ -1,3 +1,4 @@
+import AppMarkdown from "@/components/app-markdown";
 import AppSectionHeader from "@/components/app-section-header";
 import { Media } from "@/payload-types";
 import Image from "next/image";
@@ -8,6 +9,7 @@ interface AppTimelineCardsProps {
   className?: string;
   cards: {
     title: string;
+    description?: string;
     thumbnail: Media | string;
     url?: string;
   }[];
@@ -19,23 +21,25 @@ export default function AppTimelineCards({
   cards,
   title,
 }: AppTimelineCardsProps) {
+  console.log(cards);
   return (
     <div className={`space-y-12 ${className}`}>
       {title && (
         <AppSectionHeader className="text-2xl">{title}</AppSectionHeader>
       )}
 
-      <div className="flex flex-col">
+      <ol className="flex flex-col">
         {cards.map((card, index) => (
-          <div
+          <li
             key={index}
-            className={`flex ${
-              index % 2 === 0 ? "flex-row" : "md:flex-row-reverse"
-            }`}
+            className={twMerge(
+              "flex",
+              index % 2 === 0 ? "flex-row" : "md:flex-row-reverse",
+            )}
           >
             <Link
               href={card.url || "#"}
-              className={`order-last my-2 flex-1 space-y-2 rounded-lg hover:ring-2 md:order-0`}
+              className="order-last my-2 flex-1 space-y-2 rounded-lg hover:ring-2 md:order-0"
             >
               <div className="relative aspect-video w-full">
                 {typeof card.thumbnail !== "string" &&
@@ -74,10 +78,14 @@ export default function AppTimelineCards({
               </div>
             </div>
 
-            <div className="hidden flex-1 md:block"></div>
-          </div>
+            <div className="hidden flex-1 py-2 md:block">
+              {card.description && (
+                <AppMarkdown>{card.description}</AppMarkdown>
+              )}
+            </div>
+          </li>
         ))}
-      </div>
+      </ol>
     </div>
   );
 }
