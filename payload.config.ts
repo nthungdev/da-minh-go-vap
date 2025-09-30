@@ -28,6 +28,14 @@ if (!process.env.DATABASE_URI) {
   throw new Error("DATABASE_URI environment variable is required");
 }
 
+if (!process.env.PAYLOAD_ADMIN_EMAIL) {
+  throw new Error("PAYLOAD_ADMIN_EMAIL environment variable is required");
+}
+
+if (!process.env.PAYLOAD_ADMIN_PASSWORD) {
+  throw new Error("PAYLOAD_ADMIN_PASSWORD environment variable is required");
+}
+
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
 
@@ -75,15 +83,8 @@ export default buildConfig({
 });
 
 async function createDefaultAdmin(payload: Payload) {
-  const adminEmail = process.env.PAYLOAD_ADMIN_EMAIL;
-  const adminPassword = process.env.PAYLOAD_ADMIN_PASSWORD;
-
-  if (!adminEmail || !adminPassword) {
-    console.error(
-      "Environment variables PAYLOAD_ADMIN_EMAIL and PAYLOAD_ADMIN_PASSWORD must be set.",
-    );
-    return;
-  }
+  const adminEmail = process.env.PAYLOAD_ADMIN_EMAIL!;
+  const adminPassword = process.env.PAYLOAD_ADMIN_PASSWORD!;
 
   const admins = await payload.find({
     collection: "users",
@@ -107,4 +108,6 @@ async function createDefaultAdmin(payload: Payload) {
       role: "admin",
     },
   });
+
+  console.log("Default admin user created");
 }
