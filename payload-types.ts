@@ -377,6 +377,7 @@ export interface TimelineBlock {
   title: string;
   items: {
     title: string;
+    description?: string | null;
     thumbnail: string | Media;
     link?: (string | null) | Page;
     id?: string | null;
@@ -830,6 +831,7 @@ export interface TimelineBlockSelect<T extends boolean = true> {
     | T
     | {
         title?: T;
+        description?: T;
         thumbnail?: T;
         link?: T;
         id?: T;

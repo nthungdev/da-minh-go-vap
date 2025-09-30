@@ -1,3 +1,4 @@
+import markdownField from "@/payload/fields/markdown";
 import { Block } from "payload";
 
 const TimelineBlock: Block = {
@@ -25,6 +26,9 @@ const TimelineBlock: Block = {
           required: true,
           localized: true,
         },
+        markdownField("description", {
+          localized: true,
+        }),
         {
           name: "thumbnail",
           type: "upload",
