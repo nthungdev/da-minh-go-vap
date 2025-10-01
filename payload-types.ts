@@ -183,7 +183,7 @@ export interface Page {
   id: string;
   publishedAt: string;
   /**
-   * Đường dẫn sẽ được sử dụng để truy cập trang này. Ví dụ: "/gioi-thieu".
+   * Đường dẫn sẽ được sử dụng để truy cập trang này. Luôn bắt đầu bằng "/". Ví dụ: "/gioi-thieu".
    */
   path: string;
   title: string;

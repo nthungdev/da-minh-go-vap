@@ -9,7 +9,8 @@ const TextBlock: Block = {
   },
   interfaceName: "TextBlock",
   fields: [
-    markdownField("content", {
+    markdownField({
+      name: "content",
       required: true,
       localized: true,
     }),

@@ -4,6 +4,7 @@
     "strict": true,
     "noUncheckedIndexedAccess": true,
     "noImplicitOverride": true,
+    // "baseUrl": ".",
     "esModuleInterop": true,
     "target": "ES2022",
     "lib": ["DOM", "DOM.Iterable", "ES2023"],
@@ -34,9 +35,10 @@
   "include": [
     "next-env.d.ts",
     "next-intl.d.ts",
+    "i18n.d.ts",
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "out"]
 }

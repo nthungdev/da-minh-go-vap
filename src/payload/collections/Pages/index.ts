@@ -55,7 +55,7 @@ const Pages: CollectionConfig = {
       admin: {
         position: "sidebar",
         description:
-          'Đường dẫn sẽ được sử dụng để truy cập trang này. Ví dụ: "/gioi-thieu".',
+          'Đường dẫn sẽ được sử dụng để truy cập trang này. Luôn bắt đầu bằng "/". Ví dụ: "/gioi-thieu".',
       },
     },
     {
@@ -99,7 +99,7 @@ const Pages: CollectionConfig = {
         {
           label: {
             en: "Before main",
-            vi: "Trước phần chính",
+            vi: "Trước nội dung chính",
           },
           fields: [
             {
@@ -109,6 +109,7 @@ const Pages: CollectionConfig = {
               required: false,
               unique: false,
               hasMany: true,
+              localized: true,
             },
             {
               name: "showBannersDecorativeGraphic",

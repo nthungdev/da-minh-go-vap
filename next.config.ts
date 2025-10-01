@@ -1,8 +1,8 @@
 import { withPayload } from "@payloadcms/next/withPayload";
+import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
 
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+const nextConfig: NextConfig = {
   output: "standalone",
   experimental: {
     serverActions: {

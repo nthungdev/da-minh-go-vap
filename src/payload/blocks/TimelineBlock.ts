@@ -26,7 +26,8 @@ const TimelineBlock: Block = {
           required: true,
           localized: true,
         },
-        markdownField("description", {
+        markdownField({
+          name: "description",
           localized: true,
         }),
         {

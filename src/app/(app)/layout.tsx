@@ -55,6 +55,7 @@ export default async function RootLayout({
             menu={menu}
             className="sticky top-0 z-20 hidden xl:flex"
           />
+
           {/* z-60 because backdrop from Preline is z-59 */}
           <TheMobileNavbar
             menu={menu}

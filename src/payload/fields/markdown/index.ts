@@ -1,18 +1,17 @@
 import type { CodeField } from "payload";
 
-function markdownField(
-  name: string,
-  override: Partial<CodeField> = {},
-): CodeField {
+type MarkdownFieldOptions = Omit<CodeField, "type" | "admin"> &
+  Required<Pick<CodeField, "name">>;
+
+function markdownField(override: MarkdownFieldOptions): CodeField {
   return {
     type: "code",
-    name,
     admin: {
       components: {
-        Field: "./src/payload/fields/markdown/Field",
+        Field: "@/payload/fields/markdown/Field",
       },
     },
-    ...(override ?? {}),
+    ...override,
   };
 }
 
