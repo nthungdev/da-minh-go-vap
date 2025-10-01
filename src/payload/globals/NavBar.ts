@@ -7,7 +7,6 @@ const NavBar: GlobalConfig = {
     interface: "NavBar",
   },
   fields: [
-    // TODO pageBanners ?
     {
       name: "bottomDecorativeGraphic",
       type: "group",
@@ -22,12 +21,14 @@ const NavBar: GlobalConfig = {
           type: "upload",
           relationTo: "media",
           required: true,
+          localized: true,
         },
         {
           name: "imageMobile",
           type: "upload",
           relationTo: "media",
           required: true,
+          localized: true,
         },
       ],
       admin: {
