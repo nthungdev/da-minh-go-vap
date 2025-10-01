@@ -7,8 +7,16 @@ import { twMerge } from "tailwind-merge";
 import { Page } from "@/payload-types";
 import AppPostTabContentAsync from "@/components/app-post-tab-content-async";
 import { makePostsPath } from "@/utils/post";
+import { Locale, useLocale } from "next-intl";
 
-const ALL_POSTS_CONTROL_LABEL = "Tất cả";
+const ALL_POSTS_CONTROL_LABELS: Record<Locale, string> = {
+  en: "All",
+  vi: "Tất cả",
+};
+const ALL_POSTS_TITLES: Record<Locale, string> = {
+  en: "Posts",
+  vi: "Các bài viết",
+};
 
 /** id should be provided when there are multiple AppPostTabGrid components on the same page */
 interface AppPostTabGridAsyncProps
@@ -27,6 +35,7 @@ interface AppPostTabGridAsyncProps
 
 export default function AppPostTabGridAsync(props: AppPostTabGridAsyncProps) {
   const { id, postGroups, className, component } = props;
+  const locale = useLocale();
 
   const ContentComponent = component ?? AppPostGrid;
 
@@ -36,12 +45,15 @@ export default function AppPostTabGridAsync(props: AppPostTabGridAsyncProps) {
 
   const postGroupsData = [
     {
-      title: ALL_POSTS_CONTROL_LABEL,
+      title: ALL_POSTS_CONTROL_LABELS[locale],
       hiddenTags: allUniqueHiddenTags,
       limit: 6,
       viewMoreButton: {
         enable: true,
-        relativeUrl: makePostsPath(allUniqueHiddenTags, "Các bài viết"),
+        relativeUrl: makePostsPath(
+          allUniqueHiddenTags,
+          ALL_POSTS_TITLES[locale],
+        ),
       },
     },
     ...postGroups,
@@ -67,13 +79,13 @@ export default function AppPostTabGridAsync(props: AppPostTabGridAsyncProps) {
 
   return (
     <div className={twMerge("space-y-4", className)} id={id}>
-      <div>
+      <div className="relative">
         <AppSelectBasic
           className="lg:hidden"
-          defaultValue={ALL_POSTS_CONTROL_LABEL}
+          defaultValue={ALL_POSTS_CONTROL_LABELS[locale]}
           options={[
             {
-              value: ALL_POSTS_CONTROL_LABEL,
+              value: ALL_POSTS_CONTROL_LABELS[locale],
             },
             ...postGroups.map((group) => ({
               value: group.title,
