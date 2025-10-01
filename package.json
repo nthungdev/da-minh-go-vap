@@ -39,7 +39,7 @@
     "fuse.js": "^7.1.0",
     "graphql": "^16.10.0",
     "gray-matter": "^4.0.3",
-    "next": "15.5.3",
+    "next": "15.4.6",
     "next-intl": "^4.3.9",
     "normalize-text": "^2.6.0",
     "payload": "^3.56.0",
