@@ -61,9 +61,9 @@ export default async function RootLayout({
             menu={menu}
             className="sticky top-0 z-60 xl:hidden"
           />
-          <ReactQueryProvider>
-            <div className="flex-1">{children}</div>
-          </ReactQueryProvider>
+          <div className="flex-1">
+            <ReactQueryProvider>{children}</ReactQueryProvider>
+          </div>
           <TheFooter />
         </NextIntlClientProvider>
       </body>

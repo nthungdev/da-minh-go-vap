@@ -47,7 +47,7 @@ export default function TheLatestPosts(props: TheLatestPostsProps) {
   return (
     <div
       className={twMerge(
-        "flex w-full flex-col gap-2 lg:grid lg:grid-flow-row lg:grid-cols-3",
+        "flex flex-col gap-2 lg:grid lg:grid-flow-row lg:grid-cols-3",
         className,
       )}
     >
