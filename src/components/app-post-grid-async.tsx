@@ -21,7 +21,7 @@ interface AppPostGridProps {
   className?: string;
 }
 
-export default function AppPostGrid({
+export default function AppPostGridAsync({
   hiddenTags,
   limit,
   title,
@@ -53,7 +53,7 @@ export default function AppPostGrid({
     const viewMoreHref = `/posts?ht=${encodeURIComponent(jointHiddenTags)}&ti=${encodeURIComponent(title)}`;
 
     return (
-      <div className="my-2 space-y-2">
+      <div className="space-y-2">
         <AppGridHeader text={title} />
         <ul
           className={twMerge(

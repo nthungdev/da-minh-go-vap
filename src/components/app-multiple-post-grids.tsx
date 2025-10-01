@@ -1,6 +1,6 @@
 import { fetchPostsByHiddenTags } from "@/actions/post";
 import AppGridHeader from "./app-grid-header";
-import AppPostGrid from "./app-post-grid-async";
+import AppPostGridAsync from "./app-post-grid-async";
 
 const DEFAULT_LIMIT = 4;
 
@@ -37,7 +37,7 @@ export default async function AppMultiplePostGrids(
         ({ title, hiddenTags, limit, posts, hasMore }, index) => (
           <li key={index} className="space-y-8">
             <AppGridHeader text={title} />
-            <AppPostGrid
+            <AppPostGridAsync
               hiddenTags={hiddenTags}
               limit={limit || DEFAULT_LIMIT}
               title={title}
