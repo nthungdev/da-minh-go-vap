@@ -33,11 +33,11 @@ export default function AppPostCard(props: AppPostCardProps) {
           )}
       </div>
       <div className="flex flex-1 flex-col justify-between gap-y-1 overflow-hidden px-1.5 py-1 md:py-1.5 lg:px-0 lg:py-1.5">
-        <span className="font-header line-clamp-2 text-sm text-gray-900 lg:line-clamp-2">
+        <span className="line-clamp-2 text-sm font-semibold text-gray-900 lg:line-clamp-2">
           {post.title}
         </span>
         {showDate && (
-          <span className="font-header line-clamp-1 text-xs text-gray-500">
+          <span className="line-clamp-1 text-xs text-gray-500">
             {post.publishedAt.toLocaleDateString("vi-VN")}
           </span>
         )}

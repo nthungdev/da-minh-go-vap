@@ -66,7 +66,7 @@ export default function AppPostGridSix({
               <div className="bg-opacity-50 via-secondary-400 to-secondary-400 absolute bottom-0 left-0 w-full translate-y-full bg-linear-to-b from-transparent from-5% via-40% transition group-hover:translate-y-0 md:h-20 lg:h-24"></div>
               {/* static post title */}
               <div className="absolute bottom-0 left-0 w-full p-3">
-                <span className="font-header line-clamp-2 text-white md:text-sm lg:text-lg">
+                <span className="line-clamp-2 text-white md:text-sm lg:text-lg">
                   {post.title}
                 </span>
               </div>

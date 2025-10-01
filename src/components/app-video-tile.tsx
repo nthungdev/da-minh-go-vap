@@ -30,7 +30,7 @@ export default function AppVideoTile({
             alt={`${title}'s thumbnail`}
           />
         </div>
-        <TitleComponent className="font-header block truncate px-2 py-2 text-center">
+        <TitleComponent className="block truncate px-2 py-2 text-center">
           {title}
         </TitleComponent>
       </div>

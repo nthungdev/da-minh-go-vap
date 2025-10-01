@@ -10,13 +10,8 @@ import PrelineScriptWrapper from "@/components/preline-script-wrapper";
 import ScrollToTopButton from "@/components/scroll-to-top-button";
 import { getMenu } from "@/utils/menu";
 import { getLogo } from "@/utils/site-settings-server";
-import "./globals.css";
 import { getLocale } from "next-intl/server";
-
-const montserrat = Montserrat({
-  subsets: ["vietnamese"],
-  variable: "--font-montserrat",
-});
+import "./globals.css";
 
 const nunito = Nunito({
   subsets: ["vietnamese"],
@@ -38,10 +33,7 @@ export default async function RootLayout({
   const logo = await getLogo();
 
   return (
-    <html
-      lang={locale}
-      className={twMerge(nunito.className, montserrat.className)}
-    >
+    <html lang={locale} className={twMerge(nunito.className)}>
       <PrelineScriptWrapper />
       <body
         className={twMerge(

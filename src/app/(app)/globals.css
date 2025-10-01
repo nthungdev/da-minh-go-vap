@@ -159,8 +159,6 @@
   --shadow-neon:
     0 0 10px 3px rgba(231, 131, 103, 0.8), 0 0 10px 3px rgba(230, 75, 32, 0.9);
 
-  --font-header: Montserrat, sans-serif;
-
   --container-8xl: 88rem;
   --container-9xl: 96rem;
 }
@@ -226,15 +224,6 @@
 
   body {
     @apply text-gray-900;
-  }
-
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    @apply font-header;
   }
 
   /* body {
