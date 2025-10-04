@@ -21,7 +21,7 @@ function AppAccordionToggle(props: AppAccordionToggle) {
       className={twMerge(
         "hs-accordion-toggle hs-accordion-active:hover:text-gray-50 inline-flex w-full items-center gap-x-3 rounded-lg px-2 py-3 text-start font-semibold text-gray-800 hover:text-gray-50 focus:outline-hidden disabled:pointer-events-none disabled:opacity-50",
         colorVariants[colorLevel],
-        "hs-accordion-active:text-gray-800 hover:bg-[#01919F]",
+        "hs-accordion-active:text-gray-800 hover:bg-primary-800",
       )}
       aria-expanded={false}
       aria-controls={controlId}
