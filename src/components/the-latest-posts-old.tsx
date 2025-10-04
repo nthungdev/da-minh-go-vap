@@ -8,15 +8,14 @@ import { twMerge } from "tailwind-merge";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import Spinner from "@/components/spinner";
 import { useLocale } from "next-intl";
+import { HTMLAttributes } from "react";
 
 const POST_COUNT = 5;
 
-interface TheLatestPostsProps {
-  className?: string;
-}
-
-export default function TheLatestPosts(props: TheLatestPostsProps) {
-  const { className } = props;
+export default function TheLatestPosts({
+  className,
+  ...props
+}: HTMLAttributes<HTMLDivElement>) {
   const locale = useLocale();
   const {
     data: latestPosts,
@@ -50,6 +49,7 @@ export default function TheLatestPosts(props: TheLatestPostsProps) {
         "flex flex-col gap-2 lg:grid lg:grid-flow-row lg:grid-cols-3",
         className,
       )}
+      {...props}
     >
       {/* The latest post */}
       <Link
