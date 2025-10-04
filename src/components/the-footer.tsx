@@ -10,8 +10,11 @@ export default async function TheFooter() {
   const payload = await getPayload({ config });
   const footer = await payload.findGlobal({ slug: "footer", locale });
 
-  const splitExternalLinks = (links: any[], chunkSize: number) => {
-    const result: any[][] = [];
+  const splitExternalLinks = (
+    links: NonNullable<(typeof footer)["externalLinks"]>,
+    chunkSize: number,
+  ) => {
+    const result: (typeof links)[] = [];
     for (let i = 0; i < links.length; i += chunkSize) {
       result.push(links.slice(i, i + chunkSize));
     }

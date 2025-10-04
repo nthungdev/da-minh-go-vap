@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Montserrat, Nunito } from "next/font/google";
+import { Nunito } from "next/font/google";
 import { twMerge } from "tailwind-merge";
 import { NextIntlClientProvider } from "next-intl";
 import TheFooter from "@/components/the-footer";
