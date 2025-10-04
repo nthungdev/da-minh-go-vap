@@ -6,6 +6,7 @@ import { twMerge } from "tailwind-merge";
 interface AppCarouselProps extends HTMLAttributes<HTMLElement> {
   id: string;
   durations: number[];
+  onTransition?: (index: number) => void;
 }
 
 export default function AppCarousel({
@@ -13,6 +14,7 @@ export default function AppCarousel({
   children,
   className,
   durations,
+  onTransition,
   ...props
 }: AppCarouselProps) {
   const childrenCount = Children.count(children);
@@ -26,6 +28,7 @@ export default function AppCarousel({
         ? (currentIndex - 1 + durations.length) % durations.length
         : (currentIndex + 1) % durations.length;
     setCurrentIndex(newIndex);
+    onTransition?.(newIndex);
   }
 
   function resetTimeout() {
@@ -51,10 +54,11 @@ export default function AppCarousel({
       });
       carousel.goTo(newIndex);
       setCurrentIndex(newIndex);
+      onTransition?.(newIndex);
     }, durations[_currentIndex]);
 
     return () => resetTimeout();
-  }, [currentIndex, durations, id]);
+  }, [currentIndex, durations, id, onTransition]);
 
   return (
     <div
@@ -62,7 +66,7 @@ export default function AppCarousel({
       data-hs-carousel={JSON.stringify({
         loadingClasses: "opacity-0",
         dotsItemClasses:
-          "hs-carousel-active:bg-primary-700 hs-carousel-active:border-primary-700 size-3 border border-gray-400 rounded-full cursor-pointer dark:border-neutral-600 dark:hs-carousel-active:bg-primary-500 dark:hs-carousel-active:border-primary-500",
+          "hs-carousel-active:bg-white hs-carousel-active:border-white size-3 border border-gray-400 rounded-full cursor-pointer dark:border-white dark:hs-carousel-active:bg-white dark:hs-carousel-active:border-white",
         isInfiniteLoop: true,
       })}
       className={twMerge("relative aspect-[4/1.2] w-full", className)}
@@ -78,10 +82,13 @@ export default function AppCarousel({
         <>
           <button
             type="button"
-            className="hs-carousel-prev hs-carousel-disabled:opacity-50 absolute inset-y-0 start-0 inline-flex h-full w-11.5 items-center justify-center text-gray-800 hover:bg-gray-800/10 focus:bg-gray-800/10 focus:outline-hidden disabled:pointer-events-none dark:text-white dark:hover:bg-white/10 dark:focus:bg-white/10"
+            className="hs-carousel-prev hs-carousel-disabled:opacity-50 group absolute inset-y-0 start-0 inline-flex h-full w-11.5 items-center justify-center text-gray-800 hover:bg-gray-800/10 focus:bg-gray-800/10 focus:outline-hidden disabled:pointer-events-none dark:text-white dark:hover:bg-white/10 dark:focus:bg-white/10"
             onClick={() => handleMoveButton("previous")}
           >
-            <span className="text-2xl" aria-hidden="true">
+            <span
+              className="text-2xl group-hover:text-white"
+              aria-hidden="true"
+            >
               <svg
                 className="size-5 shrink-0"
                 xmlns="http://www.w3.org/2000/svg"
@@ -101,11 +108,14 @@ export default function AppCarousel({
           </button>
           <button
             type="button"
-            className="hs-carousel-next hs-carousel-disabled:opacity-50 absolute inset-y-0 end-0 inline-flex h-full w-11.5 items-center justify-center text-gray-800 hover:bg-gray-800/10 focus:bg-gray-800/10 focus:outline-hidden disabled:pointer-events-none dark:text-white dark:hover:bg-white/10 dark:focus:bg-white/10"
+            className="hs-carousel-next hs-carousel-disabled:opacity-50 hover:text-whit group absolute inset-y-0 end-0 inline-flex h-full w-11.5 items-center justify-center text-gray-800 hover:bg-gray-800/10 focus:bg-gray-800/10 focus:outline-hidden disabled:pointer-events-none dark:text-white dark:hover:bg-white/10 dark:focus:bg-white/10"
             onClick={() => handleMoveButton("next")}
           >
             <span className="sr-only">Next</span>
-            <span className="text-2xl" aria-hidden="true">
+            <span
+              className="text-2xl group-hover:text-white"
+              aria-hidden="true"
+            >
               <svg
                 className="size-5 shrink-0"
                 xmlns="http://www.w3.org/2000/svg"
