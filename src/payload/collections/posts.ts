@@ -40,6 +40,12 @@ const Posts: CollectionConfig = {
       localized: true,
     },
     {
+      name: "hideTitle",
+      type: "checkbox",
+      label: "Ẩn tiêu đề",
+      defaultValue: false,
+    },
+    {
       name: "slug",
       type: "text",
       label: "Slug",
