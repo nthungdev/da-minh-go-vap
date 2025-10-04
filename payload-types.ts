@@ -457,6 +457,7 @@ export interface LinksBlock {
 export interface Post {
   id: string;
   title: string;
+  hideTitle?: boolean | null;
   /**
    * Can only use letters (a-z, A-Z), numbers (0-9), and dashes (-, _)
    */
@@ -905,6 +906,7 @@ export interface LinksBlockSelect<T extends boolean = true> {
  */
 export interface PostsSelect<T extends boolean = true> {
   title?: T;
+  hideTitle?: T;
   slug?: T;
   publishedAt?: T;
   hiddenTags?: T;
