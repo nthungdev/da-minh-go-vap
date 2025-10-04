@@ -2,14 +2,23 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import AppPostCard from "./app-post-card";
 import { fetchAllPosts } from "@/actions/post";
 import { twMerge } from "tailwind-merge";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import Spinner from "@/components/spinner";
 import { useLocale } from "next-intl";
+import { Locale } from "@/i18n/config";
+import { getDataOrUndefined } from "@/payload/utils/data";
+import AppCarousel from "@/components/app-carousel";
+import { useState } from "react";
 
 const POST_COUNT = 5;
+const TRANSITION_DURATION = 4000;
+
+const labels: Record<Locale, string> = {
+  vi: "Tin Mới",
+  en: "Latest Posts",
+};
 
 interface TheLatestPostsProps {
   className?: string;
@@ -18,6 +27,7 @@ interface TheLatestPostsProps {
 export default function TheLatestPosts(props: TheLatestPostsProps) {
   const { className } = props;
   const locale = useLocale();
+  const [currentIndex, setCurrentIndex] = useState(0);
   const {
     data: latestPosts,
     error,
@@ -41,57 +51,83 @@ export default function TheLatestPosts(props: TheLatestPostsProps) {
     return <div>No post found</div>;
   }
 
-  const latestPost = latestPosts[0]!;
-  const otherPosts = latestPosts.slice(1, 5);
-
   return (
-    <div
-      className={twMerge(
-        "flex flex-col gap-2 lg:grid lg:grid-flow-row lg:grid-cols-3",
-        className,
-      )}
-    >
-      {/* The latest post */}
-      <Link
-        href={`/posts/${latestPost.slug}`}
-        className="col-span-2 aspect-video"
-      >
-        <div className="relative h-full w-full overflow-hidden bg-blue-200 hover:cursor-pointer hover:ring-3">
-          {typeof latestPost.thumbnail !== "string" &&
-            typeof latestPost.thumbnail?.url === "string" && (
-              <Image
-                className="object-cover"
-                src={latestPost.thumbnail.url}
-                alt={latestPost.title}
-                sizes="100%"
-                priority
-                fill
-              />
-            )}
-          {/* Gradient overlay */}
-          <div className="absolute top-0 left-0 h-full w-full bg-linear-to-b from-transparent from-60% to-black"></div>
-          {/* Post text */}
-          <div className="absolute bottom-0 left-0 flex flex-col gap-y-1 p-3 text-gray-100 lg:gap-y-2 lg:p-4">
-            <span className="line-clamp-1 text-lg text-gray-100 lg:line-clamp-2 lg:text-2xl">
-              {latestPost.title}
-            </span>
-            <span className="text-xs text-gray-200 lg:text-sm">
-              {latestPost.publishedAt.toLocaleDateString("vi-VN")}
-            </span>
-          </div>
-        </div>
-      </Link>
+    <div className={twMerge(className)}>
+      <div className="mb-4">
+        <span className="bg-primary cursor-default rounded-md px-6 py-1 text-sm font-bold text-white uppercase">
+          {labels[locale]}
+        </span>
+      </div>
+      <div className="flex flex-col gap-x-4 lg:flex-row">
+        <AppCarousel
+          id="the-latest-posts-carousel"
+          className="bg-primary-2 aspect-video lg:aspect-auto lg:w-3/5"
+          durations={latestPosts.map(() => TRANSITION_DURATION)}
+          onTransition={setCurrentIndex}
+        >
+          {latestPosts.map((post, index) => {
+            const thumbnail = getDataOrUndefined(post.thumbnail);
 
-      {/* Next 4 latest posts */}
-      <div className="relative grid grid-flow-row grid-cols-2 gap-2 lg:h-full lg:max-w-full lg:grid-flow-col lg:grid-cols-1 lg:grid-rows-4">
-        {otherPosts.map((post, index) => (
-          <AppPostCard
-            key={index}
-            post={post}
-            className={twMerge("bg-primary-1 border lg:border-transparent")}
-            showDate
-          />
-        ))}
+            return (
+              <div key={index} className="hs-carousel-slide relative size-full">
+                {thumbnail && thumbnail.url ? (
+                  <Image
+                    className="object-cover"
+                    src={thumbnail.url}
+                    alt={post.title}
+                    sizes="90vw"
+                    fill
+                  />
+                ) : (
+                  <div className="size-full bg-gray-300"></div>
+                )}
+              </div>
+            );
+          })}
+        </AppCarousel>
+
+        <ul className="lg:flex-1">
+          {latestPosts.map((post, index) => {
+            const thumbnail = getDataOrUndefined(post.thumbnail);
+            const date = post.publishedAt.toLocaleDateString("vi-VN");
+            const href = `/posts/${post.slug}`;
+
+            return (
+              <li
+                key={index}
+                className={twMerge(
+                  "border-b-2 border-gray-200 py-2 last:border-0 hover:cursor-pointer",
+                  index === currentIndex && "bg-gray-200",
+                )}
+              >
+                <Link href={href} className="flex flex-row gap-x-3">
+                  <div className="relative aspect-video w-28 md:w-40 lg:w-28">
+                    {thumbnail && thumbnail.url && (
+                      <Image
+                        className="object-cover"
+                        src={thumbnail.url}
+                        alt={post.title}
+                        sizes="120px"
+                        fill
+                      />
+                    )}
+                  </div>
+                  <div className="flex-1">
+                    <div className="text-xxs font-semibold text-gray-500">
+                      {date}
+                    </div>
+                    <div className="line-clamp-1 text-xs font-bold">
+                      {post.title}
+                    </div>
+                    <div className="line-clamp-2 text-xs md:line-clamp-3 lg:line-clamp-2">
+                      {post.shortBody}
+                    </div>
+                  </div>
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
       </div>
     </div>
   );
