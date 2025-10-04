@@ -42,7 +42,7 @@ export default async function Page(props: {
         />
       )}
 
-      <h2 className="text-3xl font-semibold">{post.title}</h2>
+      <h1 className="text-3xl font-semibold">{post.title}</h1>
       <p className="text-sm text-gray-500">{publishedAt}</p>
 
       <AppMarkdown className="mt-8">{post.body}</AppMarkdown>
