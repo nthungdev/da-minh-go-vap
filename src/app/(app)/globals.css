@@ -10,6 +10,8 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
+  --text-xxs: 0.625rem;
+
   --default-ring-color: var(--ring-color-300);
 
   --background-image-gradient-radial: radial-gradient(var(--tw-gradient-stops));
