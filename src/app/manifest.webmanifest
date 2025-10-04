@@ -1,0 +1,14 @@
+{
+  "name": "Hội Dòng Đa Minh Gò Vấp",
+  "short_name": "Đa Minh Gò Vấp",
+  "icons": [
+    {
+      "src": "/apple-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff",
+  "display": "standalone"
+}
