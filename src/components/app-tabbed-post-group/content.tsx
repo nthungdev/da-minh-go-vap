@@ -90,7 +90,7 @@ export default function TabbedPostGroupContent({
           <div className="text-lg font-bold">{firstPost.title}</div>
           <p className="line-clamp-3 text-xs">{firstPost.shortBody}</p>
         </Link>
-        <PostList className="lg:flex-1" posts={otherPosts} />
+        <PostList className="lg:flex-1" posts={otherPosts} effectOnHover />
       </div>
       {!!viewMoreButton?.enable && (
         <div className="flex flex-row justify-end">

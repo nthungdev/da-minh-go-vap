@@ -7,12 +7,14 @@ import { twMerge } from "tailwind-merge";
 interface PostListProps extends React.HTMLAttributes<HTMLUListElement> {
   posts: AppPost[];
   activeIndex?: number;
+  effectOnHover?: boolean;
 }
 
 export default function PostList({
   className,
   activeIndex,
   posts,
+  effectOnHover,
 }: PostListProps) {
   return (
     <ul className={twMerge(className)}>
@@ -27,6 +29,7 @@ export default function PostList({
             className={twMerge(
               "border-b-2 border-gray-200 py-2 last:border-0 hover:cursor-pointer",
               index === activeIndex && "bg-gray-200",
+              effectOnHover && "transition-transform ease-in hover:scale-x-105",
             )}
           >
             <Link href={href} className="flex flex-row gap-x-3">
