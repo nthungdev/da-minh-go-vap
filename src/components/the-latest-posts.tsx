@@ -59,7 +59,7 @@ export default function TheLatestPosts(props: TheLatestPostsProps) {
           {labels[locale]}
         </span>
       </div>
-      <div className="flex flex-col gap-x-4 lg:flex-row">
+      <div className="flex flex-col gap-x-4 p-2 lg:flex-row">
         <AppCarousel
           id="the-latest-posts-carousel"
           className="bg-primary-2 aspect-video lg:aspect-auto lg:w-3/5"
