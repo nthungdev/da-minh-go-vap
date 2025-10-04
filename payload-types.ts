@@ -477,6 +477,10 @@ export interface Post {
       }[]
     | null;
   body: string;
+  /**
+   * Chỉ điền 2-3 câu
+   */
+  shortBody?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -920,6 +924,7 @@ export interface PostsSelect<T extends boolean = true> {
         id?: T;
       };
   body?: T;
+  shortBody?: T;
   updatedAt?: T;
   createdAt?: T;
 }

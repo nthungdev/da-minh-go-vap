@@ -124,9 +124,19 @@ const Posts: CollectionConfig = {
     },
     markdownField({
       name: "body",
+      label: "Nội dung",
       required: true,
       localized: true,
     }),
+    {
+      type: "text",
+      name: "shortBody",
+      label: "Nội dung ngắn",
+      localized: true,
+      admin: {
+        description: "Chỉ điền 2-3 câu",
+      },
+    },
   ],
   hooks: {
     // afterChange: [
