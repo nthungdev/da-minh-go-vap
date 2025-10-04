@@ -16,8 +16,7 @@ import Link from "next/link";
 
 const POST_COUNT = 6;
 
-interface AppPostTabContentAsyncProps
-  extends React.HTMLAttributes<HTMLDivElement> {
+interface PostGroupTabsPanelProps extends React.HTMLAttributes<HTMLDivElement> {
   component?: React.ElementType;
   title: string;
   hiddenTags: string[];
@@ -27,13 +26,13 @@ interface AppPostTabContentAsyncProps
   };
 }
 
-export default function TabbedPostGroupContent({
+export default function PostGroupTabsPanel({
   className,
   hiddenTags,
   viewMoreButton,
   title,
   ...props
-}: AppPostTabContentAsyncProps) {
+}: PostGroupTabsPanelProps) {
   const locale = useLocale();
   const { isPending, error, data } = useQuery({
     queryKey: ["tabbed-post-group-content", ...hiddenTags, locale],

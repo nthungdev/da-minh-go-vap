@@ -4,21 +4,19 @@ import { useState } from "react";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 import { twMerge } from "tailwind-merge";
 
-interface AppTabbedPostGroupSelectOption {
+interface PostGroupTabsSelectOption {
   value: string;
 }
 
-interface AppTabbedPostGroupSelectProps {
+interface PostGroupTabsSelectProps {
   id: string;
   className?: string;
-  options: AppTabbedPostGroupSelectOption[];
+  options: PostGroupTabsSelectOption[];
   activeIndex?: number;
   onChange?: (index: number) => void;
 }
 
-export default function AppTabbedPostGroupSelect(
-  props: AppTabbedPostGroupSelectProps,
-) {
+export default function PostGroupTabsSelect(props: PostGroupTabsSelectProps) {
   const [open, setOpen] = useState(false);
   const { id, className, activeIndex, options, onChange } = props;
 

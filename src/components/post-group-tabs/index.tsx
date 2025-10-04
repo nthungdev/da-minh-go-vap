@@ -1,12 +1,13 @@
 "use client";
 
-import React, { useState } from "react";
-import { twMerge } from "tailwind-merge";
+import PostGroupTabsPanel from "@/components/post-group-tabs/panel";
+import PostGroupTabsSelect from "@/components/post-group-tabs/select";
+import { Locale } from "@/i18n/config";
 import { Page } from "@/payload-types";
 import { makePostsPath } from "@/utils/post";
-import { Locale, useLocale } from "next-intl";
-import TabbedPostGroupContent from "@/components/app-tabbed-post-group/content";
-import AppTabbedPostGroupSelect from "@/components/app-tabbed-post-group/select";
+import { useLocale } from "next-intl";
+import { useState } from "react";
+import { twMerge } from "tailwind-merge";
 
 const ALL_POSTS_CONTROL_LABELS: Record<Locale, string> = {
   en: "All",
@@ -17,12 +18,9 @@ const ALL_POSTS_TITLES: Record<Locale, string> = {
   vi: "Các bài viết",
 };
 
-/** id should be provided when there are multiple AppPostTabGrid components on the same page */
-interface AppPostTabGridAsyncProps
-  extends React.HTMLAttributes<HTMLDivElement> {
-  id: string;
+interface PostGroupTabsProps extends React.HTMLAttributes<HTMLDivElement> {
   title?: string;
-  postGroups: {
+  groups: {
     title: string;
     hiddenTags: string[];
     limit: number;
@@ -33,17 +31,20 @@ interface AppPostTabGridAsyncProps
   }[];
 }
 
-export default function AppTabbedPostGroupGrid({
-  id,
+function PostGroupTabs({
   title,
-  postGroups: _postGroups,
+  groups,
   className,
   ...props
-}: AppPostTabGridAsyncProps) {
+}: PostGroupTabsProps) {
+  const id = (title ?? Math.random().toString())
+    .replace(/\s+/g, "-")
+    .toLowerCase();
+
   const locale = useLocale();
 
   const allUniqueHiddenTags = Array.from(
-    new Set(_postGroups.flatMap((group) => group.hiddenTags)),
+    new Set(groups.flatMap((group) => group.hiddenTags)),
   );
 
   const postGroups = [
@@ -59,14 +60,13 @@ export default function AppTabbedPostGroupGrid({
         ),
       },
     },
-    ..._postGroups,
+    ...groups,
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const currentGroup = postGroups[currentIndex];
   if (!currentGroup) return null;
 
-  // lg breakpoint has a different layout
   return (
     <div className={twMerge(className)} id={id} {...props}>
       <div
@@ -75,7 +75,7 @@ export default function AppTabbedPostGroupGrid({
         }
       >
         <div className="text-xl font-bold">{title}</div>
-        <AppTabbedPostGroupSelect
+        <PostGroupTabsSelect
           id={id}
           className="lg:hidden"
           activeIndex={currentIndex}
@@ -109,7 +109,7 @@ export default function AppTabbedPostGroupGrid({
 
       <div>
         {postGroups.map((g, index) => (
-          <TabbedPostGroupContent
+          <PostGroupTabsPanel
             key={index}
             id={`group-${id}-${index}`}
             hiddenTags={g.hiddenTags}
@@ -125,3 +125,5 @@ export default function AppTabbedPostGroupGrid({
     </div>
   );
 }
+
+export default PostGroupTabs;

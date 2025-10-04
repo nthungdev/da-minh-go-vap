@@ -3,7 +3,7 @@ import AppCardTabs from "@/components/app-card-tabs";
 import AppMarkdown from "@/components/app-markdown";
 import AppQuote from "@/components/app-quote";
 import AppSpace from "@/components/app-space";
-import AppTabbedPostGroup from "@/components/app-tabbed-post-group";
+import PostGroupTabs from "@/components/post-group-tabs";
 import AppTimelineCards from "@/components/app-timeline-cards";
 import ImageLinkList from "@/components/image-link-list";
 import ImageSlideshow from "@/components/image-slideshow";
@@ -30,7 +30,7 @@ const componentsMap = {
   postGroupBlock: PostGroup,
   spaceBlock: AppSpace,
   tabbedContentBlock: AppCardTabs,
-  tabbedPostGroupBlock: AppTabbedPostGroup,
+  tabbedPostGroupBlock: PostGroupTabs,
   textBlock: AppMarkdown,
   timelineBlock: AppTimelineCards,
   quoteBlock: AppQuote,
