@@ -11,7 +11,7 @@ import { vi } from "@payloadcms/translations/languages/vi";
 
 import Users from "@/payload/collections/Users";
 import Media from "@/payload/collections/Media";
-import Posts from "@/payload/collections/Posts";
+import Posts from "@/payload/collections/posts";
 import Pages from "@/payload/collections/Pages";
 import HiddenTags from "@/payload/collections/HiddenTags";
 
