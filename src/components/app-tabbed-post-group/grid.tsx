@@ -1,13 +1,12 @@
 "use client";
 
-import React, { ChangeEvent, useState } from "react";
+import React, { useState } from "react";
 import { twMerge } from "tailwind-merge";
 import { Page } from "@/payload-types";
 import { makePostsPath } from "@/utils/post";
 import { Locale, useLocale } from "next-intl";
-import PostList from "@/components/post-list";
-import Image from "next/image";
 import TabbedPostGroupContent from "@/components/app-tabbed-post-group/content";
+import AppTabbedPostGroupSelect from "@/components/app-tabbed-post-group/select";
 
 const ALL_POSTS_CONTROL_LABELS: Record<Locale, string> = {
   en: "All",
@@ -21,6 +20,7 @@ const ALL_POSTS_TITLES: Record<Locale, string> = {
 /** id should be provided when there are multiple AppPostTabGrid components on the same page */
 interface AppPostTabGridAsyncProps
   extends React.HTMLAttributes<HTMLDivElement> {
+  id: string;
   title?: string;
   postGroups: {
     title: string;
@@ -66,14 +66,26 @@ export default function AppTabbedPostGroupGrid({
   const currentGroup = postGroups[currentIndex];
   if (!currentGroup) return null;
 
+  // lg breakpoint has a different layout
   return (
     <div className={twMerge(className)} id={id} {...props}>
-      <div className="bg-primary flex flex-row items-start justify-between gap-x-8 rounded-t-md px-2 py-1.5 text-white md:px-6">
+      <div
+        className={
+          "bg-primary flex flex-row items-center justify-between gap-x-8 rounded-t-md px-2 py-1.5 text-white md:px-6 lg:items-start"
+        }
+      >
         <div className="text-xl font-bold">{title}</div>
+        <AppTabbedPostGroupSelect
+          id={id}
+          className="lg:hidden"
+          activeIndex={currentIndex}
+          options={postGroups.map((group) => ({ value: group.title }))}
+          onChange={setCurrentIndex}
+        />
         <ol
           role="tablist"
           aria-label="Select post group"
-          className="flex flex-1 flex-row flex-wrap justify-end gap-1 pt-1 pb-1 text-sm"
+          className="hidden flex-1 flex-row flex-wrap justify-end gap-1 pt-1 pb-1 text-sm lg:flex"
         >
           {postGroups.map((g, index) => (
             <li

@@ -49,9 +49,7 @@ export default function AppCarousel({
         return;
       }
       const { HSCarousel } = await import("preline/preline");
-      const carousel = new HSCarousel(carouselElement, {
-        currentIndex: currentIndex,
-      });
+      const carousel = new HSCarousel(carouselElement, { currentIndex });
       carousel.goTo(newIndex);
       setCurrentIndex(newIndex);
       onTransition?.(newIndex);

@@ -68,31 +68,35 @@ export default function TabbedPostGroupContent({
   const firstPostHref = `/posts/${firstPost.slug}`;
 
   return (
-    <div
-      className={twMerge("flex flex-col gap-x-4 p-1 lg:flex-row", className)}
-      {...props}
-    >
-      <Link href={firstPostHref} className="block space-y-2 lg:w-3/5 lg:p-2">
-        <div className="relative aspect-video w-full">
-          {firstPostThumbnail && firstPostThumbnail.url ? (
-            <Image
-              className="object-cover"
-              src={firstPostThumbnail.url}
-              alt={firstPost.title}
-              sizes="50vw"
-              fill
-            />
-          ) : (
-            <div className="size-full bg-gray-300"></div>
-          )}
+    <div className={twMerge(className)} {...props}>
+      <div className="flex flex-col gap-x-4 p-1 lg:flex-row">
+        <Link href={firstPostHref} className="block space-y-2 lg:w-3/5 lg:p-2">
+          <div className="relative aspect-video w-full">
+            {firstPostThumbnail && firstPostThumbnail.url ? (
+              <Image
+                className="object-cover"
+                src={firstPostThumbnail.url}
+                alt={firstPost.title}
+                sizes="50vw"
+                fill
+              />
+            ) : (
+              <div className="size-full bg-gray-300"></div>
+            )}
+          </div>
+          <div className="text-sm font-semibold text-gray-600">
+            {firstPostDate}
+          </div>
+          <div className="text-lg font-bold">{firstPost.title}</div>
+          <p className="line-clamp-3 text-xs">{firstPost.shortBody}</p>
+        </Link>
+        <PostList className="lg:flex-1" posts={otherPosts} />
+      </div>
+      {!!viewMoreButton?.enable && (
+        <div className="flex flex-row justify-end">
+          <AppViewMoreLink href={viewMoreHref} />
         </div>
-        <div className="text-sm font-semibold text-gray-600">
-          {firstPostDate}
-        </div>
-        <div className="text-lg font-bold">{firstPost.title}</div>
-        <p className="line-clamp-3 text-xs">{firstPost.shortBody}</p>
-      </Link>
-      <PostList className="lg:flex-1" posts={otherPosts} />
+      )}
     </div>
   );
 }

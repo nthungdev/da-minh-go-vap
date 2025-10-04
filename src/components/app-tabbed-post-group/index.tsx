@@ -15,9 +15,12 @@ interface AppTabbedPostGroupProps {
 }
 
 async function AppTabbedPostGroup(props: AppTabbedPostGroupProps) {
+  const id = (props.title ?? Math.random().toString())
+    .replace(/\s+/g, "-")
+    .toLowerCase();
   return (
     <AppTabbedPostGroupGrid
-      id={props.title?.replace(/\s+/g, "-").toLowerCase()}
+      id={id}
       title={props.title}
       postGroups={props.groups}
     />
