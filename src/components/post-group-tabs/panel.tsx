@@ -68,7 +68,7 @@ export default function PostGroupTabsPanel({
 
   return (
     <div className={twMerge(className)} {...props}>
-      <div className="flex flex-col gap-x-4 p-1 lg:flex-row">
+      <div className="flex flex-col gap-x-4 lg:flex-row lg:p-1">
         <Link href={firstPostHref} className="block space-y-2 lg:w-3/5 lg:p-2">
           <div className="relative aspect-video w-full">
             {firstPostThumbnail && firstPostThumbnail.url ? (
