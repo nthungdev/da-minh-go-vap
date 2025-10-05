@@ -210,7 +210,24 @@ export interface Page {
    * Tùy chỉnh hình trang trí ở mục Nav Bar
    */
   showBannersDecorativeGraphic?: boolean | null;
-  beforeMain?: (BibleVerseBlock | DynamicImageBlock | ImageBlock | SpaceBlock | TextBlock | QuoteBlock)[] | null;
+  beforeMain?:
+    | (
+        | AccordionContentBlock
+        | BibleVerseBlock
+        | DynamicImageBlock
+        | ImageBlock
+        | LatestPostGridBlock
+        | MapBlock
+        | PostGroupBlock
+        | TabbedContentBlock
+        | TabbedPostGroupBlock
+        | TextBlock
+        | TimelineBlock
+        | VideoGridBlock
+        | SpaceBlock
+        | QuoteBlock
+      )[]
+    | null;
   aside?:
     | (
         | DynamicImageBlock
@@ -663,11 +680,19 @@ export interface PagesSelect<T extends boolean = true> {
   beforeMain?:
     | T
     | {
+        accordionContentBlock?: T | AccordionContentBlockSelect<T>;
         bibleVerseBlock?: T | BibleVerseBlockSelect<T>;
         dynamicImageBlock?: T | DynamicImageBlockSelect<T>;
         imageBlock?: T | ImageBlockSelect<T>;
-        spaceBlock?: T | SpaceBlockSelect<T>;
+        latestPostGridBlock?: T | LatestPostGridBlockSelect<T>;
+        mapBlock?: T | MapBlockSelect<T>;
+        postGroupBlock?: T | PostGroupBlockSelect<T>;
+        tabbedContentBlock?: T | TabbedContentBlockSelect<T>;
+        tabbedPostGroupBlock?: T | TabbedPostGroupBlockSelect<T>;
         textBlock?: T | TextBlockSelect<T>;
+        timelineBlock?: T | TimelineBlockSelect<T>;
+        videoGridBlock?: T | VideoGridBlockSelect<T>;
+        spaceBlock?: T | SpaceBlockSelect<T>;
         quoteBlock?: T | QuoteBlockSelect<T>;
       };
   aside?:
