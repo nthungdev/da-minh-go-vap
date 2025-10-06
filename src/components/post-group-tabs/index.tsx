@@ -91,17 +91,22 @@ function PostGroupTabs({
             <li
               key={index}
               onClick={() => setCurrentIndex(index)}
-              className={twMerge(
-                "px-1 text-gray-100 transition-transform hover:scale-x-105 hover:cursor-pointer hover:text-white",
-                currentIndex === index && "font-bold text-white",
-              )}
+              className={twMerge("flex flex-row gap-x-2 px-1")}
               role="tab"
               aria-selected={currentIndex === index}
               aria-controls={`group-${id}-${index}`}
               id={`tab-${index}`}
               tab-index={currentIndex === index ? 0 : 1}
             >
-              {g.title}
+              {index !== 0 && <div className="border-l"></div>}
+              <span
+                className={twMerge(
+                  "text-gray-100 transition-transform hover:scale-x-105 hover:cursor-pointer hover:text-white",
+                  currentIndex === index && "font-bold text-white",
+                )}
+              >
+                {g.title}
+              </span>
             </li>
           ))}
         </ol>
