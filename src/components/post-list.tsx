@@ -51,7 +51,12 @@ export default function PostList({
                 <div className="text-xxs font-semibold text-gray-500">
                   {date}
                 </div>
-                <div className="line-clamp-1 text-xs font-bold">
+                <div
+                  className={twMerge(
+                    "line-clamp-1 text-xs font-bold",
+                    !showShortBody && "line-clamp-3",
+                  )}
+                >
                   {post.title}
                 </div>
                 {showShortBody && post.shortBody && (
