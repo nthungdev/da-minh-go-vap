@@ -76,7 +76,10 @@ const mapBlockToProps: BlockToPropsMap = {
     id: createRandomAlphaString(4),
     slides: block.images?.filter((image) => typeof image !== "string") || [],
   }),
-  latestPostGridBlock: () => ({}),
+  latestPostGridBlock: (block) => ({
+    postCount:
+      block.postCount === "4" ? 4 : block.postCount === "5" ? 5 : undefined,
+  }),
   linksBlock: (block) => ({
     title: block.title,
     links: block.links,

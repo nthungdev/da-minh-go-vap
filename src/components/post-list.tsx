@@ -48,7 +48,7 @@ export default function PostList({
                 )}
               </div>
               <div className="flex-1">
-                <div className="text-xxs font-semibold text-gray-500">
+                <div className="text-xs font-semibold text-gray-500">
                   {date}
                 </div>
                 <div

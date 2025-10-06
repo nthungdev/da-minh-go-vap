@@ -210,7 +210,24 @@ export interface Page {
    * Tùy chỉnh hình trang trí ở mục Nav Bar
    */
   showBannersDecorativeGraphic?: boolean | null;
-  beforeMain?: (BibleVerseBlock | DynamicImageBlock | ImageBlock | SpaceBlock | TextBlock | QuoteBlock)[] | null;
+  beforeMain?:
+    | (
+        | AccordionContentBlock
+        | BibleVerseBlock
+        | DynamicImageBlock
+        | ImageBlock
+        | LatestPostGridBlock
+        | MapBlock
+        | PostGroupBlock
+        | TabbedContentBlock
+        | TabbedPostGroupBlock
+        | TextBlock
+        | TimelineBlock
+        | VideoGridBlock
+        | SpaceBlock
+        | QuoteBlock
+      )[]
+    | null;
   aside?:
     | (
         | DynamicImageBlock
@@ -292,6 +309,10 @@ export interface ImageBlock {
  * via the `definition` "LatestPostGridBlock".
  */
 export interface LatestPostGridBlock {
+  /**
+   * Để cân xứng, chọn 5 nếu hiển thị trong layout 1 cột, 4 cho trong layout 2 cột.
+   */
+  postCount?: ('4' | '5') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'latestPostGridBlock';
@@ -663,11 +684,19 @@ export interface PagesSelect<T extends boolean = true> {
   beforeMain?:
     | T
     | {
+        accordionContentBlock?: T | AccordionContentBlockSelect<T>;
         bibleVerseBlock?: T | BibleVerseBlockSelect<T>;
         dynamicImageBlock?: T | DynamicImageBlockSelect<T>;
         imageBlock?: T | ImageBlockSelect<T>;
-        spaceBlock?: T | SpaceBlockSelect<T>;
+        latestPostGridBlock?: T | LatestPostGridBlockSelect<T>;
+        mapBlock?: T | MapBlockSelect<T>;
+        postGroupBlock?: T | PostGroupBlockSelect<T>;
+        tabbedContentBlock?: T | TabbedContentBlockSelect<T>;
+        tabbedPostGroupBlock?: T | TabbedPostGroupBlockSelect<T>;
         textBlock?: T | TextBlockSelect<T>;
+        timelineBlock?: T | TimelineBlockSelect<T>;
+        videoGridBlock?: T | VideoGridBlockSelect<T>;
+        spaceBlock?: T | SpaceBlockSelect<T>;
         quoteBlock?: T | QuoteBlockSelect<T>;
       };
   aside?:
@@ -749,6 +778,7 @@ export interface ImageBlockSelect<T extends boolean = true> {
  * via the `definition` "LatestPostGridBlock_select".
  */
 export interface LatestPostGridBlockSelect<T extends boolean = true> {
+  postCount?: T;
   id?: T;
   blockName?: T;
 }
