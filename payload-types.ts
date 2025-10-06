@@ -309,6 +309,10 @@ export interface ImageBlock {
  * via the `definition` "LatestPostGridBlock".
  */
 export interface LatestPostGridBlock {
+  /**
+   * Để cân xứng, chọn 5 nếu hiển thị trong layout 1 cột, 4 cho trong layout 2 cột.
+   */
+  postCount?: ('4' | '5') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'latestPostGridBlock';
@@ -774,6 +778,7 @@ export interface ImageBlockSelect<T extends boolean = true> {
  * via the `definition` "LatestPostGridBlock_select".
  */
 export interface LatestPostGridBlockSelect<T extends boolean = true> {
+  postCount?: T;
   id?: T;
   blockName?: T;
 }

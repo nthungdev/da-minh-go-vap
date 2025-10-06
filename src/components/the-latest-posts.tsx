@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { fetchAllPosts } from "@/actions/post";
 import { twMerge } from "tailwind-merge";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
@@ -12,8 +11,8 @@ import { getDataOrUndefined } from "@/payload/utils/data";
 import AppCarousel from "@/components/app-carousel";
 import { useState } from "react";
 import PostList from "@/components/post-list";
+import { createRandomAlphaString } from "@/utils/common";
 
-const POST_COUNT = 5;
 const TRANSITION_DURATION = 4000;
 
 const labels: Record<Locale, string> = {
@@ -22,20 +21,19 @@ const labels: Record<Locale, string> = {
 };
 
 interface TheLatestPostsProps {
+  postCount?: 4 | 5;
   className?: string;
 }
 
-export default function TheLatestPosts(props: TheLatestPostsProps) {
-  const { className } = props;
+export default function TheLatestPosts({
+  postCount,
+  className,
+}: TheLatestPostsProps) {
   const locale = useLocale();
   const [currentIndex, setCurrentIndex] = useState(0);
-  const {
-    data: latestPosts,
-    error,
-    isPending,
-  } = useQuery({
-    queryKey: ["fetchLatestPosts", locale],
-    queryFn: () => fetchAllPosts({ limit: POST_COUNT, locale }),
+  const { data, error, isPending } = useQuery({
+    queryKey: ["fetchLatestPosts", locale, postCount],
+    queryFn: () => fetchAllPosts({ limit: postCount, locale }),
     placeholderData: keepPreviousData,
   });
 
@@ -48,25 +46,33 @@ export default function TheLatestPosts(props: TheLatestPostsProps) {
 
   if (error) return <p>Error: {error.message}</p>;
 
-  if (!latestPosts.length) {
+  if (!data.length) {
     return <div>No post found</div>;
   }
 
+  const carouselId = `the-latest-posts-carousel-${createRandomAlphaString(4)}`;
+
   return (
-    <div className={twMerge(className)}>
+    <div className={twMerge("@container", className)}>
       <div className="mb-4">
         <span className="bg-primary cursor-default rounded-md px-6 py-1 text-sm font-bold text-white uppercase">
           {labels[locale]}
         </span>
       </div>
-      <div className="flex flex-col gap-x-4 p-2 lg:flex-row">
+      <div
+        className={twMerge(
+          "flex flex-col gap-x-2 lg:flex-row",
+          postCount === 4 && "lg:h-[320px]",
+          postCount === 5 && "lg:h-[402px]",
+        )}
+      >
         <AppCarousel
-          id="the-latest-posts-carousel"
-          className="bg-primary-2 aspect-video lg:aspect-auto lg:w-3/5"
-          durations={latestPosts.map(() => TRANSITION_DURATION)}
+          id={carouselId}
+          className="bg-primary-2 aspect-video h-full w-auto"
+          durations={data.map(() => TRANSITION_DURATION)}
           onTransition={setCurrentIndex}
         >
-          {latestPosts.map((post, index) => {
+          {data.map((post, index) => {
             const thumbnail = getDataOrUndefined(post.thumbnail);
 
             return (
@@ -87,11 +93,7 @@ export default function TheLatestPosts(props: TheLatestPostsProps) {
           })}
         </AppCarousel>
 
-        <PostList
-          className="lg:flex-1"
-          posts={latestPosts}
-          activeIndex={currentIndex}
-        />
+        <PostList className="flex-1" posts={data} activeIndex={currentIndex} />
       </div>
     </div>
   );
