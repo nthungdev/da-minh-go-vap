@@ -91,6 +91,7 @@ export default function TheLatestPosts(props: TheLatestPostsProps) {
           className="lg:flex-1"
           posts={latestPosts}
           activeIndex={currentIndex}
+          showShortBody
         />
       </div>
     </div>
