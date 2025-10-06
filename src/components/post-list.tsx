@@ -35,7 +35,7 @@ export default function PostList({
                 "transition-transform ease-in hover:scale-x-[103%] lg:hover:scale-x-105",
             )}
           >
-            <Link href={href} className="flex flex-row gap-x-3">
+            <Link href={href} className="flex flex-row items-start gap-x-3">
               <div className="relative aspect-video w-28 md:w-40 lg:w-28">
                 {thumbnail && thumbnail.url && (
                   <Image
@@ -48,21 +48,21 @@ export default function PostList({
                 )}
               </div>
               <div className="flex-1">
-                <div className="text-xs font-semibold text-gray-500">
+                <div className="text-sm font-semibold text-gray-500">
                   {date}
                 </div>
                 <div
                   className={twMerge(
-                    "line-clamp-1 text-xs font-bold",
-                    !showShortBody && "line-clamp-3",
+                    "line-clamp-1 text-base font-bold",
+                    !showShortBody &&
+                      post.shortBody &&
+                      "line-clamp-2 leading-tight",
                   )}
                 >
                   {post.title}
                 </div>
                 {showShortBody && post.shortBody && (
-                  <div className="line-clamp-2 text-xs md:line-clamp-3 lg:line-clamp-2">
-                    {post.shortBody}
-                  </div>
+                  <div className="line-clamp-2">{post.shortBody}</div>
                 )}
               </div>
             </Link>
