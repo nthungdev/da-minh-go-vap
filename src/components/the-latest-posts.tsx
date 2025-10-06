@@ -55,7 +55,7 @@ export default function TheLatestPosts({
   return (
     <div className={twMerge("@container", className)}>
       <div className="mb-4">
-        <span className="bg-primary cursor-default rounded-md px-6 py-1 text-sm font-bold text-white uppercase">
+        <span className="bg-primary cursor-default rounded-md px-6 py-1 font-bold text-white uppercase">
           {labels[locale]}
         </span>
       </div>
