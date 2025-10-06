@@ -8,6 +8,7 @@ interface PostListProps extends React.HTMLAttributes<HTMLUListElement> {
   posts: AppPost[];
   activeIndex?: number;
   effectOnHover?: boolean;
+  showShortBody?: boolean;
 }
 
 export default function PostList({
@@ -15,6 +16,7 @@ export default function PostList({
   activeIndex,
   posts,
   effectOnHover,
+  showShortBody,
 }: PostListProps) {
   return (
     <ul className={twMerge(className)}>
@@ -49,10 +51,19 @@ export default function PostList({
                 <div className="text-xs font-semibold text-gray-500">
                   {date}
                 </div>
-                <div className="text line-clamp-1 font-bold">{post.title}</div>
-                <div className="text line-clamp-2 md:line-clamp-3 lg:line-clamp-2">
-                  {post.shortBody}
+                <div
+                  className={twMerge(
+                    "line-clamp-1 text-xs font-bold",
+                    !showShortBody && "line-clamp-3",
+                  )}
+                >
+                  {post.title}
                 </div>
+                {showShortBody && post.shortBody && (
+                  <div className="line-clamp-2 text-xs md:line-clamp-3 lg:line-clamp-2">
+                    {post.shortBody}
+                  </div>
+                )}
               </div>
             </Link>
           </li>

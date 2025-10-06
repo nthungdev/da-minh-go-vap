@@ -93,7 +93,12 @@ export default function TheLatestPosts({
           })}
         </AppCarousel>
 
-        <PostList className="flex-1" posts={data} activeIndex={currentIndex} />
+        <PostList
+          className="flex-1"
+          posts={data}
+          activeIndex={currentIndex}
+          showShortBody
+        />
       </div>
     </div>
   );
