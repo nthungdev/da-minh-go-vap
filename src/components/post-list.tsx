@@ -36,7 +36,7 @@ export default function PostList({
             )}
           >
             <Link href={href} className="flex flex-row items-start gap-x-3">
-              <div className="relative aspect-video w-28 md:w-40 lg:w-28">
+              <div className="relative aspect-video w-32 md:w-40 lg:w-28">
                 {thumbnail && thumbnail.url && (
                   <Image
                     className="object-cover"
@@ -48,7 +48,7 @@ export default function PostList({
                 )}
               </div>
               <div className="flex-1">
-                <div className="text-sm font-semibold text-gray-500">
+                <div className="text-xs font-semibold text-gray-500">
                   {date}
                 </div>
                 <div
@@ -62,7 +62,9 @@ export default function PostList({
                   {post.title}
                 </div>
                 {showShortBody && post.shortBody && (
-                  <div className="line-clamp-2">{post.shortBody}</div>
+                  <div className="line-clamp-2 leading-tight lg:line-clamp-1">
+                    {post.shortBody}
+                  </div>
                 )}
               </div>
             </Link>
