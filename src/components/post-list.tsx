@@ -46,13 +46,11 @@ export default function PostList({
                 )}
               </div>
               <div className="flex-1">
-                <div className="text-xxs font-semibold text-gray-500">
+                <div className="text-xs font-semibold text-gray-500">
                   {date}
                 </div>
-                <div className="line-clamp-1 text-xs font-bold">
-                  {post.title}
-                </div>
-                <div className="line-clamp-2 text-xs md:line-clamp-3 lg:line-clamp-2">
+                <div className="text line-clamp-1 font-bold">{post.title}</div>
+                <div className="text line-clamp-2 md:line-clamp-3 lg:line-clamp-2">
                   {post.shortBody}
                 </div>
               </div>
