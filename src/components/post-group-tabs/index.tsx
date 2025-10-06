@@ -85,14 +85,14 @@ function PostGroupTabs({
         <ol
           role="tablist"
           aria-label="Select post group"
-          className="hidden flex-1 flex-row flex-wrap justify-end gap-1 pt-1 pb-1 text-sm lg:flex"
+          className="hidden flex-1 flex-row flex-wrap justify-end gap-1 pt-1 pb-1 lg:flex"
         >
           {postGroups.map((g, index) => (
             <li
               key={index}
               onClick={() => setCurrentIndex(index)}
               className={twMerge(
-                "px-1 text-gray-100 hover:cursor-pointer hover:text-white",
+                "px-1 text-gray-100 transition-transform hover:scale-x-105 hover:cursor-pointer hover:text-white",
                 currentIndex === index && "font-bold text-white",
               )}
               role="tab"

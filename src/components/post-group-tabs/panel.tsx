@@ -87,7 +87,7 @@ export default function PostGroupTabsPanel({
             {firstPostDate}
           </div>
           <div className="text-lg font-bold">{firstPost.title}</div>
-          <p className="line-clamp-3 text-xs">{firstPost.shortBody}</p>
+          <p className="line-clamp-3">{firstPost.shortBody}</p>
         </Link>
         <PostList className="lg:flex-1" posts={otherPosts} effectOnHover />
       </div>
