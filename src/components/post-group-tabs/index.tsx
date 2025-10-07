@@ -4,7 +4,6 @@ import PostGroupTabsPanel from "@/components/post-group-tabs/panel";
 import PostGroupTabsSelect from "@/components/post-group-tabs/select";
 import { Locale } from "@/i18n/config";
 import { Page } from "@/payload-types";
-import { makePostsPath } from "@/utils/post";
 import { useLocale } from "next-intl";
 import { useState } from "react";
 import { twMerge } from "tailwind-merge";
@@ -13,13 +12,13 @@ const ALL_POSTS_CONTROL_LABELS: Record<Locale, string> = {
   en: "All",
   vi: "Tất cả",
 };
-const ALL_POSTS_TITLES: Record<Locale, string> = {
-  en: "Posts",
-  vi: "Các bài viết",
-};
 
 interface PostGroupTabsProps extends React.HTMLAttributes<HTMLDivElement> {
   title?: string;
+  viewMoreButton?: {
+    enable: boolean;
+    relativeUrl: Page | string | undefined | null;
+  };
   groups: {
     title: string;
     hiddenTags: string[];
@@ -33,6 +32,7 @@ interface PostGroupTabsProps extends React.HTMLAttributes<HTMLDivElement> {
 
 function PostGroupTabs({
   title,
+  viewMoreButton,
   groups,
   className,
   ...props
@@ -52,13 +52,7 @@ function PostGroupTabs({
       title: ALL_POSTS_CONTROL_LABELS[locale],
       hiddenTags: allUniqueHiddenTags,
       limit: 6,
-      viewMoreButton: {
-        enable: true,
-        relativeUrl: makePostsPath(
-          allUniqueHiddenTags,
-          ALL_POSTS_TITLES[locale],
-        ),
-      },
+      viewMoreButton,
     },
     ...groups,
   ];

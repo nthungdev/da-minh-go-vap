@@ -364,6 +364,10 @@ export interface TabbedContentBlock {
  */
 export interface TabbedPostGroupBlock {
   title: string;
+  viewMoreButton: {
+    enableViewMoreButton: boolean;
+    relativeUrl?: (string | null) | Page;
+  };
   tabs?:
     | {
         title: string;
@@ -830,6 +834,12 @@ export interface TabbedContentBlockSelect<T extends boolean = true> {
  */
 export interface TabbedPostGroupBlockSelect<T extends boolean = true> {
   title?: T;
+  viewMoreButton?:
+    | T
+    | {
+        enableViewMoreButton?: T;
+        relativeUrl?: T;
+      };
   tabs?:
     | T
     | {
