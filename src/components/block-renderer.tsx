@@ -109,6 +109,10 @@ const mapBlockToProps: BlockToPropsMap = {
   }),
   tabbedPostGroupBlock: (block) => ({
     title: block.title || undefined,
+    viewMoreButton: {
+      enable: block.viewMoreButton.enableViewMoreButton,
+      relativeUrl: block.viewMoreButton.relativeUrl,
+    },
     groups:
       block.tabs?.map((tab) => ({
         title: tab.title,

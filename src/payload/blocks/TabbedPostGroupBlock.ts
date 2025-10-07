@@ -15,6 +15,24 @@ const TabbedPostGroupBlock: Block = {
       localized: true,
     },
     {
+      name: "viewMoreButton",
+      type: "group",
+      fields: [
+        {
+          name: "enableViewMoreButton",
+          type: "checkbox",
+          defaultValue: true,
+          required: true,
+        },
+        {
+          name: "relativeUrl",
+          type: "relationship",
+          relationTo: "pages",
+          hasMany: false,
+        },
+      ],
+    },
+    {
       name: "tabs",
       type: "array",
       fields: [
