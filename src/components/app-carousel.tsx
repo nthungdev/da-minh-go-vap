@@ -71,7 +71,7 @@ export default function AppCarousel({
       {...props}
     >
       <div className="hs-carousel relative h-full w-full overflow-hidden bg-white">
-        <div className="hs-carousel-body absolute start-0 top-0 bottom-0 flex flex-nowrap opacity-0 transition-transform duration-700">
+        <div className="hs-carousel-body pointer-events-none absolute start-0 top-0 bottom-0 flex flex-nowrap opacity-0 transition-transform duration-700">
           {children}
         </div>
       </div>
