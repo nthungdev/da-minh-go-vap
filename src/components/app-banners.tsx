@@ -4,7 +4,7 @@ import Image from "next/image";
 import dynamic from "next/dynamic";
 import { HTMLAttributes, useState } from "react";
 import { Media } from "@/payload-types";
-import AppCarousel from "@/components/app-carousel";
+import AppCarouselFade from "@/components/app-carousel-fade";
 
 const AppBannerVideo = dynamic(() => import("@/components/app-banner-video"), {
   ssr: false,
@@ -39,35 +39,37 @@ export default function AppBanners(props: AppBannersProps) {
     };
 
   return (
-    <AppCarousel id={CAROUSEL_ID} durations={durations} className={className}>
-      {banners
-        .filter((banner) => typeof banner.url === "string")
-        .map((banner, index) => (
-          <div key={index} className="hs-carousel-slide">
-            {checkVideo(banner.url!) ? (
-              <AppBannerVideo
-                className="h-full w-full object-cover"
-                src={banner.url!}
-                autoPlay
-                crossOrigin="anonymous"
-                loop
-                muted
-                playsInline
-                preload="metadata"
-                onLoadedMetadata={handleLoadedMetadata(index)}
-              />
-            ) : (
-              <Image
-                className="h-full w-full object-cover"
-                src={banner.url!}
-                alt={banner.alt}
-                sizes="100%"
-                width={0}
-                height={0}
-              />
-            )}
-          </div>
-        ))}
-    </AppCarousel>
+    <AppCarouselFade
+      id={CAROUSEL_ID}
+      durations={durations}
+      className={className}
+      items={banners}
+      render={(item, index) => (
+        <div key={index} className="">
+          {checkVideo(item.url!) ? (
+            <AppBannerVideo
+              className="h-full w-full object-cover"
+              src={item.url!}
+              autoPlay
+              crossOrigin="anonymous"
+              loop
+              muted
+              playsInline
+              preload="metadata"
+              onLoadedMetadata={handleLoadedMetadata(index)}
+            />
+          ) : (
+            <Image
+              className="h-full w-full object-cover"
+              src={item.url!}
+              alt={item.alt}
+              sizes="100%"
+              width={0}
+              height={0}
+            />
+          )}
+        </div>
+      )}
+    />
   );
 }

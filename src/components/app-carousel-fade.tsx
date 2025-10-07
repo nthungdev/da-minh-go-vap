@@ -1,23 +1,32 @@
 "use client";
 
-import { Children, HTMLAttributes, useEffect, useRef, useState } from "react";
+import {
+  Children,
+  HTMLAttributes,
+  ReactNode,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { twMerge } from "tailwind-merge";
 
-interface AppCarouselProps extends HTMLAttributes<HTMLElement> {
+interface AppCarouselFadeProps<T> extends HTMLAttributes<HTMLElement> {
   id: string;
+  items: T[];
   durations: number[];
+  render: (item: T, index: number) => ReactNode;
   onTransition?: (index: number) => void;
 }
 
-export default function AppCarousel({
+export default function AppCarouselFade<T>({
   id,
-  children,
   className,
   durations,
+  items,
   onTransition,
+  render,
   ...props
-}: AppCarouselProps) {
-  const childrenCount = Children.count(children);
+}: AppCarouselFadeProps<T>) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -43,14 +52,6 @@ export default function AppCarousel({
     const _currentIndex = currentIndex;
     timeoutRef.current = setTimeout(async () => {
       const newIndex = (currentIndex + 1) % durations.length;
-      const carouselElement = document.querySelector<HTMLElement>(`#${id}`);
-      if (!carouselElement) {
-        console.warn("Carousel element not found");
-        return;
-      }
-      const { HSCarousel } = await import("preline/preline");
-      const carousel = new HSCarousel(carouselElement, { currentIndex });
-      carousel.goTo(newIndex);
       setCurrentIndex(newIndex);
       onTransition?.(newIndex);
     }, durations[_currentIndex]);
@@ -61,22 +62,27 @@ export default function AppCarousel({
   return (
     <div
       id={id}
-      data-hs-carousel={JSON.stringify({
-        loadingClasses: "opacity-0",
-        dotsItemClasses:
-          "hs-carousel-active:bg-white hs-carousel-active:border-white size-3 border border-gray-400 rounded-full cursor-pointer dark:border-white dark:hs-carousel-active:bg-white dark:hs-carousel-active:border-white",
-        isInfiniteLoop: true,
-      })}
-      className={twMerge("relative aspect-[4/1.2] w-full", className)}
+      className={twMerge(
+        "relative aspect-[4/1.2] w-full overflow-hidden",
+        className,
+      )}
       {...props}
     >
-      <div className="hs-carousel relative h-full w-full overflow-hidden bg-white">
-        <div className="hs-carousel-body pointer-events-none absolute start-0 top-0 bottom-0 flex flex-nowrap opacity-0 transition-transform duration-700">
-          {children}
-        </div>
-      </div>
+      <ul className="relative size-full">
+        {items.map((item, index) => (
+          <li
+            key={index}
+            className={twMerge(
+              "pointer-events-none absolute top-0 left-0 size-full opacity-0 transition-opacity duration-700 ease-in-out",
+              currentIndex === index && "opacity-100",
+            )}
+          >
+            {render(item, index)}
+          </li>
+        ))}
+      </ul>
 
-      {childrenCount <= 1 ? null : (
+      {items.length <= 1 ? null : (
         <>
           <button
             type="button"
