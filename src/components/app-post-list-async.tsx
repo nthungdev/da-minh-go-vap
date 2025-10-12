@@ -27,8 +27,8 @@ export default function AppPostListAsync({
   const locale = useLocale();
   const { data, error, isPending } = useQuery({
     queryKey: ["fetchPostsByHiddenTags", hiddenTags, locale],
-    queryFn: async () => fetchPostsByHiddenTags(hiddenTags, { limit, locale }),
-    initialData: { posts: posts || [], hasMore: false },
+    queryFn: () => fetchPostsByHiddenTags(hiddenTags, { limit, locale }),
+    initialData: { posts: posts || [], hasMore: false, page: 1, totalPages: 1 },
   });
 
   // TODO make skeleton component

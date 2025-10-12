@@ -48,9 +48,13 @@ export const fetchPostsByHiddenTags = async (
     skipSlug,
     locale,
   });
+
   const posts = query.docs.map(postToAppPost);
   return {
     posts,
     hasMore: query.hasNextPage,
+    // we can ensure page is not undefined because we are using pagination (by default)
+    page: query.page!,
+    totalPages: query.totalPages,
   };
 };

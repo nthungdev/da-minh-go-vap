@@ -1,1 +1,7 @@
-{}
+{
+  "contact": {
+    "phoneLabel": "Phone",
+    "emailLabel": "Email",
+    "marketingEmailLabel": "Marketing"
+  }
+}

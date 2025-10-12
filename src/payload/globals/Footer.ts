@@ -40,7 +40,6 @@ const Footer: GlobalConfig = {
         {
           name: "marketingEmail",
           type: "text",
-          required: true,
           localized: true,
         },
       ],

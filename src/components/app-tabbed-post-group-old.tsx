@@ -16,7 +16,9 @@ interface AppTabbedPostGroupProps {
   }[];
 }
 
-async function AppTabbedPostGroup(props: AppTabbedPostGroupProps) {
+export default async function AppTabbedPostGroup(
+  props: AppTabbedPostGroupProps,
+) {
   return (
     <div className="space-y-4">
       {props.title && <AppGridHeader text={props.title} />}
@@ -28,5 +30,3 @@ async function AppTabbedPostGroup(props: AppTabbedPostGroupProps) {
     </div>
   );
 }
-
-export default AppTabbedPostGroup;

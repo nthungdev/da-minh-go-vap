@@ -1079,7 +1079,7 @@ export interface Footer {
     address: string;
     phone: string;
     email: string;
-    marketingEmail: string;
+    marketingEmail?: string | null;
   };
   externalLinks?:
     | {
