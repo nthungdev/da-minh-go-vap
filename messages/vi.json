@@ -1,1 +1,7 @@
-{}
+{
+  "contact": {
+    "phoneLabel": "Đt",
+    "emailLabel": "Email",
+    "marketingEmailLabel": "Ban truyền thông"
+  }
+}
