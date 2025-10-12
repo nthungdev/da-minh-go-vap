@@ -53,7 +53,8 @@ export const fetchPostsByHiddenTags = async (
   return {
     posts,
     hasMore: query.hasNextPage,
-    page: query.page,
+    // we can ensure page is not undefined because we are using pagination (by default)
+    page: query.page!,
     totalPages: query.totalPages,
   };
 };
