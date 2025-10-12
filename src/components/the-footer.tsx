@@ -105,7 +105,7 @@ function Contact({
   phone: string;
   email: string;
   address: string;
-  marketingEmail: string;
+  marketingEmail?: string | null;
 }) {
   return (
     <div>
@@ -117,10 +117,13 @@ function Contact({
       <p>
         Email: <a href={`mailto:${email}`}>{email}</a>
       </p>
-      <p>
-        Ban truyền thông:{" "}
-        <a href={`mailto:${marketingEmail}`}>{marketingEmail}</a>
-      </p>
+
+      {marketingEmail && (
+        <p>
+          Ban truyền thông:{" "}
+          <a href={`mailto:${marketingEmail}`}>{marketingEmail}</a>
+        </p>
+      )}
     </div>
   );
 }
