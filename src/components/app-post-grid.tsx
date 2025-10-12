@@ -19,12 +19,12 @@ export default function AppPostGrid({ posts, className }: AppPostGridProps) {
       {posts.map((post, index) => (
         // min-w-0 to override min-width: min-content that cause post title to not be truncated
         <li
-          className="block w-full min-w-0 border border-transparent bg-white hover:ring-3"
+          className="block size-full min-w-0 border border-transparent bg-white hover:ring-3"
           key={index}
         >
           <Link
             href={`/posts/${post.slug}`}
-            className="block overflow-hidden border border-gray-300"
+            className="block size-full overflow-hidden border border-gray-300"
           >
             <div className="relative aspect-video">
               {typeof post.thumbnail !== "string" &&
