@@ -47,6 +47,8 @@ export default function AppCarouselFade<T>({
   }
 
   useEffect(() => {
+    if (durations.length <= 1) return;
+
     resetTimeout();
 
     const _currentIndex = currentIndex;
