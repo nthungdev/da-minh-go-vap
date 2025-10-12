@@ -39,7 +39,12 @@ export default function AppPostGridPaginated({
         locale,
       }),
     placeholderData: keepPreviousData,
-    initialData: { posts: initialPosts || [], hasMore: false },
+    initialData: {
+      posts: initialPosts || [],
+      hasMore: false,
+      totalPages: 1,
+      page: 1,
+    },
   });
 
   function incrementPage() {

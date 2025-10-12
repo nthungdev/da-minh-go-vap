@@ -48,9 +48,12 @@ export const fetchPostsByHiddenTags = async (
     skipSlug,
     locale,
   });
+
   const posts = query.docs.map(postToAppPost);
   return {
     posts,
     hasMore: query.hasNextPage,
+    page: query.page,
+    totalPages: query.totalPages,
   };
 };
