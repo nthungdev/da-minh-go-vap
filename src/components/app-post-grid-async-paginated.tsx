@@ -29,18 +29,15 @@ export default function AppPostGridPaginated({
   const locale = useLocale();
   const [page, setPage] = useState(1);
 
-  const fetchPosts = async (page: number) => {
-    return await fetchPostsByHiddenTags(hiddenTags, {
-      limit: pageSize,
-      page,
-      skipSlug,
-      locale,
-    });
-  };
-
   const { data, error, isError, isPending, isFetched, isFetching } = useQuery({
     queryKey: ["fetchPostsByHiddenTags", hiddenTags, page, locale],
-    queryFn: () => fetchPosts(page),
+    queryFn: () =>
+      fetchPostsByHiddenTags(hiddenTags, {
+        limit: pageSize,
+        page,
+        skipSlug,
+        locale,
+      }),
     placeholderData: keepPreviousData,
     initialData: { posts: initialPosts || [], hasMore: false },
   });
