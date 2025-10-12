@@ -1,18 +1,18 @@
-import { PostParams } from "@/definitions";
+import { AppPost } from "@/definitions";
 import Image from "next/image";
 import Link from "next/link";
 import { HTMLAttributes } from "react";
 import { twMerge } from "tailwind-merge";
 
 interface AppPostGridProps extends HTMLAttributes<HTMLElement> {
-  posts: PostParams[];
+  posts: AppPost[];
 }
 
 export default function AppPostGrid({ posts, className }: AppPostGridProps) {
   return (
     <ul
       className={twMerge(
-        "relative grid grid-flow-row gap-4 md:grid-cols-2 lg:grid-cols-4",
+        `relative grid grid-flow-row gap-4 md:grid-cols-2 lg:grid-cols-4`,
         className,
       )}
     >
@@ -24,11 +24,11 @@ export default function AppPostGrid({ posts, className }: AppPostGridProps) {
         >
           <Link
             href={`/posts/${post.slug}`}
-            className="block overflow-hidden border"
+            className="block overflow-hidden border border-gray-300"
           >
             <div className="relative aspect-video">
               {typeof post.thumbnail !== "string" &&
-                typeof post.thumbnail?.url === "string" && (
+                typeof post.thumbnail.url === "string" && (
                   <Image
                     className="object-cover"
                     src={post.thumbnail.url}
@@ -38,10 +38,8 @@ export default function AppPostGrid({ posts, className }: AppPostGridProps) {
                   />
                 )}
             </div>
-            <div className="space-y-2 p-2">
-              <h2 className="block truncate text-center text-xl">
-                {post.title}
-              </h2>
+            <div className="line-clamp-3 w-full space-y-2 p-1.5 text-center text-base lg:text-lg">
+              {post.title}
             </div>
           </Link>
         </li>
