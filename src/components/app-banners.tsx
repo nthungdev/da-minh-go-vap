@@ -34,7 +34,7 @@ export default function AppBanners(props: AppBannersProps) {
       setDurations([
         ...durations.slice(0, index),
         event.currentTarget.duration * 1000,
-        ...durations.slice(index),
+        ...durations.slice(index + 1),
       ]);
     };
 
