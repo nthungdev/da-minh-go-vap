@@ -9,16 +9,26 @@ if (!AUTH_USER || !AUTH_PASSWORD) {
 }
 
 export function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl;
+  const authRequiredResponse = basicAuthCheck(request);
 
-  const response = NextResponse.next();
-
-  if (pathname.match(/^\/(admin|api)/)) {
-    return response;
+  if (authRequiredResponse) {
+    return authRequiredResponse;
   }
 
+  return NextResponse.next();
+}
+
+/**
+ * @returns NextResponse if basic authentication is required
+ */
+function basicAuthCheck(request: NextRequest) {
+  const { pathname } = request.nextUrl;
+
+  if (pathname.match(/^\/(admin|api)/)) {
+    return null;
+  }
   if (process.env.NODE_ENV === "development") {
-    return response;
+    return null;
   }
 
   const authHeader = request.headers.get("authorization");
@@ -36,7 +46,7 @@ export function middleware(request: NextRequest) {
     });
   }
 
-  return response;
+  return null;
 }
 
 // Protect everything except static assets
