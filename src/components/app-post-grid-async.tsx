@@ -60,7 +60,7 @@ export default function AppPostGridAsync({
   return (
     <div className="space-y-2">
       <AppGridHeader text={title} />
-      <AppPostGrid posts={posts} />
+      <AppPostGrid hidePostTitles={hidePostTitles} posts={posts} />
       {shouldShowViewMore && (
         <div className="flex flex-row justify-end">
           <AppViewMoreLink href={viewMoreHref} />

@@ -6,9 +6,14 @@ import { twMerge } from "tailwind-merge";
 
 interface AppPostGridProps extends HTMLAttributes<HTMLElement> {
   posts: AppPost[];
+  hidePostTitles?: boolean;
 }
 
-export default function AppPostGrid({ posts, className }: AppPostGridProps) {
+export default function AppPostGrid({
+  posts,
+  hidePostTitles,
+  className,
+}: AppPostGridProps) {
   return (
     <ul
       className={twMerge(
@@ -38,9 +43,11 @@ export default function AppPostGrid({ posts, className }: AppPostGridProps) {
                   />
                 )}
             </div>
-            <div className="line-clamp-3 w-full space-y-2 p-1.5 text-center text-base lg:text-lg">
-              {post.title}
-            </div>
+            {!hidePostTitles && (
+              <div className="line-clamp-3 w-full space-y-2 p-1.5 text-center text-base lg:text-lg">
+                {post.title}
+              </div>
+            )}
           </Link>
         </li>
       ))}
