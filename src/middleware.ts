@@ -10,20 +10,21 @@ if (!AUTH_USER || !AUTH_PASSWORD) {
 
 const ENFORCE_BASIC_AUTH = true;
 
-export function middleware(request: NextRequest) {
-  const authRequiredResponse = basicAuthCheck(request);
+export async function middleware(request: NextRequest) {
+  const authRequiredResponse = await basicAuthCheck(request);
 
-  if (authRequiredResponse) {
-    return authRequiredResponse;
-  }
+  const response = authRequiredResponse ?? NextResponse.next();
 
-  return NextResponse.next();
+  response.headers.set("x-pathname", request.nextUrl.pathname);
+  response.headers.set("x-href", request.nextUrl.href);
+
+  return response;
 }
 
 /**
  * @returns NextResponse if basic authentication is required
  */
-function basicAuthCheck(request: NextRequest) {
+async function basicAuthCheck(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   if (pathname.match(/^\/(admin|api)/)) {
@@ -40,7 +41,18 @@ function basicAuthCheck(request: NextRequest) {
     "Basic " + Buffer.from(`${AUTH_USER}:${AUTH_PASSWORD}`).toString("base64");
 
   const failBasicAuth = authHeader !== expectedAuth;
-  const isAuthBasicRoute = !!pathname.match(/^\/auth\/basic\//);
+  const isAuthBasicRoute = pathname.startsWith("/auth/basic");
+
+  if (isAuthBasicRoute && !failBasicAuth) {
+    const next = NextResponse.next();
+    next.cookies.set("x-site-auth", "true", {
+      httpOnly: true,
+      secure: true,
+      sameSite: "strict",
+      path: "/",
+    });
+    return next;
+  }
 
   if (failBasicAuth && (ENFORCE_BASIC_AUTH || isAuthBasicRoute)) {
     return new NextResponse("Authentication required", {
