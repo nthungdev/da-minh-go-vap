@@ -59,6 +59,17 @@ const Pages: CollectionConfig = {
       },
     },
     {
+      name: "requireHttpBasicAuth",
+      label: "Bảo mật trang",
+      type: "checkbox",
+      defaultValue: false,
+      admin: {
+        position: "sidebar",
+        description: "Cần mật khẩu để truy cập trang này.",
+      },
+    },
+
+    {
       type: "tabs",
       tabs: [
         {

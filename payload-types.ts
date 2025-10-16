@@ -186,6 +186,10 @@ export interface Page {
    * Đường dẫn sẽ được sử dụng để truy cập trang này. Luôn bắt đầu bằng "/". Ví dụ: "/gioi-thieu".
    */
   path: string;
+  /**
+   * Cần mật khẩu để truy cập trang này.
+   */
+  requireHttpBasicAuth?: boolean | null;
   title: string;
   main?:
     | (
@@ -664,6 +668,7 @@ export interface MediaSelect<T extends boolean = true> {
 export interface PagesSelect<T extends boolean = true> {
   publishedAt?: T;
   path?: T;
+  requireHttpBasicAuth?: T;
   title?: T;
   main?:
     | T

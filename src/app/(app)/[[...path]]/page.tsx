@@ -2,8 +2,10 @@ import { getPayload } from "payload";
 import config from "@payload-config";
 import AppPage from "@/components/app-page";
 import BlocksRenderer from "@/components/blocks-renderer";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { getLocale } from "next-intl/server";
+import { cookies, headers } from "next/headers";
+import { getPageByPath } from "@/payload/utils/queries";
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config });
@@ -19,21 +21,33 @@ export default async function Page(props: {
   // path must be an array of strings 🤷
   params: Promise<{ path?: string[] }>;
 }) {
+  const requestHeaders = await headers();
   const locale = await getLocale();
   const params = await props.params;
   const path = "/" + (params.path || []).join("/");
-  const payload = await getPayload({ config });
-  const query = await payload.find({
-    collection: "pages",
-    where: {
-      path: { equals: path },
-    },
-    locale,
-  });
-  const page = query.docs[0];
+  const page = await getPageByPath(path, locale);
   if (!page) {
-    console.log("Page not found for path:", path);
+    console.info("Page not found for path:", path);
     notFound();
+  }
+
+  if (page.requireHttpBasicAuth) {
+    const href = requestHeaders.get("x-href");
+
+    if (!href) {
+      // x-href header is not being set by the middleware
+      throw new Error("Something went wrong");
+    }
+
+    const c = await cookies();
+    const isAuthorized = c.get("x-site-auth")?.value === "true";
+
+    if (!isAuthorized) {
+      // redirects to auth basic page to enter credentials
+      const searchParams = new URLSearchParams();
+      searchParams.append("nextUrl", href);
+      redirect(`/auth/basic?${searchParams.toString()}`);
+    }
   }
 
   const banners =
