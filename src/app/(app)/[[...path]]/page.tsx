@@ -32,7 +32,7 @@ export default async function Page(props: {
   });
   const page = query.docs[0];
   if (!page) {
-    console.log("Page not found for path:", path);
+    console.info("Page not found for path:", path);
     notFound();
   }
 
