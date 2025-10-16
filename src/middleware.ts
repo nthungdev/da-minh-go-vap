@@ -51,5 +51,10 @@ function basicAuthCheck(request: NextRequest) {
 
 // Protect everything except static assets
 export const config = {
-  matcher: ["/((?!_next/static|favicon.ico|robots.txt).*)"],
+  matcher: [
+    {
+      source:
+        "/((?!api|admin|_next/static|favicon.ico|robots.txt|sitemap.xml|manifest).*)",
+    },
+  ],
 };
