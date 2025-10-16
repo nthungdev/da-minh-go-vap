@@ -31,15 +31,14 @@ export default async function Page(props: {
     notFound();
   }
 
-  console.log(requestHeaders.entries());
-  const href = requestHeaders.get("x-href");
-
-  if (!href) {
-    // x-href header is not being set by the middleware
-    throw new Error("Something went wrong");
-  }
-
   if (page.requireHttpBasicAuth) {
+    const href = requestHeaders.get("x-href");
+
+    if (!href) {
+      // x-href header is not being set by the middleware
+      throw new Error("Something went wrong");
+    }
+
     const c = await cookies();
     const isAuthorized = c.get("x-site-auth")?.value === "true";
 
