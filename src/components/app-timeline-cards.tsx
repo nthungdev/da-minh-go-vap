@@ -21,7 +21,6 @@ export default function AppTimelineCards({
   cards,
   title,
 }: AppTimelineCardsProps) {
-  console.log(cards);
   return (
     <div className={`space-y-12 ${className}`}>
       {title && (

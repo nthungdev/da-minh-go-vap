@@ -1,5 +1,5 @@
 import { analytics } from "@/utils/firebase";
 
 if (analytics) {
-  console.log("Analytics initialized");
+  console.info("Analytics initialized");
 }

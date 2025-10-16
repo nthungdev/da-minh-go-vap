@@ -8,28 +8,31 @@ if (!AUTH_USER || !AUTH_PASSWORD) {
   throw new Error("Missing BASIC_AUTH_USER or BASIC_AUTH_PASSWORD");
 }
 
-export function middleware(request: NextRequest) {
-  const authRequiredResponse = basicAuthCheck(request);
+const ENFORCE_BASIC_AUTH = true;
 
-  if (authRequiredResponse) {
-    return authRequiredResponse;
-  }
+export async function middleware(request: NextRequest) {
+  const authRequiredResponse = await basicAuthCheck(request);
 
-  return NextResponse.next();
+  const response = authRequiredResponse ?? NextResponse.next();
+
+  response.headers.set("x-pathname", request.nextUrl.pathname);
+  response.headers.set("x-href", request.nextUrl.href);
+
+  return response;
 }
 
 /**
  * @returns NextResponse if basic authentication is required
  */
-function basicAuthCheck(request: NextRequest) {
+async function basicAuthCheck(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   if (pathname.match(/^\/(admin|api)/)) {
     return null;
   }
-  if (process.env.NODE_ENV === "development") {
-    return null;
-  }
+  // if (process.env.NODE_ENV === "development") {
+  //   return null;
+  // }
 
   const authHeader = request.headers.get("authorization");
 
@@ -37,7 +40,21 @@ function basicAuthCheck(request: NextRequest) {
   const expectedAuth =
     "Basic " + Buffer.from(`${AUTH_USER}:${AUTH_PASSWORD}`).toString("base64");
 
-  if (authHeader !== expectedAuth) {
+  const failBasicAuth = authHeader !== expectedAuth;
+  const isAuthBasicRoute = pathname.startsWith("/auth/basic");
+
+  if (isAuthBasicRoute && !failBasicAuth) {
+    const next = NextResponse.next();
+    next.cookies.set("x-site-auth", "true", {
+      httpOnly: true,
+      secure: true,
+      sameSite: "strict",
+      path: "/",
+    });
+    return next;
+  }
+
+  if (failBasicAuth && (ENFORCE_BASIC_AUTH || isAuthBasicRoute)) {
     return new NextResponse("Authentication required", {
       status: 401,
       headers: {
@@ -51,5 +68,10 @@ function basicAuthCheck(request: NextRequest) {
 
 // Protect everything except static assets
 export const config = {
-  matcher: ["/((?!_next/static|favicon.ico|robots.txt).*)"],
+  matcher: [
+    {
+      source:
+        "/((?!api|admin|_next/static|favicon.ico|robots.txt|sitemap.xml|manifest).*)",
+    },
+  ],
 };

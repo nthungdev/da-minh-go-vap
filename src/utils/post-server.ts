@@ -39,16 +39,6 @@ export const getPostBySlug = async (
   }
 };
 
-export const getPostsBySlugs = async (
-  slugs: string[],
-  { locale }: { locale?: Locale } = {},
-) => {
-  const posts = await Promise.all(
-    slugs.map((slug) => getPostBySlug(slug, { locale })),
-  );
-  return posts.filter((post) => post !== null);
-};
-
 export async function queryAllPosts({ limit, page, locale }: GetOptions = {}) {
   const payload = await getPayload({ config });
   const query = await payload.find({

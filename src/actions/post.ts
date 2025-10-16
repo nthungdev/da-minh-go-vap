@@ -20,8 +20,10 @@ export const fetchPostsBySlugs = async (
   slugs: string[],
   { locale }: { locale?: Locale } = {},
 ) => {
-  const posts = await postUtils.getPostsBySlugs(slugs, { locale });
-  return posts;
+  const posts = await Promise.all(
+    slugs.map((slug) => fetchPostBySlug(slug, { locale })),
+  );
+  return posts.filter((p) => p !== null);
 };
 
 export async function fetchAllPosts({
