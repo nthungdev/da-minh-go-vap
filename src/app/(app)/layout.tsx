@@ -12,6 +12,7 @@ import { getMenu } from "@/utils/menu";
 import { getLogo } from "@/utils/site-settings-server";
 import { getLocale } from "next-intl/server";
 import "./globals.css";
+import LoadAnalytics from "@/components/load-analytics";
 
 const nunito = Nunito({
   subsets: ["vietnamese"],
@@ -35,6 +36,7 @@ export default async function RootLayout({
   return (
     <html lang={locale} className={twMerge(nunito.className)}>
       <PrelineScriptWrapper />
+      <LoadAnalytics />
       <body
         className={twMerge(
           "relative flex min-h-screen w-full flex-col bg-white",
