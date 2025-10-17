@@ -7,6 +7,7 @@ import AppPostGridPaginated from "@/components/app-post-grid-async-paginated";
 import dayjs from "dayjs";
 import "dayjs/locale/vi";
 import { getLocale } from "next-intl/server";
+import RefreshRouteOnSave from "@/components/refresh-route-on-save";
 dayjs.locale("vi");
 
 const relatedPostsLimit = 12;
@@ -34,6 +35,8 @@ export default async function Page(props: {
 
   return (
     <AppPage>
+      <RefreshRouteOnSave />
+
       {video && (
         <VideoIframe
           className="mb-4"

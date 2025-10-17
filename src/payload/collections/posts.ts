@@ -9,6 +9,7 @@ import type {
   FieldHook,
   FieldHookArgs,
 } from "payload";
+import { buildPostPreviewUrl } from "@/payload/utils/config";
 
 const Posts: CollectionConfig = {
   slug: "posts",
@@ -27,6 +28,11 @@ const Posts: CollectionConfig = {
   },
   admin: {
     useAsTitle: "title",
+    livePreview: {
+      url: ({ data }) => {
+        return buildPostPreviewUrl(data.slug);
+      },
+    },
   },
   fields: [
     {
