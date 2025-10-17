@@ -15,8 +15,10 @@ export async function middleware(request: NextRequest) {
 
   const response = authRequiredResponse ?? NextResponse.next();
 
+  const href = `${process.env.NEXT_PUBLIC_BASE_URL}${request.nextUrl.pathname}`;
+
   response.headers.set("x-pathname", request.nextUrl.pathname);
-  response.headers.set("x-href", request.nextUrl.href);
+  response.headers.set("x-href", href);
 
   return response;
 }
