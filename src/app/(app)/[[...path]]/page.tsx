@@ -6,6 +6,7 @@ import { notFound, redirect } from "next/navigation";
 import { getLocale } from "next-intl/server";
 import { cookies, headers } from "next/headers";
 import { getPageByPath } from "@/payload/utils/queries";
+import RefreshRouteOnSave from "@/components/refresh-route-on-save";
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config });
@@ -61,6 +62,7 @@ export default async function Page(props: {
       banners={banners}
       showDecorativeGraphic={page.showBannersDecorativeGraphic ?? false}
     >
+      <RefreshRouteOnSave />
       <h1 className="sr-only">{page.title}</h1>
       <div className="space-y-4 lg:space-y-8">
         {!!page.beforeMain?.length && (
