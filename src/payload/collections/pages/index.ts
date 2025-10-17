@@ -15,6 +15,7 @@ import TabbedPostGroupBlock from "@/payload/blocks/TabbedPostGroupBlock";
 import TextBlock from "@/payload/blocks/TextBock";
 import TimelineBlock from "@/payload/blocks/TimelineBlock";
 import VideoGridBlock from "@/payload/blocks/VideoGridBlock";
+import { buildPagePreviewUrl } from "@/payload/utils/config";
 import { revalidatePath } from "@/payload/utils/data";
 import type { CollectionConfig } from "payload";
 
@@ -32,6 +33,11 @@ const Pages: CollectionConfig = {
   },
   admin: {
     useAsTitle: "title",
+    livePreview: {
+      url: ({ data }) => {
+        return buildPagePreviewUrl(data.path);
+      },
+    },
   },
   fields: [
     {
