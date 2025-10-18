@@ -8,7 +8,7 @@ if (!AUTH_USER || !AUTH_PASSWORD) {
   throw new Error("Missing BASIC_AUTH_USER or BASIC_AUTH_PASSWORD");
 }
 
-const ENFORCE_BASIC_AUTH = true;
+const ENFORCE_BASIC_AUTH = false;
 
 export async function middleware(request: NextRequest) {
   const authRequiredResponse = await basicAuthCheck(request);
