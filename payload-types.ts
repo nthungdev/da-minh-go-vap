@@ -245,6 +245,12 @@ export interface Page {
         | LinksBlock
       )[]
     | null;
+  seo?: {
+    /**
+     * Chú ý ngắn về trang
+     */
+    description?: string | null;
+  };
   updatedAt: string;
   createdAt: string;
 }
@@ -720,6 +726,11 @@ export interface PagesSelect<T extends boolean = true> {
         spaceBlock?: T | SpaceBlockSelect<T>;
         quoteBlock?: T | QuoteBlockSelect<T>;
         linksBlock?: T | LinksBlockSelect<T>;
+      };
+  seo?:
+    | T
+    | {
+        description?: T;
       };
   updatedAt?: T;
   createdAt?: T;

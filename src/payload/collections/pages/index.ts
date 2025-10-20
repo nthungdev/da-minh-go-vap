@@ -182,6 +182,19 @@ const Pages: CollectionConfig = {
             },
           ],
         },
+        {
+          label: "SEO",
+          name: "seo",
+          fields: [
+            {
+              type: "text",
+              name: "description",
+              admin: {
+                description: "Chú ý ngắn về trang",
+              },
+            },
+          ],
+        },
       ],
     },
   ],
