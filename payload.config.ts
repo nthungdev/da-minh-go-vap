@@ -15,7 +15,7 @@ import Posts from "@/payload/collections/posts";
 import Pages from "@/payload/collections/pages";
 import HiddenTags from "@/payload/collections/HiddenTags";
 
-import SiteSettings from "@/payload/globals/SiteSettings";
+import SiteSettings from "@/payload/globals/site-settings";
 import NavBar from "@/payload/globals/NavBar";
 import Footer from "@/payload/globals/Footer";
 import { defaultLocale, localeLabels, locales } from "@/i18n/config";
