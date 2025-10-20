@@ -188,9 +188,22 @@ const Pages: CollectionConfig = {
           fields: [
             {
               type: "text",
-              name: "description",
+              name: "title",
+              virtual: "title",
+              localized: true,
+              access: {
+                update: () => false,
+              },
               admin: {
-                description: "Chú ý ngắn về trang",
+                description: "Dùng chung với tiêu đề của mục Nội Dung",
+              },
+            },
+            {
+              type: "text",
+              name: "description",
+              localized: true,
+              admin: {
+                description: "Mô tả ngắn về trang",
               },
             },
           ],

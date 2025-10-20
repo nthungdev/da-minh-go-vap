@@ -8,9 +8,26 @@ import dayjs from "dayjs";
 import "dayjs/locale/vi";
 import { getLocale } from "next-intl/server";
 import RefreshRouteOnSave from "@/components/refresh-route-on-save";
+import { Metadata } from "next";
 dayjs.locale("vi");
 
 const relatedPostsLimit = 12;
+
+type Props = {
+  params: Promise<{ slug: string }>;
+};
+
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const locale = await getLocale();
+  const params = await props.params;
+  const decodedSlug = decodeURIComponent(params.slug);
+  const post = await fetchPostBySlug(decodedSlug, { locale });
+
+  return {
+    title: post?.seo?.title,
+    description: post?.seo?.description,
+  };
+}
 
 export default async function Page(props: {
   params: Promise<{ slug: string }>;

@@ -7,6 +7,24 @@ import { getLocale } from "next-intl/server";
 import { cookies, headers } from "next/headers";
 import { getPageByPath } from "@/payload/utils/queries";
 import RefreshRouteOnSave from "@/components/refresh-route-on-save";
+import { Metadata } from "next";
+
+type Props = {
+  // path must be an array of strings 🤷
+  params: Promise<{ path?: string[] }>;
+};
+
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const locale = await getLocale();
+  const params = await props.params;
+  const path = "/" + (params.path || []).join("/");
+  const page = await getPageByPath(path, locale);
+
+  return {
+    title: page?.seo?.title,
+    description: page?.seo?.description,
+  };
+}
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config });
@@ -18,10 +36,7 @@ export async function generateStaticParams() {
   return params;
 }
 
-export default async function Page(props: {
-  // path must be an array of strings 🤷
-  params: Promise<{ path?: string[] }>;
-}) {
+export default async function Page(props: Props) {
   const requestHeaders = await headers();
   const locale = await getLocale();
   const params = await props.params;
