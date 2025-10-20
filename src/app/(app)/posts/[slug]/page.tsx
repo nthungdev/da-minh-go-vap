@@ -1,15 +1,13 @@
+import { notFound } from "next/navigation";
+import dayjs from "dayjs";
+import { Metadata } from "next";
+import { getLocale } from "next-intl/server";
+import RefreshRouteOnSave from "@/components/refresh-route-on-save";
+import VideoIframe from "@/components/app-video-iframe";
+import AppPostGridPaginated from "@/components/app-post-grid-async-paginated";
 import AppPage from "@/components/app-page";
 import AppMarkdown from "@/components/app-markdown";
 import { fetchPostBySlug, fetchPostsByHiddenTags } from "@/actions/post";
-import { notFound } from "next/navigation";
-import VideoIframe from "@/components/app-video-iframe";
-import AppPostGridPaginated from "@/components/app-post-grid-async-paginated";
-import dayjs from "dayjs";
-import "dayjs/locale/vi";
-import { getLocale } from "next-intl/server";
-import RefreshRouteOnSave from "@/components/refresh-route-on-save";
-import { Metadata } from "next";
-dayjs.locale("vi");
 
 const relatedPostsLimit = 12;
 
