@@ -12,7 +12,6 @@ import { getMenu } from "@/utils/menu";
 import { getLogo } from "@/utils/site-settings-server";
 import { getLocale } from "next-intl/server";
 import "./globals.css";
-// import LoadAnalytics from "@/components/load-analytics";
 
 const nunito = Nunito({
   subsets: ["vietnamese"],
@@ -20,8 +19,17 @@ const nunito = Nunito({
 });
 
 export const metadata: Metadata = {
-  title: "Đa Minh Gò Vấp",
+  title: "Hội dòng Đa Minh Gò Vấp",
   description: "Hội dòng Đa Minh Gò Vấp",
+  openGraph: {
+    type: "website",
+    images: [
+      {
+        url: `${process.env.NEXT_PUBLIC_BASE_URL}/og.png`,
+      },
+    ],
+    title: "Đa Minh Gò Vấp",
+  },
 };
 
 export default async function RootLayout({
@@ -36,7 +44,6 @@ export default async function RootLayout({
   return (
     <html lang={locale} className={twMerge(nunito.className)}>
       <PrelineScriptWrapper />
-      {/* <LoadAnalytics /> */}
       <body
         className={twMerge(
           "relative flex min-h-screen w-full flex-col bg-white",
