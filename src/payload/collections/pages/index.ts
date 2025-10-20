@@ -41,38 +41,43 @@ const Pages: CollectionConfig = {
   },
   fields: [
     {
-      name: "publishedAt",
-      type: "date",
-      label: "Thời gian công bố",
-      required: true,
+      type: "group",
       admin: {
         position: "sidebar",
-        date: {
-          pickerAppearance: "dayAndTime",
+      },
+      fields: [
+        {
+          name: "publishedAt",
+          type: "date",
+          label: "Thời gian công bố",
+          required: true,
+          admin: {
+            date: {
+              pickerAppearance: "dayAndTime",
+            },
+          },
         },
-      },
-    },
-    {
-      name: "path",
-      type: "text",
-      label: "Đường dẫn",
-      required: true,
-      unique: true,
-      admin: {
-        position: "sidebar",
-        description:
-          'Đường dẫn sẽ được sử dụng để truy cập trang này. Luôn bắt đầu bằng "/". Ví dụ: "/gioi-thieu".',
-      },
-    },
-    {
-      name: "requireHttpBasicAuth",
-      label: "Bảo mật trang",
-      type: "checkbox",
-      defaultValue: false,
-      admin: {
-        position: "sidebar",
-        description: "Cần mật khẩu để truy cập trang này.",
-      },
+        {
+          name: "path",
+          type: "text",
+          label: "Đường dẫn",
+          required: true,
+          unique: true,
+          admin: {
+            description:
+              'Đường dẫn sẽ được sử dụng để truy cập trang này. Luôn bắt đầu bằng "/". Ví dụ: "/gioi-thieu".',
+          },
+        },
+        {
+          name: "requireHttpBasicAuth",
+          label: "Bảo mật trang",
+          type: "checkbox",
+          defaultValue: false,
+          admin: {
+            description: "Cần mật khẩu để truy cập trang này.",
+          },
+        },
+      ],
     },
 
     {
@@ -132,10 +137,10 @@ const Pages: CollectionConfig = {
               name: "showBannersDecorativeGraphic",
               type: "checkbox",
               label: "Hiển thị hình trang trí đè lên banner",
+              defaultValue: false,
               admin: {
                 description: "Tùy chỉnh hình trang trí ở mục Nav Bar",
               },
-              defaultValue: false,
             },
             {
               name: "beforeMain",

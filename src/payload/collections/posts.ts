@@ -149,35 +149,42 @@ const Posts: CollectionConfig = {
         },
       ],
     },
+
     {
-      name: "slug",
-      type: "text",
-      label: "Slug",
-      required: true,
-      hasMany: false,
-      unique: true,
-      validate: validateSlug,
+      type: "group",
       admin: {
         position: "sidebar",
-        description:
-          "Can only use letters (a-z, A-Z), numbers (0-9), and dashes (-, _)",
       },
-      hooks: {
-        beforeValidate: [autoGenerateSlug],
-        beforeDuplicate: [duplicateSlug],
-      },
-    },
-    {
-      name: "publishedAt",
-      type: "date",
-      label: "Thời gian công bố",
-      required: true,
-      admin: {
-        position: "sidebar",
-        date: {
-          pickerAppearance: "dayAndTime",
+      fields: [
+        {
+          name: "slug",
+          type: "text",
+          label: "Slug",
+          required: true,
+          hasMany: false,
+          unique: true,
+          validate: validateSlug,
+          admin: {
+            description:
+              "Can only use letters (a-z, A-Z), numbers (0-9), and dashes (-, _)",
+          },
+          hooks: {
+            beforeValidate: [autoGenerateSlug],
+            beforeDuplicate: [duplicateSlug],
+          },
         },
-      },
+        {
+          name: "publishedAt",
+          type: "date",
+          label: "Thời gian công bố",
+          required: true,
+          admin: {
+            date: {
+              pickerAppearance: "dayAndTime",
+            },
+          },
+        },
+      ],
     },
   ],
   hooks: {
