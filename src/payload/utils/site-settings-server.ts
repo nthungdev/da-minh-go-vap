@@ -11,3 +11,9 @@ export async function getLogo() {
     return logo || undefined;
   }
 }
+
+export async function getSiteSettings() {
+  const payload = await getPayload({ config });
+  const siteSettings = await payload.findGlobal({ slug: "siteSettings" });
+  return siteSettings;
+}

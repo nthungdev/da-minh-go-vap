@@ -1,16 +1,45 @@
+import { notFound } from "next/navigation";
+import dayjs from "dayjs";
+import { Metadata } from "next";
+import { getLocale } from "next-intl/server";
+import RefreshRouteOnSave from "@/components/refresh-route-on-save";
+import VideoIframe from "@/components/app-video-iframe";
+import AppPostGridPaginated from "@/components/app-post-grid-async-paginated";
 import AppPage from "@/components/app-page";
 import AppMarkdown from "@/components/app-markdown";
 import { fetchPostBySlug, fetchPostsByHiddenTags } from "@/actions/post";
-import { notFound } from "next/navigation";
-import VideoIframe from "@/components/app-video-iframe";
-import AppPostGridPaginated from "@/components/app-post-grid-async-paginated";
-import dayjs from "dayjs";
-import "dayjs/locale/vi";
-import { getLocale } from "next-intl/server";
-import RefreshRouteOnSave from "@/components/refresh-route-on-save";
-dayjs.locale("vi");
+import { getDataOrUndefined } from "@/payload/utils/data";
 
 const relatedPostsLimit = 12;
+
+type Props = {
+  params: Promise<{ slug: string }>;
+};
+
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const locale = await getLocale();
+  const params = await props.params;
+  const decodedSlug = decodeURIComponent(params.slug);
+  const post = await fetchPostBySlug(decodedSlug, { locale });
+
+  const thumbnail = getDataOrUndefined(post?.thumbnail);
+
+  return {
+    title: post?.seo?.title,
+    description: post?.seo?.description,
+    keywords: post?.seo?.keywords,
+    openGraph: {
+      type: "article",
+      images: thumbnail?.url
+        ? [
+            {
+              url: thumbnail.url,
+            },
+          ]
+        : undefined,
+    },
+  };
+}
 
 export default async function Page(props: {
   params: Promise<{ slug: string }>;

@@ -245,6 +245,17 @@ export interface Page {
         | LinksBlock
       )[]
     | null;
+  seo?: {
+    /**
+     * Dùng chung với tiêu đề của mục Nội Dung
+     */
+    title?: string | null;
+    /**
+     * Mô tả ngắn về trang
+     */
+    description?: string | null;
+    keywords?: string[] | null;
+  };
   updatedAt: string;
   createdAt: string;
 }
@@ -487,11 +498,6 @@ export interface Post {
   id: string;
   title: string;
   hideTitle?: boolean | null;
-  /**
-   * Can only use letters (a-z, A-Z), numbers (0-9), and dashes (-, _)
-   */
-  slug: string;
-  publishedAt: string;
   hiddenTags: (string | HiddenTag)[];
   thumbnail: string | Media;
   videos?:
@@ -510,6 +516,22 @@ export interface Post {
    * Chỉ điền 2-3 câu
    */
   shortBody?: string | null;
+  seo?: {
+    /**
+     * Dùng chung với tiêu đề của mục Nội Dung
+     */
+    title?: string | null;
+    /**
+     * Mô tả ngắn về bài viết
+     */
+    description?: string | null;
+    keywords?: string[] | null;
+  };
+  /**
+   * Can only use letters (a-z, A-Z), numbers (0-9), and dashes (-, _)
+   */
+  slug: string;
+  publishedAt: string;
   updatedAt: string;
   createdAt: string;
 }
@@ -720,6 +742,13 @@ export interface PagesSelect<T extends boolean = true> {
         spaceBlock?: T | SpaceBlockSelect<T>;
         quoteBlock?: T | QuoteBlockSelect<T>;
         linksBlock?: T | LinksBlockSelect<T>;
+      };
+  seo?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        keywords?: T;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -956,8 +985,6 @@ export interface LinksBlockSelect<T extends boolean = true> {
 export interface PostsSelect<T extends boolean = true> {
   title?: T;
   hideTitle?: T;
-  slug?: T;
-  publishedAt?: T;
   hiddenTags?: T;
   thumbnail?: T;
   videos?:
@@ -970,6 +997,15 @@ export interface PostsSelect<T extends boolean = true> {
       };
   body?: T;
   shortBody?: T;
+  seo?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        keywords?: T;
+      };
+  slug?: T;
+  publishedAt?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -1103,6 +1139,17 @@ export interface Footer {
 export interface SiteSetting {
   id: string;
   logo?: (string | null) | Media;
+  siteName?: string | null;
+  seo?: {
+    /**
+     * Dùng chung với tên của website trong tab Nội Dung
+     */
+    title?: string | null;
+    /**
+     * Mô tả ngắn về website
+     */
+    description?: string | null;
+  };
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1181,6 +1228,13 @@ export interface FooterSelect<T extends boolean = true> {
  */
 export interface SiteSettingsSelect<T extends boolean = true> {
   logo?: T;
+  siteName?: T;
+  seo?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

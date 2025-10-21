@@ -36,112 +36,161 @@ const Posts: CollectionConfig = {
   },
   fields: [
     {
-      name: "title",
-      type: "text",
-      label: "Tiêu đề",
-      required: true,
-      hooks: {
-        beforeDuplicate: [duplicateTitle],
-      },
-      localized: true,
-    },
-    {
-      name: "hideTitle",
-      type: "checkbox",
-      label: "Ẩn tiêu đề",
-      defaultValue: false,
-    },
-    {
-      name: "slug",
-      type: "text",
-      label: "Slug",
-      required: true,
-      hasMany: false,
-      unique: true,
-      validate: validateSlug,
-      admin: {
-        position: "sidebar",
-        description:
-          "Can only use letters (a-z, A-Z), numbers (0-9), and dashes (-, _)",
-      },
-      hooks: {
-        beforeValidate: [autoGenerateSlug],
-        beforeDuplicate: [duplicateSlug],
-      },
-    },
-    {
-      name: "publishedAt",
-      type: "date",
-      label: "Thời gian công bố",
-      required: true,
-      admin: {
-        position: "sidebar",
-        date: {
-          pickerAppearance: "dayAndTime",
-        },
-      },
-    },
-    {
-      name: "hiddenTags",
-      type: "relationship",
-      relationTo: "hiddenTags",
-      hasMany: true,
-      defaultValue: [],
-      required: true,
-    },
-    {
-      name: "thumbnail",
-      type: "upload",
-      relationTo: "media",
-      required: true,
-    },
-    {
-      name: "videos",
-      type: "array",
-      defaultValue: [],
-      fields: [
+      type: "tabs",
+      tabs: [
         {
-          name: "title",
-          type: "text",
-          label: "Tiêu đề",
-          required: true,
-          localized: true,
-        },
-        {
-          name: "type",
-          type: "select",
-          required: true,
-          options: [
-            { label: "Youtube", value: "youtube" },
-            { label: "Facebook", value: "facebook" },
+          label: "Nội Dung",
+          fields: [
+            {
+              name: "title",
+              type: "text",
+              label: "Tiêu đề",
+              required: true,
+              hooks: {
+                beforeDuplicate: [duplicateTitle],
+              },
+              localized: true,
+            },
+            {
+              name: "hideTitle",
+              type: "checkbox",
+              label: "Ẩn tiêu đề",
+              defaultValue: false,
+            },
+            {
+              name: "hiddenTags",
+              type: "relationship",
+              relationTo: "hiddenTags",
+              hasMany: true,
+              defaultValue: [],
+              required: true,
+            },
+            {
+              name: "thumbnail",
+              type: "upload",
+              relationTo: "media",
+              required: true,
+            },
+            {
+              name: "videos",
+              type: "array",
+              defaultValue: [],
+              fields: [
+                {
+                  name: "title",
+                  type: "text",
+                  label: "Tiêu đề",
+                  required: true,
+                  localized: true,
+                },
+                {
+                  name: "type",
+                  type: "select",
+                  required: true,
+                  options: [
+                    { label: "Youtube", value: "youtube" },
+                    { label: "Facebook", value: "facebook" },
+                  ],
+                },
+                {
+                  name: "videoId",
+                  type: "text",
+                  label: "Video ID",
+                  required: true,
+                  admin: {
+                    description:
+                      "Ví dụ với YouTube, URL là https://www.youtube.com/watch?v=GnX7TN3uo5g thì Video ID là GnX7TN3uo5g. Với Facebook, URL là https://www.facebook.com/watch/?v=123456789 thì Video ID là 123456789.",
+                  },
+                },
+              ],
+            },
+            markdownField({
+              name: "body",
+              label: "Nội dung",
+              required: true,
+              localized: true,
+            }),
+            {
+              type: "text",
+              name: "shortBody",
+              label: "Nội dung ngắn",
+              localized: true,
+              admin: {
+                description: "Chỉ điền 2-3 câu",
+              },
+            },
           ],
         },
         {
-          name: "videoId",
-          type: "text",
-          label: "Video ID",
-          required: true,
-          admin: {
-            description:
-              "Ví dụ với YouTube, URL là https://www.youtube.com/watch?v=GnX7TN3uo5g thì Video ID là GnX7TN3uo5g. Với Facebook, URL là https://www.facebook.com/watch/?v=123456789 thì Video ID là 123456789.",
-          },
+          label: "SEO",
+          name: "seo",
+          fields: [
+            {
+              type: "text",
+              name: "title",
+              virtual: "title",
+              localized: true,
+              access: {
+                update: () => false,
+              },
+              admin: {
+                description: "Dùng chung với tiêu đề của mục Nội Dung",
+              },
+            },
+            {
+              type: "text",
+              name: "description",
+              localized: true,
+              admin: {
+                description: "Mô tả ngắn về bài viết",
+              },
+            },
+            {
+              name: "keywords",
+              type: "text",
+              hasMany: true,
+              localized: true,
+            },
+          ],
         },
       ],
     },
-    markdownField({
-      name: "body",
-      label: "Nội dung",
-      required: true,
-      localized: true,
-    }),
+
     {
-      type: "text",
-      name: "shortBody",
-      label: "Nội dung ngắn",
-      localized: true,
+      type: "group",
       admin: {
-        description: "Chỉ điền 2-3 câu",
+        position: "sidebar",
       },
+      fields: [
+        {
+          name: "slug",
+          type: "text",
+          label: "Slug",
+          required: true,
+          hasMany: false,
+          unique: true,
+          validate: validateSlug,
+          admin: {
+            description:
+              "Can only use letters (a-z, A-Z), numbers (0-9), and dashes (-, _)",
+          },
+          hooks: {
+            beforeValidate: [autoGenerateSlug],
+            beforeDuplicate: [duplicateSlug],
+          },
+        },
+        {
+          name: "publishedAt",
+          type: "date",
+          label: "Thời gian công bố",
+          required: true,
+          admin: {
+            date: {
+              pickerAppearance: "dayAndTime",
+            },
+          },
+        },
+      ],
     },
   ],
   hooks: {
