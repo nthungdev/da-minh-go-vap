@@ -25,11 +25,12 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title,
     description: title,
+    metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL!),
     openGraph: {
       type: "website",
       images: [
         {
-          url: `${process.env.NEXT_PUBLIC_BASE_URL}/og.png`,
+          url: "/og.png",
         },
       ],
       title,
