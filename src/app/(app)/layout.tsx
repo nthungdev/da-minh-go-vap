@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Nunito } from "next/font/google";
 import { twMerge } from "tailwind-merge";
 import { NextIntlClientProvider } from "next-intl";
+import { getLocale } from "next-intl/server";
 import TheFooter from "@/components/the-footer";
 import TheMobileNavbar from "@/components/the-mobile-navbar";
 import TheDesktopNavbar from "@/components/the-desktop-navbar";
@@ -9,8 +10,7 @@ import ReactQueryProvider from "@/components/providers/react-query-provider";
 import PrelineScriptWrapper from "@/components/preline-script-wrapper";
 import ScrollToTopButton from "@/components/scroll-to-top-button";
 import { getMenu } from "@/utils/menu";
-import { getLogo } from "@/utils/site-settings-server";
-import { getLocale } from "next-intl/server";
+import { getLogo, getSiteSettings } from "@/payload/utils/site-settings-server";
 import "./globals.css";
 
 const nunito = Nunito({
@@ -18,19 +18,24 @@ const nunito = Nunito({
   variable: "--font-nunito",
 });
 
-export const metadata: Metadata = {
-  title: "Hội dòng Đa Minh Gò Vấp",
-  description: "Hội dòng Đa Minh Gò Vấp",
-  openGraph: {
-    type: "website",
-    images: [
-      {
-        url: `${process.env.NEXT_PUBLIC_BASE_URL}/og.png`,
-      },
-    ],
-    title: "Đa Minh Gò Vấp",
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const siteSettings = await getSiteSettings();
+  const title = siteSettings.seo?.title || "Hội dòng Đa Minh Gò Vấp";
+
+  return {
+    title,
+    description: title,
+    openGraph: {
+      type: "website",
+      images: [
+        {
+          url: `${process.env.NEXT_PUBLIC_BASE_URL}/og.png`,
+        },
+      ],
+      title,
+    },
+  };
+}
 
 export default async function RootLayout({
   children,

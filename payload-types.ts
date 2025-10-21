@@ -1135,6 +1135,17 @@ export interface Footer {
 export interface SiteSetting {
   id: string;
   logo?: (string | null) | Media;
+  siteName?: string | null;
+  seo?: {
+    /**
+     * Dùng chung với tên của website trong tab Nội Dung
+     */
+    title?: string | null;
+    /**
+     * Mô tả ngắn về website
+     */
+    description?: string | null;
+  };
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1213,6 +1224,13 @@ export interface FooterSelect<T extends boolean = true> {
  */
 export interface SiteSettingsSelect<T extends boolean = true> {
   logo?: T;
+  siteName?: T;
+  seo?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

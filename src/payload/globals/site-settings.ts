@@ -5,9 +5,53 @@ const SiteSettings: GlobalConfig = {
   slug: "siteSettings",
   fields: [
     {
-      name: "logo",
-      type: "upload",
-      relationTo: "media",
+      type: "tabs",
+      tabs: [
+        {
+          label: "Nội Dung",
+          fields: [
+            {
+              name: "logo",
+              type: "upload",
+              relationTo: "media",
+            },
+            {
+              name: "siteName",
+              label: "Tên của website",
+              type: "text",
+              localized: true,
+            },
+          ],
+        },
+
+        {
+          label: "SEO",
+          name: "seo",
+          fields: [
+            {
+              type: "text",
+              name: "title",
+              virtual: "siteName",
+              localized: true,
+              access: {
+                update: () => false,
+              },
+              admin: {
+                description:
+                  "Dùng chung với tên của website trong tab Nội Dung",
+              },
+            },
+            {
+              type: "text",
+              name: "description",
+              localized: true,
+              admin: {
+                description: "Mô tả ngắn về website",
+              },
+            },
+          ],
+        },
+      ],
     },
   ],
   hooks: {
