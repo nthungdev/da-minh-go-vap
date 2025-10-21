@@ -8,6 +8,7 @@ import AppPostGridPaginated from "@/components/app-post-grid-async-paginated";
 import AppPage from "@/components/app-page";
 import AppMarkdown from "@/components/app-markdown";
 import { fetchPostBySlug, fetchPostsByHiddenTags } from "@/actions/post";
+import { getDataOrUndefined } from "@/payload/utils/data";
 
 const relatedPostsLimit = 12;
 
@@ -21,9 +22,21 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   const decodedSlug = decodeURIComponent(params.slug);
   const post = await fetchPostBySlug(decodedSlug, { locale });
 
+  const thumbnail = getDataOrUndefined(post?.thumbnail);
+
   return {
     title: post?.seo?.title,
     description: post?.seo?.description,
+    openGraph: {
+      type: "article",
+      images: thumbnail?.url
+        ? [
+            {
+              url: thumbnail.url,
+            },
+          ]
+        : undefined,
+    },
   };
 }
 
