@@ -254,6 +254,7 @@ export interface Page {
      * Mô tả ngắn về trang
      */
     description?: string | null;
+    keywords?: string[] | null;
   };
   updatedAt: string;
   createdAt: string;
@@ -524,6 +525,7 @@ export interface Post {
      * Mô tả ngắn về bài viết
      */
     description?: string | null;
+    keywords?: string[] | null;
   };
   /**
    * Can only use letters (a-z, A-Z), numbers (0-9), and dashes (-, _)
@@ -746,6 +748,7 @@ export interface PagesSelect<T extends boolean = true> {
     | {
         title?: T;
         description?: T;
+        keywords?: T;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -999,6 +1002,7 @@ export interface PostsSelect<T extends boolean = true> {
     | {
         title?: T;
         description?: T;
+        keywords?: T;
       };
   slug?: T;
   publishedAt?: T;

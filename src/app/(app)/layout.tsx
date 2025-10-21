@@ -19,6 +19,7 @@ const nunito = Nunito({
 });
 
 export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
   const siteSettings = await getSiteSettings();
   const title = siteSettings.seo?.title || "Hội dòng Đa Minh Gò Vấp";
 
@@ -28,12 +29,14 @@ export async function generateMetadata(): Promise<Metadata> {
     metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL!),
     openGraph: {
       type: "website",
+      title,
+      siteName: siteSettings.siteName || undefined,
+      locale: locale,
       images: [
         {
           url: "/og.png",
         },
       ],
-      title,
     },
   };
 }

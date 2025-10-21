@@ -145,6 +145,12 @@ const Posts: CollectionConfig = {
                 description: "Mô tả ngắn về bài viết",
               },
             },
+            {
+              name: "keywords",
+              type: "text",
+              hasMany: true,
+              localized: true,
+            },
           ],
         },
       ],

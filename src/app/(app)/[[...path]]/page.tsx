@@ -23,6 +23,12 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   return {
     title: page?.seo?.title,
     description: page?.seo?.description,
+    keywords: page?.seo?.keywords,
+    openGraph: {
+      title: page?.seo?.title ?? undefined,
+      description: page?.seo?.description ?? undefined,
+      type: "article",
+    },
   };
 }
 

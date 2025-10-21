@@ -211,6 +211,12 @@ const Pages: CollectionConfig = {
                 description: "Mô tả ngắn về trang",
               },
             },
+            {
+              name: "keywords",
+              type: "text",
+              hasMany: true,
+              localized: true,
+            },
           ],
         },
       ],

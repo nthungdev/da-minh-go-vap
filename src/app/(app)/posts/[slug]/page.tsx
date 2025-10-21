@@ -27,6 +27,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   return {
     title: post?.seo?.title,
     description: post?.seo?.description,
+    keywords: post?.seo?.keywords,
     openGraph: {
       type: "article",
       images: thumbnail?.url
