@@ -24,11 +24,7 @@ export default function CopyButton({ className, text }: CopyButtonProps) {
 
   return (
     <button
-      className={twMerge(
-        "cursor-pointer",
-        className,
-        isCopied && "pointer-events-none",
-      )}
+      className={twMerge(className, isCopied && "pointer-events-none")}
       onClick={handleCopy}
     >
       {isCopied ? (
