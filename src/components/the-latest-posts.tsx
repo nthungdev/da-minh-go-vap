@@ -12,6 +12,7 @@ import AppCarousel from "@/components/app-carousel";
 import { useState } from "react";
 import PostList from "@/components/post-list";
 import { createRandomAlphaString } from "@/utils/common";
+import Link from "next/link";
 
 const TRANSITION_DURATION = 4000;
 
@@ -51,6 +52,7 @@ export default function TheLatestPosts({
   }
 
   const carouselId = `the-latest-posts-carousel-${createRandomAlphaString(4)}`;
+  const postHref = `${process.env.NEXT_PUBLIC_BASE_URL}/posts/${data[currentIndex]?.slug}`;
 
   return (
     <div className={twMerge("@container", className)}>
@@ -66,32 +68,37 @@ export default function TheLatestPosts({
           postCount === 5 && "lg:h-[402px]",
         )}
       >
-        <AppCarousel
-          id={carouselId}
-          className="bg-primary-2 aspect-video h-full w-auto"
-          durations={data.map(() => TRANSITION_DURATION)}
-          onTransition={setCurrentIndex}
-        >
-          {data.map((post, index) => {
-            const thumbnail = getDataOrUndefined(post.thumbnail);
+        <Link href={postHref}>
+          <AppCarousel
+            id={carouselId}
+            className="bg-primary-2 aspect-video h-full w-auto"
+            durations={data.map(() => TRANSITION_DURATION)}
+            onTransition={setCurrentIndex}
+          >
+            {data.map((post, index) => {
+              const thumbnail = getDataOrUndefined(post.thumbnail);
 
-            return (
-              <div key={index} className="hs-carousel-slide relative size-full">
-                {thumbnail && thumbnail.url ? (
-                  <Image
-                    className="object-cover"
-                    src={thumbnail.url}
-                    alt={post.title}
-                    sizes="90vw"
-                    fill
-                  />
-                ) : (
-                  <div className="size-full bg-gray-300"></div>
-                )}
-              </div>
-            );
-          })}
-        </AppCarousel>
+              return (
+                <div
+                  key={index}
+                  className="hs-carousel-slide relative size-full"
+                >
+                  {thumbnail && thumbnail.url ? (
+                    <Image
+                      className="object-cover"
+                      src={thumbnail.url}
+                      alt={post.title}
+                      sizes="90vw"
+                      fill
+                    />
+                  ) : (
+                    <div className="size-full bg-gray-300"></div>
+                  )}
+                </div>
+              );
+            })}
+          </AppCarousel>
+        </Link>
 
         <PostList
           className="flex-1"
