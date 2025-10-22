@@ -9,6 +9,7 @@ import AppPage from "@/components/app-page";
 import AppMarkdown from "@/components/app-markdown";
 import { fetchPostBySlug, fetchPostsByHiddenTags } from "@/actions/post";
 import { getDataOrUndefined } from "@/payload/utils/data";
+import ShareToolbar from "@/components/share-toolbar";
 
 const relatedPostsLimit = 12;
 
@@ -62,6 +63,8 @@ export default async function Page(props: {
 
   const publishedAt = dayjs(post.publishedAt).format("D MMMM YYYY");
 
+  const postHref = `${process.env.NEXT_PUBLIC_BASE_URL}/posts/${post.slug}`;
+
   return (
     <AppPage>
       <RefreshRouteOnSave />
@@ -79,6 +82,8 @@ export default async function Page(props: {
       )}
 
       <p className="text-sm text-gray-500">{publishedAt}</p>
+
+      <ShareToolbar copyText={postHref} />
 
       <AppMarkdown className="mt-8">{post.body}</AppMarkdown>
 
