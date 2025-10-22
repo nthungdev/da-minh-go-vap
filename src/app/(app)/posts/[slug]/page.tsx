@@ -1,5 +1,4 @@
 import { notFound } from "next/navigation";
-import dayjs from "dayjs";
 import { Metadata } from "next";
 import { getLocale } from "next-intl/server";
 import RefreshRouteOnSave from "@/components/refresh-route-on-save";
@@ -9,6 +8,8 @@ import AppPage from "@/components/app-page";
 import AppMarkdown from "@/components/app-markdown";
 import { fetchPostBySlug, fetchPostsByHiddenTags } from "@/actions/post";
 import { getDataOrUndefined } from "@/payload/utils/data";
+import ShareToolbar from "@/components/share-toolbar";
+import { formatDate } from "@/utils/date";
 
 const relatedPostsLimit = 12;
 
@@ -22,6 +23,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   const decodedSlug = decodeURIComponent(params.slug);
   const post = await fetchPostBySlug(decodedSlug, { locale });
 
+  const url = `${process.env.NEXT_PUBLIC_BASE_URL}/posts/${post?.slug}`;
   const thumbnail = getDataOrUndefined(post?.thumbnail);
 
   return {
@@ -29,6 +31,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
     description: post?.seo?.description,
     keywords: post?.seo?.keywords,
     openGraph: {
+      url,
       type: "article",
       images: thumbnail?.url
         ? [
@@ -60,7 +63,9 @@ export default async function Page(props: {
     skipSlug: post.slug,
   });
 
-  const publishedAt = dayjs(post.publishedAt).format("D MMMM YYYY");
+  const publishedAt = formatDate(post.publishedAt);
+
+  const postHref = `${process.env.NEXT_PUBLIC_BASE_URL}/posts/${post.slug}`;
 
   return (
     <AppPage>
@@ -79,6 +84,8 @@ export default async function Page(props: {
       )}
 
       <p className="text-sm text-gray-500">{publishedAt}</p>
+
+      <ShareToolbar className="mt-4" shareUrl={postHref} />
 
       <AppMarkdown className="mt-8">{post.body}</AppMarkdown>
 
