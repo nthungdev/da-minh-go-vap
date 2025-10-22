@@ -22,6 +22,7 @@ export default async function ShareToolbar({
   className,
 }: ShareToolbarProps) {
   const viberHref = `viber://forward?text=${shareUrl}`;
+  // Facebook doesn't seem to recognize localhost url, so it won't work in local
   const facebookHref = buildFacebookShareUrl(shareUrl);
 
   const messages = await getMessages();
