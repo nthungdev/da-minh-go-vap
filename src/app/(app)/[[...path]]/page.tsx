@@ -7,14 +7,18 @@ import { getLocale } from "next-intl/server";
 import { cookies, headers } from "next/headers";
 import { getPageByPath } from "@/payload/utils/queries";
 import RefreshRouteOnSave from "@/components/refresh-route-on-save";
-import { Metadata } from "next";
+import { Metadata, ResolvingMetadata } from "next";
 
 type Props = {
   // path must be an array of strings 🤷
   params: Promise<{ path?: string[] }>;
 };
 
-export async function generateMetadata(props: Props): Promise<Metadata> {
+export async function generateMetadata(
+  props: Props,
+  parent: ResolvingMetadata,
+): Promise<Metadata> {
+  const parentMetadata = await parent;
   const locale = await getLocale();
   const params = await props.params;
   const path = "/" + (params.path || []).join("/");
@@ -27,7 +31,9 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
     openGraph: {
       title: page?.seo?.title ?? undefined,
       description: page?.seo?.description ?? undefined,
-      type: "article",
+      type: "website",
+      locale: parentMetadata.openGraph?.locale,
+      images: parentMetadata.openGraph?.images,
     },
   };
 }

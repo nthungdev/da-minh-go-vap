@@ -25,11 +25,12 @@ export async function generateMetadata(): Promise<Metadata> {
 
   return {
     title,
-    description: title,
+    description: siteSettings?.seo?.description,
     metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL!),
     openGraph: {
       type: "website",
       title,
+      description: siteSettings?.seo?.description || undefined,
       siteName: siteSettings.siteName || undefined,
       locale: locale,
       images: [
