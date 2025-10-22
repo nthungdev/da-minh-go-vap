@@ -3,5 +3,8 @@
     "phoneLabel": "Đt",
     "emailLabel": "Email",
     "marketingEmailLabel": "Ban truyền thông"
+  },
+  "shareToolbar": {
+    "title": "Chia sẻ"
   }
 }

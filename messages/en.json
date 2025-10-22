@@ -3,5 +3,8 @@
     "phoneLabel": "Phone",
     "emailLabel": "Email",
     "marketingEmailLabel": "Marketing"
+  },
+  "shareToolbar": {
+    "title": "Share"
   }
 }
