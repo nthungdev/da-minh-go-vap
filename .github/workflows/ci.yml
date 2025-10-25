@@ -82,6 +82,8 @@ jobs:
       PAYLOAD_ADMIN_EMAIL: admin@example.com
       PAYLOAD_ADMIN_PASSWORD: admin
       DATABASE_URI: mongodb://admin:admin@localhost:27017/da-minh-go-vap?authSource=admin
+      AUTH_USER: user
+      AUTH_PASSWORD: password
       NEXT_PUBLIC_BASE_URL: http://localhost:3000
 
     steps:

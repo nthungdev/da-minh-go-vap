@@ -7,7 +7,7 @@ const AUTH_USER = process.env.AUTH_USER;
 const AUTH_PASSWORD = process.env.AUTH_PASSWORD;
 
 if (!AUTH_USER || !AUTH_PASSWORD) {
-  throw new Error("Missing BASIC_AUTH_USER or BASIC_AUTH_PASSWORD");
+  throw new Error("Missing AUTH_USER or AUTH_PASSWORD");
 }
 
 /**
