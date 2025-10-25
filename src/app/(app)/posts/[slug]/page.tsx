@@ -10,6 +10,7 @@ import { fetchPostBySlug, fetchPostsByHiddenTags } from "@/actions/post";
 import { getDataOrUndefined } from "@/payload/utils/data";
 import ShareToolbar from "@/components/share-toolbar";
 import { formatDate } from "@/utils/date";
+import { basicAuthGuard } from "@/utils/auth";
 
 const relatedPostsLimit = 12;
 
@@ -55,6 +56,10 @@ export default async function Page(props: {
   const post = await fetchPostBySlug(decodedSlug, { locale });
 
   if (!post) notFound();
+
+  if (post.requireHttpBasicAuth) {
+    await basicAuthGuard();
+  }
 
   const video = post.videos?.[0];
   const hiddenTags = post.hiddenTags

@@ -190,6 +190,15 @@ const Posts: CollectionConfig = {
             },
           },
         },
+        {
+          name: "requireHttpBasicAuth",
+          label: "Bảo mật trang",
+          type: "checkbox",
+          defaultValue: false,
+          admin: {
+            description: "Cần mật khẩu để truy cập bài viết này.",
+          },
+        },
       ],
     },
   ],

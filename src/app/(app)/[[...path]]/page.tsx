@@ -2,12 +2,12 @@ import { getPayload } from "payload";
 import config from "@payload-config";
 import AppPage from "@/components/app-page";
 import BlocksRenderer from "@/components/blocks-renderer";
-import { notFound, redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 import { getLocale } from "next-intl/server";
-import { cookies, headers } from "next/headers";
 import { getPageByPath } from "@/payload/utils/queries";
 import RefreshRouteOnSave from "@/components/refresh-route-on-save";
 import { Metadata, ResolvingMetadata } from "next";
+import { basicAuthGuard } from "@/utils/auth";
 
 type Props = {
   // path must be an array of strings 🤷
@@ -49,7 +49,6 @@ export async function generateStaticParams() {
 }
 
 export default async function Page(props: Props) {
-  const requestHeaders = await headers();
   const locale = await getLocale();
   const params = await props.params;
   const path = "/" + (params.path || []).join("/");
@@ -60,22 +59,7 @@ export default async function Page(props: Props) {
   }
 
   if (page.requireHttpBasicAuth) {
-    const href = requestHeaders.get("x-href");
-
-    if (!href) {
-      // x-href header is not being set by the middleware
-      throw new Error("Something went wrong");
-    }
-
-    const c = await cookies();
-    const isAuthorized = c.get("x-site-auth")?.value === "true";
-
-    if (!isAuthorized) {
-      // redirects to auth basic page to enter credentials
-      const searchParams = new URLSearchParams();
-      searchParams.append("nextUrl", href);
-      redirect(`/auth/basic?${searchParams.toString()}`);
-    }
+    await basicAuthGuard();
   }
 
   const banners =

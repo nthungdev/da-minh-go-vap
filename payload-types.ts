@@ -532,6 +532,10 @@ export interface Post {
    */
   slug: string;
   publishedAt: string;
+  /**
+   * Cần mật khẩu để truy cập bài viết này.
+   */
+  requireHttpBasicAuth?: boolean | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -1006,6 +1010,7 @@ export interface PostsSelect<T extends boolean = true> {
       };
   slug?: T;
   publishedAt?: T;
+  requireHttpBasicAuth?: T;
   updatedAt?: T;
   createdAt?: T;
 }
