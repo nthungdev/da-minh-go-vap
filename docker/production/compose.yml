@@ -60,7 +60,11 @@ services:
     volumes:
       - ../../certbot/www/:/var/www/certbot/:rw
       - ../../certbot/conf/:/etc/letsencrypt/:rw
-    entrypoint: "/bin/sh -c 'while :; do certbot renew; sleep 12h; done'"
+    entrypoint: >
+      /bin/sh -c 'while :;
+      do certbot renew --deploy-hook "docker exec daminhgovap-production-nginx-1 nginx -s reload";
+      sleep 12h;
+      done'
 
 volumes:
   data:
