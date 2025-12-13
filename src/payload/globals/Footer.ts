@@ -1,8 +1,13 @@
+import { onlyRoles } from "@/payload/utils/access-control";
 import { revalidatePath } from "@/payload/utils/data";
 import { GlobalConfig } from "payload";
 
 const Footer: GlobalConfig = {
   slug: "footer",
+  access: {
+    read: onlyRoles(["admin", "manager"]),
+    update: onlyRoles(["admin", "manager"]),
+  },
   fields: [
     {
       name: "topFooterDecorativeGraphic",

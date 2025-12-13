@@ -1,15 +1,9 @@
 import markdownField from "@/payload/fields/markdown";
-import { Post } from "@/payload-types";
+import { postsReadAccess } from "@/payload/utils/access-control";
+import { buildPostPreviewUrl } from "@/payload/utils/config";
 import { slugify } from "@/payload/utils/data";
 import { validateSlug } from "@/utils/slug";
-import type {
-  AccessArgs,
-  AccessResult,
-  CollectionConfig,
-  FieldHook,
-  FieldHookArgs,
-} from "payload";
-import { buildPostPreviewUrl } from "@/payload/utils/config";
+import type { CollectionConfig, FieldHook, FieldHookArgs } from "payload";
 
 const Posts: CollectionConfig = {
   slug: "posts",
@@ -218,27 +212,6 @@ const Posts: CollectionConfig = {
 
 function duplicateTitle({ value }: FieldHookArgs): ReturnType<FieldHook> {
   return `[Duplicate] ${value}`;
-}
-
-function isCmsPath(pathname: string) {
-  return pathname.startsWith("/admin");
-}
-
-function postsReadAccess({ req }: AccessArgs<Post>): AccessResult {
-  // Allow access to all posts in the admin panel
-  if (isCmsPath(req.pathname) && req.user) return true;
-
-  // For public (unauthenticated) access
-  return {
-    publishedAt: { less_than_equal: new Date().toISOString() },
-    and: [
-      {
-        // title and body can be undefined for unedited locales
-        title: { exists: true },
-        body: { exists: true },
-      },
-    ],
-  };
 }
 
 function autoGenerateSlug({ value, siblingData }: FieldHookArgs) {

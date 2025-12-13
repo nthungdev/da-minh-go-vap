@@ -1,9 +1,14 @@
+import { onlyRoles } from "@/payload/utils/access-control";
 import { CollectionConfig } from "payload";
 
 const HiddenTags: CollectionConfig = {
   slug: "hiddenTags",
   admin: {
     useAsTitle: "label",
+  },
+  access: {
+    read: () => true,
+    update: onlyRoles(["admin", "manager"]),
   },
   fields: [
     {
