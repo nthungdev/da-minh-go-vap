@@ -26,13 +26,13 @@ RUN corepack enable pnpm
 RUN pnpm run build:compile
 
 
-FROM base AS runner
+# FROM base AS runner
 
 # Uncomment the following line in case you want to disable telemetry during runtime.
 # ENV NEXT_TELEMETRY_DISABLED 1
 
-WORKDIR /app
-COPY --from=builder /app ./
+# WORKDIR /app
+# COPY --from=builder /app ./
 
 ENV NODE_ENV=production
 ENV PORT=3000
