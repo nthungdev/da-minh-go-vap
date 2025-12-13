@@ -545,7 +545,7 @@ export interface Post {
  */
 export interface User {
   id: string;
-  role: 'admin' | 'editor';
+  role: 'admin' | 'manager' | 'editor' | 'author';
   firstName?: string | null;
   lastName?: string | null;
   updatedAt: string;

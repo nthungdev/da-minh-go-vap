@@ -15,6 +15,7 @@ import TabbedPostGroupBlock from "@/payload/blocks/TabbedPostGroupBlock";
 import TextBlock from "@/payload/blocks/TextBock";
 import TimelineBlock from "@/payload/blocks/TimelineBlock";
 import VideoGridBlock from "@/payload/blocks/VideoGridBlock";
+import { onlyRoles } from "@/payload/utils/access-control";
 import { buildPagePreviewUrl } from "@/payload/utils/config";
 import { revalidatePath } from "@/payload/utils/data";
 import type { CollectionConfig } from "payload";
@@ -30,6 +31,10 @@ const Pages: CollectionConfig = {
       en: "Pages",
       vi: "Các trang",
     },
+  },
+  access: {
+    read: onlyRoles(["admin", "manager"]),
+    update: onlyRoles(["admin", "manager"]),
   },
   admin: {
     useAsTitle: "title",

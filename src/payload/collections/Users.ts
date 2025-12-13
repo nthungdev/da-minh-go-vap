@@ -1,3 +1,4 @@
+import { onlyRoles, onlySelfAndRoles } from "@/payload/utils/access-control";
 import type { CollectionConfig } from "payload";
 
 const Users: CollectionConfig = {
@@ -7,23 +8,10 @@ const Users: CollectionConfig = {
   },
   auth: true,
   access: {
-    read: ({ req }) => {
-      if (!req.user) return false;
-      return true;
-    },
-    update: ({ req, id }) => {
-      if (!req.user) return false;
-      if (req.user.role === "admin") return true;
-      // Allow users to update their own data
-      if (req.user.id === id) return true;
-      return false;
-    },
-    create: ({ req }) => {
-      return req?.user?.role === "admin";
-    },
-    delete: ({ req }) => {
-      return req?.user?.role === "admin";
-    },
+    read: onlySelfAndRoles(["admin", "manager"]),
+    update: onlySelfAndRoles(["admin", "manager"]),
+    create: onlyRoles(["admin"]),
+    delete: onlyRoles(["admin"]),
   },
   fields: [
     {
@@ -31,13 +19,13 @@ const Users: CollectionConfig = {
       type: "select",
       options: [
         { label: "Admin", value: "admin" },
+        { label: "Manager", value: "manager" },
         { label: "Editor", value: "editor" },
+        { label: "Author", value: "author" },
       ],
       required: true,
       access: {
-        update: ({ req }) => {
-          return req?.user?.role === "admin";
-        },
+        update: onlyRoles(["admin"]),
       },
     },
     {
