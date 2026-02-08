@@ -63,7 +63,7 @@ services:
     entrypoint: >
       /bin/sh -c 'while :;
       do certbot renew --deploy-hook "docker exec daminhgovap-production-nginx-1 nginx -s reload";
-      sleep 12h;
+      sleep 4h;
       done'
 
 volumes:
