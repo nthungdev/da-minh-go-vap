@@ -72,6 +72,7 @@ export interface Config {
     pages: Page;
     posts: Post;
     users: User;
+    'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -83,6 +84,7 @@ export interface Config {
     pages: PagesSelect<false> | PagesSelect<true>;
     posts: PostsSelect<false> | PostsSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
+    'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -90,6 +92,7 @@ export interface Config {
   db: {
     defaultIDType: string;
   };
+  fallbackLocale: ('false' | 'none' | 'null') | false | null | ('en' | 'vi') | ('en' | 'vi')[];
   globals: {
     navBar: NavBar;
     footer: Footer;
@@ -101,9 +104,10 @@ export interface Config {
     siteSettings: SiteSettingsSelect<false> | SiteSettingsSelect<true>;
   };
   locale: 'en' | 'vi';
-  user: User & {
-    collection: 'users';
+  widgets: {
+    collections: CollectionsWidget;
   };
+  user: User;
   jobs: {
     tasks: unknown;
     workflows: unknown;
@@ -193,20 +197,152 @@ export interface Page {
   title: string;
   main?:
     | (
-        | AccordionContentBlock
-        | BibleVerseBlock
-        | DynamicImageBlock
-        | ImageBlock
-        | LatestPostGridBlock
-        | MapBlock
-        | PostGroupBlock
-        | TabbedContentBlock
-        | TabbedPostGroupBlock
-        | TextBlock
-        | TimelineBlock
-        | VideoGridBlock
-        | SpaceBlock
-        | QuoteBlock
+        | {
+            items: {
+              title: string;
+              content: string;
+              children?:
+                | {
+                    title: string;
+                    content: string;
+                    children?:
+                      | {
+                          title: string;
+                          content: string;
+                          id?: string | null;
+                        }[]
+                      | null;
+                    id?: string | null;
+                  }[]
+                | null;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'accordionContentBlock';
+          }
+        | {
+            verse: string;
+            reference: string;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'bibleVerseBlock';
+          }
+        | {
+            desktopImage: string | Media;
+            mobileImage: string | Media;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'dynamicImageBlock';
+          }
+        | {
+            image: string | Media;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'imageBlock';
+          }
+        | {
+            /**
+             * Để cân xứng, chọn 5 nếu hiển thị trong layout 1 cột, 4 cho trong layout 2 cột.
+             */
+            postCount?: ('4' | '5') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'latestPostGridBlock';
+          }
+        | {
+            address: string;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'mapBlock';
+          }
+        | {
+            title: string;
+            hidePostTitles: boolean;
+            hiddenTags: (string | HiddenTag)[];
+            limit?: number | null;
+            viewMoreButton: {
+              enableViewMoreButton: boolean;
+            };
+            displayType: 'grid' | 'list';
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'postGroupBlock';
+          }
+        | {
+            tabs: {
+              title: string;
+              content: string;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'tabbedContentBlock';
+          }
+        | {
+            title: string;
+            viewMoreButton: {
+              enableViewMoreButton: boolean;
+              relativeUrl?: (string | null) | Page;
+            };
+            tabs?:
+              | {
+                  title: string;
+                  hiddenTags: (string | HiddenTag)[];
+                  limit: number;
+                  viewMoreButton: {
+                    enableViewMoreButton: boolean;
+                    relativeUrl?: (string | null) | Page;
+                  };
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'tabbedPostGroupBlock';
+          }
+        | {
+            content: string;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'textBlock';
+          }
+        | {
+            title: string;
+            items: {
+              title: string;
+              description?: string | null;
+              thumbnail: string | Media;
+              link?: (string | null) | Page;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'timelineBlock';
+          }
+        | {
+            videos: {
+              title: string;
+              type: 'youtube' | 'facebook';
+              url: string;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'videoGridBlock';
+          }
+        | {
+            size: number;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'spaceBlock';
+          }
+        | {
+            content: string;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'quoteBlock';
+          }
       )[]
     | null;
   banners?: (string | Media)[] | null;
@@ -218,18 +354,65 @@ export interface Page {
     | (
         | AccordionContentBlock
         | BibleVerseBlock
-        | DynamicImageBlock
-        | ImageBlock
+        | {
+            desktopImage: string | Media;
+            mobileImage: string | Media;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'dynamicImageBlock';
+          }
+        | {
+            image: string | Media;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'imageBlock';
+          }
         | LatestPostGridBlock
         | MapBlock
-        | PostGroupBlock
-        | TabbedContentBlock
+        | {
+            title: string;
+            hidePostTitles: boolean;
+            hiddenTags: (string | HiddenTag)[];
+            limit?: number | null;
+            viewMoreButton: {
+              enableViewMoreButton: boolean;
+            };
+            displayType: 'grid' | 'list';
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'postGroupBlock';
+          }
+        | {
+            tabs: {
+              title: string;
+              content: string;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'tabbedContentBlock';
+          }
         | TabbedPostGroupBlock
-        | TextBlock
+        | {
+            content: string;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'textBlock';
+          }
         | TimelineBlock
         | VideoGridBlock
-        | SpaceBlock
-        | QuoteBlock
+        | {
+            size: number;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'spaceBlock';
+          }
+        | {
+            content: string;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'quoteBlock';
+          }
       )[]
     | null;
   aside?:
@@ -300,27 +483,6 @@ export interface BibleVerseBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "DynamicImageBlock".
- */
-export interface DynamicImageBlock {
-  desktopImage: string | Media;
-  mobileImage: string | Media;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'dynamicImageBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ImageBlock".
- */
-export interface ImageBlock {
-  image: string | Media;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'imageBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "LatestPostGridBlock".
  */
 export interface LatestPostGridBlock {
@@ -341,37 +503,6 @@ export interface MapBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'mapBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "PostGroupBlock".
- */
-export interface PostGroupBlock {
-  title: string;
-  hidePostTitles: boolean;
-  hiddenTags: (string | HiddenTag)[];
-  limit?: number | null;
-  viewMoreButton: {
-    enableViewMoreButton: boolean;
-  };
-  displayType: 'grid' | 'list';
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'postGroupBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "TabbedContentBlock".
- */
-export interface TabbedContentBlock {
-  tabs: {
-    title: string;
-    content: string;
-    id?: string | null;
-  }[];
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'tabbedContentBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -398,16 +529,6 @@ export interface TabbedPostGroupBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'tabbedPostGroupBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "TextBlock".
- */
-export interface TextBlock {
-  content: string;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'textBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -443,6 +564,78 @@ export interface VideoGridBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "DynamicImageBlock".
+ */
+export interface DynamicImageBlock {
+  desktopImage: string | Media;
+  mobileImage: string | Media;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'dynamicImageBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ImageBlock".
+ */
+export interface ImageBlock {
+  image: string | Media;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'imageBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ImageSlideShowBlock".
+ */
+export interface ImageSlideShowBlock {
+  images: (string | Media)[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'imageSlideshowBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PostGroupBlock".
+ */
+export interface PostGroupBlock {
+  title: string;
+  hidePostTitles: boolean;
+  hiddenTags: (string | HiddenTag)[];
+  limit?: number | null;
+  viewMoreButton: {
+    enableViewMoreButton: boolean;
+  };
+  displayType: 'grid' | 'list';
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'postGroupBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TabbedContentBlock".
+ */
+export interface TabbedContentBlock {
+  tabs: {
+    title: string;
+    content: string;
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'tabbedContentBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TextBlock".
+ */
+export interface TextBlock {
+  content: string;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'textBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "SpaceBlock".
  */
 export interface SpaceBlock {
@@ -460,16 +653,6 @@ export interface QuoteBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'quoteBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ImageSlideShowBlock".
- */
-export interface ImageSlideShowBlock {
-  images: (string | Media)[];
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'imageSlideshowBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -565,6 +748,24 @@ export interface User {
       }[]
     | null;
   password?: string | null;
+  collection: 'users';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-kv".
+ */
+export interface PayloadKv {
+  id: string;
+  key: string;
+  data:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1041,6 +1242,14 @@ export interface UsersSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-kv_select".
+ */
+export interface PayloadKvSelect<T extends boolean = true> {
+  key?: T;
+  data?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents_select".
  */
 export interface PayloadLockedDocumentsSelect<T extends boolean = true> {
@@ -1243,6 +1452,16 @@ export interface SiteSettingsSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "collections_widget".
+ */
+export interface CollectionsWidget {
+  data?: {
+    [k: string]: unknown;
+  };
+  width: 'full';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

@@ -8,13 +8,12 @@ import { fileURLToPath } from "url";
 import sharp from "sharp";
 import { en } from "@payloadcms/translations/languages/en";
 import { vi } from "@payloadcms/translations/languages/vi";
-
+import { s3Storage } from "@payloadcms/storage-s3";
 import Users from "@/payload/collections/Users";
 import Media from "@/payload/collections/Media";
 import Posts from "@/payload/collections/posts";
 import Pages from "@/payload/collections/pages";
 import HiddenTags from "@/payload/collections/HiddenTags";
-
 import SiteSettings from "@/payload/globals/site-settings";
 import NavBar from "@/payload/globals/NavBar";
 import Footer from "@/payload/globals/Footer";
@@ -69,7 +68,20 @@ export default buildConfig({
   sharp,
   plugins: [
     payloadCloudPlugin(),
-    // storage-adapter-placeholder
+    s3Storage({
+      collections: {
+        media: true, // Apply storage to 'media' collection
+      },
+      bucket: process.env.S3_BUCKET || "",
+      config: {
+        credentials: {
+          accessKeyId: process.env.S3_ACCESS_KEY_ID || "",
+          secretAccessKey: process.env.S3_SECRET || "",
+        },
+        region: "auto", // Cloudflare R2 uses 'auto' as the region
+        endpoint: process.env.S3_ENDPOINT || "",
+      },
+    }),
   ],
   upload: {
     abortOnLimit: true,
