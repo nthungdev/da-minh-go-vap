@@ -14,18 +14,18 @@ const Media: CollectionConfig = {
   ],
   upload: {
     staticDir: "media",
-    imageSizes: [
-      {
-        width: 300,
-        height: 300,
-        name: "thumbnail-square",
-      },
-      {
-        width: 90,
-        height: 90,
-        name: "thumbnail-square-mobile",
-      },
-    ],
+    // imageSizes: [
+    //   {
+    //     width: 300,
+    //     height: 300,
+    //     name: "thumbnail-square",
+    //   },
+    //   {
+    //     width: 90,
+    //     height: 90,
+    //     name: "thumbnail-square-mobile",
+    //   },
+    // ],
   },
 };
 
