@@ -6,7 +6,7 @@ import VideoIframe from "@/components/app-video-iframe";
 import AppPostGridPaginated from "@/components/app-post-grid-async-paginated";
 import AppPage from "@/components/app-page";
 import AppMarkdown from "@/components/app-markdown";
-import { fetchPostBySlug, fetchPostsByHiddenTags } from "@/actions/post";
+import { fetchPostBySlug } from "@/actions/post";
 import { getDataOrUndefined } from "@/payload/utils/data";
 import ShareToolbar from "@/components/share-toolbar";
 import { formatDate } from "@/utils/date";
@@ -65,10 +65,6 @@ export default async function Page(props: {
   const hiddenTags = post.hiddenTags
     .filter((t) => typeof t !== "string")
     .map((t) => t.tag);
-  const { posts: relatedPosts } = await fetchPostsByHiddenTags(hiddenTags, {
-    limit: relatedPostsLimit,
-    skipSlug: post.slug,
-  });
 
   const publishedAt = formatDate(post.publishedAt);
 
@@ -98,7 +94,6 @@ export default async function Page(props: {
         <h2 className="text-2xl">Các bài liên quan</h2>
         <AppPostGridPaginated
           hiddenTags={hiddenTags}
-          posts={relatedPosts}
           skipSlug={post.slug}
           pageSize={relatedPostsLimit}
         />
