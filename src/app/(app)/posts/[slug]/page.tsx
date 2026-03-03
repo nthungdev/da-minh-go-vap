@@ -74,12 +74,6 @@ export default async function Page(props: {
     <AppPage>
       <RefreshRouteOnSave />
 
-      {video && (
-        <div className="mx-auto mb-4 max-w-[800px]">
-          <VideoIframe type={video.type} videoId={video.videoId} />
-        </div>
-      )}
-
       {!post.hideTitle && (
         <h1 className="text-3xl font-semibold">{post.title}</h1>
       )}
@@ -87,6 +81,12 @@ export default async function Page(props: {
       <p className="text-sm text-gray-500">{publishedAt}</p>
 
       <ShareToolbar className="mt-4" shareUrl={postHref} />
+
+      {video && (
+        <div className="mx-auto mt-8 max-w-[800px]">
+          <VideoIframe type={video.type} videoId={video.videoId} />
+        </div>
+      )}
 
       <AppMarkdown className="mt-8">{post.body}</AppMarkdown>
 
