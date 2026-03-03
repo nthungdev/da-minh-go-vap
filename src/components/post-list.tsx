@@ -19,7 +19,7 @@ export default function PostList({
   showShortBody,
 }: PostListProps) {
   return (
-    <ul className={twMerge(className)}>
+    <ul className={twMerge("post-list", className)}>
       {posts.map((post, index) => {
         const thumbnail = getDataOrUndefined(post.thumbnail);
         const date = post.publishedAt.toLocaleDateString("vi-VN");
@@ -39,10 +39,11 @@ export default function PostList({
               <div className="relative aspect-video w-32 md:w-40 lg:w-28">
                 {thumbnail && thumbnail.url && (
                   <Image
+                    unoptimized
                     className="object-cover"
                     src={thumbnail.url}
                     alt={post.title}
-                    sizes="120px"
+                    sizes="150px"
                     fill
                   />
                 )}

@@ -30,12 +30,13 @@ export default function ImageSlideshow({
         .map((slide, index) => (
           <div key={index} className="hs-carousel-slide">
             <Image
+              unoptimized
               className="h-full w-full object-cover"
               src={slide.url!}
               alt={slide.alt}
-              sizes="100%"
               width={0}
               height={0}
+              sizes="(max-width: 640px) 100vw, 20vw"
             />
           </div>
         ))}

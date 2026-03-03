@@ -1,8 +1,8 @@
 "use client";
 
+import type { PostParams } from "@/definitions";
 import Image from "next/image";
 import Link from "next/link";
-import type { PostParams } from "@/definitions";
 import { twMerge } from "tailwind-merge";
 
 interface AppPostGridFiveProps {
@@ -44,6 +44,7 @@ export default function AppPostGridSix({
               {typeof post.thumbnail !== "string" &&
                 typeof post.thumbnail?.url === "string" && (
                   <Image
+                    unoptimized
                     className="object-cover"
                     src={post.thumbnail.url}
                     fill

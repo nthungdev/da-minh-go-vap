@@ -17,7 +17,7 @@ export default function AppPostGrid({
   return (
     <ul
       className={twMerge(
-        `relative grid grid-flow-row gap-4 md:grid-cols-2 lg:grid-cols-4`,
+        "app-post-grid relative grid grid-flow-row gap-4 md:grid-cols-2 lg:grid-cols-4",
         className,
       )}
     >
@@ -35,10 +35,11 @@ export default function AppPostGrid({
               {typeof post.thumbnail !== "string" &&
                 typeof post.thumbnail.url === "string" && (
                   <Image
+                    unoptimized
                     className="object-cover"
                     src={post.thumbnail.url}
                     fill
-                    sizes="100%"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
                     alt={`${post.title}'s thumbnail`}
                   />
                 )}

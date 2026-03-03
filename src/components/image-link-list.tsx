@@ -32,6 +32,7 @@ export default function ImageLinkList({
                   src={link.image.url}
                   alt={link.image.alt}
                   fill
+                  sizes="(max-width: 640px) 100vw, 20vw"
                 />
               )}
             </Link>

@@ -75,6 +75,7 @@ const SearchModal = forwardRef<HTMLDivElement, SearchModalProps>(
                     <div className="pointer-events-none absolute inset-y-0 start-0 z-20 flex items-center ps-3.5">
                       {/* <SearchIcon className="shrink-0 size-4 text-gray-400" /> */}
                       <Image
+                        unoptimized
                         src={SearchIcon}
                         alt=""
                         className="size-4 shrink-0 text-gray-400"
@@ -228,6 +229,7 @@ export default function AppPostSearchButton({ id }: { id: string }) {
         onClick={openSearchModal}
       >
         <Image
+          unoptimized
           src={SearchIcon}
           alt=""
           className="size-4 shrink-0 text-gray-400"

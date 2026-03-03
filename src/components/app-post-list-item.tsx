@@ -14,17 +14,21 @@ export default function AppPostListItem(props: AppPostListItemProps) {
   return (
     <Link
       href={`/posts/${post.slug}`}
-      className={twMerge("@container block h-full w-full", className)}
+      className={twMerge(
+        "app-post-list-item @container block h-full w-full",
+        className,
+      )}
     >
       <div className="flex aspect-[3.5] h-full w-full flex-row gap-x-2 overflow-hidden hover:cursor-pointer hover:ring-2">
         <div className="relative aspect-video h-full w-auto overflow-hidden bg-gray-300">
           {typeof post.thumbnail !== "string" &&
             typeof post.thumbnail?.url === "string" && (
               <Image
+                unoptimized
                 src={post.thumbnail.url}
                 alt={post.title}
                 fill
-                sizes="100%"
+                sizes="(max-width: 640px) 33vw, 10vw"
                 className="object-cover"
               />
             )}
