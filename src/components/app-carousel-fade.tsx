@@ -1,13 +1,6 @@
 "use client";
 
-import {
-  Children,
-  HTMLAttributes,
-  ReactNode,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { HTMLAttributes, ReactNode, useEffect, useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
 
 interface AppCarouselFadeProps<T> extends HTMLAttributes<HTMLElement> {
@@ -63,19 +56,19 @@ export default function AppCarouselFade<T>({
 
   return (
     <div
+      {...props}
       id={id}
       className={twMerge(
         "relative aspect-[4/1.2] w-full overflow-hidden",
         className,
       )}
-      {...props}
     >
       <ul className="relative size-full">
         {items.map((item, index) => (
           <li
             key={index}
             className={twMerge(
-              "pointer-events-none absolute top-0 left-0 size-full opacity-0 transition-opacity duration-700 ease-in-out",
+              "pointer-events-none absolute top-0 left-0 size-full opacity-0 transition-opacity duration-[2s] ease-in-out",
               currentIndex === index && "opacity-100",
             )}
           >
