@@ -3,6 +3,7 @@ import config from "@payload-config";
 import { getPayload } from "payload";
 import { NavBar } from "@/payload-types";
 import { Locale } from "@/i18n/config";
+import { cache } from "react";
 
 export interface MenuItem {
   href: string;
@@ -24,7 +25,7 @@ function getMenuItemLink(menuItem: NavBar["menu"][number]) {
   }
 }
 
-export async function getMenu(locale?: Locale) {
+export const getMenu = cache(async (locale?: Locale) => {
   const payload = await getPayload({ config });
   const navBar = await payload.findGlobal({ slug: "navBar", locale });
   const menu: MenuItem[] = navBar.menu.map((menuItem) => ({
@@ -46,7 +47,7 @@ export async function getMenu(locale?: Locale) {
     })),
   }));
   return menu;
-}
+});
 
 function normalizeMenuName(name: string) {
   return normalizeText(name).replaceAll(" ", "-");

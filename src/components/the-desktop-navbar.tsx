@@ -1,22 +1,18 @@
-import Link from "next/link";
-import Image from "next/image";
-import { MenuItem } from "@/utils/menu";
-import AppPostSearchButton from "./app-post-search-button";
-import { HTMLAttributes } from "react";
-import { Media } from "@/payload-types";
-import { twMerge } from "tailwind-merge";
 import LocaleSwitcher from "@/components/locale-switcher";
+import { getLogo } from "@/payload/utils/site-settings-server";
+import { getMenu } from "@/utils/menu";
+import { getLocale } from "next-intl/server";
+import Image from "next/image";
+import Link from "next/link";
+import { twMerge } from "tailwind-merge";
+import AppPostSearchButton from "./app-post-search-button";
 
-interface TheDesktopNavbarProps extends HTMLAttributes<HTMLElement> {
-  menu: MenuItem[];
-  logo?: Media;
-}
+export default async function TheDesktopNavbar(
+  props: React.HTMLAttributes<HTMLElement>,
+) {
+  const locale = await getLocale();
+  const [menu, logo] = await Promise.all([getMenu(locale), getLogo()]);
 
-export default async function TheDesktopNavbar({
-  logo,
-  menu,
-  ...props
-}: TheDesktopNavbarProps) {
   return (
     <nav
       className={twMerge(
