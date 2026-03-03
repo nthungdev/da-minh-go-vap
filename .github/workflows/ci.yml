@@ -85,6 +85,10 @@ jobs:
       AUTH_USER: user
       AUTH_PASSWORD: password
       NEXT_PUBLIC_BASE_URL: http://localhost:3000
+      S3_BUCKET: ${{ secrets.S3_BUCKET }}
+      S3_ACCESS_KEY_ID: ${{ secrets.S3_ACCESS_KEY_ID }}
+      S3_SECRET: ${{ secrets.S3_SECRET }}
+      S3_ENDPOINT: ${{ secrets.S3_ENDPOINT }}
 
     steps:
       - name: Checkout code
@@ -102,14 +106,5 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Generate Payload types
-        run: pnpm generate
-
-      - name: Build in compile mode
-        run: pnpm build:compile
-
-      - name: Build in generate env mode
-        run: pnpm build:generate-env
-
-      - name: Build in generate mode
-        run: pnpm build:generate
+      - name: Build
+        run: pnpm build

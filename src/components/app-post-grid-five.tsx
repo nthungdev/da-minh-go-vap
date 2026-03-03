@@ -1,6 +1,7 @@
 "use client";
 
 import type { PostParams } from "@/definitions";
+import { transformUrl } from "@/utils/cloudflare";
 import Image from "next/image";
 import Link from "next/link";
 import { twMerge } from "tailwind-merge";
@@ -46,7 +47,7 @@ export default function AppPostGridSix({
                   <Image
                     unoptimized
                     className="object-cover"
-                    src={post.thumbnail.url}
+                    src={transformUrl(post.thumbnail.url)}
                     fill
                     sizes="100%"
                     alt={`${post.title}'s thumbnail`}

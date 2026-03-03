@@ -1,4 +1,5 @@
 import { AppPost } from "@/definitions";
+import { transformUrl } from "@/utils/cloudflare";
 import Image from "next/image";
 import Link from "next/link";
 import { HTMLAttributes } from "react";
@@ -37,7 +38,7 @@ export default function AppPostGrid({
                   <Image
                     unoptimized
                     className="object-cover"
-                    src={post.thumbnail.url}
+                    src={transformUrl(post.thumbnail.url)}
                     fill
                     sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
                     alt={`${post.title}'s thumbnail`}
