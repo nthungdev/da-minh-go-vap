@@ -65,8 +65,6 @@ export default function AppBanners(props: AppBannersProps) {
               src={item.url!}
               alt={item.alt}
               sizes="100vw"
-              width={0}
-              height={0}
             />
           )}
         </div>
