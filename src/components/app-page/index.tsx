@@ -58,6 +58,8 @@ export default async function AppPage({
                 alt=""
                 width={0}
                 height={0}
+                priority
+                sizes="100vw"
               />
             )}
           </picture>

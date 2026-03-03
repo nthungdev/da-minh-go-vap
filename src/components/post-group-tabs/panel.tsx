@@ -76,7 +76,7 @@ export default function PostGroupTabsPanel({
                 className="object-cover"
                 src={firstPostThumbnail.url}
                 alt={firstPost.title}
-                sizes="50vw"
+                sizes="(max-width: 768px) 100vw, 66vw"
                 fill
               />
             ) : (

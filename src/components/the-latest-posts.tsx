@@ -1,18 +1,18 @@
 "use client";
 
-import Image from "next/image";
 import { fetchAllPosts } from "@/actions/post";
-import { twMerge } from "tailwind-merge";
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import AppCarousel from "@/components/app-carousel";
+import PostList from "@/components/post-list";
 import Spinner from "@/components/spinner";
-import { useLocale } from "next-intl";
 import { Locale } from "@/i18n/config";
 import { getDataOrUndefined } from "@/payload/utils/data";
-import AppCarousel from "@/components/app-carousel";
-import { useState } from "react";
-import PostList from "@/components/post-list";
 import { createRandomAlphaString } from "@/utils/common";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { useLocale } from "next-intl";
+import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
+import { twMerge } from "tailwind-merge";
 
 const TRANSITION_DURATION = 4000;
 
@@ -85,10 +85,11 @@ export default function TheLatestPosts({
                 >
                   {thumbnail && thumbnail.url ? (
                     <Image
+                      unoptimized
                       className="object-cover"
                       src={thumbnail.url}
                       alt={post.title}
-                      sizes="90vw"
+                      sizes="(max-width: 768px) 100vw, 66vw"
                       fill
                     />
                   ) : (

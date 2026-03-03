@@ -22,7 +22,7 @@ export default function AppTimelineCards({
   title,
 }: AppTimelineCardsProps) {
   return (
-    <div className={`space-y-12 ${className}`}>
+    <div className={twMerge("space-y-12", className)}>
       {title && (
         <AppSectionHeader className="text-2xl">{title}</AppSectionHeader>
       )}
@@ -48,6 +48,7 @@ export default function AppTimelineCards({
                       alt={card.thumbnail.alt}
                       className="w-full rounded-lg object-cover"
                       fill
+                      sizes="(max-width: 640px) 100vw, 50vw"
                     />
                   )}
               </div>
@@ -72,6 +73,7 @@ export default function AppTimelineCards({
                       alt={card.thumbnail.alt}
                       className="w-full rounded-lg object-cover"
                       fill
+                      sizes="(max-width: 640px) 100vw, 50vw"
                     />
                   )}
               </div>

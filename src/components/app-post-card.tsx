@@ -24,10 +24,11 @@ export default function AppPostCard(props: AppPostCardProps) {
         {typeof post.thumbnail !== "string" &&
           typeof post.thumbnail.url === "string" && (
             <Image
+              unoptimized
               src={post.thumbnail.url}
               alt={post.title}
               fill
-              sizes="100%"
+              sizes="(max-width: 640px) 100vw, 33vw"
               className="object-cover"
             />
           )}

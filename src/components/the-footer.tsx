@@ -38,7 +38,7 @@ export default async function TheFooter() {
             className="pointer-events-none z-0 w-full select-none"
             height={229}
             width={991}
-            sizes="100%"
+            sizes="100vw"
           />
         )}
 
