@@ -85,7 +85,7 @@ export default buildConfig({
   ],
   upload: {
     abortOnLimit: true,
-    responseOnLimit: "File không được vượt quá 10MB.",
+    responseOnLimit: "File không được vượt quá 100MB.",
     limits: {
       // Make sure to also update the client_max_body_size in nginx.conf if you change this
       fileSize: 100 * 1024 * 1024, // 100 MB
