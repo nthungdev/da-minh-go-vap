@@ -79,11 +79,9 @@ export default async function Page(props: {
       <RefreshRouteOnSave />
 
       {video && (
-        <VideoIframe
-          className="mb-4"
-          type={video.type}
-          videoId={video.videoId}
-        />
+        <div className="mx-auto mb-4 max-w-[800px]">
+          <VideoIframe type={video.type} videoId={video.videoId} />
+        </div>
       )}
 
       {!post.hideTitle && (
