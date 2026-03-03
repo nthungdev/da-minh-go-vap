@@ -16,7 +16,6 @@ const Media: CollectionConfig = {
   upload: {
     staticDir: "media",
     adminThumbnail: ({ doc }) => {
-      console.log({ doc });
       return transformUrl(doc.filename as string, { width: "80" });
     },
   },
