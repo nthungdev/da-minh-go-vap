@@ -1,16 +1,13 @@
 "use client";
 
 import { fetchPostsByHiddenTags } from "@/actions/post";
-import { useQuery } from "@tanstack/react-query";
-import Image from "next/image";
-import Link from "next/link";
-import AppViewMoreLink from "./app-view-more-link";
-import AppPostGridSkeleton from "./app-post-grid-skeleton";
-import { AppPost } from "@/definitions";
 import AppGridHeader from "@/components/app-grid-header";
-import { useLocale } from "next-intl";
-import { twMerge } from "tailwind-merge";
 import AppPostGrid from "@/components/app-post-grid";
+import { AppPost } from "@/definitions";
+import { useQuery } from "@tanstack/react-query";
+import { useLocale } from "next-intl";
+import AppPostGridSkeleton from "./app-post-grid-skeleton";
+import AppViewMoreLink from "./app-view-more-link";
 
 interface AppPostGridProps {
   hiddenTags: string[];
@@ -29,25 +26,26 @@ export default function AppPostGridAsync({
   posts: initialPosts,
   showViewMore,
   hidePostTitles,
-  className,
 }: AppPostGridProps) {
   const locale = useLocale();
-  const { data, error, isPending } = useQuery({
+  const { data, error, isPending, isLoading } = useQuery({
     queryKey: ["fetchPostsByHiddenTags", hiddenTags, locale],
     queryFn: () =>
       fetchPostsByHiddenTags(hiddenTags, {
         locale,
         limit,
       }),
-    initialData: {
-      posts: initialPosts || [],
-      hasMore: false,
-      page: 1,
-      totalPages: 1,
-    },
+    initialData: initialPosts
+      ? {
+          posts: initialPosts,
+          hasMore: false,
+          page: 1,
+          totalPages: 1,
+        }
+      : undefined,
   });
 
-  if (isPending) return <AppPostGridSkeleton count={limit} />;
+  if (isPending || isLoading) return <AppPostGridSkeleton count={limit} />;
 
   if (error) return <p>Error: {error.message}</p>;
 

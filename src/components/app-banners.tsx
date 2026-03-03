@@ -45,10 +45,10 @@ export default function AppBanners(props: AppBannersProps) {
       className={className}
       items={banners}
       render={(item, index) => (
-        <div key={index} className="">
+        <div key={index}>
           {isVideoUrl(item.url!) ? (
             <AppBannerVideo
-              className="h-full w-full object-cover"
+              className="size-full object-cover"
               src={item.url!}
               autoPlay
               crossOrigin="anonymous"
@@ -60,12 +60,11 @@ export default function AppBanners(props: AppBannersProps) {
             />
           ) : (
             <Image
-              unoptimized
               priority
-              className="h-full w-full object-cover"
+              className="size-full object-cover"
               src={item.url!}
               alt={item.alt}
-              sizes="100%"
+              sizes="100vw"
               width={0}
               height={0}
             />
