@@ -4,6 +4,7 @@ import Image from "next/image";
 import AppCarousel from "@/components/app-carousel";
 import { twMerge } from "tailwind-merge";
 import { Media } from "@/payload-types";
+import { transformUrl } from "@/utils/cloudflare";
 
 interface ImageSlideshowProps extends React.HTMLAttributes<HTMLDivElement> {
   id: string;
@@ -32,7 +33,7 @@ export default function ImageSlideshow({
             <Image
               unoptimized
               className="h-full w-full object-cover"
-              src={slide.url!}
+              src={transformUrl(slide.url!)}
               alt={slide.alt}
               width={0}
               height={0}

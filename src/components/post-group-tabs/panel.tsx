@@ -13,6 +13,7 @@ import { useLocale } from "next-intl";
 import PostList from "@/components/post-list";
 import Image from "next/image";
 import Link from "next/link";
+import { transformUrl } from "@/utils/cloudflare";
 
 const POST_COUNT = 6;
 
@@ -74,7 +75,7 @@ export default function PostGroupTabsPanel({
             {firstPostThumbnail && firstPostThumbnail.url ? (
               <Image
                 className="object-cover"
-                src={firstPostThumbnail.url}
+                src={transformUrl(firstPostThumbnail.url)}
                 alt={firstPost.title}
                 sizes="(max-width: 768px) 100vw, 66vw"
                 fill

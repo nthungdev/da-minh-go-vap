@@ -1,6 +1,7 @@
 import AppMarkdown from "@/components/app-markdown";
 import AppSectionHeader from "@/components/app-section-header";
 import { Media } from "@/payload-types";
+import { transformUrl } from "@/utils/cloudflare";
 import Image from "next/image";
 import Link from "next/link";
 import { twMerge } from "tailwind-merge";
@@ -44,7 +45,7 @@ export default function AppTimelineCards({
                 {typeof card.thumbnail !== "string" &&
                   typeof card.thumbnail.url === "string" && (
                     <Image
-                      src={card.thumbnail.url}
+                      src={transformUrl(card.thumbnail.url)}
                       alt={card.thumbnail.alt}
                       className="w-full rounded-lg object-cover"
                       fill

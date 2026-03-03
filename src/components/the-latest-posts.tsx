@@ -6,6 +6,7 @@ import PostList from "@/components/post-list";
 import Spinner from "@/components/spinner";
 import { Locale } from "@/i18n/config";
 import { getDataOrUndefined } from "@/payload/utils/data";
+import { transformUrl } from "@/utils/cloudflare";
 import { createRandomAlphaString } from "@/utils/common";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useLocale } from "next-intl";
@@ -87,7 +88,7 @@ export default function TheLatestPosts({
                     <Image
                       unoptimized
                       className="object-cover"
-                      src={thumbnail.url}
+                      src={transformUrl(thumbnail.url, { width: "1000" })}
                       alt={post.title}
                       sizes="(max-width: 768px) 100vw, 66vw"
                       fill

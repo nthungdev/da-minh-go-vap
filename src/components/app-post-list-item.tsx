@@ -1,4 +1,5 @@
 import { AppPost } from "@/definitions";
+import { transformUrl } from "@/utils/cloudflare";
 import Image from "next/image";
 import Link from "next/link";
 import { twMerge } from "tailwind-merge";
@@ -25,7 +26,7 @@ export default function AppPostListItem(props: AppPostListItemProps) {
             typeof post.thumbnail?.url === "string" && (
               <Image
                 unoptimized
-                src={post.thumbnail.url}
+                src={transformUrl(post.thumbnail.url)}
                 alt={post.title}
                 fill
                 sizes="(max-width: 640px) 33vw, 10vw"

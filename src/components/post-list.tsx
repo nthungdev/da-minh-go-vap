@@ -1,5 +1,6 @@
 import { AppPost } from "@/definitions";
 import { getDataOrUndefined } from "@/payload/utils/data";
+import { transformUrl } from "@/utils/cloudflare";
 import Image from "next/image";
 import Link from "next/link";
 import { twMerge } from "tailwind-merge";
@@ -41,7 +42,7 @@ export default function PostList({
                   <Image
                     unoptimized
                     className="object-cover"
-                    src={thumbnail.url}
+                    src={transformUrl(thumbnail.url)}
                     alt={post.title}
                     sizes="150px"
                     fill
