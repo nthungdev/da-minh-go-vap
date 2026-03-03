@@ -61,6 +61,7 @@ export default function AppBanners(props: AppBannersProps) {
           ) : (
             <Image
               unoptimized
+              priority
               className="h-full w-full object-cover"
               src={item.url!}
               alt={item.alt}
