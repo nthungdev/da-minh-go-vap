@@ -1,3 +1,4 @@
+import { transformUrl } from "@/utils/cloudflare";
 import type { CollectionConfig } from "payload";
 
 const Media: CollectionConfig = {
@@ -14,18 +15,10 @@ const Media: CollectionConfig = {
   ],
   upload: {
     staticDir: "media",
-    // imageSizes: [
-    //   {
-    //     width: 300,
-    //     height: 300,
-    //     name: "thumbnail-square",
-    //   },
-    //   {
-    //     width: 90,
-    //     height: 90,
-    //     name: "thumbnail-square-mobile",
-    //   },
-    // ],
+    adminThumbnail: ({ doc }) => {
+      console.log({ doc });
+      return transformUrl(doc.filename as string, { width: "80" });
+    },
   },
 };
 
