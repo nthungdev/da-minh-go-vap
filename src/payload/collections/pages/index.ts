@@ -68,6 +68,7 @@ const Pages: CollectionConfig = {
           label: "Đường dẫn",
           required: true,
           unique: true,
+          index: true,
           admin: {
             description:
               'Đường dẫn sẽ được sử dụng để truy cập trang này. Luôn bắt đầu bằng "/". Ví dụ: "/gioi-thieu".',

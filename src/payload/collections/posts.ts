@@ -163,6 +163,7 @@ const Posts: CollectionConfig = {
           required: true,
           hasMany: false,
           unique: true,
+          index: true,
           validate: validateSlug,
           admin: {
             description:
