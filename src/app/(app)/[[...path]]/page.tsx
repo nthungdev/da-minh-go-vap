@@ -38,6 +38,8 @@ export async function generateMetadata(
   };
 }
 
+export const revalidate = 60 * 60; // revalidate every hour
+
 export async function generateStaticParams() {
   const payload = await getPayload({ config });
   const pages = await payload.find({ collection: "pages", limit: 1000 });
