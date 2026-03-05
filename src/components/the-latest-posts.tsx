@@ -86,9 +86,14 @@ export default function TheLatestPosts({
                 >
                   {thumbnail && thumbnail.url ? (
                     <Image
-                      unoptimized
                       className="object-cover"
-                      src={transformUrl(thumbnail.url, { width: "1000" })}
+                      src={thumbnail.url}
+                      loader={({ src, width }) => {
+                        const transformWidth = width < 1000 ? 1000 : 600;
+                        return transformUrl(src, {
+                          width: String(transformWidth),
+                        });
+                      }}
                       alt={post.title}
                       sizes="(max-width: 768px) 100vw, 66vw"
                       fill
