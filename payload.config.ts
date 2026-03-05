@@ -116,14 +116,28 @@ async function createDefaultAdmin(payload: Payload) {
 
   console.log("Creating default admin user...");
 
-  await payload.create({
-    collection: "users",
-    data: {
-      email: adminEmail,
-      password: adminPassword,
-      role: "admin",
-    },
-  });
+  try {
+    await payload.create({
+      collection: "users",
+      data: {
+        email: adminEmail,
+        password: adminPassword,
+        role: "admin",
+      },
+    });
+  } catch (error: any) {
+    if (error instanceof Error) {
+      console.error("Error creating default admin user:", error.message);
+    } else if (
+      error?.data?.errors?.some((e: any) =>
+        e?.message.includes("Value must be unique"),
+      )
+    ) {
+      console.warn(
+        "Admin user already exists from a race condition, skipping creation.",
+      );
+    }
+  }
 
   console.log("Default admin user created");
 }
