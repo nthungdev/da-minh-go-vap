@@ -49,7 +49,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   };
 }
 
-export const revalidate = 3600; // revalidate every hour
+// export const revalidate = 3600; // revalidate every hour
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config });
