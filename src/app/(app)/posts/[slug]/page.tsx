@@ -11,6 +11,8 @@ import { getDataOrUndefined } from "@/payload/utils/data";
 import ShareToolbar from "@/components/share-toolbar";
 import { formatDate } from "@/utils/date";
 import { basicAuthGuard } from "@/utils/auth";
+import { getPayload } from "payload";
+import config from "@payload-config";
 
 const relatedPostsLimit = 12;
 
@@ -45,6 +47,17 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
         : undefined,
     },
   };
+}
+
+export const revalidate = 3600; // revalidate every hour
+
+export async function generateStaticParams() {
+  const payload = await getPayload({ config });
+  const pages = await payload.find({ collection: "posts", limit: 1000 });
+  const params = pages.docs.map((page) => ({
+    slug: page.slug,
+  }));
+  return params;
 }
 
 export default async function Page(props: {

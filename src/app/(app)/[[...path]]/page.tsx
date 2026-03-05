@@ -38,7 +38,7 @@ export async function generateMetadata(
   };
 }
 
-export const revalidate = 60 * 60; // revalidate every hour
+export const revalidate = 3600; // revalidate every hour
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config });
