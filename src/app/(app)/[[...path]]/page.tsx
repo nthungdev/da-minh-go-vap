@@ -40,7 +40,7 @@ export async function generateMetadata(
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config });
-  const pages = await payload.find({ collection: "pages" });
+  const pages = await payload.find({ collection: "pages", limit: 1000 });
   const params = pages.docs.map((page) => ({
     // skip the leading slash
     path: page.path.substring(1).split("/"),
