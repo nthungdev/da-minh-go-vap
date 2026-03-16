@@ -8,7 +8,11 @@ export function transformUrl(
 ) {
   const filename = url.split("/").pop();
 
-  const optionsString = Object.entries(options)
+  const optionsString = Object.entries({
+    ...options,
+    // redirects to unresized image when resize fails
+    onerror: "redirect",
+  })
     .map(([key, value]) => `${key}=${value}`)
     .join(",");
 
