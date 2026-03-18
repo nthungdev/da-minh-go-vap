@@ -63,8 +63,8 @@ export async function generateStaticParams() {
 export default async function Page(props: {
   params: Promise<{ slug: string }>;
 }) {
-  const locale = await getLocale();
-  const params = await props.params;
+  const [locale, params] = await Promise.all([getLocale(), props.params]);
+
   const decodedSlug = decodeURIComponent(params.slug);
   const post = await fetchPostBySlug(decodedSlug, { locale });
 
