@@ -119,7 +119,7 @@ function PostGroupTabPanelSkeleton({
           <p className="line-clamp-3 h-20 bg-gray-200"></p>
         </div>
         <div className="flex-1 space-y-2">
-          {[...Array(6)].map((_, index) => (
+          {[...Array(5)].map((_, index) => (
             <div
               key={index}
               className="flex w-full flex-row gap-x-3 bg-gray-200"
