@@ -36,7 +36,11 @@ export default function PostList({
                 "transition-transform ease-in hover:scale-x-[103%] lg:hover:scale-x-105",
             )}
           >
-            <Link href={href} className="flex flex-row items-start gap-x-3">
+            <Link
+              prefetch={false}
+              href={href}
+              className="flex flex-row items-start gap-x-3"
+            >
               <div className="relative aspect-video w-32 md:w-40 lg:w-28">
                 {thumbnail && thumbnail.url && (
                   <Image

@@ -29,6 +29,7 @@ export default function AppPostGrid({
           key={index}
         >
           <Link
+            prefetch={false}
             href={`/posts/${post.slug}`}
             className="block size-full overflow-hidden border border-gray-300"
           >
