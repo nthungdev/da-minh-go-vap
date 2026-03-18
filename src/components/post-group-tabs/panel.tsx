@@ -43,15 +43,16 @@ export default function PostGroupTabsPanel({
 
   if (isPending) {
     return (
-      <div className="flex aspect-video items-center justify-center">
-        <Spinner />
-      </div>
+      <PostGroupTabPanelSkeleton
+        viewMoreButtonEnable={viewMoreButton?.enable || true}
+        {...props}
+      />
     );
   }
 
   if (error) {
     // TODO prettier error
-    return <div>Error</div>;
+    return <div {...props}>Error</div>;
   }
 
   const page = getDataOrUndefined<Page>(viewMoreButton?.relativeUrl);
@@ -69,8 +70,8 @@ export default function PostGroupTabsPanel({
 
   return (
     <div className={twMerge(className)} {...props}>
-      <div className="flex flex-col gap-x-4 lg:flex-row lg:p-1">
-        <Link href={firstPostHref} className="block space-y-2 lg:w-3/5 lg:p-2">
+      <div className="flex flex-col gap-x-4 lg:flex-row lg:p-3">
+        <Link href={firstPostHref} className="block space-y-2 lg:w-3/5">
           <div className="relative aspect-video w-full">
             {firstPostThumbnail && firstPostThumbnail.url ? (
               <Image
@@ -96,6 +97,41 @@ export default function PostGroupTabsPanel({
         <div className="flex flex-row justify-end">
           <AppViewMoreLink href={viewMoreHref} />
         </div>
+      )}
+    </div>
+  );
+}
+
+function PostGroupTabPanelSkeleton({
+  viewMoreButtonEnable,
+  className,
+  ...props
+}: {
+  viewMoreButtonEnable: boolean;
+} & React.HTMLAttributes<HTMLDivElement>) {
+  return (
+    <div className={twMerge("animate-pulse", className)} {...props}>
+      <div className="flex flex-col gap-x-4 lg:flex-row lg:p-3">
+        <div className="block space-y-2 gap-y-2 lg:w-3/5">
+          <div className="relative aspect-video w-full bg-gray-200"></div>
+          <div className="h-6 bg-gray-200 text-sm font-semibold"></div>
+          <div className="h-6 bg-gray-200 text-lg font-bold"></div>
+          <p className="line-clamp-3 h-20 bg-gray-200"></p>
+        </div>
+        <div className="flex-1 space-y-2">
+          {[...Array(6)].map((_, index) => (
+            <div
+              key={index}
+              className="flex w-full flex-row gap-x-3 bg-gray-200"
+            >
+              <div className="aspect-video w-32 bg-gray-200 md:w-40 lg:w-28"></div>
+              <div className="flex-1 bg-gray-200"></div>
+            </div>
+          ))}
+        </div>
+      </div>
+      {viewMoreButtonEnable && (
+        <div className="mx-3 flex h-8 bg-gray-200"></div>
       )}
     </div>
   );

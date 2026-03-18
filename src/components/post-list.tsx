@@ -20,7 +20,7 @@ export default function PostList({
   showShortBody,
 }: PostListProps) {
   return (
-    <ul className={twMerge("post-list", className)}>
+    <ul className={twMerge("post-list space-y-2", className)}>
       {posts.map((post, index) => {
         const thumbnail = getDataOrUndefined(post.thumbnail);
         const date = post.publishedAt.toLocaleDateString("vi-VN");
@@ -30,7 +30,7 @@ export default function PostList({
           <li
             key={index}
             className={twMerge(
-              "border-b-2 border-gray-200 py-2 last:border-0 hover:cursor-pointer",
+              "border-b-2 border-gray-200 last:border-0 hover:cursor-pointer",
               index === activeIndex && "bg-gray-200",
               effectOnHover &&
                 "transition-transform ease-in hover:scale-x-[103%] lg:hover:scale-x-105",
