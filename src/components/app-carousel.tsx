@@ -37,6 +37,19 @@ export default function AppCarousel({
     }
   }
 
+  // For some reason, need to create the carousel object for it to be rendered
+  useEffect(function initCarousel() {
+    (async () => {
+      const carouselElement = document.querySelector<HTMLElement>(`#${id}`);
+      if (!carouselElement) {
+        console.warn("Carousel element not found");
+        return;
+      }
+      const { HSCarousel } = await import("preline/preline");
+      new HSCarousel(carouselElement, { currentIndex });
+    })();
+  }, []);
+
   useEffect(() => {
     resetTimeout();
 

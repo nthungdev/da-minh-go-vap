@@ -89,7 +89,7 @@ function PostGroupTabs({
               role="tab"
               aria-selected={currentIndex === index}
               aria-controls={`group-${id}-${index}`}
-              id={`tab-${index}`}
+              id={`tab-${id}-${index}`}
               tab-index={currentIndex === index ? 0 : 1}
             >
               {index !== 0 && <div className="border-l"></div>}
@@ -116,7 +116,7 @@ function PostGroupTabs({
             viewMoreButton={g.viewMoreButton}
             role="tabpanel"
             tab-index="0"
-            aria-labelledby={`group-${index}`}
+            aria-labelledby={`tab-${id}-${index}`}
             hidden={currentIndex !== index}
           />
         ))}

@@ -23,7 +23,11 @@ export function verifyHttpBasicAuth(authorizationHeader: string) {
 
 /** Redirect to /auth/basic route if authentication is required */
 export async function basicAuthGuard() {
-  const requestHeaders = await headers();
+  const [requestHeaders, cookieStore] = await Promise.all([
+    headers(),
+    cookies(),
+  ]);
+
   const href = requestHeaders.get("x-href");
 
   if (!href) {
@@ -31,8 +35,7 @@ export async function basicAuthGuard() {
     throw new Error("Something went wrong");
   }
 
-  const c = await cookies();
-  const isAuthorized = c.get("x-site-auth")?.value === "true";
+  const isAuthorized = cookieStore.get("x-site-auth")?.value === "true";
 
   if (!isAuthorized) {
     // redirects to auth basic page to enter credentials
