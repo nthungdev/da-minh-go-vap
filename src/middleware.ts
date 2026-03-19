@@ -57,14 +57,16 @@ async function basicAuthCheck(request: NextRequest) {
         path: "/",
       });
       return next;
-    } else if (!passBasicAuth && ENFORCE_BASIC_AUTH) {
-      return new NextResponse("Authentication required", {
-        status: 401,
-        headers: {
-          "WWW-Authenticate": 'Basic realm="Secure Area"',
-        },
-      });
     }
+  }
+
+  if ((ENFORCE_BASIC_AUTH || isAuthBasicRoute) && !passBasicAuth) {
+    return new NextResponse("Authentication required", {
+      status: 401,
+      headers: {
+        "WWW-Authenticate": 'Basic realm="Secure Area"',
+      },
+    });
   }
 
   return null;
