@@ -8,7 +8,6 @@ import { getDataOrUndefined } from "@/payload/utils/data";
 import { fetchPostsByHiddenTags } from "@/actions/post";
 import { useQuery } from "@tanstack/react-query";
 import { makePostsPath } from "@/utils/post";
-import Spinner from "@/components/spinner";
 import { useLocale } from "next-intl";
 import PostList from "@/components/post-list";
 import Image from "next/image";
