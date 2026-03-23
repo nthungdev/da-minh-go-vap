@@ -1,3 +1,6 @@
+"use client";
+
+import { HTMLProps, useEffect } from "react";
 import AppMarkdown from "./app-markdown";
 import { twMerge } from "tailwind-merge";
 
@@ -95,18 +98,26 @@ export interface AppAccordionItem {
   }[];
 }
 
-interface AppAccordionRootProps {
-  children?: React.ReactNode;
+interface AppAccordionRootProps extends HTMLProps<"div"> {
   items: AppAccordionItem[];
   alwaysOpen?: boolean;
   itemRender: (item: AppAccordionItem, index: number) => React.ReactNode;
 }
 
 function AppAccordionRoot(props: AppAccordionRootProps) {
-  const { children, items, alwaysOpen, itemRender } = props;
+  const { id, children, items, alwaysOpen, itemRender } = props;
+
+  useEffect(() => {
+    async function initAccordion() {
+      const { HSAccordion } = await import("preline/preline");
+      HSAccordion.autoInit();
+    }
+    initAccordion();
+  }, []);
 
   return (
     <div
+      id={id}
       className="hs-accordion-group space-y-4"
       data-hs-accordion-always-open={alwaysOpen}
     >
@@ -170,13 +181,15 @@ const AppAccordion = {
 interface AppAccordionDefaultProps {
   items: AppAccordionItem[];
   alwaysOpen?: boolean;
+  id?: string;
 }
 
 function AppAccordionDefault(props: AppAccordionDefaultProps) {
-  const { items, alwaysOpen } = props;
+  const { id, items, alwaysOpen } = props;
 
   return (
     <AppAccordionRoot
+      id={id}
       itemRender={defaultItemRender(alwaysOpen)}
       items={items}
       alwaysOpen={true}

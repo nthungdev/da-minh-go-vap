@@ -49,6 +49,7 @@ type BlockToPropsMap = {
 
 const mapBlockToProps: BlockToPropsMap = {
   accordionContentBlock: (block) => ({
+    id: createRandomAlphaString(4),
     items: block.items.map((item) => ({
       title: item.title,
       body: item.content,
