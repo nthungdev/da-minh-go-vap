@@ -39,11 +39,14 @@ importers:
       '@payloadcms/ui':
         specifier: ~3.78.0
         version: 3.78.0(@types/react@19.1.12)(monaco-editor@0.52.2)(next@15.4.11(@babel/core@7.27.4)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(sass@1.77.4))(payload@3.78.0(graphql@16.11.0)(typescript@5.8.3))(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(typescript@5.8.3)
+      '@preline/accordion':
+        specifier: ~3.2.3
+        version: 3.2.3
       '@preline/carousel':
-        specifier: ^3.2.3
+        specifier: ~3.2.3
         version: 3.2.3
       '@preline/dropdown':
-        specifier: ^3.2.3
+        specifier: ~3.2.3
         version: 3.2.3
       '@tailwindcss/container-queries':
         specifier: ^0.1.1
@@ -79,7 +82,7 @@ importers:
         specifier: ~3.78.0
         version: 3.78.0(graphql@16.11.0)(typescript@5.8.3)
       preline:
-        specifier: ^3.2.3
+        specifier: ~3.2.3
         version: 3.2.3
       react:
         specifier: 19.2.3
@@ -1607,6 +1610,9 @@ packages:
 
   '@pinojs/redact@0.4.0':
     resolution: {integrity: sha512-k2ENnmBugE/rzQfEcdWHcCY+/FM3VLzH9cYEsbdsoqrvzAKRhUZeRNhAZvB8OitQJ1TBed3yqWtdjzS6wJKBwg==}
+
+  '@preline/accordion@3.2.3':
+    resolution: {integrity: sha512-bxD40aYgnsyuxPNmFN5+4EKAna9PCXpxpA/MrY3j5zpkTyBRxcEykucLE/aPTL0LrUd8/ifwoIERRSVcL7GTFA==}
 
   '@preline/carousel@3.2.3':
     resolution: {integrity: sha512-DrxJY4d8moTnLYV+blG6GowlDRytGT9zzJSwDUJ31LwIBLPwVaO9lklenqhnlTBqQbBqKinZqZJ2eIGW5S0SoQ==}
@@ -7185,6 +7191,8 @@ snapshots:
       - typescript
 
   '@pinojs/redact@0.4.0': {}
+
+  '@preline/accordion@3.2.3': {}
 
   '@preline/carousel@3.2.3': {}
 
