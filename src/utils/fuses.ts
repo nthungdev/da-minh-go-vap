@@ -26,6 +26,7 @@ class Fuses {
     }
     return this.postFuse;
   }
+
   async getPostFuseByLocale(locale: Locale) {
     if (!this.postFuses[locale]) {
       const q = await queryAllPosts({ limit: 9999, locale });
@@ -33,6 +34,19 @@ class Fuses {
       this.postFuses[locale] = new Fuse(posts, { keys: ["title"] });
     }
     return this.postFuses[locale];
+  }
+
+  async addPost(post: AppPost, locale: Locale) {
+    const fuse = this.postFuses[locale];
+    if (!fuse) return;
+    fuse.add(post);
+  }
+
+  async replacePost(post: AppPost, locale: Locale) {
+    const fuse = this.postFuses[locale];
+    if (!fuse) return;
+    fuse.remove((p) => p.id === post.id);
+    fuse.add(post);
   }
 }
 
