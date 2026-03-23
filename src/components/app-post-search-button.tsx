@@ -20,6 +20,7 @@ import { createPortal } from "react-dom";
 import Image from "next/image";
 import { AppPost } from "@/definitions";
 import { twMerge } from "tailwind-merge";
+import { useLocale } from "next-intl";
 
 enum ModalState {
   LOADING,
@@ -138,6 +139,7 @@ const SearchModal = forwardRef<HTMLDivElement, SearchModalProps>(
 );
 
 export default function AppPostSearchButton({ id }: { id: string }) {
+  const locale = useLocale();
   const bodyRef = useRef<HTMLBodyElement | null>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
   const [input, setInput] = useState("");
@@ -189,7 +191,7 @@ export default function AppPostSearchButton({ id }: { id: string }) {
   ) => {
     event.preventDefault();
     setState(ModalState.LOADING);
-    const results = await searchPosts(input);
+    const results = await searchPosts(input, { locale });
     setPosts(results.map((r) => r.item));
     setState(ModalState.LOADED);
   };
