@@ -72,6 +72,7 @@ export interface Config {
     pages: Page;
     posts: Post;
     users: User;
+    spotifyPodcasts: SpotifyPodcast;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -84,6 +85,7 @@ export interface Config {
     pages: PagesSelect<false> | PagesSelect<true>;
     posts: PostsSelect<false> | PostsSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
+    spotifyPodcasts: SpotifyPodcastsSelect<false> | SpotifyPodcastsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -325,6 +327,15 @@ export interface Page {
             blockName?: string | null;
             blockType: 'quoteBlock';
           }
+        | {
+            /**
+             * Số lượng podcast hiển thị trên một trang.
+             */
+            pageSize?: number | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'spotifyPodcastList';
+          }
       )[]
     | null;
   banners?: (string | Media)[] | null;
@@ -395,6 +406,7 @@ export interface Page {
             blockName?: string | null;
             blockType: 'quoteBlock';
           }
+        | SpotifyPodcastList
       )[]
     | null;
   aside?:
@@ -543,6 +555,19 @@ export interface VideoGridBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'videoGridBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SpotifyPodcastList".
+ */
+export interface SpotifyPodcastList {
+  /**
+   * Số lượng podcast hiển thị trên một trang.
+   */
+  pageSize?: number | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'spotifyPodcastList';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -734,6 +759,23 @@ export interface User {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "spotifyPodcasts".
+ */
+export interface SpotifyPodcast {
+  id: string;
+  /**
+   * Tên để tìm kiếm và hiển thị trong admin, không ảnh hưởng đến URL của podcast.
+   */
+  label: string;
+  /**
+   * Ví dụ với Spotify, URL là https://open.spotify.com/episode/1234ABCD thì Audio ID là 1234ABCD.
+   */
+  spotifyId: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -775,6 +817,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'users';
         value: string | User;
+      } | null)
+    | ({
+        relationTo: 'spotifyPodcasts';
+        value: string | SpotifyPodcast;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -872,6 +918,7 @@ export interface PagesSelect<T extends boolean = true> {
         videoGridBlock?: T | VideoGridBlockSelect<T>;
         spaceBlock?: T | SpaceBlockSelect<T>;
         quoteBlock?: T | QuoteBlockSelect<T>;
+        spotifyPodcastList?: T | SpotifyPodcastListSelect<T>;
       };
   banners?: T;
   showBannersDecorativeGraphic?: T;
@@ -892,6 +939,7 @@ export interface PagesSelect<T extends boolean = true> {
         videoGridBlock?: T | VideoGridBlockSelect<T>;
         spaceBlock?: T | SpaceBlockSelect<T>;
         quoteBlock?: T | QuoteBlockSelect<T>;
+        spotifyPodcastList?: T | SpotifyPodcastListSelect<T>;
       };
   aside?:
     | T
@@ -1117,6 +1165,15 @@ export interface QuoteBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SpotifyPodcastList_select".
+ */
+export interface SpotifyPodcastListSelect<T extends boolean = true> {
+  pageSize?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "ImageSlideShowBlock_select".
  */
 export interface ImageSlideShowBlockSelect<T extends boolean = true> {
@@ -1197,6 +1254,16 @@ export interface UsersSelect<T extends boolean = true> {
         createdAt?: T;
         expiresAt?: T;
       };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "spotifyPodcasts_select".
+ */
+export interface SpotifyPodcastsSelect<T extends boolean = true> {
+  label?: T;
+  spotifyId?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

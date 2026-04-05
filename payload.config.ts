@@ -17,6 +17,7 @@ import SiteSettings from "@/payload/globals/site-settings";
 import NavBar from "@/payload/globals/NavBar";
 import Footer from "@/payload/globals/Footer";
 import { defaultLocale, localeLabels, locales } from "@/i18n/config";
+import SpotifyPodcasts from "@/payload/collections/spotify-podcasts";
 
 if (!process.env.PAYLOAD_SECRET) {
   throw new Error("PAYLOAD_SECRET environment variable is required");
@@ -44,7 +45,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [HiddenTags, Media, Pages, Posts, Users],
+  collections: [HiddenTags, Media, Pages, Posts, Users, SpotifyPodcasts],
   globals: [NavBar, Footer, SiteSettings],
   i18n: {
     supportedLanguages: { en, vi },

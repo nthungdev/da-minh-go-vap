@@ -2,17 +2,12 @@
 
 import { fetchPostsByHiddenTags } from "@/actions/post";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { HTMLAttributes, useState } from "react";
+import { useState } from "react";
 import AppPostGridSkeleton from "./app-post-grid-skeleton";
 import { AppPost } from "@/definitions";
 import { useLocale } from "next-intl";
 import AppPostGrid from "@/components/app-post-grid";
-import { IoIosSkipBackward, IoIosSkipForward } from "react-icons/io";
-import {
-  MdOutlineArrowBackIosNew,
-  MdOutlineArrowForwardIos,
-} from "react-icons/md";
-import { twMerge } from "tailwind-merge";
+import PaginationPanel from "@/components/pagination-panel";
 
 const DEFAULT_PAGE_SIZE = 12;
 
@@ -74,69 +69,6 @@ export default function AppPostGridPaginated({
           onPageChange={setPage}
         />
       )}
-    </div>
-  );
-}
-
-interface PaginationPanel extends HTMLAttributes<HTMLDivElement> {
-  totalPages: number;
-  page: number;
-  onPageChange?: (page: number) => void;
-}
-
-function PaginationPanel({
-  totalPages,
-  page,
-  className,
-  onPageChange,
-}: PaginationPanel) {
-  const allPages = Array(totalPages)
-    .fill(null)
-    .map((_, index) => index + 1);
-  const shownPages = allPages.slice(Math.max(page - 3, 0), page + 2);
-
-  return (
-    <div className={twMerge("flex flex-row justify-center gap-x-1", className)}>
-      <button
-        className="text-primary rounded-md border px-3 py-1 hover:cursor-pointer disabled:text-black disabled:hover:cursor-auto"
-        onClick={() => onPageChange?.(page - 1)}
-        disabled={page <= 1}
-      >
-        <MdOutlineArrowBackIosNew />
-      </button>
-      <button
-        className="text-primary rounded-md border px-3 py-1 hover:cursor-pointer disabled:text-black disabled:hover:cursor-auto"
-        disabled={page <= 1}
-        onClick={() => onPageChange?.(1)}
-      >
-        <IoIosSkipBackward />
-      </button>
-      {shownPages.map((p) => (
-        <button
-          key={p}
-          className={
-            "text-primary rounded-md border px-3 py-1 hover:cursor-pointer disabled:text-black disabled:hover:cursor-auto"
-          }
-          disabled={p === page}
-          onClick={() => onPageChange?.(p)}
-        >
-          {p}
-        </button>
-      ))}
-      <button
-        className="text-primary rounded-md border px-3 py-1 hover:cursor-pointer disabled:text-black disabled:hover:cursor-auto"
-        disabled={page >= totalPages}
-        onClick={() => onPageChange?.(totalPages)}
-      >
-        <IoIosSkipForward />
-      </button>
-      <button
-        className="text-primary rounded-md border px-3 py-1 hover:cursor-pointer disabled:text-black disabled:hover:cursor-auto"
-        onClick={() => onPageChange?.(page + 1)}
-        disabled={page >= totalPages}
-      >
-        <MdOutlineArrowForwardIos />
-      </button>
     </div>
   );
 }
