@@ -142,7 +142,9 @@ const mapBlockToProps: BlockToPropsMap = {
     })),
   }),
   videoGridBlock: () => ({}),
-  spotifyPodcastList: () => ({}),
+  spotifyPodcastList: (block) => ({
+    pageSize: block.pageSize || undefined,
+  }),
 } as const;
 
 const BlockRenderer = ({ block }: { block: BlockType }) => {

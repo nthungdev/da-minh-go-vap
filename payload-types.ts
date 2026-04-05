@@ -328,6 +328,10 @@ export interface Page {
             blockType: 'quoteBlock';
           }
         | {
+            /**
+             * Số lượng podcast hiển thị trên một trang.
+             */
+            pageSize?: number | null;
             id?: string | null;
             blockName?: string | null;
             blockType: 'spotifyPodcastList';
@@ -557,6 +561,10 @@ export interface VideoGridBlock {
  * via the `definition` "SpotifyPodcastList".
  */
 export interface SpotifyPodcastList {
+  /**
+   * Số lượng podcast hiển thị trên một trang.
+   */
+  pageSize?: number | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'spotifyPodcastList';
@@ -1160,6 +1168,7 @@ export interface QuoteBlockSelect<T extends boolean = true> {
  * via the `definition` "SpotifyPodcastList_select".
  */
 export interface SpotifyPodcastListSelect<T extends boolean = true> {
+  pageSize?: T;
   id?: T;
   blockName?: T;
 }
