@@ -1,3 +1,4 @@
+// Comment this line before runninng pnpm generate
 import "server-only";
 
 import { getPayload, Where } from "payload";

@@ -10,6 +10,7 @@ import MapBlock from "@/payload/blocks/MapBlock";
 import PostGroupBlock from "@/payload/blocks/PostGroupBlock";
 import QuoteBlock from "@/payload/blocks/QuoteBlock";
 import SpaceBlock from "@/payload/blocks/SpaceBlock";
+import SpotifyPodcastList from "@/payload/blocks/spotify-podcast-list";
 import TabbedContentBlock from "@/payload/blocks/TabbedContentBlock";
 import TabbedPostGroupBlock from "@/payload/blocks/TabbedPostGroupBlock";
 import TextBlock from "@/payload/blocks/TextBock";
@@ -120,6 +121,7 @@ const Pages: CollectionConfig = {
                 VideoGridBlock,
                 SpaceBlock,
                 QuoteBlock,
+                SpotifyPodcastList,
               ],
             },
           ],
@@ -166,6 +168,7 @@ const Pages: CollectionConfig = {
                 VideoGridBlock,
                 SpaceBlock,
                 QuoteBlock,
+                SpotifyPodcastList,
               ],
             },
           ],
