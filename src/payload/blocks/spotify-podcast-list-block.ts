@@ -1,9 +1,9 @@
 import { Block } from "payload";
 
-const SpotifyPodcastList: Block = {
+const SpotifyPodcastListBlock: Block = {
   slug: "spotifyPodcastList",
   interfaceName: "SpotifyPodcastList",
   fields: [],
 };
 
-export default SpotifyPodcastList;
+export default SpotifyPodcastListBlock;
