@@ -35,7 +35,7 @@ export default function SpotifyPodcastList({
       ) : isError ? (
         <p className="text-center text-red-500">{error.message}</p>
       ) : (
-        <div className="space-y-2">
+        <div className="space-y-5">
           {data.podcasts.map((podcast) => (
             <iframe
               key={podcast.id}
