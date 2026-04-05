@@ -11,6 +11,7 @@ import type {
   PostGroupBlock,
   QuoteBlock,
   SpaceBlock,
+  SpotifyPodcastList,
   TabbedContentBlock,
   TabbedPostGroupBlock,
   TextBlock,
@@ -137,4 +138,5 @@ export type BlockType =
   | VideoGridBlock
   | SpaceBlock
   | QuoteBlock
-  | ImageSlideShowBlock;
+  | ImageSlideShowBlock
+  | SpotifyPodcastList;

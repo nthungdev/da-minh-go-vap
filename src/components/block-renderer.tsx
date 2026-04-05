@@ -10,6 +10,7 @@ import ImageSlideshow from "@/components/image-slideshow";
 import PostGroup from "@/components/post-group";
 import TheBibleVerse from "@/components/the-bible-verse";
 import TheLatestPosts from "@/components/the-latest-posts";
+import SpotifyPodcastList from "@/components/spotify-podcast-list";
 import { BlockType } from "@/definitions";
 import { createRandomAlphaString } from "@/utils/common";
 
@@ -39,6 +40,7 @@ const componentsMap = {
   imageBlock: NotImplementedBlock,
   mapBlock: NotImplementedBlock,
   videoGridBlock: NotImplementedBlock,
+  spotifyPodcastList: SpotifyPodcastList,
 } satisfies BlockTypeMap;
 
 type BlockToPropsMap = {
@@ -140,6 +142,7 @@ const mapBlockToProps: BlockToPropsMap = {
     })),
   }),
   videoGridBlock: () => ({}),
+  spotifyPodcastList: () => ({}),
 } as const;
 
 const BlockRenderer = ({ block }: { block: BlockType }) => {
