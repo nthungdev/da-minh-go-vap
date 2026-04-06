@@ -75,7 +75,7 @@ export default function PostGroupTabsPanel({
             {firstPostThumbnail && firstPostThumbnail.url ? (
               <Image
                 className="object-cover"
-                src={transformUrl(firstPostThumbnail.url)}
+                src={transformUrl(firstPostThumbnail.url, { width: "600" })}
                 alt={firstPost.title}
                 sizes="(max-width: 768px) 100vw, 66vw"
                 fill
