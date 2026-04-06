@@ -39,7 +39,9 @@ export default function AppPostGrid({
                   <Image
                     unoptimized
                     className="object-cover"
-                    src={transformUrl(post.thumbnail.url)}
+                    src={transformUrl(post.thumbnail.url, {
+                      width: "300",
+                    })}
                     fill
                     sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
                     alt={`${post.title}'s thumbnail`}
