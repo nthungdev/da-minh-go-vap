@@ -37,27 +37,29 @@ export default function AppTimelineCards({
               index % 2 === 0 ? "flex-row" : "md:flex-row-reverse",
             )}
           >
-            <Link
-              href={card.url || "#"}
-              className="order-last my-2 flex-1 space-y-2 rounded-lg hover:ring-2 md:order-0"
-            >
-              <div className="relative aspect-video w-full">
-                {typeof card.thumbnail !== "string" &&
-                  typeof card.thumbnail.url === "string" && (
-                    <Image
-                      unoptimized
-                      src={transformUrl(card.thumbnail.url)}
-                      alt={card.thumbnail.alt}
-                      className="w-full rounded-lg object-cover"
-                      fill
-                      sizes="(max-width: 640px) 100vw, 50vw"
-                    />
-                  )}
-              </div>
-              <h2 className="px-2 pb-1 text-center text-xl font-semibold">
-                {card.title}
-              </h2>
-            </Link>
+            <div className="order-last flex-1 md:order-0">
+              <Link
+                href={card.url || "#"}
+                className="my-2 block space-y-2 rounded-lg hover:ring-2"
+              >
+                <div className="relative aspect-video w-full">
+                  {typeof card.thumbnail !== "string" &&
+                    typeof card.thumbnail.url === "string" && (
+                      <Image
+                        unoptimized
+                        src={transformUrl(card.thumbnail.url, { width: "600" })}
+                        alt={card.thumbnail.alt}
+                        className="w-full rounded-lg object-cover"
+                        fill
+                        sizes="(max-width: 640px) 100vw, 50vw"
+                      />
+                    )}
+                </div>
+                <h2 className="px-2 pb-1 text-center text-xl font-semibold">
+                  {card.title}
+                </h2>
+              </Link>
+            </div>
 
             <div className="relative px-2">
               <div
@@ -71,7 +73,8 @@ export default function AppTimelineCards({
                 {typeof card.thumbnail !== "string" &&
                   typeof card.thumbnail.url === "string" && (
                     <Image
-                      src={card.thumbnail.url}
+                      unoptimized
+                      src={transformUrl(card.thumbnail.url)}
                       alt={card.thumbnail.alt}
                       className="w-full rounded-lg object-cover"
                       fill
