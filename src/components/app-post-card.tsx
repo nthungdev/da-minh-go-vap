@@ -26,7 +26,7 @@ export default function AppPostCard(props: AppPostCardProps) {
           typeof post.thumbnail.url === "string" && (
             <Image
               unoptimized
-              src={transformUrl(post.thumbnail.url)}
+              src={transformUrl(post.thumbnail.url, { width: "100" })}
               alt={post.title}
               fill
               sizes="(max-width: 640px) 100vw, 33vw"
