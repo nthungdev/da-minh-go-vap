@@ -46,7 +46,7 @@ export default function AppBanners(props: AppBannersProps) {
       className={className}
       items={banners}
       render={(item, index) => (
-        <div key={index}>
+        <div key={index} className="relative size-full">
           {isVideoUrl(item.url!) ? (
             <AppBannerVideo
               className="size-full object-cover"
@@ -67,8 +67,7 @@ export default function AppBanners(props: AppBannersProps) {
               src={transformUrl(item.url!)}
               alt={item.alt}
               sizes="100vw"
-              width={0}
-              height={0}
+              fill
             />
           )}
         </div>
