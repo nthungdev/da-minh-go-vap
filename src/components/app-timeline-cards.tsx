@@ -45,6 +45,7 @@ export default function AppTimelineCards({
                 {typeof card.thumbnail !== "string" &&
                   typeof card.thumbnail.url === "string" && (
                     <Image
+                      unoptimized
                       src={transformUrl(card.thumbnail.url)}
                       alt={card.thumbnail.alt}
                       className="w-full rounded-lg object-cover"
