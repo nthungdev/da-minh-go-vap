@@ -94,6 +94,8 @@ export default function TheLatestPosts({
                           width: String(transformWidth),
                         });
                       }}
+                      loading="eager"
+                      fetchPriority="high"
                       alt={post.title}
                       sizes="(max-width: 768px) 100vw, 66vw"
                       fill

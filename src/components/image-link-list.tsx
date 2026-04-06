@@ -1,6 +1,7 @@
 import AppSectionHeader from "@/components/app-section-header";
 import { LinksBlock } from "@/payload-types";
 import { isDataValid } from "@/payload/utils/data";
+import { transformUrl } from "@/utils/cloudflare";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -28,8 +29,9 @@ export default function ImageLinkList({
             >
               {isDataValid(link.image) && link.image.url && (
                 <Image
+                  unoptimized
                   className="object-cover"
-                  src={link.image.url}
+                  src={transformUrl(link.image.url, { width: "250" })}
                   alt={link.image.alt}
                   fill
                   sizes="(max-width: 640px) 100vw, 20vw"

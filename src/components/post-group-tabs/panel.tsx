@@ -74,6 +74,7 @@ export default function PostGroupTabsPanel({
           <div className="relative aspect-video w-full">
             {firstPostThumbnail && firstPostThumbnail.url ? (
               <Image
+                unoptimized
                 className="object-cover"
                 src={transformUrl(firstPostThumbnail.url, { width: "600" })}
                 alt={firstPost.title}

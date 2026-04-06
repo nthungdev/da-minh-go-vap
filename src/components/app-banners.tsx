@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import { HTMLAttributes, useState } from "react";
 import { Media } from "@/payload-types";
 import AppCarouselFade from "@/components/app-carousel-fade";
+import { transformUrl } from "@/utils/cloudflare";
 
 const AppBannerVideo = dynamic(() => import("@/components/app-banner-video"), {
   ssr: false,
@@ -45,7 +46,7 @@ export default function AppBanners(props: AppBannersProps) {
       className={className}
       items={banners}
       render={(item, index) => (
-        <div key={index}>
+        <div key={index} className="relative size-full">
           {isVideoUrl(item.url!) ? (
             <AppBannerVideo
               className="size-full object-cover"
@@ -60,13 +61,13 @@ export default function AppBanners(props: AppBannersProps) {
             />
           ) : (
             <Image
+              unoptimized
               priority
               className="size-full object-cover"
-              src={item.url!}
+              src={transformUrl(item.url!)}
               alt={item.alt}
               sizes="100vw"
-              width={0}
-              height={0}
+              fill
             />
           )}
         </div>
