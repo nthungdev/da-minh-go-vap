@@ -46,7 +46,7 @@ export default function PostList({
                   <Image
                     unoptimized
                     className="object-cover"
-                    src={transformUrl(thumbnail.url)}
+                    src={transformUrl(thumbnail.url, { width: "150" })}
                     alt={post.title}
                     sizes="150px"
                     fill
