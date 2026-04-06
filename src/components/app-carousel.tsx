@@ -20,6 +20,7 @@ export default function AppCarousel({
   const childrenCount = Children.count(children);
   const [currentIndex, setCurrentIndex] = useState(0);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const carouselRef = useRef<HTMLDivElement | null>(null);
 
   function handleMoveButton(direction: "previous" | "next") {
     resetTimeout();
@@ -38,17 +39,21 @@ export default function AppCarousel({
   }
 
   // For some reason, need to create the carousel object for it to be rendered
-  useEffect(function initCarousel() {
-    (async () => {
-      const carouselElement = document.querySelector<HTMLElement>(`#${id}`);
-      if (!carouselElement) {
-        console.warn("Carousel element not found");
-        return;
-      }
-      const { HSCarousel } = await import("preline/preline");
-      new HSCarousel(carouselElement, { currentIndex });
-    })();
-  }, []);
+  useEffect(
+    function initCarousel() {
+      (async () => {
+        if (!carouselRef.current) return;
+        const carouselElement = carouselRef.current;
+        if (!carouselElement) {
+          console.warn("Carousel element not found");
+          return;
+        }
+        const { HSCarousel } = await import("preline/preline");
+        new HSCarousel(carouselElement, { currentIndex: 0 });
+      })();
+    },
+    [carouselRef],
+  );
 
   useEffect(() => {
     resetTimeout();
@@ -56,7 +61,7 @@ export default function AppCarousel({
     const _currentIndex = currentIndex;
     timeoutRef.current = setTimeout(async () => {
       const newIndex = (currentIndex + 1) % durations.length;
-      const carouselElement = document.querySelector<HTMLElement>(`#${id}`);
+      const carouselElement = carouselRef.current;
       if (!carouselElement) {
         console.warn("Carousel element not found");
         return;
@@ -73,6 +78,7 @@ export default function AppCarousel({
 
   return (
     <div
+      ref={carouselRef}
       id={id}
       data-hs-carousel={JSON.stringify({
         loadingClasses: "opacity-0",
