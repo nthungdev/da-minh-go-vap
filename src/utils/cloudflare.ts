@@ -1,5 +1,6 @@
 /**
  * Transform Payload media url to Cloudflare image url
+ * Ref: https://developers.cloudflare.com/images/transform-images/transform-via-url
  * @param url
  */
 export function transformUrl(
