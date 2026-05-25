@@ -1,10 +1,11 @@
 // Comment this line before runninng pnpm generate
 import "server-only";
 
-import { getPayload, Where } from "payload";
+import { getPayload, PaginatedDocs, Where } from "payload";
 import config from "@payload-config";
 import { postToAppPost } from "@/utils/post";
 import { defaultLocale, Locale } from "@/i18n/config";
+import { Post } from "@/payload-types";
 
 interface GetOptions {
   limit?: number;
@@ -58,6 +59,24 @@ export async function queryAllPosts({ limit, page, locale }: GetOptions = {}) {
   return query;
 }
 
+function createEmptyPostsQuery({
+  limit,
+  page,
+}: GetOptions = {}): PaginatedDocs<Post> {
+  return {
+    docs: [],
+    hasNextPage: false,
+    hasPrevPage: false,
+    limit: limit ?? 10,
+    nextPage: null,
+    page: page ?? 1,
+    pagingCounter: 1,
+    prevPage: null,
+    totalDocs: 0,
+    totalPages: 1,
+  };
+}
+
 /**
  * Queries published posts for the provided hidden tag IDs with pagination.
  */
@@ -65,6 +84,10 @@ async function queryPostsByTagIds(
   hiddenTagIds: string[],
   { limit, page, skipSlug, locale }: GetOptions = {},
 ) {
+  if (hiddenTagIds.length === 0) {
+    return createEmptyPostsQuery({ limit, page });
+  }
+
   const payload = await getPayload({ config });
   const queryConditions: Where[] = [
     {

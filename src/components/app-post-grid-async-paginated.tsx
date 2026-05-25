@@ -39,8 +39,8 @@ export default function AppPostGridPaginated({
   const locale = useLocale();
   const [page, setPage] = useState(1);
   const queryKey = publicTag
-    ? ["fetchPostsByPublicTag", publicTag, page, locale]
-    : ["fetchPostsByHiddenTags", hiddenTags, page, locale];
+    ? ["fetchPostsByPublicTag", publicTag, page, locale, skipSlug]
+    : ["fetchPostsByHiddenTags", hiddenTags, page, locale, skipSlug];
 
   const { data, error, isError, isPending, isFetched, isFetching } = useQuery({
     queryKey,
