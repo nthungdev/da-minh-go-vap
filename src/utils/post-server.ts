@@ -58,6 +58,9 @@ export async function queryAllPosts({ limit, page, locale }: GetOptions = {}) {
   return query;
 }
 
+/**
+ * Queries published posts for the provided hidden tag IDs with pagination.
+ */
 async function queryPostsByTagIds(
   hiddenTagIds: string[],
   { limit, page, skipSlug, locale }: GetOptions = {},
@@ -115,6 +118,9 @@ export async function queryPostsByHiddenTags(
   );
 }
 
+/**
+ * Returns the public hidden tag document for a tag value, or null if it is private or missing.
+ */
 export async function getPublicHiddenTagByTag(tag: string) {
   const payload = await getPayload({ config });
 
@@ -129,6 +135,9 @@ export async function getPublicHiddenTagByTag(tag: string) {
   return query.docs[0] ?? null;
 }
 
+/**
+ * Queries published posts for a public tag and returns both the tag and paginated post query.
+ */
 export async function queryPostsByPublicTag(
   tag: string,
   { limit, page, skipSlug, locale }: GetOptions = {},

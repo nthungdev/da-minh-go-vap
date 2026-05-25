@@ -10,13 +10,21 @@ export function postToAppPost(post: Post): AppPost {
   };
 }
 
+/**
+ * Returns true when the relationship value is a populated hidden tag document.
+ */
 export function isPopulatedHiddenTag(
   hiddenTag: Post["hiddenTags"][number],
 ): hiddenTag is HiddenTag {
   return typeof hiddenTag !== "string";
 }
 
-export function getPublicHiddenTags(hiddenTags: Post["hiddenTags"]) {
+/**
+ * Filters a post's tags down to the ones marked for public display.
+ */
+export function getPublicHiddenTags(
+  hiddenTags: Post["hiddenTags"],
+): HiddenTag[] {
   return hiddenTags
     .filter(isPopulatedHiddenTag)
     .filter((hiddenTag) => hiddenTag.isPublic);

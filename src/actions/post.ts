@@ -61,10 +61,16 @@ export const fetchPostsByHiddenTags = async (
   };
 };
 
+/**
+ * Fetches the public hidden tag document for a tag value.
+ */
 export const fetchPublicTagByTag = async (tag: string) => {
   return postUtils.getPublicHiddenTagByTag(tag);
 };
 
+/**
+ * Fetches paginated posts for a public tag and formats the result for the app.
+ */
 export const fetchPostsByPublicTag = async (
   tag: string,
   options: Parameters<typeof postUtils.queryPostsByPublicTag>[1] = {},
