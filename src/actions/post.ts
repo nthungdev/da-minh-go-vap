@@ -60,3 +60,27 @@ export const fetchPostsByHiddenTags = async (
     totalPages: query.totalPages,
   };
 };
+
+export const fetchPublicTagByTag = async (tag: string) => {
+  return postUtils.getPublicHiddenTagByTag(tag);
+};
+
+export const fetchPostsByPublicTag = async (
+  tag: string,
+  options: Parameters<typeof postUtils.queryPostsByPublicTag>[1] = {},
+) => {
+  const result = await postUtils.queryPostsByPublicTag(tag, options);
+
+  if (!result) {
+    return null;
+  }
+
+  const posts = result.query.docs.map(postToAppPost);
+  return {
+    tag: result.tag,
+    posts,
+    hasMore: result.query.hasNextPage,
+    page: result.query.page!,
+    totalPages: result.query.totalPages,
+  };
+};

@@ -13,6 +13,8 @@ import { formatDate } from "@/utils/date";
 import { basicAuthGuard } from "@/utils/auth";
 import { getPayload } from "payload";
 import config from "@payload-config";
+import { getPublicHiddenTags, makePublicTagPath } from "@/utils/post";
+import Link from "next/link";
 
 const relatedPostsLimit = 12;
 
@@ -76,6 +78,7 @@ export default async function Page(props: {
   const hiddenTags = post.hiddenTags
     .filter((t) => typeof t !== "string")
     .map((t) => t.tag);
+  const publicTags = getPublicHiddenTags(post.hiddenTags);
 
   const publishedAt = formatDate(post.publishedAt);
 
@@ -92,6 +95,21 @@ export default async function Page(props: {
       <p className="text-sm text-gray-500">{publishedAt}</p>
 
       <ShareToolbar className="mt-4" shareUrl={postHref} />
+
+      {publicTags.length > 0 && (
+        <div className="mt-6 flex flex-wrap items-center gap-2">
+          <span className="text-sm font-medium text-gray-600">Thẻ:</span>
+          {publicTags.map((tag) => (
+            <Link
+              key={tag.id}
+              href={makePublicTagPath(tag.tag)}
+              className="rounded-full border px-3 py-1 text-sm text-gray-700 transition hover:bg-gray-100"
+            >
+              {tag.label}
+            </Link>
+          ))}
+        </div>
+      )}
 
       {video && (
         <div className="mx-auto mt-8 max-w-[800px]">

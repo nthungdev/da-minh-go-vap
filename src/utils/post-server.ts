@@ -58,6 +58,38 @@ export async function queryAllPosts({ limit, page, locale }: GetOptions = {}) {
   return query;
 }
 
+async function queryPostsByTagIds(
+  hiddenTagIds: string[],
+  { limit, page, skipSlug, locale }: GetOptions = {},
+) {
+  const payload = await getPayload({ config });
+  const queryConditions: Where[] = [
+    {
+      hiddenTags: {
+        in: hiddenTagIds,
+      },
+      // Only get published posts
+      publishedAt: {
+        less_than: new Date().toISOString(),
+      },
+    },
+  ];
+  if (skipSlug) {
+    queryConditions.push({
+      slug: { not_equals: skipSlug },
+    });
+  }
+
+  return payload.find({
+    collection: "posts",
+    where: { and: queryConditions },
+    sort: "-publishedAt",
+    limit: limit ?? 10,
+    page: page ?? 1,
+    locale: locale ?? defaultLocale,
+  });
+}
+
 export async function queryPostsByHiddenTags(
   hiddenTags: string[],
   { limit, page, skipSlug, locale }: GetOptions = {},
@@ -72,30 +104,50 @@ export async function queryPostsByHiddenTags(
     limit: hiddenTags.length,
   });
 
-  const queryConditions: Where[] = [
+  return queryPostsByTagIds(
+    matchedHiddenTags.docs.map((tag) => tag.id),
     {
-      hiddenTags: {
-        in: matchedHiddenTags.docs.map((tag) => tag.id),
-      },
-      // Only get published posts
-      publishedAt: {
-        less_than: new Date().toISOString(),
-      },
+      limit,
+      page,
+      skipSlug,
+      locale,
     },
-  ];
-  if (skipSlug) {
-    queryConditions.push({
-      slug: { not_equals: skipSlug },
-    });
-  }
+  );
+}
+
+export async function getPublicHiddenTagByTag(tag: string) {
+  const payload = await getPayload({ config });
+
   const query = await payload.find({
-    collection: "posts",
-    where: { and: queryConditions },
-    sort: "-publishedAt", // Sort by publishedAt DESC
-    limit: limit ?? 10,
-    page: page ?? 1,
-    locale: locale ?? defaultLocale,
+    collection: "hiddenTags",
+    where: {
+      and: [{ tag: { equals: tag } }, { isPublic: { equals: true } }],
+    },
+    limit: 1,
   });
 
-  return query;
+  return query.docs[0] ?? null;
+}
+
+export async function queryPostsByPublicTag(
+  tag: string,
+  { limit, page, skipSlug, locale }: GetOptions = {},
+) {
+  const publicTag = await getPublicHiddenTagByTag(tag);
+
+  if (!publicTag) {
+    return null;
+  }
+
+  const query = await queryPostsByTagIds([publicTag.id], {
+    limit,
+    page,
+    skipSlug,
+    locale,
+  });
+
+  return {
+    tag: publicTag,
+    query,
+  };
 }
