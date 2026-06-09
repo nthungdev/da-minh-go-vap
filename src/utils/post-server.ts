@@ -59,6 +59,7 @@ export async function queryAllPosts({ limit, page, locale }: GetOptions = {}) {
   return query;
 }
 
+/** Create result for empty query to avoid making network requests */
 function createEmptyPostsQuery({
   limit,
   page,
@@ -81,10 +82,10 @@ function createEmptyPostsQuery({
  * Queries published posts for the provided hidden tag IDs with pagination.
  */
 async function queryPostsByTagIds(
-  hiddenTagIds: string[],
+  tagIds: string[],
   { limit, page, skipSlug, locale }: GetOptions = {},
 ) {
-  if (hiddenTagIds.length === 0) {
+  if (tagIds.length === 0) {
     return createEmptyPostsQuery({ limit, page });
   }
 
@@ -92,7 +93,7 @@ async function queryPostsByTagIds(
   const queryConditions: Where[] = [
     {
       hiddenTags: {
-        in: hiddenTagIds,
+        in: tagIds,
       },
       // Only get published posts
       publishedAt: {
@@ -109,7 +110,7 @@ async function queryPostsByTagIds(
   return payload.find({
     collection: "posts",
     where: { and: queryConditions },
-    sort: "-publishedAt",
+    sort: "-publishedAt", // Sort by publishedAt DESC
     limit: limit ?? 10,
     page: page ?? 1,
     locale: locale ?? defaultLocale,
