@@ -30,34 +30,52 @@ type AppPostGridPaginatedProps =
     };
 
 export default function AppPostGridPaginated({
+  pageSize = DEFAULT_PAGE_SIZE,
+  posts: initialPosts,
   hiddenTags,
   publicTag,
-  pageSize = DEFAULT_PAGE_SIZE,
   skipSlug,
-  posts: initialPosts,
 }: AppPostGridPaginatedProps) {
   const locale = useLocale();
   const [page, setPage] = useState(1);
-  const queryKey = publicTag
-    ? ["fetchPostsByPublicTag", publicTag, page, locale, skipSlug]
-    : ["fetchPostsByHiddenTags", hiddenTags, page, locale, skipSlug];
+
+  const queryOptions =
+    publicTag === undefined
+      ? {
+          queryKey: [
+            "fetchPostsByHiddenTags",
+            hiddenTags,
+            page,
+            locale,
+            skipSlug,
+          ],
+          queryFn: () =>
+            fetchPostsByHiddenTags(hiddenTags, {
+              limit: pageSize,
+              page,
+              skipSlug: skipSlug,
+              locale,
+            }),
+        }
+      : {
+          queryKey: [
+            "fetchPostsByPublicTag",
+            publicTag,
+            page,
+            locale,
+            skipSlug,
+          ],
+          queryFn: () =>
+            fetchPostsByPublicTag(publicTag, {
+              limit: pageSize,
+              page,
+              skipSlug: skipSlug,
+              locale,
+            }),
+        };
 
   const { data, error, isError, isPending, isFetched, isFetching } = useQuery({
-    queryKey,
-    queryFn: () =>
-      publicTag
-        ? fetchPostsByPublicTag(publicTag, {
-            limit: pageSize,
-            page,
-            skipSlug,
-            locale,
-          })
-        : fetchPostsByHiddenTags(hiddenTags, {
-            limit: pageSize,
-            page,
-            skipSlug,
-            locale,
-          }),
+    ...queryOptions,
     placeholderData: keepPreviousData,
     initialData: {
       posts: initialPosts || [],
