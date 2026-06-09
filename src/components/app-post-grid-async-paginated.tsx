@@ -1,6 +1,6 @@
 "use client";
 
-import { fetchPostsByHiddenTags, fetchPostsByPublicTag } from "@/actions/post";
+import { fetchPostsByHiddenTags } from "@/actions/post";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import AppPostGridSkeleton from "./app-post-grid-skeleton";
@@ -11,53 +11,40 @@ import PaginationPanel from "@/components/pagination-panel";
 
 const DEFAULT_PAGE_SIZE = 12;
 
-type AppPostGridPaginatedProps =
-  | {
-      hiddenTags: string[];
-      publicTag?: never;
-      pageSize?: number;
-      className?: string;
-      skipSlug?: string;
-      posts?: AppPost[];
-    }
-  | {
-      hiddenTags?: never;
-      publicTag: string;
-      pageSize?: number;
-      className?: string;
-      skipSlug?: string;
-      posts?: AppPost[];
-    };
+type AppPostGridPaginatedProps = {
+  hiddenTags: string[];
+  publicTag: never;
+  pageSize?: number;
+  className?: string;
+  skipSlug?: string;
+  posts?: AppPost[];
+};
 
 export default function AppPostGridPaginated({
   hiddenTags,
-  publicTag,
   pageSize = DEFAULT_PAGE_SIZE,
   skipSlug,
   posts: initialPosts,
 }: AppPostGridPaginatedProps) {
   const locale = useLocale();
   const [page, setPage] = useState(1);
-  const queryKey = publicTag
-    ? ["fetchPostsByPublicTag", publicTag, page, locale, skipSlug]
-    : ["fetchPostsByHiddenTags", hiddenTags, page, locale, skipSlug];
+  const queryKey = [
+    "fetchPostsByPublicTag",
+    hiddenTags,
+    page,
+    locale,
+    skipSlug,
+  ];
 
   const { data, error, isError, isPending, isFetched, isFetching } = useQuery({
     queryKey,
     queryFn: () =>
-      publicTag
-        ? fetchPostsByPublicTag(publicTag, {
-            limit: pageSize,
-            page,
-            skipSlug,
-            locale,
-          })
-        : fetchPostsByHiddenTags(hiddenTags, {
-            limit: pageSize,
-            page,
-            skipSlug,
-            locale,
-          }),
+      fetchPostsByHiddenTags(hiddenTags, {
+        limit: pageSize,
+        page,
+        skipSlug,
+        locale,
+      }),
     placeholderData: keepPreviousData,
     initialData: {
       posts: initialPosts || [],
