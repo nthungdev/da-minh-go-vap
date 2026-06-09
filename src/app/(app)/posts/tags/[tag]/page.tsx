@@ -22,13 +22,13 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 
   if (!data) {
     return {
-      title: "Không Tìm Thấy",
+      title: locale === "vi" ? "Không Tìm Thấy" : "Not Found",
     };
   }
 
   return {
     title: data.tag.label,
-    description: `Các bài viết với thẻ ${data.tag.label}`,
+    description: locale === "vi" ? `Các bài viết` : "Posts",
   };
 }
 
