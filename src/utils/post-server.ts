@@ -1,10 +1,11 @@
-// Comment this line before runninng pnpm generate
+// Comment this line before running pnpm generate
 import "server-only";
 
-import { getPayload, Where } from "payload";
+import { getPayload, PaginatedDocs, Where } from "payload";
 import config from "@payload-config";
 import { postToAppPost } from "@/utils/post";
 import { defaultLocale, Locale } from "@/i18n/config";
+import { Post } from "@/payload-types";
 
 interface GetOptions {
   limit?: number;
@@ -58,6 +59,64 @@ export async function queryAllPosts({ limit, page, locale }: GetOptions = {}) {
   return query;
 }
 
+/** Create result for empty query to avoid making network requests */
+function createEmptyPostsQuery({
+  limit,
+  page,
+}: GetOptions = {}): PaginatedDocs<Post> {
+  return {
+    docs: [],
+    hasNextPage: false,
+    hasPrevPage: false,
+    limit: limit ?? 10,
+    nextPage: null,
+    page: page ?? 1,
+    pagingCounter: 1,
+    prevPage: null,
+    totalDocs: 0,
+    totalPages: 1,
+  };
+}
+
+/**
+ * Queries published posts for the provided hidden tag IDs with pagination.
+ */
+async function queryPostsByTagIds(
+  tagIds: string[],
+  { limit, page, skipSlug, locale }: GetOptions = {},
+) {
+  if (tagIds.length === 0) {
+    return createEmptyPostsQuery({ limit, page });
+  }
+
+  const payload = await getPayload({ config });
+  const queryConditions: Where[] = [
+    {
+      hiddenTags: {
+        in: tagIds,
+      },
+      // Only get published posts
+      publishedAt: {
+        less_than: new Date().toISOString(),
+      },
+    },
+  ];
+  if (skipSlug) {
+    queryConditions.push({
+      slug: { not_equals: skipSlug },
+    });
+  }
+
+  return payload.find({
+    collection: "posts",
+    where: { and: queryConditions },
+    sort: "-publishedAt", // Sort by publishedAt DESC
+    limit: limit ?? 10,
+    page: page ?? 1,
+    locale: locale ?? defaultLocale,
+  });
+}
+
 export async function queryPostsByHiddenTags(
   hiddenTags: string[],
   { limit, page, skipSlug, locale }: GetOptions = {},
@@ -72,30 +131,56 @@ export async function queryPostsByHiddenTags(
     limit: hiddenTags.length,
   });
 
-  const queryConditions: Where[] = [
+  return queryPostsByTagIds(
+    matchedHiddenTags.docs.map((tag) => tag.id),
     {
-      hiddenTags: {
-        in: matchedHiddenTags.docs.map((tag) => tag.id),
-      },
-      // Only get published posts
-      publishedAt: {
-        less_than: new Date().toISOString(),
-      },
+      limit,
+      page,
+      skipSlug,
+      locale,
     },
-  ];
-  if (skipSlug) {
-    queryConditions.push({
-      slug: { not_equals: skipSlug },
-    });
-  }
+  );
+}
+
+/**
+ * Returns the public hidden tag document for a tag value, or null if it is private or missing.
+ */
+export async function getPublicHiddenTagByTag(tag: string) {
+  const payload = await getPayload({ config });
+
   const query = await payload.find({
-    collection: "posts",
-    where: { and: queryConditions },
-    sort: "-publishedAt", // Sort by publishedAt DESC
-    limit: limit ?? 10,
-    page: page ?? 1,
-    locale: locale ?? defaultLocale,
+    collection: "hiddenTags",
+    where: {
+      and: [{ tag: { equals: tag } }, { isPublic: { equals: true } }],
+    },
+    limit: 1,
   });
 
-  return query;
+  return query.docs[0] ?? null;
+}
+
+/**
+ * Queries published posts for a public tag and returns both the tag and paginated post query.
+ */
+export async function queryPostsByPublicTag(
+  tag: string,
+  { limit, page, skipSlug, locale }: GetOptions = {},
+) {
+  const publicTag = await getPublicHiddenTagByTag(tag);
+
+  if (!publicTag) {
+    return null;
+  }
+
+  const query = await queryPostsByTagIds([publicTag.id], {
+    limit,
+    page,
+    skipSlug,
+    locale,
+  });
+
+  return {
+    tag: publicTag,
+    query,
+  };
 }

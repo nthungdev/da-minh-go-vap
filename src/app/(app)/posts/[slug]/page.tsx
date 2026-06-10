@@ -13,6 +13,8 @@ import { formatDate } from "@/utils/date";
 import { basicAuthGuard } from "@/utils/auth";
 import { getPayload } from "payload";
 import config from "@payload-config";
+import { getPublicHiddenTags } from "@/utils/post";
+import { PublicTagList } from "@/components/public-tag-list";
 
 const relatedPostsLimit = 12;
 
@@ -76,6 +78,7 @@ export default async function Page(props: {
   const hiddenTags = post.hiddenTags
     .filter((t) => typeof t !== "string")
     .map((t) => t.tag);
+  const publicTags = getPublicHiddenTags(post.hiddenTags);
 
   const publishedAt = formatDate(post.publishedAt);
 
@@ -101,7 +104,13 @@ export default async function Page(props: {
 
       <AppMarkdown className="mt-8">{post.body}</AppMarkdown>
 
-      <div className="mt-12 space-y-4">
+      {publicTags.length > 0 && (
+        <PublicTagList className="mt-6" tags={publicTags} />
+      )}
+
+      <hr className="my-4 md:my-8" />
+
+      <div className="space-y-4">
         <h2 className="text-2xl">Các bài liên quan</h2>
         <AppPostGridPaginated
           hiddenTags={hiddenTags}
