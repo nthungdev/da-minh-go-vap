@@ -13,8 +13,8 @@ import { formatDate } from "@/utils/date";
 import { basicAuthGuard } from "@/utils/auth";
 import { getPayload } from "payload";
 import config from "@payload-config";
-import { getPublicHiddenTags, makePublicTagPath } from "@/utils/post";
-import Link from "next/link";
+import { getPublicHiddenTags } from "@/utils/post";
+import { PublicTagList } from "@/components/public-tag-list";
 
 const relatedPostsLimit = 12;
 
@@ -96,21 +96,6 @@ export default async function Page(props: {
 
       <ShareToolbar className="mt-4" shareUrl={postHref} />
 
-      {publicTags.length > 0 && (
-        <div className="mt-6 flex flex-wrap items-center gap-2">
-          <span className="text-sm font-medium text-gray-600">Thẻ:</span>
-          {publicTags.map((tag) => (
-            <Link
-              key={tag.id}
-              href={makePublicTagPath(tag.tag)}
-              className="rounded-full border px-3 py-1 text-sm text-gray-700 transition hover:bg-gray-100"
-            >
-              {tag.label}
-            </Link>
-          ))}
-        </div>
-      )}
-
       {video && (
         <div className="mx-auto mt-8 max-w-[800px]">
           <VideoIframe type={video.type} videoId={video.videoId} />
@@ -119,7 +104,13 @@ export default async function Page(props: {
 
       <AppMarkdown className="mt-8">{post.body}</AppMarkdown>
 
-      <div className="mt-12 space-y-4">
+      {publicTags.length > 0 && (
+        <PublicTagList className="mt-6" tags={publicTags} />
+      )}
+
+      <hr className="my-4 md:my-8" />
+
+      <div className="space-y-4">
         <h2 className="text-2xl">Các bài liên quan</h2>
         <AppPostGridPaginated
           hiddenTags={hiddenTags}
