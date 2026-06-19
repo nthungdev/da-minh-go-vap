@@ -5,6 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "next dev --turbopack",
+    "db:up": "docker compose -f docker/dev/compose.yml up mongo -d",
+    "db:down": "docker compose -f docker/dev/compose.yml down mongo",
     "build": "next build",
     "build:compile": "next build --experimental-build-mode compile",
     "build:generate-env": "next build --experimental-build-mode generate-env",
