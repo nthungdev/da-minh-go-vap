@@ -60,3 +60,33 @@ export const fetchPostsByHiddenTags = async (
     totalPages: query.totalPages,
   };
 };
+
+/**
+ * Fetches the public hidden tag document for a tag value.
+ */
+export const fetchPublicTagByTag = async (tag: string) => {
+  return postUtils.getPublicHiddenTagByTag(tag);
+};
+
+/**
+ * Fetches paginated posts for a public tag and formats the result for the app.
+ */
+export const fetchPostsByPublicTag = async (
+  tag: string,
+  options: Parameters<typeof postUtils.queryPostsByPublicTag>[1] = {},
+) => {
+  const result = await postUtils.queryPostsByPublicTag(tag, options);
+
+  if (!result) {
+    return null;
+  }
+
+  const posts = result.query.docs.map(postToAppPost);
+  return {
+    tag: result.tag,
+    posts,
+    hasMore: result.query.hasNextPage,
+    page: result.query.page!,
+    totalPages: result.query.totalPages,
+  };
+};

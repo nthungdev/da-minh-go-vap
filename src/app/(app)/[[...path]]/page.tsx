@@ -57,6 +57,11 @@ export default async function Page(props: Props) {
   const page = await getPageByPath(path, locale);
   if (!page) {
     console.info("Page not found for path:", path);
+    if (path === "/") {
+      console.info(
+        "No page found for the homepage. Please create a page with path '/' in Payload CMS at /admin.",
+      );
+    }
     notFound();
   }
 

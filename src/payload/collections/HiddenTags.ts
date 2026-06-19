@@ -24,6 +24,12 @@ const HiddenTags: CollectionConfig = {
       unique: true,
       required: true,
     },
+    {
+      name: "isPublic",
+      type: "checkbox",
+      label: "Hiển thị công khai",
+      defaultValue: false,
+    },
   ],
 };
 

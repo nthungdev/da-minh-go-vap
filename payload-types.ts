@@ -141,6 +141,7 @@ export interface HiddenTag {
   id: string;
   label: string;
   tag: string;
+  isPublic?: boolean | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -871,6 +872,7 @@ export interface PayloadMigration {
 export interface HiddenTagsSelect<T extends boolean = true> {
   label?: T;
   tag?: T;
+  isPublic?: T;
   updatedAt?: T;
   createdAt?: T;
 }

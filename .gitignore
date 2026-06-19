@@ -49,3 +49,5 @@ src/payload-types.ts
 certbot/conf
 
 .eslintcache
+
+backups
