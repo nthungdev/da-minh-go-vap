@@ -1326,9 +1326,17 @@ export interface NavBar {
     linkType: 'internal' | 'external';
     internalLink?: (string | null) | Page;
     externalLink?: string | null;
+    /**
+     * Chọn kiểu bố cục hiển thị menu con khi mở rộng trên máy tính.
+     */
+    layout: 'grid' | 'pillars' | 'tabs-posts';
     subMenu?:
       | {
           label: string;
+          /**
+           * Mô tả ngắn hiển thị dưới tiêu đề trong thẻ lưới.
+           */
+          description?: string | null;
           linkType: 'internal' | 'external';
           internalLink?: (string | null) | Page;
           externalLink?: string | null;
@@ -1341,6 +1349,59 @@ export interface NavBar {
                 id?: string | null;
               }[]
             | null;
+          id?: string | null;
+        }[]
+      | null;
+    /**
+     * Thêm các cột chủ đề với banner ảnh và các nút liên kết con.
+     */
+    pillars?:
+      | {
+          headerBanner: {
+            title: string;
+            subtitle?: string | null;
+            image: string | Media;
+            linkType: 'internal' | 'external';
+            internalLink?: (string | null) | Page;
+            externalLink?: string | null;
+          };
+          links?:
+            | {
+                label: string;
+                linkType: 'internal' | 'external';
+                internalLink?: (string | null) | Page;
+                externalLink?: string | null;
+                id?: string | null;
+              }[]
+            | null;
+          id?: string | null;
+        }[]
+      | null;
+    bottomBar?: {
+      label?: string | null;
+      links?:
+        | {
+            label: string;
+            linkType: 'internal' | 'external';
+            internalLink?: (string | null) | Page;
+            externalLink?: string | null;
+            id?: string | null;
+          }[]
+        | null;
+    };
+    /**
+     * Thêm các mục danh mục bên trái và gắn Thẻ để tự động lấy các bài viết mới nhất.
+     */
+    categories?:
+      | {
+          label: string;
+          linkType: 'internal' | 'external';
+          internalLink?: (string | null) | Page;
+          externalLink?: string | null;
+          /**
+           * Chọn các thẻ bài viết để hiển thị lưới bài viết tương ứng.
+           */
+          tags: (string | HiddenTag)[];
           id?: string | null;
         }[]
       | null;
@@ -1413,10 +1474,12 @@ export interface NavBarSelect<T extends boolean = true> {
         linkType?: T;
         internalLink?: T;
         externalLink?: T;
+        layout?: T;
         subMenu?:
           | T
           | {
               label?: T;
+              description?: T;
               linkType?: T;
               internalLink?: T;
               externalLink?: T;
@@ -1429,6 +1492,54 @@ export interface NavBarSelect<T extends boolean = true> {
                     externalLink?: T;
                     id?: T;
                   };
+              id?: T;
+            };
+        pillars?:
+          | T
+          | {
+              headerBanner?:
+                | T
+                | {
+                    title?: T;
+                    subtitle?: T;
+                    image?: T;
+                    linkType?: T;
+                    internalLink?: T;
+                    externalLink?: T;
+                  };
+              links?:
+                | T
+                | {
+                    label?: T;
+                    linkType?: T;
+                    internalLink?: T;
+                    externalLink?: T;
+                    id?: T;
+                  };
+              id?: T;
+            };
+        bottomBar?:
+          | T
+          | {
+              label?: T;
+              links?:
+                | T
+                | {
+                    label?: T;
+                    linkType?: T;
+                    internalLink?: T;
+                    externalLink?: T;
+                    id?: T;
+                  };
+            };
+        categories?:
+          | T
+          | {
+              label?: T;
+              linkType?: T;
+              internalLink?: T;
+              externalLink?: T;
+              tags?: T;
               id?: T;
             };
         id?: T;
