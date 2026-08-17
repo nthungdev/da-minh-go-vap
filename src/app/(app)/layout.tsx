@@ -1,17 +1,15 @@
 import PrelineScriptWrapper from "@/components/preline-script-wrapper";
 import ReactQueryProvider from "@/components/providers/react-query-provider";
 import ScrollToTopButton from "@/components/scroll-to-top-button";
-import TheDesktopNavbar from "@/components/the-desktop-navbar";
+import TheNavbar from "@/components/the-navbar";
 import TheFooter from "@/components/the-footer";
-import TheMobileNavbar from "@/components/the-mobile-navbar";
 import { getSiteSettings } from "@/payload/utils/site-settings-server";
-import { getMenu } from "@/utils/menu";
-import type { Metadata } from "next";
-import { NextIntlClientProvider } from "next-intl";
 import { getLocale } from "next-intl/server";
 import { Nunito } from "next/font/google";
 import { twMerge } from "tailwind-merge";
 import "./globals.css";
+import { Metadata } from "next";
+import { NextIntlClientProvider } from "next-intl";
 
 const nunito = Nunito({
   subsets: ["vietnamese"],
@@ -48,7 +46,6 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const locale = await getLocale();
-  const menu = await getMenu(locale);
 
   return (
     <html lang={locale} className={twMerge(nunito.className)}>
@@ -60,13 +57,7 @@ export default async function RootLayout({
       >
         <NextIntlClientProvider>
           <ScrollToTopButton />
-          <TheDesktopNavbar className="sticky top-0 z-20 hidden xl:flex" />
-
-          {/* z-60 because backdrop from Preline is z-59 */}
-          <TheMobileNavbar
-            menu={menu}
-            className="sticky top-0 z-60 xl:hidden"
-          />
+          <TheNavbar className="sticky top-0 z-50 w-full" />
           <div className="flex-1">
             <ReactQueryProvider>{children}</ReactQueryProvider>
           </div>
