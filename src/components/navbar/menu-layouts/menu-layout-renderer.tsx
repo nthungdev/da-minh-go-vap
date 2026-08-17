@@ -8,7 +8,7 @@ interface MenuLayoutRendererProps {
   pathname: string;
 }
 
-export function MenuLayoutRenderer({
+export default function MenuLayoutRenderer({
   item,
   pathname,
 }: MenuLayoutRendererProps) {

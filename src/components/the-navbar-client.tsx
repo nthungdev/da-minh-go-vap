@@ -32,7 +32,7 @@ import {
 import { Menu } from "lucide-react";
 import { twMerge } from "tailwind-merge";
 import { usePathname } from "next/navigation";
-import { MenuLayoutRenderer } from "./navbar/menu-layouts/menu-layout-renderer";
+import MenuLayoutRenderer from "./navbar/menu-layouts/menu-layout-renderer";
 
 interface TheNavbarClientProps {
   menu: MenuItem[];
