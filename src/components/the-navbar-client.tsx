@@ -32,6 +32,7 @@ import {
 import { Menu } from "lucide-react";
 import { twMerge } from "tailwind-merge";
 import { usePathname } from "next/navigation";
+import MenuLayoutRenderer from "./navbar/menu-layouts/menu-layout-renderer";
 
 interface TheNavbarClientProps {
   menu: MenuItem[];
@@ -42,12 +43,18 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
 
+  const hasSubContent = (item: MenuItem) => {
+    if (item.layout === "pillars") return !!item.pillars?.length;
+    if (item.layout === "tabs-posts") return !!item.categories?.length;
+    return !!item.children?.length;
+  };
+
   return (
     <>
       <div className="flex flex-1 items-center justify-between lg:justify-start lg:space-x-8">
         {/* Brand & Logo (Desktop & Mobile) */}
         <Link href="/" className="relative z-20 flex shrink-0 items-center">
-          {/* Mobile Text Brand (visible only on mobile if logo not used, but let's show logo or text) */}
+          {/* Mobile Text Brand */}
           <div className="flex items-center gap-2 font-semibold lg:hidden">
             {typeof logo?.url === "string" ? (
               <div className="relative h-10 w-10">
@@ -66,7 +73,7 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
             </span>
           </div>
 
-          {/* Desktop Logo (with the original overlapping design) */}
+          {/* Desktop Logo (overlapping design) */}
           <div className="relative z-20 hidden h-16 w-20 self-start lg:block">
             <div className="absolute top-[20%] left-0 size-20 overflow-auto">
               {typeof logo?.url === "string" && (
@@ -87,56 +94,40 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
         <div className="hidden flex-1 items-center lg:flex">
           <NavigationMenu>
             <NavigationMenuList className="gap-1">
-              {menu.map((item, index) => (
-                <NavigationMenuItem key={index}>
-                  {item.children && item.children.length > 0 ? (
-                    <>
-                      <NavigationMenuTrigger className="hover:bg-primary-600 data-[state=open]:bg-primary-600 focus:bg-primary-600 hover:text-primary bg-transparent">
+              {menu.map((item, index) => {
+                const hasContent = hasSubContent(item);
+
+                return (
+                  <NavigationMenuItem key={index}>
+                    {hasContent ? (
+                      <>
+                        <NavigationMenuTrigger className="hover:bg-primary-600 data-[state=open]:bg-primary-600 focus:bg-primary-600 hover:text-primary bg-transparent">
+                          {item.name.toUpperCase()}
+                        </NavigationMenuTrigger>
+                        <NavigationMenuContent className="bg-primary-600 border-none text-gray-50 shadow-lg">
+                          <MenuLayoutRenderer item={item} pathname={pathname} />
+                        </NavigationMenuContent>
+                      </>
+                    ) : (
+                      <NavigationMenuLink
+                        render={
+                          <Link
+                            href={item.absoluteHref}
+                            className={twMerge(
+                              navigationMenuTriggerStyle(),
+                              "hover:bg-primary-600 focus:bg-primary-600 bg-transparent text-gray-50 hover:text-white",
+                              pathname === item.absoluteHref &&
+                                "bg-primary-600",
+                            )}
+                          />
+                        }
+                      >
                         {item.name.toUpperCase()}
-                      </NavigationMenuTrigger>
-                      <NavigationMenuContent className="bg-primary-600 border-none text-gray-50 shadow-lg">
-                        <ul className="grid w-[400px] gap-2 p-2 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                          {item.children.map((child, childIndex) => (
-                            <li key={childIndex}>
-                              <NavigationMenuLink
-                                render={
-                                  <Link
-                                    href={child.absoluteHref}
-                                    className={twMerge(
-                                      "hover:bg-primary-700 focus:bg-primary-700 block space-y-1 rounded-md p-3 leading-none no-underline transition-colors outline-none select-none hover:text-white",
-                                      pathname === child.absoluteHref &&
-                                        "bg-primary-700",
-                                    )}
-                                  />
-                                }
-                              >
-                                <div className="leading-none font-medium">
-                                  {child.name}
-                                </div>
-                              </NavigationMenuLink>
-                            </li>
-                          ))}
-                        </ul>
-                      </NavigationMenuContent>
-                    </>
-                  ) : (
-                    <NavigationMenuLink
-                      render={
-                        <Link
-                          href={item.absoluteHref}
-                          className={twMerge(
-                            navigationMenuTriggerStyle(),
-                            "hover:bg-primary-600 focus:bg-primary-600 bg-transparent text-gray-50 hover:text-white",
-                            pathname === item.absoluteHref && "bg-primary-600",
-                          )}
-                        />
-                      }
-                    >
-                      {item.name.toUpperCase()}
-                    </NavigationMenuLink>
-                  )}
-                </NavigationMenuItem>
-              ))}
+                      </NavigationMenuLink>
+                    )}
+                  </NavigationMenuItem>
+                );
+              })}
             </NavigationMenuList>
           </NavigationMenu>
         </div>
@@ -190,53 +181,114 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
             </SheetHeader>
             <nav className="flex flex-col gap-2">
               <Accordion className="w-full">
-                {menu.map((item, index) => (
-                  <div
-                    key={index}
-                    className="border-b border-gray-100 last:border-0"
-                  >
-                    {item.children && item.children.length > 0 ? (
-                      <AccordionItem
-                        value={`item-${index}`}
-                        className="border-none"
-                      >
-                        <AccordionTrigger className="hover:text-primary-600 px-2 py-3 font-medium text-gray-800 transition-colors hover:no-underline">
+                {menu.map((item, index) => {
+                  const hasContent = hasSubContent(item);
+
+                  return (
+                    <div
+                      key={index}
+                      className="border-b border-gray-100 last:border-0"
+                    >
+                      {hasContent ? (
+                        <AccordionItem
+                          value={`item-${index}`}
+                          className="border-none"
+                        >
+                          <AccordionTrigger className="hover:text-primary-600 px-2 py-3 font-medium text-gray-800 transition-colors hover:no-underline">
+                            {item.name}
+                          </AccordionTrigger>
+                          <AccordionContent className="pb-3 pl-4">
+                            <ul className="flex flex-col gap-2 border-l-2 border-gray-100 pl-4">
+                              {/* Layout 1: Grid */}
+                              {item.layout === "grid" &&
+                                item.children?.map((child, childIndex) => (
+                                  <li key={childIndex}>
+                                    <Link
+                                      href={child.absoluteHref}
+                                      onClick={() => setMobileMenuOpen(false)}
+                                      className={twMerge(
+                                        "hover:text-primary-600 block py-2 text-sm text-gray-600 transition-colors",
+                                        pathname === child.absoluteHref &&
+                                          "text-primary-600 font-medium",
+                                      )}
+                                    >
+                                      {child.name}
+                                    </Link>
+                                  </li>
+                                ))}
+
+                              {/* Layout 2: Pillars */}
+                              {item.layout === "pillars" && (
+                                <>
+                                  {item.pillars?.map((pillar, pIdx) => (
+                                    <li key={pIdx} className="space-y-1 py-1">
+                                      <span className="text-xs font-semibold text-gray-400 uppercase">
+                                        {pillar.headerBanner.title}
+                                      </span>
+                                      {pillar.links.map((link, lIdx) => (
+                                        <Link
+                                          key={lIdx}
+                                          href={link.absoluteHref}
+                                          onClick={() =>
+                                            setMobileMenuOpen(false)
+                                          }
+                                          className="hover:text-primary-600 block py-1 text-sm text-gray-600"
+                                        >
+                                          {link.name}
+                                        </Link>
+                                      ))}
+                                    </li>
+                                  ))}
+                                  {item.bottomBar?.links.map((link, bIdx) => (
+                                    <li key={`b-${bIdx}`}>
+                                      <Link
+                                        href={link.absoluteHref}
+                                        onClick={() => setMobileMenuOpen(false)}
+                                        className="hover:text-primary-600 text-primary block py-1 text-sm font-medium"
+                                      >
+                                        {link.name}
+                                      </Link>
+                                    </li>
+                                  ))}
+                                </>
+                              )}
+
+                              {/* Layout 3: Tabs + Posts Categories */}
+                              {item.layout === "tabs-posts" &&
+                                item.categories?.map((cat, catIdx) => (
+                                  <li key={catIdx}>
+                                    <Link
+                                      href={cat.absoluteHref}
+                                      onClick={() => setMobileMenuOpen(false)}
+                                      className={twMerge(
+                                        "hover:text-primary-600 block py-2 text-sm text-gray-600 transition-colors",
+                                        pathname === cat.absoluteHref &&
+                                          "text-primary-600 font-medium",
+                                      )}
+                                    >
+                                      {cat.name}
+                                    </Link>
+                                  </li>
+                                ))}
+                            </ul>
+                          </AccordionContent>
+                        </AccordionItem>
+                      ) : (
+                        <Link
+                          href={item.absoluteHref}
+                          onClick={() => setMobileMenuOpen(false)}
+                          className={twMerge(
+                            "hover:text-primary-600 block px-2 py-3 font-medium text-gray-800 transition-colors",
+                            pathname === item.absoluteHref &&
+                              "text-primary-600",
+                          )}
+                        >
                           {item.name}
-                        </AccordionTrigger>
-                        <AccordionContent className="pb-3 pl-4">
-                          <ul className="flex flex-col gap-2 border-l-2 border-gray-100 pl-4">
-                            {item.children.map((child, childIndex) => (
-                              <li key={childIndex}>
-                                <Link
-                                  href={child.absoluteHref}
-                                  onClick={() => setMobileMenuOpen(false)}
-                                  className={twMerge(
-                                    "hover:text-primary-600 block py-2 text-sm text-gray-600 transition-colors",
-                                    pathname === child.absoluteHref &&
-                                      "text-primary-600 font-medium",
-                                  )}
-                                >
-                                  {child.name}
-                                </Link>
-                              </li>
-                            ))}
-                          </ul>
-                        </AccordionContent>
-                      </AccordionItem>
-                    ) : (
-                      <Link
-                        href={item.absoluteHref}
-                        onClick={() => setMobileMenuOpen(false)}
-                        className={twMerge(
-                          "hover:text-primary-600 block px-2 py-3 font-medium text-gray-800 transition-colors",
-                          pathname === item.absoluteHref && "text-primary-600",
-                        )}
-                      >
-                        {item.name}
-                      </Link>
-                    )}
-                  </div>
-                ))}
+                        </Link>
+                      )}
+                    </div>
+                  );
+                })}
               </Accordion>
             </nav>
           </SheetContent>
