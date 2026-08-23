@@ -101,7 +101,14 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                   <NavigationMenuItem key={index}>
                     {hasContent ? (
                       <>
-                        <NavigationMenuTrigger className="hover:bg-primary-600 data-[state=open]:bg-primary-600 focus:bg-primary-600 hover:text-primary flex items-center gap-1.5 bg-transparent">
+                        <NavigationMenuTrigger
+                          render={
+                            item.absoluteHref ? (
+                              <Link href={item.absoluteHref} />
+                            ) : undefined
+                          }
+                          className="hover:bg-primary-600 data-[state=open]:bg-primary-600 focus:bg-primary-600 hover:text-primary flex items-center gap-1.5 bg-transparent"
+                        >
                           {item.icon?.url && (
                             <span className="relative inline-block size-4 shrink-0">
                               <Image
@@ -214,19 +221,46 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                           value={`item-${index}`}
                           className="border-none"
                         >
-                          <AccordionTrigger className="hover:text-primary-600 flex items-center gap-2 px-2 py-3 font-medium text-gray-800 transition-colors hover:no-underline">
-                            {item.icon?.url && (
-                              <span className="relative inline-block size-5 shrink-0">
-                                <Image
-                                  src={item.icon.url}
-                                  alt={item.icon.alt || item.name}
-                                  fill
-                                  className="object-contain"
-                                />
-                              </span>
+                          <div className="flex items-center justify-between">
+                            {item.absoluteHref ? (
+                              <Link
+                                href={item.absoluteHref}
+                                onClick={() => setMobileMenuOpen(false)}
+                                className={twMerge(
+                                  "hover:text-primary-600 flex flex-1 items-center gap-2 px-2 py-3 font-medium text-gray-800 transition-colors",
+                                  pathname === item.absoluteHref &&
+                                    "text-primary-600",
+                                )}
+                              >
+                                {item.icon?.url && (
+                                  <span className="relative inline-block size-5 shrink-0">
+                                    <Image
+                                      src={item.icon.url}
+                                      alt={item.icon.alt || item.name}
+                                      fill
+                                      className="object-contain"
+                                    />
+                                  </span>
+                                )}
+                                <span>{item.name}</span>
+                              </Link>
+                            ) : (
+                              <div className="flex flex-1 items-center gap-2 px-2 py-3 font-medium text-gray-800">
+                                {item.icon?.url && (
+                                  <span className="relative inline-block size-5 shrink-0">
+                                    <Image
+                                      src={item.icon.url}
+                                      alt={item.icon.alt || item.name}
+                                      fill
+                                      className="object-contain"
+                                    />
+                                  </span>
+                                )}
+                                <span>{item.name}</span>
+                              </div>
                             )}
-                            <span>{item.name}</span>
-                          </AccordionTrigger>
+                            <AccordionTrigger className="hover:text-primary-600 w-10 shrink-0 justify-center p-2 text-gray-500 hover:no-underline" />
+                          </div>
                           <AccordionContent className="pb-3 pl-4">
                             <ul className="flex flex-col gap-2 border-l-2 border-gray-100 pl-4">
                               {/* Layout 1: Grid */}
