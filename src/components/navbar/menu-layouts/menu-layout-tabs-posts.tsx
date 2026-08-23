@@ -40,7 +40,7 @@ export function MenuLayoutTabsPosts({
               onMouseEnter={() => setActiveTabIndex(idx)}
               onClick={() => setActiveTabIndex(idx)}
               className={twMerge(
-                "flex w-full items-center justify-between rounded-lg px-3 py-2 text-left text-xs font-medium transition-colors select-none",
+                "flex w-full items-center rounded-lg px-3 py-2 text-left text-xs font-medium transition-colors select-none",
                 isSelected
                   ? "bg-primary-700 font-semibold text-white shadow-xs"
                   : "hover:bg-primary-700/50 text-gray-200 hover:text-white",
@@ -50,11 +50,6 @@ export function MenuLayoutTabsPosts({
               )}
             >
               <span className="truncate">{cat.name}</span>
-              {cat.posts && cat.posts.length > 0 && (
-                <span className="ml-1 text-[10px] text-gray-300 opacity-80">
-                  ({cat.posts.length})
-                </span>
-              )}
             </button>
           );
         })}
