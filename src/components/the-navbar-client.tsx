@@ -66,7 +66,7 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                 />
               </div>
             ) : null}
-            <span className="text-sm">
+            <span className="text-base leading-tight font-bold">
               Hội Dòng
               <br />
               Đa Minh Gò Vấp
@@ -246,7 +246,7 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                                 href={item.absoluteHref}
                                 onClick={() => setMobileMenuOpen(false)}
                                 className={twMerge(
-                                  "hover:text-primary-600 flex flex-1 items-center gap-2 px-2 py-3 font-medium text-gray-800 transition-colors",
+                                  "hover:text-primary-600 flex flex-1 items-center gap-2 px-2 py-3 text-base font-medium text-gray-800 transition-colors",
                                   pathname === item.absoluteHref &&
                                     "text-primary-600",
                                 )}
@@ -264,7 +264,7 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                                 <span>{item.name}</span>
                               </Link>
                             ) : (
-                              <div className="flex flex-1 items-center gap-2 px-2 py-3 font-medium text-gray-800">
+                              <div className="flex flex-1 items-center gap-2 px-2 py-3 text-base font-medium text-gray-800">
                                 {item.icon?.url && (
                                   <span className="relative inline-block size-5 shrink-0">
                                     <Image
@@ -291,15 +291,15 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                                         href={child.absoluteHref}
                                         onClick={() => setMobileMenuOpen(false)}
                                         className={twMerge(
-                                          "hover:text-primary-600 block py-2 text-sm text-gray-600 transition-colors",
+                                          "hover:text-primary-600 block py-2 text-base text-gray-700 transition-colors",
                                           pathname === child.absoluteHref &&
-                                            "text-primary-600 font-medium",
+                                            "text-primary-600 font-semibold",
                                         )}
                                       >
                                         {child.name}
                                       </Link>
                                     ) : (
-                                      <span className="block py-2 text-sm font-medium text-gray-600">
+                                      <span className="block py-2 text-base font-medium text-gray-700">
                                         {child.name}
                                       </span>
                                     )}
@@ -311,7 +311,7 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                                 <>
                                   {item.pillars?.map((pillar, pIdx) => (
                                     <li key={pIdx} className="space-y-1 py-1">
-                                      <span className="text-xs font-semibold text-gray-400 uppercase">
+                                      <span className="text-base font-bold text-gray-700 uppercase">
                                         {pillar.headerBanner.title}
                                       </span>
                                       {pillar.links.map((link, lIdx) => (
@@ -323,12 +323,12 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                                               onClick={() =>
                                                 setMobileMenuOpen(false)
                                               }
-                                              className="hover:text-primary-600 block py-1 text-sm text-gray-600"
+                                              className="hover:text-primary-600 block py-1.5 text-base text-gray-600"
                                             >
                                               {link.name}
                                             </Link>
                                           ) : (
-                                            <span className="block py-1 text-sm text-gray-600">
+                                            <span className="block py-1.5 text-base text-gray-600">
                                               {link.name}
                                             </span>
                                           )}
@@ -344,12 +344,12 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                                           onClick={() =>
                                             setMobileMenuOpen(false)
                                           }
-                                          className="hover:text-primary-600 text-primary block py-1 text-sm font-medium"
+                                          className="hover:text-primary-600 text-primary block py-1.5 text-base font-medium"
                                         >
                                           {link.name}
                                         </Link>
                                       ) : (
-                                        <span className="text-primary block py-1 text-sm font-medium">
+                                        <span className="text-primary block py-1.5 text-base font-medium">
                                           {link.name}
                                         </span>
                                       )}
@@ -367,15 +367,15 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                                         href={cat.absoluteHref}
                                         onClick={() => setMobileMenuOpen(false)}
                                         className={twMerge(
-                                          "hover:text-primary-600 block py-2 text-sm text-gray-600 transition-colors",
+                                          "hover:text-primary-600 block py-2 text-base text-gray-700 transition-colors",
                                           pathname === cat.absoluteHref &&
-                                            "text-primary-600 font-medium",
+                                            "text-primary-600 font-semibold",
                                         )}
                                       >
                                         {cat.name}
                                       </Link>
                                     ) : (
-                                      <span className="block py-2 text-sm text-gray-600">
+                                      <span className="block py-2 text-base text-gray-700">
                                         {cat.name}
                                       </span>
                                     )}
@@ -389,7 +389,7 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                           href={item.absoluteHref}
                           onClick={() => setMobileMenuOpen(false)}
                           className={twMerge(
-                            "hover:text-primary-600 flex items-center gap-2 px-2 py-3 font-medium text-gray-800 transition-colors",
+                            "hover:text-primary-600 flex items-center gap-2 px-2 py-3 text-base font-medium text-gray-800 transition-colors",
                             pathname === item.absoluteHref &&
                               "text-primary-600",
                           )}
@@ -407,7 +407,7 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                           <span>{item.name}</span>
                         </Link>
                       ) : (
-                        <div className="flex items-center gap-2 px-2 py-3 font-medium text-gray-800 select-none">
+                        <div className="flex items-center gap-2 px-2 py-3 text-base font-medium text-gray-800 select-none">
                           {item.icon?.url && (
                             <span className="relative inline-block size-5 shrink-0">
                               <Image
