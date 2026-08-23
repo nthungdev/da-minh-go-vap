@@ -12,6 +12,7 @@ export interface SubMenuItem {
   absoluteHref: string;
   name: string;
   normalizedName: string;
+  icon?: Media | null;
   description?: string | null;
   children?: SubMenuItem[];
 }
@@ -61,6 +62,7 @@ export interface MenuItem {
   absoluteHref: string;
   name: string;
   normalizedName: string;
+  icon?: Media | null;
   layout?: MenuLayoutType;
   description?: string | null;
   children?: MenuItem[];
@@ -71,12 +73,12 @@ export interface MenuItem {
 
 function getLinkHref(
   item?: {
-    linkType?: "internal" | "external";
+    linkType?: "none" | "internal" | "external";
     internalLink?: (string | null) | Page;
     externalLink?: string | null;
   } | null,
 ) {
-  if (!item) return "";
+  if (!item || item.linkType === "none") return "";
   if (item.linkType === "internal") {
     if (typeof item.internalLink === "object" && item.internalLink !== null) {
       return item.internalLink.path || "";
@@ -100,6 +102,10 @@ export const getMenu = cache(async (locale?: Locale): Promise<MenuItem[]> => {
           href: getLinkHref(subMenuItem),
           absoluteHref: getLinkHref(subMenuItem),
           name: subMenuItem.label,
+          icon:
+            typeof subMenuItem.icon === "object"
+              ? (subMenuItem.icon as Media)
+              : null,
           description: subMenuItem.description,
           normalizedName: normalizeMenuName(subMenuItem.label),
           children: subMenuItem.subMenu?.map((subSubMenuItem) => ({
@@ -207,6 +213,8 @@ export const getMenu = cache(async (locale?: Locale): Promise<MenuItem[]> => {
         absoluteHref: getLinkHref(menuItem),
         name: menuItem.label,
         normalizedName: normalizeMenuName(menuItem.label),
+        icon:
+          typeof menuItem.icon === "object" ? (menuItem.icon as Media) : null,
         layout,
         children,
         pillars,

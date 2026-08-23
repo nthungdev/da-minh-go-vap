@@ -10,6 +10,10 @@ const linkFields: Field[] = [
     required: true,
     options: [
       {
+        label: "None",
+        value: "none",
+      },
+      {
         label: "Internal Page",
         value: "internal",
       },
@@ -18,7 +22,7 @@ const linkFields: Field[] = [
         value: "external",
       },
     ],
-    defaultValue: "internal",
+    defaultValue: "none",
     admin: {
       layout: "horizontal",
     },
@@ -94,6 +98,15 @@ const NavBar: GlobalConfig = {
           required: true,
           localized: true,
         },
+        {
+          name: "icon",
+          label: "Biểu tượng (Icon)",
+          type: "upload",
+          relationTo: "media",
+          admin: {
+            description: "Biểu tượng tùy chọn hiển thị cạnh nhãn menu.",
+          },
+        },
         ...linkFields,
         {
           name: "layout",
@@ -103,15 +116,15 @@ const NavBar: GlobalConfig = {
           defaultValue: "grid",
           options: [
             {
-              label: "1. Lưới thẻ (Tiêu đề + Mô tả)",
+              label: "Lưới thẻ (Tiêu đề + Mô tả)",
               value: "grid",
             },
             {
-              label: "2. Cột chủ đề (Banner ảnh + Nút con + Thanh chân trang)",
+              label: "Cột chủ đề (Banner ảnh + Nút con + Thanh chân trang)",
               value: "pillars",
             },
             {
-              label: "3. Sidebar danh mục + Lưới bài viết theo Thẻ",
+              label: "Sidebar danh mục + Lưới bài viết theo Thẻ",
               value: "tabs-posts",
             },
           ],
@@ -135,6 +148,15 @@ const NavBar: GlobalConfig = {
               type: "text",
               required: true,
               localized: true,
+            },
+            {
+              name: "icon",
+              label: "Biểu tượng (Icon)",
+              type: "upload",
+              relationTo: "media",
+              admin: {
+                description: "Biểu tượng tùy chọn cho mục thẻ lưới.",
+              },
             },
             {
               name: "description",
@@ -293,7 +315,11 @@ function linkValidation(linkType: "internal" | "external") {
     val: unknown,
     {
       siblingData,
-    }: { siblingData: Partial<{ linkType?: "internal" | "external" }> },
+    }: {
+      siblingData: Partial<{
+        linkType?: "none" | "internal" | "external";
+      }>;
+    },
   ) {
     if (siblingData.linkType === linkType && !val) {
       return "This field is required";

@@ -1323,7 +1323,8 @@ export interface NavBar {
   };
   menu: {
     label: string;
-    linkType: 'internal' | 'external';
+    icon?: (string | null) | Media;
+    linkType: 'none' | 'internal' | 'external';
     internalLink?: (string | null) | Page;
     externalLink?: string | null;
     /**
@@ -1333,17 +1334,18 @@ export interface NavBar {
     subMenu?:
       | {
           label: string;
+          icon?: (string | null) | Media;
           /**
            * Mô tả ngắn hiển thị dưới tiêu đề trong thẻ lưới.
            */
           description?: string | null;
-          linkType: 'internal' | 'external';
+          linkType: 'none' | 'internal' | 'external';
           internalLink?: (string | null) | Page;
           externalLink?: string | null;
           subMenu?:
             | {
                 label: string;
-                linkType: 'internal' | 'external';
+                linkType: 'none' | 'internal' | 'external';
                 internalLink?: (string | null) | Page;
                 externalLink?: string | null;
                 id?: string | null;
@@ -1361,14 +1363,14 @@ export interface NavBar {
             title: string;
             subtitle?: string | null;
             image: string | Media;
-            linkType: 'internal' | 'external';
+            linkType: 'none' | 'internal' | 'external';
             internalLink?: (string | null) | Page;
             externalLink?: string | null;
           };
           links?:
             | {
                 label: string;
-                linkType: 'internal' | 'external';
+                linkType: 'none' | 'internal' | 'external';
                 internalLink?: (string | null) | Page;
                 externalLink?: string | null;
                 id?: string | null;
@@ -1382,7 +1384,7 @@ export interface NavBar {
       links?:
         | {
             label: string;
-            linkType: 'internal' | 'external';
+            linkType: 'none' | 'internal' | 'external';
             internalLink?: (string | null) | Page;
             externalLink?: string | null;
             id?: string | null;
@@ -1395,7 +1397,7 @@ export interface NavBar {
     categories?:
       | {
           label: string;
-          linkType: 'internal' | 'external';
+          linkType: 'none' | 'internal' | 'external';
           internalLink?: (string | null) | Page;
           externalLink?: string | null;
           /**

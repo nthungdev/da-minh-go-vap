@@ -2,8 +2,10 @@
 
 import { NavigationMenuLink } from "@/components/ui/navigation-menu";
 import { MenuItem } from "@/utils/menu";
+import { ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { twMerge } from "tailwind-merge";
 
@@ -16,6 +18,7 @@ export function MenuLayoutTabsPosts({
   item,
   pathname,
 }: MenuLayoutTabsPostsProps) {
+  const router = useRouter();
   const [activeTabIndex, setActiveTabIndex] = useState(0);
 
   const categories = item.categories || [];
@@ -31,16 +34,23 @@ export function MenuLayoutTabsPosts({
       <div className="border-primary-500/30 flex w-40 shrink-0 flex-col gap-1 border-r pr-3 sm:w-52">
         {categories.map((cat, idx) => {
           const isSelected = activeTabIndex === idx;
-          const isRouteActive = pathname === cat.absoluteHref;
+          const isRouteActive = cat.absoluteHref
+            ? pathname === cat.absoluteHref
+            : false;
 
           return (
             <button
               key={idx}
               type="button"
               onMouseEnter={() => setActiveTabIndex(idx)}
-              onClick={() => setActiveTabIndex(idx)}
+              onClick={() => {
+                setActiveTabIndex(idx);
+                if (cat.absoluteHref) {
+                  router.push(cat.absoluteHref);
+                }
+              }}
               className={twMerge(
-                "flex w-full items-center justify-between rounded-lg px-3 py-2 text-left text-xs font-medium transition-colors select-none",
+                "group flex w-full items-center justify-between rounded-lg px-3 py-2 text-left text-xs font-medium transition-colors select-none",
                 isSelected
                   ? "bg-primary-700 font-semibold text-white shadow-xs"
                   : "hover:bg-primary-700/50 text-gray-200 hover:text-white",
@@ -50,10 +60,8 @@ export function MenuLayoutTabsPosts({
               )}
             >
               <span className="truncate">{cat.name}</span>
-              {cat.posts && cat.posts.length > 0 && (
-                <span className="ml-1 text-[10px] text-gray-300 opacity-80">
-                  ({cat.posts.length})
-                </span>
+              {cat.absoluteHref && (
+                <ChevronRight className="size-3.5 shrink-0 opacity-60 transition-all group-hover:translate-x-0.5 group-hover:opacity-100" />
               )}
             </button>
           );

@@ -1,5 +1,7 @@
 import { NavigationMenuLink } from "@/components/ui/navigation-menu";
 import { MenuItem } from "@/utils/menu";
+import { ChevronRight } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { twMerge } from "tailwind-merge";
 
@@ -16,36 +18,42 @@ export function MenuLayoutGrid({ item, pathname }: MenuLayoutGridProps) {
   return (
     <ul className="grid w-[360px] gap-2.5 p-3 sm:w-[480px] md:w-[640px] md:grid-cols-2 lg:w-[860px] lg:grid-cols-3">
       {item.children.map((child, index) => {
-        const isActive = pathname === child.absoluteHref;
+        const isActive = child.absoluteHref
+          ? pathname === child.absoluteHref
+          : false;
 
-        return (
-          <li key={index} className="flex">
-            <NavigationMenuLink
-              render={
-                <Link
-                  href={child.absoluteHref}
-                  className={twMerge(
-                    "group flex flex-1 flex-col justify-start rounded-lg p-3 text-left transition-colors outline-none select-none",
-                    "hover:bg-primary-700/80 focus:bg-primary-700/80",
-                    isActive && "bg-primary-700",
-                  )}
-                />
-              }
-            >
-              <div className="text-sm leading-snug font-semibold text-white group-hover:text-white">
-                {child.name}
+        const content = (
+          <>
+            <div className="flex items-center justify-between gap-2">
+              <div className="flex items-center gap-2 text-sm leading-snug font-semibold text-white group-hover:text-white">
+                {child.icon?.url && (
+                  <span className="relative inline-block size-4.5 shrink-0">
+                    <Image
+                      src={child.icon.url}
+                      alt={child.icon.alt || child.name}
+                      fill
+                      className="object-contain"
+                    />
+                  </span>
+                )}
+                <span>{child.name}</span>
               </div>
-
-              {child.description && (
-                <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-gray-200 group-hover:text-gray-100">
-                  {child.description}
-                </p>
+              {child.absoluteHref && (
+                <ChevronRight className="size-3.5 shrink-0 text-gray-300 opacity-50 transition-all group-hover:translate-x-0.5 group-hover:text-white group-hover:opacity-100" />
               )}
+            </div>
 
-              {/* Sub-items if any */}
-              {child.children && child.children.length > 0 && (
-                <div className="border-primary-500/30 mt-2.5 flex flex-wrap gap-1.5 border-t pt-2">
-                  {child.children.map((subChild, subIdx) => (
+            {child.description && (
+              <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-gray-200 group-hover:text-gray-100">
+                {child.description}
+              </p>
+            )}
+
+            {/* Sub-items if any */}
+            {child.children && child.children.length > 0 && (
+              <div className="border-primary-500/30 mt-2.5 flex flex-wrap gap-1.5 border-t pt-2">
+                {child.children.map((subChild, subIdx) =>
+                  subChild.absoluteHref ? (
                     <Link
                       key={subIdx}
                       href={subChild.absoluteHref}
@@ -58,10 +66,42 @@ export function MenuLayoutGrid({ item, pathname }: MenuLayoutGridProps) {
                     >
                       {subChild.name}
                     </Link>
-                  ))}
-                </div>
-              )}
-            </NavigationMenuLink>
+                  ) : (
+                    <span
+                      key={subIdx}
+                      className="bg-primary-700/60 rounded px-1.5 py-0.5 text-[11px] text-gray-300"
+                    >
+                      {subChild.name}
+                    </span>
+                  ),
+                )}
+              </div>
+            )}
+          </>
+        );
+
+        return (
+          <li key={index} className="flex">
+            {child.absoluteHref ? (
+              <NavigationMenuLink
+                render={
+                  <Link
+                    href={child.absoluteHref}
+                    className={twMerge(
+                      "group flex flex-1 flex-col justify-start rounded-lg p-3 text-left transition-colors outline-none select-none",
+                      "hover:bg-primary-700/80 focus:bg-primary-700/80",
+                      isActive && "bg-primary-700",
+                    )}
+                  />
+                }
+              >
+                {content}
+              </NavigationMenuLink>
+            ) : (
+              <div className="group flex flex-1 flex-col justify-start rounded-lg p-3 text-left select-none">
+                {content}
+              </div>
+            )}
           </li>
         );
       })}
