@@ -43,6 +43,7 @@ certificates
 # Payload
 media
 temp
+tmp
 src/payload-types.ts
 .gitignore
 
