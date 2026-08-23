@@ -73,12 +73,12 @@ export interface MenuItem {
 
 function getLinkHref(
   item?: {
-    linkType?: "none" | "internal" | "external";
+    linkType?: "internal" | "external";
     internalLink?: (string | null) | Page;
     externalLink?: string | null;
   } | null,
 ) {
-  if (!item || item.linkType === "none") return "";
+  if (!item) return "";
   if (item.linkType === "internal") {
     if (typeof item.internalLink === "object" && item.internalLink !== null) {
       return item.internalLink.path || "";

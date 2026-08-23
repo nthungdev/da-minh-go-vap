@@ -10,10 +10,6 @@ const linkFields: Field[] = [
     required: true,
     options: [
       {
-        label: "None",
-        value: "none",
-      },
-      {
         label: "Internal Page",
         value: "internal",
       },
@@ -22,7 +18,7 @@ const linkFields: Field[] = [
         value: "external",
       },
     ],
-    defaultValue: "none",
+    defaultValue: "internal",
     admin: {
       layout: "horizontal",
     },
@@ -317,7 +313,7 @@ function linkValidation(linkType: "internal" | "external") {
       siblingData,
     }: {
       siblingData: Partial<{
-        linkType?: "none" | "internal" | "external";
+        linkType?: "internal" | "external";
       }>;
     },
   ) {
