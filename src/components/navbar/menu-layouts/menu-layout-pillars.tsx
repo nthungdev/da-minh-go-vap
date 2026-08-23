@@ -14,10 +14,30 @@ export function MenuLayoutPillars({ item, pathname }: MenuLayoutPillarsProps) {
     return null;
   }
 
+  const count = item.pillars.length;
+
+  const containerWidthClass =
+    count === 1
+      ? "w-[320px] sm:w-[360px]"
+      : count === 2
+        ? "w-[360px] sm:w-[540px] md:w-[600px]"
+        : count === 3
+          ? "w-[360px] sm:w-[540px] md:w-[720px] lg:w-[840px]"
+          : "w-[360px] sm:w-[540px] md:w-[720px] lg:w-[940px] xl:w-[1080px]";
+
+  const gridColsClass =
+    count === 1
+      ? "grid-cols-1"
+      : count === 2
+        ? "grid-cols-1 sm:grid-cols-2"
+        : count === 3
+          ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+          : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4";
+
   return (
-    <div className="w-[360px] p-4 sm:w-[540px] md:w-[720px] lg:w-[940px] xl:w-[1080px]">
+    <div className={twMerge("p-4", containerWidthClass)}>
       {/* Pillars Columns Grid */}
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className={twMerge("grid gap-4", gridColsClass)}>
         {item.pillars.map((pillar, pIdx) => {
           const banner = pillar.headerBanner;
           const isBannerActive = pathname === banner.absoluteHref;
