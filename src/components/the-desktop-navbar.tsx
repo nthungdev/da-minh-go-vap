@@ -41,7 +41,10 @@ export default async function TheDesktopNavbar(
             <li key={index} className="relative z-30 flex flex-row">
               {index !== 0 && <div className="my-2 border-l"></div>}
 
-              <Link className="peer block p-3" href={link.href}>
+              <Link
+                className="peer block p-3 text-base font-semibold"
+                href={link.href}
+              >
                 {link.name.toUpperCase()}
               </Link>
 
@@ -52,7 +55,7 @@ export default async function TheDesktopNavbar(
                       <Link
                         href={child.absoluteHref}
                         className={twMerge(
-                          "peer hover:bg-primary-800 flex flex-row justify-between space-x-2 py-2 pr-2 pl-4 text-nowrap hover:text-gray-50",
+                          "peer hover:bg-primary-800 flex flex-row justify-between space-x-2 py-2 pr-2 pl-4 text-base text-nowrap hover:text-gray-50",
                           !child.children && "pr-4",
                         )}
                       >
@@ -66,7 +69,7 @@ export default async function TheDesktopNavbar(
                             <li key={index} className="block">
                               <Link
                                 href={grandchild.absoluteHref}
-                                className="hover:bg-primary-700 block px-4 py-2 text-nowrap hover:text-gray-50"
+                                className="hover:bg-primary-700 block px-4 py-2 text-base text-nowrap hover:text-gray-50"
                               >
                                 {grandchild.name}
                               </Link>
