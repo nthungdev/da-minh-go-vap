@@ -112,15 +112,15 @@ const NavBar: GlobalConfig = {
           defaultValue: "grid",
           options: [
             {
-              label: "1. Lưới thẻ (Tiêu đề + Mô tả)",
+              label: "Lưới thẻ (Tiêu đề + Mô tả)",
               value: "grid",
             },
             {
-              label: "2. Cột chủ đề (Banner ảnh + Nút con + Thanh chân trang)",
+              label: "Cột chủ đề (Banner ảnh + Nút con + Thanh chân trang)",
               value: "pillars",
             },
             {
-              label: "3. Sidebar danh mục + Lưới bài viết theo Thẻ",
+              label: "Sidebar danh mục + Lưới bài viết theo Thẻ",
               value: "tabs-posts",
             },
           ],
