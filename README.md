@@ -35,7 +35,7 @@ Create a `.env.local` file in the root directory using the `.env.example` file a
 Run the MongoDB database:
 
 ```bash
-docker compose -f docker/dev/compose.yml up mongo -d
+pnpm db:up
 ```
 
 Run the web app:
@@ -46,6 +46,46 @@ pnpm dev
 
 Go to [http://localhost:3000](http://localhost:3000) to view the web app.
 Go to [http://localhost:3000/admin](http://localhost:3000/admin) to view the Payload CMS admin panel.
+
+## Database Management
+
+### Local Database Lifecycle
+
+```bash
+pnpm db:up
+pnpm db:down
+```
+
+### Database Backup
+
+Backup a database to `./tmp/backups/dump_<timestamp>.gz`:
+
+```bash
+# Using DB_BACKUP_URL environment variable
+DB_BACKUP_URL="mongodb://admin:admin@localhost:27017/da-minh-go-vap?authSource=admin" pnpm db:backup
+
+# Or passing the DB URL as an argument
+pnpm db:backup "mongodb://admin:admin@localhost:27017/da-minh-go-vap?authSource=admin"
+```
+
+The backup dump will be saved as a compressed archive to `./tmp/backups/dump_YYYYMMDD_HHMMSS.gz`.
+
+### Database Restore
+
+Restore a database from a dump archive (drops existing collections in target DB before importing):
+
+```bash
+# Restore from the latest dump in ./tmp/backups
+DB_RESTORE_URL="mongodb://admin:admin@localhost:27017/da-minh-go-vap?authSource=admin" pnpm db:restore
+
+# Restore from a specific dump file
+DB_RESTORE_URL="mongodb://admin:admin@localhost:27017/da-minh-go-vap?authSource=admin" pnpm db:restore ./tmp/backups/dump_20260823_184111.gz
+
+# Or passing destination URL and dump file as arguments
+pnpm db:restore "mongodb://admin:admin@localhost:27017/da-minh-go-vap?authSource=admin" ./tmp/backups/dump_20260823_184111.gz
+```
+
+> **Prerequisite:** Make sure MongoDB Database Tools (`mongodump` and `mongorestore`) are installed on your machine (`brew install mongodb-database-tools` on macOS).
 
 ## PayloadCMS
 
