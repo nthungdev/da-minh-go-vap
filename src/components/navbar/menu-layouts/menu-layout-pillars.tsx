@@ -40,66 +40,88 @@ export function MenuLayoutPillars({ item, pathname }: MenuLayoutPillarsProps) {
       <div className={twMerge("grid gap-4", gridColsClass)}>
         {item.pillars.map((pillar, pIdx) => {
           const banner = pillar.headerBanner;
-          const isBannerActive = pathname === banner.absoluteHref;
+          const isBannerActive = banner.absoluteHref
+            ? pathname === banner.absoluteHref
+            : false;
+
+          const bannerCard = (
+            <>
+              {banner.image?.url && (
+                <Image
+                  src={banner.image.url}
+                  alt={banner.image.alt || banner.title}
+                  fill
+                  className="object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+              )}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent" />
+              <div className="absolute inset-x-0 bottom-0 p-2.5">
+                <div className="text-sm leading-tight font-bold text-white drop-shadow-sm">
+                  {banner.title}
+                </div>
+                {banner.subtitle && (
+                  <div className="mt-0.5 line-clamp-1 text-[11px] text-gray-200 drop-shadow-sm">
+                    {banner.subtitle}
+                  </div>
+                )}
+              </div>
+            </>
+          );
 
           return (
             <div key={pIdx} className="flex flex-col gap-2.5">
               {/* Pillar Banner Card */}
-              <NavigationMenuLink
-                render={
-                  <Link
-                    href={banner.absoluteHref}
-                    className={twMerge(
-                      "group bg-primary-800 relative block h-24 w-full overflow-hidden rounded-xl shadow-md transition-transform duration-200 hover:scale-[1.02] focus:outline-none",
-                      isBannerActive && "ring-2 ring-white/80",
-                    )}
-                  />
-                }
-              >
-                {banner.image?.url && (
-                  <Image
-                    src={banner.image.url}
-                    alt={banner.image.alt || banner.title}
-                    fill
-                    className="object-cover transition-transform duration-300 group-hover:scale-105"
-                  />
-                )}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent" />
-                <div className="absolute inset-x-0 bottom-0 p-2.5">
-                  <div className="text-sm leading-tight font-bold text-white drop-shadow-sm">
-                    {banner.title}
-                  </div>
-                  {banner.subtitle && (
-                    <div className="mt-0.5 line-clamp-1 text-[11px] text-gray-200 drop-shadow-sm">
-                      {banner.subtitle}
-                    </div>
-                  )}
+              {banner.absoluteHref ? (
+                <NavigationMenuLink
+                  render={
+                    <Link
+                      href={banner.absoluteHref}
+                      className={twMerge(
+                        "group bg-primary-800 relative block h-24 w-full overflow-hidden rounded-xl shadow-md transition-transform duration-200 hover:scale-[1.02] focus:outline-none",
+                        isBannerActive && "ring-2 ring-white/80",
+                      )}
+                    />
+                  }
+                >
+                  {bannerCard}
+                </NavigationMenuLink>
+              ) : (
+                <div className="group bg-primary-800 relative block h-24 w-full overflow-hidden rounded-xl shadow-md select-none">
+                  {bannerCard}
                 </div>
-              </NavigationMenuLink>
+              )}
 
               {/* Pill-shaped button links */}
               {pillar.links && pillar.links.length > 0 && (
                 <ul className="flex flex-col gap-1.5">
                   {pillar.links.map((link, lIdx) => {
-                    const isLinkActive = pathname === link.absoluteHref;
+                    const isLinkActive = link.absoluteHref
+                      ? pathname === link.absoluteHref
+                      : false;
 
                     return (
                       <li key={lIdx}>
-                        <NavigationMenuLink
-                          render={
-                            <Link
-                              href={link.absoluteHref}
-                              className={twMerge(
-                                "border-primary-500/30 bg-primary-700/50 block w-full rounded-full border px-3 py-1.5 text-center text-xs font-medium text-gray-100 transition-all select-none",
-                                "hover:border-primary-400 hover:bg-primary-700 hover:text-white",
-                                isLinkActive &&
-                                  "bg-primary-800 border-white/50 font-semibold text-white",
-                              )}
-                            />
-                          }
-                        >
-                          {link.name}
-                        </NavigationMenuLink>
+                        {link.absoluteHref ? (
+                          <NavigationMenuLink
+                            render={
+                              <Link
+                                href={link.absoluteHref}
+                                className={twMerge(
+                                  "border-primary-500/30 bg-primary-700/50 block w-full rounded-full border px-3 py-1.5 text-center text-xs font-medium text-gray-100 transition-all select-none",
+                                  "hover:border-primary-400 hover:bg-primary-700 hover:text-white",
+                                  isLinkActive &&
+                                    "bg-primary-800 border-white/50 font-semibold text-white",
+                                )}
+                              />
+                            }
+                          >
+                            {link.name}
+                          </NavigationMenuLink>
+                        ) : (
+                          <div className="border-primary-500/30 bg-primary-700/40 block w-full rounded-full border px-3 py-1.5 text-center text-xs font-medium text-gray-300 select-none">
+                            {link.name}
+                          </div>
+                        )}
                       </li>
                     );
                   })}
@@ -120,9 +142,11 @@ export function MenuLayoutPillars({ item, pathname }: MenuLayoutPillarsProps) {
           )}
           <div className="flex flex-wrap gap-1.5">
             {item.bottomBar.links.map((link, bIdx) => {
-              const isBottomLinkActive = pathname === link.absoluteHref;
+              const isBottomLinkActive = link.absoluteHref
+                ? pathname === link.absoluteHref
+                : false;
 
-              return (
+              return link.absoluteHref ? (
                 <NavigationMenuLink
                   key={bIdx}
                   render={
@@ -139,6 +163,13 @@ export function MenuLayoutPillars({ item, pathname }: MenuLayoutPillarsProps) {
                 >
                   {link.name}
                 </NavigationMenuLink>
+              ) : (
+                <span
+                  key={bIdx}
+                  className="border-primary-500/40 bg-primary-700/40 rounded-full border px-3 py-1 text-xs font-medium text-gray-300 select-none"
+                >
+                  {link.name}
+                </span>
               );
             })}
           </div>

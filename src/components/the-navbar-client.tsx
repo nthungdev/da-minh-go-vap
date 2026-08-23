@@ -125,14 +125,14 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                           <MenuLayoutRenderer item={item} pathname={pathname} />
                         </NavigationMenuContent>
                       </>
-                    ) : (
+                    ) : item.absoluteHref ? (
                       <NavigationMenuLink
                         render={
                           <Link
                             href={item.absoluteHref}
                             className={twMerge(
                               navigationMenuTriggerStyle(),
-                              "hover:bg-primary-600 focus:bg-primary-600 flex items-center gap-1.5 bg-transparent text-gray-50 hover:text-white",
+                              "hover:bg-primary-600 focus:bg-primary-600 bg-transparent text-gray-50 hover:text-white",
                               pathname === item.absoluteHref &&
                                 "bg-primary-600",
                             )}
@@ -151,6 +151,25 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                         )}
                         <span>{item.name.toUpperCase()}</span>
                       </NavigationMenuLink>
+                    ) : (
+                      <span
+                        className={twMerge(
+                          navigationMenuTriggerStyle(),
+                          "cursor-default bg-transparent text-gray-50 select-none",
+                        )}
+                      >
+                        {item.icon?.url && (
+                          <span className="relative inline-block size-4 shrink-0">
+                            <Image
+                              src={item.icon.url}
+                              alt={item.icon.alt || item.name}
+                              fill
+                              className="object-contain"
+                            />
+                          </span>
+                        )}
+                        <span>{item.name.toUpperCase()}</span>
+                      </span>
                     )}
                   </NavigationMenuItem>
                 );
@@ -267,27 +286,23 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                               {item.layout === "grid" &&
                                 item.children?.map((child, childIndex) => (
                                   <li key={childIndex}>
-                                    <Link
-                                      href={child.absoluteHref}
-                                      onClick={() => setMobileMenuOpen(false)}
-                                      className={twMerge(
-                                        "hover:text-primary-600 flex items-center gap-2 py-2 text-sm text-gray-600 transition-colors",
-                                        pathname === child.absoluteHref &&
-                                          "text-primary-600 font-medium",
-                                      )}
-                                    >
-                                      {child.icon?.url && (
-                                        <span className="relative inline-block size-4 shrink-0">
-                                          <Image
-                                            src={child.icon.url}
-                                            alt={child.icon.alt || child.name}
-                                            fill
-                                            className="object-contain"
-                                          />
-                                        </span>
-                                      )}
-                                      <span>{child.name}</span>
-                                    </Link>
+                                    {child.absoluteHref ? (
+                                      <Link
+                                        href={child.absoluteHref}
+                                        onClick={() => setMobileMenuOpen(false)}
+                                        className={twMerge(
+                                          "hover:text-primary-600 block py-2 text-sm text-gray-600 transition-colors",
+                                          pathname === child.absoluteHref &&
+                                            "text-primary-600 font-medium",
+                                        )}
+                                      >
+                                        {child.name}
+                                      </Link>
+                                    ) : (
+                                      <span className="block py-2 text-sm font-medium text-gray-600">
+                                        {child.name}
+                                      </span>
+                                    )}
                                   </li>
                                 ))}
 
@@ -300,28 +315,44 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                                         {pillar.headerBanner.title}
                                       </span>
                                       {pillar.links.map((link, lIdx) => (
-                                        <Link
-                                          key={lIdx}
-                                          href={link.absoluteHref}
-                                          onClick={() =>
-                                            setMobileMenuOpen(false)
-                                          }
-                                          className="hover:text-primary-600 block py-1 text-sm text-gray-600"
-                                        >
-                                          {link.name}
-                                        </Link>
+                                        <div key={lIdx}>
+                                          {link.absoluteHref ? (
+                                            <Link
+                                              key={lIdx}
+                                              href={link.absoluteHref}
+                                              onClick={() =>
+                                                setMobileMenuOpen(false)
+                                              }
+                                              className="hover:text-primary-600 block py-1 text-sm text-gray-600"
+                                            >
+                                              {link.name}
+                                            </Link>
+                                          ) : (
+                                            <span className="block py-1 text-sm text-gray-600">
+                                              {link.name}
+                                            </span>
+                                          )}
+                                        </div>
                                       ))}
                                     </li>
                                   ))}
                                   {item.bottomBar?.links.map((link, bIdx) => (
                                     <li key={`b-${bIdx}`}>
-                                      <Link
-                                        href={link.absoluteHref}
-                                        onClick={() => setMobileMenuOpen(false)}
-                                        className="hover:text-primary-600 text-primary block py-1 text-sm font-medium"
-                                      >
-                                        {link.name}
-                                      </Link>
+                                      {link.absoluteHref ? (
+                                        <Link
+                                          href={link.absoluteHref}
+                                          onClick={() =>
+                                            setMobileMenuOpen(false)
+                                          }
+                                          className="hover:text-primary-600 text-primary block py-1 text-sm font-medium"
+                                        >
+                                          {link.name}
+                                        </Link>
+                                      ) : (
+                                        <span className="text-primary block py-1 text-sm font-medium">
+                                          {link.name}
+                                        </span>
+                                      )}
                                     </li>
                                   ))}
                                 </>
@@ -331,23 +362,29 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                               {item.layout === "tabs-posts" &&
                                 item.categories?.map((cat, catIdx) => (
                                   <li key={catIdx}>
-                                    <Link
-                                      href={cat.absoluteHref}
-                                      onClick={() => setMobileMenuOpen(false)}
-                                      className={twMerge(
-                                        "hover:text-primary-600 block py-2 text-sm text-gray-600 transition-colors",
-                                        pathname === cat.absoluteHref &&
-                                          "text-primary-600 font-medium",
-                                      )}
-                                    >
-                                      {cat.name}
-                                    </Link>
+                                    {cat.absoluteHref ? (
+                                      <Link
+                                        href={cat.absoluteHref}
+                                        onClick={() => setMobileMenuOpen(false)}
+                                        className={twMerge(
+                                          "hover:text-primary-600 block py-2 text-sm text-gray-600 transition-colors",
+                                          pathname === cat.absoluteHref &&
+                                            "text-primary-600 font-medium",
+                                        )}
+                                      >
+                                        {cat.name}
+                                      </Link>
+                                    ) : (
+                                      <span className="block py-2 text-sm text-gray-600">
+                                        {cat.name}
+                                      </span>
+                                    )}
                                   </li>
                                 ))}
                             </ul>
                           </AccordionContent>
                         </AccordionItem>
-                      ) : (
+                      ) : item.absoluteHref ? (
                         <Link
                           href={item.absoluteHref}
                           onClick={() => setMobileMenuOpen(false)}
@@ -369,6 +406,20 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                           )}
                           <span>{item.name}</span>
                         </Link>
+                      ) : (
+                        <div className="flex items-center gap-2 px-2 py-3 font-medium text-gray-800 select-none">
+                          {item.icon?.url && (
+                            <span className="relative inline-block size-5 shrink-0">
+                              <Image
+                                src={item.icon.url}
+                                alt={item.icon.alt || item.name}
+                                fill
+                                className="object-contain"
+                              />
+                            </span>
+                          )}
+                          <span>{item.name}</span>
+                        </div>
                       )}
                     </div>
                   );
