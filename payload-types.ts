@@ -1323,6 +1323,7 @@ export interface NavBar {
   };
   menu: {
     label: string;
+    icon?: (string | null) | Media;
     linkType: 'internal' | 'external';
     internalLink?: (string | null) | Page;
     externalLink?: string | null;
@@ -1333,6 +1334,7 @@ export interface NavBar {
     subMenu?:
       | {
           label: string;
+          icon?: (string | null) | Media;
           /**
            * Mô tả ngắn hiển thị dưới tiêu đề trong thẻ lưới.
            */

@@ -101,8 +101,18 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                   <NavigationMenuItem key={index}>
                     {hasContent ? (
                       <>
-                        <NavigationMenuTrigger className="hover:bg-primary-600 data-[state=open]:bg-primary-600 focus:bg-primary-600 hover:text-primary bg-transparent">
-                          {item.name.toUpperCase()}
+                        <NavigationMenuTrigger className="hover:bg-primary-600 data-[state=open]:bg-primary-600 focus:bg-primary-600 hover:text-primary flex items-center gap-1.5 bg-transparent">
+                          {item.icon?.url && (
+                            <span className="relative inline-block size-4 shrink-0">
+                              <Image
+                                src={item.icon.url}
+                                alt={item.icon.alt || item.name}
+                                fill
+                                className="object-contain"
+                              />
+                            </span>
+                          )}
+                          <span>{item.name.toUpperCase()}</span>
                         </NavigationMenuTrigger>
                         <NavigationMenuContent className="bg-primary-600 border-none text-gray-50 shadow-lg">
                           <MenuLayoutRenderer item={item} pathname={pathname} />
@@ -115,14 +125,24 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                             href={item.absoluteHref}
                             className={twMerge(
                               navigationMenuTriggerStyle(),
-                              "hover:bg-primary-600 focus:bg-primary-600 bg-transparent text-gray-50 hover:text-white",
+                              "hover:bg-primary-600 focus:bg-primary-600 flex items-center gap-1.5 bg-transparent text-gray-50 hover:text-white",
                               pathname === item.absoluteHref &&
                                 "bg-primary-600",
                             )}
                           />
                         }
                       >
-                        {item.name.toUpperCase()}
+                        {item.icon?.url && (
+                          <span className="relative inline-block size-4 shrink-0">
+                            <Image
+                              src={item.icon.url}
+                              alt={item.icon.alt || item.name}
+                              fill
+                              className="object-contain"
+                            />
+                          </span>
+                        )}
+                        <span>{item.name.toUpperCase()}</span>
                       </NavigationMenuLink>
                     )}
                   </NavigationMenuItem>
@@ -194,8 +214,18 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                           value={`item-${index}`}
                           className="border-none"
                         >
-                          <AccordionTrigger className="hover:text-primary-600 px-2 py-3 font-medium text-gray-800 transition-colors hover:no-underline">
-                            {item.name}
+                          <AccordionTrigger className="hover:text-primary-600 flex items-center gap-2 px-2 py-3 font-medium text-gray-800 transition-colors hover:no-underline">
+                            {item.icon?.url && (
+                              <span className="relative inline-block size-5 shrink-0">
+                                <Image
+                                  src={item.icon.url}
+                                  alt={item.icon.alt || item.name}
+                                  fill
+                                  className="object-contain"
+                                />
+                              </span>
+                            )}
+                            <span>{item.name}</span>
                           </AccordionTrigger>
                           <AccordionContent className="pb-3 pl-4">
                             <ul className="flex flex-col gap-2 border-l-2 border-gray-100 pl-4">
@@ -207,12 +237,22 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                                       href={child.absoluteHref}
                                       onClick={() => setMobileMenuOpen(false)}
                                       className={twMerge(
-                                        "hover:text-primary-600 block py-2 text-sm text-gray-600 transition-colors",
+                                        "hover:text-primary-600 flex items-center gap-2 py-2 text-sm text-gray-600 transition-colors",
                                         pathname === child.absoluteHref &&
                                           "text-primary-600 font-medium",
                                       )}
                                     >
-                                      {child.name}
+                                      {child.icon?.url && (
+                                        <span className="relative inline-block size-4 shrink-0">
+                                          <Image
+                                            src={child.icon.url}
+                                            alt={child.icon.alt || child.name}
+                                            fill
+                                            className="object-contain"
+                                          />
+                                        </span>
+                                      )}
+                                      <span>{child.name}</span>
                                     </Link>
                                   </li>
                                 ))}
@@ -278,12 +318,22 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                           href={item.absoluteHref}
                           onClick={() => setMobileMenuOpen(false)}
                           className={twMerge(
-                            "hover:text-primary-600 block px-2 py-3 font-medium text-gray-800 transition-colors",
+                            "hover:text-primary-600 flex items-center gap-2 px-2 py-3 font-medium text-gray-800 transition-colors",
                             pathname === item.absoluteHref &&
                               "text-primary-600",
                           )}
                         >
-                          {item.name}
+                          {item.icon?.url && (
+                            <span className="relative inline-block size-5 shrink-0">
+                              <Image
+                                src={item.icon.url}
+                                alt={item.icon.alt || item.name}
+                                fill
+                                className="object-contain"
+                              />
+                            </span>
+                          )}
+                          <span>{item.name}</span>
                         </Link>
                       )}
                     </div>

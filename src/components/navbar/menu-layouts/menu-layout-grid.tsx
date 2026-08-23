@@ -1,5 +1,6 @@
 import { NavigationMenuLink } from "@/components/ui/navigation-menu";
 import { MenuItem } from "@/utils/menu";
+import Image from "next/image";
 import Link from "next/link";
 import { twMerge } from "tailwind-merge";
 
@@ -32,8 +33,18 @@ export function MenuLayoutGrid({ item, pathname }: MenuLayoutGridProps) {
                 />
               }
             >
-              <div className="text-sm leading-snug font-semibold text-white group-hover:text-white">
-                {child.name}
+              <div className="flex items-center gap-2 text-sm leading-snug font-semibold text-white group-hover:text-white">
+                {child.icon?.url && (
+                  <span className="relative inline-block size-4.5 shrink-0">
+                    <Image
+                      src={child.icon.url}
+                      alt={child.icon.alt || child.name}
+                      fill
+                      className="object-contain"
+                    />
+                  </span>
+                )}
+                <span>{child.name}</span>
               </div>
 
               {child.description && (

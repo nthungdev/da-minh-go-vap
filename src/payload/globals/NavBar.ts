@@ -94,6 +94,15 @@ const NavBar: GlobalConfig = {
           required: true,
           localized: true,
         },
+        {
+          name: "icon",
+          label: "Biểu tượng (Icon)",
+          type: "upload",
+          relationTo: "media",
+          admin: {
+            description: "Biểu tượng tùy chọn hiển thị cạnh nhãn menu.",
+          },
+        },
         ...linkFields,
         {
           name: "layout",
@@ -135,6 +144,15 @@ const NavBar: GlobalConfig = {
               type: "text",
               required: true,
               localized: true,
+            },
+            {
+              name: "icon",
+              label: "Biểu tượng (Icon)",
+              type: "upload",
+              relationTo: "media",
+              admin: {
+                description: "Biểu tượng tùy chọn cho mục thẻ lưới.",
+              },
             },
             {
               name: "description",
