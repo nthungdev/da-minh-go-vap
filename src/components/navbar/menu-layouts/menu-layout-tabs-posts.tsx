@@ -2,6 +2,7 @@
 
 import { NavigationMenuLink } from "@/components/ui/navigation-menu";
 import { MenuItem } from "@/utils/menu";
+import { ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -49,7 +50,7 @@ export function MenuLayoutTabsPosts({
                 }
               }}
               className={twMerge(
-                "flex w-full items-center rounded-lg px-3 py-2 text-left text-xs font-medium transition-colors select-none",
+                "group flex w-full items-center justify-between rounded-lg px-3 py-2 text-left text-xs font-medium transition-colors select-none",
                 isSelected
                   ? "bg-primary-700 font-semibold text-white shadow-xs"
                   : "hover:bg-primary-700/50 text-gray-200 hover:text-white",
@@ -59,6 +60,9 @@ export function MenuLayoutTabsPosts({
               )}
             >
               <span className="truncate">{cat.name}</span>
+              {cat.absoluteHref && (
+                <ChevronRight className="size-3.5 shrink-0 opacity-60 transition-all group-hover:translate-x-0.5 group-hover:opacity-100" />
+              )}
             </button>
           );
         })}

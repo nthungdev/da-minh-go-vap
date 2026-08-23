@@ -1,5 +1,6 @@
 import { NavigationMenuLink } from "@/components/ui/navigation-menu";
 import { MenuItem } from "@/utils/menu";
+import { ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { twMerge } from "tailwind-merge";
@@ -56,8 +57,13 @@ export function MenuLayoutPillars({ item, pathname }: MenuLayoutPillarsProps) {
               )}
               <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent" />
               <div className="absolute inset-x-0 bottom-0 p-2.5">
-                <div className="text-sm leading-tight font-bold text-white drop-shadow-sm">
-                  {banner.title}
+                <div className="flex items-center justify-between gap-1">
+                  <div className="text-sm leading-tight font-bold text-white drop-shadow-sm">
+                    {banner.title}
+                  </div>
+                  {banner.absoluteHref && (
+                    <ChevronRight className="size-4 shrink-0 text-white/80 opacity-70 transition-transform group-hover:translate-x-0.5 group-hover:opacity-100" />
+                  )}
                 </div>
                 {banner.subtitle && (
                   <div className="mt-0.5 line-clamp-1 text-[11px] text-gray-200 drop-shadow-sm">
