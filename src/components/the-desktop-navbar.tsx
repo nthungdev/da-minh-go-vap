@@ -46,7 +46,7 @@ export default async function TheDesktopNavbar(
               </Link>
 
               {link.children && link.children.length !== 0 && (
-                <ul className="bg-primary-600 absolute top-full left-0 z-20 hidden min-w-full divide-y peer-hover:block hover:block">
+                <ul className="bg-primary-600 absolute top-full left-0 z-20 hidden min-w-full divide-y overflow-hidden rounded-xl shadow-xl peer-hover:block hover:block">
                   {link.children.map((child, index) => (
                     <li key={index} className="relative block">
                       <Link
@@ -61,7 +61,7 @@ export default async function TheDesktopNavbar(
                       </Link>
 
                       {child.children && child.children.length !== 0 && (
-                        <ul className="bg-primary-600 absolute top-0 left-full ml-px hidden divide-y peer-hover:block hover:block">
+                        <ul className="bg-primary-600 absolute top-0 left-full ml-px hidden divide-y overflow-hidden rounded-xl shadow-xl peer-hover:block hover:block">
                           {child.children.map((grandchild, index) => (
                             <li key={index} className="block">
                               <Link

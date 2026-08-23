@@ -121,7 +121,7 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                           )}
                           <span>{item.name.toUpperCase()}</span>
                         </NavigationMenuTrigger>
-                        <NavigationMenuContent className="bg-primary-600 border-none text-gray-50 shadow-lg">
+                        <NavigationMenuContent className="bg-primary-600 rounded-2xl border-none text-gray-50 shadow-lg">
                           <MenuLayoutRenderer item={item} pathname={pathname} />
                         </NavigationMenuContent>
                       </>
