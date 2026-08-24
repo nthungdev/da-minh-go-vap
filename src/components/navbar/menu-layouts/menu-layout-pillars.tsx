@@ -1,4 +1,5 @@
 import { NavigationMenuLink } from "@/components/ui/navigation-menu";
+import { cn } from "@/utils/common";
 import { MenuItem } from "@/utils/menu";
 import { ChevronRight } from "lucide-react";
 import Image from "next/image";
@@ -10,7 +11,10 @@ interface MenuLayoutPillarsProps {
   pathname: string;
 }
 
-export function MenuLayoutPillars({ item, pathname }: MenuLayoutPillarsProps) {
+export default function MenuLayoutPillars({
+  item,
+  pathname,
+}: MenuLayoutPillarsProps) {
   if (!item.pillars || item.pillars.length === 0) {
     return null;
   }
@@ -112,11 +116,11 @@ export function MenuLayoutPillars({ item, pathname }: MenuLayoutPillarsProps) {
                             render={
                               <Link
                                 href={link.absoluteHref}
-                                className={twMerge(
-                                  "border-primary-500/30 bg-primary-700/50 block w-full rounded-full border px-3.5 py-2 text-center text-base font-medium text-gray-100 transition-all select-none",
-                                  "hover:border-primary-400 hover:bg-primary-700 hover:text-white",
+                                className={cn(
+                                  "bg-primary-700/60 block w-full rounded-full px-3.5 py-2 text-left text-base font-medium text-gray-100 transition-all select-none",
+                                  "hover:bg-primary-800 focus:bg-primary-800 hover:text-white",
                                   isLinkActive &&
-                                    "bg-primary-800 border-white/50 font-semibold text-white",
+                                    "bg-primary-700 font-semibold text-white",
                                 )}
                               />
                             }
@@ -124,7 +128,7 @@ export function MenuLayoutPillars({ item, pathname }: MenuLayoutPillarsProps) {
                             {link.name}
                           </NavigationMenuLink>
                         ) : (
-                          <div className="border-primary-500/30 bg-primary-700/40 block w-full rounded-full border px-3.5 py-2 text-center text-base font-medium text-gray-300 select-none">
+                          <div className="bg-primary-700/60 block w-full rounded-full px-3.5 py-2 text-left text-base font-medium text-gray-300 select-none">
                             {link.name}
                           </div>
                         )}
@@ -160,7 +164,7 @@ export function MenuLayoutPillars({ item, pathname }: MenuLayoutPillarsProps) {
                       href={link.absoluteHref}
                       className={twMerge(
                         "border-primary-500/40 bg-primary-700/60 rounded-full border px-3.5 py-1.5 text-base font-medium text-gray-100 transition-colors select-none",
-                        "hover:border-primary-400 hover:bg-primary-700 hover:text-white",
+                        "hover:bg-primary-700 focus:bg-primary-700 hover:text-white",
                         isBottomLinkActive &&
                           "bg-primary-800 border-white/60 font-semibold text-white",
                       )}

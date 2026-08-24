@@ -17,7 +17,7 @@ export default async function TheNavbar(
   return (
     <header
       className={twMerge(
-        "border-primary-700 bg-primary sticky top-0 z-50 w-full border-b text-gray-50 shadow-sm",
+        "bg-primary-700/90 sticky top-0 z-50 w-full text-gray-50 shadow-sm",
         props.className,
       )}
     >
