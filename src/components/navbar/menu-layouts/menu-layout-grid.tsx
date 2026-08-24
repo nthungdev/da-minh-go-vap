@@ -43,7 +43,7 @@ export function MenuLayoutGrid({ item, pathname }: MenuLayoutGridProps) {
                 </div>
 
                 {child.description && (
-                  <p className="mt-1 line-clamp-2 w-full text-left text-sm leading-relaxed text-gray-100 group-hover:text-white">
+                  <p className="mt-1 line-clamp-2 w-full text-left text-sm leading-relaxed text-white">
                     {child.description}
                   </p>
                 )}
