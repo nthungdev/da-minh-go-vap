@@ -24,32 +24,35 @@ export function MenuLayoutGrid({ item, pathname }: MenuLayoutGridProps) {
 
         const content = (
           <div className="flex w-full flex-col items-start text-left">
-            <div className="flex w-full items-center justify-between gap-2 text-left">
-              <div className="flex items-center justify-start gap-2">
-                {child.icon?.url && (
-                  <span className="relative inline-block size-5 shrink-0">
-                    <Image
-                      src={child.icon.url}
-                      alt={child.icon.alt || child.name}
-                      fill
-                      className="object-contain"
-                    />
+            <div className="hover:bg-primary-800 flex w-full items-center justify-between gap-x-2 rounded-md p-3.5">
+              <div>
+                <div className="flex w-full items-center justify-between gap-2 text-left">
+                  {child.icon?.url && (
+                    <span className="relative inline-block size-5 shrink-0">
+                      <Image
+                        src={child.icon.url}
+                        alt={child.icon.alt || child.name}
+                        fill
+                        className="object-contain"
+                      />
+                    </span>
+                  )}
+                  <span className="text-left text-lg leading-snug font-bold text-white group-hover:text-white">
+                    {child.name}
                   </span>
+                </div>
+
+                {child.description && (
+                  <p className="mt-1 line-clamp-2 w-full text-left text-sm leading-relaxed text-gray-100 group-hover:text-white">
+                    {child.description}
+                  </p>
                 )}
-                <span className="text-left text-lg leading-snug font-bold text-white group-hover:text-white">
-                  {child.name}
-                </span>
               </div>
+
               {child.absoluteHref && (
                 <ChevronRight className="size-4 shrink-0 text-gray-300 opacity-50 transition-all group-hover:translate-x-0.5 group-hover:text-white group-hover:opacity-100" />
               )}
             </div>
-
-            {child.description && (
-              <p className="mt-1 line-clamp-2 w-full text-left text-sm leading-relaxed text-gray-100 group-hover:text-white">
-                {child.description}
-              </p>
-            )}
 
             {/* Sub-items if any */}
             {child.children && child.children.length > 0 && (
@@ -91,7 +94,7 @@ export function MenuLayoutGrid({ item, pathname }: MenuLayoutGridProps) {
                   <Link
                     href={child.absoluteHref}
                     className={twMerge(
-                      "group flex w-full flex-1 flex-col items-start justify-start rounded-lg p-3.5 text-left transition-colors outline-none select-none",
+                      "group flex w-full flex-1 flex-col items-start justify-start rounded-lg text-left transition-colors outline-none select-none",
                       "hover:bg-primary-700/80 focus:bg-primary-700/80",
                       isActive && "bg-primary-700",
                     )}
