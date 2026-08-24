@@ -11,7 +11,10 @@ interface MenuLayoutPillarsProps {
   pathname: string;
 }
 
-export function MenuLayoutPillars({ item, pathname }: MenuLayoutPillarsProps) {
+export default function MenuLayoutPillars({
+  item,
+  pathname,
+}: MenuLayoutPillarsProps) {
   if (!item.pillars || item.pillars.length === 0) {
     return null;
   }

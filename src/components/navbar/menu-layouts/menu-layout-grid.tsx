@@ -10,7 +10,10 @@ interface MenuLayoutGridProps {
   pathname: string;
 }
 
-export function MenuLayoutGrid({ item, pathname }: MenuLayoutGridProps) {
+export default function MenuLayoutGrid({
+  item,
+  pathname,
+}: MenuLayoutGridProps) {
   if (!item.children || item.children.length === 0) {
     return null;
   }

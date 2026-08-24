@@ -1,7 +1,7 @@
-import { MenuItem } from "@/utils/menu";
-import { MenuLayoutGrid } from "./menu-layout-grid";
-import { MenuLayoutPillars } from "./menu-layout-pillars";
-import { MenuLayoutTabsPosts } from "./menu-layout-tabs-posts";
+import type { MenuItem } from "@/utils/menu";
+import MenuLayoutGrid from "./menu-layout-grid";
+import MenuLayoutPillars from "./menu-layout-pillars";
+import MenuLayoutTabsPosts from "./menu-layout-tabs-posts";
 
 interface MenuLayoutRendererProps {
   item: MenuItem;

@@ -13,7 +13,7 @@ interface MenuLayoutTabsPostsProps {
   pathname: string;
 }
 
-export function MenuLayoutTabsPosts({
+export default function MenuLayoutTabsPosts({
   item,
   pathname,
 }: MenuLayoutTabsPostsProps) {

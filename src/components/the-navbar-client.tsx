@@ -107,7 +107,7 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                               <Link href={item.absoluteHref} />
                             ) : undefined
                           }
-                          className="hover:bg-primary-600 data-[state=open]:bg-primary-600 focus:bg-primary-600 hover:text-primary flex items-center gap-1.5 bg-transparent"
+                          className="hover:bg-primary-800 data-[state=open]:bg-primary-700 focus:bg-primary-800 hover:text-primary flex items-center gap-1.5"
                         >
                           {item.icon?.url && (
                             <span className="relative inline-block size-4 shrink-0">
@@ -121,7 +121,7 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                           )}
                           <span>{item.name.toUpperCase()}</span>
                         </NavigationMenuTrigger>
-                        <NavigationMenuContent className="bg-primary-600 rounded-2xl border-none text-gray-50 shadow-lg">
+                        <NavigationMenuContent className="rounded-xl border-none text-gray-50 shadow-lg">
                           <MenuLayoutRenderer item={item} pathname={pathname} />
                         </NavigationMenuContent>
                       </>
@@ -132,9 +132,9 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                             href={item.absoluteHref}
                             className={twMerge(
                               navigationMenuTriggerStyle(),
-                              "hover:bg-primary-600 focus:bg-primary-600 bg-transparent text-gray-50 hover:text-white",
+                              "hover:bg-primary-800 focus:bg-primary-800 text-gray-50 hover:text-white",
                               pathname === item.absoluteHref &&
-                                "bg-primary-600",
+                                "bg-primary-700",
                             )}
                           />
                         }
