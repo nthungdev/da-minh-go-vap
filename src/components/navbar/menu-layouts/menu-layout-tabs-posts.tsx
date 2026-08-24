@@ -5,7 +5,6 @@ import { MenuItem } from "@/utils/menu";
 import { ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { twMerge } from "tailwind-merge";
 
@@ -18,7 +17,6 @@ export function MenuLayoutTabsPosts({
   item,
   pathname,
 }: MenuLayoutTabsPostsProps) {
-  const router = useRouter();
   const [activeTabIndex, setActiveTabIndex] = useState(0);
 
   const categories = item.categories || [];
@@ -38,31 +36,47 @@ export function MenuLayoutTabsPosts({
             ? pathname === cat.absoluteHref
             : false;
 
-          return (
-            <button
-              key={idx}
-              type="button"
-              onMouseEnter={() => setActiveTabIndex(idx)}
-              onClick={() => {
-                setActiveTabIndex(idx);
-                if (cat.absoluteHref) {
-                  router.push(cat.absoluteHref);
-                }
-              }}
-              className={twMerge(
-                "group flex w-full items-center justify-between rounded-lg px-3.5 py-2.5 text-left text-base font-medium transition-colors select-none",
-                isSelected
-                  ? "bg-primary-700 font-semibold text-white shadow-xs"
-                  : "hover:bg-primary-700/50 text-gray-200 hover:text-white",
-                isRouteActive &&
-                  !isSelected &&
-                  "text-white underline underline-offset-4",
-              )}
-            >
+          const tabContent = (
+            <>
               <span className="truncate">{cat.name}</span>
               {cat.absoluteHref && (
                 <ChevronRight className="size-4 shrink-0 opacity-60 transition-all group-hover:translate-x-0.5 group-hover:opacity-100" />
               )}
+            </>
+          );
+
+          const tabClassName = twMerge(
+            "group flex w-full items-center justify-between rounded-lg px-3.5 py-2.5 text-left text-base font-medium transition-colors select-none",
+            isSelected
+              ? "bg-primary-700 font-semibold text-white shadow-xs"
+              : "hover:bg-primary-700/50 text-gray-200 hover:text-white",
+            isRouteActive &&
+              !isSelected &&
+              "text-white underline underline-offset-4",
+          );
+
+          return cat.absoluteHref ? (
+            <NavigationMenuLink
+              key={idx}
+              className="hover:bg-primary-800 focus:primary-800 p-0"
+              render={
+                <Link
+                  href={cat.absoluteHref}
+                  onMouseEnter={() => setActiveTabIndex(idx)}
+                  className={tabClassName}
+                />
+              }
+            >
+              {tabContent}
+            </NavigationMenuLink>
+          ) : (
+            <button
+              key={idx}
+              type="button"
+              onMouseEnter={() => setActiveTabIndex(idx)}
+              className={tabClassName}
+            >
+              {tabContent}
             </button>
           );
         })}
