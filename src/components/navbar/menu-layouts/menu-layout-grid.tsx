@@ -23,7 +23,7 @@ export function MenuLayoutGrid({ item, pathname }: MenuLayoutGridProps) {
           : false;
 
         const headerContent = (
-          <div className="flex items-center gap-x-2">
+          <div className="flex w-full items-center justify-between gap-x-2">
             <div>
               <div className="flex w-full items-center justify-between gap-2 text-left">
                 {child.icon?.url && (
@@ -49,7 +49,7 @@ export function MenuLayoutGrid({ item, pathname }: MenuLayoutGridProps) {
             </div>
 
             {child.absoluteHref && (
-              <ChevronRight className="size-4 shrink-0 text-gray-300 opacity-50 transition-all group-hover:translate-x-0.5 group-hover:text-white group-hover:opacity-100" />
+              <ChevronRight className="size-4 shrink-0 text-gray-300 transition-all group-hover:translate-x-0.5 group-hover:text-white" />
             )}
           </div>
         );
