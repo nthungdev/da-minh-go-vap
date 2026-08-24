@@ -22,41 +22,66 @@ export function MenuLayoutGrid({ item, pathname }: MenuLayoutGridProps) {
           ? pathname === child.absoluteHref
           : false;
 
-        const content = (
-          <div className="flex w-full flex-col items-start text-left">
-            <div className="hover:bg-primary-800 flex w-full items-center justify-between gap-x-2 rounded-md p-3.5">
-              <div>
-                <div className="flex w-full items-center justify-between gap-2 text-left">
-                  {child.icon?.url && (
-                    <span className="relative inline-block size-5 shrink-0">
-                      <Image
-                        src={child.icon.url}
-                        alt={child.icon.alt || child.name}
-                        fill
-                        className="object-contain"
-                      />
-                    </span>
-                  )}
-                  <span className="text-left text-lg leading-snug font-bold text-white group-hover:text-white">
-                    {child.name}
+        const headerContent = (
+          <div className="flex items-center gap-x-2">
+            <div>
+              <div className="flex w-full items-center justify-between gap-2 text-left">
+                {child.icon?.url && (
+                  <span className="relative inline-block size-5 shrink-0">
+                    <Image
+                      src={child.icon.url}
+                      alt={child.icon.alt || child.name}
+                      fill
+                      className="object-contain"
+                    />
                   </span>
-                </div>
-
-                {child.description && (
-                  <p className="mt-1 line-clamp-2 w-full text-left text-sm leading-relaxed text-gray-100 group-hover:text-white">
-                    {child.description}
-                  </p>
                 )}
+                <span className="text-left text-lg leading-snug font-bold text-white group-hover:text-white">
+                  {child.name}
+                </span>
               </div>
 
-              {child.absoluteHref && (
-                <ChevronRight className="size-4 shrink-0 text-gray-300 opacity-50 transition-all group-hover:translate-x-0.5 group-hover:text-white group-hover:opacity-100" />
+              {child.description && (
+                <p className="mt-1 line-clamp-2 w-full text-left text-sm leading-relaxed text-gray-100 group-hover:text-white">
+                  {child.description}
+                </p>
               )}
             </div>
 
+            {child.absoluteHref && (
+              <ChevronRight className="size-4 shrink-0 text-gray-300 opacity-50 transition-all group-hover:translate-x-0.5 group-hover:text-white group-hover:opacity-100" />
+            )}
+          </div>
+        );
+
+        return (
+          <li key={index} className="flex flex-col justify-start">
+            {/* Parent Header Link */}
+            {child.absoluteHref ? (
+              <NavigationMenuLink
+                className="w-full items-start justify-start p-0 text-left"
+                render={
+                  <Link
+                    href={child.absoluteHref}
+                    className={twMerge(
+                      "group flex w-full items-center justify-between gap-x-2 rounded-md p-3.5 text-left transition-colors outline-none select-none",
+                      "hover:bg-primary-800 focus:bg-primary-800",
+                      isActive && "bg-primary-700",
+                    )}
+                  />
+                }
+              >
+                {headerContent}
+              </NavigationMenuLink>
+            ) : (
+              <div className="group flex w-full items-center justify-between gap-x-2 rounded-md p-3.5 text-left select-none">
+                {headerContent}
+              </div>
+            )}
+
             {/* Sub-items if any */}
             {child.children && child.children.length > 0 && (
-              <div className="border-primary-500/30 mt-3 flex w-full flex-wrap justify-start gap-1.5 border-t pt-2.5 text-left">
+              <div className="border-primary-500/30 mt-1.5 flex w-full flex-wrap justify-start gap-1.5 border-t px-2 pt-2.5 text-left">
                 {child.children.map((subChild, subIdx) =>
                   subChild.absoluteHref ? (
                     <Link
@@ -65,9 +90,8 @@ export function MenuLayoutGrid({ item, pathname }: MenuLayoutGridProps) {
                       className={twMerge(
                         "bg-primary-700/60 hover:bg-primary-800 rounded-md px-2 py-0.5 text-left text-base text-gray-200 transition-colors hover:text-white",
                         pathname === subChild.absoluteHref &&
-                          "bg-primary-800 font-medium text-white",
+                          "bg-primary-700 font-medium text-white",
                       )}
-                      onClick={(e) => e.stopPropagation()}
                     >
                       {subChild.name}
                     </Link>
@@ -80,32 +104,6 @@ export function MenuLayoutGrid({ item, pathname }: MenuLayoutGridProps) {
                     </span>
                   ),
                 )}
-              </div>
-            )}
-          </div>
-        );
-
-        return (
-          <li key={index} className="flex">
-            {child.absoluteHref ? (
-              <NavigationMenuLink
-                className="w-full items-start justify-start p-0 text-left hover:bg-transparent focus:bg-transparent"
-                render={
-                  <Link
-                    href={child.absoluteHref}
-                    className={twMerge(
-                      "group flex w-full flex-1 flex-col items-start justify-start rounded-lg text-left transition-colors outline-none select-none",
-                      "hover:bg-primary-700/80 focus:bg-primary-700/80",
-                      isActive && "bg-primary-700",
-                    )}
-                  />
-                }
-              >
-                {content}
-              </NavigationMenuLink>
-            ) : (
-              <div className="group flex w-full flex-1 flex-col items-start justify-start rounded-lg p-3.5 text-left select-none">
-                {content}
               </div>
             )}
           </li>
