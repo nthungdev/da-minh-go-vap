@@ -1325,6 +1325,7 @@ export interface NavBar {
     label?: string | null;
     icon?:
       | (
+          | 'home'
           | 'am-nhac'
           | 'dao-tao'
           | 'dich-thuat'

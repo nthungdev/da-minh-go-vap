@@ -1,4 +1,5 @@
 export const MENU_ICON_OPTIONS = [
+  { label: "Trang chủ", value: "home" },
   { label: "Âm nhạc", value: "am-nhac" },
   { label: "Đào tạo", value: "dao-tao" },
   { label: "Dịch thuật", value: "dich-thuat" },
