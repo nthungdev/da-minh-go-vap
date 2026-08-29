@@ -1,3 +1,4 @@
+import { MENU_ICON_OPTIONS } from "@/definitions/menu-icons";
 import { onlyRoles } from "@/payload/utils/access-control";
 import { revalidatePath } from "@/payload/utils/data";
 import { Field, GlobalConfig } from "payload";
@@ -94,17 +95,24 @@ const NavBar: GlobalConfig = {
       fields: [
         {
           name: "label",
+          label: "Nhãn menu",
           type: "text",
-          required: true,
           localized: true,
+          validate: labelValidation,
+          admin: {
+            description:
+              "Nhãn hiển thị của mục menu (tùy chọn nếu đã chọn biểu tượng).",
+          },
         },
         {
           name: "icon",
           label: "Biểu tượng (Icon)",
-          type: "upload",
-          relationTo: "media",
+          type: "select",
+          options: [...MENU_ICON_OPTIONS],
+          validate: iconValidation,
           admin: {
-            description: "Biểu tượng tùy chọn hiển thị cạnh nhãn menu.",
+            description:
+              "Biểu tượng hiển thị phía trước nhãn menu (tùy chọn nếu đã nhập nhãn).",
           },
         },
         ...linkFields,
@@ -309,6 +317,48 @@ const NavBar: GlobalConfig = {
     afterChange: [() => revalidatePath("/")],
   },
 };
+
+function labelValidation(
+  val: unknown,
+  {
+    siblingData,
+  }: {
+    siblingData: Partial<{
+      label?: string | null;
+      icon?: string | null;
+    }>;
+  },
+) {
+  const hasLabel =
+    typeof val === "string" ? val.trim().length > 0 : Boolean(val);
+  const hasIcon = Boolean(siblingData?.icon);
+  if (!hasLabel && !hasIcon) {
+    return "Phải nhập nhãn hoặc chọn biểu tượng";
+  }
+  return true;
+}
+
+function iconValidation(
+  val: unknown,
+  {
+    siblingData,
+  }: {
+    siblingData: Partial<{
+      label?: string | null;
+      icon?: string | null;
+    }>;
+  },
+) {
+  const hasIcon = Boolean(val);
+  const hasLabel =
+    typeof siblingData?.label === "string"
+      ? siblingData.label.trim().length > 0
+      : Boolean(siblingData?.label);
+  if (!hasIcon && !hasLabel) {
+    return "Phải nhập nhãn hoặc chọn biểu tượng";
+  }
+  return true;
+}
 
 function linkValidation(linkType: "internal" | "external") {
   return function (

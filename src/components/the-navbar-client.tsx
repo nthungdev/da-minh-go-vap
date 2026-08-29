@@ -107,19 +107,23 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                               <Link href={item.absoluteHref} />
                             ) : undefined
                           }
+                          aria-label={item.name || item.icon || "Menu"}
                           className="hover:bg-primary-800 data-[state=open]:bg-primary-700 focus:bg-primary-800 hover:text-primary flex items-center gap-1.5"
                         >
-                          {item.icon?.url && (
-                            <span className="relative inline-block size-4 shrink-0">
+                          {item.icon && (
+                            <span className="relative inline-block size-5 shrink-0">
                               <Image
-                                src={item.icon.url}
-                                alt={item.icon.alt || item.name}
+                                unoptimized
+                                src={`/svgs/menu-icons/${item.icon}.svg`}
+                                alt={item.name || item.icon}
                                 fill
                                 className="object-contain"
                               />
                             </span>
                           )}
-                          <span>{item.name.toUpperCase()}</span>
+                          {item.name ? (
+                            <span>{item.name.toUpperCase()}</span>
+                          ) : null}
                         </NavigationMenuTrigger>
                         <NavigationMenuContent className="rounded-xl border-none text-gray-50 shadow-lg">
                           <MenuLayoutRenderer item={item} pathname={pathname} />
@@ -130,45 +134,52 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                         render={
                           <Link
                             href={item.absoluteHref}
+                            aria-label={item.name || item.icon || "Link"}
                             className={twMerge(
                               navigationMenuTriggerStyle(),
-                              "hover:bg-primary-800 focus:bg-primary-800 text-gray-50 hover:text-white",
+                              "hover:bg-primary-800 focus:bg-primary-800 flex items-center gap-1.5 text-gray-50 hover:text-white",
                               pathname === item.absoluteHref &&
                                 "bg-primary-700",
                             )}
                           />
                         }
                       >
-                        {item.icon?.url && (
-                          <span className="relative inline-block size-4 shrink-0">
+                        {item.icon && (
+                          <span className="relative inline-block size-5 shrink-0">
                             <Image
-                              src={item.icon.url}
-                              alt={item.icon.alt || item.name}
+                              unoptimized
+                              src={`/svgs/menu-icons/${item.icon}.svg`}
+                              alt={item.name || item.icon}
                               fill
                               className="object-contain"
                             />
                           </span>
                         )}
-                        <span>{item.name.toUpperCase()}</span>
+                        {item.name ? (
+                          <span>{item.name.toUpperCase()}</span>
+                        ) : null}
                       </NavigationMenuLink>
                     ) : (
                       <span
                         className={twMerge(
                           navigationMenuTriggerStyle(),
-                          "cursor-default bg-transparent text-gray-50 select-none",
+                          "flex cursor-default items-center gap-1.5 bg-transparent text-gray-50 select-none",
                         )}
                       >
-                        {item.icon?.url && (
-                          <span className="relative inline-block size-4 shrink-0">
+                        {item.icon && (
+                          <span className="relative inline-block size-5 shrink-0">
                             <Image
-                              src={item.icon.url}
-                              alt={item.icon.alt || item.name}
+                              unoptimized
+                              src={`/svgs/menu-icons/${item.icon}.svg`}
+                              alt={item.name || item.icon}
                               fill
                               className="object-contain"
                             />
                           </span>
                         )}
-                        <span>{item.name.toUpperCase()}</span>
+                        {item.name ? (
+                          <span>{item.name.toUpperCase()}</span>
+                        ) : null}
                       </span>
                     )}
                   </NavigationMenuItem>
@@ -245,37 +256,40 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                               <Link
                                 href={item.absoluteHref}
                                 onClick={() => setMobileMenuOpen(false)}
+                                aria-label={item.name || item.icon || "Menu"}
                                 className={twMerge(
                                   "hover:text-primary-600 flex flex-1 items-center gap-2 px-2 py-3 text-base font-medium text-gray-800 transition-colors",
                                   pathname === item.absoluteHref &&
                                     "text-primary-600",
                                 )}
                               >
-                                {item.icon?.url && (
+                                {item.icon && (
                                   <span className="relative inline-block size-5 shrink-0">
                                     <Image
-                                      src={item.icon.url}
-                                      alt={item.icon.alt || item.name}
+                                      unoptimized
+                                      src={`/svgs/menu-icons/${item.icon}.svg`}
+                                      alt={item.name || item.icon}
                                       fill
                                       className="object-contain"
                                     />
                                   </span>
                                 )}
-                                <span>{item.name}</span>
+                                {item.name ? <span>{item.name}</span> : null}
                               </Link>
                             ) : (
                               <div className="flex flex-1 items-center gap-2 px-2 py-3 text-base font-medium text-gray-800">
-                                {item.icon?.url && (
+                                {item.icon && (
                                   <span className="relative inline-block size-5 shrink-0">
                                     <Image
-                                      src={item.icon.url}
-                                      alt={item.icon.alt || item.name}
+                                      unoptimized
+                                      src={`/svgs/menu-icons/${item.icon}.svg`}
+                                      alt={item.name || item.icon}
                                       fill
                                       className="object-contain"
                                     />
                                   </span>
                                 )}
-                                <span>{item.name}</span>
+                                {item.name ? <span>{item.name}</span> : null}
                               </div>
                             )}
                             <AccordionTrigger className="hover:text-primary-600 w-10 shrink-0 justify-center p-2 text-gray-500 hover:no-underline" />
@@ -388,37 +402,40 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                         <Link
                           href={item.absoluteHref}
                           onClick={() => setMobileMenuOpen(false)}
+                          aria-label={item.name || item.icon || "Link"}
                           className={twMerge(
                             "hover:text-primary-600 flex items-center gap-2 px-2 py-3 text-base font-medium text-gray-800 transition-colors",
                             pathname === item.absoluteHref &&
                               "text-primary-600",
                           )}
                         >
-                          {item.icon?.url && (
+                          {item.icon && (
                             <span className="relative inline-block size-5 shrink-0">
                               <Image
-                                src={item.icon.url}
-                                alt={item.icon.alt || item.name}
+                                unoptimized
+                                src={`/svgs/menu-icons/${item.icon}.svg`}
+                                alt={item.name || item.icon}
                                 fill
                                 className="object-contain"
                               />
                             </span>
                           )}
-                          <span>{item.name}</span>
+                          {item.name ? <span>{item.name}</span> : null}
                         </Link>
                       ) : (
                         <div className="flex items-center gap-2 px-2 py-3 text-base font-medium text-gray-800 select-none">
-                          {item.icon?.url && (
+                          {item.icon && (
                             <span className="relative inline-block size-5 shrink-0">
                               <Image
-                                src={item.icon.url}
-                                alt={item.icon.alt || item.name}
+                                unoptimized
+                                src={`/svgs/menu-icons/${item.icon}.svg`}
+                                alt={item.name || item.icon}
                                 fill
                                 className="object-contain"
                               />
                             </span>
                           )}
-                          <span>{item.name}</span>
+                          {item.name ? <span>{item.name}</span> : null}
                         </div>
                       )}
                     </div>

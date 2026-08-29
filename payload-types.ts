@@ -1322,8 +1322,25 @@ export interface NavBar {
     imageMobile: string | Media;
   };
   menu: {
-    label: string;
-    icon?: (string | null) | Media;
+    label?: string | null;
+    icon?:
+      | (
+          | 'am-nhac'
+          | 'dao-tao'
+          | 'dich-thuat'
+          | 'hoc-hoi'
+          | 'hoi-hoa'
+          | 'khan-dong'
+          | 'lich-su'
+          | 'lien-he'
+          | 'postcard'
+          | 'tai-lieu'
+          | 'tinh-than-dong'
+          | 'tri-an'
+          | 'tuong-nho'
+          | 'video'
+        )
+      | null;
     linkType: 'none' | 'internal' | 'external';
     internalLink?: (string | null) | Page;
     externalLink?: string | null;
