@@ -60,12 +60,12 @@ export interface CategoryTabItem {
 export interface MenuItem {
   href: string;
   absoluteHref: string;
-  name: string;
+  name?: string | null;
   normalizedName: string;
-  icon?: Media | null;
+  icon?: string | null;
   layout?: MenuLayoutType;
   description?: string | null;
-  children?: MenuItem[];
+  children?: SubMenuItem[];
   pillars?: PillarItem[];
   bottomBar?: BottomBarItem;
   categories?: CategoryTabItem[];
@@ -92,8 +92,21 @@ export const getMenu = cache(async (locale?: Locale): Promise<MenuItem[]> => {
   const payload = await getPayload({ config });
   const navBar = await payload.findGlobal({ slug: "navBar", locale });
 
+  const validMenuItems = (navBar.menu || []).filter((menuItem, index) => {
+    const hasLabel = Boolean(menuItem.label && menuItem.label.trim());
+    const hasIcon = Boolean(menuItem.icon);
+    if (!hasLabel && !hasIcon) {
+      console.warn(
+        `[getMenu] Skipping menu item at index ${index} because it has neither a label nor an icon.`,
+        menuItem,
+      );
+      return false;
+    }
+    return true;
+  });
+
   const menu: MenuItem[] = await Promise.all(
-    navBar.menu.map(async (menuItem) => {
+    validMenuItems.map(async (menuItem, index) => {
       const layout: MenuLayoutType = menuItem.layout || "grid";
 
       // 1. Grid SubMenu
@@ -208,13 +221,18 @@ export const getMenu = cache(async (locale?: Locale): Promise<MenuItem[]> => {
           )
         : undefined;
 
+      const name = menuItem.label || "";
+      const icon = typeof menuItem.icon === "string" ? menuItem.icon : null;
+      const normalizedName = normalizeMenuName(
+        menuItem.label || icon || `menu-${index}`,
+      );
+
       return {
         href: getLinkHref(menuItem),
         absoluteHref: getLinkHref(menuItem),
-        name: menuItem.label,
-        normalizedName: normalizeMenuName(menuItem.label),
-        icon:
-          typeof menuItem.icon === "object" ? (menuItem.icon as Media) : null,
+        name,
+        normalizedName,
+        icon,
         layout,
         children,
         pillars,

@@ -1,6 +1,6 @@
 "use client";
 
-import { MenuItem } from "@/utils/menu";
+import { MenuItem, SubMenuItem } from "@/utils/menu";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import AppPostSearchButton from "./app-post-search-button";
@@ -112,8 +112,11 @@ function MobileMenuToggle(props: MobileMenuToggleProps) {
 }
 
 const defaultItemRender = (onClick: () => void) =>
-  function Item(item: MenuItem, index: number) {
+  function Item(item: MenuItem | SubMenuItem, index: number) {
     const pathname = usePathname();
+    const iconSlug =
+      "icon" in item && typeof item.icon === "string" ? item.icon : null;
+    const labelText = item.name || iconSlug || "";
 
     if (item.children?.length) {
       return (
@@ -123,7 +126,7 @@ const defaultItemRender = (onClick: () => void) =>
           className="hs-accordion"
         >
           <MobileMenuToggle
-            label={item.name}
+            label={labelText}
             controlsId={`${item.normalizedName}-accordion`}
             href={item.absoluteHref}
           />
@@ -151,7 +154,7 @@ const defaultItemRender = (onClick: () => void) =>
             href={item.absoluteHref}
             onClick={onClick}
           >
-            {item.name}
+            {labelText}
           </Link>
         </li>
       );

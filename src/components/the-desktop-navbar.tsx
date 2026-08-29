@@ -42,10 +42,21 @@ export default async function TheDesktopNavbar(
               {index !== 0 && <div className="my-2 border-l"></div>}
 
               <Link
-                className="peer block p-3 text-base font-semibold"
+                className="peer flex items-center gap-1.5 p-3 text-base font-semibold"
                 href={link.href}
               >
-                {link.name.toUpperCase()}
+                {link.icon && (
+                  <span className="relative inline-block size-5 shrink-0">
+                    <Image
+                      unoptimized
+                      src={`/svgs/menu-icons/${link.icon}.svg`}
+                      alt={link.name || link.icon}
+                      fill
+                      className="object-contain"
+                    />
+                  </span>
+                )}
+                {link.name ? <span>{link.name.toUpperCase()}</span> : null}
               </Link>
 
               {link.children && link.children.length !== 0 && (
