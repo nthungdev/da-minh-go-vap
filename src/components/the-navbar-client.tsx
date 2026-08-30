@@ -108,7 +108,7 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                             ) : undefined
                           }
                           aria-label={item.name || item.icon || "Menu"}
-                          className="hover:bg-primary-800 data-[state=open]:bg-primary-700 focus:bg-primary-800 hover:text-primary flex items-center gap-1.5"
+                          className="hover:text-primary-700 data-[state=open]:text-primary-700 focus:text-primary-700 data-open:text-primary-700 data-popup-open:text-primary-700 flex items-center gap-1.5 transition-colors hover:bg-white focus:bg-white data-open:bg-white data-popup-open:bg-white data-[state=open]:bg-white"
                         >
                           {item.icon && (
                             <span className="relative inline-block size-5 shrink-0 overflow-hidden rounded-full bg-white">
@@ -137,9 +137,9 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                             aria-label={item.name || item.icon || "Link"}
                             className={cn(
                               navigationMenuTriggerStyle(),
-                              "hover:bg-primary-800 focus:bg-primary-800 flex items-center gap-1.5 text-gray-50 hover:text-white",
+                              "hover:text-primary-700 focus:text-primary-700 flex items-center gap-1.5 text-gray-50 transition-colors hover:bg-white focus:bg-white",
                               pathname === item.absoluteHref &&
-                                "bg-primary-700",
+                                "text-primary-700 bg-white font-bold",
                             )}
                           />
                         }

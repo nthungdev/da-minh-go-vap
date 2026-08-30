@@ -114,7 +114,7 @@ export default function MenuLayoutPillars({
                           <NavigationMenuLink
                             className={cn(
                               "block w-full rounded-md bg-gray-100 px-3 py-1.5 text-left text-base text-gray-700 transition-colors select-none",
-                              "hover:bg-gray-200 hover:text-gray-900 focus:bg-gray-200 focus:text-gray-900",
+                              "hover:bg-primary-50 hover:text-primary-700 focus:bg-primary-50 focus:text-primary-700",
                               isLinkActive &&
                                 "bg-primary-50 text-primary-700 font-medium",
                             )}
@@ -159,7 +159,7 @@ export default function MenuLayoutPillars({
                       href={link.absoluteHref}
                       className={cn(
                         "rounded-md bg-gray-100 px-2.5 py-1 text-left text-base text-gray-700 transition-colors select-none",
-                        "hover:bg-gray-200 hover:text-gray-900 focus:bg-gray-200 focus:text-gray-900",
+                        "hover:bg-primary-50 hover:text-primary-700 focus:bg-primary-50 focus:text-primary-700",
                         isBottomLinkActive &&
                           "bg-primary-50 text-primary-700 font-medium",
                       )}

@@ -40,18 +40,18 @@ export default function MenuLayoutTabsPosts({
             <>
               <span className="truncate">{cat.name}</span>
               {cat.absoluteHref && (
-                <ChevronRight className="size-4 shrink-0 text-gray-400 transition-all group-hover:translate-x-0.5 group-hover:text-gray-600" />
+                <ChevronRight className="group-hover:text-primary-600 size-4 shrink-0 text-gray-400 transition-all group-hover:translate-x-0.5" />
               )}
             </>
           );
 
           const tabClassName = cn(
             "group flex w-full items-center justify-between rounded-md px-3 py-2 text-left text-base transition-colors outline-none select-none",
-            "hover:bg-gray-100 focus:bg-gray-100",
+            "hover:bg-primary-50 hover:text-primary-700 focus:bg-primary-50 focus:text-primary-700",
             isSelected
-              ? "bg-gray-100 font-semibold text-gray-900"
-              : "text-gray-700 hover:text-gray-900",
-            isRouteActive && "bg-primary-50 font-semibold text-gray-700",
+              ? "bg-primary-50 font-semibold text-primary-700"
+              : "text-gray-700 hover:text-primary-700",
+            isRouteActive && "bg-primary-50 font-semibold text-primary-700",
           );
 
           return cat.absoluteHref ? (
@@ -121,8 +121,8 @@ export default function MenuLayoutTabsPosts({
                   <div className="px-1 pt-2 pb-0.5">
                     <h4
                       className={cn(
-                        "line-clamp-2 text-base leading-snug font-semibold text-gray-900 transition-colors group-hover:text-gray-700",
-                        isPostActive && "text-gray-700",
+                        "group-hover:text-primary-700 line-clamp-2 text-base leading-snug font-semibold text-gray-900 transition-colors",
+                        isPostActive && "text-primary-700",
                       )}
                     >
                       {post.title}

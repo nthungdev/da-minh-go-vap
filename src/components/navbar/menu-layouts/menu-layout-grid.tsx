@@ -93,7 +93,7 @@ export default function MenuLayoutGrid({
                       key={subIdx}
                       href={subChild.absoluteHref}
                       className={cn(
-                        "rounded-md bg-gray-100 px-2 py-0.5 text-left text-base text-gray-700 transition-colors hover:bg-gray-200 hover:text-gray-900",
+                        "hover:bg-primary-50 hover:text-primary-700 rounded-md bg-gray-100 px-2 py-0.5 text-left text-base text-gray-700 transition-colors",
                         pathname === subChild.absoluteHref &&
                           "bg-primary-50 text-primary-700 font-medium",
                       )}

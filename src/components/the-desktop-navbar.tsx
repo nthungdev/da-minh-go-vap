@@ -42,7 +42,7 @@ export default async function TheDesktopNavbar(
               {index !== 0 && <div className="my-2 border-l"></div>}
 
               <Link
-                className="peer flex items-center gap-1.5 p-3 text-base font-semibold"
+                className="peer hover:text-primary focus:text-primary flex items-center gap-1.5 p-3 text-base font-semibold transition-colors hover:bg-white focus:bg-white focus:outline-hidden"
                 href={link.href}
               >
                 {link.icon && (
