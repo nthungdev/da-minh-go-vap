@@ -51,7 +51,7 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
 
   return (
     <>
-      <div className="flex flex-1 items-center justify-between lg:justify-start lg:space-x-8">
+      <div className="flex items-center justify-center lg:space-x-8">
         {/* Brand & Logo (Desktop & Mobile) */}
         <Link href="/" className="relative z-20 flex shrink-0 items-center">
           {/* Mobile Text Brand */}
@@ -74,9 +74,9 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
           </div>
 
           {/* Desktop Logo (overlapping design) */}
-          <div className="relative z-20 hidden h-16 w-20 self-start lg:block">
-            <div className="absolute top-[20%] left-0 size-20 overflow-auto">
-              {typeof logo?.url === "string" && (
+          {typeof logo?.url === "string" && (
+            <div className="relative z-20 hidden h-16 w-20 self-start lg:block">
+              <div className="absolute top-[20%] left-0 size-20 overflow-auto">
                 <Image
                   src={logo.url}
                   alt={logo.alt || "Logo"}
@@ -85,9 +85,9 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                   fill
                   priority
                 />
-              )}
+              </div>
             </div>
-          </div>
+          )}
         </Link>
 
         {/* Desktop Navigation */}
@@ -188,14 +188,14 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
             </NavigationMenuList>
           </NavigationMenu>
         </div>
-      </div>
 
-      {/* Right Actions (Desktop) */}
-      <div className="hidden items-center space-x-2 lg:flex">
-        <div className="p-1 text-gray-50">
-          <AppPostSearchButton id="desktop-navbar-search" />
+        {/* Right Actions (Desktop) */}
+        <div className="hidden items-center space-x-2 lg:flex">
+          <div className="p-1 text-gray-50">
+            <AppPostSearchButton id="desktop-navbar-search" />
+          </div>
+          <LocaleSwitcher />
         </div>
-        <LocaleSwitcher />
       </div>
 
       {/* Right Actions & Mobile Toggle (Mobile) */}
