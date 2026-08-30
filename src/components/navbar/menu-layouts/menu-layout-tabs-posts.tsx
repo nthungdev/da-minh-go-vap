@@ -60,11 +60,11 @@ export default function MenuLayoutTabsPosts({
 
           const tabClassName = cn(
             "group flex w-full items-center justify-between rounded-md px-3 py-2 text-left text-base transition-colors outline-none select-none",
-            "hover:bg-primary-50 hover:text-primary-700 focus:bg-primary-50 focus:text-primary-700",
+            "hover:bg-gray-200 hover:text-primary-700 focus:bg-gray-200 focus:text-primary-700",
             isSelected
-              ? "bg-primary-50 font-semibold text-primary-700"
+              ? "bg-gray-200 font-semibold text-primary-700"
               : "text-gray-700 hover:text-primary-700",
-            isRouteActive && "bg-primary-50 font-semibold text-primary-700",
+            isRouteActive && "bg-gray-200 font-semibold text-primary-700",
           );
 
           return cat.absoluteHref ? (

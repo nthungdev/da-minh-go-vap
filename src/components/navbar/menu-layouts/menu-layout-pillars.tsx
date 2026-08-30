@@ -114,9 +114,9 @@ export default function MenuLayoutPillars({
                           <NavigationMenuLink
                             className={cn(
                               "flex w-full items-center gap-1.5 rounded-md bg-gray-100 px-3 py-1.5 text-left text-base text-gray-700 transition-colors select-none",
-                              "hover:bg-primary-50 hover:text-primary-700 focus:bg-primary-50 focus:text-primary-700",
+                              "hover:text-primary-700 focus:text-primary-700 hover:bg-gray-200 focus:bg-gray-200",
                               isLinkActive &&
-                                "bg-primary-50 text-primary-700 font-medium",
+                                "text-primary-700 bg-gray-200 font-medium",
                             )}
                             render={<Link href={link.absoluteHref} />}
                           >
@@ -181,9 +181,9 @@ export default function MenuLayoutPillars({
                       href={link.absoluteHref}
                       className={cn(
                         "flex items-center gap-1.5 rounded-md bg-gray-100 px-2.5 py-1 text-left text-base text-gray-700 transition-colors select-none",
-                        "hover:bg-primary-50 hover:text-primary-700 focus:bg-primary-50 focus:text-primary-700",
+                        "hover:text-primary-700 focus:text-primary-700 hover:bg-gray-200 focus:bg-gray-200",
                         isBottomLinkActive &&
-                          "bg-primary-50 text-primary-700 font-medium",
+                          "text-primary-700 bg-gray-200 font-medium",
                       )}
                     />
                   }
