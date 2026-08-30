@@ -1325,20 +1325,23 @@ export interface NavBar {
     label?: string | null;
     icon?:
       | (
-          | 'am-nhac'
-          | 'dao-tao'
-          | 'dich-thuat'
-          | 'hoc-hoi'
-          | 'hoi-hoa'
-          | 'khan-dong'
-          | 'lich-su'
-          | 'lien-he'
-          | 'postcard'
-          | 'tai-lieu'
-          | 'tinh-than-dong'
-          | 'tri-an'
-          | 'tuong-nho'
-          | 'video'
+          | 'home'
+          | 'burning-candle'
+          | 'documents-stack'
+          | 'dominican-dog-torch'
+          | 'family-heart'
+          | 'hands-heart'
+          | 'location-pin'
+          | 'microphone-soundwave'
+          | 'music-notes'
+          | 'palette-brush'
+          | 'parchment-quill'
+          | 'person-laptop-idea'
+          | 'saint-dominic'
+          | 'team-gear'
+          | 'translation-book'
+          | 'user-growth'
+          | 'video-play'
         )
       | null;
     linkType: 'none' | 'internal' | 'external';
