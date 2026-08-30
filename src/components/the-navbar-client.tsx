@@ -111,13 +111,13 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                           className="hover:bg-primary-800 data-[state=open]:bg-primary-700 focus:bg-primary-800 hover:text-primary flex items-center gap-1.5"
                         >
                           {item.icon && (
-                            <span className="relative inline-block size-5 shrink-0">
+                            <span className="relative inline-block size-5 shrink-0 overflow-hidden rounded-full bg-white">
                               <Image
                                 unoptimized
                                 src={`/svgs/menu-icons/${item.icon}.svg`}
                                 alt={item.name || item.icon}
                                 fill
-                                className="object-contain"
+                                className="rounded-full object-contain"
                               />
                             </span>
                           )}
@@ -145,13 +145,13 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                         }
                       >
                         {item.icon && (
-                          <span className="relative inline-block size-5 shrink-0">
+                          <span className="relative inline-block size-5 shrink-0 overflow-hidden rounded-full bg-white">
                             <Image
                               unoptimized
                               src={`/svgs/menu-icons/${item.icon}.svg`}
                               alt={item.name || item.icon}
                               fill
-                              className="object-contain"
+                              className="rounded-full object-contain"
                             />
                           </span>
                         )}
@@ -167,13 +167,13 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                         )}
                       >
                         {item.icon && (
-                          <span className="relative inline-block size-5 shrink-0">
+                          <span className="relative inline-block size-5 shrink-0 overflow-hidden rounded-full bg-white">
                             <Image
                               unoptimized
                               src={`/svgs/menu-icons/${item.icon}.svg`}
                               alt={item.name || item.icon}
                               fill
-                              className="object-contain"
+                              className="rounded-full object-contain"
                             />
                           </span>
                         )}
@@ -264,13 +264,13 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                                 )}
                               >
                                 {item.icon && (
-                                  <span className="relative inline-block size-5 shrink-0">
+                                  <span className="relative inline-block size-5 shrink-0 overflow-hidden rounded-full bg-white">
                                     <Image
                                       unoptimized
                                       src={`/svgs/menu-icons/${item.icon}.svg`}
                                       alt={item.name || item.icon}
                                       fill
-                                      className="object-contain"
+                                      className="rounded-full object-contain"
                                     />
                                   </span>
                                 )}
@@ -279,13 +279,13 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                             ) : (
                               <div className="flex flex-1 items-center gap-2 px-2 py-3 text-base font-medium text-gray-800">
                                 {item.icon && (
-                                  <span className="relative inline-block size-5 shrink-0">
+                                  <span className="relative inline-block size-5 shrink-0 overflow-hidden rounded-full bg-white">
                                     <Image
                                       unoptimized
                                       src={`/svgs/menu-icons/${item.icon}.svg`}
                                       alt={item.name || item.icon}
                                       fill
-                                      className="object-contain"
+                                      className="rounded-full object-contain"
                                     />
                                   </span>
                                 )}
@@ -439,13 +439,13 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                           )}
                         >
                           {item.icon && (
-                            <span className="relative inline-block size-5 shrink-0">
+                            <span className="relative inline-block size-5 shrink-0 overflow-hidden rounded-full bg-white">
                               <Image
                                 unoptimized
                                 src={`/svgs/menu-icons/${item.icon}.svg`}
                                 alt={item.name || item.icon}
                                 fill
-                                className="object-contain"
+                                className="rounded-full object-contain"
                               />
                             </span>
                           )}
@@ -454,13 +454,13 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                       ) : (
                         <div className="flex items-center gap-2 px-2 py-3 text-base font-medium text-gray-800 select-none">
                           {item.icon && (
-                            <span className="relative inline-block size-5 shrink-0">
+                            <span className="relative inline-block size-5 shrink-0 overflow-hidden rounded-full bg-white">
                               <Image
                                 unoptimized
                                 src={`/svgs/menu-icons/${item.icon}.svg`}
                                 alt={item.name || item.icon}
                                 fill
-                                className="object-contain"
+                                className="rounded-full object-contain"
                               />
                             </span>
                           )}

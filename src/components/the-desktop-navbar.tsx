@@ -46,13 +46,13 @@ export default async function TheDesktopNavbar(
                 href={link.href}
               >
                 {link.icon && (
-                  <span className="relative inline-block size-5 shrink-0">
+                  <span className="relative inline-block size-5 shrink-0 overflow-hidden rounded-full bg-white">
                     <Image
                       unoptimized
                       src={`/svgs/menu-icons/${link.icon}.svg`}
                       alt={link.name || link.icon}
                       fill
-                      className="object-contain"
+                      className="rounded-full object-contain"
                     />
                   </span>
                 )}
