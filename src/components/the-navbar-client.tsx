@@ -30,9 +30,9 @@ import {
   AccordionTrigger,
 } from "./ui/accordion";
 import { Menu } from "lucide-react";
-import { twMerge } from "tailwind-merge";
 import { usePathname } from "next/navigation";
 import MenuLayoutRenderer from "./navbar/menu-layouts/menu-layout-renderer";
+import { cn } from "@/utils/common";
 
 interface TheNavbarClientProps {
   menu: MenuItem[];
@@ -51,7 +51,7 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
 
   return (
     <>
-      <div className="flex flex-1 items-center justify-between lg:justify-start lg:space-x-8">
+      <div className="flex items-center justify-center lg:space-x-8">
         {/* Brand & Logo (Desktop & Mobile) */}
         <Link href="/" className="relative z-20 flex shrink-0 items-center">
           {/* Mobile Text Brand */}
@@ -74,9 +74,9 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
           </div>
 
           {/* Desktop Logo (overlapping design) */}
-          <div className="relative z-20 hidden h-16 w-20 self-start lg:block">
-            <div className="absolute top-[20%] left-0 size-20 overflow-auto">
-              {typeof logo?.url === "string" && (
+          {typeof logo?.url === "string" && (
+            <div className="relative z-20 hidden h-16 w-20 self-start lg:block">
+              <div className="absolute top-[20%] left-0 size-20 overflow-auto">
                 <Image
                   src={logo.url}
                   alt={logo.alt || "Logo"}
@@ -85,9 +85,9 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                   fill
                   priority
                 />
-              )}
+              </div>
             </div>
-          </div>
+          )}
         </Link>
 
         {/* Desktop Navigation */}
@@ -108,16 +108,16 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                             ) : undefined
                           }
                           aria-label={item.name || item.icon || "Menu"}
-                          className="hover:bg-primary-800 data-[state=open]:bg-primary-700 focus:bg-primary-800 hover:text-primary flex items-center gap-1.5"
+                          className="hover:text-primary-700 data-[state=open]:text-primary-700 focus:text-primary-700 data-open:text-primary-700 data-popup-open:text-primary-700 flex items-center gap-1.5 transition-colors hover:bg-white focus:bg-white data-open:bg-white data-popup-open:bg-white data-[state=open]:bg-white"
                         >
                           {item.icon && (
-                            <span className="relative inline-block size-5 shrink-0">
+                            <span className="relative inline-block size-5 shrink-0 overflow-hidden rounded-full bg-white">
                               <Image
                                 unoptimized
                                 src={`/svgs/menu-icons/${item.icon}.svg`}
                                 alt={item.name || item.icon}
                                 fill
-                                className="object-contain"
+                                className="rounded-full object-contain"
                               />
                             </span>
                           )}
@@ -135,23 +135,23 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                           <Link
                             href={item.absoluteHref}
                             aria-label={item.name || item.icon || "Link"}
-                            className={twMerge(
+                            className={cn(
                               navigationMenuTriggerStyle(),
-                              "hover:bg-primary-800 focus:bg-primary-800 flex items-center gap-1.5 text-gray-50 hover:text-white",
+                              "hover:text-primary-700 focus:text-primary-700 flex items-center gap-1.5 text-gray-50 transition-colors hover:bg-white focus:bg-white",
                               pathname === item.absoluteHref &&
-                                "bg-primary-700",
+                                "text-primary-700 bg-white font-bold",
                             )}
                           />
                         }
                       >
                         {item.icon && (
-                          <span className="relative inline-block size-5 shrink-0">
+                          <span className="relative inline-block size-5 shrink-0 overflow-hidden rounded-full bg-white">
                             <Image
                               unoptimized
                               src={`/svgs/menu-icons/${item.icon}.svg`}
                               alt={item.name || item.icon}
                               fill
-                              className="object-contain"
+                              className="rounded-full object-contain"
                             />
                           </span>
                         )}
@@ -161,19 +161,19 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                       </NavigationMenuLink>
                     ) : (
                       <span
-                        className={twMerge(
+                        className={cn(
                           navigationMenuTriggerStyle(),
                           "flex cursor-default items-center gap-1.5 bg-transparent text-gray-50 select-none",
                         )}
                       >
                         {item.icon && (
-                          <span className="relative inline-block size-5 shrink-0">
+                          <span className="relative inline-block size-5 shrink-0 overflow-hidden rounded-full bg-white">
                             <Image
                               unoptimized
                               src={`/svgs/menu-icons/${item.icon}.svg`}
                               alt={item.name || item.icon}
                               fill
-                              className="object-contain"
+                              className="rounded-full object-contain"
                             />
                           </span>
                         )}
@@ -188,14 +188,14 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
             </NavigationMenuList>
           </NavigationMenu>
         </div>
-      </div>
 
-      {/* Right Actions (Desktop) */}
-      <div className="hidden items-center space-x-2 lg:flex">
-        <div className="p-1 text-gray-50">
-          <AppPostSearchButton id="desktop-navbar-search" />
+        {/* Right Actions (Desktop) */}
+        <div className="hidden items-center space-x-2 lg:flex">
+          <div className="p-1 text-gray-50">
+            <AppPostSearchButton id="desktop-navbar-search" />
+          </div>
+          <LocaleSwitcher />
         </div>
-        <LocaleSwitcher />
       </div>
 
       {/* Right Actions & Mobile Toggle (Mobile) */}
@@ -257,20 +257,20 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                                 href={item.absoluteHref}
                                 onClick={() => setMobileMenuOpen(false)}
                                 aria-label={item.name || item.icon || "Menu"}
-                                className={twMerge(
+                                className={cn(
                                   "hover:text-primary-600 flex flex-1 items-center gap-2 px-2 py-3 text-base font-medium text-gray-800 transition-colors",
                                   pathname === item.absoluteHref &&
                                     "text-primary-600",
                                 )}
                               >
                                 {item.icon && (
-                                  <span className="relative inline-block size-5 shrink-0">
+                                  <span className="relative inline-block size-5 shrink-0 overflow-hidden rounded-full bg-white">
                                     <Image
                                       unoptimized
                                       src={`/svgs/menu-icons/${item.icon}.svg`}
                                       alt={item.name || item.icon}
                                       fill
-                                      className="object-contain"
+                                      className="rounded-full object-contain"
                                     />
                                   </span>
                                 )}
@@ -279,13 +279,13 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                             ) : (
                               <div className="flex flex-1 items-center gap-2 px-2 py-3 text-base font-medium text-gray-800">
                                 {item.icon && (
-                                  <span className="relative inline-block size-5 shrink-0">
+                                  <span className="relative inline-block size-5 shrink-0 overflow-hidden rounded-full bg-white">
                                     <Image
                                       unoptimized
                                       src={`/svgs/menu-icons/${item.icon}.svg`}
                                       alt={item.name || item.icon}
                                       fill
-                                      className="object-contain"
+                                      className="rounded-full object-contain"
                                     />
                                   </span>
                                 )}
@@ -297,6 +297,7 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                           <AccordionContent className="pb-3 pl-4">
                             <ul className="flex flex-col gap-2 border-l-2 border-gray-100 pl-4">
                               {/* Layout 1: Grid */}
+                              {/* Layout 1: Grid */}
                               {item.layout === "grid" &&
                                 item.children?.map((child, childIndex) => (
                                   <li key={childIndex}>
@@ -304,17 +305,39 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                                       <Link
                                         href={child.absoluteHref}
                                         onClick={() => setMobileMenuOpen(false)}
-                                        className={twMerge(
-                                          "hover:text-primary-600 block py-2 text-base text-gray-700 transition-colors",
+                                        className={cn(
+                                          "hover:text-primary-600 flex items-center gap-2 py-2 text-base text-gray-700 transition-colors",
                                           pathname === child.absoluteHref &&
                                             "text-primary-600 font-semibold",
                                         )}
                                       >
-                                        {child.name}
+                                        {child.icon && (
+                                          <span className="relative inline-block size-5 shrink-0 overflow-hidden rounded-full bg-white">
+                                            <Image
+                                              unoptimized
+                                              src={`/svgs/menu-icons/${child.icon}.svg`}
+                                              alt={child.name || child.icon}
+                                              fill
+                                              className="rounded-full object-contain"
+                                            />
+                                          </span>
+                                        )}
+                                        <span>{child.name}</span>
                                       </Link>
                                     ) : (
-                                      <span className="block py-2 text-base font-medium text-gray-700">
-                                        {child.name}
+                                      <span className="flex items-center gap-2 py-2 text-base font-medium text-gray-700">
+                                        {child.icon && (
+                                          <span className="relative inline-block size-5 shrink-0 overflow-hidden rounded-full bg-white">
+                                            <Image
+                                              unoptimized
+                                              src={`/svgs/menu-icons/${child.icon}.svg`}
+                                              alt={child.name || child.icon}
+                                              fill
+                                              className="rounded-full object-contain"
+                                            />
+                                          </span>
+                                        )}
+                                        <span>{child.name}</span>
                                       </span>
                                     )}
                                   </li>
@@ -325,9 +348,29 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                                 <>
                                   {item.pillars?.map((pillar, pIdx) => (
                                     <li key={pIdx} className="space-y-1 py-1">
-                                      <span className="text-base font-bold text-gray-700 uppercase">
-                                        {pillar.headerBanner.title}
-                                      </span>
+                                      {pillar.headerBanner.absoluteHref ? (
+                                        <Link
+                                          href={
+                                            pillar.headerBanner.absoluteHref
+                                          }
+                                          onClick={() =>
+                                            setMobileMenuOpen(false)
+                                          }
+                                          className={cn(
+                                            "hover:text-primary-600 block text-base font-bold uppercase transition-colors",
+                                            pathname ===
+                                              pillar.headerBanner.absoluteHref
+                                              ? "text-primary-600"
+                                              : "text-gray-800",
+                                          )}
+                                        >
+                                          {pillar.headerBanner.title}
+                                        </Link>
+                                      ) : (
+                                        <span className="text-base font-bold text-gray-700 uppercase">
+                                          {pillar.headerBanner.title}
+                                        </span>
+                                      )}
                                       {pillar.links.map((link, lIdx) => (
                                         <div key={lIdx}>
                                           {link.absoluteHref ? (
@@ -337,13 +380,40 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                                               onClick={() =>
                                                 setMobileMenuOpen(false)
                                               }
-                                              className="hover:text-primary-600 block py-1.5 text-base text-gray-600"
+                                              className={cn(
+                                                "hover:text-primary-600 flex items-center gap-2 py-1.5 text-base text-gray-700 transition-colors",
+                                                pathname ===
+                                                  link.absoluteHref &&
+                                                  "text-primary-600 font-semibold",
+                                              )}
                                             >
-                                              {link.name}
+                                              {link.icon && (
+                                                <span className="relative inline-block size-4 shrink-0 overflow-hidden rounded-full bg-white">
+                                                  <Image
+                                                    unoptimized
+                                                    src={`/svgs/menu-icons/${link.icon}.svg`}
+                                                    alt={link.name || link.icon}
+                                                    fill
+                                                    className="rounded-full object-contain"
+                                                  />
+                                                </span>
+                                              )}
+                                              <span>{link.name}</span>
                                             </Link>
                                           ) : (
-                                            <span className="block py-1.5 text-base text-gray-600">
-                                              {link.name}
+                                            <span className="flex items-center gap-2 py-1.5 text-base text-gray-600">
+                                              {link.icon && (
+                                                <span className="relative inline-block size-4 shrink-0 overflow-hidden rounded-full bg-white">
+                                                  <Image
+                                                    unoptimized
+                                                    src={`/svgs/menu-icons/${link.icon}.svg`}
+                                                    alt={link.name || link.icon}
+                                                    fill
+                                                    className="rounded-full object-contain"
+                                                  />
+                                                </span>
+                                              )}
+                                              <span>{link.name}</span>
                                             </span>
                                           )}
                                         </div>
@@ -358,13 +428,39 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                                           onClick={() =>
                                             setMobileMenuOpen(false)
                                           }
-                                          className="hover:text-primary-600 text-primary block py-1.5 text-base font-medium"
+                                          className={cn(
+                                            "hover:text-primary-600 flex items-center gap-2 py-1.5 text-base font-medium text-gray-700 transition-colors",
+                                            pathname === link.absoluteHref &&
+                                              "text-primary-600 font-semibold",
+                                          )}
                                         >
-                                          {link.name}
+                                          {link.icon && (
+                                            <span className="relative inline-block size-4 shrink-0 overflow-hidden rounded-full bg-white">
+                                              <Image
+                                                unoptimized
+                                                src={`/svgs/menu-icons/${link.icon}.svg`}
+                                                alt={link.name || link.icon}
+                                                fill
+                                                className="rounded-full object-contain"
+                                              />
+                                            </span>
+                                          )}
+                                          <span>{link.name}</span>
                                         </Link>
                                       ) : (
-                                        <span className="text-primary block py-1.5 text-base font-medium">
-                                          {link.name}
+                                        <span className="flex items-center gap-2 py-1.5 text-base font-medium text-gray-600">
+                                          {link.icon && (
+                                            <span className="relative inline-block size-4 shrink-0 overflow-hidden rounded-full bg-white">
+                                              <Image
+                                                unoptimized
+                                                src={`/svgs/menu-icons/${link.icon}.svg`}
+                                                alt={link.name || link.icon}
+                                                fill
+                                                className="rounded-full object-contain"
+                                              />
+                                            </span>
+                                          )}
+                                          <span>{link.name}</span>
                                         </span>
                                       )}
                                     </li>
@@ -380,17 +476,39 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                                       <Link
                                         href={cat.absoluteHref}
                                         onClick={() => setMobileMenuOpen(false)}
-                                        className={twMerge(
-                                          "hover:text-primary-600 block py-2 text-base text-gray-700 transition-colors",
+                                        className={cn(
+                                          "hover:text-primary-600 flex items-center gap-2 py-2 text-base text-gray-700 transition-colors",
                                           pathname === cat.absoluteHref &&
                                             "text-primary-600 font-semibold",
                                         )}
                                       >
-                                        {cat.name}
+                                        {cat.icon && (
+                                          <span className="relative inline-block size-4 shrink-0 overflow-hidden rounded-full bg-white">
+                                            <Image
+                                              unoptimized
+                                              src={`/svgs/menu-icons/${cat.icon}.svg`}
+                                              alt={cat.name || cat.icon}
+                                              fill
+                                              className="rounded-full object-contain"
+                                            />
+                                          </span>
+                                        )}
+                                        <span>{cat.name}</span>
                                       </Link>
                                     ) : (
-                                      <span className="block py-2 text-base text-gray-700">
-                                        {cat.name}
+                                      <span className="flex items-center gap-2 py-2 text-base font-medium text-gray-700">
+                                        {cat.icon && (
+                                          <span className="relative inline-block size-4 shrink-0 overflow-hidden rounded-full bg-white">
+                                            <Image
+                                              unoptimized
+                                              src={`/svgs/menu-icons/${cat.icon}.svg`}
+                                              alt={cat.name || cat.icon}
+                                              fill
+                                              className="rounded-full object-contain"
+                                            />
+                                          </span>
+                                        )}
+                                        <span>{cat.name}</span>
                                       </span>
                                     )}
                                   </li>
@@ -403,20 +521,20 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                           href={item.absoluteHref}
                           onClick={() => setMobileMenuOpen(false)}
                           aria-label={item.name || item.icon || "Link"}
-                          className={twMerge(
+                          className={cn(
                             "hover:text-primary-600 flex items-center gap-2 px-2 py-3 text-base font-medium text-gray-800 transition-colors",
                             pathname === item.absoluteHref &&
                               "text-primary-600",
                           )}
                         >
                           {item.icon && (
-                            <span className="relative inline-block size-5 shrink-0">
+                            <span className="relative inline-block size-5 shrink-0 overflow-hidden rounded-full bg-white">
                               <Image
                                 unoptimized
                                 src={`/svgs/menu-icons/${item.icon}.svg`}
                                 alt={item.name || item.icon}
                                 fill
-                                className="object-contain"
+                                className="rounded-full object-contain"
                               />
                             </span>
                           )}
@@ -425,13 +543,13 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                       ) : (
                         <div className="flex items-center gap-2 px-2 py-3 text-base font-medium text-gray-800 select-none">
                           {item.icon && (
-                            <span className="relative inline-block size-5 shrink-0">
+                            <span className="relative inline-block size-5 shrink-0 overflow-hidden rounded-full bg-white">
                               <Image
                                 unoptimized
                                 src={`/svgs/menu-icons/${item.icon}.svg`}
                                 alt={item.name || item.icon}
                                 fill
-                                className="object-contain"
+                                className="rounded-full object-contain"
                               />
                             </span>
                           )}

@@ -5,7 +5,7 @@ import { cn } from "@/utils/common";
 import { ChevronDownIcon } from "lucide-react";
 
 function NavigationMenu({
-  align = "start",
+  align = "center",
   className,
   children,
   ...props

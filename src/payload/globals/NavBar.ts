@@ -160,8 +160,8 @@ const NavBar: GlobalConfig = {
             {
               name: "icon",
               label: "Biểu tượng (Icon)",
-              type: "upload",
-              relationTo: "media",
+              type: "select",
+              options: [...MENU_ICON_OPTIONS],
               admin: {
                 description: "Biểu tượng tùy chọn cho mục thẻ lưới.",
               },
@@ -185,6 +185,15 @@ const NavBar: GlobalConfig = {
                   type: "text",
                   required: true,
                   localized: true,
+                },
+                {
+                  name: "icon",
+                  label: "Biểu tượng (Icon)",
+                  type: "select",
+                  options: [...MENU_ICON_OPTIONS],
+                  admin: {
+                    description: "Biểu tượng tùy chọn.",
+                  },
                 },
                 ...linkFields,
               ],
@@ -242,6 +251,15 @@ const NavBar: GlobalConfig = {
                   required: true,
                   localized: true,
                 },
+                {
+                  name: "icon",
+                  label: "Biểu tượng (Icon)",
+                  type: "select",
+                  options: [...MENU_ICON_OPTIONS],
+                  admin: {
+                    description: "Biểu tượng tùy chọn.",
+                  },
+                },
                 ...linkFields,
               ],
             },
@@ -273,6 +291,15 @@ const NavBar: GlobalConfig = {
                   required: true,
                   localized: true,
                 },
+                {
+                  name: "icon",
+                  label: "Biểu tượng (Icon)",
+                  type: "select",
+                  options: [...MENU_ICON_OPTIONS],
+                  admin: {
+                    description: "Biểu tượng tùy chọn.",
+                  },
+                },
                 ...linkFields,
               ],
             },
@@ -294,6 +321,15 @@ const NavBar: GlobalConfig = {
               type: "text",
               required: true,
               localized: true,
+            },
+            {
+              name: "icon",
+              label: "Biểu tượng (Icon)",
+              type: "select",
+              options: [...MENU_ICON_OPTIONS],
+              admin: {
+                description: "Biểu tượng tùy chọn cho danh mục.",
+              },
             },
             ...linkFields,
             {

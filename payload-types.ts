@@ -1354,7 +1354,27 @@ export interface NavBar {
     subMenu?:
       | {
           label: string;
-          icon?: (string | null) | Media;
+          icon?:
+            | (
+                | 'home'
+                | 'burning-candle'
+                | 'documents-stack'
+                | 'dominican-dog-torch'
+                | 'family-heart'
+                | 'hands-heart'
+                | 'location-pin'
+                | 'microphone-soundwave'
+                | 'music-notes'
+                | 'palette-brush'
+                | 'parchment-quill'
+                | 'person-laptop-idea'
+                | 'saint-dominic'
+                | 'team-gear'
+                | 'translation-book'
+                | 'user-growth'
+                | 'video-play'
+              )
+            | null;
           /**
            * Mô tả ngắn hiển thị dưới tiêu đề trong thẻ lưới.
            */
@@ -1365,6 +1385,27 @@ export interface NavBar {
           subMenu?:
             | {
                 label: string;
+                icon?:
+                  | (
+                      | 'home'
+                      | 'burning-candle'
+                      | 'documents-stack'
+                      | 'dominican-dog-torch'
+                      | 'family-heart'
+                      | 'hands-heart'
+                      | 'location-pin'
+                      | 'microphone-soundwave'
+                      | 'music-notes'
+                      | 'palette-brush'
+                      | 'parchment-quill'
+                      | 'person-laptop-idea'
+                      | 'saint-dominic'
+                      | 'team-gear'
+                      | 'translation-book'
+                      | 'user-growth'
+                      | 'video-play'
+                    )
+                  | null;
                 linkType: 'none' | 'internal' | 'external';
                 internalLink?: (string | null) | Page;
                 externalLink?: string | null;
@@ -1390,6 +1431,27 @@ export interface NavBar {
           links?:
             | {
                 label: string;
+                icon?:
+                  | (
+                      | 'home'
+                      | 'burning-candle'
+                      | 'documents-stack'
+                      | 'dominican-dog-torch'
+                      | 'family-heart'
+                      | 'hands-heart'
+                      | 'location-pin'
+                      | 'microphone-soundwave'
+                      | 'music-notes'
+                      | 'palette-brush'
+                      | 'parchment-quill'
+                      | 'person-laptop-idea'
+                      | 'saint-dominic'
+                      | 'team-gear'
+                      | 'translation-book'
+                      | 'user-growth'
+                      | 'video-play'
+                    )
+                  | null;
                 linkType: 'none' | 'internal' | 'external';
                 internalLink?: (string | null) | Page;
                 externalLink?: string | null;
@@ -1404,6 +1466,27 @@ export interface NavBar {
       links?:
         | {
             label: string;
+            icon?:
+              | (
+                  | 'home'
+                  | 'burning-candle'
+                  | 'documents-stack'
+                  | 'dominican-dog-torch'
+                  | 'family-heart'
+                  | 'hands-heart'
+                  | 'location-pin'
+                  | 'microphone-soundwave'
+                  | 'music-notes'
+                  | 'palette-brush'
+                  | 'parchment-quill'
+                  | 'person-laptop-idea'
+                  | 'saint-dominic'
+                  | 'team-gear'
+                  | 'translation-book'
+                  | 'user-growth'
+                  | 'video-play'
+                )
+              | null;
             linkType: 'none' | 'internal' | 'external';
             internalLink?: (string | null) | Page;
             externalLink?: string | null;
@@ -1417,6 +1500,27 @@ export interface NavBar {
     categories?:
       | {
           label: string;
+          icon?:
+            | (
+                | 'home'
+                | 'burning-candle'
+                | 'documents-stack'
+                | 'dominican-dog-torch'
+                | 'family-heart'
+                | 'hands-heart'
+                | 'location-pin'
+                | 'microphone-soundwave'
+                | 'music-notes'
+                | 'palette-brush'
+                | 'parchment-quill'
+                | 'person-laptop-idea'
+                | 'saint-dominic'
+                | 'team-gear'
+                | 'translation-book'
+                | 'user-growth'
+                | 'video-play'
+              )
+            | null;
           linkType: 'none' | 'internal' | 'external';
           internalLink?: (string | null) | Page;
           externalLink?: string | null;

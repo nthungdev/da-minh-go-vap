@@ -1,9 +1,9 @@
 import { NavigationMenuLink } from "@/components/ui/navigation-menu";
+import { cn } from "@/utils/common";
 import { MenuItem } from "@/utils/menu";
 import { ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { twMerge } from "tailwind-merge";
 
 interface MenuLayoutGridProps {
   item: MenuItem;
@@ -27,13 +27,14 @@ export default function MenuLayoutGrid({
 
         const headerContent = (
           <div className="flex w-full items-center gap-x-2">
-            {child.icon?.url && (
-              <span className="relative inline-block size-10 shrink-0 overflow-hidden rounded-md">
+            {child.icon && (
+              <span className="relative inline-block size-9 shrink-0 overflow-hidden rounded-full bg-white">
                 <Image
-                  src={child.icon.url}
-                  alt={child.icon.alt || child.name}
+                  unoptimized
+                  src={`/svgs/menu-icons/${child.icon}.svg`}
+                  alt={child.name || child.icon}
                   fill
-                  className="object-contain"
+                  className="rounded-full object-contain"
                 />
               </span>
             )}
@@ -68,7 +69,7 @@ export default function MenuLayoutGrid({
                 render={
                   <Link
                     href={child.absoluteHref}
-                    className={twMerge(
+                    className={cn(
                       "group flex w-full items-center justify-between gap-x-2 rounded-md p-2.5 text-left transition-colors outline-none select-none",
                       "hover:bg-gray-100 focus:bg-gray-100",
                       isActive && "text-primary-700 bg-gray-100",
@@ -92,20 +93,42 @@ export default function MenuLayoutGrid({
                     <Link
                       key={subIdx}
                       href={subChild.absoluteHref}
-                      className={twMerge(
-                        "rounded-md bg-gray-100 px-2 py-0.5 text-left text-base text-gray-700 transition-colors hover:bg-gray-200 hover:text-gray-900",
+                      className={cn(
+                        "hover:bg-primary-50 hover:text-primary-700 flex items-center gap-1.5 rounded-md bg-gray-100 px-2 py-0.5 text-left text-base text-gray-700 transition-colors",
                         pathname === subChild.absoluteHref &&
                           "bg-primary-50 text-primary-700 font-medium",
                       )}
                     >
-                      {subChild.name}
+                      {subChild.icon && (
+                        <span className="relative inline-block size-4 shrink-0 overflow-hidden rounded-full bg-white">
+                          <Image
+                            unoptimized
+                            src={`/svgs/menu-icons/${subChild.icon}.svg`}
+                            alt={subChild.name || subChild.icon}
+                            fill
+                            className="rounded-full object-contain"
+                          />
+                        </span>
+                      )}
+                      <span>{subChild.name}</span>
                     </Link>
                   ) : (
                     <span
                       key={subIdx}
-                      className="rounded-md bg-gray-100 px-2 py-0.5 text-left text-base text-gray-600"
+                      className="flex items-center gap-1.5 rounded-md bg-gray-100 px-2 py-0.5 text-left text-base text-gray-600"
                     >
-                      {subChild.name}
+                      {subChild.icon && (
+                        <span className="relative inline-block size-4 shrink-0 overflow-hidden rounded-full bg-white">
+                          <Image
+                            unoptimized
+                            src={`/svgs/menu-icons/${subChild.icon}.svg`}
+                            alt={subChild.name || subChild.icon}
+                            fill
+                            className="rounded-full object-contain"
+                          />
+                        </span>
+                      )}
+                      <span>{subChild.name}</span>
                     </span>
                   ),
                 )}

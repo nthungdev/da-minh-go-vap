@@ -12,7 +12,7 @@ export interface SubMenuItem {
   absoluteHref: string;
   name: string;
   normalizedName: string;
-  icon?: Media | null;
+  icon?: string | null;
   description?: string | null;
   children?: SubMenuItem[];
 }
@@ -29,6 +29,7 @@ export interface PillarItem {
     name: string;
     href: string;
     absoluteHref: string;
+    icon?: string | null;
   }[];
 }
 
@@ -38,6 +39,7 @@ export interface BottomBarItem {
     name: string;
     href: string;
     absoluteHref: string;
+    icon?: string | null;
   }[];
 }
 
@@ -54,6 +56,7 @@ export interface CategoryTabItem {
   href: string;
   absoluteHref: string;
   tagIds: string[];
+  icon?: string | null;
   posts?: CategoryPostItem[];
 }
 
@@ -115,16 +118,17 @@ export const getMenu = cache(async (locale?: Locale): Promise<MenuItem[]> => {
           href: getLinkHref(subMenuItem),
           absoluteHref: getLinkHref(subMenuItem),
           name: subMenuItem.label,
-          icon:
-            typeof subMenuItem.icon === "object"
-              ? (subMenuItem.icon as Media)
-              : null,
+          icon: typeof subMenuItem.icon === "string" ? subMenuItem.icon : null,
           description: subMenuItem.description,
           normalizedName: normalizeMenuName(subMenuItem.label),
           children: subMenuItem.subMenu?.map((subSubMenuItem) => ({
             href: getLinkHref(subSubMenuItem),
             absoluteHref: getLinkHref(subSubMenuItem),
             name: subSubMenuItem.label,
+            icon:
+              typeof subSubMenuItem.icon === "string"
+                ? subSubMenuItem.icon
+                : null,
             normalizedName: normalizeMenuName(subSubMenuItem.label),
           })),
         }),
@@ -148,6 +152,7 @@ export const getMenu = cache(async (locale?: Locale): Promise<MenuItem[]> => {
               name: link.label,
               href: getLinkHref(link),
               absoluteHref: getLinkHref(link),
+              icon: typeof link.icon === "string" ? link.icon : null,
             })) || [],
         }),
       );
@@ -161,6 +166,7 @@ export const getMenu = cache(async (locale?: Locale): Promise<MenuItem[]> => {
                 name: link.label,
                 href: getLinkHref(link),
                 absoluteHref: getLinkHref(link),
+                icon: typeof link.icon === "string" ? link.icon : null,
               })) || [],
           }
         : undefined;
@@ -214,6 +220,7 @@ export const getMenu = cache(async (locale?: Locale): Promise<MenuItem[]> => {
                 name: cat.label,
                 href: getLinkHref(cat),
                 absoluteHref: getLinkHref(cat),
+                icon: typeof cat.icon === "string" ? cat.icon : null,
                 tagIds,
                 posts,
               };

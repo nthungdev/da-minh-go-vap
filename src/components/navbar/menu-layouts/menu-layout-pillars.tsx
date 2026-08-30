@@ -4,7 +4,6 @@ import { MenuItem } from "@/utils/menu";
 import { ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { twMerge } from "tailwind-merge";
 
 interface MenuLayoutPillarsProps {
   item: MenuItem;
@@ -40,9 +39,9 @@ export default function MenuLayoutPillars({
           : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4";
 
   return (
-    <div className={twMerge("p-4", containerWidthClass)}>
+    <div className={cn("p-2", containerWidthClass)}>
       {/* Pillars Columns Grid */}
-      <div className={twMerge("grid gap-4", gridColsClass)}>
+      <div className={cn("grid gap-2", gridColsClass)}>
         {item.pillars.map((pillar, pIdx) => {
           const banner = pillar.headerBanner;
           const isBannerActive = banner.absoluteHref
@@ -59,18 +58,18 @@ export default function MenuLayoutPillars({
                   className="object-cover transition-transform duration-300 group-hover:scale-105"
                 />
               )}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/35 to-transparent" />
               <div className="absolute inset-x-0 bottom-0 p-2.5">
                 <div className="flex items-center justify-between gap-1">
-                  <div className="text-base leading-tight font-bold text-white drop-shadow-sm">
+                  <div className="text-base leading-tight font-bold text-white">
                     {banner.title}
                   </div>
                   {banner.absoluteHref && (
-                    <ChevronRight className="size-4 shrink-0 text-white/80 opacity-70 transition-transform group-hover:translate-x-0.5 group-hover:opacity-100" />
+                    <ChevronRight className="size-4 shrink-0 text-white/75 transition-transform group-hover:translate-x-0.5 group-hover:text-white" />
                   )}
                 </div>
                 {banner.subtitle && (
-                  <div className="mt-0.5 line-clamp-1 text-base text-gray-200 drop-shadow-sm">
+                  <div className="mt-0.5 line-clamp-1 text-sm text-gray-200">
                     {banner.subtitle}
                   </div>
                 )}
@@ -79,15 +78,15 @@ export default function MenuLayoutPillars({
           );
 
           return (
-            <div key={pIdx} className="flex flex-col gap-2.5">
+            <div key={pIdx} className="flex flex-col gap-2">
               {/* Pillar Banner Card */}
               {banner.absoluteHref ? (
                 <NavigationMenuLink
                   render={
                     <Link
                       href={banner.absoluteHref}
-                      className={twMerge(
-                        "group relative block h-28 w-full overflow-hidden rounded-xl bg-gray-900 shadow-md transition-transform duration-200 hover:scale-[1.02] focus:outline-none",
+                      className={cn(
+                        "group relative block h-28 w-full overflow-hidden rounded-md bg-gray-900 transition-colors focus:outline-none",
                         isBannerActive && "ring-primary-600 ring-2",
                       )}
                     />
@@ -96,14 +95,14 @@ export default function MenuLayoutPillars({
                   {bannerCard}
                 </NavigationMenuLink>
               ) : (
-                <div className="group relative block h-28 w-full overflow-hidden rounded-xl bg-gray-900 shadow-md select-none">
+                <div className="group relative block h-28 w-full overflow-hidden rounded-md bg-gray-900 select-none">
                   {bannerCard}
                 </div>
               )}
 
               {/* Pill-shaped button links */}
               {pillar.links && pillar.links.length > 0 && (
-                <ul className="flex flex-col gap-2">
+                <ul className="flex flex-col gap-1.5">
                   {pillar.links.map((link, lIdx) => {
                     const isLinkActive = link.absoluteHref
                       ? pathname === link.absoluteHref
@@ -113,23 +112,41 @@ export default function MenuLayoutPillars({
                       <li key={lIdx}>
                         {link.absoluteHref ? (
                           <NavigationMenuLink
-                            render={
-                              <Link
-                                href={link.absoluteHref}
-                                className={cn(
-                                  "block w-full rounded-full bg-gray-100 px-3.5 py-2 text-left text-base font-medium text-gray-800 transition-all select-none",
-                                  "hover:bg-gray-200 hover:text-gray-900 focus:bg-gray-200",
-                                  isLinkActive &&
-                                    "bg-primary-50 text-primary-700 font-semibold",
-                                )}
-                              />
-                            }
+                            className={cn(
+                              "flex w-full items-center gap-1.5 rounded-md bg-gray-100 px-3 py-1.5 text-left text-base text-gray-700 transition-colors select-none",
+                              "hover:bg-primary-50 hover:text-primary-700 focus:bg-primary-50 focus:text-primary-700",
+                              isLinkActive &&
+                                "bg-primary-50 text-primary-700 font-medium",
+                            )}
+                            render={<Link href={link.absoluteHref} />}
                           >
-                            {link.name}
+                            {link.icon && (
+                              <span className="relative inline-block size-4 shrink-0 overflow-hidden rounded-full bg-white">
+                                <Image
+                                  unoptimized
+                                  src={`/svgs/menu-icons/${link.icon}.svg`}
+                                  alt={link.name || link.icon}
+                                  fill
+                                  className="rounded-full object-contain"
+                                />
+                              </span>
+                            )}
+                            <span>{link.name}</span>
                           </NavigationMenuLink>
                         ) : (
-                          <div className="block w-full rounded-full bg-gray-100 px-3.5 py-2 text-left text-base font-medium text-gray-600 select-none">
-                            {link.name}
+                          <div className="flex w-full items-center gap-1.5 rounded-md bg-gray-100 px-3 py-1.5 text-left text-base text-gray-600 select-none">
+                            {link.icon && (
+                              <span className="relative inline-block size-4 shrink-0 overflow-hidden rounded-full bg-white">
+                                <Image
+                                  unoptimized
+                                  src={`/svgs/menu-icons/${link.icon}.svg`}
+                                  alt={link.name || link.icon}
+                                  fill
+                                  className="rounded-full object-contain"
+                                />
+                              </span>
+                            )}
+                            <span>{link.name}</span>
                           </div>
                         )}
                       </li>
@@ -144,13 +161,13 @@ export default function MenuLayoutPillars({
 
       {/* Bottom Footer Bar */}
       {item.bottomBar && item.bottomBar.links.length > 0 && (
-        <div className="mt-4 flex flex-wrap items-center gap-2.5 border-t border-gray-200 pt-3">
+        <div className="mt-2 flex flex-wrap items-center gap-2 border-t border-gray-100 pt-2 text-left">
           {item.bottomBar.label && (
-            <span className="text-base font-bold tracking-wider text-gray-900 uppercase">
+            <span className="text-sm font-bold tracking-wider text-gray-900 uppercase">
               {item.bottomBar.label}:
             </span>
           )}
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-1.5">
             {item.bottomBar.links.map((link, bIdx) => {
               const isBottomLinkActive = link.absoluteHref
                 ? pathname === link.absoluteHref
@@ -162,23 +179,45 @@ export default function MenuLayoutPillars({
                   render={
                     <Link
                       href={link.absoluteHref}
-                      className={twMerge(
-                        "rounded-full border border-gray-200 bg-gray-100 px-3.5 py-1.5 text-base font-medium text-gray-800 transition-colors select-none",
-                        "hover:bg-gray-200 hover:text-gray-900 focus:bg-gray-200",
+                      className={cn(
+                        "flex items-center gap-1.5 rounded-md bg-gray-100 px-2.5 py-1 text-left text-base text-gray-700 transition-colors select-none",
+                        "hover:bg-primary-50 hover:text-primary-700 focus:bg-primary-50 focus:text-primary-700",
                         isBottomLinkActive &&
-                          "bg-primary-50 border-primary-300 text-primary-700 font-semibold",
+                          "bg-primary-50 text-primary-700 font-medium",
                       )}
                     />
                   }
                 >
-                  {link.name}
+                  {link.icon && (
+                    <span className="relative inline-block size-4 shrink-0 overflow-hidden rounded-full bg-white">
+                      <Image
+                        unoptimized
+                        src={`/svgs/menu-icons/${link.icon}.svg`}
+                        alt={link.name || link.icon}
+                        fill
+                        className="rounded-full object-contain"
+                      />
+                    </span>
+                  )}
+                  <span>{link.name}</span>
                 </NavigationMenuLink>
               ) : (
                 <span
                   key={bIdx}
-                  className="rounded-full border border-gray-200 bg-gray-50 px-3.5 py-1.5 text-base font-medium text-gray-500 select-none"
+                  className="flex items-center gap-1.5 rounded-md bg-gray-100 px-2.5 py-1 text-left text-base text-gray-600 select-none"
                 >
-                  {link.name}
+                  {link.icon && (
+                    <span className="relative inline-block size-4 shrink-0 overflow-hidden rounded-full bg-white">
+                      <Image
+                        unoptimized
+                        src={`/svgs/menu-icons/${link.icon}.svg`}
+                        alt={link.name || link.icon}
+                        fill
+                        className="rounded-full object-contain"
+                      />
+                    </span>
+                  )}
+                  <span>{link.name}</span>
                 </span>
               );
             })}

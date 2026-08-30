@@ -1,12 +1,12 @@
 "use client";
 
 import { NavigationMenuLink } from "@/components/ui/navigation-menu";
+import { cn } from "@/utils/common";
 import { MenuItem } from "@/utils/menu";
 import { ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { twMerge } from "tailwind-merge";
 
 interface MenuLayoutTabsPostsProps {
   item: MenuItem;
@@ -27,9 +27,9 @@ export default function MenuLayoutTabsPosts({
   const activeCategory = categories[activeTabIndex] || categories[0];
 
   return (
-    <div className="flex w-[380px] gap-3.5 p-4 sm:w-[600px] md:w-[820px] lg:w-[1040px] xl:w-[1200px]">
+    <div className="flex w-[380px] gap-2 p-2 sm:w-[600px] md:w-[820px] lg:w-[1040px] xl:w-[1200px]">
       {/* Left Sidebar Category Tabs */}
-      <div className="flex w-48 shrink-0 flex-col gap-1.5 border-r border-gray-200 pr-3.5 sm:w-60">
+      <div className="flex w-48 shrink-0 flex-col gap-1 border-r border-gray-100 pr-2 sm:w-56">
         {categories.map((cat, idx) => {
           const isSelected = activeTabIndex === idx;
           const isRouteActive = cat.absoluteHref
@@ -38,32 +38,43 @@ export default function MenuLayoutTabsPosts({
 
           const tabContent = (
             <>
-              <span className="truncate">{cat.name}</span>
+              <div className="flex items-center gap-2 truncate">
+                {cat.icon && (
+                  <span className="relative inline-block size-4 shrink-0 overflow-hidden rounded-full bg-white">
+                    <Image
+                      unoptimized
+                      src={`/svgs/menu-icons/${cat.icon}.svg`}
+                      alt={cat.name || cat.icon}
+                      fill
+                      className="rounded-full object-contain"
+                    />
+                  </span>
+                )}
+                <span className="truncate">{cat.name}</span>
+              </div>
               {cat.absoluteHref && (
-                <ChevronRight className="size-4 shrink-0 opacity-60 transition-all group-hover:translate-x-0.5 group-hover:opacity-100" />
+                <ChevronRight className="group-hover:text-primary-600 size-4 shrink-0 text-gray-400 transition-all group-hover:translate-x-0.5" />
               )}
             </>
           );
 
-          const tabClassName = twMerge(
-            "group flex w-full items-center justify-between rounded-lg px-3.5 py-2.5 text-left text-base font-medium transition-colors select-none",
+          const tabClassName = cn(
+            "group flex w-full items-center justify-between rounded-md px-3 py-2 text-left text-base transition-colors outline-none select-none",
+            "hover:bg-primary-50 hover:text-primary-700 focus:bg-primary-50 focus:text-primary-700",
             isSelected
-              ? "bg-gray-100 font-semibold text-gray-900 shadow-xs"
-              : "text-gray-600 hover:bg-gray-50 hover:text-gray-900",
-            isRouteActive &&
-              !isSelected &&
-              "text-primary-700 font-semibold underline underline-offset-4",
+              ? "bg-primary-50 font-semibold text-primary-700"
+              : "text-gray-700 hover:text-primary-700",
+            isRouteActive && "bg-primary-50 font-semibold text-primary-700",
           );
 
           return cat.absoluteHref ? (
             <NavigationMenuLink
               key={idx}
-              className="p-0 hover:bg-transparent focus:bg-transparent"
+              className={tabClassName}
               render={
                 <Link
                   href={cat.absoluteHref}
                   onMouseEnter={() => setActiveTabIndex(idx)}
-                  className={tabClassName}
                 />
               }
             >
@@ -87,24 +98,26 @@ export default function MenuLayoutTabsPosts({
         {activeCategory &&
         activeCategory.posts &&
         activeCategory.posts.length > 0 ? (
-          <div className="grid grid-cols-2 gap-3.5 sm:grid-cols-3 lg:grid-cols-4">
+          <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4">
             {activeCategory.posts.map((post, pIdx) => {
               const isPostActive = pathname === post.href;
 
               return (
                 <NavigationMenuLink
                   key={pIdx}
+                  className="p-0 text-left"
                   render={
                     <Link
                       href={post.href}
-                      className={twMerge(
-                        "group flex flex-col overflow-hidden rounded-lg border border-gray-100 bg-white transition-all hover:bg-gray-50 hover:shadow-md focus:outline-none",
-                        isPostActive && "ring-primary-600 ring-2",
+                      className={cn(
+                        "group flex flex-col overflow-hidden rounded-md p-1.5 text-left transition-colors outline-none select-none",
+                        "hover:bg-gray-100 focus:bg-gray-100",
+                        isPostActive && "bg-gray-100",
                       )}
                     />
                   }
                 >
-                  <div className="relative aspect-[16/10] w-full overflow-hidden bg-gray-100">
+                  <div className="relative aspect-[16/10] w-full overflow-hidden rounded-md bg-gray-300">
                     {post.thumbnail?.url ? (
                       <Image
                         src={post.thumbnail.url}
@@ -113,14 +126,18 @@ export default function MenuLayoutTabsPosts({
                         className="object-cover transition-transform duration-300 group-hover:scale-105"
                       />
                     ) : (
-                      <div className="flex h-full w-full items-center justify-center text-base text-gray-400">
+                      <div className="flex h-full w-full items-center justify-center text-sm text-gray-400">
                         No image
                       </div>
                     )}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-40 transition-opacity group-hover:opacity-60" />
                   </div>
-                  <div className="p-2.5">
-                    <h4 className="group-hover:text-primary-700 line-clamp-2 text-base leading-snug font-semibold text-gray-900">
+                  <div className="px-1 pt-2 pb-0.5">
+                    <h4
+                      className={cn(
+                        "group-hover:text-primary-700 line-clamp-2 text-base leading-snug font-semibold text-gray-900 transition-colors",
+                        isPostActive && "text-primary-700",
+                      )}
+                    >
                       {post.title}
                     </h4>
                   </div>
@@ -129,7 +146,7 @@ export default function MenuLayoutTabsPosts({
             })}
           </div>
         ) : (
-          <div className="flex h-48 w-full items-center justify-center rounded-lg border border-dashed border-gray-200 text-base text-gray-500">
+          <div className="flex h-48 w-full items-center justify-center rounded-md border border-dashed border-gray-200 text-base text-gray-500">
             Chưa có bài viết nào cho danh mục này.
           </div>
         )}
