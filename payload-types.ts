@@ -1325,6 +1325,7 @@ export interface NavBar {
     label?: string | null;
     icon?:
       | (
+          | 'home'
           | 'burning-candle'
           | 'documents-stack'
           | 'dominican-dog-torch'

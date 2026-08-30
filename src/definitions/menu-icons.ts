@@ -1,4 +1,5 @@
 export const MENU_ICON_OPTIONS = [
+  { label: "Trang chủ", value: "home" },
   { label: "Ngọn nến", value: "burning-candle" },
   { label: "Tài liệu", value: "documents-stack" },
   { label: "Đuốc Đa Minh", value: "dominican-dog-torch" },
