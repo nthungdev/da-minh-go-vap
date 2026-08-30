@@ -1,9 +1,9 @@
 import { NavigationMenuLink } from "@/components/ui/navigation-menu";
+import { cn } from "@/utils/common";
 import { MenuItem } from "@/utils/menu";
 import { ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { twMerge } from "tailwind-merge";
 
 interface MenuLayoutGridProps {
   item: MenuItem;
@@ -68,7 +68,7 @@ export default function MenuLayoutGrid({
                 render={
                   <Link
                     href={child.absoluteHref}
-                    className={twMerge(
+                    className={cn(
                       "group flex w-full items-center justify-between gap-x-2 rounded-md p-2.5 text-left transition-colors outline-none select-none",
                       "hover:bg-gray-100 focus:bg-gray-100",
                       isActive && "text-primary-700 bg-gray-100",
@@ -92,7 +92,7 @@ export default function MenuLayoutGrid({
                     <Link
                       key={subIdx}
                       href={subChild.absoluteHref}
-                      className={twMerge(
+                      className={cn(
                         "rounded-md bg-gray-100 px-2 py-0.5 text-left text-base text-gray-700 transition-colors hover:bg-gray-200 hover:text-gray-900",
                         pathname === subChild.absoluteHref &&
                           "bg-primary-50 text-primary-700 font-medium",
