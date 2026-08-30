@@ -33,6 +33,7 @@ import { Menu } from "lucide-react";
 import { twMerge } from "tailwind-merge";
 import { usePathname } from "next/navigation";
 import MenuLayoutRenderer from "./navbar/menu-layouts/menu-layout-renderer";
+import { cn } from "@/utils/common";
 
 interface TheNavbarClientProps {
   menu: MenuItem[];
@@ -325,9 +326,29 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                                 <>
                                   {item.pillars?.map((pillar, pIdx) => (
                                     <li key={pIdx} className="space-y-1 py-1">
-                                      <span className="text-base font-bold text-gray-700 uppercase">
-                                        {pillar.headerBanner.title}
-                                      </span>
+                                      {pillar.headerBanner.absoluteHref ? (
+                                        <Link
+                                          href={
+                                            pillar.headerBanner.absoluteHref
+                                          }
+                                          onClick={() =>
+                                            setMobileMenuOpen(false)
+                                          }
+                                          className={cn(
+                                            "hover:text-primary-600 block text-base font-bold uppercase transition-colors",
+                                            pathname ===
+                                              pillar.headerBanner.absoluteHref
+                                              ? "text-primary-600"
+                                              : "text-gray-800",
+                                          )}
+                                        >
+                                          {pillar.headerBanner.title}
+                                        </Link>
+                                      ) : (
+                                        <span className="text-base font-bold text-gray-700 uppercase">
+                                          {pillar.headerBanner.title}
+                                        </span>
+                                      )}
                                       {pillar.links.map((link, lIdx) => (
                                         <div key={lIdx}>
                                           {link.absoluteHref ? (
@@ -337,7 +358,12 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                                               onClick={() =>
                                                 setMobileMenuOpen(false)
                                               }
-                                              className="hover:text-primary-600 block py-1.5 text-base text-gray-600"
+                                              className={cn(
+                                                "hover:text-primary-600 block py-1.5 text-base text-gray-700 transition-colors",
+                                                pathname ===
+                                                  link.absoluteHref &&
+                                                  "text-primary-600 font-semibold",
+                                              )}
                                             >
                                               {link.name}
                                             </Link>
@@ -358,12 +384,16 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                                           onClick={() =>
                                             setMobileMenuOpen(false)
                                           }
-                                          className="hover:text-primary-600 text-primary block py-1.5 text-base font-medium"
+                                          className={cn(
+                                            "hover:text-primary-600 block py-1.5 text-base font-medium text-gray-700 transition-colors",
+                                            pathname === link.absoluteHref &&
+                                              "text-primary-600 font-semibold",
+                                          )}
                                         >
                                           {link.name}
                                         </Link>
                                       ) : (
-                                        <span className="text-primary block py-1.5 text-base font-medium">
+                                        <span className="block py-1.5 text-base font-medium text-gray-600">
                                           {link.name}
                                         </span>
                                       )}
