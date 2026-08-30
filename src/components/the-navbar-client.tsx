@@ -297,6 +297,7 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                           <AccordionContent className="pb-3 pl-4">
                             <ul className="flex flex-col gap-2 border-l-2 border-gray-100 pl-4">
                               {/* Layout 1: Grid */}
+                              {/* Layout 1: Grid */}
                               {item.layout === "grid" &&
                                 item.children?.map((child, childIndex) => (
                                   <li key={childIndex}>
@@ -305,16 +306,38 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                                         href={child.absoluteHref}
                                         onClick={() => setMobileMenuOpen(false)}
                                         className={cn(
-                                          "hover:text-primary-600 block py-2 text-base text-gray-700 transition-colors",
+                                          "hover:text-primary-600 flex items-center gap-2 py-2 text-base text-gray-700 transition-colors",
                                           pathname === child.absoluteHref &&
                                             "text-primary-600 font-semibold",
                                         )}
                                       >
-                                        {child.name}
+                                        {child.icon && (
+                                          <span className="relative inline-block size-5 shrink-0 overflow-hidden rounded-full bg-white">
+                                            <Image
+                                              unoptimized
+                                              src={`/svgs/menu-icons/${child.icon}.svg`}
+                                              alt={child.name || child.icon}
+                                              fill
+                                              className="rounded-full object-contain"
+                                            />
+                                          </span>
+                                        )}
+                                        <span>{child.name}</span>
                                       </Link>
                                     ) : (
-                                      <span className="block py-2 text-base font-medium text-gray-700">
-                                        {child.name}
+                                      <span className="flex items-center gap-2 py-2 text-base font-medium text-gray-700">
+                                        {child.icon && (
+                                          <span className="relative inline-block size-5 shrink-0 overflow-hidden rounded-full bg-white">
+                                            <Image
+                                              unoptimized
+                                              src={`/svgs/menu-icons/${child.icon}.svg`}
+                                              alt={child.name || child.icon}
+                                              fill
+                                              className="rounded-full object-contain"
+                                            />
+                                          </span>
+                                        )}
+                                        <span>{child.name}</span>
                                       </span>
                                     )}
                                   </li>
@@ -358,17 +381,39 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                                                 setMobileMenuOpen(false)
                                               }
                                               className={cn(
-                                                "hover:text-primary-600 block py-1.5 text-base text-gray-700 transition-colors",
+                                                "hover:text-primary-600 flex items-center gap-2 py-1.5 text-base text-gray-700 transition-colors",
                                                 pathname ===
                                                   link.absoluteHref &&
                                                   "text-primary-600 font-semibold",
                                               )}
                                             >
-                                              {link.name}
+                                              {link.icon && (
+                                                <span className="relative inline-block size-4 shrink-0 overflow-hidden rounded-full bg-white">
+                                                  <Image
+                                                    unoptimized
+                                                    src={`/svgs/menu-icons/${link.icon}.svg`}
+                                                    alt={link.name || link.icon}
+                                                    fill
+                                                    className="rounded-full object-contain"
+                                                  />
+                                                </span>
+                                              )}
+                                              <span>{link.name}</span>
                                             </Link>
                                           ) : (
-                                            <span className="block py-1.5 text-base text-gray-600">
-                                              {link.name}
+                                            <span className="flex items-center gap-2 py-1.5 text-base text-gray-600">
+                                              {link.icon && (
+                                                <span className="relative inline-block size-4 shrink-0 overflow-hidden rounded-full bg-white">
+                                                  <Image
+                                                    unoptimized
+                                                    src={`/svgs/menu-icons/${link.icon}.svg`}
+                                                    alt={link.name || link.icon}
+                                                    fill
+                                                    className="rounded-full object-contain"
+                                                  />
+                                                </span>
+                                              )}
+                                              <span>{link.name}</span>
                                             </span>
                                           )}
                                         </div>
@@ -384,16 +429,38 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                                             setMobileMenuOpen(false)
                                           }
                                           className={cn(
-                                            "hover:text-primary-600 block py-1.5 text-base font-medium text-gray-700 transition-colors",
+                                            "hover:text-primary-600 flex items-center gap-2 py-1.5 text-base font-medium text-gray-700 transition-colors",
                                             pathname === link.absoluteHref &&
                                               "text-primary-600 font-semibold",
                                           )}
                                         >
-                                          {link.name}
+                                          {link.icon && (
+                                            <span className="relative inline-block size-4 shrink-0 overflow-hidden rounded-full bg-white">
+                                              <Image
+                                                unoptimized
+                                                src={`/svgs/menu-icons/${link.icon}.svg`}
+                                                alt={link.name || link.icon}
+                                                fill
+                                                className="rounded-full object-contain"
+                                              />
+                                            </span>
+                                          )}
+                                          <span>{link.name}</span>
                                         </Link>
                                       ) : (
-                                        <span className="block py-1.5 text-base font-medium text-gray-600">
-                                          {link.name}
+                                        <span className="flex items-center gap-2 py-1.5 text-base font-medium text-gray-600">
+                                          {link.icon && (
+                                            <span className="relative inline-block size-4 shrink-0 overflow-hidden rounded-full bg-white">
+                                              <Image
+                                                unoptimized
+                                                src={`/svgs/menu-icons/${link.icon}.svg`}
+                                                alt={link.name || link.icon}
+                                                fill
+                                                className="rounded-full object-contain"
+                                              />
+                                            </span>
+                                          )}
+                                          <span>{link.name}</span>
                                         </span>
                                       )}
                                     </li>
@@ -410,16 +477,38 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                                         href={cat.absoluteHref}
                                         onClick={() => setMobileMenuOpen(false)}
                                         className={cn(
-                                          "hover:text-primary-600 block py-2 text-base text-gray-700 transition-colors",
+                                          "hover:text-primary-600 flex items-center gap-2 py-2 text-base text-gray-700 transition-colors",
                                           pathname === cat.absoluteHref &&
                                             "text-primary-600 font-semibold",
                                         )}
                                       >
-                                        {cat.name}
+                                        {cat.icon && (
+                                          <span className="relative inline-block size-4 shrink-0 overflow-hidden rounded-full bg-white">
+                                            <Image
+                                              unoptimized
+                                              src={`/svgs/menu-icons/${cat.icon}.svg`}
+                                              alt={cat.name || cat.icon}
+                                              fill
+                                              className="rounded-full object-contain"
+                                            />
+                                          </span>
+                                        )}
+                                        <span>{cat.name}</span>
                                       </Link>
                                     ) : (
-                                      <span className="block py-2 text-base font-medium text-gray-700">
-                                        {cat.name}
+                                      <span className="flex items-center gap-2 py-2 text-base font-medium text-gray-700">
+                                        {cat.icon && (
+                                          <span className="relative inline-block size-4 shrink-0 overflow-hidden rounded-full bg-white">
+                                            <Image
+                                              unoptimized
+                                              src={`/svgs/menu-icons/${cat.icon}.svg`}
+                                              alt={cat.name || cat.icon}
+                                              fill
+                                              className="rounded-full object-contain"
+                                            />
+                                          </span>
+                                        )}
+                                        <span>{cat.name}</span>
                                       </span>
                                     )}
                                   </li>

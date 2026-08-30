@@ -38,7 +38,20 @@ export default function MenuLayoutTabsPosts({
 
           const tabContent = (
             <>
-              <span className="truncate">{cat.name}</span>
+              <div className="flex items-center gap-2 truncate">
+                {cat.icon && (
+                  <span className="relative inline-block size-4 shrink-0 overflow-hidden rounded-full bg-white">
+                    <Image
+                      unoptimized
+                      src={`/svgs/menu-icons/${cat.icon}.svg`}
+                      alt={cat.name || cat.icon}
+                      fill
+                      className="rounded-full object-contain"
+                    />
+                  </span>
+                )}
+                <span className="truncate">{cat.name}</span>
+              </div>
               {cat.absoluteHref && (
                 <ChevronRight className="group-hover:text-primary-600 size-4 shrink-0 text-gray-400 transition-all group-hover:translate-x-0.5" />
               )}

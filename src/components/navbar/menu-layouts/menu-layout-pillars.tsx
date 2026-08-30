@@ -113,18 +113,40 @@ export default function MenuLayoutPillars({
                         {link.absoluteHref ? (
                           <NavigationMenuLink
                             className={cn(
-                              "block w-full rounded-md bg-gray-100 px-3 py-1.5 text-left text-base text-gray-700 transition-colors select-none",
+                              "flex w-full items-center gap-1.5 rounded-md bg-gray-100 px-3 py-1.5 text-left text-base text-gray-700 transition-colors select-none",
                               "hover:bg-primary-50 hover:text-primary-700 focus:bg-primary-50 focus:text-primary-700",
                               isLinkActive &&
                                 "bg-primary-50 text-primary-700 font-medium",
                             )}
                             render={<Link href={link.absoluteHref} />}
                           >
-                            {link.name}
+                            {link.icon && (
+                              <span className="relative inline-block size-4 shrink-0 overflow-hidden rounded-full bg-white">
+                                <Image
+                                  unoptimized
+                                  src={`/svgs/menu-icons/${link.icon}.svg`}
+                                  alt={link.name || link.icon}
+                                  fill
+                                  className="rounded-full object-contain"
+                                />
+                              </span>
+                            )}
+                            <span>{link.name}</span>
                           </NavigationMenuLink>
                         ) : (
-                          <div className="block w-full rounded-md bg-gray-100 px-3 py-1.5 text-left text-base text-gray-600 select-none">
-                            {link.name}
+                          <div className="flex w-full items-center gap-1.5 rounded-md bg-gray-100 px-3 py-1.5 text-left text-base text-gray-600 select-none">
+                            {link.icon && (
+                              <span className="relative inline-block size-4 shrink-0 overflow-hidden rounded-full bg-white">
+                                <Image
+                                  unoptimized
+                                  src={`/svgs/menu-icons/${link.icon}.svg`}
+                                  alt={link.name || link.icon}
+                                  fill
+                                  className="rounded-full object-contain"
+                                />
+                              </span>
+                            )}
+                            <span>{link.name}</span>
                           </div>
                         )}
                       </li>
@@ -158,7 +180,7 @@ export default function MenuLayoutPillars({
                     <Link
                       href={link.absoluteHref}
                       className={cn(
-                        "rounded-md bg-gray-100 px-2.5 py-1 text-left text-base text-gray-700 transition-colors select-none",
+                        "flex items-center gap-1.5 rounded-md bg-gray-100 px-2.5 py-1 text-left text-base text-gray-700 transition-colors select-none",
                         "hover:bg-primary-50 hover:text-primary-700 focus:bg-primary-50 focus:text-primary-700",
                         isBottomLinkActive &&
                           "bg-primary-50 text-primary-700 font-medium",
@@ -166,14 +188,36 @@ export default function MenuLayoutPillars({
                     />
                   }
                 >
-                  {link.name}
+                  {link.icon && (
+                    <span className="relative inline-block size-4 shrink-0 overflow-hidden rounded-full bg-white">
+                      <Image
+                        unoptimized
+                        src={`/svgs/menu-icons/${link.icon}.svg`}
+                        alt={link.name || link.icon}
+                        fill
+                        className="rounded-full object-contain"
+                      />
+                    </span>
+                  )}
+                  <span>{link.name}</span>
                 </NavigationMenuLink>
               ) : (
                 <span
                   key={bIdx}
-                  className="rounded-md bg-gray-100 px-2.5 py-1 text-left text-base text-gray-600 select-none"
+                  className="flex items-center gap-1.5 rounded-md bg-gray-100 px-2.5 py-1 text-left text-base text-gray-600 select-none"
                 >
-                  {link.name}
+                  {link.icon && (
+                    <span className="relative inline-block size-4 shrink-0 overflow-hidden rounded-full bg-white">
+                      <Image
+                        unoptimized
+                        src={`/svgs/menu-icons/${link.icon}.svg`}
+                        alt={link.name || link.icon}
+                        fill
+                        className="rounded-full object-contain"
+                      />
+                    </span>
+                  )}
+                  <span>{link.name}</span>
                 </span>
               );
             })}
