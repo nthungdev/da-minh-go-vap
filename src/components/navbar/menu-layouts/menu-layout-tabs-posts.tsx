@@ -29,7 +29,7 @@ export default function MenuLayoutTabsPosts({
   return (
     <div className="flex w-[380px] gap-3.5 p-4 sm:w-[600px] md:w-[820px] lg:w-[1040px] xl:w-[1200px]">
       {/* Left Sidebar Category Tabs */}
-      <div className="border-primary-500/30 flex w-48 shrink-0 flex-col gap-1.5 border-r pr-3.5 sm:w-60">
+      <div className="flex w-48 shrink-0 flex-col gap-1.5 border-r border-gray-200 pr-3.5 sm:w-60">
         {categories.map((cat, idx) => {
           const isSelected = activeTabIndex === idx;
           const isRouteActive = cat.absoluteHref
@@ -48,17 +48,17 @@ export default function MenuLayoutTabsPosts({
           const tabClassName = twMerge(
             "group flex w-full items-center justify-between rounded-lg px-3.5 py-2.5 text-left text-base font-medium transition-colors select-none",
             isSelected
-              ? "bg-primary-700 font-semibold text-white shadow-xs"
-              : "hover:bg-primary-700/50 text-gray-200 hover:text-white",
+              ? "bg-gray-100 font-semibold text-gray-900 shadow-xs"
+              : "text-gray-600 hover:bg-gray-50 hover:text-gray-900",
             isRouteActive &&
               !isSelected &&
-              "text-white underline underline-offset-4",
+              "text-primary-700 font-semibold underline underline-offset-4",
           );
 
           return cat.absoluteHref ? (
             <NavigationMenuLink
               key={idx}
-              className="hover:bg-primary-800 focus:primary-800 p-0"
+              className="p-0 hover:bg-transparent focus:bg-transparent"
               render={
                 <Link
                   href={cat.absoluteHref}
@@ -98,13 +98,13 @@ export default function MenuLayoutTabsPosts({
                     <Link
                       href={post.href}
                       className={twMerge(
-                        "group bg-primary-800/60 hover:bg-primary-800 flex flex-col overflow-hidden rounded-lg transition-all hover:shadow-md focus:outline-none",
-                        isPostActive && "ring-2 ring-white/80",
+                        "group flex flex-col overflow-hidden rounded-lg border border-gray-100 bg-white transition-all hover:bg-gray-50 hover:shadow-md focus:outline-none",
+                        isPostActive && "ring-primary-600 ring-2",
                       )}
                     />
                   }
                 >
-                  <div className="bg-primary-900 relative aspect-[16/10] w-full overflow-hidden">
+                  <div className="relative aspect-[16/10] w-full overflow-hidden bg-gray-100">
                     {post.thumbnail?.url ? (
                       <Image
                         src={post.thumbnail.url}
@@ -117,10 +117,10 @@ export default function MenuLayoutTabsPosts({
                         No image
                       </div>
                     )}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-60 transition-opacity group-hover:opacity-80" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-40 transition-opacity group-hover:opacity-60" />
                   </div>
                   <div className="p-2.5">
-                    <h4 className="line-clamp-2 text-base leading-snug font-semibold text-white group-hover:text-white">
+                    <h4 className="group-hover:text-primary-700 line-clamp-2 text-base leading-snug font-semibold text-gray-900">
                       {post.title}
                     </h4>
                   </div>
@@ -129,7 +129,7 @@ export default function MenuLayoutTabsPosts({
             })}
           </div>
         ) : (
-          <div className="border-primary-500/30 flex h-48 w-full items-center justify-center rounded-lg border border-dashed text-base text-gray-300">
+          <div className="flex h-48 w-full items-center justify-center rounded-lg border border-dashed border-gray-200 text-base text-gray-500">
             Chưa có bài viết nào cho danh mục này.
           </div>
         )}

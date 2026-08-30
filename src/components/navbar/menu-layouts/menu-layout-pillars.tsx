@@ -87,8 +87,8 @@ export default function MenuLayoutPillars({
                     <Link
                       href={banner.absoluteHref}
                       className={twMerge(
-                        "group bg-primary-800 relative block h-28 w-full overflow-hidden rounded-xl shadow-md transition-transform duration-200 hover:scale-[1.02] focus:outline-none",
-                        isBannerActive && "ring-2 ring-white/80",
+                        "group relative block h-28 w-full overflow-hidden rounded-xl bg-gray-900 shadow-md transition-transform duration-200 hover:scale-[1.02] focus:outline-none",
+                        isBannerActive && "ring-primary-600 ring-2",
                       )}
                     />
                   }
@@ -96,7 +96,7 @@ export default function MenuLayoutPillars({
                   {bannerCard}
                 </NavigationMenuLink>
               ) : (
-                <div className="group bg-primary-800 relative block h-28 w-full overflow-hidden rounded-xl shadow-md select-none">
+                <div className="group relative block h-28 w-full overflow-hidden rounded-xl bg-gray-900 shadow-md select-none">
                   {bannerCard}
                 </div>
               )}
@@ -117,10 +117,10 @@ export default function MenuLayoutPillars({
                               <Link
                                 href={link.absoluteHref}
                                 className={cn(
-                                  "bg-primary-700/60 block w-full rounded-full px-3.5 py-2 text-left text-base font-medium text-gray-100 transition-all select-none",
-                                  "hover:bg-primary-800 focus:bg-primary-800 hover:text-white",
+                                  "block w-full rounded-full bg-gray-100 px-3.5 py-2 text-left text-base font-medium text-gray-800 transition-all select-none",
+                                  "hover:bg-gray-200 hover:text-gray-900 focus:bg-gray-200",
                                   isLinkActive &&
-                                    "bg-primary-700 font-semibold text-white",
+                                    "bg-primary-50 text-primary-700 font-semibold",
                                 )}
                               />
                             }
@@ -128,7 +128,7 @@ export default function MenuLayoutPillars({
                             {link.name}
                           </NavigationMenuLink>
                         ) : (
-                          <div className="bg-primary-700/60 block w-full rounded-full px-3.5 py-2 text-left text-base font-medium text-gray-300 select-none">
+                          <div className="block w-full rounded-full bg-gray-100 px-3.5 py-2 text-left text-base font-medium text-gray-600 select-none">
                             {link.name}
                           </div>
                         )}
@@ -144,9 +144,9 @@ export default function MenuLayoutPillars({
 
       {/* Bottom Footer Bar */}
       {item.bottomBar && item.bottomBar.links.length > 0 && (
-        <div className="border-primary-500/30 mt-4 flex flex-wrap items-center gap-2.5 border-t pt-3">
+        <div className="mt-4 flex flex-wrap items-center gap-2.5 border-t border-gray-200 pt-3">
           {item.bottomBar.label && (
-            <span className="text-base font-bold tracking-wider text-white uppercase">
+            <span className="text-base font-bold tracking-wider text-gray-900 uppercase">
               {item.bottomBar.label}:
             </span>
           )}
@@ -163,10 +163,10 @@ export default function MenuLayoutPillars({
                     <Link
                       href={link.absoluteHref}
                       className={twMerge(
-                        "border-primary-500/40 bg-primary-700/60 rounded-full border px-3.5 py-1.5 text-base font-medium text-gray-100 transition-colors select-none",
-                        "hover:bg-primary-700 focus:bg-primary-700 hover:text-white",
+                        "rounded-full border border-gray-200 bg-gray-100 px-3.5 py-1.5 text-base font-medium text-gray-800 transition-colors select-none",
+                        "hover:bg-gray-200 hover:text-gray-900 focus:bg-gray-200",
                         isBottomLinkActive &&
-                          "bg-primary-800 border-white/60 font-semibold text-white",
+                          "bg-primary-50 border-primary-300 text-primary-700 font-semibold",
                       )}
                     />
                   }
@@ -176,7 +176,7 @@ export default function MenuLayoutPillars({
               ) : (
                 <span
                   key={bIdx}
-                  className="border-primary-500/40 bg-primary-700/40 rounded-full border px-3.5 py-1.5 text-base font-medium text-gray-300 select-none"
+                  className="rounded-full border border-gray-200 bg-gray-50 px-3.5 py-1.5 text-base font-medium text-gray-500 select-none"
                 >
                   {link.name}
                 </span>
