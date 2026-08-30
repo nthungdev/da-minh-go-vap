@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import AppPostSearchButton from "./app-post-search-button";
 import { HTMLAttributes } from "react";
-import { twMerge } from "tailwind-merge";
+import { cn } from "@/utils/common";
 import LocaleSwitcher from "@/components/locale-switcher";
 
 const MENU_ID = "hs-the-mobile-menu";
@@ -183,7 +183,7 @@ export default function TheMobileNavbar({
   return (
     <nav
       id="mobile-navbar"
-      className={twMerge("bg-primary p-2 text-gray-50", className)}
+      className={cn("bg-primary p-2 text-gray-50", className)}
     >
       {/* Navigation Toggle */}
       <div className="flex flex-row items-center">

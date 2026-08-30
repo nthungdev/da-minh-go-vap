@@ -1,12 +1,12 @@
 "use client";
 
 import { NavigationMenuLink } from "@/components/ui/navigation-menu";
+import { cn } from "@/utils/common";
 import { MenuItem } from "@/utils/menu";
 import { ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { twMerge } from "tailwind-merge";
 
 interface MenuLayoutTabsPostsProps {
   item: MenuItem;
@@ -45,7 +45,7 @@ export default function MenuLayoutTabsPosts({
             </>
           );
 
-          const tabClassName = twMerge(
+          const tabClassName = cn(
             "group flex w-full items-center justify-between rounded-md px-3 py-2 text-left text-base transition-colors outline-none select-none",
             "hover:bg-gray-100 focus:bg-gray-100",
             isSelected
@@ -96,7 +96,7 @@ export default function MenuLayoutTabsPosts({
                   render={
                     <Link
                       href={post.href}
-                      className={twMerge(
+                      className={cn(
                         "group flex flex-col overflow-hidden rounded-md p-1.5 text-left transition-colors outline-none select-none",
                         "hover:bg-gray-100 focus:bg-gray-100",
                         isPostActive && "bg-gray-100",
@@ -120,7 +120,7 @@ export default function MenuLayoutTabsPosts({
                   </div>
                   <div className="px-1 pt-2 pb-0.5">
                     <h4
-                      className={twMerge(
+                      className={cn(
                         "line-clamp-2 text-base leading-snug font-semibold text-gray-900 transition-colors group-hover:text-gray-700",
                         isPostActive && "text-gray-700",
                       )}

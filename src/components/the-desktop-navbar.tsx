@@ -4,7 +4,7 @@ import { getMenu } from "@/utils/menu";
 import { getLocale } from "next-intl/server";
 import Image from "next/image";
 import Link from "next/link";
-import { twMerge } from "tailwind-merge";
+import { cn } from "@/utils/common";
 import AppPostSearchButton from "./app-post-search-button";
 
 export default async function TheDesktopNavbar(
@@ -15,7 +15,7 @@ export default async function TheDesktopNavbar(
 
   return (
     <nav
-      className={twMerge(
+      className={cn(
         "bg-primary flex-row flex-wrap text-gray-50 lg:justify-center xl:flex",
         props.className,
       )}
@@ -65,7 +65,7 @@ export default async function TheDesktopNavbar(
                     <li key={index} className="relative block">
                       <Link
                         href={child.absoluteHref}
-                        className={twMerge(
+                        className={cn(
                           "peer hover:bg-primary-800 flex flex-row justify-between space-x-2 py-2 pr-2 pl-4 text-base text-nowrap hover:text-gray-50",
                           !child.children && "pr-4",
                         )}

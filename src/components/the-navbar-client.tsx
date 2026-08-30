@@ -30,7 +30,6 @@ import {
   AccordionTrigger,
 } from "./ui/accordion";
 import { Menu } from "lucide-react";
-import { twMerge } from "tailwind-merge";
 import { usePathname } from "next/navigation";
 import MenuLayoutRenderer from "./navbar/menu-layouts/menu-layout-renderer";
 import { cn } from "@/utils/common";
@@ -136,7 +135,7 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                           <Link
                             href={item.absoluteHref}
                             aria-label={item.name || item.icon || "Link"}
-                            className={twMerge(
+                            className={cn(
                               navigationMenuTriggerStyle(),
                               "hover:bg-primary-800 focus:bg-primary-800 flex items-center gap-1.5 text-gray-50 hover:text-white",
                               pathname === item.absoluteHref &&
@@ -162,7 +161,7 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                       </NavigationMenuLink>
                     ) : (
                       <span
-                        className={twMerge(
+                        className={cn(
                           navigationMenuTriggerStyle(),
                           "flex cursor-default items-center gap-1.5 bg-transparent text-gray-50 select-none",
                         )}
@@ -258,7 +257,7 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                                 href={item.absoluteHref}
                                 onClick={() => setMobileMenuOpen(false)}
                                 aria-label={item.name || item.icon || "Menu"}
-                                className={twMerge(
+                                className={cn(
                                   "hover:text-primary-600 flex flex-1 items-center gap-2 px-2 py-3 text-base font-medium text-gray-800 transition-colors",
                                   pathname === item.absoluteHref &&
                                     "text-primary-600",
@@ -305,7 +304,7 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                                       <Link
                                         href={child.absoluteHref}
                                         onClick={() => setMobileMenuOpen(false)}
-                                        className={twMerge(
+                                        className={cn(
                                           "hover:text-primary-600 block py-2 text-base text-gray-700 transition-colors",
                                           pathname === child.absoluteHref &&
                                             "text-primary-600 font-semibold",
@@ -410,7 +409,7 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                                       <Link
                                         href={cat.absoluteHref}
                                         onClick={() => setMobileMenuOpen(false)}
-                                        className={twMerge(
+                                        className={cn(
                                           "hover:text-primary-600 block py-2 text-base text-gray-700 transition-colors",
                                           pathname === cat.absoluteHref &&
                                             "text-primary-600 font-semibold",
@@ -419,7 +418,7 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                                         {cat.name}
                                       </Link>
                                     ) : (
-                                      <span className="block py-2 text-base text-gray-700">
+                                      <span className="block py-2 text-base font-medium text-gray-700">
                                         {cat.name}
                                       </span>
                                     )}
@@ -433,7 +432,7 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                           href={item.absoluteHref}
                           onClick={() => setMobileMenuOpen(false)}
                           aria-label={item.name || item.icon || "Link"}
-                          className={twMerge(
+                          className={cn(
                             "hover:text-primary-600 flex items-center gap-2 px-2 py-3 text-base font-medium text-gray-800 transition-colors",
                             pathname === item.absoluteHref &&
                               "text-primary-600",

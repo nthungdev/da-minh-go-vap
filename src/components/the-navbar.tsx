@@ -1,7 +1,7 @@
 import { getLogo } from "@/payload/utils/site-settings-server";
 import { getMenu } from "@/utils/menu";
 import { getLocale } from "next-intl/server";
-import { twMerge } from "tailwind-merge";
+import { cn } from "@/utils/common";
 import TheNavbarClient from "./the-navbar-client";
 import { Locale } from "@/i18n/config";
 
@@ -16,7 +16,7 @@ export default async function TheNavbar(
 
   return (
     <header
-      className={twMerge(
+      className={cn(
         "bg-primary-700/90 sticky top-0 z-50 w-full text-gray-50 shadow-sm",
         props.className,
       )}
