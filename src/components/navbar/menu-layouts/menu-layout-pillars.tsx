@@ -4,6 +4,7 @@ import { MenuItem } from "@/utils/menu";
 import { ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { getMenuIconSrc } from "@/definitions/menu-icons";
 
 interface MenuLayoutPillarsProps {
   item: MenuItem;
@@ -124,7 +125,7 @@ export default function MenuLayoutPillars({
                               <span className="relative inline-block size-4 shrink-0 overflow-hidden rounded-full bg-white">
                                 <Image
                                   unoptimized
-                                  src={`/svgs/menu-icons/${link.icon}.svg`}
+                                  src={getMenuIconSrc(link.icon)}
                                   alt={link.name || link.icon}
                                   fill
                                   className="rounded-full object-contain"
@@ -139,7 +140,7 @@ export default function MenuLayoutPillars({
                               <span className="relative inline-block size-4 shrink-0 overflow-hidden rounded-full bg-white">
                                 <Image
                                   unoptimized
-                                  src={`/svgs/menu-icons/${link.icon}.svg`}
+                                  src={getMenuIconSrc(link.icon)}
                                   alt={link.name || link.icon}
                                   fill
                                   className="rounded-full object-contain"
@@ -192,7 +193,7 @@ export default function MenuLayoutPillars({
                     <span className="relative inline-block size-4 shrink-0 overflow-hidden rounded-full bg-white">
                       <Image
                         unoptimized
-                        src={`/svgs/menu-icons/${link.icon}.svg`}
+                        src={getMenuIconSrc(link.icon)}
                         alt={link.name || link.icon}
                         fill
                         className="rounded-full object-contain"
@@ -210,7 +211,7 @@ export default function MenuLayoutPillars({
                     <span className="relative inline-block size-4 shrink-0 overflow-hidden rounded-full bg-white">
                       <Image
                         unoptimized
-                        src={`/svgs/menu-icons/${link.icon}.svg`}
+                        src={getMenuIconSrc(link.icon)}
                         alt={link.name || link.icon}
                         fill
                         className="rounded-full object-contain"

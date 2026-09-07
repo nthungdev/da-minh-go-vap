@@ -6,6 +6,7 @@ import { MenuItem } from "@/utils/menu";
 import { ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { getMenuIconSrc } from "@/definitions/menu-icons";
 import { useState } from "react";
 
 interface MenuLayoutTabsPostsProps {
@@ -43,7 +44,7 @@ export default function MenuLayoutTabsPosts({
                   <span className="relative inline-block size-4 shrink-0 overflow-hidden rounded-full bg-white">
                     <Image
                       unoptimized
-                      src={`/svgs/menu-icons/${cat.icon}.svg`}
+                      src={getMenuIconSrc(cat.icon)}
                       alt={cat.name || cat.icon}
                       fill
                       className="rounded-full object-contain"

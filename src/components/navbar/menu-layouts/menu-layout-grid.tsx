@@ -4,6 +4,7 @@ import { MenuItem } from "@/utils/menu";
 import { ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { getMenuIconSrc } from "@/definitions/menu-icons";
 
 interface MenuLayoutGridProps {
   item: MenuItem;
@@ -31,7 +32,7 @@ export default function MenuLayoutGrid({
               <span className="relative inline-block size-9 shrink-0 overflow-hidden rounded-full bg-white">
                 <Image
                   unoptimized
-                  src={`/svgs/menu-icons/${child.icon}.svg`}
+                  src={getMenuIconSrc(child.icon)}
                   alt={child.name || child.icon}
                   fill
                   className="rounded-full object-contain"
@@ -103,7 +104,7 @@ export default function MenuLayoutGrid({
                         <span className="relative inline-block size-4 shrink-0 overflow-hidden rounded-full bg-white">
                           <Image
                             unoptimized
-                            src={`/svgs/menu-icons/${subChild.icon}.svg`}
+                            src={getMenuIconSrc(subChild.icon)}
                             alt={subChild.name || subChild.icon}
                             fill
                             className="rounded-full object-contain"
@@ -121,7 +122,7 @@ export default function MenuLayoutGrid({
                         <span className="relative inline-block size-4 shrink-0 overflow-hidden rounded-full bg-white">
                           <Image
                             unoptimized
-                            src={`/svgs/menu-icons/${subChild.icon}.svg`}
+                            src={getMenuIconSrc(subChild.icon)}
                             alt={subChild.name || subChild.icon}
                             fill
                             className="rounded-full object-contain"

@@ -5,6 +5,7 @@ import { getLocale } from "next-intl/server";
 import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/utils/common";
+import { getMenuIconSrc } from "@/definitions/menu-icons";
 import AppPostSearchButton from "./app-post-search-button";
 
 export default async function TheDesktopNavbar(
@@ -49,7 +50,7 @@ export default async function TheDesktopNavbar(
                   <span className="relative inline-block size-5 shrink-0 overflow-hidden rounded-full bg-white">
                     <Image
                       unoptimized
-                      src={`/svgs/menu-icons/${link.icon}.svg`}
+                      src={getMenuIconSrc(link.icon)}
                       alt={link.name || link.icon}
                       fill
                       className="rounded-full object-contain"
