@@ -18,6 +18,7 @@
     "standalone": "node ./.next/standalone/server.js",
     "check-types": "tsc --noemit",
     "prepare": "husky",
+    "typecheck": "tsc --noEmit",
     "lint": "eslint .",
     "lint:fix": "(eslint --fix . && npm run prettier:fix) || npm run prettier:fix",
     "prettier": "prettier --check .",
