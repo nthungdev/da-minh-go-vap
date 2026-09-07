@@ -16,10 +16,15 @@
 
 # production
 /build
+certbot/conf
+certificates
 
 # misc
 .DS_Store
 *.pem
+backups
+.eslintcache
+.gitignore
 
 # debug
 npm-debug.log*
@@ -38,17 +43,11 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-certificates
-
 # Payload
 media
 temp
 tmp
 src/payload-types.ts
-.gitignore
 
-certbot/conf
-
-.eslintcache
-
-backups
+# AI
+.agents
