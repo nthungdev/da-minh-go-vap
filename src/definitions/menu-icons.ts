@@ -39,5 +39,5 @@ export type MenuIconName = (typeof MENU_ICON_OPTIONS)[number]["value"];
 
 export function getMenuIconSrc(iconName?: string | null): string | null {
   if (!iconName) return null;
-  return `/svgs/menu-icons/${iconName}.svg`;
+  return `/images/menu-icons/${iconName}.jpg˝`;
 }
