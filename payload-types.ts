@@ -1322,26 +1322,49 @@ export interface NavBar {
     imageMobile: string | Media;
   };
   menu: {
+    /**
+     * Nhãn hiển thị của mục menu (tùy chọn nếu đã chọn biểu tượng).
+     */
     label?: string | null;
+    /**
+     * Biểu tượng hiển thị phía trước nhãn menu (tùy chọn nếu đã nhập nhãn).
+     */
     icon?:
       | (
           | 'home'
-          | 'burning-candle'
-          | 'documents-stack'
-          | 'dominican-dog-torch'
+          | 'team-gear'
+          | 'parchment-quill'
           | 'family-heart'
           | 'hands-heart'
           | 'location-pin'
+          | 'burning-candle'
+          | 'saint-dominic'
+          | 'translation-book'
+          | 'palette-brush'
+          | 'video-play'
+          | 'person-laptop-idea'
           | 'microphone-soundwave'
           | 'music-notes'
-          | 'palette-brush'
-          | 'parchment-quill'
-          | 'person-laptop-idea'
-          | 'saint-dominic'
-          | 'team-gear'
-          | 'translation-book'
+          | 'documents-stack'
+          | 'globe'
+          | 'praying-hands'
+          | 'wheat-stalks'
+          | 'st-peters-basilica'
+          | 'hand-sprinkling-salt'
+          | 'radiant-star'
+          | 'open-bible-cross'
+          | 'person-broadcast'
+          | 'human-brain'
+          | 'laptop-book'
+          | 'dominican-shield'
           | 'user-growth'
-          | 'video-play'
+          | 'dominican-dog-torch'
+          | 'checklist'
+          | 'book-lightbulb'
+          | 'book-reading'
+          | 'heart-jhs-rosary'
+          | 'cross-book'
+          | 'divider-line'
         )
       | null;
     linkType: 'none' | 'internal' | 'external';
@@ -1354,25 +1377,45 @@ export interface NavBar {
     subMenu?:
       | {
           label: string;
+          /**
+           * Biểu tượng tùy chọn cho mục thẻ lưới.
+           */
           icon?:
             | (
                 | 'home'
-                | 'burning-candle'
-                | 'documents-stack'
-                | 'dominican-dog-torch'
+                | 'team-gear'
+                | 'parchment-quill'
                 | 'family-heart'
                 | 'hands-heart'
                 | 'location-pin'
+                | 'burning-candle'
+                | 'saint-dominic'
+                | 'translation-book'
+                | 'palette-brush'
+                | 'video-play'
+                | 'person-laptop-idea'
                 | 'microphone-soundwave'
                 | 'music-notes'
-                | 'palette-brush'
-                | 'parchment-quill'
-                | 'person-laptop-idea'
-                | 'saint-dominic'
-                | 'team-gear'
-                | 'translation-book'
+                | 'documents-stack'
+                | 'globe'
+                | 'praying-hands'
+                | 'wheat-stalks'
+                | 'st-peters-basilica'
+                | 'hand-sprinkling-salt'
+                | 'radiant-star'
+                | 'open-bible-cross'
+                | 'person-broadcast'
+                | 'human-brain'
+                | 'laptop-book'
+                | 'dominican-shield'
                 | 'user-growth'
-                | 'video-play'
+                | 'dominican-dog-torch'
+                | 'checklist'
+                | 'book-lightbulb'
+                | 'book-reading'
+                | 'heart-jhs-rosary'
+                | 'cross-book'
+                | 'divider-line'
               )
             | null;
           /**
@@ -1385,25 +1428,45 @@ export interface NavBar {
           subMenu?:
             | {
                 label: string;
+                /**
+                 * Biểu tượng tùy chọn.
+                 */
                 icon?:
                   | (
                       | 'home'
-                      | 'burning-candle'
-                      | 'documents-stack'
-                      | 'dominican-dog-torch'
+                      | 'team-gear'
+                      | 'parchment-quill'
                       | 'family-heart'
                       | 'hands-heart'
                       | 'location-pin'
+                      | 'burning-candle'
+                      | 'saint-dominic'
+                      | 'translation-book'
+                      | 'palette-brush'
+                      | 'video-play'
+                      | 'person-laptop-idea'
                       | 'microphone-soundwave'
                       | 'music-notes'
-                      | 'palette-brush'
-                      | 'parchment-quill'
-                      | 'person-laptop-idea'
-                      | 'saint-dominic'
-                      | 'team-gear'
-                      | 'translation-book'
+                      | 'documents-stack'
+                      | 'globe'
+                      | 'praying-hands'
+                      | 'wheat-stalks'
+                      | 'st-peters-basilica'
+                      | 'hand-sprinkling-salt'
+                      | 'radiant-star'
+                      | 'open-bible-cross'
+                      | 'person-broadcast'
+                      | 'human-brain'
+                      | 'laptop-book'
+                      | 'dominican-shield'
                       | 'user-growth'
-                      | 'video-play'
+                      | 'dominican-dog-torch'
+                      | 'checklist'
+                      | 'book-lightbulb'
+                      | 'book-reading'
+                      | 'heart-jhs-rosary'
+                      | 'cross-book'
+                      | 'divider-line'
                     )
                   | null;
                 linkType: 'none' | 'internal' | 'external';
@@ -1431,25 +1494,45 @@ export interface NavBar {
           links?:
             | {
                 label: string;
+                /**
+                 * Biểu tượng tùy chọn.
+                 */
                 icon?:
                   | (
                       | 'home'
-                      | 'burning-candle'
-                      | 'documents-stack'
-                      | 'dominican-dog-torch'
+                      | 'team-gear'
+                      | 'parchment-quill'
                       | 'family-heart'
                       | 'hands-heart'
                       | 'location-pin'
+                      | 'burning-candle'
+                      | 'saint-dominic'
+                      | 'translation-book'
+                      | 'palette-brush'
+                      | 'video-play'
+                      | 'person-laptop-idea'
                       | 'microphone-soundwave'
                       | 'music-notes'
-                      | 'palette-brush'
-                      | 'parchment-quill'
-                      | 'person-laptop-idea'
-                      | 'saint-dominic'
-                      | 'team-gear'
-                      | 'translation-book'
+                      | 'documents-stack'
+                      | 'globe'
+                      | 'praying-hands'
+                      | 'wheat-stalks'
+                      | 'st-peters-basilica'
+                      | 'hand-sprinkling-salt'
+                      | 'radiant-star'
+                      | 'open-bible-cross'
+                      | 'person-broadcast'
+                      | 'human-brain'
+                      | 'laptop-book'
+                      | 'dominican-shield'
                       | 'user-growth'
-                      | 'video-play'
+                      | 'dominican-dog-torch'
+                      | 'checklist'
+                      | 'book-lightbulb'
+                      | 'book-reading'
+                      | 'heart-jhs-rosary'
+                      | 'cross-book'
+                      | 'divider-line'
                     )
                   | null;
                 linkType: 'none' | 'internal' | 'external';
@@ -1466,25 +1549,45 @@ export interface NavBar {
       links?:
         | {
             label: string;
+            /**
+             * Biểu tượng tùy chọn.
+             */
             icon?:
               | (
                   | 'home'
-                  | 'burning-candle'
-                  | 'documents-stack'
-                  | 'dominican-dog-torch'
+                  | 'team-gear'
+                  | 'parchment-quill'
                   | 'family-heart'
                   | 'hands-heart'
                   | 'location-pin'
+                  | 'burning-candle'
+                  | 'saint-dominic'
+                  | 'translation-book'
+                  | 'palette-brush'
+                  | 'video-play'
+                  | 'person-laptop-idea'
                   | 'microphone-soundwave'
                   | 'music-notes'
-                  | 'palette-brush'
-                  | 'parchment-quill'
-                  | 'person-laptop-idea'
-                  | 'saint-dominic'
-                  | 'team-gear'
-                  | 'translation-book'
+                  | 'documents-stack'
+                  | 'globe'
+                  | 'praying-hands'
+                  | 'wheat-stalks'
+                  | 'st-peters-basilica'
+                  | 'hand-sprinkling-salt'
+                  | 'radiant-star'
+                  | 'open-bible-cross'
+                  | 'person-broadcast'
+                  | 'human-brain'
+                  | 'laptop-book'
+                  | 'dominican-shield'
                   | 'user-growth'
-                  | 'video-play'
+                  | 'dominican-dog-torch'
+                  | 'checklist'
+                  | 'book-lightbulb'
+                  | 'book-reading'
+                  | 'heart-jhs-rosary'
+                  | 'cross-book'
+                  | 'divider-line'
                 )
               | null;
             linkType: 'none' | 'internal' | 'external';
@@ -1500,25 +1603,45 @@ export interface NavBar {
     categories?:
       | {
           label: string;
+          /**
+           * Biểu tượng tùy chọn cho danh mục.
+           */
           icon?:
             | (
                 | 'home'
-                | 'burning-candle'
-                | 'documents-stack'
-                | 'dominican-dog-torch'
+                | 'team-gear'
+                | 'parchment-quill'
                 | 'family-heart'
                 | 'hands-heart'
                 | 'location-pin'
+                | 'burning-candle'
+                | 'saint-dominic'
+                | 'translation-book'
+                | 'palette-brush'
+                | 'video-play'
+                | 'person-laptop-idea'
                 | 'microphone-soundwave'
                 | 'music-notes'
-                | 'palette-brush'
-                | 'parchment-quill'
-                | 'person-laptop-idea'
-                | 'saint-dominic'
-                | 'team-gear'
-                | 'translation-book'
+                | 'documents-stack'
+                | 'globe'
+                | 'praying-hands'
+                | 'wheat-stalks'
+                | 'st-peters-basilica'
+                | 'hand-sprinkling-salt'
+                | 'radiant-star'
+                | 'open-bible-cross'
+                | 'person-broadcast'
+                | 'human-brain'
+                | 'laptop-book'
+                | 'dominican-shield'
                 | 'user-growth'
-                | 'video-play'
+                | 'dominican-dog-torch'
+                | 'checklist'
+                | 'book-lightbulb'
+                | 'book-reading'
+                | 'heart-jhs-rosary'
+                | 'cross-book'
+                | 'divider-line'
               )
             | null;
           linkType: 'none' | 'internal' | 'external';
@@ -1597,6 +1720,7 @@ export interface NavBarSelect<T extends boolean = true> {
     | T
     | {
         label?: T;
+        icon?: T;
         linkType?: T;
         internalLink?: T;
         externalLink?: T;
@@ -1605,6 +1729,7 @@ export interface NavBarSelect<T extends boolean = true> {
           | T
           | {
               label?: T;
+              icon?: T;
               description?: T;
               linkType?: T;
               internalLink?: T;
@@ -1613,6 +1738,7 @@ export interface NavBarSelect<T extends boolean = true> {
                 | T
                 | {
                     label?: T;
+                    icon?: T;
                     linkType?: T;
                     internalLink?: T;
                     externalLink?: T;
@@ -1637,6 +1763,7 @@ export interface NavBarSelect<T extends boolean = true> {
                 | T
                 | {
                     label?: T;
+                    icon?: T;
                     linkType?: T;
                     internalLink?: T;
                     externalLink?: T;
@@ -1652,6 +1779,7 @@ export interface NavBarSelect<T extends boolean = true> {
                 | T
                 | {
                     label?: T;
+                    icon?: T;
                     linkType?: T;
                     internalLink?: T;
                     externalLink?: T;
@@ -1662,6 +1790,7 @@ export interface NavBarSelect<T extends boolean = true> {
           | T
           | {
               label?: T;
+              icon?: T;
               linkType?: T;
               internalLink?: T;
               externalLink?: T;
