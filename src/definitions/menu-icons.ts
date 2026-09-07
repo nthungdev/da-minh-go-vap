@@ -37,7 +37,15 @@ export const MENU_ICON_OPTIONS = [
 
 export type MenuIconName = (typeof MENU_ICON_OPTIONS)[number]["value"];
 
+/**
+ * Resolves the public asset URL for a menu icon by its icon name.
+ *
+ * @param iconName - Kebab-case name of the menu icon.
+ * @returns The public asset URL path or null if no icon name is provided.
+ */
+export function getMenuIconSrc(iconName: string): string;
+export function getMenuIconSrc(iconName?: string | null): string | null;
 export function getMenuIconSrc(iconName?: string | null): string | null {
   if (!iconName) return null;
-  return `/images/menu-icons/${iconName}.jpg˝`;
+  return `/images/menu-icons/${iconName}.jpg`;
 }

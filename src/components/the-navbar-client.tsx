@@ -33,6 +33,7 @@ import { Menu } from "lucide-react";
 import { usePathname } from "next/navigation";
 import MenuLayoutRenderer from "./navbar/menu-layouts/menu-layout-renderer";
 import { cn } from "@/utils/common";
+import { getMenuIconSrc } from "@/definitions/menu-icons";
 
 interface TheNavbarClientProps {
   menu: MenuItem[];
@@ -114,7 +115,7 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                             <span className="relative inline-block size-5 shrink-0 overflow-hidden rounded-full bg-white">
                               <Image
                                 unoptimized
-                                src={`/svgs/menu-icons/${item.icon}.svg`}
+                                src={getMenuIconSrc(item.icon)}
                                 alt={item.name || item.icon}
                                 fill
                                 className="rounded-full object-contain"
@@ -148,7 +149,7 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                           <span className="relative inline-block size-5 shrink-0 overflow-hidden rounded-full bg-white">
                             <Image
                               unoptimized
-                              src={`/svgs/menu-icons/${item.icon}.svg`}
+                              src={getMenuIconSrc(item.icon)}
                               alt={item.name || item.icon}
                               fill
                               className="rounded-full object-contain"
@@ -170,7 +171,7 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                           <span className="relative inline-block size-5 shrink-0 overflow-hidden rounded-full bg-white">
                             <Image
                               unoptimized
-                              src={`/svgs/menu-icons/${item.icon}.svg`}
+                              src={getMenuIconSrc(item.icon)}
                               alt={item.name || item.icon}
                               fill
                               className="rounded-full object-contain"
@@ -267,7 +268,7 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                                   <span className="relative inline-block size-5 shrink-0 overflow-hidden rounded-full bg-white">
                                     <Image
                                       unoptimized
-                                      src={`/svgs/menu-icons/${item.icon}.svg`}
+                                      src={getMenuIconSrc(item.icon)}
                                       alt={item.name || item.icon}
                                       fill
                                       className="rounded-full object-contain"
@@ -282,7 +283,7 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                                   <span className="relative inline-block size-5 shrink-0 overflow-hidden rounded-full bg-white">
                                     <Image
                                       unoptimized
-                                      src={`/svgs/menu-icons/${item.icon}.svg`}
+                                      src={getMenuIconSrc(item.icon)}
                                       alt={item.name || item.icon}
                                       fill
                                       className="rounded-full object-contain"
@@ -315,7 +316,7 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                                           <span className="relative inline-block size-5 shrink-0 overflow-hidden rounded-full bg-white">
                                             <Image
                                               unoptimized
-                                              src={`/svgs/menu-icons/${child.icon}.svg`}
+                                              src={getMenuIconSrc(child.icon)}
                                               alt={child.name || child.icon}
                                               fill
                                               className="rounded-full object-contain"
@@ -330,7 +331,7 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                                           <span className="relative inline-block size-5 shrink-0 overflow-hidden rounded-full bg-white">
                                             <Image
                                               unoptimized
-                                              src={`/svgs/menu-icons/${child.icon}.svg`}
+                                              src={getMenuIconSrc(child.icon)}
                                               alt={child.name || child.icon}
                                               fill
                                               className="rounded-full object-contain"
@@ -391,7 +392,9 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                                                 <span className="relative inline-block size-4 shrink-0 overflow-hidden rounded-full bg-white">
                                                   <Image
                                                     unoptimized
-                                                    src={`/svgs/menu-icons/${link.icon}.svg`}
+                                                    src={getMenuIconSrc(
+                                                      link.icon,
+                                                    )}
                                                     alt={link.name || link.icon}
                                                     fill
                                                     className="rounded-full object-contain"
@@ -406,7 +409,9 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                                                 <span className="relative inline-block size-4 shrink-0 overflow-hidden rounded-full bg-white">
                                                   <Image
                                                     unoptimized
-                                                    src={`/svgs/menu-icons/${link.icon}.svg`}
+                                                    src={getMenuIconSrc(
+                                                      link.icon,
+                                                    )}
                                                     alt={link.name || link.icon}
                                                     fill
                                                     className="rounded-full object-contain"
@@ -438,7 +443,7 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                                             <span className="relative inline-block size-4 shrink-0 overflow-hidden rounded-full bg-white">
                                               <Image
                                                 unoptimized
-                                                src={`/svgs/menu-icons/${link.icon}.svg`}
+                                                src={getMenuIconSrc(link.icon)}
                                                 alt={link.name || link.icon}
                                                 fill
                                                 className="rounded-full object-contain"
@@ -453,7 +458,7 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                                             <span className="relative inline-block size-4 shrink-0 overflow-hidden rounded-full bg-white">
                                               <Image
                                                 unoptimized
-                                                src={`/svgs/menu-icons/${link.icon}.svg`}
+                                                src={getMenuIconSrc(link.icon)}
                                                 alt={link.name || link.icon}
                                                 fill
                                                 className="rounded-full object-contain"
@@ -486,7 +491,7 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                                           <span className="relative inline-block size-4 shrink-0 overflow-hidden rounded-full bg-white">
                                             <Image
                                               unoptimized
-                                              src={`/svgs/menu-icons/${cat.icon}.svg`}
+                                              src={getMenuIconSrc(cat.icon)}
                                               alt={cat.name || cat.icon}
                                               fill
                                               className="rounded-full object-contain"
@@ -501,7 +506,7 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                                           <span className="relative inline-block size-4 shrink-0 overflow-hidden rounded-full bg-white">
                                             <Image
                                               unoptimized
-                                              src={`/svgs/menu-icons/${cat.icon}.svg`}
+                                              src={getMenuIconSrc(cat.icon)}
                                               alt={cat.name || cat.icon}
                                               fill
                                               className="rounded-full object-contain"
@@ -531,7 +536,7 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                             <span className="relative inline-block size-5 shrink-0 overflow-hidden rounded-full bg-white">
                               <Image
                                 unoptimized
-                                src={`/svgs/menu-icons/${item.icon}.svg`}
+                                src={getMenuIconSrc(item.icon)}
                                 alt={item.name || item.icon}
                                 fill
                                 className="rounded-full object-contain"
@@ -546,7 +551,7 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                             <span className="relative inline-block size-5 shrink-0 overflow-hidden rounded-full bg-white">
                               <Image
                                 unoptimized
-                                src={`/svgs/menu-icons/${item.icon}.svg`}
+                                src={getMenuIconSrc(item.icon)}
                                 alt={item.name || item.icon}
                                 fill
                                 className="rounded-full object-contain"
