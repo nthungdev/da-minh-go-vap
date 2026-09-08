@@ -42,7 +42,6 @@ export default function AppCarousel({
   useEffect(
     function initCarousel() {
       (async () => {
-        if (!carouselRef.current) return;
         const carouselElement = carouselRef.current;
         if (!carouselElement) {
           console.warn("Carousel element not found");
