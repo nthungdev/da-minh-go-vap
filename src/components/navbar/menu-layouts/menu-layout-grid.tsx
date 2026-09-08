@@ -29,13 +29,13 @@ export default function MenuLayoutGrid({
         const headerContent = (
           <div className="flex w-full items-center gap-x-2">
             {child.icon && (
-              <span className="relative inline-block size-9 shrink-0 overflow-hidden rounded-full bg-white">
+              <span className="relative inline-block size-9 shrink-0 overflow-hidden">
                 <Image
                   unoptimized
                   src={getMenuIconSrc(child.icon)}
                   alt={child.name || child.icon}
                   fill
-                  className="rounded-full object-contain"
+                  className="object-contain"
                 />
               </span>
             )}
