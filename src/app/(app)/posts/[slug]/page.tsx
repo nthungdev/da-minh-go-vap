@@ -15,6 +15,7 @@ import { getPayload } from "payload";
 import config from "@payload-config";
 import { getPublicHiddenTags } from "@/utils/post";
 import { PublicTagList } from "@/components/public-tag-list";
+import { getServerOrigin } from "@/utils/url";
 
 const relatedPostsLimit = 12;
 
@@ -23,11 +24,15 @@ type Props = {
 };
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
-  const [locale, params] = await Promise.all([getLocale(), props.params]);
+  const [locale, params, origin] = await Promise.all([
+    getLocale(),
+    props.params,
+    getServerOrigin(),
+  ]);
   const decodedSlug = decodeURIComponent(params.slug);
   const post = await fetchPostBySlug(decodedSlug, { locale });
 
-  const url = `${process.env.NEXT_PUBLIC_BASE_URL}/posts/${post?.slug}`;
+  const url = `${origin}/posts/${post?.slug}`;
   const thumbnail = getDataOrUndefined(post?.thumbnail);
 
   return {
@@ -64,7 +69,11 @@ export async function generateStaticParams() {
 export default async function Page(props: {
   params: Promise<{ slug: string }>;
 }) {
-  const [locale, params] = await Promise.all([getLocale(), props.params]);
+  const [locale, params, origin] = await Promise.all([
+    getLocale(),
+    props.params,
+    getServerOrigin(),
+  ]);
   const decodedSlug = decodeURIComponent(params.slug);
   const post = await fetchPostBySlug(decodedSlug, { locale });
 
@@ -82,7 +91,7 @@ export default async function Page(props: {
 
   const publishedAt = formatDate(post.publishedAt);
 
-  const postHref = `${process.env.NEXT_PUBLIC_BASE_URL}/posts/${post.slug}`;
+  const postHref = `${origin}/posts/${post.slug}`;
 
   return (
     <AppPage>

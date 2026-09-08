@@ -1,20 +1,25 @@
 "use client";
 
 import { RefreshRouteOnSave as PayloadLivePreview } from "@payloadcms/live-preview-react";
-import { useRouter } from "next/navigation.js";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function RefreshRouteOnSave() {
   const router = useRouter();
+  const [serverURL, setServerURL] = useState<string>("");
 
-  if (!process.env.NEXT_PUBLIC_BASE_URL) {
-    console.warn("NEXT_PUBLIC_BASE_URL is missing");
+  useEffect(() => {
+    setServerURL(window.location.origin);
+  }, []);
+
+  if (!serverURL) {
     return null;
   }
 
   return (
     <PayloadLivePreview
       refresh={() => router.refresh()}
-      serverURL={process.env.NEXT_PUBLIC_BASE_URL}
+      serverURL={serverURL}
     />
   );
 }
