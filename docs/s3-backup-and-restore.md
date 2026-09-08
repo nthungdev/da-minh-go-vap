@@ -167,7 +167,35 @@ pnpm s3:restore tmp/prod-media --env staging --yes
 
 ---
 
-## 5. Command Line Options Reference
+## 5. Copying Data Directly Between Buckets (`s3:copy`)
+
+You can copy media files directly from one bucket to another without downloading anything to your local disk.
+
+### How It Works
+
+1. **Server-Side Copy**: When source and destination buckets share the same S3 account/endpoint, the script uses the S3 `CopyObjectCommand` directly in the cloud.
+2. **In-Memory Stream Fallback**: When copying across different S3 endpoints, regions, or accounts, the script streams objects in memory between buckets without saving files to disk.
+3. **Smart Skip**: Already-existing files in the target bucket with matching sizes are skipped.
+
+### Quick Start
+
+```bash
+# Copy from production to staging environment
+pnpm s3:copy --from production --to staging
+
+# Copy between explicit bucket names (using active .env credentials)
+pnpm s3:copy --from-bucket daminhgovap --to-bucket my-backup-bucket
+
+# Dry run preview (simulate copy without writing to target bucket)
+pnpm s3:copy --from production --to staging --dry-run
+
+# Filter by prefix and skip confirmation
+pnpm s3:copy --from production --to staging --prefix media/ --yes
+```
+
+---
+
+## 6. Command Line Options Reference
 
 ### `s3:backup` Options
 
@@ -206,7 +234,27 @@ pnpm s3:restore tmp/prod-media --env staging --yes
 
 ---
 
-## 6. Using External CLI Engines (`rclone` / `aws`)
+### `s3:copy` Options
+
+| Option                   | Shorthand | Description                                           | Default   |
+| :----------------------- | :-------- | :---------------------------------------------------- | :-------- |
+| `--from <name>`          |           | Source environment (`production`, `staging`, `local`) | `.env`    |
+| `--to <name>`            |           | Target environment (`production`, `staging`, `local`) | From from |
+| `--from-env-file <path>` |           | Path to source `.env` file                            |           |
+| `--to-env-file <path>`   |           | Path to target `.env` file                            |           |
+| `--from-bucket <name>`   |           | Source bucket name override                           | From env  |
+| `--to-bucket <name>`     |           | Target bucket name override                           | From env  |
+| `--prefix <prefix>`      | `-p`      | Filter source objects by key prefix                   | (all)     |
+| `--target-prefix <pre>`  |           | Prepend prefix to copied keys in target bucket        | (none)    |
+| `--concurrency <n>`      | `-c`      | Number of concurrent copy operations                  | `10`      |
+| `--dry-run`              |           | Simulate copy without writing to destination          | `false`   |
+| `--force`                | `-f`      | Re-copy files even if size matches in target          | `false`   |
+| `--yes`                  | `-y`      | Skip confirmation prompt                              | `false`   |
+| `--help`                 | `-h`      | Show help message                                     |           |
+
+---
+
+## 7. Using External CLI Engines (`rclone` / `aws`)
 
 If you prefer using `rclone` or the AWS CLI in specialized environments (e.g. Docker containers or CI pipelines):
 
