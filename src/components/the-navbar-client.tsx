@@ -108,6 +108,7 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                               <Link href={item.absoluteHref} />
                             ) : undefined
                           }
+                          nativeButton={!item.absoluteHref}
                           aria-label={item.name || item.icon || "Menu"}
                           className="hover:text-primary-700 data-[state=open]:text-primary-700 focus:text-primary-700 data-open:text-primary-700 data-popup-open:text-primary-700 flex items-center gap-1.5 transition-colors hover:bg-white focus:bg-white data-open:bg-white data-popup-open:bg-white data-[state=open]:bg-white"
                         >
