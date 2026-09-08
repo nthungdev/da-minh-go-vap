@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { getRequestOrigin } from "@/utils/url";
 
 const AUTH_USER = process.env.AUTH_USER;
 const AUTH_PASSWORD = process.env.AUTH_PASSWORD;
@@ -15,12 +16,25 @@ const ENFORCE_BASIC_AUTH = false;
 export async function middleware(request: NextRequest) {
   const authRequiredResponse = await basicAuthCheck(request);
 
-  const response = authRequiredResponse ?? NextResponse.next();
+  const origin = getRequestOrigin(request);
+  const href = `${origin}${request.nextUrl.pathname}${request.nextUrl.search}`;
 
-  const href = `${process.env.NEXT_PUBLIC_BASE_URL}${request.nextUrl.pathname}`;
+  const requestHeaders = new Headers(request.headers);
+  requestHeaders.set("x-pathname", request.nextUrl.pathname);
+  requestHeaders.set("x-href", href);
+  requestHeaders.set("x-origin", origin);
+
+  const response =
+    authRequiredResponse ??
+    NextResponse.next({
+      request: {
+        headers: requestHeaders,
+      },
+    });
 
   response.headers.set("x-pathname", request.nextUrl.pathname);
   response.headers.set("x-href", href);
+  response.headers.set("x-origin", origin);
 
   return response;
 }

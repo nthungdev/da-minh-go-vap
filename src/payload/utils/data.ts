@@ -22,10 +22,21 @@ export function slugify(str: string): string {
     .replace(/^-|-$/g, "");
 }
 
-/** revalidate cache */
+/**
+ * Revalidates Next.js cache for the given path.
+ *
+ * Calls the internal revalidate endpoint with fallback to localhost or NEXT_PUBLIC_BASE_URL.
+ *
+ * @param path - The route path to revalidate.
+ */
 export async function revalidatePath(path: string) {
-  await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/revalidate`, {
+  const baseUrl =
+    process.env.NEXT_PUBLIC_BASE_URL ||
+    `http://127.0.0.1:${process.env.PORT || 3000}`;
+  await fetch(`${baseUrl}/api/revalidate`, {
     method: "POST",
     body: JSON.stringify({ path }),
+  }).catch((err) => {
+    console.error("Failed to revalidate path:", path, err);
   });
 }

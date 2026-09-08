@@ -4,6 +4,7 @@ import ScrollToTopButton from "@/components/scroll-to-top-button";
 import TheNavbar from "@/components/the-navbar";
 import TheFooter from "@/components/the-footer";
 import { getSiteSettings } from "@/payload/utils/site-settings-server";
+import { getServerOrigin } from "@/utils/url";
 import { getLocale } from "next-intl/server";
 import { Nunito } from "next/font/google";
 import { twMerge } from "tailwind-merge";
@@ -17,14 +18,17 @@ const nunito = Nunito({
 });
 
 export async function generateMetadata(): Promise<Metadata> {
-  const locale = await getLocale();
-  const siteSettings = await getSiteSettings();
+  const [locale, siteSettings, origin] = await Promise.all([
+    getLocale(),
+    getSiteSettings(),
+    getServerOrigin(),
+  ]);
   const title = siteSettings.seo?.title || "Hội dòng Đa Minh Gò Vấp";
 
   return {
     title,
     description: siteSettings?.seo?.description,
-    metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL!),
+    metadataBase: new URL(origin),
     openGraph: {
       type: "website",
       title,

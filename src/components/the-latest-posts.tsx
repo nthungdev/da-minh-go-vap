@@ -53,7 +53,7 @@ export default function TheLatestPosts({
   }
 
   const carouselId = `the-latest-posts-carousel-${createRandomAlphaString(4)}`;
-  const postHref = `${process.env.NEXT_PUBLIC_BASE_URL}/posts/${data[currentIndex]?.slug}`;
+  const postHref = `/posts/${data[currentIndex]?.slug}`;
 
   return (
     <div className={twMerge("@container", className)}>
