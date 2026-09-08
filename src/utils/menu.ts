@@ -1,86 +1,116 @@
 import { normalizeText } from "normalize-text";
 import config from "@payload-config";
 import { getPayload } from "payload";
-import { HiddenTag, Media, NavBar, Page } from "@/payload-types";
+import { HiddenTag, Media, NavBar, Page, Post } from "@/payload-types";
 import { defaultLocale, Locale } from "@/i18n/config";
 import { cache } from "react";
 
-export type MenuLayoutType = NonNullable<NavBar["menu"][number]["layout"]>;
+// Raw types extracted directly from Payload CMS definitions
+export type NavBarMenuItem = NonNullable<NavBar["menu"]>[number];
+export type NavBarSubMenuItem = NonNullable<NavBarMenuItem["subMenu"]>[number];
+export type NavBarPillarItem = NonNullable<NavBarMenuItem["pillars"]>[number];
+export type NavBarPillarLink = NonNullable<NavBarPillarItem["links"]>[number];
+export type NavBarBottomBar = NonNullable<NavBarMenuItem["bottomBar"]>;
+export type NavBarBottomBarLink = NonNullable<NavBarBottomBar["links"]>[number];
+export type NavBarCategoryItem = NonNullable<
+  NavBarMenuItem["categories"]
+>[number];
 
+export type MenuLayoutType = NavBarMenuItem["layout"];
+export type MenuIconType = NavBarMenuItem["icon"];
+
+export type MenuLinkFields = {
+  linkType?: NavBarMenuItem["linkType"] | null;
+  internalLink?: (string | null) | Page;
+  externalLink?: string | null;
+};
+
+/**
+ * Resolved sub-menu item for grid and multi-level flyout menus.
+ */
 export interface SubMenuItem {
   href: string;
   absoluteHref: string;
-  name: string;
+  name: NavBarSubMenuItem["label"];
   normalizedName: string;
-  icon?: string | null;
-  description?: string | null;
+  icon?: MenuIconType;
+  description?: NavBarSubMenuItem["description"];
   children?: SubMenuItem[];
 }
 
+/**
+ * Pillar column containing a top banner and grouped quick links.
+ */
 export interface PillarItem {
   headerBanner: {
-    title: string;
-    subtitle?: string | null;
+    title: NavBarPillarItem["headerBanner"]["title"];
+    subtitle?: NavBarPillarItem["headerBanner"]["subtitle"];
     image: Media | null;
     href: string;
     absoluteHref: string;
   };
   links: {
-    name: string;
+    name: NavBarPillarLink["label"];
     href: string;
     absoluteHref: string;
-    icon?: string | null;
+    icon?: MenuIconType;
   }[];
 }
 
+/**
+ * Bottom action/link bar displayed under pillar layouts.
+ */
 export interface BottomBarItem {
-  label?: string | null;
+  label?: NavBarBottomBar["label"];
   links: {
-    name: string;
+    name: NavBarBottomBarLink["label"];
     href: string;
     absoluteHref: string;
-    icon?: string | null;
+    icon?: MenuIconType;
   }[];
 }
 
+/**
+ * Post preview item fetched dynamically for category tab menus.
+ */
 export interface CategoryPostItem {
-  title: string;
-  slug: string;
+  title: Post["title"];
+  slug: Post["slug"];
   href: string;
   thumbnail: Media | null;
-  publishedAt?: string | null;
+  publishedAt?: Post["publishedAt"] | null;
 }
 
+/**
+ * Category tab item linked to tags for fetching related post cards.
+ */
 export interface CategoryTabItem {
-  name: string;
+  name: NavBarCategoryItem["label"];
   href: string;
   absoluteHref: string;
   tagIds: string[];
-  icon?: string | null;
+  icon?: MenuIconType;
   posts?: CategoryPostItem[];
 }
 
+/**
+ * Resolved navigation menu item passed to navigation bar components.
+ */
 export interface MenuItem {
   href: string;
   absoluteHref: string;
-  name?: string | null;
+  name?: NavBarMenuItem["label"];
   normalizedName: string;
-  icon?: string | null;
+  icon?: MenuIconType;
   layout?: MenuLayoutType;
-  description?: string | null;
+  description?: NavBarSubMenuItem["description"];
   children?: SubMenuItem[];
   pillars?: PillarItem[];
   bottomBar?: BottomBarItem;
   categories?: CategoryTabItem[];
 }
 
-function getLinkHref(
-  item?: {
-    linkType?: "none" | "internal" | "external";
-    internalLink?: (string | null) | Page;
-    externalLink?: string | null;
-  } | null,
-) {
+function getLinkHref(item?: MenuLinkFields | null) {
   if (!item || item.linkType === "none") return "";
   if (item.linkType === "internal") {
     if (typeof item.internalLink === "object" && item.internalLink !== null) {
