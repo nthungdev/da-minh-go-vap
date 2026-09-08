@@ -25,7 +25,9 @@ fi
 if [ -z "$DB_BACKUP_URL" ]; then
   echo "❌ Error: DB_BACKUP_URL is not set."
   echo "Please set DB_BACKUP_URL in your environment or .env file, or pass it as an argument."
-  echo "Example: DB_BACKUP_URL=\"mongodb://localhost:27017/da-minh-go-vap\" pnpm db:backup"
+  echo "Examples:"
+  echo "  pnpm db:backup \"mongodb://localhost:27017/da-minh-go-vap\""
+  echo "  DB_BACKUP_URL=\"mongodb://localhost:27017/da-minh-go-vap\" pnpm db:backup"
   exit 1
 fi
 

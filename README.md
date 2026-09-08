@@ -14,12 +14,6 @@ Install dependencies:
 pnpm install
 ```
 
-Generate typescript types for PayloadCMS:
-
-```bash
-pnpm generate
-```
-
 Generate PayloadCMS secret:
 
 ```bash
@@ -45,7 +39,7 @@ pnpm dev
 ```
 
 Go to [http://localhost:3000](http://localhost:3000) to view the web app.
-Go to [http://localhost:3000/admin](http://localhost:3000/admin) to view the Payload CMS admin panel.
+Go to [http://localhost:3000/admin](http://localhost:3000/admin) to view the Payload CMS admin panel. On first boot, you will need to populate from data via Payload CMS namely navbar and root page.
 
 ## Database Management
 

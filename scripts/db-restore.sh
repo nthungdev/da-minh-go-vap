@@ -37,7 +37,9 @@ fi
 if [ -z "$DB_RESTORE_URL" ]; then
   echo "❌ Error: DB_RESTORE_URL is not set."
   echo "Please set DB_RESTORE_URL in your environment or .env file, or pass it as an argument."
-  echo "Example: DB_RESTORE_URL=\"mongodb://localhost:27017/da-minh-go-vap\" pnpm db:restore"
+  echo "Examples:"
+  echo "  pnpm db:restore \"mongodb://localhost:27017/da-minh-go-vap\""
+  echo "  DB_RESTORE_URL=\"mongodb://localhost:27017/da-minh-go-vap\" pnpm db:restore"
   exit 1
 fi
 
@@ -73,19 +75,39 @@ if [ ! -f "$DUMP_FILE" ] && [ ! -d "$DUMP_FILE" ]; then
   exit 1
 fi
 
+# Extract target database name from DB_RESTORE_URL if provided
+PROTO_STRIPPED="${DB_RESTORE_URL#*://}"
+TARGET_DB=""
+if [[ "$PROTO_STRIPPED" == *"/"* ]]; then
+  PATH_AND_QUERY="${PROTO_STRIPPED#*/}"
+  TARGET_DB="${PATH_AND_QUERY%%\?*}"
+fi
+
 # Detect if gzipped
 GZIP_FLAG=""
 if gzip -t "$DUMP_FILE" 2>/dev/null || [[ "$DUMP_FILE" == *.gz ]]; then
   GZIP_FLAG="--gzip"
 fi
 
-echo "⏳ Restoring database from $DUMP_FILE to destination database ..."
+RESTORE_ARGS=(--uri="$DB_RESTORE_URL" --drop)
+[ -n "$GZIP_FLAG" ] && RESTORE_ARGS+=("$GZIP_FLAG")
 
 if [ -d "$DUMP_FILE" ]; then
-  mongorestore --uri="$DB_RESTORE_URL" --dir="$DUMP_FILE" --drop $GZIP_FLAG
+  RESTORE_ARGS+=(--dir="$DUMP_FILE")
 else
-  mongorestore --uri="$DB_RESTORE_URL" --archive="$DUMP_FILE" --drop $GZIP_FLAG
+  RESTORE_ARGS+=(--archive="$DUMP_FILE")
 fi
+
+# If target database is specified in URI, remap namespaces so dumps from other database names restore properly
+if [ -n "$TARGET_DB" ]; then
+  echo "⏳ Restoring database from $DUMP_FILE to '$TARGET_DB' ..."
+  RESTORE_ARGS+=(--nsInclude="*" "--nsFrom=\$from\$.\$collection\$" "--nsTo=${TARGET_DB}.\$collection\$")
+else
+  echo "⏳ Restoring database from $DUMP_FILE to destination database ..."
+  RESTORE_ARGS+=(--nsInclude="*")
+fi
+
+mongorestore "${RESTORE_ARGS[@]}"
 
 if [ $? -eq 0 ]; then
   echo "✅ Database restore completed successfully from $DUMP_FILE"
