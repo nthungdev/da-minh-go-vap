@@ -112,13 +112,13 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                           className="hover:text-primary-700 data-[state=open]:text-primary-700 focus:text-primary-700 data-open:text-primary-700 data-popup-open:text-primary-700 flex items-center gap-1.5 transition-colors hover:bg-white focus:bg-white data-open:bg-white data-popup-open:bg-white data-[state=open]:bg-white"
                         >
                           {item.icon && (
-                            <span className="relative inline-block size-5 shrink-0 overflow-hidden rounded-full bg-white">
+                            <span className="relative inline-block size-5 shrink-0 overflow-hidden">
                               <Image
                                 unoptimized
                                 src={getMenuIconSrc(item.icon)}
                                 alt={item.name || item.icon}
                                 fill
-                                className="rounded-full object-contain"
+                                className="object-contain"
                               />
                             </span>
                           )}
@@ -297,7 +297,6 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                           </div>
                           <AccordionContent className="pb-3 pl-4">
                             <ul className="flex flex-col gap-2 border-l-2 border-gray-100 pl-4">
-                              {/* Layout 1: Grid */}
                               {/* Layout 1: Grid */}
                               {item.layout === "grid" &&
                                 item.children?.map((child, childIndex) => (
