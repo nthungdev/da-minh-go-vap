@@ -45,7 +45,14 @@ export type MenuIconName = (typeof MENU_ICON_OPTIONS)[number]["value"];
  */
 export function getMenuIconSrc(iconName: string): string;
 export function getMenuIconSrc(iconName?: string | null): string | null;
-export function getMenuIconSrc(iconName?: string | null): string | null {
+export function getMenuIconSrc(
+  iconName?: string | null,
+  type: "svg" | "jpg" = "svg",
+): string | null {
   if (!iconName) return null;
-  return `/images/menu-icons/${iconName}.jpg`;
+  if (type === "svg") {
+    return `/svgs/menu-icons/${iconName}.svg`;
+  } else {
+    return `/images/menu-icons/${iconName}.jpg`;
+  }
 }
