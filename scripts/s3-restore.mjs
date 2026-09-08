@@ -102,6 +102,28 @@ function formatDuration(ms) {
 }
 
 /**
+ * Normalize S3 endpoint: strips trailing bucket names or paths from Cloudflare R2 endpoints.
+ */
+function normalizeEndpoint(endpoint, bucket) {
+  if (!endpoint) return undefined;
+  try {
+    const url = new URL(endpoint);
+    // Cloudflare R2 S3 endpoints should always be origin only: https://<account_id>.r2.cloudflarestorage.com
+    if (url.hostname.endsWith(".r2.cloudflarestorage.com")) {
+      return `${url.protocol}//${url.hostname}`;
+    }
+    // If endpoint ends with /<bucket>, strip the bucket name
+    if (bucket && url.pathname.replace(/\/+$/, "") === `/${bucket}`) {
+      url.pathname = "";
+      return url.toString().replace(/\/$/, "");
+    }
+    return endpoint;
+  } catch {
+    return endpoint;
+  }
+}
+
+/**
  * Parse a .env file content into key-value pairs without external dependencies.
  */
 function parseEnvFile(filePath) {
@@ -404,11 +426,13 @@ async function main() {
     env.S3_SECRET_ACCESS_KEY ||
     env.R2_SECRET_ACCESS_KEY ||
     env.AWS_SECRET_ACCESS_KEY;
-  const endpoint =
+  const endpoint = normalizeEndpoint(
     env.S3_ENDPOINT ||
-    env.R2_ENDPOINT ||
-    env.AWS_ENDPOINT_URL_S3 ||
-    env.AWS_ENDPOINT_URL;
+      env.R2_ENDPOINT ||
+      env.AWS_ENDPOINT_URL_S3 ||
+      env.AWS_ENDPOINT_URL,
+    bucket,
+  );
   const region = env.S3_REGION || "auto";
 
   if (!bucket) {
@@ -463,6 +487,32 @@ async function main() {
       process.exit(1);
     }
   }
+
+  // Detect and unwrap any outer wrapper directory (e.g. s3_..., daminhgovap_..., etc.)
+  let currentDir = workingDir;
+  while (true) {
+    const entries = fs
+      .readdirSync(currentDir, { withFileTypes: true })
+      .filter((e) => !e.name.startsWith("."));
+    const subDirs = entries.filter((e) => e.isDirectory());
+    const files = entries.filter((e) => e.isFile());
+
+    if (files.length === 0 && subDirs.length === 1) {
+      const singleDir = subDirs[0].name;
+      if (
+        singleDir.startsWith("s3_") ||
+        singleDir === bucket ||
+        singleDir.includes(bucket) ||
+        singleDir.includes("backup")
+      ) {
+        console.log(`ℹ️ Stepping into nested backup directory: ${singleDir}`);
+        currentDir = path.join(currentDir, singleDir);
+        continue;
+      }
+    }
+    break;
+  }
+  workingDir = currentDir;
 
   // Collect all local files to upload
   const filesToUpload = getAllFiles(workingDir);

@@ -96,6 +96,25 @@ function formatDuration(ms) {
   return `${minutes}m ${remainingSeconds}s`;
 }
 
+function normalizeEndpoint(endpoint, bucket) {
+  if (!endpoint) return undefined;
+  try {
+    const url = new URL(endpoint);
+    // Cloudflare R2 S3 endpoints should always be origin only: https://<account_id>.r2.cloudflarestorage.com
+    if (url.hostname.endsWith(".r2.cloudflarestorage.com")) {
+      return `${url.protocol}//${url.hostname}`;
+    }
+    // If endpoint ends with /<bucket>, strip the bucket name
+    if (bucket && url.pathname.replace(/\/+$/, "") === `/${bucket}`) {
+      url.pathname = "";
+      return url.toString().replace(/\/$/, "");
+    }
+    return endpoint;
+  } catch {
+    return endpoint;
+  }
+}
+
 function parseEnvFile(filePath) {
   if (!fs.existsSync(filePath)) return {};
   const content = fs.readFileSync(filePath, "utf8");
@@ -307,10 +326,14 @@ async function main() {
     process.exit(1);
   }
 
-  const srcEndpoint =
-    fromEnv.S3_ENDPOINT || fromEnv.R2_ENDPOINT || fromEnv.AWS_ENDPOINT_URL_S3;
-  const destEndpoint =
-    toEnv.S3_ENDPOINT || toEnv.R2_ENDPOINT || toEnv.AWS_ENDPOINT_URL_S3;
+  const srcEndpoint = normalizeEndpoint(
+    fromEnv.S3_ENDPOINT || fromEnv.R2_ENDPOINT || fromEnv.AWS_ENDPOINT_URL_S3,
+    srcBucket,
+  );
+  const destEndpoint = normalizeEndpoint(
+    toEnv.S3_ENDPOINT || toEnv.R2_ENDPOINT || toEnv.AWS_ENDPOINT_URL_S3,
+    destBucket,
+  );
 
   const srcAccessKey =
     fromEnv.S3_ACCESS_KEY_ID ||

@@ -59,6 +59,28 @@ function formatDuration(ms) {
 }
 
 /**
+ * Normalize S3 endpoint: strips trailing bucket names or paths from Cloudflare R2 endpoints.
+ */
+function normalizeEndpoint(endpoint, bucket) {
+  if (!endpoint) return undefined;
+  try {
+    const url = new URL(endpoint);
+    // Cloudflare R2 S3 endpoints should always be origin only: https://<account_id>.r2.cloudflarestorage.com
+    if (url.hostname.endsWith(".r2.cloudflarestorage.com")) {
+      return `${url.protocol}//${url.hostname}`;
+    }
+    // If endpoint ends with /<bucket>, strip the bucket name
+    if (bucket && url.pathname.replace(/\/+$/, "") === `/${bucket}`) {
+      url.pathname = "";
+      return url.toString().replace(/\/$/, "");
+    }
+    return endpoint;
+  } catch {
+    return endpoint;
+  }
+}
+
+/**
  * Parse a .env file content into key-value pairs without external dependencies.
  */
 function parseEnvFile(filePath) {
@@ -254,11 +276,13 @@ async function main() {
     env.R2_SECRET_ACCESS_KEY ||
     env.AWS_SECRET_ACCESS_KEY;
 
-  const endpoint =
+  const endpoint = normalizeEndpoint(
     env.S3_ENDPOINT ||
-    env.R2_ENDPOINT ||
-    env.AWS_ENDPOINT_URL_S3 ||
-    env.AWS_ENDPOINT_URL;
+      env.R2_ENDPOINT ||
+      env.AWS_ENDPOINT_URL_S3 ||
+      env.AWS_ENDPOINT_URL,
+    bucket,
+  );
 
   const region = env.S3_REGION || "auto";
 
@@ -449,7 +473,7 @@ async function main() {
     const folderName = path.basename(targetDir);
 
     try {
-      execFileSync("tar", ["-czf", archivePath, "-C", parentDir, folderName], {
+      execFileSync("tar", ["-czf", archivePath, "-C", targetDir, "."], {
         stdio: "inherit",
       });
 
