@@ -9,6 +9,7 @@ import Link from "next/link";
 import { getMenuIconSrc } from "@/definitions/menu-icons";
 import { useState } from "react";
 import { transformUrl } from "@/utils/cloudflare";
+import { makePostPath } from "@/utils/post";
 
 interface MenuLayoutTabsPostsProps {
   item: MenuItem;
@@ -102,7 +103,8 @@ export default function MenuLayoutTabsPosts({
         activeCategory.posts.length > 0 ? (
           <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4">
             {activeCategory.posts.map((post, pIdx) => {
-              const isPostActive = pathname === post.href;
+              const postHref = post.href || makePostPath(post.slug);
+              const isPostActive = pathname === postHref;
 
               return (
                 <NavigationMenuLink
@@ -110,7 +112,7 @@ export default function MenuLayoutTabsPosts({
                   className="p-0 text-left"
                   render={
                     <Link
-                      href={post.href}
+                      href={postHref}
                       className={cn(
                         "group flex flex-col overflow-hidden rounded-md p-1.5 text-left transition-colors outline-none select-none",
                         "hover:bg-gray-100 focus:bg-gray-100",
