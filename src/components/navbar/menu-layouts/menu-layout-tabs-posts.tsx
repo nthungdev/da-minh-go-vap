@@ -8,6 +8,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { getMenuIconSrc } from "@/definitions/menu-icons";
 import { useState } from "react";
+import { transformUrl } from "@/utils/cloudflare";
 
 interface MenuLayoutTabsPostsProps {
   item: MenuItem;
@@ -105,7 +106,7 @@ export default function MenuLayoutTabsPosts({
 
               return (
                 <NavigationMenuLink
-                  key={pIdx}
+                  key={post.slug || `${activeTabIndex}-${pIdx}`}
                   className="p-0 text-left"
                   render={
                     <Link
@@ -118,12 +119,14 @@ export default function MenuLayoutTabsPosts({
                     />
                   }
                 >
-                  <div className="relative aspect-[16/10] w-full overflow-hidden rounded-md bg-gray-300">
+                  <div className="relative aspect-[16/10] w-full overflow-hidden rounded-md bg-gray-200">
                     {post.thumbnail?.url ? (
                       <Image
-                        src={post.thumbnail.url}
+                        key={post.thumbnail.url}
+                        src={transformUrl(post.thumbnail.url, { width: "300" })}
                         alt={post.thumbnail.alt || post.title}
                         fill
+                        sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 250px"
                         className="object-cover transition-transform duration-300 group-hover:scale-105"
                       />
                     ) : (
