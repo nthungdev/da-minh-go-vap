@@ -30,6 +30,10 @@ export function getPublicHiddenTags(
     .filter((hiddenTag) => hiddenTag.isPublic);
 }
 
+export function makePostPath(slug: string) {
+  return `/posts/${slug}`;
+}
+
 export function makePostsPath(hiddenTags: string[], title: string) {
   const jointHiddenTags = hiddenTags.join(",");
   return `/posts?ht=${encodeURIComponent(jointHiddenTags)}&ti=${encodeURIComponent(title)}`;

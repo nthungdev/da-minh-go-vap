@@ -8,6 +8,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { getMenuIconSrc } from "@/definitions/menu-icons";
 import { useState } from "react";
+import { transformUrl } from "@/utils/cloudflare";
+import { makePostPath } from "@/utils/post";
 
 interface MenuLayoutTabsPostsProps {
   item: MenuItem;
@@ -101,15 +103,16 @@ export default function MenuLayoutTabsPosts({
         activeCategory.posts.length > 0 ? (
           <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4">
             {activeCategory.posts.map((post, pIdx) => {
-              const isPostActive = pathname === post.href;
+              const postHref = post.href || makePostPath(post.slug);
+              const isPostActive = pathname === postHref;
 
               return (
                 <NavigationMenuLink
-                  key={pIdx}
+                  key={post.slug || `${activeTabIndex}-${pIdx}`}
                   className="p-0 text-left"
                   render={
                     <Link
-                      href={post.href}
+                      href={postHref}
                       className={cn(
                         "group flex flex-col overflow-hidden rounded-md p-1.5 text-left transition-colors outline-none select-none",
                         "hover:bg-gray-100 focus:bg-gray-100",
@@ -118,12 +121,14 @@ export default function MenuLayoutTabsPosts({
                     />
                   }
                 >
-                  <div className="relative aspect-[16/10] w-full overflow-hidden rounded-md bg-gray-300">
+                  <div className="relative aspect-[16/10] w-full overflow-hidden rounded-md bg-gray-200">
                     {post.thumbnail?.url ? (
                       <Image
-                        src={post.thumbnail.url}
+                        key={post.thumbnail.url}
+                        src={transformUrl(post.thumbnail.url, { width: "300" })}
                         alt={post.thumbnail.alt || post.title}
                         fill
+                        sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 250px"
                         className="object-cover transition-transform duration-300 group-hover:scale-105"
                       />
                     ) : (

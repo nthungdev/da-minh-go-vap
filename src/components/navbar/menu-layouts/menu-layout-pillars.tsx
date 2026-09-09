@@ -5,6 +5,7 @@ import { ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { getMenuIconSrc } from "@/definitions/menu-icons";
+import { transformUrl } from "@/utils/cloudflare";
 
 interface MenuLayoutPillarsProps {
   item: MenuItem;
@@ -53,7 +54,7 @@ export default function MenuLayoutPillars({
             <>
               {banner.image?.url && (
                 <Image
-                  src={banner.image.url}
+                  src={transformUrl(banner.image.url)}
                   alt={banner.image.alt || banner.title}
                   fill
                   className="object-cover transition-transform duration-300 group-hover:scale-105"

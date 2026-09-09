@@ -3,6 +3,7 @@ import config from "@payload-config";
 import { getPayload } from "payload";
 import { HiddenTag, Media, NavBar, Page, Post } from "@/payload-types";
 import { defaultLocale, Locale } from "@/i18n/config";
+import { makePostPath } from "@/utils/post";
 import { cache } from "react";
 
 // Raw types extracted directly from Payload CMS definitions
@@ -234,7 +235,7 @@ export const getMenu = cache(async (locale?: Locale): Promise<MenuItem[]> => {
                   posts = postQuery.docs.map((p) => ({
                     title: p.title,
                     slug: p.slug,
-                    href: `/${p.slug}`,
+                    href: makePostPath(p.slug),
                     thumbnail:
                       typeof p.thumbnail === "object"
                         ? (p.thumbnail as Media)
