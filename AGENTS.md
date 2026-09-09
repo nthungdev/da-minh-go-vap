@@ -196,4 +196,56 @@ export const add = (a: number, b: number) => a + b;
    - Whenever modifying Payload globals (e.g., `src/payload/globals/NavBar.ts`) or collections, update the corresponding TypeScript definitions in `src/utils/` and run `pnpm generate:types`.
 3. **Optimized Media & Navigation**:
    - Always use `next/image` (`<Image />`) for rendering images with explicit sizes/aspect ratios.
+   - Always use `transformUrl` from `@/utils/cloudflare` when supplying URLs to images (see Section 5).
    - Use `next/link` (`<Link />`) for internal routing.
+
+---
+
+## 5. Cloudflare CDN & Image Optimization (`transformUrl`)
+
+Media uploaded to Payload CMS is stored in Cloudflare R2 / S3 and delivered through Cloudflare CDN with on-the-fly Image Resizing (`/cdn-cgi/image/`).
+
+### 5.1. Always Use `transformUrl` for Media URLs
+
+When displaying images from Payload media records (`doc.url`, `post.thumbnail.url`, `banner.image.url`, etc.), wrap the image source with `transformUrl` from `@/utils/cloudflare`.
+
+- **Import**: `import { transformUrl } from "@/utils/cloudflare";`
+- **Fallback behavior**: Automatically adds `onerror=redirect` so that the original image is served if transformation fails.
+- **Custom transformations**: Supports resizing and formatting options such as `width`, `height`, `quality`, `format`, and `fit`.
+
+### 5.2. Usage Examples
+
+```tsx
+import Image from "next/image";
+import { transformUrl } from "@/utils/cloudflare";
+
+// ✅ Good: Standard image rendering with Cloudflare CDN URL
+<Image
+  src={transformUrl(post.thumbnail.url)}
+  alt={post.title}
+  fill
+  className="object-cover"
+/>
+
+// ✅ Good: Specific width for optimized thumbnail bandwidth
+<Image
+  src={transformUrl(thumbnail.url, { width: "300" })}
+  alt={title}
+  width={300}
+  height={200}
+/>
+
+// ✅ Good: Custom Cloudflare options (e.g. quality, fit, format)
+const optimizedSrc = transformUrl(image.url, {
+  width: "600",
+  quality: "85",
+  format: "auto",
+});
+
+// ❌ Bad: Passing raw media URL directly without Cloudflare transformation
+<Image
+  src={post.thumbnail.url}
+  alt={post.title}
+  fill
+/>
+```
