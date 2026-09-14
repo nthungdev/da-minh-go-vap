@@ -29,6 +29,7 @@ export default function MarkdownEditor({
         textareaProps={{ id }}
         value={internalValue}
         onChange={onChange}
+        preview="edit"
         previewOptions={{
           rehypePlugins: [[rehypeSanitize]],
         }}
