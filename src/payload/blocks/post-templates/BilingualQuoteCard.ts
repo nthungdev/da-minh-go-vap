@@ -7,6 +7,8 @@ const BilingualQuoteCardBlock: Block = {
     singular: "Danh Ngôn Song Ngữ",
     plural: "Danh Ngôn Song Ngữ",
   },
+  imageURL: "/svgs/template-previews/bilingual-quote-card.svg",
+  imageAltText: "Danh ngôn song ngữ đối chiếu song song (Anh - Việt)",
   interfaceName: "BilingualQuoteCardBlock",
   fields: [
     authorField({

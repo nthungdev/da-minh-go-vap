@@ -11,6 +11,8 @@ const VerticalVideoPrayerBlock: Block = {
     singular: "Video Dọc & Ý Chỉ Cầu Nguyện",
     plural: "Video Dọc & Ý Chỉ Cầu Nguyện",
   },
+  imageURL: "/svgs/template-previews/vertical-video-prayer.svg",
+  imageAltText: "Video dọc (9:16) kèm Ý chỉ cầu nguyện và Lời Chúa",
   interfaceName: "VerticalVideoPrayerBlock",
   fields: [
     videoGroupField({

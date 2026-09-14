@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 200" width="300" height="200" fill="none">
+  <!-- Background -->
+  <rect width="300" height="200" rx="8" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="2"/>
+  
+  <!-- Topic Header: Badge + Big Title -->
+  <rect x="20" y="14" width="90" height="12" rx="6" fill="#8B5CF6" fill-opacity="0.15"/>
+  <rect x="28" y="17" width="74" height="6" rx="3" fill="#7C3AED"/>
+  
+  <rect x="20" y="32" width="130" height="8" rx="4" fill="#1E293B"/>
+  <!-- Introduction Paragraph -->
+  <rect x="20" y="44" width="260" height="4" rx="2" fill="#64748B"/>
+  <rect x="20" y="52" width="220" height="4" rx="2" fill="#64748B"/>
+
+  <!-- Q&A Item 1 -->
+  <rect x="20" y="64" width="260" height="52" rx="6" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <!-- Icon Badge (Book) -->
+  <rect x="28" y="72" width="20" height="20" rx="4" fill="#EDE9FE"/>
+  <path d="M33 78 C35 77, 39 77, 43 78 M33 82 C35 81, 39 81, 43 82 M38 78 L38 88" stroke="#7C3AED" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Question Title -->
+  <rect x="56" y="74" width="110" height="6" rx="3" fill="#1E293B"/>
+  <!-- Answer Body Lines -->
+  <rect x="56" y="86" width="212" height="4" rx="2" fill="#94A3B8"/>
+  <rect x="56" y="94" width="204" height="4" rx="2" fill="#94A3B8"/>
+  <rect x="56" y="102" width="160" height="4" rx="2" fill="#94A3B8"/>
+
+  <!-- Q&A Item 2 -->
+  <rect x="20" y="122" width="260" height="52" rx="6" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <!-- Icon Badge (Scroll/Light) -->
+  <rect x="28" y="130" width="20" height="20" rx="4" fill="#FEF3C7"/>
+  <circle cx="38" cy="140" r="5" fill="#D97706"/>
+  <!-- Question Title -->
+  <rect x="56" y="132" width="125" height="6" rx="3" fill="#1E293B"/>
+  <!-- Answer Body Lines -->
+  <rect x="56" y="144" width="212" height="4" rx="2" fill="#94A3B8"/>
+  <rect x="56" y="152" width="195" height="4" rx="2" fill="#94A3B8"/>
+  <rect x="56" y="160" width="150" height="4" rx="2" fill="#94A3B8"/>
+
+  <!-- Footer Credits -->
+  <rect x="20" y="180" width="110" height="10" rx="4" fill="#F1F5F9"/>
+</svg>

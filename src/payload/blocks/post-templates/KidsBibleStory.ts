@@ -7,6 +7,9 @@ const KidsBibleStoryBlock: Block = {
     singular: "Bé Và Lời - Câu Chuyện Kinh Thánh",
     plural: "Bé Và Lời - Câu Chuyện Kinh Thánh",
   },
+  imageURL: "/svgs/template-previews/kids-bible-story.svg",
+  imageAltText:
+    "Câu chuyện Kinh Thánh cho thiếu nhi kèm điểm ghi nhớ và câu vàng",
   interfaceName: "KidsBibleStoryBlock",
   fields: [
     {

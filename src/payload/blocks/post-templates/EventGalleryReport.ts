@@ -7,6 +7,8 @@ const EventGalleryReportBlock: Block = {
     singular: "Bản Tin Sự Kiện & Thư Viện Ảnh",
     plural: "Bản Tin Sự Kiện & Thư Viện Ảnh",
   },
+  imageURL: "/svgs/template-previews/event-gallery-report.svg",
+  imageAltText: "Tường thuật sự kiện kèm thư viện ảnh nhiều cột",
   interfaceName: "EventGalleryReportBlock",
   fields: [
     {

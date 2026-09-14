@@ -11,6 +11,8 @@ const ParableLifeLessonBlock: Block = {
     singular: "Chuyện Ngụ Ngôn & Bài Học Cuộc Sống",
     plural: "Chuyện Ngụ Ngôn & Bài Học Cuộc Sống",
   },
+  imageURL: "/svgs/template-previews/parable-life-lesson.svg",
+  imageAltText: "Chuyện ngụ ngôn, câu Lời Chúa và bài học cuộc sống",
   interfaceName: "ParableLifeLessonBlock",
   fields: [
     {

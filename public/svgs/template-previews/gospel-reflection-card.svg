@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 200" width="300" height="200" fill="none">
+  <!-- Background -->
+  <rect width="300" height="200" rx="8" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="2"/>
+  
+  <!-- Header: Liturgy Meta Pill -->
+  <rect x="20" y="14" width="140" height="12" rx="6" fill="#6366F1" fill-opacity="0.15"/>
+  <rect x="26" y="17" width="90" height="6" rx="3" fill="#4F46E5"/>
+
+  <!-- Spotify / Podcast Audio Player Bar -->
+  <rect x="20" y="32" width="260" height="24" rx="12" fill="#10B981" fill-opacity="0.12" stroke="#10B981" stroke-width="1.5"/>
+  <circle cx="34" cy="44" r="7" fill="#10B981"/>
+  <polygon points="32,41 38,44 32,47" fill="#FFFFFF"/>
+  <rect x="47" y="42" width="90" height="4" rx="2" fill="#059669"/>
+  <!-- Audio wave lines -->
+  <rect x="180" y="41" width="3" height="6" rx="1.5" fill="#10B981"/>
+  <rect x="186" y="38" width="3" height="12" rx="1.5" fill="#10B981"/>
+  <rect x="192" y="36" width="3" height="16" rx="1.5" fill="#10B981"/>
+  <rect x="198" y="39" width="3" height="10" rx="1.5" fill="#10B981"/>
+  <rect x="204" y="42" width="3" height="4" rx="1.5" fill="#10B981"/>
+  <rect x="230" y="39" width="38" height="10" rx="5" fill="#10B981" fill-opacity="0.2"/>
+
+  <!-- Integrated Card Container -->
+  <rect x="20" y="62" width="260" height="124" rx="8" fill="#FFFFFF" stroke="#E2E8F0"/>
+  
+  <!-- Left: Thumbnail Image -->
+  <rect x="30" y="72" width="76" height="60" rx="4" fill="#E2E8F0"/>
+  <circle cx="50" cy="92" r="8" fill="#CBD5E1"/>
+  <polygon points="34,126 64,96 84,116 102,98 102,126" fill="#94A3B8"/>
+  
+  <!-- Right: Gospel Accordion + Preview -->
+  <rect x="114" y="72" width="156" height="20" rx="4" fill="#FEF3C7" stroke="#FDE68A"/>
+  <rect x="122" y="78" width="60" height="5" rx="2.5" fill="#D97706"/>
+  <rect x="122" y="86" width="130" height="3" rx="1.5" fill="#B45309" fill-opacity="0.7"/>
+
+  <!-- Reflection Body Lines -->
+  <rect x="114" y="98" width="156" height="4" rx="2" fill="#64748B"/>
+  <rect x="114" y="106" width="148" height="4" rx="2" fill="#94A3B8"/>
+  <rect x="114" y="114" width="152" height="4" rx="2" fill="#94A3B8"/>
+  <rect x="114" y="122" width="130" height="4" rx="2" fill="#94A3B8"/>
+
+  <!-- Bottom Full-Width Lines -->
+  <rect x="30" y="140" width="240" height="4" rx="2" fill="#94A3B8"/>
+  <rect x="30" y="148" width="210" height="4" rx="2" fill="#94A3B8"/>
+
+  <!-- Footer Tags: Author & Audio Reader -->
+  <rect x="30" y="162" width="60" height="12" rx="4" fill="#F1F5F9"/>
+  <rect x="96" y="162" width="65" height="12" rx="4" fill="#F1F5F9"/>
+</svg>

@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 200" width="300" height="200" fill="none">
+  <!-- Background -->
+  <rect width="300" height="200" rx="8" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="2"/>
+  
+  <!-- Hero Section: Saint Portrait & Header -->
+  <rect x="20" y="14" width="260" height="48" rx="6" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <!-- Portrait circle -->
+  <circle cx="44" cy="38" r="16" fill="#E0E7FF" stroke="#6366F1" stroke-width="1.5"/>
+  <circle cx="44" cy="34" r="6" fill="#818CF8"/>
+  <path d="M34 46 C34 40, 54 40, 54 46" fill="#818CF8"/>
+  <!-- Saint info -->
+  <rect x="68" y="24" width="90" height="7" rx="3.5" fill="#1E293B"/>
+  <rect x="68" y="35" width="110" height="5" rx="2.5" fill="#64748B"/>
+  <!-- Feast Day Badge -->
+  <rect x="200" y="24" width="70" height="14" rx="7" fill="#FEE2E2"/>
+  <rect x="208" y="29" width="54" height="4" rx="2" fill="#EF4444"/>
+
+  <!-- Section 1: Timeline (Vertical with nodes) -->
+  <rect x="20" y="68" width="124" height="82" rx="6" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <rect x="28" y="74" width="60" height="6" rx="3" fill="#6366F1"/>
+  <!-- Vertical line -->
+  <line x1="36" y1="88" x2="36" y2="138" stroke="#CBD5E1" stroke-width="2"/>
+  <!-- Node 1 -->
+  <circle cx="36" cy="92" r="3.5" fill="#6366F1"/>
+  <rect x="44" y="90" width="30" height="4" rx="2" fill="#1E293B"/>
+  <rect x="78" y="90" width="56" height="4" rx="2" fill="#94A3B8"/>
+  <!-- Node 2 -->
+  <circle cx="36" cy="110" r="3.5" fill="#6366F1"/>
+  <rect x="44" y="108" width="34" height="4" rx="2" fill="#1E293B"/>
+  <rect x="82" y="108" width="52" height="4" rx="2" fill="#94A3B8"/>
+  <!-- Node 3 -->
+  <circle cx="36" cy="128" r="3.5" fill="#6366F1"/>
+  <rect x="44" y="126" width="28" height="4" rx="2" fill="#1E293B"/>
+  <rect x="76" y="126" width="58" height="4" rx="2" fill="#94A3B8"/>
+
+  <!-- Section 2: Virtues & Teachings -->
+  <rect x="152" y="68" width="128" height="82" rx="6" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <rect x="160" y="74" width="65" height="6" rx="3" fill="#D97706"/>
+  <!-- Virtue Card 1 -->
+  <rect x="160" y="86" width="112" height="26" rx="4" fill="#FEF3C7" stroke="#FDE68A"/>
+  <rect x="166" y="91" width="50" height="4" rx="2" fill="#B45309"/>
+  <rect x="166" y="99" width="100" height="3" rx="1.5" fill="#D97706" fill-opacity="0.8"/>
+  <rect x="166" y="104" width="80" height="3" rx="1.5" fill="#D97706" fill-opacity="0.8"/>
+  <!-- Virtue Card 2 -->
+  <rect x="160" y="116" width="112" height="26" rx="4" fill="#FEF3C7" stroke="#FDE68A"/>
+  <rect x="166" y="121" width="55" height="4" rx="2" fill="#B45309"/>
+  <rect x="166" y="129" width="98" height="3" rx="1.5" fill="#D97706" fill-opacity="0.8"/>
+  <rect x="166" y="134" width="75" height="3" rx="1.5" fill="#D97706" fill-opacity="0.8"/>
+
+  <!-- Section 3: Concluding Prayer Ribbon -->
+  <rect x="20" y="156" width="260" height="32" rx="4" fill="#F1F5F9" stroke="#E2E8F0"/>
+  <rect x="28" y="162" width="70" height="5" rx="2.5" fill="#475569"/>
+  <rect x="28" y="171" width="230" height="4" rx="2" fill="#94A3B8"/>
+  <rect x="28" y="178" width="180" height="4" rx="2" fill="#94A3B8"/>
+</svg>

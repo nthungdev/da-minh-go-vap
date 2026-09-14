@@ -7,6 +7,8 @@ const GospelReflectionCardBlock: Block = {
     singular: "Suy Niệm Lời Chúa - Thẻ Tích Hợp",
     plural: "Suy Niệm Lời Chúa - Thẻ Tích Hợp",
   },
+  imageURL: "/svgs/template-previews/gospel-reflection-card.svg",
+  imageAltText: "Thẻ suy niệm tích hợp podcast Spotify và Lời Chúa",
   interfaceName: "GospelReflectionCardBlock",
   fields: [
     {
