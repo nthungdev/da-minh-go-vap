@@ -1,6 +1,12 @@
 import { locales } from "@/i18n/config";
 import { Post } from "@/payload-types";
-import markdownField from "@/payload/fields/markdown";
+import { pageBlocks } from "@/payload/blocks";
+import { postTemplates } from "@/payload/blocks/post-templates";
+import {
+  markdownField,
+  publishedAtField,
+  videoSourceFields,
+} from "@/payload/fields";
 import { postsReadAccess } from "@/payload/utils/access-control";
 import { buildPostPreviewUrl } from "@/payload/utils/config";
 import { slugify } from "@/payload/utils/data";
@@ -86,32 +92,80 @@ const Posts: CollectionConfig = {
                   required: true,
                   localized: true,
                 },
-                {
-                  name: "type",
-                  type: "select",
-                  required: true,
-                  options: [
-                    { label: "Youtube", value: "youtube" },
-                    { label: "Facebook", value: "facebook" },
-                  ],
-                },
-                {
-                  name: "videoId",
-                  type: "text",
-                  label: "Video ID",
-                  required: true,
-                  admin: {
-                    description:
-                      "Ví dụ với YouTube, URL là https://www.youtube.com/watch?v=GnX7TN3uo5g thì Video ID là GnX7TN3uo5g. Với Facebook, URL là https://www.facebook.com/watch/?v=123456789 thì Video ID là 123456789.",
+                ...videoSourceFields({
+                  selectOverrides: {
+                    options: [
+                      { label: "Youtube", value: "youtube" },
+                      { label: "Facebook", value: "facebook" },
+                    ],
                   },
-                },
+                  videoIdOverrides: {
+                    admin: {
+                      description:
+                        "Ví dụ với YouTube, URL là https://www.youtube.com/watch?v=GnX7TN3uo5g thì Video ID là GnX7TN3uo5g. Với Facebook, URL là https://www.facebook.com/watch/?v=123456789 thì Video ID là 123456789.",
+                    },
+                  },
+                }),
               ],
+            },
+            {
+              name: "contentMode",
+              type: "radio",
+              label: "Chế độ nội dung",
+              defaultValue: "markdown",
+              options: [
+                { label: "Văn bản thường (Markdown)", value: "markdown" },
+                { label: "Mẫu định dạng sẵn (Template)", value: "template" },
+                { label: "Ghép khối tự do (Blocks)", value: "blocks" },
+              ],
+              admin: {
+                layout: "horizontal",
+              },
+            },
+            {
+              name: "template",
+              type: "blocks",
+              label: "Mẫu giao diện bài viết",
+              maxRows: 1,
+              admin: {
+                condition: (_, siblingData) =>
+                  siblingData?.contentMode === "template",
+                description:
+                  "Chọn 1 mẫu giao diện phù hợp để nhập nội dung theo cấu trúc.",
+              },
+              blocks: postTemplates,
+            },
+            {
+              name: "contentBlocks",
+              type: "blocks",
+              label: "Các khối nội dung tự do",
+              admin: {
+                condition: (_, siblingData) =>
+                  siblingData?.contentMode === "blocks",
+                description: "Tự do ghép các khối nội dung theo nhu cầu.",
+              },
+              blocks: pageBlocks,
             },
             markdownField({
               name: "body",
               label: "Nội dung",
-              required: true,
+              required: false,
               localized: true,
+              admin: {
+                condition: (_, siblingData) =>
+                  !siblingData?.contentMode ||
+                  siblingData?.contentMode === "markdown",
+              },
+              validate: (value, { siblingData }) => {
+                const data = siblingData as Partial<Post> | undefined;
+                if (
+                  (!data?.contentMode || data?.contentMode === "markdown") &&
+                  !value
+                ) {
+                  return "Vui lòng nhập nội dung bài viết";
+                }
+                return true;
+              },
             }),
             {
               type: "text",
@@ -183,17 +237,7 @@ const Posts: CollectionConfig = {
             beforeDuplicate: [duplicateSlug],
           },
         },
-        {
-          name: "publishedAt",
-          type: "date",
-          label: "Thời gian công bố",
-          required: true,
-          admin: {
-            date: {
-              pickerAppearance: "dayAndTime",
-            },
-          },
-        },
+        publishedAtField(),
         {
           name: "requireHttpBasicAuth",
           label: "Bảo mật trang",
