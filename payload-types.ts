@@ -346,8 +346,37 @@ export interface Page {
   showBannersDecorativeGraphic?: boolean | null;
   beforeMain?:
     | (
-        | AccordionContentBlock
-        | BibleVerseBlock
+        | {
+            items: {
+              title: string;
+              content: string;
+              children?:
+                | {
+                    title: string;
+                    content: string;
+                    children?:
+                      | {
+                          title: string;
+                          content: string;
+                          id?: string | null;
+                        }[]
+                      | null;
+                    id?: string | null;
+                  }[]
+                | null;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'accordionContentBlock';
+          }
+        | {
+            verse: string;
+            reference: string;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'bibleVerseBlock';
+          }
         | {
             desktopImage: string | Media;
             mobileImage: string | Media;
@@ -361,8 +390,21 @@ export interface Page {
             blockName?: string | null;
             blockType: 'imageBlock';
           }
-        | LatestPostGridBlock
-        | MapBlock
+        | {
+            /**
+             * Để cân xứng, chọn 5 nếu hiển thị trong layout 1 cột, 4 cho trong layout 2 cột.
+             */
+            postCount?: ('4' | '5') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'latestPostGridBlock';
+          }
+        | {
+            address: string;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'mapBlock';
+          }
         | {
             title: string;
             hidePostTitles: boolean;
@@ -386,15 +428,58 @@ export interface Page {
             blockName?: string | null;
             blockType: 'tabbedContentBlock';
           }
-        | TabbedPostGroupBlock
+        | {
+            title: string;
+            viewMoreButton: {
+              enableViewMoreButton: boolean;
+              relativeUrl?: (string | null) | Page;
+            };
+            tabs?:
+              | {
+                  title: string;
+                  hiddenTags: (string | HiddenTag)[];
+                  limit: number;
+                  viewMoreButton: {
+                    enableViewMoreButton: boolean;
+                    relativeUrl?: (string | null) | Page;
+                  };
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'tabbedPostGroupBlock';
+          }
         | {
             content: string;
             id?: string | null;
             blockName?: string | null;
             blockType: 'textBlock';
           }
-        | TimelineBlock
-        | VideoGridBlock
+        | {
+            title: string;
+            items: {
+              title: string;
+              description?: string | null;
+              thumbnail: string | Media;
+              link?: (string | null) | Page;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'timelineBlock';
+          }
+        | {
+            videos: {
+              title: string;
+              type: 'youtube' | 'facebook';
+              url: string;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'videoGridBlock';
+          }
         | {
             size: number;
             id?: string | null;
@@ -407,20 +492,94 @@ export interface Page {
             blockName?: string | null;
             blockType: 'quoteBlock';
           }
-        | SpotifyPodcastList
+        | {
+            /**
+             * Số lượng podcast hiển thị trên một trang.
+             */
+            pageSize?: number | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'spotifyPodcastList';
+          }
       )[]
     | null;
   aside?:
     | (
-        | DynamicImageBlock
-        | ImageBlock
-        | ImageSlideShowBlock
-        | PostGroupBlock
-        | TabbedContentBlock
-        | TextBlock
-        | SpaceBlock
-        | QuoteBlock
-        | LinksBlock
+        | {
+            desktopImage: string | Media;
+            mobileImage: string | Media;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'dynamicImageBlock';
+          }
+        | {
+            image: string | Media;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'imageBlock';
+          }
+        | {
+            images: (string | Media)[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'imageSlideshowBlock';
+          }
+        | {
+            title: string;
+            hidePostTitles: boolean;
+            hiddenTags: (string | HiddenTag)[];
+            limit?: number | null;
+            viewMoreButton: {
+              enableViewMoreButton: boolean;
+            };
+            displayType: 'grid' | 'list';
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'postGroupBlock';
+          }
+        | {
+            tabs: {
+              title: string;
+              content: string;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'tabbedContentBlock';
+          }
+        | {
+            content: string;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'textBlock';
+          }
+        | {
+            size: number;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'spaceBlock';
+          }
+        | {
+            content: string;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'quoteBlock';
+          }
+        | {
+            title: string;
+            links: {
+              title: string;
+              url: string;
+              /**
+               * Hình ảnh hiển thị để bấm vào mở liên kết. Hình ảnh sẽ được hiển thị trong khung tỷ lệ 4:1.
+               */
+              image: string | Media;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'linksBlock';
+          }
       )[]
     | null;
   seo?: {
@@ -436,6 +595,333 @@ export interface Page {
   };
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "posts".
+ */
+export interface Post {
+  id: string;
+  title: string;
+  hideTitle?: boolean | null;
+  hiddenTags: (string | HiddenTag)[];
+  thumbnail: string | Media;
+  videos?:
+    | {
+        title: string;
+        type: 'youtube' | 'facebook';
+        /**
+         * Ví dụ với YouTube, URL là https://www.youtube.com/watch?v=GnX7TN3uo5g thì Video ID là GnX7TN3uo5g. Với Facebook, URL là https://www.facebook.com/watch/?v=123456789 thì Video ID là 123456789.
+         */
+        videoId: string;
+        id?: string | null;
+      }[]
+    | null;
+  contentMode?: ('markdown' | 'template' | 'blocks') | null;
+  /**
+   * Chọn 1 mẫu giao diện phù hợp để nhập nội dung theo cấu trúc.
+   */
+  template?:
+    | (
+        | GospelReflectionSplitBlock
+        | GospelReflectionCardBlock
+        | SaintBiographyBlock
+        | VerticalVideoPrayerBlock
+        | NewsArticleFeaturedBlock
+        | EventGalleryReportBlock
+        | CatechismQASeriesBlock
+        | KidsBibleStoryBlock
+        | ParableLifeLessonBlock
+        | BilingualQuoteCardBlock
+        | DominicanSpiritualityBlock
+      )[]
+    | null;
+  /**
+   * Tự do ghép các khối nội dung theo nhu cầu.
+   */
+  contentBlocks?:
+    | (
+        | AccordionContentBlock
+        | BibleVerseBlock
+        | DynamicImageBlock
+        | ImageBlock
+        | ImageSlideShowBlock
+        | LatestPostGridBlock
+        | LinksBlock
+        | MapBlock
+        | PostGroupBlock
+        | QuoteBlock
+        | SpaceBlock
+        | SpotifyPodcastList
+        | TabbedContentBlock
+        | TabbedPostGroupBlock
+        | TextBlock
+        | TimelineBlock
+        | VideoGridBlock
+      )[]
+    | null;
+  body?: string | null;
+  /**
+   * Chỉ điền 2-3 câu
+   */
+  shortBody?: string | null;
+  seo?: {
+    /**
+     * Dùng chung với tiêu đề của mục Nội Dung
+     */
+    title?: string | null;
+    /**
+     * Mô tả ngắn về bài viết
+     */
+    description?: string | null;
+    keywords?: string[] | null;
+  };
+  /**
+   * Can only use letters (a-z, A-Z), numbers (0-9), and dashes (-, _)
+   */
+  slug: string;
+  publishedAt: string;
+  /**
+   * Cần mật khẩu để truy cập bài viết này.
+   */
+  requireHttpBasicAuth?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "GospelReflectionSplitBlock".
+ */
+export interface GospelReflectionSplitBlock {
+  liturgyDate: string;
+  liturgyWeek: string;
+  keyVerse?: string | null;
+  reflection: string;
+  prayer?: string | null;
+  gospel: {
+    passage: string;
+    reading: string;
+    translationCredit?: string | null;
+  };
+  author?: string | null;
+  productionUnit?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'gospelReflectionSplit';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "GospelReflectionCardBlock".
+ */
+export interface GospelReflectionCardBlock {
+  liturgyMeta: string;
+  image?: (string | null) | Media;
+  /**
+   * Link bài podcast audio chia sẻ suy niệm trên Spotify.
+   */
+  spotifyUrl: string;
+  gospel?: {
+    reference?: string | null;
+    content?: string | null;
+  };
+  body: string;
+  author?: string | null;
+  audioReader?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'gospelReflectionCard';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SaintBiographyBlock".
+ */
+export interface SaintBiographyBlock {
+  saintName: string;
+  saintTitle: string;
+  feastDay: string;
+  portrait: string | Media;
+  mainContent: {
+    timeline: {
+      periodOrYear: string;
+      description: string;
+      id?: string | null;
+    }[];
+    virtues: {
+      title: string;
+      body: string;
+      id?: string | null;
+    }[];
+    prayer?: string | null;
+  };
+  references?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'saintBiography';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "VerticalVideoPrayerBlock".
+ */
+export interface VerticalVideoPrayerBlock {
+  video: {
+    type: 'youtube' | 'facebook';
+    videoId: string;
+  };
+  intentionPrayer: string;
+  scriptureAnchor?: {
+    verse?: string | null;
+    reference?: string | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'verticalVideoPrayer';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "NewsArticleFeaturedBlock".
+ */
+export interface NewsArticleFeaturedBlock {
+  featuredImage: string | Media;
+  imageCaption?: string | null;
+  imageAlignment: 'left' | 'right' | 'center';
+  content: string;
+  sourceName?: string | null;
+  sourceUrl?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'newsArticleFeatured';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "EventGalleryReportBlock".
+ */
+export interface EventGalleryReportBlock {
+  eventTitle: string;
+  eventSubtitle?: string | null;
+  sections: {
+    narrative?: string | null;
+    photos?:
+      | {
+          image: string | Media;
+          caption?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+    columns: '2' | '3' | '4';
+    id?: string | null;
+  }[];
+  credits?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'eventGalleryReport';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CatechismQASeriesBlock".
+ */
+export interface CatechismQASeriesBlock {
+  title: string;
+  introduction: string;
+  items: {
+    icon?: string | null;
+    title: string;
+    body: string;
+    id?: string | null;
+  }[];
+  credits?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'catechismQASeries';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "KidsBibleStoryBlock".
+ */
+export interface KidsBibleStoryBlock {
+  title: string;
+  subtitle: string;
+  summaryCard?: {
+    intro?: string | null;
+    takeaways?:
+      | {
+          text: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  content: string;
+  memoryQuote?: string | null;
+  credits?: {
+    presenter?: string | null;
+    productionUnit?: string | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'kidsBibleStory';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ParableLifeLessonBlock".
+ */
+export interface ParableLifeLessonBlock {
+  contents: {
+    type: 'body' | 'scripture' | 'callout';
+    content?: string | null;
+    verse?: string | null;
+    reference?: string | null;
+    id?: string | null;
+  }[];
+  translator?: string | null;
+  source?: {
+    name?: string | null;
+    url?: string | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'parableLifeLesson';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BilingualQuoteCardBlock".
+ */
+export interface BilingualQuoteCardBlock {
+  author: string;
+  source?: string | null;
+  original: {
+    language: string;
+    quote: string;
+    caption?: string | null;
+  };
+  translation: {
+    language: string;
+    quote: string;
+    caption?: string | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'bilingualQuoteCard';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "DominicanSpiritualityBlock".
+ */
+export interface DominicanSpiritualityBlock {
+  reflectionTitle: string;
+  theme?: string | null;
+  lead: string;
+  points: {
+    symbol?: string | null;
+    title: string;
+    content: string;
+    highlightQuote?: string | null;
+    id?: string | null;
+  }[];
+  closingPrayer?: string | null;
+  author: string;
+  authorAffiliation?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'dominicanSpirituality';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -478,6 +964,37 @@ export interface BibleVerseBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "DynamicImageBlock".
+ */
+export interface DynamicImageBlock {
+  desktopImage: string | Media;
+  mobileImage: string | Media;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'dynamicImageBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ImageBlock".
+ */
+export interface ImageBlock {
+  image: string | Media;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'imageBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ImageSlideShowBlock".
+ */
+export interface ImageSlideShowBlock {
+  images: (string | Media)[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'imageSlideshowBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "LatestPostGridBlock".
  */
 export interface LatestPostGridBlock {
@@ -491,6 +1008,25 @@ export interface LatestPostGridBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LinksBlock".
+ */
+export interface LinksBlock {
+  title: string;
+  links: {
+    title: string;
+    url: string;
+    /**
+     * Hình ảnh hiển thị để bấm vào mở liên kết. Hình ảnh sẽ được hiển thị trong khung tỷ lệ 4:1.
+     */
+    image: string | Media;
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'linksBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "MapBlock".
  */
 export interface MapBlock {
@@ -498,6 +1034,70 @@ export interface MapBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'mapBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PostGroupBlock".
+ */
+export interface PostGroupBlock {
+  title: string;
+  hidePostTitles: boolean;
+  hiddenTags: (string | HiddenTag)[];
+  limit?: number | null;
+  viewMoreButton: {
+    enableViewMoreButton: boolean;
+  };
+  displayType: 'grid' | 'list';
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'postGroupBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "QuoteBlock".
+ */
+export interface QuoteBlock {
+  content: string;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'quoteBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SpaceBlock".
+ */
+export interface SpaceBlock {
+  size: number;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'spaceBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SpotifyPodcastList".
+ */
+export interface SpotifyPodcastList {
+  /**
+   * Số lượng podcast hiển thị trên một trang.
+   */
+  pageSize?: number | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'spotifyPodcastList';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TabbedContentBlock".
+ */
+export interface TabbedContentBlock {
+  tabs: {
+    title: string;
+    content: string;
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'tabbedContentBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -524,6 +1124,16 @@ export interface TabbedPostGroupBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'tabbedPostGroupBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TextBlock".
+ */
+export interface TextBlock {
+  content: string;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'textBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -556,179 +1166,6 @@ export interface VideoGridBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'videoGridBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "SpotifyPodcastList".
- */
-export interface SpotifyPodcastList {
-  /**
-   * Số lượng podcast hiển thị trên một trang.
-   */
-  pageSize?: number | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'spotifyPodcastList';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "DynamicImageBlock".
- */
-export interface DynamicImageBlock {
-  desktopImage: string | Media;
-  mobileImage: string | Media;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'dynamicImageBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ImageBlock".
- */
-export interface ImageBlock {
-  image: string | Media;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'imageBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ImageSlideShowBlock".
- */
-export interface ImageSlideShowBlock {
-  images: (string | Media)[];
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'imageSlideshowBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "PostGroupBlock".
- */
-export interface PostGroupBlock {
-  title: string;
-  hidePostTitles: boolean;
-  hiddenTags: (string | HiddenTag)[];
-  limit?: number | null;
-  viewMoreButton: {
-    enableViewMoreButton: boolean;
-  };
-  displayType: 'grid' | 'list';
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'postGroupBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "TabbedContentBlock".
- */
-export interface TabbedContentBlock {
-  tabs: {
-    title: string;
-    content: string;
-    id?: string | null;
-  }[];
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'tabbedContentBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "TextBlock".
- */
-export interface TextBlock {
-  content: string;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'textBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "SpaceBlock".
- */
-export interface SpaceBlock {
-  size: number;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'spaceBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "QuoteBlock".
- */
-export interface QuoteBlock {
-  content: string;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'quoteBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "LinksBlock".
- */
-export interface LinksBlock {
-  title: string;
-  links: {
-    title: string;
-    url: string;
-    /**
-     * Hình ảnh hiển thị để bấm vào mở liên kết. Hình ảnh sẽ được hiển thị trong khung tỷ lệ 4:1.
-     */
-    image: string | Media;
-    id?: string | null;
-  }[];
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'linksBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "posts".
- */
-export interface Post {
-  id: string;
-  title: string;
-  hideTitle?: boolean | null;
-  hiddenTags: (string | HiddenTag)[];
-  thumbnail: string | Media;
-  videos?:
-    | {
-        title: string;
-        type: 'youtube' | 'facebook';
-        /**
-         * Ví dụ với YouTube, URL là https://www.youtube.com/watch?v=GnX7TN3uo5g thì Video ID là GnX7TN3uo5g. Với Facebook, URL là https://www.facebook.com/watch/?v=123456789 thì Video ID là 123456789.
-         */
-        videoId: string;
-        id?: string | null;
-      }[]
-    | null;
-  body: string;
-  /**
-   * Chỉ điền 2-3 câu
-   */
-  shortBody?: string | null;
-  seo?: {
-    /**
-     * Dùng chung với tiêu đề của mục Nội Dung
-     */
-    title?: string | null;
-    /**
-     * Mô tả ngắn về bài viết
-     */
-    description?: string | null;
-    keywords?: string[] | null;
-  };
-  /**
-   * Can only use letters (a-z, A-Z), numbers (0-9), and dashes (-, _)
-   */
-  slug: string;
-  publishedAt: string;
-  /**
-   * Cần mật khẩu để truy cập bài viết này.
-   */
-  requireHttpBasicAuth?: boolean | null;
-  updatedAt: string;
-  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1217,6 +1654,43 @@ export interface PostsSelect<T extends boolean = true> {
         videoId?: T;
         id?: T;
       };
+  contentMode?: T;
+  template?:
+    | T
+    | {
+        gospelReflectionSplit?: T | GospelReflectionSplitBlockSelect<T>;
+        gospelReflectionCard?: T | GospelReflectionCardBlockSelect<T>;
+        saintBiography?: T | SaintBiographyBlockSelect<T>;
+        verticalVideoPrayer?: T | VerticalVideoPrayerBlockSelect<T>;
+        newsArticleFeatured?: T | NewsArticleFeaturedBlockSelect<T>;
+        eventGalleryReport?: T | EventGalleryReportBlockSelect<T>;
+        catechismQASeries?: T | CatechismQASeriesBlockSelect<T>;
+        kidsBibleStory?: T | KidsBibleStoryBlockSelect<T>;
+        parableLifeLesson?: T | ParableLifeLessonBlockSelect<T>;
+        bilingualQuoteCard?: T | BilingualQuoteCardBlockSelect<T>;
+        dominicanSpirituality?: T | DominicanSpiritualityBlockSelect<T>;
+      };
+  contentBlocks?:
+    | T
+    | {
+        accordionContentBlock?: T | AccordionContentBlockSelect<T>;
+        bibleVerseBlock?: T | BibleVerseBlockSelect<T>;
+        dynamicImageBlock?: T | DynamicImageBlockSelect<T>;
+        imageBlock?: T | ImageBlockSelect<T>;
+        imageSlideshowBlock?: T | ImageSlideShowBlockSelect<T>;
+        latestPostGridBlock?: T | LatestPostGridBlockSelect<T>;
+        linksBlock?: T | LinksBlockSelect<T>;
+        mapBlock?: T | MapBlockSelect<T>;
+        postGroupBlock?: T | PostGroupBlockSelect<T>;
+        quoteBlock?: T | QuoteBlockSelect<T>;
+        spaceBlock?: T | SpaceBlockSelect<T>;
+        spotifyPodcastList?: T | SpotifyPodcastListSelect<T>;
+        tabbedContentBlock?: T | TabbedContentBlockSelect<T>;
+        tabbedPostGroupBlock?: T | TabbedPostGroupBlockSelect<T>;
+        textBlock?: T | TextBlockSelect<T>;
+        timelineBlock?: T | TimelineBlockSelect<T>;
+        videoGridBlock?: T | VideoGridBlockSelect<T>;
+      };
   body?: T;
   shortBody?: T;
   seo?:
@@ -1231,6 +1705,259 @@ export interface PostsSelect<T extends boolean = true> {
   requireHttpBasicAuth?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "GospelReflectionSplitBlock_select".
+ */
+export interface GospelReflectionSplitBlockSelect<T extends boolean = true> {
+  liturgyDate?: T;
+  liturgyWeek?: T;
+  keyVerse?: T;
+  reflection?: T;
+  prayer?: T;
+  gospel?:
+    | T
+    | {
+        passage?: T;
+        reading?: T;
+        translationCredit?: T;
+      };
+  author?: T;
+  productionUnit?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "GospelReflectionCardBlock_select".
+ */
+export interface GospelReflectionCardBlockSelect<T extends boolean = true> {
+  liturgyMeta?: T;
+  image?: T;
+  spotifyUrl?: T;
+  gospel?:
+    | T
+    | {
+        reference?: T;
+        content?: T;
+      };
+  body?: T;
+  author?: T;
+  audioReader?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SaintBiographyBlock_select".
+ */
+export interface SaintBiographyBlockSelect<T extends boolean = true> {
+  saintName?: T;
+  saintTitle?: T;
+  feastDay?: T;
+  portrait?: T;
+  mainContent?:
+    | T
+    | {
+        timeline?:
+          | T
+          | {
+              periodOrYear?: T;
+              description?: T;
+              id?: T;
+            };
+        virtues?:
+          | T
+          | {
+              title?: T;
+              body?: T;
+              id?: T;
+            };
+        prayer?: T;
+      };
+  references?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "VerticalVideoPrayerBlock_select".
+ */
+export interface VerticalVideoPrayerBlockSelect<T extends boolean = true> {
+  video?:
+    | T
+    | {
+        type?: T;
+        videoId?: T;
+      };
+  intentionPrayer?: T;
+  scriptureAnchor?:
+    | T
+    | {
+        verse?: T;
+        reference?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "NewsArticleFeaturedBlock_select".
+ */
+export interface NewsArticleFeaturedBlockSelect<T extends boolean = true> {
+  featuredImage?: T;
+  imageCaption?: T;
+  imageAlignment?: T;
+  content?: T;
+  sourceName?: T;
+  sourceUrl?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "EventGalleryReportBlock_select".
+ */
+export interface EventGalleryReportBlockSelect<T extends boolean = true> {
+  eventTitle?: T;
+  eventSubtitle?: T;
+  sections?:
+    | T
+    | {
+        narrative?: T;
+        photos?:
+          | T
+          | {
+              image?: T;
+              caption?: T;
+              id?: T;
+            };
+        columns?: T;
+        id?: T;
+      };
+  credits?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CatechismQASeriesBlock_select".
+ */
+export interface CatechismQASeriesBlockSelect<T extends boolean = true> {
+  title?: T;
+  introduction?: T;
+  items?:
+    | T
+    | {
+        icon?: T;
+        title?: T;
+        body?: T;
+        id?: T;
+      };
+  credits?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "KidsBibleStoryBlock_select".
+ */
+export interface KidsBibleStoryBlockSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  summaryCard?:
+    | T
+    | {
+        intro?: T;
+        takeaways?:
+          | T
+          | {
+              text?: T;
+              id?: T;
+            };
+      };
+  content?: T;
+  memoryQuote?: T;
+  credits?:
+    | T
+    | {
+        presenter?: T;
+        productionUnit?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ParableLifeLessonBlock_select".
+ */
+export interface ParableLifeLessonBlockSelect<T extends boolean = true> {
+  contents?:
+    | T
+    | {
+        type?: T;
+        content?: T;
+        verse?: T;
+        reference?: T;
+        id?: T;
+      };
+  translator?: T;
+  source?:
+    | T
+    | {
+        name?: T;
+        url?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BilingualQuoteCardBlock_select".
+ */
+export interface BilingualQuoteCardBlockSelect<T extends boolean = true> {
+  author?: T;
+  source?: T;
+  original?:
+    | T
+    | {
+        language?: T;
+        quote?: T;
+        caption?: T;
+      };
+  translation?:
+    | T
+    | {
+        language?: T;
+        quote?: T;
+        caption?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "DominicanSpiritualityBlock_select".
+ */
+export interface DominicanSpiritualityBlockSelect<T extends boolean = true> {
+  reflectionTitle?: T;
+  theme?: T;
+  lead?: T;
+  points?:
+    | T
+    | {
+        symbol?: T;
+        title?: T;
+        content?: T;
+        highlightQuote?: T;
+        id?: T;
+      };
+  closingPrayer?: T;
+  author?: T;
+  authorAffiliation?: T;
+  id?: T;
+  blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

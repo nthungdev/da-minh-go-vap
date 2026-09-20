@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 200" width="300" height="200" fill="none">
+  <!-- Background -->
+  <rect width="300" height="200" rx="8" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="2"/>
+  
+  <!-- Header / Liturgy Date Badge -->
+  <rect x="16" y="14" width="120" height="12" rx="6" fill="#3B82F6" fill-opacity="0.15"/>
+  <rect x="22" y="17" width="80" height="6" rx="3" fill="#2563EB"/>
+  <rect x="142" y="14" width="70" height="12" rx="6" fill="#E2E8F0"/>
+  
+  <!-- Key Verse Banner -->
+  <rect x="16" y="32" width="268" height="18" rx="4" fill="#FEF3C7" stroke="#FDE68A"/>
+  <rect x="24" y="38" width="180" height="6" rx="3" fill="#D97706"/>
+
+  <!-- Main 2-Column Split -->
+  <!-- Left Col: Reflection (60%) -->
+  <rect x="16" y="56" width="162" height="98" rx="6" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <rect x="24" y="64" width="60" height="7" rx="3.5" fill="#1E293B"/>
+  <rect x="24" y="77" width="146" height="4" rx="2" fill="#94A3B8"/>
+  <rect x="24" y="85" width="138" height="4" rx="2" fill="#94A3B8"/>
+  <rect x="24" y="93" width="142" height="4" rx="2" fill="#94A3B8"/>
+  <rect x="24" y="101" width="120" height="4" rx="2" fill="#94A3B8"/>
+  <!-- Prayer Box inside left col -->
+  <rect x="24" y="112" width="146" height="34" rx="4" fill="#F1F5F9"/>
+  <rect x="30" y="118" width="50" height="5" rx="2.5" fill="#64748B"/>
+  <rect x="30" y="127" width="134" height="4" rx="2" fill="#CBD5E1"/>
+  <rect x="30" y="135" width="110" height="4" rx="2" fill="#CBD5E1"/>
+
+  <!-- Right Col: Gospel Reading (40%) -->
+  <rect x="184" y="56" width="100" height="98" rx="6" fill="#FFFBEB" stroke="#FCD34D"/>
+  <rect x="192" y="64" width="50" height="7" rx="3.5" fill="#B45309"/>
+  <rect x="192" y="75" width="84" height="4" rx="2" fill="#D97706" fill-opacity="0.7"/>
+  <rect x="192" y="83" width="80" height="4" rx="2" fill="#D97706" fill-opacity="0.7"/>
+  <rect x="192" y="91" width="84" height="4" rx="2" fill="#D97706" fill-opacity="0.7"/>
+  <rect x="192" y="99" width="76" height="4" rx="2" fill="#D97706" fill-opacity="0.7"/>
+  <rect x="192" y="107" width="80" height="4" rx="2" fill="#D97706" fill-opacity="0.7"/>
+  <rect x="192" y="115" width="60" height="4" rx="2" fill="#D97706" fill-opacity="0.7"/>
+  <!-- Translation Credit -->
+  <rect x="192" y="136" width="75" height="10" rx="3" fill="#FEF3C7"/>
+
+  <!-- Bottom Footer / Author & Unit -->
+  <rect x="16" y="162" width="90" height="12" rx="4" fill="#E2E8F0"/>
+  <rect x="112" y="162" width="110" height="12" rx="4" fill="#E2E8F0"/>
+</svg>

@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 200" width="300" height="200" fill="none">
+  <!-- Background -->
+  <rect width="300" height="200" rx="8" fill="#FFFBEB" stroke="#FDE68A" stroke-width="2"/>
+  
+  <!-- Playful Header: Kids Badge + Title -->
+  <rect x="20" y="14" width="85" height="14" rx="7" fill="#F59E0B"/>
+  <circle cx="28" cy="21" r="3" fill="#FFFFFF"/>
+  <rect x="36" y="18" width="60" height="6" rx="3" fill="#FFFFFF"/>
+  <rect x="20" y="34" width="160" height="8" rx="4" fill="#78350F"/>
+  <rect x="20" y="46" width="200" height="4" rx="2" fill="#B45309"/>
+
+  <!-- Summary Card ("Bé Ghi Nhớ") -->
+  <rect x="20" y="58" width="260" height="50" rx="8" fill="#FFFFFF" stroke="#FCD34D" stroke-width="1.5"/>
+  <rect x="30" y="66" width="80" height="6" rx="3" fill="#D97706"/>
+  <!-- Bullet 1 -->
+  <circle cx="34" cy="80" r="3" fill="#10B981"/>
+  <rect x="42" y="78" width="220" height="4" rx="2" fill="#64748B"/>
+  <!-- Bullet 2 -->
+  <circle cx="34" cy="94" r="3" fill="#10B981"/>
+  <rect x="42" y="92" width="190" height="4" rx="2" fill="#64748B"/>
+
+  <!-- Story Content Paragraphs -->
+  <rect x="20" y="116" width="260" height="4" rx="2" fill="#451A03"/>
+  <rect x="20" y="124" width="245" height="4" rx="2" fill="#78350F" fill-opacity="0.8"/>
+  <rect x="20" y="132" width="255" height="4" rx="2" fill="#78350F" fill-opacity="0.8"/>
+
+  <!-- Memory Quote Ribbon ("Câu Vàng") -->
+  <rect x="20" y="144" width="260" height="28" rx="6" fill="#FEF3C7" stroke="#F59E0B" stroke-dasharray="3 3"/>
+  <!-- Star icon -->
+  <polygon points="34,152 36,157 41,157 37,160 39,165 34,162 29,165 31,160 27,157 32,157" fill="#F59E0B"/>
+  <rect x="48" y="152" width="180" height="4" rx="2" fill="#B45309"/>
+  <rect x="48" y="160" width="140" height="4" rx="2" fill="#D97706"/>
+
+  <!-- Presenter & Unit Credits -->
+  <rect x="20" y="180" width="80" height="10" rx="3" fill="#FDE68A"/>
+  <rect x="105" y="180" width="110" height="10" rx="3" fill="#FDE68A"/>
+</svg>

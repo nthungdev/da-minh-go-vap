@@ -6,6 +6,9 @@ import VideoIframe from "@/components/app-video-iframe";
 import AppPostGridPaginated from "@/components/app-post-grid-async-paginated";
 import AppPage from "@/components/app-page";
 import AppMarkdown from "@/components/app-markdown";
+import PostTemplateRenderer from "@/components/post-templates";
+import BlocksRenderer from "@/components/blocks-renderer";
+import { BlockType } from "@/definitions";
 import { fetchPostBySlug } from "@/actions/post";
 import { getDataOrUndefined } from "@/payload/utils/data";
 import ShareToolbar from "@/components/share-toolbar";
@@ -111,7 +114,17 @@ export default async function Page(props: {
         </div>
       )}
 
-      <AppMarkdown className="mt-8">{post.body}</AppMarkdown>
+      {post.contentMode === "template" && post.template?.[0] ? (
+        <div className="mt-8">
+          <PostTemplateRenderer block={post.template[0]} />
+        </div>
+      ) : post.contentMode === "blocks" && post.contentBlocks?.length ? (
+        <div className="mt-8">
+          <BlocksRenderer blocks={post.contentBlocks as BlockType[]} />
+        </div>
+      ) : (
+        <AppMarkdown className="mt-8">{post.body}</AppMarkdown>
+      )}
 
       {publicTags.length > 0 && (
         <PublicTagList className="mt-6" tags={publicTags} />

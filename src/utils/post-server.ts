@@ -1,5 +1,5 @@
 // Comment this line before running pnpm generate
-import "server-only";
+// import "server-only";
 
 import { getPayload, PaginatedDocs, Where } from "payload";
 import config from "@payload-config";
