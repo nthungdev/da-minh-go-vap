@@ -59,7 +59,7 @@
     "next": "15.5.24",
     "next-intl": "^4.3.9",
     "normalize-text": "^2.6.0",
-    "payload": "~3.78.0",
+    "payload": "~3.89.0",
     "preline": "~3.2.3",
     "react": "19.2.3",
     "react-dom": "19.2.3",
