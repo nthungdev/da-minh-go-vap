@@ -62,11 +62,7 @@ export default async function RootLayout({
   return (
     <html lang={locale} className={cn(nunito.className)}>
       <PrelineScriptWrapper />
-      <body
-        className={cn(
-          "relative flex min-h-screen w-full flex-col bg-white",
-        )}
-      >
+      <body className={cn("relative flex min-h-screen w-full flex-col bg-white")}>
         <NextIntlClientProvider>
           <ScrollToTopButton />
           <TheNavbar className="sticky top-0 z-50 w-full" />
