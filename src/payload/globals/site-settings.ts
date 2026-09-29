@@ -55,6 +55,20 @@ const SiteSettings: GlobalConfig = {
               },
             },
           ],
+        {
+          label: "Bảo Mật",
+          fields: [
+            {
+              name: "lockSite",
+              label: "Khóa toàn bộ website (HTTP Basic Auth)",
+              type: "checkbox",
+              defaultValue: false,
+              admin: {
+                description:
+                  "Khi bật, người dùng cần đăng nhập HTTP Basic Auth để truy cập toàn bộ website (trừ admin và API).",
+              },
+            },
+          ],
         },
       ],
     },
