@@ -24,9 +24,7 @@ export function extractYoutubeId(urlOrId: string): string {
   if (!urlOrId) return "";
 
   // Check for shorts: https://www.youtube.com/shorts/<id>
-  const shortsMatch = urlOrId.match(
-    /youtube\.com\/shorts\/([a-zA-Z0-9_-]+)/,
-  );
+  const shortsMatch = urlOrId.match(/youtube\.com\/shorts\/([a-zA-Z0-9_-]+)/);
   if (shortsMatch?.[1]) return shortsMatch[1];
 
   // Check for standard watch: https://www.youtube.com/watch?v=<id>
@@ -38,9 +36,7 @@ export function extractYoutubeId(urlOrId: string): string {
   if (shortUrlMatch?.[1]) return shortUrlMatch[1];
 
   // Check for embed: https://www.youtube.com/embed/<id>
-  const embedMatch = urlOrId.match(
-    /youtube\.com\/embed\/([a-zA-Z0-9_-]+)/,
-  );
+  const embedMatch = urlOrId.match(/youtube\.com\/embed\/([a-zA-Z0-9_-]+)/);
   if (embedMatch?.[1]) return embedMatch[1];
 
   // Otherwise assume it is already a video ID
@@ -83,6 +79,9 @@ export default function VideoGrid({
           const isShort = isYoutubeShort(video.url);
           const youtubeId =
             video.type === "youtube" ? extractYoutubeId(video.url) : null;
+          const facebookSrc = `https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(
+            video.url,
+          )}&show_text=0`;
 
           return (
             <div
@@ -109,9 +108,7 @@ export default function VideoGrid({
                 ) : video.type === "facebook" ? (
                   <iframe
                     className="h-full w-full border-0"
-                    src={`https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(
-                      video.url,
-                    )}&show_text=0`}
+                    src={facebookSrc}
                     title={video.title}
                     allow="encrypted-media"
                     allowFullScreen
