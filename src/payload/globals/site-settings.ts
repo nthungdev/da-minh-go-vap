@@ -55,6 +55,7 @@ const SiteSettings: GlobalConfig = {
               },
             },
           ],
+        },
         {
           label: "Bảo Mật",
           fields: [
