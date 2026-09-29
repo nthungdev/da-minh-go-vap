@@ -18,7 +18,7 @@ export function transformUrl(
     .map(([key, value]) => `${key}=${value}`)
     .join(",");
 
-  const cdnHost = tenantConfig.cdnHost;
+  const cdnHost = tenantConfig.cdnHost.replace(/\/+$/, "");
   const transformUrl = `${cdnHost}/cdn-cgi/image/${optionsString}/${filename}`;
   return transformUrl;
 }
