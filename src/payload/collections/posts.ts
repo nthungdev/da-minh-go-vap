@@ -225,7 +225,15 @@ async function updateFuse({
   });
 }
 
+/**
+ * Safely prepends [Duplicate] to the title only if an original title exists for that locale.
+ * If the source document did not define a title for this locale (e.g. secondary locale left empty),
+ * it returns undefined instead of forcing '[Duplicate] undefined'.
+ */
 function duplicateTitle({ value }: FieldHookArgs): ReturnType<FieldHook> {
+  if (!value || typeof value !== "string" || value.trim() === "") {
+    return undefined;
+  }
   return `[Duplicate] ${value}`;
 }
 
@@ -237,6 +245,9 @@ function autoGenerateSlug({ value, siblingData }: FieldHookArgs) {
 }
 
 function duplicateSlug({ value }: FieldHookArgs): ReturnType<FieldHook> {
+  if (!value || typeof value !== "string") {
+    return value;
+  }
   const characters = 4;
   const uniqueSuffix = Math.random().toString(36).slice(-characters);
   return `${value}-${uniqueSuffix}`;
