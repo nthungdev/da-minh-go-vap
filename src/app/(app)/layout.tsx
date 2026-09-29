@@ -7,7 +7,8 @@ import { getSiteSettings } from "@/payload/utils/site-settings-server";
 import { getServerOrigin } from "@/utils/url";
 import { getLocale } from "next-intl/server";
 import { Nunito } from "next/font/google";
-import { twMerge } from "tailwind-merge";
+import { basicAuthGuard } from "@/utils/auth";
+import { cn } from "@/utils/common";
 import "./globals.css";
 import { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
@@ -49,15 +50,20 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const locale = await getLocale();
+  const [locale, siteSettings] = await Promise.all([
+    getLocale(),
+    getSiteSettings(),
+  ]);
+
+  if ((siteSettings as { lockSite?: boolean })?.lockSite) {
+    await basicAuthGuard();
+  }
 
   return (
-    <html lang={locale} className={twMerge(nunito.className)}>
+    <html lang={locale} className={cn(nunito.className)}>
       <PrelineScriptWrapper />
       <body
-        className={twMerge(
-          "relative flex min-h-screen w-full flex-col bg-white",
-        )}
+        className={cn("relative flex min-h-screen w-full flex-col bg-white")}
       >
         <NextIntlClientProvider>
           <ScrollToTopButton />
