@@ -83,8 +83,12 @@ async function main() {
 
   console.log(`⏳ Running mongodump to ${localFilePath}...`);
   try {
-    const cmd = `mongodump --uri="${DB_URL}" --archive="${localFilePath}" --gzip`;
-    execSync(cmd, { stdio: "inherit" });
+    execSync(
+      `mongodump --uri="${DB_URL}" --archive="${localFilePath}" --gzip`,
+      {
+        stdio: "inherit",
+      },
+    );
   } catch (err) {
     console.error("❌ mongodump failed:", err.message);
     process.exit(1);
