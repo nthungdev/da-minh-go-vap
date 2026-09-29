@@ -14,12 +14,12 @@ Payload CMS supports programmatic migrations that track executed operations in t
 
 Run migrations using `pnpm`:
 
-| Action | Command | Description |
-| --- | --- | --- |
-| **Create Migration** | `pnpm migrate:create <name>` | Generates a new migration template in `src/migrations/` |
-| **Run Migrations** | `pnpm migrate` | Executes all pending migrations against the database |
-| **Check Status** | `pnpm migrate:status` | Displays pending vs applied migrations |
-| **Rollback Migration** | `pnpm migrate:down` | Rolls back the most recently applied batch of migrations |
+| Action                  | Command                      | Description                                             |
+| ----------------------- | ---------------------------- | ------------------------------------------------------- |
+| **Create Migration**    | `pnpm migrate:create <name>` | Generates a new migration template in `src/migrations/` |
+| **Run Migrations**      | `pnpm migrate`               | Executes all pending migrations against the database    |
+| **Check Status**        | `pnpm migrate:status`        | Displays pending vs applied migrations                  |
+| **Rollback Migration** | `pnpm migrate:down`          | Rolls back the most recently applied batch              |
 
 ---
 
