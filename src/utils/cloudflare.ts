@@ -1,3 +1,5 @@
+import tenantConfig from "@/config/tenant";
+
 /**
  * Transform Payload media url to Cloudflare image url.
  * Ref: https://developers.cloudflare.com/images/transform-images/transform-via-url
@@ -16,6 +18,7 @@ export function transformUrl(
     .map(([key, value]) => `${key}=${value}`)
     .join(",");
 
-  const transformUrl = `https://cdn.dongdaminhgovap.org/cdn-cgi/image/${optionsString}/${filename}`;
+  const cdnHost = tenantConfig.cdnHost.replace(/\/+$/, "");
+  const transformUrl = `${cdnHost}/cdn-cgi/image/${optionsString}/${filename}`;
   return transformUrl;
 }
