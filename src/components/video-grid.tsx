@@ -79,16 +79,11 @@ export default function VideoGrid({
           const isShort = isYoutubeShort(video.url);
           const youtubeId =
             video.type === "youtube" ? extractYoutubeId(video.url) : null;
-          const facebookSrc = `https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(
-            video.url,
-          )}&show_text=0`;
 
           return (
             <div
               key={video.id || `${video.url}-${index}`}
-              className={cn(
-                "group flex flex-col overflow-hidden rounded-xl border border-gray-100 bg-white shadow-sm transition hover:shadow-md",
-              )}
+              className="group flex flex-col overflow-hidden rounded-xl border border-gray-100 bg-white shadow-sm transition hover:shadow-md"
             >
               <div
                 className={cn(
@@ -108,7 +103,9 @@ export default function VideoGrid({
                 ) : video.type === "facebook" ? (
                   <iframe
                     className="h-full w-full border-0"
-                    src={facebookSrc}
+                    src={`https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(
+                      video.url,
+                    )}&show_text=0`}
                     title={video.title}
                     allow="encrypted-media"
                     allowFullScreen
