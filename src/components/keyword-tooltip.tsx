@@ -130,7 +130,7 @@ export default function KeywordTooltip({
             )}
 
             <span className="flex flex-col gap-1">
-              <span className="font-semibold leading-snug text-gray-900">
+              <span className="leading-snug font-semibold text-gray-900">
                 {title}
               </span>
               <span className="line-clamp-3 text-xs leading-relaxed text-gray-600">
@@ -142,7 +142,7 @@ export default function KeywordTooltip({
               <span className="mt-1 flex justify-end border-t border-gray-100 pt-1.5">
                 <Link
                   href={href}
-                  className="text-xs font-medium text-primary-600 hover:text-primary-700 hover:underline"
+                  className="text-primary-600 hover:text-primary-700 text-xs font-medium hover:underline"
                   onClick={(e) => e.stopPropagation()}
                 >
                   Xem thêm →
