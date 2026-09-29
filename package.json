@@ -30,7 +30,11 @@
     "generate:importmap": "cross-env NODE_OPTIONS=--no-deprecation payload generate:importmap",
     "generate:types": "cross-env NODE_OPTIONS=--no-deprecation payload generate:types",
     "generate": "pnpm run generate:importmap && pnpm run generate:types",
-    "payload": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts payload"
+    "payload": "cross-env PAYLOAD_CONFIG_PATH=payload.config.ts payload",
+    "migrate": "cross-env PAYLOAD_CONFIG_PATH=payload.config.ts payload migrate",
+    "migrate:create": "cross-env PAYLOAD_CONFIG_PATH=payload.config.ts payload migrate:create",
+    "migrate:status": "cross-env PAYLOAD_CONFIG_PATH=payload.config.ts payload migrate:status",
+    "migrate:down": "cross-env PAYLOAD_CONFIG_PATH=payload.config.ts payload migrate:down"
   },
   "dependencies": {
     "@base-ui/react": "^1.7.0",
