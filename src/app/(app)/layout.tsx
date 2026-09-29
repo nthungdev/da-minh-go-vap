@@ -15,6 +15,7 @@ import { NextIntlClientProvider } from "next-intl";
 const nunito = Nunito({
   subsets: ["vietnamese"],
   variable: "--font-nunito",
+  display: "swap",
 });
 
 export async function generateMetadata(): Promise<Metadata> {
