@@ -24,7 +24,7 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
     "lint:fix": "(eslint --fix . && npm run prettier:fix) || npm run prettier:fix",
-    "prettier": "prettier --write . && git diff",
+    "prettier": "prettier --check .",
     "prettier:fix": "prettier --write .",
     "reinstall": "cross-env NODE_OPTIONS=--no-deprecation rm -rf node_modules && rm pnpm-lock.yaml && pnpm --ignore-workspace install",
     "generate:importmap": "cross-env NODE_OPTIONS=--no-deprecation payload generate:importmap",
