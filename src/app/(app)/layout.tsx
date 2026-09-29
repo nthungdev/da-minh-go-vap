@@ -7,8 +7,8 @@ import { getSiteSettings } from "@/payload/utils/site-settings-server";
 import { getServerOrigin } from "@/utils/url";
 import { getLocale } from "next-intl/server";
 import { Nunito } from "next/font/google";
+import { twMerge } from "tailwind-merge";
 import { basicAuthGuard } from "@/utils/auth";
-import { cn } from "@/utils/common";
 import "./globals.css";
 import { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
@@ -60,9 +60,13 @@ export default async function RootLayout({
   }
 
   return (
-    <html lang={locale} className={cn(nunito.className)}>
+    <html lang={locale} className={twMerge(nunito.className)}>
       <PrelineScriptWrapper />
-      <body className={cn("relative flex min-h-screen w-full flex-col bg-white")}>
+      <body
+        className={twMerge(
+          "relative flex min-h-screen w-full flex-col bg-white",
+        )}
+      >
         <NextIntlClientProvider>
           <ScrollToTopButton />
           <TheNavbar className="sticky top-0 z-50 w-full" />
