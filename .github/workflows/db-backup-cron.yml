@@ -1,0 +1,51 @@
+name: Database Backup to S3 (Cron)
+
+on:
+  schedule:
+    # Runs daily at 02:00 UTC (09:00 AM UTC+7)
+    - cron: "0 2 * * *"
+  workflow_dispatch:
+    inputs:
+      prefix:
+        description: "Custom S3 storage prefix (default: backups/database/)"
+        required: false
+        default: "backups/database/"
+
+jobs:
+  backup:
+    name: Backup MongoDB to S3
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11.2.2
+
+      - name: Use Node.js 24
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: "pnpm"
+
+      - name: Install MongoDB Database Tools (mongodump)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y mongodb-database-tools
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run Database Backup to S3
+        env:
+          DB_BACKUP_URL: ${{ secrets.DB_BACKUP_URL || secrets.DATABASE_URI }}
+          S3_BUCKET: ${{ secrets.S3_BUCKET }}
+          S3_ACCESS_KEY_ID: ${{ secrets.S3_ACCESS_KEY_ID }}
+          S3_SECRET: ${{ secrets.S3_SECRET }}
+          S3_ENDPOINT: ${{ secrets.S3_ENDPOINT }}
+          S3_REGION: ${{ secrets.S3_REGION || 'auto' }}
+          DB_BACKUP_PREFIX: ${{ github.event.inputs.prefix || 'backups/database/' }}
+        run: |
+          pnpm db:backup:s3
