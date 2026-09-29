@@ -27,7 +27,7 @@ export interface KeywordTooltipProps {
 
 /**
  * KeywordTooltip renders an interactive hover card when the user hovers over
- * or focuses on a keyword, displaying an image, title, description, and optional link.
+ * or focuses on a keyword, displaying image, title, description, and link.
  */
 export default function KeywordTooltip({
   keyword,
@@ -80,7 +80,7 @@ export default function KeywordTooltip({
     <span
       ref={triggerRef}
       className={cn(
-        "relative inline-block cursor-help border-b border-dashed border-primary-500 font-medium text-primary-700 transition-colors hover:border-primary-700 hover:text-primary-800",
+        "border-primary-500 text-primary-700 hover:border-primary-700 hover:text-primary-800 relative inline-block cursor-help border-b border-dashed font-medium transition-colors",
         className,
       )}
       onMouseEnter={handleMouseEnter}
@@ -101,7 +101,7 @@ export default function KeywordTooltip({
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
           className={cn(
-            "absolute left-1/2 z-50 w-72 -translate-x-1/2 rounded-xl border border-gray-200 bg-white p-3.5 shadow-xl transition-all duration-200 animate-in fade-in zoom-in-95",
+            "animate-in fade-in zoom-in-95 absolute left-1/2 z-50 w-72 -translate-x-1/2 rounded-xl border border-gray-200 bg-white p-3.5 shadow-xl transition-all duration-200",
             position === "top" ? "bottom-full mb-2" : "top-full mt-2",
           )}
         >
@@ -119,7 +119,10 @@ export default function KeywordTooltip({
             {imageUrl && (
               <span className="relative block h-36 w-full overflow-hidden rounded-lg bg-gray-100">
                 <Image
-                  src={transformUrl(imageUrl, { width: "320", quality: "85" })}
+                  src={transformUrl(imageUrl, {
+                    width: "320",
+                    quality: "85",
+                  })}
                   alt={imageAlt || title}
                   fill
                   className="object-cover transition-transform duration-300 hover:scale-105"
@@ -132,16 +135,16 @@ export default function KeywordTooltip({
               <span className="font-semibold text-gray-900 leading-snug">
                 {title}
               </span>
-              <span className="text-xs text-gray-600 line-clamp-3 leading-relaxed">
+              <span className="line-clamp-3 text-xs leading-relaxed text-gray-600">
                 {description}
               </span>
             </span>
 
             {href && (
-              <span className="mt-1 pt-1.5 border-t border-gray-100 flex justify-end">
+              <span className="mt-1 flex justify-end border-t border-gray-100 pt-1.5">
                 <Link
                   href={href}
-                  className="text-xs font-medium text-primary-600 hover:text-primary-700 hover:underline"
+                  className="text-primary-600 hover:text-primary-700 text-xs font-medium hover:underline"
                   onClick={(e) => e.stopPropagation()}
                 >
                   Xem thêm →

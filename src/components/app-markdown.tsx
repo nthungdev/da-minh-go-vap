@@ -21,11 +21,15 @@ export default function AppMarkdown({
         rehypePlugins={[rehypeRaw]}
         components={{
           // @ts-expect-error custom HTML tag for keyword tooltip cards in markdown
-          keyword: ({ node, ...rest }: any) => {
+          keyword: ({ node: _node, ...rest }: Record<string, any>) => {
             const title = rest["data-title"] || rest.title || "";
-            const description = rest["data-description"] || rest.description || "";
+            const description =
+              rest["data-description"] || rest.description || "";
             const imageUrl =
-              rest["data-image"] || rest.image || rest["data-image-url"] || "";
+              rest["data-image"] ||
+              rest.image ||
+              rest["data-image-url"] ||
+              "";
             const href = rest["data-href"] || rest.href || "";
 
             return (
