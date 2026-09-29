@@ -38,7 +38,10 @@ function loadEnv() {
         if (eqIdx === -1) continue;
         const key = trimmed.slice(0, eqIdx).trim();
         let val = trimmed.slice(eqIdx + 1).trim();
-        if ((val.startsWith('"') && val.endsWith('"')) || (val.startsWith("'") && val.endsWith("'"))) {
+        if (
+          (val.startsWith('"') && val.endsWith('"')) ||
+          (val.startsWith("'") && val.endsWith("'"))
+        ) {
           val = val.slice(1, -1);
         }
         if (!process.env[key]) {
@@ -67,7 +70,9 @@ async function main() {
   console.log("🚀 Starting Database Backup to S3...");
 
   if (!BUCKET || !ACCESS_KEY || !SECRET_KEY) {
-    console.error("❌ Error: Missing S3 credentials (S3_BUCKET, S3_ACCESS_KEY_ID, S3_SECRET).");
+    console.error(
+      "❌ Error: Missing S3 credentials (S3_BUCKET, S3_ACCESS_KEY_ID, S3_SECRET).",
+    );
     process.exit(1);
   }
 
@@ -78,9 +83,8 @@ async function main() {
 
   console.log(`⏳ Running mongodump to ${localFilePath}...`);
   try {
-    execSync(`mongodump --uri="${DB_URL}" --archive="${localFilePath}" --gzip`, {
-      stdio: "inherit",
-    });
+    const cmd = `mongodump --uri="${DB_URL}" --archive="${localFilePath}" --gzip`;
+    execSync(cmd, { stdio: "inherit" });
   } catch (err) {
     console.error("❌ mongodump failed:", err.message);
     process.exit(1);
@@ -90,7 +94,9 @@ async function main() {
   const sizeMb = (stat.size / (1024 * 1024)).toFixed(2);
   console.log(`✅ Database dump created (${sizeMb} MB)`);
 
-  console.log(`⏳ Uploading to S3 bucket '${BUCKET}' at '${PREFIX}${filename}'...`);
+  console.log(
+    `⏳ Uploading to S3 bucket '${BUCKET}' at '${PREFIX}${filename}'...`,
+  );
   const s3 = new S3Client({
     region: REGION,
     endpoint: ENDPOINT || undefined,
@@ -109,7 +115,9 @@ async function main() {
   });
 
   await s3.send(uploadCommand);
-  console.log(`✅ Successfully uploaded backup to s3://${BUCKET}/${PREFIX}${filename}`);
+  console.log(
+    `✅ Successfully uploaded backup to s3://${BUCKET}/${PREFIX}${filename}`,
+  );
 
   // Clean up local temp dump
   try {
