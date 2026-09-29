@@ -119,7 +119,7 @@ export default function VideoGrid({
 
               {video.title && (
                 <div className="flex flex-1 flex-col p-3">
-                  <h3 className="line-clamp-2 text-sm font-medium text-gray-900 group-hover:text-primary-600">
+                  <h3 className="group-hover:text-primary-600 line-clamp-2 text-sm font-medium text-gray-900">
                     {video.title}
                   </h3>
                 </div>
