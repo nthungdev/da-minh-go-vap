@@ -45,14 +45,16 @@ export function preserveMarkdownWhitespace(content: string): string {
     // Check for blockquote prefix (e.g. "> " or ">> ")
     const blockquoteMatch = line.match(/^(\s*>+\s*)(.*)$/);
     if (blockquoteMatch) {
-      const prefix = blockquoteMatch[1];
-      const rest = blockquoteMatch[2];
+      const prefix = blockquoteMatch[1] ?? "";
+      const rest = blockquoteMatch[2] ?? "";
       const leadingSpacesMatch = rest.match(/^([ \t]+)(.*)$/);
       if (leadingSpacesMatch) {
-        const converted = leadingSpacesMatch[1]
+        const spaces = leadingSpacesMatch[1] ?? "";
+        const tail = leadingSpacesMatch[2] ?? "";
+        const converted = spaces
           .replace(/ /g, "\u00A0")
           .replace(/\t/g, "\u00A0\u00A0\u00A0\u00A0");
-        return `${prefix}${converted}${leadingSpacesMatch[2]}`;
+        return `${prefix}${converted}${tail}`;
       }
       return line;
     }
@@ -60,8 +62,8 @@ export function preserveMarkdownWhitespace(content: string): string {
     // Check for leading spaces/tabs on regular lines
     const leadingSpacesMatch = line.match(/^([ \t]+)(.*)$/);
     if (leadingSpacesMatch) {
-      const spaces = leadingSpacesMatch[1];
-      const rest = leadingSpacesMatch[2];
+      const spaces = leadingSpacesMatch[1] ?? "";
+      const rest = leadingSpacesMatch[2] ?? "";
 
       // Keep standard markdown list indentation intact
       if (/^[-*+]\s+/.test(rest) || /^\d+\.\s+/.test(rest)) {
@@ -87,7 +89,9 @@ export default function AppMarkdown({
   ...props
 }: AppMarkdownProps) {
   const content =
-    typeof children === "string" ? preserveMarkdownWhitespace(children) : children;
+    typeof children === "string"
+      ? preserveMarkdownWhitespace(children)
+      : children;
 
   return (
     <div className={cn("markdown", className)}>
