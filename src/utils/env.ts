@@ -21,9 +21,14 @@ const REQUIRED_SERVER_VARS: EnvRule[] = [
   {
     name: "DATABASE_URI",
     required: true,
-    description: "MongoDB connection URI (e.g. mongodb://user:pass@host:port/db)",
+    description:
+      "MongoDB connection URI (e.g. mongodb://user:pass@host:port/db)",
     validate: (val) => {
-      if (val && !val.startsWith("mongodb://") && !val.startsWith("mongodb+srv://")) {
+      if (
+        val &&
+        !val.startsWith("mongodb://") &&
+        !val.startsWith("mongodb+srv://")
+      ) {
         return "Must start with mongodb:// or mongodb+srv://";
       }
       return null;
@@ -67,7 +72,8 @@ const REQUIRED_SERVER_VARS: EnvRule[] = [
 const CONDITIONAL_VARS: EnvRule[] = [
   {
     name: "S3_ACCESS_KEY_ID",
-    description: "S3 / Cloudflare R2 access key ID (required when S3_BUCKET is provided)",
+    description:
+      "S3 / Cloudflare R2 access key ID (required when S3_BUCKET is provided)",
     validate: (val) => {
       if (process.env.S3_BUCKET && !val) {
         return "Required when S3_BUCKET is set";
@@ -77,7 +83,8 @@ const CONDITIONAL_VARS: EnvRule[] = [
   },
   {
     name: "S3_SECRET",
-    description: "S3 / Cloudflare R2 secret access key (required when S3_BUCKET is provided)",
+    description:
+      "S3 / Cloudflare R2 secret access key (required when S3_BUCKET is provided)",
     validate: (val) => {
       if (process.env.S3_BUCKET && !val) {
         return "Required when S3_BUCKET is set";
@@ -87,7 +94,8 @@ const CONDITIONAL_VARS: EnvRule[] = [
   },
   {
     name: "S3_ENDPOINT",
-    description: "S3 / Cloudflare R2 endpoint URL (required when S3_BUCKET is provided)",
+    description:
+      "S3 / Cloudflare R2 endpoint URL (required when S3_BUCKET is provided)",
     validate: (val) => {
       if (process.env.S3_BUCKET && !val) {
         return "Required when S3_BUCKET is set";
@@ -111,7 +119,11 @@ export interface EnvValidationResult {
 export function validateEnvironment(
   env: NodeJS.ProcessEnv = process.env,
 ): EnvValidationResult {
-  const errors: Array<{ name: string; error: string; description?: string }> = [];
+  const errors: Array<{
+    name: string;
+    error: string;
+    description?: string;
+  }> = [];
 
   const allRules = [...REQUIRED_SERVER_VARS, ...CONDITIONAL_VARS];
 
@@ -152,7 +164,9 @@ export function validateEnvironment(
  */
 export function assertValidEnvironment(): void {
   if (process.env.SKIP_ENV_VALIDATION === "true") {
-    console.warn("⚠️  Skipping build-time environment variable validation (SKIP_ENV_VALIDATION=true).");
+    console.warn(
+      "⚠️  Skipping build-time environment variable validation (SKIP_ENV_VALIDATION=true).",
+    );
     return;
   }
 
