@@ -1,13 +1,9 @@
-import { onlyRoles } from "@/payload/utils/access-control";
-import { revalidatePath } from "@/payload/utils/data";
 import { GlobalConfig } from "payload";
+import { revalidatePath } from "next/cache";
 
 const SiteSettings: GlobalConfig = {
   slug: "siteSettings",
-  access: {
-    read: onlyRoles(["admin", "manager"]),
-    update: onlyRoles(["admin", "manager"]),
-  },
+  label: "Cấu hình website",
   fields: [
     {
       type: "tabs",
@@ -16,15 +12,28 @@ const SiteSettings: GlobalConfig = {
           label: "Nội Dung",
           fields: [
             {
-              name: "logo",
               type: "upload",
+              name: "logo",
               relationTo: "media",
             },
             {
-              name: "siteName",
-              label: "Tên của website",
               type: "text",
+              name: "siteName",
+              label: "Tên website",
               localized: true,
+              admin: {
+                description:
+                  "Tên hiển thị trên tiêu đề của trình duyệt và trang web",
+              },
+            },
+            {
+              type: "text",
+              name: "organizationName",
+              label: "Tên hội dòng / tổ chức",
+              localized: true,
+              admin: {
+                description: "Tên hiển thị trong phần chân trang (footer)",
+              },
             },
           ],
         },
