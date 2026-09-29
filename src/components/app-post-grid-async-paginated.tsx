@@ -19,8 +19,7 @@ type BasePostGridPaginatedProps = {
   skipSlug?: string;
   posts?: AppPost[];
   /**
-   * If true (default), synchronizes the current page with URL search params
-   * (e.g. ?page=2).
+   * If true (default), synchronizes the current page with URL search params (e.g. ?page=2).
    */
   syncWithQueryParam?: boolean;
   /**
@@ -140,20 +139,18 @@ function AppPostGridPaginatedContent(props: AppPostGridPaginatedProps) {
             }),
         };
 
-  const initialData =
-    initialPosts && initialPosts.length > 0 && page === 1
-      ? {
-          posts: initialPosts,
-          hasMore: false,
-          totalPages: 1,
-          page: 1,
-        }
-      : undefined;
-
   const { data, error, isError, isPending, isFetched, isFetching } = useQuery({
     ...queryOptions,
     placeholderData: keepPreviousData,
-    initialData,
+    initialData:
+      initialPosts && initialPosts.length > 0 && page === 1
+        ? {
+            posts: initialPosts,
+            hasMore: false,
+            totalPages: 1,
+            page: 1,
+          }
+        : undefined,
   });
 
   if (!data) return null;
@@ -192,9 +189,12 @@ function AppPostGridPaginatedContent(props: AppPostGridPaginatedProps) {
 }
 
 export default function AppPostGridPaginated(props: AppPostGridPaginatedProps) {
-  const fallbackCount = props.pageSize || DEFAULT_PAGE_SIZE;
   return (
-    <Suspense fallback={<AppPostGridSkeleton count={fallbackCount} />}>
+    <Suspense
+      fallback={
+        <AppPostGridSkeleton count={props.pageSize || DEFAULT_PAGE_SIZE} />
+      }
+    >
       <AppPostGridPaginatedContent {...props} />
     </Suspense>
   );
