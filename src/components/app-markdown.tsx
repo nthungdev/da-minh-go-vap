@@ -1,7 +1,8 @@
 import Markdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
-import { twMerge } from "tailwind-merge";
+import { cn } from "@/utils/common";
+import KeywordTooltip from "@/components/keyword-tooltip";
 
 interface AppMarkdownProps {
   className?: string;
@@ -14,10 +15,31 @@ export default function AppMarkdown({
   ...props
 }: AppMarkdownProps) {
   return (
-    <div className={twMerge("markdown", className)}>
+    <div className={cn("markdown", className)}>
       <Markdown
         remarkPlugins={[remarkGfm]}
         rehypePlugins={[rehypeRaw]}
+        components={{
+          // @ts-expect-error custom HTML tag for keyword tooltip cards in markdown
+          keyword: ({ node, ...rest }: any) => {
+            const title = rest["data-title"] || rest.title || "";
+            const description = rest["data-description"] || rest.description || "";
+            const imageUrl =
+              rest["data-image"] || rest.image || rest["data-image-url"] || "";
+            const href = rest["data-href"] || rest.href || "";
+
+            return (
+              <KeywordTooltip
+                title={title}
+                description={description}
+                imageUrl={imageUrl}
+                href={href}
+              >
+                {rest.children}
+              </KeywordTooltip>
+            );
+          },
+        }}
         {...props}
       >
         {children}
