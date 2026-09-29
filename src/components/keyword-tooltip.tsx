@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/utils/common";
@@ -22,12 +22,12 @@ export interface KeywordTooltipProps {
   /** Custom trigger styling */
   className?: string;
   /** Custom trigger content */
-  children?: React.ReactNode;
+  children?: ReactNode;
 }
 
 /**
  * KeywordTooltip renders an interactive hover card when the user hovers over
- * or focuses on a keyword, displaying image, title, description, and link.
+ * or focuses on a keyword, displaying an image, title, description, and optional link.
  */
 export default function KeywordTooltip({
   keyword,
@@ -80,8 +80,7 @@ export default function KeywordTooltip({
     <span
       ref={triggerRef}
       className={cn(
-        "relative inline-block cursor-help border-b border-dashed font-medium transition-colors",
-        "border-primary-500 text-primary-700 hover:border-primary-700 hover:text-primary-800",
+        "border-primary-500 text-primary-700 hover:border-primary-700 hover:text-primary-800 relative inline-block cursor-help border-b border-dashed font-medium transition-colors",
         className,
       )}
       onMouseEnter={handleMouseEnter}
@@ -102,7 +101,7 @@ export default function KeywordTooltip({
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
           className={cn(
-            "absolute left-1/2 z-50 w-72 -translate-x-1/2 rounded-xl border border-gray-200 bg-white p-3.5 shadow-xl transition-all duration-200",
+            "animate-in fade-in zoom-in-95 absolute left-1/2 z-50 w-72 -translate-x-1/2 rounded-xl border border-gray-200 bg-white p-3.5 shadow-xl transition-all duration-200",
             position === "top" ? "bottom-full mb-2" : "top-full mt-2",
           )}
         >

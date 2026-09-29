@@ -9,29 +9,6 @@ interface AppMarkdownProps {
   children: string | null | undefined;
 }
 
-function renderKeywordTooltip({
-  node: _node,
-  children,
-  ...rest
-}: Record<string, any>) {
-  const title = rest["data-title"] || rest.title || "";
-  const description = rest["data-description"] || rest.description || "";
-  const imageUrl =
-    rest["data-image"] || rest.image || rest["data-image-url"] || "";
-  const href = rest["data-href"] || rest.href || "";
-
-  return (
-    <KeywordTooltip
-      title={title}
-      description={description}
-      imageUrl={imageUrl}
-      href={href}
-    >
-      {children}
-    </KeywordTooltip>
-  );
-}
-
 export default function AppMarkdown({
   children,
   className,
@@ -44,7 +21,49 @@ export default function AppMarkdown({
         rehypePlugins={[rehypeRaw]}
         components={{
           // @ts-expect-error custom HTML tag for keyword tooltip cards in markdown
-          keyword: renderKeywordTooltip,
+          keyword: (props: {
+            node?: unknown;
+            children?: React.ReactNode;
+            [key: string]: unknown;
+          }) => {
+            const title =
+              typeof props["data-title"] === "string"
+                ? props["data-title"]
+                : typeof props.title === "string"
+                  ? props.title
+                  : "";
+            const description =
+              typeof props["data-description"] === "string"
+                ? props["data-description"]
+                : typeof props.description === "string"
+                  ? props.description
+                  : "";
+            const imageUrl =
+              typeof props["data-image"] === "string"
+                ? props["data-image"]
+                : typeof props.image === "string"
+                  ? props.image
+                  : typeof props["data-image-url"] === "string"
+                    ? props["data-image-url"]
+                    : "";
+            const href =
+              typeof props["data-href"] === "string"
+                ? props["data-href"]
+                : typeof props.href === "string"
+                  ? props.href
+                  : "";
+
+            return (
+              <KeywordTooltip
+                title={title}
+                description={description}
+                imageUrl={imageUrl}
+                href={href}
+              >
+                {props.children}
+              </KeywordTooltip>
+            );
+          },
         }}
         {...props}
       >
