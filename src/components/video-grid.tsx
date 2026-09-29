@@ -24,20 +24,24 @@ export function extractYoutubeId(urlOrId: string): string {
   if (!urlOrId) return "";
 
   // Check for shorts: https://www.youtube.com/shorts/<id>
-  const shortsMatch = urlOrId.match(/youtube\.com\/shorts\/([a-zA-Z0-9_-]+)/);
-  if (shortsMatch) return shortsMatch[1];
+  const shortsMatch = urlOrId.match(
+    /youtube\.com\/shorts\/([a-zA-Z0-9_-]+)/,
+  );
+  if (shortsMatch?.[1]) return shortsMatch[1];
 
   // Check for standard watch: https://www.youtube.com/watch?v=<id>
   const watchMatch = urlOrId.match(/[?&]v=([a-zA-Z0-9_-]+)/);
-  if (watchMatch) return watchMatch[1];
+  if (watchMatch?.[1]) return watchMatch[1];
 
   // Check for youtu.be/<id>
   const shortUrlMatch = urlOrId.match(/youtu\.be\/([a-zA-Z0-9_-]+)/);
-  if (shortUrlMatch) return shortUrlMatch[1];
+  if (shortUrlMatch?.[1]) return shortUrlMatch[1];
 
   // Check for embed: https://www.youtube.com/embed/<id>
-  const embedMatch = urlOrId.match(/youtube\.com\/embed\/([a-zA-Z0-9_-]+)/);
-  if (embedMatch) return embedMatch[1];
+  const embedMatch = urlOrId.match(
+    /youtube\.com\/embed\/([a-zA-Z0-9_-]+)/,
+  );
+  if (embedMatch?.[1]) return embedMatch[1];
 
   // Otherwise assume it is already a video ID
   return urlOrId.trim();
@@ -83,7 +87,9 @@ export default function VideoGrid({
           return (
             <div
               key={video.id || `${video.url}-${index}`}
-              className="group flex flex-col overflow-hidden rounded-xl border border-gray-100 bg-white shadow-sm transition hover:shadow-md"
+              className={cn(
+                "group flex flex-col overflow-hidden rounded-xl border border-gray-100 bg-white shadow-sm transition hover:shadow-md",
+              )}
             >
               <div
                 className={cn(
