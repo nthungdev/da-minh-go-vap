@@ -1,7 +1,7 @@
 import { cn } from "@/utils/common";
 
 export interface VideoItem {
-  id?: string;
+  id?: string | null;
   title: string;
   type: "youtube" | "facebook";
   url: string;
