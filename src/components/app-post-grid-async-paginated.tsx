@@ -1,9 +1,6 @@
 "use client";
 
-import {
-  fetchPostsByHiddenTags,
-  fetchPostsByPublicTag,
-} from "@/actions/post";
+import { fetchPostsByHiddenTags, fetchPostsByPublicTag } from "@/actions/post";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { Suspense, useCallback, useRef, useState } from "react";
 import AppPostGridSkeleton from "./app-post-grid-skeleton";
@@ -143,18 +140,20 @@ function AppPostGridPaginatedContent(props: AppPostGridPaginatedProps) {
             }),
         };
 
+  const initialData =
+    initialPosts && initialPosts.length > 0 && page === 1
+      ? {
+          posts: initialPosts,
+          hasMore: false,
+          totalPages: 1,
+          page: 1,
+        }
+      : undefined;
+
   const { data, error, isError, isPending, isFetched, isFetching } = useQuery({
     ...queryOptions,
     placeholderData: keepPreviousData,
-    initialData:
-      initialPosts && initialPosts.length > 0 && page === 1
-        ? {
-            posts: initialPosts,
-            hasMore: false,
-            totalPages: 1,
-            page: 1,
-          }
-        : undefined,
+    initialData,
   });
 
   if (!data) return null;
@@ -192,15 +191,10 @@ function AppPostGridPaginatedContent(props: AppPostGridPaginatedProps) {
   );
 }
 
-export default function AppPostGridPaginated(
-  props: AppPostGridPaginatedProps,
-) {
+export default function AppPostGridPaginated(props: AppPostGridPaginatedProps) {
+  const fallbackCount = props.pageSize || DEFAULT_PAGE_SIZE;
   return (
-    <Suspense
-      fallback={
-        <AppPostGridSkeleton count={props.pageSize || DEFAULT_PAGE_SIZE} />
-      }
-    >
+    <Suspense fallback={<AppPostGridSkeleton count={fallbackCount} />}>
       <AppPostGridPaginatedContent {...props} />
     </Suspense>
   );
