@@ -142,12 +142,15 @@ function AppPostGridPaginatedContent(props: AppPostGridPaginatedProps) {
   const { data, error, isError, isPending, isFetched, isFetching } = useQuery({
     ...queryOptions,
     placeholderData: keepPreviousData,
-    initialData: {
-      posts: initialPosts || [],
-      hasMore: false,
-      totalPages: 1,
-      page: 1,
-    },
+    initialData:
+      initialPosts && initialPosts.length > 0 && page === 1
+        ? {
+            posts: initialPosts,
+            hasMore: false,
+            totalPages: 1,
+            page: 1,
+          }
+        : undefined,
   });
 
   if (!data) return null;
