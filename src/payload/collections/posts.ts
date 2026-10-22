@@ -1,7 +1,7 @@
 import { locales } from "@/i18n/config";
 import { Post } from "@/payload-types";
 import markdownField from "@/payload/fields/markdown";
-import { postsReadAccess } from "@/payload/utils/access-control";
+import { onlyRoles, postsReadAccess } from "@/payload/utils/access-control";
 import { buildPostPreviewUrl } from "@/payload/utils/config";
 import { slugify } from "@/payload/utils/data";
 import Fuses from "@/utils/fuses";
@@ -28,6 +28,9 @@ const Posts: CollectionConfig = {
   },
   access: {
     read: postsReadAccess,
+    create: onlyRoles(["admin", "manager", "editor", "author"]),
+    update: onlyRoles(["admin", "manager", "editor"]),
+    delete: onlyRoles(["admin", "manager"]),
   },
   admin: {
     useAsTitle: "title",

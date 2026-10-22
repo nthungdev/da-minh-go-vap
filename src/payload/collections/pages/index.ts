@@ -35,7 +35,9 @@ const Pages: CollectionConfig = {
   },
   access: {
     read: onlyRoles(["admin", "manager"]),
+    create: onlyRoles(["admin", "manager"]),
     update: onlyRoles(["admin", "manager"]),
+    delete: onlyRoles(["admin", "manager"]),
   },
   admin: {
     useAsTitle: "title",
