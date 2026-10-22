@@ -34,6 +34,7 @@ import { usePathname } from "next/navigation";
 import MenuLayoutRenderer from "./navbar/menu-layouts/menu-layout-renderer";
 import { cn } from "@/utils/common";
 import { getMenuIconSrc } from "@/definitions/menu-icons";
+import { transformUrl } from "@/utils/cloudflare";
 
 interface TheNavbarClientProps {
   menu: MenuItem[];
@@ -60,7 +61,7 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
             {typeof logo?.url === "string" ? (
               <div className="relative h-10 w-10">
                 <Image
-                  src={logo.url}
+                  src={transformUrl(logo.url)}
                   alt={logo.alt || "Logo"}
                   fill
                   className="object-contain"
@@ -79,7 +80,7 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
             <div className="relative z-20 hidden h-16 w-20 self-start lg:block">
               <div className="absolute top-[20%] left-0 size-20 overflow-auto">
                 <Image
-                  src={logo.url}
+                  src={transformUrl(logo.url, { quality: 100 })}
                   alt={logo.alt || "Logo"}
                   quality={100}
                   sizes="100%"
@@ -223,7 +224,7 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                   {typeof logo?.url === "string" ? (
                     <div className="relative h-12 w-12 shrink-0">
                       <Image
-                        src={logo.url}
+                        src={transformUrl(logo.url)}
                         alt={logo.alt || "Logo"}
                         fill
                         className="object-contain"

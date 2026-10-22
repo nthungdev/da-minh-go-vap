@@ -3,7 +3,7 @@
 import React, { ChangeEvent } from "react";
 import AppPostGrid from "./app-post-grid";
 import AppSelectBasic from "./app-select-basic";
-import { twMerge } from "tailwind-merge";
+import { cn } from "@/utils/common";
 import { Page } from "@/payload-types";
 import AppPostTabContentAsync from "@/components/app-post-tab-content-async";
 import { makePostsPath } from "@/utils/post";
@@ -78,7 +78,7 @@ export default function AppPostTabGridAsync(props: AppPostTabGridAsyncProps) {
   };
 
   return (
-    <div className={twMerge("space-y-4", className)} id={id}>
+    <div className={cn("space-y-4", className)} id={id}>
       <div className="relative">
         <AppSelectBasic
           className="lg:hidden"
@@ -103,7 +103,7 @@ export default function AppPostTabGridAsync(props: AppPostTabGridAsyncProps) {
             <button
               key={`${id}-control-${index}`}
               type="button"
-              className={twMerge(
+              className={cn(
                 "peer border-secondary-400 bg-primary-4 relative -mr-12 inline-flex items-center justify-center gap-x-2 rounded-full border-[6px] px-12 py-1 text-center text-xl font-bold text-nowrap text-white transition disabled:pointer-events-none disabled:opacity-50",
                 "hs-tab-active:bg-primary-700 hs-tab-active:border-secondary-500 hs-tab-active:z-10",
                 "hover:shadow-neon hover:border-secondary-300 hover:z-20",

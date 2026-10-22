@@ -1,7 +1,7 @@
 "use client";
 
 import { Children, HTMLAttributes, useEffect, useRef, useState } from "react";
-import { twMerge } from "tailwind-merge";
+import { cn } from "@/utils/common";
 
 interface AppCarouselProps extends HTMLAttributes<HTMLElement> {
   id: string;
@@ -85,7 +85,7 @@ export default function AppCarousel({
           "hs-carousel-active:bg-white hs-carousel-active:border-white size-3 border border-gray-400 rounded-full cursor-pointer dark:border-white dark:hs-carousel-active:bg-white dark:hs-carousel-active:border-white",
         isInfiniteLoop: true,
       })}
-      className={twMerge("relative aspect-[4/1.2] w-full", className)}
+      className={cn("relative aspect-[4/1.2] w-full", className)}
       {...props}
     >
       <div className="hs-carousel relative h-full w-full overflow-hidden bg-white">

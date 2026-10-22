@@ -5,6 +5,7 @@ import { getPayload } from "payload";
 import config from "@payload-config";
 import { getLocale } from "next-intl/server";
 import { useMessages } from "next-intl";
+import { transformUrl } from "@/utils/cloudflare";
 
 export default async function TheFooter() {
   const locale = await getLocale();
@@ -33,7 +34,7 @@ export default async function TheFooter() {
         typeof footer.topFooterDecorativeGraphic !== "string" &&
         typeof footer.topFooterDecorativeGraphic.url === "string" && (
           <Image
-            src={footer.topFooterDecorativeGraphic.url}
+            src={transformUrl(footer.topFooterDecorativeGraphic.url)}
             alt="Footer background"
             className="pointer-events-none z-0 w-full select-none"
             height={229}

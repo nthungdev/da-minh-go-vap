@@ -1,4 +1,4 @@
-import { twMerge } from "tailwind-merge";
+import { cn } from "@/utils/common";
 
 interface AppGridHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
   text: string;
@@ -11,7 +11,7 @@ export default function AppGridHeader({
 }: AppGridHeaderProps) {
   return (
     <div
-      className={twMerge(
+      className={cn(
         "@container flex flex-row items-center gap-x-1.5",
         className,
       )}

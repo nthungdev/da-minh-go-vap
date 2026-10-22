@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { twMerge } from "tailwind-merge";
+import { cn } from "@/utils/common";
 
 interface TheBibleVerseProps extends React.HTMLAttributes<HTMLDivElement> {
   verses: {
@@ -34,7 +34,7 @@ export default function TheBibleVerse(props: TheBibleVerseProps) {
   return (
     <div className="py-2">
       <blockquote
-        className={twMerge(
+        className={cn(
           "border-secondary text-primary shadow-neon relative mx-auto flex max-w-max flex-col items-center justify-center rounded-full border-2 bg-white px-10 pt-3 pb-2 transition-shadow md:px-20",
           className,
         )}

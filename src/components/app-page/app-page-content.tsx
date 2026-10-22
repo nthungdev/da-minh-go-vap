@@ -2,7 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import { HTMLAttributes } from "react";
-import { twMerge } from "tailwind-merge";
+import { cn } from "@/utils/common";
 
 export default function AppPageContent({
   className,
@@ -13,7 +13,7 @@ export default function AppPageContent({
 
   return (
     <div
-      className={twMerge(
+      className={cn(
         "mx-auto w-full max-w-7xl px-4 py-8",
         pathname !== "/" && "pt-16",
         className,

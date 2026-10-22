@@ -4,7 +4,7 @@ import {
   MdOutlineArrowBackIosNew,
   MdOutlineArrowForwardIos,
 } from "react-icons/md";
-import { twMerge } from "tailwind-merge";
+import { cn } from "@/utils/common";
 
 interface PaginationPanelProps extends HTMLAttributes<HTMLDivElement> {
   totalPages: number;
@@ -24,7 +24,7 @@ export default function PaginationPanel({
   const shownPages = allPages.slice(Math.max(page - 3, 0), page + 2);
 
   return (
-    <div className={twMerge("flex flex-row justify-center gap-x-1", className)}>
+    <div className={cn("flex flex-row justify-center gap-x-1", className)}>
       <button
         className="text-primary rounded-md border px-3 py-1 hover:cursor-pointer disabled:text-black disabled:hover:cursor-auto"
         onClick={() => onPageChange?.(page - 1)}
