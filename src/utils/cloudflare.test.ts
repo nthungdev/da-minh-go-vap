@@ -90,7 +90,11 @@ describe("transformUrl", () => {
         "https://custom-cdn.example.com/cdn-cgi/image/onerror=redirect,width=500/media/header.jpg",
       );
     } finally {
-      process.env.NEXT_PUBLIC_CDN_URL = originalEnv;
+      if (originalEnv === undefined) {
+        delete process.env.NEXT_PUBLIC_CDN_URL;
+      } else {
+        process.env.NEXT_PUBLIC_CDN_URL = originalEnv;
+      }
     }
   });
 });

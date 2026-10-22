@@ -30,7 +30,7 @@ export function transformUrl(
     return trimmedUrl;
   }
 
-  const cdnBase = (
+  let cdnBase = (
     process.env.NEXT_PUBLIC_CDN_URL || "https://cdn.dongdaminhgovap.org"
   ).replace(/\/+$/, "");
 
@@ -39,6 +39,8 @@ export function transformUrl(
     cdnHost = new URL(cdnBase).host.toLowerCase();
   } catch {
     // Fallback if cdnBase is malformed
+    cdnBase = "https://cdn.dongdaminhgovap.org";
+    cdnHost = "cdn.dongdaminhgovap.org";
   }
 
   let relativePath = trimmedUrl;
