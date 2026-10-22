@@ -5,7 +5,7 @@ import Spinner from "@/components/spinner";
 import { Locale } from "@/i18n/config";
 import { useLocale } from "next-intl";
 import { useTransition } from "react";
-import { twMerge } from "tailwind-merge";
+import { cn } from "@/utils/common";
 
 const localeLabels: Record<Locale, string> = {
   en: "English",
@@ -31,16 +31,13 @@ export default function LocaleSwitcher() {
     >
       <span className={isPending ? "opacity-30" : ""}>{label}</span>
       <div
-        className={twMerge(
+        className={cn(
           "absolute top-0 right-0 bottom-0 left-0 flex size-full items-center justify-center",
           !isPending && "hidden",
         )}
       >
         <Spinner
-          className={twMerge(
-            "size-4 text-white",
-            isPending ? "block" : "hidden",
-          )}
+          className={cn("size-4 text-white", isPending ? "block" : "hidden")}
         />
       </div>
     </button>

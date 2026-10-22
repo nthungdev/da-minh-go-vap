@@ -4,7 +4,7 @@ import type { PostParams } from "@/definitions";
 import { transformUrl } from "@/utils/cloudflare";
 import Image from "next/image";
 import Link from "next/link";
-import { twMerge } from "tailwind-merge";
+import { cn } from "@/utils/common";
 
 interface AppPostGridFiveProps {
   posts: PostParams[];
@@ -26,13 +26,16 @@ export default function AppPostGridSix({
 
   return (
     <ul
-      className={`relative grid grid-flow-row grid-cols-1 gap-4 md:aspect-video md:grid-cols-3 ${className}`}
+      className={cn(
+        "relative grid grid-flow-row grid-cols-1 gap-4 md:aspect-video md:grid-cols-3",
+        className,
+      )}
     >
       {posts.slice(0, 6).map((post, index) => (
         // min-w-0 to override min-width: min-content that cause post title to not be truncated
         <li
           key={index}
-          className={twMerge(
+          className={cn(
             "relative block w-full min-w-0 overflow-hidden border bg-white hover:ring-3 md:aspect-video md:border-transparent",
             cellClasses[index],
           )}

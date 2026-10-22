@@ -19,7 +19,7 @@ import AppPostListItem from "./app-post-list-item";
 import { createPortal } from "react-dom";
 import Image from "next/image";
 import { AppPost } from "@/definitions";
-import { twMerge } from "tailwind-merge";
+import { cn } from "@/utils/common";
 import { useLocale } from "next-intl";
 
 enum ModalState {
@@ -118,7 +118,7 @@ const SearchModal = forwardRef<HTMLDivElement, SearchModalProps>(
                         <div key={post.slug} className="h-[60px] w-full">
                           <AppPostListItem
                             post={post}
-                            className={twMerge(
+                            className={cn(
                               index % 2 === 0
                                 ? "bg-primary-50"
                                 : "bg-primary-100",
