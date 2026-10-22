@@ -68,3 +68,47 @@ export async function getServerOrigin(): Promise<string> {
 
   return process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
 }
+
+/**
+ * Validates that a redirect URL is a safe internal relative path.
+ *
+ * Prevents open redirect attacks by ensuring:
+ * - url is a string starting with a single '/' (not '//')
+ * - contains no backslashes ('\')
+ * - contains no ASCII whitespace or control characters (e.g. \t, \r, \n) which browsers strip before URL parsing
+ * - resolves strictly to the same origin with an absolute path
+ *
+ * @param url - The URL string to validate.
+ * @returns true if safe internal relative path, false otherwise.
+ */
+export function isValidNextUrl(url: unknown): url is string {
+  if (typeof url !== "string") {
+    return false;
+  }
+
+  // Must start with exactly one leading slash
+  if (!url.startsWith("/") || url.startsWith("//")) {
+    return false;
+  }
+
+  // Reject any backslashes
+  if (url.includes("\\")) {
+    return false;
+  }
+
+  // Reject ASCII whitespace and control characters (e.g. \t, \r, \n, \0)
+  // WHATWG URL spec strips ASCII tab and newline before parsing, which could turn /\t/evil.com into //evil.com
+  if (/[\s\x00-\x1F\x7F]/.test(url)) {
+    return false;
+  }
+
+  // Extra safety: ensure WHATWG URL parser does not interpret it as an external origin
+  try {
+    const parsed = new URL(url, "http://localhost");
+    return (
+      parsed.origin === "http://localhost" && parsed.pathname.startsWith("/")
+    );
+  } catch {
+    return false;
+  }
+}
