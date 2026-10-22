@@ -1,3 +1,4 @@
+import { fetchAllPosts, fetchPostsByHiddenTags } from "@/actions/post";
 import { AppAccordionDefault } from "@/components/app-accordion";
 import AppCardTabs from "@/components/app-card-tabs";
 import AppMarkdown from "@/components/app-markdown";
@@ -11,8 +12,10 @@ import PostGroup from "@/components/post-group";
 import TheBibleVerse from "@/components/the-bible-verse";
 import TheLatestPosts from "@/components/the-latest-posts";
 import SpotifyPodcastList from "@/components/spotify-podcast-list";
-import { BlockType } from "@/definitions";
+import { AppPost, BlockType } from "@/definitions";
+import { Locale } from "@/i18n/config";
 import { createRandomAlphaString } from "@/utils/common";
+import { getLocale } from "next-intl/server";
 
 function NotImplementedBlock() {
   return <div>Not Implemented</div>;
@@ -46,7 +49,9 @@ const componentsMap = {
 type BlockToPropsMap = {
   [K in BlockType["blockType"]]: (
     block: Extract<BlockType, { blockType: K }>,
-  ) => React.ComponentProps<(typeof componentsMap)[K]>;
+  ) =>
+    | React.ComponentProps<(typeof componentsMap)[K]>
+    | Promise<React.ComponentProps<(typeof componentsMap)[K]>>;
 };
 
 const mapBlockToProps: BlockToPropsMap = {
@@ -79,25 +84,54 @@ const mapBlockToProps: BlockToPropsMap = {
     id: createRandomAlphaString(4),
     slides: block.images?.filter((image) => typeof image !== "string") || [],
   }),
-  latestPostGridBlock: (block) => ({
-    postCount:
-      block.postCount === "4" ? 4 : block.postCount === "5" ? 5 : undefined,
-  }),
+  latestPostGridBlock: async (block) => {
+    const postCount =
+      block.postCount === "4" ? 4 : block.postCount === "5" ? 5 : undefined;
+    let initialPosts: AppPost[] | undefined;
+    try {
+      const locale = (await getLocale()) as Locale;
+      initialPosts = await fetchAllPosts({ limit: postCount ?? 4, locale });
+    } catch (error) {
+      console.error("Failed to preload latest posts on server:", error);
+    }
+    return {
+      postCount,
+      initialPosts,
+    };
+  },
   linksBlock: (block) => ({
     title: block.title,
     links: block.links,
   }),
   mapBlock: () => ({}),
-  postGroupBlock: (block) => ({
-    title: block.title,
-    limit: block.limit || 4,
-    hasMore: block.viewMoreButton.enableViewMoreButton,
-    hidePostTitles: block.hidePostTitles,
-    hiddenTags: block.hiddenTags
+  postGroupBlock: async (block) => {
+    const hiddenTags = block.hiddenTags
       .filter((tag) => typeof tag !== "string")
-      .map((tag) => tag.tag),
-    type: block.displayType,
-  }),
+      .map((tag) => tag.tag);
+    const limit = block.limit || 4;
+    let posts: AppPost[] | undefined;
+    if (hiddenTags.length > 0) {
+      try {
+        const locale = (await getLocale()) as Locale;
+        const result = await fetchPostsByHiddenTags(hiddenTags, {
+          limit,
+          locale,
+        });
+        posts = result.posts;
+      } catch (error) {
+        console.error("Failed to preload post group on server:", error);
+      }
+    }
+    return {
+      title: block.title,
+      limit,
+      hasMore: block.viewMoreButton.enableViewMoreButton,
+      hidePostTitles: block.hidePostTitles,
+      hiddenTags,
+      type: block.displayType,
+      posts,
+    };
+  },
   quoteBlock: (block) => ({
     quote: block.content,
   }),
@@ -147,11 +181,11 @@ const mapBlockToProps: BlockToPropsMap = {
   }),
 } as const;
 
-const BlockRenderer = ({ block }: { block: BlockType }) => {
+const BlockRenderer = async ({ block }: { block: BlockType }) => {
   const Component = componentsMap[block.blockType];
   if (!Component) return null;
   const propsMapper = mapBlockToProps[block.blockType];
-  const props = propsMapper(block as never);
+  const props = await propsMapper(block as never);
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   return <Component {...props} />;
