@@ -34,6 +34,49 @@ import { usePathname } from "next/navigation";
 import MenuLayoutRenderer from "./navbar/menu-layouts/menu-layout-renderer";
 import { cn } from "@/utils/common";
 import { getMenuIconSrc } from "@/definitions/menu-icons";
+import { transformUrl } from "@/utils/cloudflare";
+
+export interface MenuIconProps {
+  icon?: string | null;
+  name?: string | null;
+  size?: number | "sm" | "md";
+  className?: string;
+}
+
+/**
+ * Renders an optimized menu icon badge for navigation items.
+ *
+ * @param icon - Menu icon identifier.
+ * @param name - Accessible label / alt text for the icon.
+ * @param size - Icon display size (4 / "sm" for small, 5 / "md" for default).
+ * @param className - Additional Tailwind CSS classes.
+ */
+export function MenuIcon({ icon, name, size = 5, className }: MenuIconProps) {
+  if (!icon) return null;
+
+  const src = getMenuIconSrc(icon);
+  if (!src) return null;
+
+  const sizeClass = size === 4 || size === "sm" ? "size-4" : "size-5";
+
+  return (
+    <span
+      className={cn(
+        "relative inline-block shrink-0 overflow-hidden rounded-full bg-white",
+        sizeClass,
+        className,
+      )}
+    >
+      <Image
+        unoptimized
+        src={src}
+        alt={name || icon}
+        fill
+        className="rounded-full object-contain"
+      />
+    </span>
+  );
+}
 
 interface TheNavbarClientProps {
   menu: MenuItem[];
@@ -60,7 +103,7 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
             {typeof logo?.url === "string" ? (
               <div className="relative h-10 w-10">
                 <Image
-                  src={logo.url}
+                  src={transformUrl(logo.url)}
                   alt={logo.alt || "Logo"}
                   fill
                   className="object-contain"
@@ -79,7 +122,7 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
             <div className="relative z-20 hidden h-16 w-20 self-start lg:block">
               <div className="absolute top-[20%] left-0 size-20 overflow-auto">
                 <Image
-                  src={logo.url}
+                  src={transformUrl(logo.url)}
                   alt={logo.alt || "Logo"}
                   quality={100}
                   sizes="100%"
@@ -112,17 +155,11 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                           aria-label={item.name || item.icon || "Menu"}
                           className="hover:text-primary-700 data-[state=open]:text-primary-700 focus:text-primary-700 data-open:text-primary-700 data-popup-open:text-primary-700 flex items-center gap-1.5 transition-colors hover:bg-white focus:bg-white data-open:bg-white data-popup-open:bg-white data-[state=open]:bg-white"
                         >
-                          {item.icon && (
-                            <span className="relative inline-block size-5 shrink-0 overflow-hidden">
-                              <Image
-                                unoptimized
-                                src={getMenuIconSrc(item.icon)}
-                                alt={item.name || item.icon}
-                                fill
-                                className="object-contain"
-                              />
-                            </span>
-                          )}
+                          <MenuIcon
+                            icon={item.icon}
+                            name={item.name}
+                            size={5}
+                          />
                           {item.name ? (
                             <span>{item.name.toUpperCase()}</span>
                           ) : null}
@@ -146,17 +183,7 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                           />
                         }
                       >
-                        {item.icon && (
-                          <span className="relative inline-block size-5 shrink-0 overflow-hidden rounded-full bg-white">
-                            <Image
-                              unoptimized
-                              src={getMenuIconSrc(item.icon)}
-                              alt={item.name || item.icon}
-                              fill
-                              className="rounded-full object-contain"
-                            />
-                          </span>
-                        )}
+                        <MenuIcon icon={item.icon} name={item.name} size={5} />
                         {item.name ? (
                           <span>{item.name.toUpperCase()}</span>
                         ) : null}
@@ -168,17 +195,7 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                           "flex cursor-default items-center gap-1.5 bg-transparent text-gray-50 select-none",
                         )}
                       >
-                        {item.icon && (
-                          <span className="relative inline-block size-5 shrink-0 overflow-hidden rounded-full bg-white">
-                            <Image
-                              unoptimized
-                              src={getMenuIconSrc(item.icon)}
-                              alt={item.name || item.icon}
-                              fill
-                              className="rounded-full object-contain"
-                            />
-                          </span>
-                        )}
+                        <MenuIcon icon={item.icon} name={item.name} size={5} />
                         {item.name ? (
                           <span>{item.name.toUpperCase()}</span>
                         ) : null}
@@ -223,7 +240,7 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                   {typeof logo?.url === "string" ? (
                     <div className="relative h-12 w-12 shrink-0">
                       <Image
-                        src={logo.url}
+                        src={transformUrl(logo.url)}
                         alt={logo.alt || "Logo"}
                         fill
                         className="object-contain"
@@ -265,32 +282,20 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                                     "text-primary-600",
                                 )}
                               >
-                                {item.icon && (
-                                  <span className="relative inline-block size-5 shrink-0 overflow-hidden rounded-full bg-white">
-                                    <Image
-                                      unoptimized
-                                      src={getMenuIconSrc(item.icon)}
-                                      alt={item.name || item.icon}
-                                      fill
-                                      className="rounded-full object-contain"
-                                    />
-                                  </span>
-                                )}
+                                <MenuIcon
+                                  icon={item.icon}
+                                  name={item.name}
+                                  size={5}
+                                />
                                 {item.name ? <span>{item.name}</span> : null}
                               </Link>
                             ) : (
                               <div className="flex flex-1 items-center gap-2 px-2 py-3 text-base font-medium text-gray-800">
-                                {item.icon && (
-                                  <span className="relative inline-block size-5 shrink-0 overflow-hidden rounded-full bg-white">
-                                    <Image
-                                      unoptimized
-                                      src={getMenuIconSrc(item.icon)}
-                                      alt={item.name || item.icon}
-                                      fill
-                                      className="rounded-full object-contain"
-                                    />
-                                  </span>
-                                )}
+                                <MenuIcon
+                                  icon={item.icon}
+                                  name={item.name}
+                                  size={5}
+                                />
                                 {item.name ? <span>{item.name}</span> : null}
                               </div>
                             )}
@@ -312,32 +317,20 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                                             "text-primary-600 font-semibold",
                                         )}
                                       >
-                                        {child.icon && (
-                                          <span className="relative inline-block size-5 shrink-0 overflow-hidden rounded-full bg-white">
-                                            <Image
-                                              unoptimized
-                                              src={getMenuIconSrc(child.icon)}
-                                              alt={child.name || child.icon}
-                                              fill
-                                              className="rounded-full object-contain"
-                                            />
-                                          </span>
-                                        )}
+                                        <MenuIcon
+                                          icon={child.icon}
+                                          name={child.name}
+                                          size={5}
+                                        />
                                         <span>{child.name}</span>
                                       </Link>
                                     ) : (
                                       <span className="flex items-center gap-2 py-2 text-base font-medium text-gray-700">
-                                        {child.icon && (
-                                          <span className="relative inline-block size-5 shrink-0 overflow-hidden rounded-full bg-white">
-                                            <Image
-                                              unoptimized
-                                              src={getMenuIconSrc(child.icon)}
-                                              alt={child.name || child.icon}
-                                              fill
-                                              className="rounded-full object-contain"
-                                            />
-                                          </span>
-                                        )}
+                                        <MenuIcon
+                                          icon={child.icon}
+                                          name={child.name}
+                                          size={5}
+                                        />
                                         <span>{child.name}</span>
                                       </span>
                                     )}
@@ -388,36 +381,20 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                                                   "text-primary-600 font-semibold",
                                               )}
                                             >
-                                              {link.icon && (
-                                                <span className="relative inline-block size-4 shrink-0 overflow-hidden rounded-full bg-white">
-                                                  <Image
-                                                    unoptimized
-                                                    src={getMenuIconSrc(
-                                                      link.icon,
-                                                    )}
-                                                    alt={link.name || link.icon}
-                                                    fill
-                                                    className="rounded-full object-contain"
-                                                  />
-                                                </span>
-                                              )}
+                                              <MenuIcon
+                                                icon={link.icon}
+                                                name={link.name}
+                                                size={4}
+                                              />
                                               <span>{link.name}</span>
                                             </Link>
                                           ) : (
                                             <span className="flex items-center gap-2 py-1.5 text-base text-gray-600">
-                                              {link.icon && (
-                                                <span className="relative inline-block size-4 shrink-0 overflow-hidden rounded-full bg-white">
-                                                  <Image
-                                                    unoptimized
-                                                    src={getMenuIconSrc(
-                                                      link.icon,
-                                                    )}
-                                                    alt={link.name || link.icon}
-                                                    fill
-                                                    className="rounded-full object-contain"
-                                                  />
-                                                </span>
-                                              )}
+                                              <MenuIcon
+                                                icon={link.icon}
+                                                name={link.name}
+                                                size={4}
+                                              />
                                               <span>{link.name}</span>
                                             </span>
                                           )}
@@ -439,32 +416,20 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                                               "text-primary-600 font-semibold",
                                           )}
                                         >
-                                          {link.icon && (
-                                            <span className="relative inline-block size-4 shrink-0 overflow-hidden rounded-full bg-white">
-                                              <Image
-                                                unoptimized
-                                                src={getMenuIconSrc(link.icon)}
-                                                alt={link.name || link.icon}
-                                                fill
-                                                className="rounded-full object-contain"
-                                              />
-                                            </span>
-                                          )}
+                                          <MenuIcon
+                                            icon={link.icon}
+                                            name={link.name}
+                                            size={4}
+                                          />
                                           <span>{link.name}</span>
                                         </Link>
                                       ) : (
                                         <span className="flex items-center gap-2 py-1.5 text-base font-medium text-gray-600">
-                                          {link.icon && (
-                                            <span className="relative inline-block size-4 shrink-0 overflow-hidden rounded-full bg-white">
-                                              <Image
-                                                unoptimized
-                                                src={getMenuIconSrc(link.icon)}
-                                                alt={link.name || link.icon}
-                                                fill
-                                                className="rounded-full object-contain"
-                                              />
-                                            </span>
-                                          )}
+                                          <MenuIcon
+                                            icon={link.icon}
+                                            name={link.name}
+                                            size={4}
+                                          />
                                           <span>{link.name}</span>
                                         </span>
                                       )}
@@ -487,32 +452,20 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                                             "text-primary-600 font-semibold",
                                         )}
                                       >
-                                        {cat.icon && (
-                                          <span className="relative inline-block size-4 shrink-0 overflow-hidden rounded-full bg-white">
-                                            <Image
-                                              unoptimized
-                                              src={getMenuIconSrc(cat.icon)}
-                                              alt={cat.name || cat.icon}
-                                              fill
-                                              className="rounded-full object-contain"
-                                            />
-                                          </span>
-                                        )}
+                                        <MenuIcon
+                                          icon={cat.icon}
+                                          name={cat.name}
+                                          size={4}
+                                        />
                                         <span>{cat.name}</span>
                                       </Link>
                                     ) : (
                                       <span className="flex items-center gap-2 py-2 text-base font-medium text-gray-700">
-                                        {cat.icon && (
-                                          <span className="relative inline-block size-4 shrink-0 overflow-hidden rounded-full bg-white">
-                                            <Image
-                                              unoptimized
-                                              src={getMenuIconSrc(cat.icon)}
-                                              alt={cat.name || cat.icon}
-                                              fill
-                                              className="rounded-full object-contain"
-                                            />
-                                          </span>
-                                        )}
+                                        <MenuIcon
+                                          icon={cat.icon}
+                                          name={cat.name}
+                                          size={4}
+                                        />
                                         <span>{cat.name}</span>
                                       </span>
                                     )}
@@ -532,32 +485,20 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                               "text-primary-600",
                           )}
                         >
-                          {item.icon && (
-                            <span className="relative inline-block size-5 shrink-0 overflow-hidden rounded-full bg-white">
-                              <Image
-                                unoptimized
-                                src={getMenuIconSrc(item.icon)}
-                                alt={item.name || item.icon}
-                                fill
-                                className="rounded-full object-contain"
-                              />
-                            </span>
-                          )}
+                          <MenuIcon
+                            icon={item.icon}
+                            name={item.name}
+                            size={5}
+                          />
                           {item.name ? <span>{item.name}</span> : null}
                         </Link>
                       ) : (
                         <div className="flex items-center gap-2 px-2 py-3 text-base font-medium text-gray-800 select-none">
-                          {item.icon && (
-                            <span className="relative inline-block size-5 shrink-0 overflow-hidden rounded-full bg-white">
-                              <Image
-                                unoptimized
-                                src={getMenuIconSrc(item.icon)}
-                                alt={item.name || item.icon}
-                                fill
-                                className="rounded-full object-contain"
-                              />
-                            </span>
-                          )}
+                          <MenuIcon
+                            icon={item.icon}
+                            name={item.name}
+                            size={5}
+                          />
                           {item.name ? <span>{item.name}</span> : null}
                         </div>
                       )}
