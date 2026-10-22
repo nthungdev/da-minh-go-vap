@@ -89,7 +89,10 @@ export default function TheLatestPosts({
                       className="object-cover"
                       src={thumbnail.url}
                       loader={({ src, width }) => {
-                        const transformWidth = width < 1000 ? 1000 : 600;
+                        // Performance optimization: Request smaller 600px width for mobile/smaller viewports
+                        // and 1000px width for desktop viewports. This saves ~40% image payload on mobile LCP
+                        // while maintaining high visual clarity on desktop screens.
+                        const transformWidth = width >= 1000 ? 1000 : 600;
                         return transformUrl(src, {
                           width: String(transformWidth),
                         });
