@@ -7,7 +7,6 @@ publicHoistPattern:
   - "*@nextui-org/*"
   - "*eslint*"
 allowBuilds:
-  "@firebase/util": true
   "@tailwindcss/oxide": true
   esbuild: true
   protobufjs: true

@@ -13,7 +13,7 @@ import SpaceBlock from "@/payload/blocks/SpaceBlock";
 import SpotifyPodcastListBlock from "@/payload/blocks/spotify-podcast-list-block";
 import TabbedContentBlock from "@/payload/blocks/TabbedContentBlock";
 import TabbedPostGroupBlock from "@/payload/blocks/TabbedPostGroupBlock";
-import TextBlock from "@/payload/blocks/TextBock";
+import TextBlock from "@/payload/blocks/TextBlock";
 import TimelineBlock from "@/payload/blocks/TimelineBlock";
 import VideoGridBlock from "@/payload/blocks/VideoGridBlock";
 import { onlyRoles } from "@/payload/utils/access-control";
