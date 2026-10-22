@@ -7,12 +7,11 @@ import Spinner from "@/components/spinner";
 import { Locale } from "@/i18n/config";
 import { getDataOrUndefined } from "@/payload/utils/data";
 import { transformUrl } from "@/utils/cloudflare";
-import { createRandomAlphaString } from "@/utils/common";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useLocale } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useId, useState } from "react";
 import { twMerge } from "tailwind-merge";
 
 const TRANSITION_DURATION = 4000;
@@ -31,6 +30,7 @@ export default function TheLatestPosts({
   postCount,
   className,
 }: TheLatestPostsProps) {
+  const id = useId();
   const locale = useLocale();
   const [currentIndex, setCurrentIndex] = useState(0);
   const { data, error, isPending } = useQuery({
@@ -52,7 +52,7 @@ export default function TheLatestPosts({
     return <div>No post found</div>;
   }
 
-  const carouselId = `the-latest-posts-carousel-${createRandomAlphaString(4)}`;
+  const carouselId = `the-latest-posts-carousel-${id.replace(/:/g, "")}`;
   const postHref = `/posts/${data[currentIndex]?.slug}`;
 
   return (

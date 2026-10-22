@@ -1,8 +1,11 @@
 "use server";
 
-import { Locale } from "@/i18n/config";
+import config from "@payload-config";
+import { defaultLocale, Locale } from "@/i18n/config";
+import { AppPost } from "@/definitions";
 import { postToAppPost } from "@/utils/post";
 import * as postUtils from "@/utils/post-server";
+import { getPayload } from "payload";
 
 /**
  * @param slug Slug of the post
@@ -16,14 +19,57 @@ export const fetchPostBySlug = async (
   return post;
 };
 
+/**
+ * Fetches multiple published posts by their slugs in a single batched query,
+ * preserving the order of the input slugs and omitting unpublished/missing posts.
+ *
+ * @param slugs - Array of post slugs to fetch.
+ * @param options - Locale options.
+ * @returns Array of published posts matching the requested slugs.
+ */
 export const fetchPostsBySlugs = async (
   slugs: string[],
   { locale }: { locale?: Locale } = {},
 ) => {
-  const posts = await Promise.all(
-    slugs.map((slug) => fetchPostBySlug(slug, { locale })),
-  );
-  return posts.filter((p) => p !== null);
+  if (slugs.length === 0) {
+    return [];
+  }
+
+  try {
+    const payload = await getPayload({ config });
+    const uniqueSlugs = Array.from(new Set(slugs));
+    const query = await payload.find({
+      collection: "posts",
+      where: {
+        slug: { in: uniqueSlugs },
+        // Only get published posts
+        publishedAt: {
+          less_than: new Date().toISOString(),
+        },
+      },
+      limit: uniqueSlugs.length,
+      pagination: false,
+      locale: locale ?? defaultLocale,
+    });
+
+    const postMap = new Map<string, AppPost>();
+    for (const doc of query.docs) {
+      if (doc.slug) {
+        try {
+          postMap.set(doc.slug, postToAppPost(doc));
+        } catch {
+          // Skip malformed document without dropping the entire batch
+        }
+      }
+    }
+
+    // Preserve the requested order of slugs while omitting missing or unpublished posts
+    return slugs
+      .map((slug) => postMap.get(slug))
+      .filter((post): post is AppPost => post !== undefined);
+  } catch {
+    return [];
+  }
 };
 
 export async function fetchAllPosts({

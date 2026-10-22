@@ -11,8 +11,8 @@ import PostGroup from "@/components/post-group";
 import TheBibleVerse from "@/components/the-bible-verse";
 import TheLatestPosts from "@/components/the-latest-posts";
 import SpotifyPodcastList from "@/components/spotify-podcast-list";
+import { useId } from "react";
 import { BlockType } from "@/definitions";
-import { createRandomAlphaString } from "@/utils/common";
 
 function NotImplementedBlock() {
   return <div>Not Implemented</div>;
@@ -46,12 +46,13 @@ const componentsMap = {
 type BlockToPropsMap = {
   [K in BlockType["blockType"]]: (
     block: Extract<BlockType, { blockType: K }>,
+    id: string,
   ) => React.ComponentProps<(typeof componentsMap)[K]>;
 };
 
 const mapBlockToProps: BlockToPropsMap = {
-  accordionContentBlock: (block) => ({
-    id: createRandomAlphaString(4),
+  accordionContentBlock: (block, id) => ({
+    id,
     items: block.items.map((item) => ({
       title: item.title,
       body: item.content,
@@ -75,8 +76,8 @@ const mapBlockToProps: BlockToPropsMap = {
   }),
   dynamicImageBlock: () => ({}),
   imageBlock: () => ({}),
-  imageSlideshowBlock: (block) => ({
-    id: createRandomAlphaString(4),
+  imageSlideshowBlock: (block, id) => ({
+    id,
     slides: block.images?.filter((image) => typeof image !== "string") || [],
   }),
   latestPostGridBlock: (block) => ({
@@ -148,10 +149,11 @@ const mapBlockToProps: BlockToPropsMap = {
 } as const;
 
 const BlockRenderer = ({ block }: { block: BlockType }) => {
+  const id = useId().replace(/:/g, "");
   const Component = componentsMap[block.blockType];
   if (!Component) return null;
   const propsMapper = mapBlockToProps[block.blockType];
-  const props = propsMapper(block as never);
+  const props = propsMapper(block as never, id);
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   return <Component {...props} />;
