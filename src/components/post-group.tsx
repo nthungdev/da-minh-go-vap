@@ -20,6 +20,7 @@ export default function PostGroup(props: PostGroupProps) {
         title={props.title || ""}
         hiddenTags={props.hiddenTags}
         limit={props.limit}
+        posts={props.posts}
         showViewMore={props.hasMore}
         hidePostTitles={props.hidePostTitles}
       />
@@ -30,7 +31,9 @@ export default function PostGroup(props: PostGroupProps) {
         title={props.title}
         hiddenTags={props.hiddenTags}
         limit={props.limit}
+        posts={props.posts}
       />
     );
   }
+  return null;
 }
