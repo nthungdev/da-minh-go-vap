@@ -48,6 +48,7 @@ export default function AppPostGridPaginated({
             page,
             locale,
             skipSlug,
+            pageSize,
           ],
           queryFn: () =>
             fetchPostsByHiddenTags(hiddenTags, {
@@ -64,6 +65,7 @@ export default function AppPostGridPaginated({
             page,
             locale,
             skipSlug,
+            pageSize,
           ],
           queryFn: () =>
             fetchPostsByPublicTag(publicTag, {

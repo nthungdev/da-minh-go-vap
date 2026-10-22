@@ -19,7 +19,7 @@ export default function SpotifyPodcastList({
   const [page, setPage] = useState(1);
 
   const { data, isError, error, isPending, isFetching } = useQuery({
-    queryKey: ["spotifyPodcasts", page],
+    queryKey: ["spotifyPodcasts", page, pageSize],
     queryFn: () => fetchSpotifyPodcasts({ page, limit: pageSize || PAGE_SIZE }),
     placeholderData: keepPreviousData,
   });
