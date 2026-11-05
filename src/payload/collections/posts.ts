@@ -127,6 +127,16 @@ const Posts: CollectionConfig = {
               type: "blocks",
               label: "Mẫu giao diện bài viết",
               maxRows: 1,
+              validate: (value, { siblingData }) => {
+                const data = siblingData as Partial<Post> | undefined;
+                if (
+                  data?.contentMode === "template" &&
+                  (!Array.isArray(value) || value.length === 0)
+                ) {
+                  return "Vui lòng chọn một mẫu giao diện bài viết";
+                }
+                return true;
+              },
               admin: {
                 condition: (_, siblingData) =>
                   siblingData?.contentMode === "template",
@@ -139,6 +149,16 @@ const Posts: CollectionConfig = {
               name: "contentBlocks",
               type: "blocks",
               label: "Các khối nội dung tự do",
+              validate: (value, { siblingData }) => {
+                const data = siblingData as Partial<Post> | undefined;
+                if (
+                  data?.contentMode === "blocks" &&
+                  (!Array.isArray(value) || value.length === 0)
+                ) {
+                  return "Vui lòng thêm ít nhất một khối nội dung";
+                }
+                return true;
+              },
               admin: {
                 condition: (_, siblingData) =>
                   siblingData?.contentMode === "blocks",
