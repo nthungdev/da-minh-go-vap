@@ -9,10 +9,12 @@ interface Props {
 export default function VerticalVideoPrayerView({ block }: Props) {
   const { video, intentionPrayer, scriptureAnchor } = block;
 
+  const videoId = encodeURIComponent(video.videoId.trim());
+  const facebookWatchUrl = `https://www.facebook.com/watch/?v=${videoId}`;
   const embedUrl =
     video.type === "youtube"
-      ? `https://www.youtube.com/embed/${video.videoId}`
-      : `https://www.facebook.com/plugins/video.php?href=https://www.facebook.com/watch/?v=${video.videoId}&show_text=0`;
+      ? `https://www.youtube.com/embed/${videoId}`
+      : `https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(facebookWatchUrl)}&show_text=0`;
 
   return (
     <article className="mx-auto max-w-5xl">
