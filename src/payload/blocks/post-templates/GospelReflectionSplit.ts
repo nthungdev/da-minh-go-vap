@@ -72,6 +72,10 @@ const GospelReflectionSplitBlock: Block = {
           label: "Nội dung Tin Mừng",
           required: true,
           localized: true,
+          admin: {
+            description:
+              "Số câu Kinh Thánh viết dạng chỉ số trên bằng thẻ <sup>, ví dụ: <sup>13</sup> Không ai đã lên trời…",
+          },
         }),
         {
           name: "translationCredit",

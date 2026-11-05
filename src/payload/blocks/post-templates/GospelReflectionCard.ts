@@ -66,6 +66,10 @@ const GospelReflectionCardBlock: Block = {
           name: "content",
           label: "Nội dung Tin Mừng",
           localized: true,
+          admin: {
+            description:
+              "Số câu Kinh Thánh viết dạng chỉ số trên bằng thẻ <sup>, ví dụ: <sup>13</sup> Không ai đã lên trời…",
+          },
         }),
       ],
     },
