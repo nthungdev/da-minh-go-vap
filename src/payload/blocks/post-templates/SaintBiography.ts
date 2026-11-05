@@ -109,6 +109,15 @@ const SaintBiographyBlock: Block = {
         }),
       ],
     },
+    {
+      name: "editor",
+      type: "text",
+      label: "Biên tập",
+      localized: true,
+      admin: {
+        placeholder: "Ví dụ: Ban Truyền thông",
+      },
+    },
     markdownField({
       name: "references",
       label: "Tài liệu tham khảo",

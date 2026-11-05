@@ -43,6 +43,15 @@ const NewsArticleFeaturedBlock: Block = {
       localized: true,
     }),
     {
+      name: "translator",
+      type: "text",
+      label: "Chuyển ngữ",
+      localized: true,
+      admin: {
+        placeholder: "Ví dụ: Paulthem, CSC",
+      },
+    },
+    {
       name: "sourceName",
       type: "text",
       label: "Tên nguồn tin",

@@ -74,6 +74,21 @@ const EventGalleryReportBlock: Block = {
             { label: "4 Cột (4 Columns)", value: "4" },
           ],
         },
+        {
+          name: "layout",
+          type: "select",
+          label: "Bố cục chữ & ảnh",
+          required: true,
+          defaultValue: "stacked",
+          options: [
+            { label: "Chữ phía trên, ảnh bên dưới", value: "stacked" },
+            { label: "Ảnh bên trái, chữ bên phải", value: "imageLeft" },
+            { label: "Chữ bên trái, ảnh bên phải", value: "imageRight" },
+          ],
+          admin: {
+            description: "Bố cục hai bên chỉ dùng ảnh đầu tiên của nhóm.",
+          },
+        },
       ],
     },
     {

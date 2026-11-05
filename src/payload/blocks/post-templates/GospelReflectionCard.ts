@@ -22,11 +22,30 @@ const GospelReflectionCardBlock: Block = {
       },
     },
     {
+      name: "headline",
+      type: "text",
+      label: "Tiêu đề bài suy niệm",
+      localized: true,
+      admin: {
+        placeholder:
+          "Ví dụ: Trên Thánh Giá, Thiên Chúa nói với nhân loại bằng tình yêu",
+      },
+    },
+    {
       name: "image",
       type: "upload",
       relationTo: "media",
       label: "Hình minh họa (Tùy chọn)",
       required: false,
+    },
+    {
+      name: "imageCaption",
+      type: "text",
+      label: "Chú thích hình",
+      localized: true,
+      admin: {
+        condition: (_, siblingData) => Boolean(siblingData?.image),
+      },
     },
     spotifyUrlField(),
     {

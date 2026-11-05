@@ -13,6 +13,15 @@ const KidsBibleStoryBlock: Block = {
   interfaceName: "KidsBibleStoryBlock",
   fields: [
     {
+      name: "episodeLabel",
+      type: "text",
+      label: "Nhãn chuyên mục / Số tập",
+      localized: true,
+      admin: {
+        placeholder: "Ví dụ: Bé và Lời — số 23",
+      },
+    },
+    {
       name: "title",
       type: "text",
       label: "Tiêu đề câu chuyện",
@@ -38,16 +47,11 @@ const KidsBibleStoryBlock: Block = {
       type: "group",
       label: "Thẻ tóm tắt / Điểm ghi nhớ",
       fields: [
-        {
+        markdownField({
           name: "intro",
-          type: "text",
           label: "Lời dẫn đầu thẻ",
           localized: true,
-          admin: {
-            placeholder:
-              "Ví dụ: Trong chuyên mục Bé và Lời hôm nay, các bạn nhỏ sẽ cùng...",
-          },
-        },
+        }),
         {
           name: "takeaways",
           type: "array",
@@ -67,7 +71,7 @@ const KidsBibleStoryBlock: Block = {
     markdownField({
       name: "content",
       label: "Nội dung câu chuyện",
-      required: true,
+      required: false,
       localized: true,
     }),
     {

@@ -715,7 +715,9 @@ export interface GospelReflectionSplitBlock {
  */
 export interface GospelReflectionCardBlock {
   liturgyMeta: string;
+  headline?: string | null;
   image?: (string | null) | Media;
+  imageCaption?: string | null;
   /**
    * Link bài podcast audio chia sẻ suy niệm trên Spotify.
    */
@@ -753,6 +755,7 @@ export interface SaintBiographyBlock {
     }[];
     prayer?: string | null;
   };
+  editor?: string | null;
   references?: string | null;
   id?: string | null;
   blockName?: string | null;
@@ -785,6 +788,7 @@ export interface NewsArticleFeaturedBlock {
   imageCaption?: string | null;
   imageAlignment: 'left' | 'right' | 'center';
   content: string;
+  translator?: string | null;
   sourceName?: string | null;
   sourceUrl?: string | null;
   id?: string | null;
@@ -808,6 +812,10 @@ export interface EventGalleryReportBlock {
         }[]
       | null;
     columns: '2' | '3' | '4';
+    /**
+     * Bố cục hai bên chỉ dùng ảnh đầu tiên của nhóm.
+     */
+    layout: 'stacked' | 'imageLeft' | 'imageRight';
     id?: string | null;
   }[];
   credits?: string | null;
@@ -838,6 +846,7 @@ export interface CatechismQASeriesBlock {
  * via the `definition` "KidsBibleStoryBlock".
  */
 export interface KidsBibleStoryBlock {
+  episodeLabel?: string | null;
   title: string;
   subtitle: string;
   summaryCard?: {
@@ -849,7 +858,7 @@ export interface KidsBibleStoryBlock {
         }[]
       | null;
   };
-  content: string;
+  content?: string | null;
   memoryQuote?: string | null;
   credits?: {
     presenter?: string | null;
@@ -1734,7 +1743,9 @@ export interface GospelReflectionSplitBlockSelect<T extends boolean = true> {
  */
 export interface GospelReflectionCardBlockSelect<T extends boolean = true> {
   liturgyMeta?: T;
+  headline?: T;
   image?: T;
+  imageCaption?: T;
   spotifyUrl?: T;
   gospel?:
     | T
@@ -1776,6 +1787,7 @@ export interface SaintBiographyBlockSelect<T extends boolean = true> {
             };
         prayer?: T;
       };
+  editor?: T;
   references?: T;
   id?: T;
   blockName?: T;
@@ -1810,6 +1822,7 @@ export interface NewsArticleFeaturedBlockSelect<T extends boolean = true> {
   imageCaption?: T;
   imageAlignment?: T;
   content?: T;
+  translator?: T;
   sourceName?: T;
   sourceUrl?: T;
   id?: T;
@@ -1834,6 +1847,7 @@ export interface EventGalleryReportBlockSelect<T extends boolean = true> {
               id?: T;
             };
         columns?: T;
+        layout?: T;
         id?: T;
       };
   credits?: T;
@@ -1864,6 +1878,7 @@ export interface CatechismQASeriesBlockSelect<T extends boolean = true> {
  * via the `definition` "KidsBibleStoryBlock_select".
  */
 export interface KidsBibleStoryBlockSelect<T extends boolean = true> {
+  episodeLabel?: T;
   title?: T;
   subtitle?: T;
   summaryCard?:

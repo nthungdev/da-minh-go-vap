@@ -37,9 +37,10 @@ const CatechismQASeriesBlock: Block = {
           name: "icon",
           type: "text",
           label: "Biểu tượng / Emoji",
-          defaultValue: "📖",
           admin: {
             placeholder: "Ví dụ: 📖, 📜, ✝️, 💡",
+            description:
+              "Để trống nếu mục này là tiêu đề phụ (không có biểu tượng).",
           },
         },
         {
