@@ -3,41 +3,48 @@ import AppMarkdown from "@/components/app-markdown";
 import SpotifyEmbed from "@/components/post-templates/shared/spotify-embed";
 import { GospelReflectionCardBlock, Media } from "@/payload-types";
 import { transformUrl } from "@/utils/cloudflare";
-import { BookOpen, ChevronDown } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 
 interface Props {
   block: GospelReflectionCardBlock;
 }
 
 export default function GospelReflectionCardView({ block }: Props) {
-  const { liturgyMeta, image, spotifyUrl, gospel, body, author, audioReader } =
-    block;
+  const {
+    liturgyMeta,
+    headline,
+    image,
+    imageCaption,
+    spotifyUrl,
+    gospel,
+    body,
+    author,
+    audioReader,
+  } = block;
   const imageMedia =
     typeof image === "object" && image !== null ? (image as Media) : null;
+  const gospelLabel = gospel?.reference
+    ? `Xem Tin Mừng (${gospel.reference})`
+    : "Xem Tin Mừng";
 
   return (
-    <article className="mx-auto max-w-4xl rounded-2xl border border-gray-100 bg-white p-6 shadow-sm md:p-10">
-      {/* Liturgy meta header */}
-      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-gray-100 pb-4">
-        <span className="text-primary-700 text-xs font-semibold tracking-wider uppercase md:text-sm">
+    <article className="rounded-[18px] border border-[#008596]/12 bg-gradient-to-b from-white to-[#fbfbfe] p-4 font-[system-ui,-apple-system,'Segoe_UI',Roboto,Arial,sans-serif] text-base text-slate-900 shadow-[0_6px_20px_rgba(18,25,40,0.08)] sm:p-[26px] md:text-xl xl:text-2xl">
+      <div className="relative mb-2.5 flex flex-wrap items-center gap-3.5">
+        <span className="text-chill-800 rounded-[10px] bg-gradient-to-r from-[#008596]/12 to-[#008596]/6 px-3 py-2 text-[0.95em] leading-snug font-semibold">
           {liturgyMeta}
         </span>
 
-        {/* Collapsible Gospel reading */}
         {gospel?.content && (
-          <details className="group relative">
-            <summary className="bg-primary-50 text-primary-700 hover:bg-primary-100 inline-flex cursor-pointer list-none items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold transition focus:outline-none">
-              <BookOpen className="size-3.5" />
-              <span>
-                Xem Tin Mừng {gospel.reference && `(${gospel.reference})`}
-              </span>
-              <ChevronDown className="size-3.5 transition-transform group-open:rotate-180" />
+          <details className="group text-[0.95em]">
+            <summary className="text-chill-800 focus-visible:ring-chill-700 inline-flex cursor-pointer list-none items-center gap-1 rounded font-semibold focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 [&::-webkit-details-marker]:hidden">
+              <span>{gospelLabel}</span>
+              <ChevronDown
+                aria-hidden="true"
+                className="size-[1em] transition-transform duration-200 group-open:rotate-180 motion-reduce:transition-none"
+              />
             </summary>
-            <div className="border-primary-100 absolute right-0 z-30 mt-2 w-80 rounded-2xl border bg-white p-5 text-sm text-gray-700 shadow-xl md:w-96">
-              <h4 className="text-primary-800 mb-2 border-b border-gray-100 pb-2 font-bold">
-                Tin Mừng {gospel.reference && `(${gospel.reference})`}
-              </h4>
-              <AppMarkdown className="prose prose-sm max-w-none text-gray-700">
+            <div className="fixed inset-x-[5%] bottom-[10%] z-30 max-h-[60vh] overflow-y-auto rounded-xl border border-[#008596]/20 bg-white px-[18px] py-4 text-[0.95em] shadow-[0_8px_20px_rgba(15,23,42,0.12)] sm:absolute sm:inset-x-auto sm:bottom-auto sm:left-0 sm:mt-2 sm:max-h-none sm:w-[min(480px,92vw)] sm:overflow-visible">
+              <AppMarkdown className="prose prose-p:my-0 prose-p:text-justify prose-blockquote:m-0 prose-blockquote:border-s-0 prose-blockquote:p-0 prose-blockquote:ps-0 prose-blockquote:font-normal prose-blockquote:not-italic prose-blockquote:text-inherit max-w-none text-[1em] leading-[1.68] text-slate-900 [&_blockquote_p]:before:content-none [&_blockquote_p]:after:content-none">
                 {gospel.content}
               </AppMarkdown>
             </div>
@@ -45,49 +52,61 @@ export default function GospelReflectionCardView({ block }: Props) {
         )}
       </div>
 
-      {/* Hero Image (optional) */}
-      {imageMedia?.url && (
-        <div className="relative mt-6 aspect-[16/9] w-full overflow-hidden rounded-xl bg-gray-100 shadow-sm">
-          <Image
-            src={transformUrl(imageMedia.url, { width: "1200", quality: "85" })}
-            alt={imageMedia.alt || "Hình suy niệm"}
-            fill
-            className="object-cover"
-          />
-        </div>
+      <SpotifyEmbed url={spotifyUrl} />
+
+      {headline && (
+        <h2 className="mt-1.5 mb-3.5 text-center text-[1.45em] leading-[1.2] font-medium text-orange-600">
+          {headline}
+        </h2>
       )}
 
-      {/* Spotify Podcast Embed */}
-      {spotifyUrl && (
-        <div className="mt-6">
-          <SpotifyEmbed url={spotifyUrl} />
-        </div>
-      )}
+      <div className="flow-root text-[0.98em] leading-[1.68]">
+        {imageMedia?.url && (
+          <figure className="mx-auto mb-5 max-w-full md:float-left md:mr-5 md:mb-[15px] md:w-[40%]">
+            <div className="relative aspect-[3/2] w-full overflow-hidden rounded-lg md:aspect-square md:rounded-full">
+              <Image
+                src={transformUrl(imageMedia.url, {
+                  width: "800",
+                  quality: "85",
+                })}
+                alt={imageMedia.alt || headline || "Hình suy niệm"}
+                fill
+                sizes="(min-width: 768px) 40vw, 100vw"
+                className="object-cover"
+              />
+            </div>
+            {imageCaption && (
+              <figcaption className="mt-2 text-center text-sm text-gray-500 italic">
+                {imageCaption}
+              </figcaption>
+            )}
+          </figure>
+        )}
 
-      {/* Meditation content */}
-      <div className="mt-8">
-        <AppMarkdown className="prose prose-lg max-w-none leading-relaxed text-gray-800">
+        <AppMarkdown className="prose prose-p:my-2.5 prose-p:text-justify prose-li:text-justify max-w-none text-[1em] leading-[1.68] text-[#0b1220]">
           {body}
         </AppMarkdown>
       </div>
 
-      {/* Footer attribution */}
       {(author || audioReader) && (
-        <footer className="mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-gray-100 pt-6 text-sm text-gray-600">
+        <div className="mt-[18px] text-right text-[0.95em] leading-[1.6] text-gray-500">
           {author && (
-            <div>
-              <span className="font-semibold text-gray-800">Tác giả: </span>
-              <span>{author}</span>
-            </div>
+            <p>
+              <strong>Tác giả:</strong> {author}
+            </p>
           )}
           {audioReader && (
-            <div>
-              <span className="font-semibold text-gray-800">Giọng đọc: </span>
-              <span>{audioReader}</span>
-            </div>
+            <p>
+              <strong>Giọng đọc:</strong> {audioReader}
+            </p>
           )}
-        </footer>
+        </div>
       )}
+
+      <div
+        aria-hidden="true"
+        className="mt-[18px] h-1.5 rounded-md bg-gradient-to-r from-[#008596] to-[#32c7c7]"
+      />
     </article>
   );
 }

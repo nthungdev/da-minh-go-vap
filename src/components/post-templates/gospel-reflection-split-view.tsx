@@ -1,10 +1,13 @@
 import AppMarkdown from "@/components/app-markdown";
 import { GospelReflectionSplitBlock } from "@/payload-types";
-import { BookOpen } from "lucide-react";
+import { cn } from "@/utils/common";
 
 interface Props {
   block: GospelReflectionSplitBlock;
 }
+
+const PLAIN_BLOCKQUOTE =
+  "prose-blockquote:m-0 prose-blockquote:border-s-0 prose-blockquote:p-0 prose-blockquote:ps-0 prose-blockquote:font-normal prose-blockquote:not-italic prose-blockquote:text-inherit [&_blockquote_p]:before:content-none [&_blockquote_p]:after:content-none";
 
 export default function GospelReflectionSplitView({ block }: Props) {
   const {
@@ -19,79 +22,77 @@ export default function GospelReflectionSplitView({ block }: Props) {
   } = block;
 
   return (
-    <article className="mx-auto max-w-6xl">
-      {/* Liturgical meta header */}
-      <div className="flex flex-wrap items-center gap-3 border-b border-gray-100 pb-4 text-sm text-gray-600">
-        <span className="bg-primary-50 text-primary-700 rounded-full px-3 py-1 font-semibold">
+    <article className="rounded-[18px] border border-[#008596]/12 bg-gradient-to-b from-white to-[#fbfbfe] p-4 font-[system-ui,-apple-system,'Segoe_UI',Roboto,Arial,sans-serif] text-[clamp(16px,1.1vw,19px)] leading-[1.7] text-slate-900 shadow-[0_6px_20px_rgba(18,25,40,0.08)] sm:p-6">
+      <header className="mb-3 flex flex-wrap items-center gap-3">
+        <span className="text-chill-800 rounded-lg bg-[#008596]/10 px-3 py-1.5 text-[0.9em] font-semibold">
           {liturgyDate}
         </span>
-        <span className="text-gray-500">{liturgyWeek}</span>
-      </div>
+        <span className="text-[0.9em] text-gray-500">{liturgyWeek}</span>
+      </header>
 
-      {/* Main 2-column layout */}
-      <div className="mt-8 grid gap-8 lg:grid-cols-12">
-        {/* Left Column: Meditation & Reflection */}
-        <div className="space-y-6 lg:col-span-8">
+      <h2 className="mt-2 mb-4 text-[1.5em] leading-tight font-bold text-orange-600">
+        Suy Niệm Lời Chúa
+      </h2>
+
+      <div className="grid gap-5 min-[900px]:grid-cols-[minmax(0,1fr)_320px]">
+        <section className="min-w-0">
           {keyVerse && (
-            <div className="border-primary-600 bg-primary-50/50 rounded-xl border-l-4 p-4 font-medium text-gray-800 italic">
-              {keyVerse}
-            </div>
+            <p className="my-[0.7em] text-justify italic">{keyVerse}</p>
           )}
 
-          <AppMarkdown className="prose prose-lg max-w-none leading-relaxed text-gray-800">
+          <AppMarkdown className="prose prose-p:my-[0.7em] prose-p:text-justify max-w-none text-[1em] leading-[1.7] text-slate-900">
             {reflection}
           </AppMarkdown>
 
           {prayer && (
-            <div className="border-primary-200/60 from-primary-50/70 mt-8 rounded-2xl border bg-gradient-to-br to-teal-50/40 p-6 shadow-sm">
-              <h3 className="text-primary-800 mb-2 text-base font-semibold">
-                Lời nguyện kết
-              </h3>
-              <AppMarkdown className="prose prose-primary text-gray-700 italic">
-                {prayer}
-              </AppMarkdown>
-            </div>
+            <AppMarkdown className="prose prose-p:my-0 prose-p:text-justify mt-[18px] max-w-none rounded-lg border-l-4 border-[#008596]/25 bg-[#008596]/6 px-4 py-3.5 text-[1em] leading-[1.7] text-slate-900 italic">
+              {prayer}
+            </AppMarkdown>
           )}
+        </section>
 
-          {/* Author attribution */}
-          {(author || productionUnit) && (
-            <footer className="mt-8 space-y-1 border-t border-gray-100 pt-4 text-sm text-gray-500">
-              {author && (
-                <p>
-                  <strong className="text-gray-700">Bài suy niệm:</strong>{" "}
-                  {author}
-                </p>
+        <aside
+          aria-label="Tin Mừng hôm nay"
+          className="relative order-first rounded-[14px] bg-gradient-to-b from-white to-[#e6f9f9] py-4 pr-4 pl-5 shadow-[0_4px_14px_rgba(0,133,150,0.08)] before:absolute before:inset-y-0 before:left-0 before:w-1 before:rounded before:bg-gradient-to-b before:from-[#008596] before:to-[#32c7c7] min-[900px]:order-none"
+        >
+          <div className="min-[900px]:sticky min-[900px]:top-24">
+            <h3 className="mb-2 text-[1.05em] font-bold text-orange-700">
+              Tin Mừng ({gospel.passage})
+            </h3>
+
+            <AppMarkdown
+              className={cn(
+                "prose prose-p:my-[0.5em] prose-p:text-justify max-w-none text-[0.95em] leading-[1.7] text-slate-900",
+                PLAIN_BLOCKQUOTE,
               )}
-              {productionUnit && (
-                <p>
-                  <strong className="text-gray-700">Thực hiện:</strong>{" "}
-                  {productionUnit}
-                </p>
-              )}
-            </footer>
-          )}
-        </div>
-
-        {/* Right Column: Sticky Gospel Reading Box */}
-        <aside className="lg:col-span-4">
-          <div className="border-primary-100 to-primary-50/30 sticky top-24 rounded-2xl border bg-gradient-to-b from-white p-6 shadow-sm">
-            <div className="border-primary-100 text-primary-800 flex items-center gap-2 border-b pb-3">
-              <BookOpen className="text-primary-600 size-5 shrink-0" />
-              <h2 className="text-lg font-bold">Tin Mừng ({gospel.passage})</h2>
-            </div>
-
-            <div className="prose prose-sm mt-4 max-w-none leading-relaxed text-gray-700">
-              <AppMarkdown>{gospel.reading}</AppMarkdown>
-            </div>
+            >
+              {gospel.reading}
+            </AppMarkdown>
 
             {gospel.translationCredit && (
-              <p className="border-primary-100/60 mt-4 border-t pt-3 text-xs text-gray-400 italic">
+              <p className="mt-2 text-[0.85em] text-gray-500">
                 *{gospel.translationCredit}
               </p>
             )}
           </div>
         </aside>
       </div>
+
+      {(author || productionUnit) && (
+        <footer className="mt-5 text-[0.9em] text-gray-500">
+          {author && (
+            <p>
+              <strong className="text-gray-600">Bài suy niệm:</strong> {author}
+            </p>
+          )}
+          {productionUnit && (
+            <p>
+              <strong className="text-gray-600">Thực hiện:</strong>{" "}
+              {productionUnit}
+            </p>
+          )}
+        </footer>
+      )}
     </article>
   );
 }

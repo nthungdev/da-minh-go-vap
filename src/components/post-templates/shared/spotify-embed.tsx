@@ -11,9 +11,7 @@ export default function SpotifyEmbed({ url, className }: SpotifyEmbedProps) {
   if (!embedUrl) return null;
 
   return (
-    <div
-      className={cn("w-full overflow-hidden rounded-xl shadow-sm", className)}
-    >
+    <div className={cn("w-full overflow-hidden rounded-xl", className)}>
       <iframe
         src={embedUrl}
         width="100%"
@@ -22,7 +20,7 @@ export default function SpotifyEmbed({ url, className }: SpotifyEmbedProps) {
         allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
         loading="lazy"
         sandbox="allow-scripts allow-same-origin allow-popups"
-        className="w-full rounded-xl"
+        className="block w-full rounded-xl"
         title="Spotify Podcast Player"
       />
     </div>

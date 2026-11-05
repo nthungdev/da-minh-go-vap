@@ -1,56 +1,68 @@
 import { BilingualQuoteCardBlock } from "@/payload-types";
-import { Quote } from "lucide-react";
+import { cn } from "@/utils/common";
+import { stripWrappingQuotes } from "@/utils/quote";
 
 interface Props {
   block: BilingualQuoteCardBlock;
+}
+
+interface QuoteColumnProps {
+  quote: string;
+  caption: string;
+  className?: string;
+}
+
+function QuoteColumn({ quote, caption, className }: QuoteColumnProps) {
+  return (
+    <figure
+      className={cn(
+        "flex min-w-0 flex-col justify-center p-6 md:w-1/2 md:p-8",
+        className,
+      )}
+    >
+      <blockquote className="relative rounded-md border-2 border-gray-300 bg-white px-6 py-8 text-center text-2xl leading-[1.9] text-[#004f4f] shadow-[inset_0_0_8px_rgba(0,0,0,0.05)] md:px-8 md:py-12 md:text-[1.9rem]">
+        <span
+          aria-hidden="true"
+          className="absolute -top-6 left-2.5 text-7xl leading-[1.9] text-[#008b8b] opacity-30"
+        >
+          “
+        </span>
+        {stripWrappingQuotes(quote)}
+        <span
+          aria-hidden="true"
+          className="absolute right-2.5 -bottom-9 text-7xl leading-[1.9] text-[#008b8b] opacity-30"
+        >
+          ”
+        </span>
+      </blockquote>
+      <figcaption className="mt-4 text-center text-[0.9rem] text-gray-600">
+        {caption}
+      </figcaption>
+    </figure>
+  );
 }
 
 export default function BilingualQuoteCardView({ block }: Props) {
   const { author, source, original, translation } = block;
 
   return (
-    <article className="mx-auto max-w-4xl space-y-8 rounded-3xl border border-gray-200/80 bg-white p-6 shadow-sm sm:p-10">
-      {/* Top Header Citation */}
-      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-gray-100 pb-4 text-xs text-gray-500 italic sm:text-sm">
-        <div>
-          <span className="font-semibold text-gray-700">Tác giả: </span>
-          <span>{author}</span>
-        </div>
-        {source && (
-          <div>
-            <span className="font-semibold text-gray-700">Nguồn: </span>
-            <span>{source}</span>
-          </div>
-        )}
-      </div>
+    <article className="w-full overflow-hidden rounded-lg border border-gray-300 bg-white font-serif text-[#2c2c2c] shadow-[0_2px_8px_rgba(0,0,0,0.08)]">
+      <header className="border-b border-gray-300 bg-[#f9f9f7] px-6 py-4 text-right text-[0.95rem] italic">
+        <p>Tác giả: {author}</p>
+        {source && <p>Nguồn: {source}</p>}
+      </header>
 
-      {/* 2-Column Side-by-Side Bilingual Quote Grid */}
-      <div className="grid gap-6 md:grid-cols-2 md:divide-x md:divide-gray-100">
-        {/* Original Column */}
-        <div className="flex flex-col justify-between rounded-2xl bg-amber-50/30 p-6 md:p-8">
-          <div className="space-y-4">
-            <Quote className="size-8 rotate-180 text-amber-400" />
-            <blockquote className="font-serif text-lg leading-relaxed text-gray-800 italic sm:text-xl">
-              “{original.quote}”
-            </blockquote>
-          </div>
-          <p className="mt-6 text-center text-xs font-semibold tracking-wider text-amber-800/80 uppercase">
-            {original.caption || original.language}
-          </p>
-        </div>
-
-        {/* Translation Column */}
-        <div className="bg-primary-50/30 flex flex-col justify-between rounded-2xl p-6 md:p-8 md:pl-10">
-          <div className="space-y-4">
-            <Quote className="text-primary-400 size-8 rotate-180" />
-            <blockquote className="font-serif text-lg leading-relaxed text-gray-800 italic sm:text-xl">
-              “{translation.quote}”
-            </blockquote>
-          </div>
-          <p className="text-primary-800/80 mt-6 text-center text-xs font-semibold tracking-wider uppercase">
-            {translation.caption || translation.language}
-          </p>
-        </div>
+      <div className="flex flex-col md:flex-row">
+        <QuoteColumn
+          quote={original.quote}
+          caption={original.caption || original.language}
+          className="border-b border-gray-100 bg-[#fdfdfc] md:border-b-0"
+        />
+        <QuoteColumn
+          quote={translation.quote}
+          caption={translation.caption || translation.language}
+          className="bg-[#fcfcfa]"
+        />
       </div>
     </article>
   );

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { X } from "lucide-react";
 import { transformUrl } from "@/utils/cloudflare";
@@ -22,13 +22,22 @@ export default function LightboxModal({
   className,
 }: LightboxModalProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const triggerRef = useRef<HTMLDivElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     if (!isOpen) return;
 
+    const trigger = triggerRef.current;
+    closeButtonRef.current?.focus();
+
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         setIsOpen(false);
+      } else if (e.key === "Tab") {
+        // The close button is the only focusable control, so keep focus trapped on it.
+        e.preventDefault();
+        closeButtonRef.current?.focus();
       }
     };
 
@@ -38,14 +47,18 @@ export default function LightboxModal({
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
       document.body.style.overflow = "";
+      trigger?.focus();
     };
   }, [isOpen]);
 
   return (
     <>
       <div
+        ref={triggerRef}
         role="button"
         tabIndex={0}
+        aria-haspopup="dialog"
+        aria-label={alt ? `Phóng to ảnh: ${alt}` : "Phóng to ảnh"}
         onClick={() => setIsOpen(true)}
         onKeyDown={(e) => {
           if (e.key === "Enter" || e.key === " ") {
@@ -65,10 +78,12 @@ export default function LightboxModal({
         <div
           role="dialog"
           aria-modal="true"
-          className="animate-in fade-in fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm duration-200"
+          aria-label={alt || "Xem ảnh"}
+          className="animate-in fade-in fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm duration-200 motion-reduce:animate-none"
           onClick={() => setIsOpen(false)}
         >
           <button
+            ref={closeButtonRef}
             type="button"
             onClick={(e) => {
               e.stopPropagation();

@@ -1,90 +1,94 @@
 import AppMarkdown from "@/components/app-markdown";
 import { KidsBibleStoryBlock } from "@/payload-types";
-import { CheckCircle2, Sparkles, Star } from "lucide-react";
+import { cn } from "@/utils/common";
+import { stripWrappingQuotes } from "@/utils/quote";
 
 interface Props {
   block: KidsBibleStoryBlock;
 }
 
+const PRESENTER_SEPARATOR = /\s*(?:·|\n)\s*/;
+
+const BLUE_SQUARE =
+  "rounded-[3px] bg-gradient-to-br from-blue-600 to-cyan-500 shadow-[0_6px_14px_rgba(37,99,235,0.25)]";
+
 export default function KidsBibleStoryView({ block }: Props) {
-  const { title, subtitle, summaryCard, content, memoryQuote, credits } = block;
+  const {
+    episodeLabel,
+    title,
+    subtitle,
+    summaryCard,
+    content,
+    memoryQuote,
+    credits,
+  } = block;
+  const takeaways = summaryCard?.takeaways ?? [];
+  const presenters =
+    credits?.presenter?.split(PRESENTER_SEPARATOR).filter(Boolean) ?? [];
+  const hasCredits = presenters.length > 0 || Boolean(credits?.productionUnit);
 
   return (
-    <article className="mx-auto max-w-4xl space-y-8">
-      {/* Friendly Header */}
-      <header className="space-y-3 rounded-3xl border border-amber-200/80 bg-gradient-to-br from-amber-50/80 via-white to-orange-50/40 p-6 text-center shadow-sm sm:text-left md:p-8">
-        <div className="inline-flex items-center gap-1.5 rounded-full bg-amber-100 px-3 py-1 text-xs font-bold text-amber-800">
-          <Star className="size-3.5 fill-amber-500 text-amber-500" />
-          <span>Bé Và Lời — Câu Chuyện Kinh Thánh</span>
-        </div>
-        <h1 className="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl">
-          {title}
-        </h1>
-        <p className="text-base font-medium text-amber-900/80 sm:text-lg">
-          {subtitle}
+    <article className="relative mx-auto max-w-5xl overflow-hidden rounded-2xl border border-gray-200 bg-white p-4 text-gray-900 shadow-[0_14px_34px_rgba(17,24,39,0.08)] sm:p-6">
+      {episodeLabel && (
+        <p className="inline-flex items-center gap-2.5 rounded-full border border-blue-600/15 bg-blue-600/[0.08] px-3.5 py-2 text-lg font-bold text-blue-600 md:text-[23px]">
+          <span aria-hidden="true" className={cn("size-2.5", BLUE_SQUARE)} />
+          {episodeLabel}
         </p>
-      </header>
-
-      {/* Summary Card with Key Takeaways */}
-      {summaryCard && (
-        <div className="border-primary-100 bg-primary-50/40 space-y-4 rounded-2xl border p-6 shadow-sm">
-          {summaryCard.intro && (
-            <p className="text-primary-900 font-semibold">
-              {summaryCard.intro}
-            </p>
-          )}
-
-          {summaryCard.takeaways && summaryCard.takeaways.length > 0 && (
-            <ul className="grid gap-2.5 sm:grid-cols-2">
-              {summaryCard.takeaways.map((item, idx) => (
-                <li
-                  key={idx}
-                  className="flex items-start gap-2 text-sm text-gray-700"
-                >
-                  <CheckCircle2 className="text-primary-600 mt-0.5 size-4 shrink-0" />
-                  <span>{item.text}</span>
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
       )}
+      <h2 className="mt-3.5 mb-2 text-[22px] leading-tight font-extrabold tracking-tight md:text-[32px]">
+        {title}
+      </h2>
+      <p className="mb-3.5 text-[15px] text-gray-500">{subtitle}</p>
 
-      {/* Story Content */}
-      <div className="prose prose-lg max-w-none leading-relaxed text-gray-800">
-        <AppMarkdown>{content}</AppMarkdown>
-      </div>
+      <div className="rounded-xl border border-gray-200 p-4 text-base md:p-[18px] md:text-xl">
+        {summaryCard?.intro && (
+          <AppMarkdown className="mb-1 space-y-3 [&_strong]:font-bold">
+            {summaryCard.intro}
+          </AppMarkdown>
+        )}
 
-      {/* Golden Memory Verse */}
-      {memoryQuote && (
-        <div className="space-y-2 rounded-2xl border-2 border-dashed border-amber-300 bg-amber-50/60 p-6 text-center">
-          <div className="inline-flex items-center gap-1 text-xs font-bold tracking-wider text-amber-800 uppercase">
-            <Sparkles className="size-4 text-amber-600" />
-            <span>Lời Chúa ghi nhớ</span>
-          </div>
-          <p className="font-serif text-lg font-bold text-amber-950 italic md:text-xl">
-            {memoryQuote}
+        {takeaways.length > 0 && (
+          <ul className="grid gap-2.5">
+            {takeaways.map((item, idx) => (
+              <li key={item.id ?? idx} className="relative pl-7 leading-normal">
+                <span
+                  aria-hidden="true"
+                  className={cn(
+                    "absolute top-[0.45em] left-0 size-3.5",
+                    BLUE_SQUARE,
+                  )}
+                />
+                {item.text}
+              </li>
+            ))}
+          </ul>
+        )}
+
+        {content && (
+          <AppMarkdown className="prose mt-4 max-w-none text-base leading-relaxed text-gray-900 md:text-lg">
+            {content}
+          </AppMarkdown>
+        )}
+
+        {memoryQuote && (
+          <blockquote className="my-3.5 rounded-lg border-l-4 border-blue-600 bg-blue-600/[0.06] px-4 py-3.5 text-gray-600 italic">
+            “{stripWrappingQuotes(memoryQuote)}”
+          </blockquote>
+        )}
+
+        {hasCredits && (
+          <p className="mt-3 border-t border-dashed border-gray-300 pt-1.5 text-right text-[13px] leading-snug text-gray-600 italic">
+            {presenters.map((name, idx) => (
+              <span key={idx} className="block">
+                {idx === 0 ? `Trình bày: ${name}` : name}
+              </span>
+            ))}
+            {credits?.productionUnit && (
+              <span className="block">Thực hiện: {credits.productionUnit}</span>
+            )}
           </p>
-        </div>
-      )}
-
-      {/* Production Credits */}
-      {credits && (credits.presenter || credits.productionUnit) && (
-        <footer className="space-y-1 border-t border-gray-100 pt-4 text-sm text-gray-500">
-          {credits.presenter && (
-            <p>
-              <strong className="text-gray-700">Người trình bày:</strong>{" "}
-              {credits.presenter}
-            </p>
-          )}
-          {credits.productionUnit && (
-            <p>
-              <strong className="text-gray-700">Đơn vị thực hiện:</strong>{" "}
-              {credits.productionUnit}
-            </p>
-          )}
-        </footer>
-      )}
+        )}
+      </div>
     </article>
   );
 }

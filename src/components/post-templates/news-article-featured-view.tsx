@@ -4,7 +4,6 @@ import LightboxModal from "@/components/post-templates/shared/lightbox-modal";
 import { Media, NewsArticleFeaturedBlock } from "@/payload-types";
 import { transformUrl } from "@/utils/cloudflare";
 import { cn } from "@/utils/common";
-import { ExternalLink } from "lucide-react";
 
 interface Props {
   block: NewsArticleFeaturedBlock;
@@ -16,6 +15,7 @@ export default function NewsArticleFeaturedView({ block }: Props) {
     imageCaption,
     imageAlignment,
     content,
+    translator,
     sourceName,
     sourceUrl,
   } = block;
@@ -24,74 +24,81 @@ export default function NewsArticleFeaturedView({ block }: Props) {
     typeof featuredImage === "object" && featuredImage !== null
       ? (featuredImage as Media)
       : null;
+  const imageAlt = imageMedia?.alt || imageCaption || "Ảnh bản tin";
 
   const alignmentClass =
     imageAlignment === "right"
-      ? "md:float-right md:ml-8 md:mb-6"
+      ? "md:float-right md:ml-5 md:mb-[15px] md:max-w-[320px]"
       : imageAlignment === "center"
-        ? "mx-auto mb-8 block max-w-2xl"
-        : "md:float-left md:mr-8 md:mb-6";
+        ? "mb-8 md:max-w-2xl"
+        : "md:float-left md:mr-5 md:mb-[15px] md:max-w-[320px]";
 
   return (
-    <article className="mx-auto max-w-4xl">
-      {/* Featured image with Lightbox */}
+    <article className="flow-root font-serif text-lg leading-[1.8] text-[#003f44] md:text-[1.45rem]">
       {imageMedia?.url && (
         <figure
           className={cn(
-            "w-full overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-md transition-shadow hover:shadow-lg md:max-w-md",
+            "mx-auto mb-[15px] w-full max-w-full sm:max-w-[85%]",
             alignmentClass,
           )}
         >
           <LightboxModal
             src={imageMedia.url}
-            alt={imageMedia.alt || imageCaption || "Ảnh bản tin"}
+            alt={imageAlt}
             caption={imageCaption}
+            className="rounded-xl"
           >
-            <div className="relative aspect-[3/2] w-full overflow-hidden">
+            <div className="relative aspect-[3/2] w-full cursor-zoom-in overflow-hidden rounded-xl shadow-[0_4px_14px_rgba(0,0,0,0.18)]">
               <Image
                 src={transformUrl(imageMedia.url, {
                   width: "800",
                   quality: "85",
                 })}
-                alt={imageMedia.alt || imageCaption || "Ảnh bản tin"}
+                alt={imageAlt}
                 fill
-                className="object-cover transition-transform duration-300 hover:scale-105"
+                sizes="(min-width: 768px) 320px, 100vw"
+                className="object-cover transition-transform duration-200 hover:scale-[1.03] motion-reduce:transition-none motion-reduce:hover:scale-100"
               />
             </div>
           </LightboxModal>
 
           {imageCaption && (
-            <figcaption className="bg-gray-50/50 p-3 text-center text-xs text-gray-500 italic md:text-sm">
+            <figcaption className="mt-1.5 text-center text-[0.9rem] leading-normal text-gray-500">
               {imageCaption}
             </figcaption>
           )}
         </figure>
       )}
 
-      {/* Article Content */}
-      <div className="prose prose-lg clear-none max-w-none leading-relaxed text-gray-800">
-        <AppMarkdown>{content}</AppMarkdown>
-      </div>
+      <AppMarkdown className="prose prose-p:mt-0 prose-p:mb-[15px] prose-p:text-justify max-w-none font-serif text-[1em] leading-[1.8] text-[#003f44]">
+        {content}
+      </AppMarkdown>
 
-      {/* Source Attribution */}
-      {(sourceName || sourceUrl) && (
-        <footer className="clear-both mt-10 border-t border-gray-100 pt-4 text-sm text-gray-500">
-          <div className="flex items-center gap-2">
-            <span className="font-semibold text-gray-700">Nguồn tin:</span>
-            {sourceUrl ? (
-              <a
-                href={sourceUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-primary-600 inline-flex items-center gap-1 hover:underline"
-              >
-                <span>{sourceName || sourceUrl}</span>
-                <ExternalLink className="size-3.5" />
-              </a>
-            ) : (
-              <span>{sourceName}</span>
-            )}
-          </div>
+      {(translator || sourceName || sourceUrl) && (
+        <footer className="clear-both mt-[25px] text-right text-base italic">
+          {translator && (
+            <p>
+              <strong>Chuyển ngữ:</strong> {translator}
+            </p>
+          )}
+          {(sourceName || sourceUrl) && (
+            <p>
+              <strong>Nguồn:</strong>{" "}
+              {sourceUrl ? (
+                <a
+                  href={sourceUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="focus-visible:ring-chill-700 rounded hover:underline focus:outline-none focus-visible:ring-2"
+                >
+                  {sourceName || sourceUrl}
+                  <span className="sr-only"> (mở trong tab mới)</span>
+                </a>
+              ) : (
+                sourceName
+              )}
+            </p>
+          )}
         </footer>
       )}
     </article>
