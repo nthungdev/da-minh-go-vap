@@ -6,7 +6,7 @@ import TheFooter from "@/components/the-footer";
 import { getSiteSettings } from "@/payload/utils/site-settings-server";
 import { getServerOrigin } from "@/utils/url";
 import { getLocale } from "next-intl/server";
-import { Nunito } from "next/font/google";
+import { Lora, Noto_Serif, Nunito } from "next/font/google";
 import { twMerge } from "tailwind-merge";
 import "./globals.css";
 import { Metadata } from "next";
@@ -15,6 +15,20 @@ import { NextIntlClientProvider } from "next-intl";
 const nunito = Nunito({
   subsets: ["vietnamese"],
   variable: "--font-nunito",
+});
+
+// Serif faces used by the news article and bilingual quote post templates
+const notoSerif = Noto_Serif({
+  subsets: ["vietnamese"],
+  weight: ["400", "600"],
+  variable: "--next-font-noto-serif",
+});
+
+const lora = Lora({
+  subsets: ["vietnamese"],
+  weight: ["400", "600"],
+  style: ["normal", "italic"],
+  variable: "--next-font-lora",
 });
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -52,7 +66,10 @@ export default async function RootLayout({
   const locale = await getLocale();
 
   return (
-    <html lang={locale} className={twMerge(nunito.className)}>
+    <html
+      lang={locale}
+      className={twMerge(nunito.className, notoSerif.variable, lora.variable)}
+    >
       <PrelineScriptWrapper />
       <body
         className={twMerge(

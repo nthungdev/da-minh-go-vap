@@ -34,7 +34,7 @@ export default function NewsArticleFeaturedView({ block }: Props) {
         : "md:float-left md:mr-5 md:mb-[15px] md:max-w-[320px]";
 
   return (
-    <article className="flow-root font-serif text-lg leading-[1.8] text-[#003f44] md:text-[1.45rem]">
+    <article className="font-noto-serif flow-root text-lg leading-[1.8] text-[#003f44] md:text-[1.45rem]">
       {imageMedia?.url && (
         <figure
           className={cn(
@@ -70,7 +70,7 @@ export default function NewsArticleFeaturedView({ block }: Props) {
         </figure>
       )}
 
-      <AppMarkdown className="prose prose-p:mt-0 prose-p:mb-[15px] prose-p:text-justify max-w-none font-serif text-[1em] leading-[1.8] text-[#003f44]">
+      <AppMarkdown className="prose prose-p:mt-0 prose-p:mb-[15px] prose-p:text-justify font-noto-serif max-w-none text-[1em] leading-[1.8] text-[#003f44]">
         {content}
       </AppMarkdown>
 

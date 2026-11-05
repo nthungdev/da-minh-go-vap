@@ -46,7 +46,7 @@ export default function BilingualQuoteCardView({ block }: Props) {
   const { author, source, original, translation } = block;
 
   return (
-    <article className="w-full overflow-hidden rounded-lg border border-gray-300 bg-white font-serif text-[#2c2c2c] shadow-[0_2px_8px_rgba(0,0,0,0.08)]">
+    <article className="font-lora w-full overflow-hidden rounded-lg border border-gray-300 bg-white text-[#2c2c2c] shadow-[0_2px_8px_rgba(0,0,0,0.08)]">
       <header className="border-b border-gray-300 bg-[#f9f9f7] px-6 py-4 text-right text-[0.95rem] italic">
         <p>Tác giả: {author}</p>
         {source && <p>Nguồn: {source}</p>}
