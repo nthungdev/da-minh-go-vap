@@ -1,4 +1,5 @@
 import { markdownField } from "@/payload/fields";
+import { validateOptionalHttpUrl } from "@/utils/safe-url";
 import { Block } from "payload";
 
 const NewsArticleFeaturedBlock: Block = {
@@ -64,6 +65,7 @@ const NewsArticleFeaturedBlock: Block = {
       name: "sourceUrl",
       type: "text",
       label: "Link nguồn gốc",
+      validate: validateOptionalHttpUrl,
       admin: {
         placeholder: "https://...",
       },

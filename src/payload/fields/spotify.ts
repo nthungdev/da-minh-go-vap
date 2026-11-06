@@ -16,7 +16,7 @@ export function spotifyUrlField(
   return {
     name: "spotifyUrl",
     type: "text",
-    label: "Spotify Podcast URL / Embed ID",
+    label: "Spotify Podcast URL",
     required,
     validate: (value: string | null | undefined) => {
       if (!value?.trim()) {

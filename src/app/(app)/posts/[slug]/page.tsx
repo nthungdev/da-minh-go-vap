@@ -122,9 +122,9 @@ export default async function Page(props: {
         <div className="mt-8">
           <BlocksRenderer blocks={post.contentBlocks as BlockType[]} />
         </div>
-      ) : (
+      ) : post.contentMode === "markdown" || !post.contentMode ? (
         <AppMarkdown className="mt-8">{post.body}</AppMarkdown>
-      )}
+      ) : null}
 
       {publicTags.length > 0 && (
         <PublicTagList className="mt-6" tags={publicTags} />

@@ -5,12 +5,15 @@
  * Needs a running app (`pnpm dev`) with at least one published template post
  * per template, and Google Chrome installed (or CHROME_PATH set).
  *
- * Usage: pnpm previews:capture [baseUrl]
+ * Usage: pnpm previews:capture [baseUrl]  (Node >= 22.18 runs TypeScript directly)
  */
 import fs from "node:fs/promises";
 import path from "node:path";
 import { chromium } from "playwright-core";
 import sharp from "sharp";
+import type { Post } from "@/payload-types";
+
+type TemplatePost = Pick<Post, "slug" | "template">;
 
 const baseUrl = (process.argv[2] ?? "http://localhost:3000").replace(/\/$/, "");
 const outDir = path.resolve("public/images/template-previews");
@@ -22,7 +25,7 @@ const OUTPUT_HEIGHT = 400;
 const EMBED_PAINT_MS = 3000;
 
 /** gospelReflectionSplit -> gospel-reflection-split, catechismQASeries -> catechism-qa-series */
-const toFileName = (blockType) =>
+const toFileName = (blockType: string): string =>
   blockType
     .replace(/([a-z0-9])([A-Z])/g, "$1-$2")
     .replace(/([A-Z])([A-Z][a-z])/g, "$1-$2")
@@ -40,14 +43,14 @@ const res = await fetch(`${baseUrl}/api/posts?${query}`).catch((error) => {
   });
 });
 if (!res.ok) throw new Error(`GET /api/posts failed: ${res.status}`);
-const { docs } = await res.json();
+const { docs } = (await res.json()) as { docs: TemplatePost[] };
 
 // Newest post per template.
-const slugByTemplate = new Map();
+const slugByTemplate = new Map<string, string>();
 for (const post of docs) {
   const blockType = post.template?.[0]?.blockType;
   // blockType becomes a file name and a CSS selector; accept only identifiers.
-  if (!/^[a-zA-Z0-9]+$/.test(blockType ?? "")) continue;
+  if (!blockType || !/^[a-zA-Z0-9]+$/.test(blockType)) continue;
   if (!slugByTemplate.has(blockType)) {
     slugByTemplate.set(blockType, post.slug);
   }
@@ -82,7 +85,7 @@ try {
 
     // The site header is sticky and would cover the top of the crop.
     await page.evaluate(() => {
-      for (const el of document.querySelectorAll("body *")) {
+      for (const el of document.querySelectorAll<HTMLElement>("body *")) {
         const { position } = getComputedStyle(el);
         if (position === "fixed" || position === "sticky") {
           el.style.visibility = "hidden";

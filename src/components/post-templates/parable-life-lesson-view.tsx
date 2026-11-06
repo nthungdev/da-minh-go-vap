@@ -1,6 +1,7 @@
 import AppMarkdown from "@/components/app-markdown";
 import { ParableLifeLessonBlock } from "@/payload-types";
 import { stripWrappingQuotes } from "@/utils/quote";
+import { toSafeHttpUrl } from "@/utils/safe-url";
 
 interface Props {
   block: ParableLifeLessonBlock;
@@ -8,6 +9,7 @@ interface Props {
 
 export default function ParableLifeLessonView({ block }: Props) {
   const { contents, translator, source } = block;
+  const sourceUrl = toSafeHttpUrl(source?.url);
 
   return (
     <article className="mx-auto w-full max-w-[1052px] text-slate-600 md:py-6">
@@ -81,9 +83,9 @@ export default function ParableLifeLessonView({ block }: Props) {
             {source?.name && (
               <p>
                 <strong className="font-bold text-teal-700">Nguồn:</strong>{" "}
-                {source.url ? (
+                {sourceUrl ? (
                   <a
-                    href={source.url}
+                    href={sourceUrl}
                     target="_blank"
                     rel="noopener noreferrer nofollow"
                     className="hover:underline"

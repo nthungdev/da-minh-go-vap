@@ -4,6 +4,7 @@ import LightboxModal from "@/components/post-templates/shared/lightbox-modal";
 import { Media, NewsArticleFeaturedBlock } from "@/payload-types";
 import { transformUrl } from "@/utils/cloudflare";
 import { cn } from "@/utils/common";
+import { toSafeHttpUrl } from "@/utils/safe-url";
 
 interface Props {
   block: NewsArticleFeaturedBlock;
@@ -17,8 +18,9 @@ export default function NewsArticleFeaturedView({ block }: Props) {
     content,
     translator,
     sourceName,
-    sourceUrl,
+    sourceUrl: rawSourceUrl,
   } = block;
+  const sourceUrl = toSafeHttpUrl(rawSourceUrl);
 
   const imageMedia =
     typeof featuredImage === "object" && featuredImage !== null

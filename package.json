@@ -12,7 +12,7 @@
     "s3:backup": "bash scripts/s3-backup.sh",
     "s3:restore": "bash scripts/s3-restore.sh",
     "s3:copy": "bash scripts/s3-copy.sh",
-    "previews:capture": "node scripts/capture-template-previews.mjs",
+    "previews:capture": "node scripts/capture-template-previews.ts",
     "build": "next build",
     "build:compile": "next build --experimental-build-mode compile",
     "build:generate-env": "next build --experimental-build-mode generate-env",
@@ -103,6 +103,6 @@
   },
   "packageManager": "pnpm@11.2.2",
   "engines": {
-    "node": ">=22"
+    "node": ">=22.18"
   }
 }

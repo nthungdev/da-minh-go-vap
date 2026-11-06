@@ -1,4 +1,5 @@
 import type { GroupField, TextField } from "payload";
+import { validateOptionalHttpUrl } from "@/utils/safe-url";
 
 type TextFieldSingle = Extract<TextField, { hasMany?: false }>;
 
@@ -29,6 +30,8 @@ export function sourceFields(
     type: "text",
     label: "Đường dẫn nguồn",
     ...(options?.urlOverrides as object),
+    // After the overrides so a caller can't drop the http(s)-only check.
+    validate: validateOptionalHttpUrl,
     admin: {
       placeholder: "https://...",
       ...options?.urlOverrides?.admin,

@@ -87,8 +87,11 @@ export default function EventGalleryReportView({ block }: Props) {
       <div className="space-y-8 rounded-xl bg-white px-4 py-5 shadow-[0_4px_18px_rgba(0,0,0,0.08)] sm:rounded-2xl md:space-y-10 md:p-10">
         {sections.map((section, idx) => {
           const photos = section.photos ?? [];
+          // A side-by-side layout needs text beside the photo; without it, stack.
           const sidePhoto =
-            (section.layout ?? "stacked") === "stacked" ? undefined : photos[0];
+            (section.layout ?? "stacked") === "stacked" || !section.narrative
+              ? undefined
+              : photos[0];
 
           if (sidePhoto) {
             return (
@@ -103,7 +106,7 @@ export default function EventGalleryReportView({ block }: Props) {
                 >
                   <PhotoFigure photo={sidePhoto} />
                 </div>
-                {section.narrative && <Narrative text={section.narrative} />}
+                <Narrative text={section.narrative ?? ""} />
               </div>
             );
           }
