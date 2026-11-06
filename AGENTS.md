@@ -187,6 +187,18 @@ export const add = (a: number, b: number) => a + b;
 
 ---
 
+### 3.5. File and Component Naming Conventions (Kebab-case)
+
+All source files, components, and directories in the project must follow consistent naming conventions:
+
+- **Always use `kebab-case` for file names**: All React components, pages, layouts, utilities, and helper files must be named using lowercase letters separated by hyphens (e.g., `app-accordion.tsx`, `the-footer.tsx`, `gospel-reflection-card-view.tsx`, `lightbox-modal.tsx`).
+
+- **Component Function Names Remain PascalCase**: While the file name is kebab-case, the React component function itself is defined and exported in PascalCase.
+
+- **Consistency Across Directories**: This convention applies across `src/components/`, `src/app/`, `src/utils/`, and `src/actions/`.
+
+---
+
 ## 4. Payload CMS & Next.js Guidelines
 
 1. **Client vs. Server Components**:

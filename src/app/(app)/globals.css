@@ -8,6 +8,7 @@
 
 /* Plugins */
 @plugin "@tailwindcss/forms";
+@plugin "@tailwindcss/typography";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -248,6 +249,8 @@
 }
 
 @theme inline {
+  --font-noto-serif: var(--next-font-noto-serif), "Times New Roman", serif;
+  --font-lora: var(--next-font-lora), "Times New Roman", serif;
   --font-heading: var(--font-sans);
   --font-sans: var(--font-sans);
   --color-sidebar-ring: var(--sidebar-ring);
