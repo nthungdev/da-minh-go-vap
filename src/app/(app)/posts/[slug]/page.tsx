@@ -115,7 +115,7 @@ export default async function Page(props: {
       )}
 
       {post.contentMode === "template" && post.template?.[0] ? (
-        <div className="mt-8">
+        <div className="mt-8" data-post-template={post.template[0].blockType}>
           <PostTemplateRenderer block={post.template[0]} />
         </div>
       ) : post.contentMode === "blocks" && post.contentBlocks?.length ? (

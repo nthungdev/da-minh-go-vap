@@ -7,7 +7,7 @@ const GospelReflectionSplitBlock: Block = {
     singular: "Suy Niệm Lời Chúa - Bố Cục Phân Tách",
     plural: "Suy Niệm Lời Chúa - Bố Cục Phân Tách",
   },
-  imageURL: "/svgs/template-previews/gospel-reflection-split.svg",
+  imageURL: "/images/template-previews/gospel-reflection-split.webp",
   imageAltText: "Bố cục 2 cột: Bài suy niệm và Trích đoạn Tin Mừng",
   interfaceName: "GospelReflectionSplitBlock",
   fields: [

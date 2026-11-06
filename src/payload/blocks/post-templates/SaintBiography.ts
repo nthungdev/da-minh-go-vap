@@ -7,7 +7,7 @@ const SaintBiographyBlock: Block = {
     singular: "Tiểu Sử Thánh",
     plural: "Tiểu Sử Thánh",
   },
-  imageURL: "/svgs/template-previews/saint-biography.svg",
+  imageURL: "/images/template-previews/saint-biography.webp",
   imageAltText: "Tiểu sử Thánh: Chân dung, Dòng thời gian, Gương nhân đức",
   interfaceName: "SaintBiographyBlock",
   fields: [

@@ -7,7 +7,7 @@ const CatechismQASeriesBlock: Block = {
     singular: "Hiểu Để Yêu - Chuyên Đề Giáo Lý",
     plural: "Hiểu Để Yêu - Chuyên Đề Giáo Lý",
   },
-  imageURL: "/svgs/template-previews/catechism-qa-series.svg",
+  imageURL: "/images/template-previews/catechism-qa-series.webp",
   imageAltText: "Hỏi đáp giáo lý theo từng chủ đề và biểu tượng",
   interfaceName: "CatechismQASeriesBlock",
   fields: [

@@ -7,7 +7,7 @@ const NewsArticleFeaturedBlock: Block = {
     singular: "Bản Tin Giáo Hội & Ảnh Nổi",
     plural: "Bản Tin Giáo Hội & Ảnh Nổi",
   },
-  imageURL: "/svgs/template-previews/news-article-featured.svg",
+  imageURL: "/images/template-previews/news-article-featured.webp",
   imageAltText: "Bản tin nổi bật kèm ảnh lớn, chú thích và nguồn tin",
   interfaceName: "NewsArticleFeaturedBlock",
   fields: [

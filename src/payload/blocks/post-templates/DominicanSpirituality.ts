@@ -7,7 +7,7 @@ const DominicanSpiritualityBlock: Block = {
     singular: "Linh Đạo & Suy Niệm Đa Minh",
     plural: "Linh Đạo & Suy Niệm Đa Minh",
   },
-  imageURL: "/svgs/template-previews/dominican-spirituality.svg",
+  imageURL: "/images/template-previews/dominican-spirituality.webp",
   imageAltText: "Linh đạo Đa Minh: Các điểm suy niệm và lời dạy Cha Thánh",
   interfaceName: "DominicanSpiritualityBlock",
   fields: [
