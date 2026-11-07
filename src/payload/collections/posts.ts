@@ -1,18 +1,9 @@
-import { locales } from "@/i18n/config";
-import { Post } from "@/payload-types";
 import markdownField from "@/payload/fields/markdown";
 import { postsReadAccess } from "@/payload/utils/access-control";
 import { buildPostPreviewUrl } from "@/payload/utils/config";
 import { slugify } from "@/payload/utils/data";
-import Fuses from "@/utils/fuses";
-import { postToAppPost } from "@/utils/post";
 import { validateSlug } from "@/utils/slug";
-import type {
-  CollectionAfterChangeHook,
-  CollectionConfig,
-  FieldHook,
-  FieldHookArgs,
-} from "payload";
+import type { CollectionConfig, FieldHook, FieldHookArgs } from "payload";
 
 const Posts: CollectionConfig = {
   slug: "posts",
@@ -206,24 +197,7 @@ const Posts: CollectionConfig = {
       ],
     },
   ],
-  hooks: {
-    afterChange: [updateFuse],
-  },
 };
-
-async function updateFuse({
-  doc,
-  operation,
-}: Parameters<CollectionAfterChangeHook<Post>>[0]) {
-  locales.forEach(async (locale) => {
-    const post = postToAppPost(doc);
-    if (operation === "create") {
-      Fuses.instance.addPost(post, locale);
-    } else if (operation === "update") {
-      Fuses.instance.replacePost(post, locale);
-    }
-  });
-}
 
 function duplicateTitle({ value }: FieldHookArgs): ReturnType<FieldHook> {
   return `[Duplicate] ${value}`;

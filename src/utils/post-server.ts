@@ -1,4 +1,3 @@
-// Comment this line before running pnpm generate
 import "server-only";
 
 import { getPayload, PaginatedDocs, Where } from "payload";
