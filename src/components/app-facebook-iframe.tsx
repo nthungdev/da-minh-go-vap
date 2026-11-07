@@ -1,4 +1,4 @@
-import { twMerge } from "tailwind-merge";
+import { cn } from "@/utils/common";
 
 export default function FacebookIframe({
   videoId,
@@ -9,7 +9,7 @@ export default function FacebookIframe({
 }) {
   return (
     <iframe
-      className={twMerge(
+      className={cn(
         "aspect-video w-full overflow-hidden border-none",
         className,
       )}

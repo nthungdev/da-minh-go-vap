@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
-import { twMerge } from "tailwind-merge";
+import { cn } from "@/utils/common";
 
 interface PostGroupTabsSelectOption {
   value: string;
@@ -38,10 +38,7 @@ export default function PostGroupTabsSelect(props: PostGroupTabsSelectProps) {
   }
 
   return (
-    <div
-      id={id}
-      className={twMerge("hs-dropdown relative inline-flex", className)}
-    >
+    <div id={id} className={cn("hs-dropdown relative inline-flex", className)}>
       <button
         type="button"
         className="hs-dropdown-toggle inline-flex cursor-pointer items-center justify-center gap-x-2 p-1"
@@ -60,7 +57,7 @@ export default function PostGroupTabsSelect(props: PostGroupTabsSelectProps) {
         {options.map((option, index) => (
           <li
             key={index}
-            className={twMerge(
+            className={cn(
               "block cursor-pointer rounded-sm px-2 py-1 hover:bg-gray-100",
               index === activeIndex && "font-bold",
             )}

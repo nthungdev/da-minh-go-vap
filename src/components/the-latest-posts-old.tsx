@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import AppPostCard from "./app-post-card";
 import { fetchAllPosts } from "@/actions/post";
-import { twMerge } from "tailwind-merge";
+import { cn } from "@/utils/common";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import Spinner from "@/components/spinner";
 import { useLocale } from "next-intl";
@@ -45,7 +45,7 @@ export default function TheLatestPosts({
 
   return (
     <div
-      className={twMerge(
+      className={cn(
         "flex flex-col gap-2 lg:grid lg:grid-flow-row lg:grid-cols-3",
         className,
       )}
@@ -88,7 +88,7 @@ export default function TheLatestPosts({
           <AppPostCard
             key={index}
             post={post}
-            className={twMerge("bg-primary-1 border lg:border-transparent")}
+            className={cn("bg-primary-1 border lg:border-transparent")}
             showDate
           />
         ))}

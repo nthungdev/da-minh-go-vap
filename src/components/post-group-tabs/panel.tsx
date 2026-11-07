@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { twMerge } from "tailwind-merge";
+import { cn } from "@/utils/common";
 import { Page } from "@/payload-types";
 import AppViewMoreLink from "@/components/app-view-more-link";
 import { getDataOrUndefined } from "@/payload/utils/data";
@@ -68,7 +68,7 @@ export default function PostGroupTabsPanel({
   const firstPostHref = `/posts/${firstPost.slug}`;
 
   return (
-    <div className={twMerge(className)} {...props}>
+    <div className={cn(className)} {...props}>
       <div className="flex flex-col gap-x-4 gap-y-4 lg:flex-row lg:p-3">
         <Link href={firstPostHref} className="block space-y-2 lg:w-3/5">
           <div className="relative aspect-video w-full">
@@ -110,7 +110,7 @@ function PostGroupTabPanelSkeleton({
   viewMoreButtonEnable: boolean;
 } & React.HTMLAttributes<HTMLDivElement>) {
   return (
-    <div className={twMerge("animate-pulse", className)} {...props}>
+    <div className={cn("animate-pulse", className)} {...props}>
       <div className="flex flex-col gap-x-4 lg:flex-row lg:p-3">
         <div className="block space-y-2 gap-y-2 lg:w-3/5">
           <div className="relative aspect-video w-full bg-gray-200"></div>

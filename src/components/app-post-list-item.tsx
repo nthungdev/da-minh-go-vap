@@ -2,7 +2,7 @@ import { AppPost } from "@/definitions";
 import { transformUrl } from "@/utils/cloudflare";
 import Image from "next/image";
 import Link from "next/link";
-import { twMerge } from "tailwind-merge";
+import { cn } from "@/utils/common";
 
 interface AppPostListItemProps {
   post: AppPost;
@@ -15,7 +15,7 @@ export default function AppPostListItem(props: AppPostListItemProps) {
   return (
     <Link
       href={`/posts/${post.slug}`}
-      className={twMerge(
+      className={cn(
         "app-post-list-item @container block h-full w-full",
         className,
       )}

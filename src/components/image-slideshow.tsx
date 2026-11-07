@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import AppCarousel from "@/components/app-carousel";
-import { twMerge } from "tailwind-merge";
+import { cn } from "@/utils/common";
 import { Media } from "@/payload-types";
 import { transformUrl } from "@/utils/cloudflare";
 
@@ -23,7 +23,7 @@ export default function ImageSlideshow({
     <AppCarousel
       id={id}
       durations={durations}
-      className={twMerge("aspect-2/3 w-full overflow-hidden", className)}
+      className={cn("aspect-2/3 w-full overflow-hidden", className)}
       {...props}
     >
       {slides

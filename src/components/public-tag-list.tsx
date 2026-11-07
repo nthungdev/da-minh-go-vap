@@ -3,7 +3,7 @@ import { makePublicTagPath } from "@/utils/post";
 import { useLocale } from "next-intl";
 import Link from "next/link";
 import { ComponentProps } from "react";
-import { twMerge } from "tailwind-merge";
+import { cn } from "@/utils/common";
 
 export function PublicTagList({
   className,
@@ -14,7 +14,7 @@ export function PublicTagList({
   const label = local === "vi" ? "Thẻ" : "Tags";
   return (
     <div
-      className={twMerge("mt-6 flex flex-wrap items-center gap-2", className)}
+      className={cn("mt-6 flex flex-wrap items-center gap-2", className)}
       {...props}
     >
       <span className="text-sm font-medium text-gray-600">{label}</span>

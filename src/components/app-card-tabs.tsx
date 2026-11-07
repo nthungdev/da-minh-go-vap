@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import AppMarkdown from "./app-markdown";
-import { twMerge } from "tailwind-merge";
+import { cn } from "@/utils/common";
 
 interface AppCardTabsProps {
   tabs: {
@@ -24,7 +24,7 @@ export default function AppCardTabs({ tabs }: AppCardTabsProps) {
           {tabs.map(({ title }, index) => (
             <button
               key={index}
-              className={twMerge(
+              className={cn(
                 "-mb-px inline-flex items-center gap-2 rounded-t-lg border px-4 py-3 text-center text-sm font-medium hover:cursor-pointer focus:outline-hidden",
                 index === activeTab
                   ? "bg-primary border-b-transparent text-gray-50 dark:border-neutral-700 dark:border-b-gray-800 dark:bg-neutral-800"

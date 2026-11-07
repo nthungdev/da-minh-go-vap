@@ -7,13 +7,12 @@ import Spinner from "@/components/spinner";
 import { Locale } from "@/i18n/config";
 import { getDataOrUndefined } from "@/payload/utils/data";
 import { transformUrl } from "@/utils/cloudflare";
-import { createRandomAlphaString } from "@/utils/common";
+import { cn, createRandomAlphaString } from "@/utils/common";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useLocale } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { twMerge } from "tailwind-merge";
 
 const TRANSITION_DURATION = 4000;
 
@@ -56,14 +55,14 @@ export default function TheLatestPosts({
   const postHref = `/posts/${data[currentIndex]?.slug}`;
 
   return (
-    <div className={twMerge("@container", className)}>
+    <div className={cn("@container", className)}>
       <div className="mb-4">
         <span className="bg-primary cursor-default rounded-md px-6 py-1 font-bold text-white uppercase">
           {labels[locale]}
         </span>
       </div>
       <div
-        className={twMerge(
+        className={cn(
           "flex flex-col gap-x-2 lg:flex-row",
           postCount === 4 && "lg:h-[320px]",
           postCount === 5 && "lg:h-[402px]",

@@ -3,7 +3,7 @@ import { getDataOrUndefined } from "@/payload/utils/data";
 import { transformUrl } from "@/utils/cloudflare";
 import Image from "next/image";
 import Link from "next/link";
-import { twMerge } from "tailwind-merge";
+import { cn } from "@/utils/common";
 
 interface PostListProps extends React.HTMLAttributes<HTMLUListElement> {
   posts: AppPost[];
@@ -20,7 +20,7 @@ export default function PostList({
   showShortBody,
 }: PostListProps) {
   return (
-    <ul className={twMerge("post-list", className)}>
+    <ul className={cn("post-list", className)}>
       {posts.map((post, index) => {
         const thumbnail = getDataOrUndefined(post.thumbnail);
         const date = post.publishedAt.toLocaleDateString("vi-VN");
@@ -29,7 +29,7 @@ export default function PostList({
         return (
           <li
             key={index}
-            className={twMerge(
+            className={cn(
               "border-b-2 border-gray-200 pt-2 pb-2 first:pt-0 last:border-0 hover:cursor-pointer",
               index === activeIndex && "bg-gray-200",
               effectOnHover &&
@@ -58,7 +58,7 @@ export default function PostList({
                   {date}
                 </div>
                 <div
-                  className={twMerge(
+                  className={cn(
                     "line-clamp-1 text-base font-bold",
                     !showShortBody &&
                       post.shortBody &&

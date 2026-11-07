@@ -2,7 +2,7 @@
 
 import React from "react";
 import AppPostGrid from "./app-post-grid";
-import { twMerge } from "tailwind-merge";
+import { cn } from "@/utils/common";
 import { Page } from "@/payload-types";
 import AppViewMoreLink from "@/components/app-view-more-link";
 import { getDataOrUndefined } from "@/payload/utils/data";
@@ -59,7 +59,7 @@ export default function AppPostTabContentAsync({
   const viewMoreHref = page ? page.path : makePostsPath(hiddenTags, title);
 
   return (
-    <div className={twMerge("space-y-2", className)} {...props}>
+    <div className={cn("space-y-2", className)} {...props}>
       <DataComponent className="lg:grid-cols-3" posts={data.posts} />
       {!!viewMoreButton?.enable && (
         <div className="flex flex-row justify-end">

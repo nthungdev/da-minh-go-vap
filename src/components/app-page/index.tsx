@@ -7,6 +7,7 @@ import { getDataOrUndefined } from "@/payload/utils/data";
 import AppBanners from "@/components/app-banners";
 import AppPageContent from "@/components/app-page/app-page-content";
 import { getLocale } from "next-intl/server";
+import { transformUrl } from "@/utils/cloudflare";
 
 interface AppPageProps extends HTMLAttributes<HTMLDivElement> {
   banners?: Media[];
@@ -44,17 +45,23 @@ export default async function AppPage({
         <div className="relative">
           <picture className="pointer-events-none absolute right-0 bottom-0 left-0 z-10 block w-full select-none">
             {imageMobileUrl && (
-              <source media="(max-width: 799px)" srcSet={imageMobileUrl} />
+              <source
+                media="(max-width: 799px)"
+                srcSet={transformUrl(imageMobileUrl)}
+              />
             )}
 
             {imageDesktopUrl && (
-              <source media="(min-width: 800px)" srcSet={imageDesktopUrl} />
+              <source
+                media="(min-width: 800px)"
+                srcSet={transformUrl(imageDesktopUrl)}
+              />
             )}
 
             {imageMobileUrl && (
               <Image
                 className="w-full"
-                src={imageMobileUrl}
+                src={transformUrl(imageMobileUrl)}
                 alt=""
                 width={0}
                 height={0}

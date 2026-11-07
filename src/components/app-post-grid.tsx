@@ -3,7 +3,7 @@ import { transformUrl } from "@/utils/cloudflare";
 import Image from "next/image";
 import Link from "next/link";
 import { HTMLAttributes } from "react";
-import { twMerge } from "tailwind-merge";
+import { cn } from "@/utils/common";
 
 interface AppPostGridProps extends HTMLAttributes<HTMLElement> {
   posts: AppPost[];
@@ -17,7 +17,7 @@ export default function AppPostGrid({
 }: AppPostGridProps) {
   return (
     <ul
-      className={twMerge(
+      className={cn(
         "app-post-grid relative grid grid-flow-row gap-4 md:grid-cols-2 lg:grid-cols-4",
         className,
       )}
