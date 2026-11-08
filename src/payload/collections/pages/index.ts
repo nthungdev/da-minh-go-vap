@@ -16,6 +16,7 @@ import TabbedPostGroupBlock from "@/payload/blocks/TabbedPostGroupBlock";
 import TextBlock from "@/payload/blocks/TextBock";
 import TimelineBlock from "@/payload/blocks/TimelineBlock";
 import VideoGridBlock from "@/payload/blocks/VideoGridBlock";
+import { publishedAtField } from "@/payload/fields";
 import { onlyRoles } from "@/payload/utils/access-control";
 import { buildPagePreviewUrl } from "@/payload/utils/config";
 import { revalidatePath } from "@/payload/utils/data";
@@ -52,17 +53,7 @@ const Pages: CollectionConfig = {
         position: "sidebar",
       },
       fields: [
-        {
-          name: "publishedAt",
-          type: "date",
-          label: "Thời gian công bố",
-          required: true,
-          admin: {
-            date: {
-              pickerAppearance: "dayAndTime",
-            },
-          },
-        },
+        publishedAtField(),
         {
           name: "path",
           type: "text",

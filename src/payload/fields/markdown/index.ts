@@ -4,7 +4,7 @@ type MarkdownFieldOptions = Omit<CodeField, "type"> &
   Required<Pick<CodeField, "name">>;
 
 function markdownField(override: MarkdownFieldOptions): CodeField {
-  const { admin } = override;
+  const { admin, ...restOfOverride } = override;
   return {
     type: "code",
     admin: {
@@ -14,7 +14,7 @@ function markdownField(override: MarkdownFieldOptions): CodeField {
         Field: "@/payload/fields/markdown/Field",
       },
     },
-    ...override,
+    ...restOfOverride,
   };
 }
 
