@@ -10,6 +10,9 @@ interface LightboxModalProps {
   src: string;
   alt?: string;
   caption?: string | null;
+  /** Intrinsic size of the image; keeps the aspect ratio before it loads. */
+  width?: number | null;
+  height?: number | null;
   children: React.ReactNode;
   className?: string;
 }
@@ -18,6 +21,8 @@ export default function LightboxModal({
   src,
   alt = "",
   caption,
+  width,
+  height,
   children,
   className,
 }: LightboxModalProps) {
@@ -103,9 +108,9 @@ export default function LightboxModal({
               <Image
                 src={transformUrl(src, { width: "1600", quality: "90" })}
                 alt={alt}
-                width={1200}
-                height={800}
-                className="max-h-[80vh] w-auto rounded-lg object-contain shadow-2xl"
+                width={width || 1200}
+                height={height || 800}
+                className="h-auto max-h-[80vh] w-auto max-w-full rounded-lg object-contain shadow-2xl"
               />
             </div>
             {caption && (

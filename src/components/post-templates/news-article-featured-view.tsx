@@ -48,6 +48,8 @@ export default function NewsArticleFeaturedView({ block }: Props) {
             src={imageMedia.url}
             alt={imageAlt}
             caption={imageCaption}
+            width={imageMedia.width}
+            height={imageMedia.height}
             className="rounded-xl"
           >
             <div className="relative aspect-[3/2] w-full cursor-zoom-in overflow-hidden rounded-xl shadow-[0_4px_14px_rgba(0,0,0,0.18)]">

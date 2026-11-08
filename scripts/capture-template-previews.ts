@@ -33,6 +33,8 @@ const toFileName = (blockType: string): string =>
 
 const query = new URLSearchParams({
   "where[contentMode][equals]": "template",
+  // The script has no basic-auth credentials, so such posts would never load.
+  "where[requireHttpBasicAuth][not_equals]": "true",
   limit: "200",
   depth: "0",
   sort: "-publishedAt",

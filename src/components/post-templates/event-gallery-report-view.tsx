@@ -30,7 +30,13 @@ function PhotoFigure({ photo }: { photo: Photo }) {
 
   return (
     <figure>
-      <LightboxModal src={media.url} alt={alt} caption={photo.caption}>
+      <LightboxModal
+        src={media.url}
+        alt={alt}
+        caption={photo.caption}
+        width={media.width}
+        height={media.height}
+      >
         <div
           className={cn(
             "overflow-hidden rounded-lg shadow-md",
