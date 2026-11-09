@@ -15,6 +15,7 @@ import { NextIntlClientProvider } from "next-intl";
 const nunito = Nunito({
   subsets: ["vietnamese"],
   variable: "--font-nunito",
+  display: "swap",
 });
 
 // Serif faces used by the news article and bilingual quote post templates
@@ -22,6 +23,7 @@ const notoSerif = Noto_Serif({
   subsets: ["vietnamese"],
   weight: ["400", "600"],
   variable: "--next-font-noto-serif",
+  display: "swap",
 });
 
 const lora = Lora({
@@ -29,6 +31,7 @@ const lora = Lora({
   weight: ["400", "600"],
   style: ["normal", "italic"],
   variable: "--next-font-lora",
+  display: "swap",
 });
 
 export async function generateMetadata(): Promise<Metadata> {

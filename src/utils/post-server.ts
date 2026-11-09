@@ -6,6 +6,7 @@ import config from "@payload-config";
 import { postToAppPost } from "@/utils/post";
 import { defaultLocale, Locale } from "@/i18n/config";
 import { Post } from "@/payload-types";
+import { cache } from "react";
 
 interface GetOptions {
   limit?: number;
@@ -14,10 +15,7 @@ interface GetOptions {
   locale?: Locale;
 }
 
-export const getPostBySlug = async (
-  slug: string,
-  { locale }: { locale?: Locale } = {},
-) => {
+const getPostBySlugCached = cache(async (slug: string, locale?: Locale) => {
   try {
     const payload = await getPayload({ config });
     const query = await payload.find({
@@ -39,7 +37,12 @@ export const getPostBySlug = async (
   } catch {
     return null;
   }
-};
+});
+
+export const getPostBySlug = (
+  slug: string,
+  { locale }: { locale?: Locale } = {},
+) => getPostBySlugCached(slug, locale);
 
 export async function queryAllPosts({ limit, page, locale }: GetOptions = {}) {
   const payload = await getPayload({ config });

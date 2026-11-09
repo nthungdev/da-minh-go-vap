@@ -2,6 +2,7 @@
 
 import { MenuItem } from "@/utils/menu";
 import type { Media } from "@/payload-types";
+import { transformUrl } from "@/utils/cloudflare";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -60,7 +61,7 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
             {typeof logo?.url === "string" ? (
               <div className="relative h-10 w-10">
                 <Image
-                  src={logo.url}
+                  src={transformUrl(logo.url)}
                   alt={logo.alt || "Logo"}
                   fill
                   className="object-contain"
@@ -79,12 +80,10 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
             <div className="relative z-20 hidden h-16 w-20 self-start lg:block">
               <div className="absolute top-[20%] left-0 size-20 overflow-auto">
                 <Image
-                  src={logo.url}
+                  src={transformUrl(logo.url)}
                   alt={logo.alt || "Logo"}
-                  quality={100}
-                  sizes="100%"
+                  sizes="80px"
                   fill
-                  priority
                 />
               </div>
             </div>
@@ -223,7 +222,7 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                   {typeof logo?.url === "string" ? (
                     <div className="relative h-12 w-12 shrink-0">
                       <Image
-                        src={logo.url}
+                        src={transformUrl(logo.url)}
                         alt={logo.alt || "Logo"}
                         fill
                         className="object-contain"
