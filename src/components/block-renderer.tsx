@@ -117,6 +117,7 @@ const mapBlockToProps: BlockToPropsMap = {
       hiddenTags,
       type: block.displayType,
       posts: query.posts,
+      initialPosts: query.posts,
     };
   },
   quoteBlock: (block) => ({

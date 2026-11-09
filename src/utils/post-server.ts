@@ -15,31 +15,34 @@ interface GetOptions {
   locale?: Locale;
 }
 
-export const getPostBySlug = cache(
-  async (slug: string, { locale }: { locale?: Locale } = {}) => {
-    try {
-      const payload = await getPayload({ config });
-      const query = await payload.find({
-        collection: "posts",
-        where: {
-          slug: { equals: slug },
-          // Only get published posts
-          publishedAt: {
-            less_than: new Date().toISOString(),
-          },
+const getPostBySlugCached = cache(async (slug: string, locale?: Locale) => {
+  try {
+    const payload = await getPayload({ config });
+    const query = await payload.find({
+      collection: "posts",
+      where: {
+        slug: { equals: slug },
+        // Only get published posts
+        publishedAt: {
+          less_than: new Date().toISOString(),
         },
-        limit: 1,
-        locale: locale ?? defaultLocale,
-      });
-      const post = query.docs[0];
-      if (!post) return null;
+      },
+      limit: 1,
+      locale: locale ?? defaultLocale,
+    });
+    const post = query.docs[0];
+    if (!post) return null;
 
-      return postToAppPost(post);
-    } catch {
-      return null;
-    }
-  },
-);
+    return postToAppPost(post);
+  } catch {
+    return null;
+  }
+});
+
+export const getPostBySlug = (
+  slug: string,
+  { locale }: { locale?: Locale } = {},
+) => getPostBySlugCached(slug, locale);
 
 export async function queryAllPosts({ limit, page, locale }: GetOptions = {}) {
   const payload = await getPayload({ config });
