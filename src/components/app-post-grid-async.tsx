@@ -45,11 +45,13 @@ export default function AppPostGridAsync({
       : undefined,
   });
 
-  if (isPending || isLoading) return <AppPostGridSkeleton count={limit} />;
+  if ((isPending || isLoading) && !initialPosts?.length)
+    return <AppPostGridSkeleton count={limit} />;
 
-  if (error) return <p>Error: {error.message}</p>;
+  if (error && !initialPosts?.length) return <p>Error: {error.message}</p>;
 
-  const { posts, hasMore } = data;
+  const posts = data?.posts ?? initialPosts ?? [];
+  const hasMore = data?.hasMore ?? false;
   const jointHiddenTags = hiddenTags.join(",");
   const viewMoreHref = `/posts?ht=${encodeURIComponent(jointHiddenTags)}&ti=${encodeURIComponent(title)}`;
 

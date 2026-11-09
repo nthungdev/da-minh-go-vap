@@ -13,6 +13,9 @@ import TheLatestPosts from "@/components/the-latest-posts";
 import SpotifyPodcastList from "@/components/spotify-podcast-list";
 import { BlockType } from "@/definitions";
 import { createRandomAlphaString } from "@/utils/common";
+import { getLocale } from "next-intl/server";
+import { Locale } from "@/i18n/config";
+import { fetchAllPosts, fetchPostsByHiddenTags } from "@/actions/post";
 
 function NotImplementedBlock() {
   return <div>Not Implemented</div>;
@@ -46,7 +49,9 @@ const componentsMap = {
 type BlockToPropsMap = {
   [K in BlockType["blockType"]]: (
     block: Extract<BlockType, { blockType: K }>,
-  ) => React.ComponentProps<(typeof componentsMap)[K]>;
+  ) =>
+    | React.ComponentProps<(typeof componentsMap)[K]>
+    | Promise<React.ComponentProps<(typeof componentsMap)[K]>>;
 };
 
 const mapBlockToProps: BlockToPropsMap = {
@@ -79,25 +84,41 @@ const mapBlockToProps: BlockToPropsMap = {
     id: createRandomAlphaString(4),
     slides: block.images?.filter((image) => typeof image !== "string") || [],
   }),
-  latestPostGridBlock: (block) => ({
-    postCount:
-      block.postCount === "4" ? 4 : block.postCount === "5" ? 5 : undefined,
-  }),
+  latestPostGridBlock: async (block) => {
+    const locale = (await getLocale()) as Locale;
+    const postCount =
+      block.postCount === "4" ? 4 : block.postCount === "5" ? 5 : undefined;
+    const initialPosts = await fetchAllPosts({ limit: postCount, locale });
+    return {
+      postCount,
+      initialPosts,
+    };
+  },
   linksBlock: (block) => ({
     title: block.title,
     links: block.links,
   }),
   mapBlock: () => ({}),
-  postGroupBlock: (block) => ({
-    title: block.title,
-    limit: block.limit || 4,
-    hasMore: block.viewMoreButton.enableViewMoreButton,
-    hidePostTitles: block.hidePostTitles,
-    hiddenTags: block.hiddenTags
+  postGroupBlock: async (block) => {
+    const locale = (await getLocale()) as Locale;
+    const hiddenTags = block.hiddenTags
       .filter((tag) => typeof tag !== "string")
-      .map((tag) => tag.tag),
-    type: block.displayType,
-  }),
+      .map((tag) => tag.tag);
+    const limit = block.limit || 4;
+    const query = await fetchPostsByHiddenTags(hiddenTags, {
+      limit,
+      locale,
+    });
+    return {
+      title: block.title,
+      limit,
+      hasMore: block.viewMoreButton.enableViewMoreButton,
+      hidePostTitles: block.hidePostTitles,
+      hiddenTags,
+      type: block.displayType,
+      posts: query.posts,
+    };
+  },
   quoteBlock: (block) => ({
     quote: block.content,
   }),
@@ -110,13 +131,9 @@ const mapBlockToProps: BlockToPropsMap = {
       body: t.content,
     })),
   }),
-  tabbedPostGroupBlock: (block) => ({
-    title: block.title || undefined,
-    viewMoreButton: {
-      enable: block.viewMoreButton.enableViewMoreButton,
-      relativeUrl: block.viewMoreButton.relativeUrl,
-    },
-    groups:
+  tabbedPostGroupBlock: async (block) => {
+    const locale = (await getLocale()) as Locale;
+    const groups =
       block.tabs?.map((tab) => ({
         title: tab.title,
         hiddenTags: tab.hiddenTags
@@ -127,8 +144,31 @@ const mapBlockToProps: BlockToPropsMap = {
           enable: tab.viewMoreButton.enableViewMoreButton,
           relativeUrl: tab.viewMoreButton.relativeUrl,
         },
-      })) ?? [],
-  }),
+      })) ?? [];
+
+    const allUniqueHiddenTags = Array.from(
+      new Set(groups.flatMap((group) => group.hiddenTags)),
+    );
+
+    let initialPosts = undefined;
+    if (allUniqueHiddenTags.length > 0) {
+      const query = await fetchPostsByHiddenTags(allUniqueHiddenTags, {
+        limit: 6,
+        locale,
+      });
+      initialPosts = query.posts;
+    }
+
+    return {
+      title: block.title || undefined,
+      viewMoreButton: {
+        enable: block.viewMoreButton.enableViewMoreButton,
+        relativeUrl: block.viewMoreButton.relativeUrl,
+      },
+      groups,
+      initialPosts,
+    };
+  },
   textBlock: (block) => ({
     children: block.content,
   }),
@@ -145,13 +185,13 @@ const mapBlockToProps: BlockToPropsMap = {
   spotifyPodcastList: (block) => ({
     pageSize: block.pageSize || undefined,
   }),
-} as const;
+};
 
-const BlockRenderer = ({ block }: { block: BlockType }) => {
+const BlockRenderer = async ({ block }: { block: BlockType }) => {
   const Component = componentsMap[block.blockType];
   if (!Component) return null;
   const propsMapper = mapBlockToProps[block.blockType];
-  const props = propsMapper(block as never);
+  const props = await propsMapper(block as never);
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   return <Component {...props} />;

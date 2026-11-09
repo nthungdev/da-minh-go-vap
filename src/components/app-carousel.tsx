@@ -21,6 +21,7 @@ export default function AppCarousel({
   const [currentIndex, setCurrentIndex] = useState(0);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const carouselRef = useRef<HTMLDivElement | null>(null);
+  const hsCarouselRef = useRef<{ goTo: (index: number) => void } | null>(null);
 
   function handleMoveButton(direction: "previous" | "next") {
     resetTimeout();
@@ -28,6 +29,7 @@ export default function AppCarousel({
       direction === "previous"
         ? (currentIndex - 1 + durations.length) % durations.length
         : (currentIndex + 1) % durations.length;
+    hsCarouselRef.current?.goTo(newIndex);
     setCurrentIndex(newIndex);
     onTransition?.(newIndex);
   }
@@ -38,36 +40,31 @@ export default function AppCarousel({
     }
   }
 
-  // For some reason, need to create the carousel object for it to be rendered
-  useEffect(
-    function initCarousel() {
-      (async () => {
-        const carouselElement = carouselRef.current;
-        if (!carouselElement) {
-          console.warn("Carousel element not found");
-          return;
-        }
-        const { HSCarousel } = await import("preline/preline");
-        new HSCarousel(carouselElement, { currentIndex: 0 });
-      })();
-    },
-    [carouselRef],
-  );
+  useEffect(() => {
+    let isMounted = true;
+    const carouselElement = carouselRef.current;
+    if (!carouselElement) return;
+
+    import("preline/preline").then(({ HSCarousel }) => {
+      if (!isMounted || !carouselElement) return;
+      hsCarouselRef.current = new HSCarousel(carouselElement, {
+        currentIndex: 0,
+      });
+    });
+
+    return () => {
+      isMounted = false;
+    };
+  }, [carouselRef]);
 
   useEffect(() => {
+    if (durations.length <= 1) return;
     resetTimeout();
 
     const _currentIndex = currentIndex;
-    timeoutRef.current = setTimeout(async () => {
+    timeoutRef.current = setTimeout(() => {
       const newIndex = (currentIndex + 1) % durations.length;
-      const carouselElement = carouselRef.current;
-      if (!carouselElement) {
-        console.warn("Carousel element not found");
-        return;
-      }
-      const { HSCarousel } = await import("preline/preline");
-      const carousel = new HSCarousel(carouselElement, { currentIndex });
-      carousel.goTo(newIndex);
+      hsCarouselRef.current?.goTo(newIndex);
       setCurrentIndex(newIndex);
       onTransition?.(newIndex);
     }, durations[_currentIndex]);

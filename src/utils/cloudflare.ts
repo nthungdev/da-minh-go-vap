@@ -6,12 +6,14 @@ export function transformUrl(
   url: string,
   options: Record<string, string> = {},
 ) {
+  if (!url) return "";
   const filename = url.split("/").pop();
 
   const optionsString = Object.entries({
-    ...options,
-    // redirects to unresized image when resize fails
+    format: "auto",
+    quality: "85",
     onerror: "redirect",
+    ...options,
   })
     .map(([key, value]) => `${key}=${value}`)
     .join(",");

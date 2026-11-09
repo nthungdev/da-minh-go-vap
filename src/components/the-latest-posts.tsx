@@ -14,8 +14,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { twMerge } from "tailwind-merge";
+import { AppPost } from "@/definitions";
 
-const TRANSITION_DURATION = 4000;
+const TRANSITION_DURATION = 8000;
 
 const labels: Record<Locale, string> = {
   vi: "Tin Mới",
@@ -25,28 +26,35 @@ const labels: Record<Locale, string> = {
 interface TheLatestPostsProps {
   postCount?: 4 | 5;
   className?: string;
+  initialPosts?: AppPost[];
 }
 
 export default function TheLatestPosts({
   postCount,
   className,
+  initialPosts,
 }: TheLatestPostsProps) {
   const locale = useLocale();
   const [currentIndex, setCurrentIndex] = useState(0);
-  const { data, error, isPending } = useQuery({
+  const {
+    data = initialPosts || [],
+    error,
+    isPending,
+  } = useQuery({
     queryKey: ["fetchLatestPosts", locale, postCount],
     queryFn: () => fetchAllPosts({ limit: postCount, locale }),
+    initialData: initialPosts,
     placeholderData: keepPreviousData,
   });
 
-  if (isPending)
+  if (isPending && !data.length)
     return (
       <div className="flex aspect-[3/1] items-center justify-center">
         <Spinner />
       </div>
     );
 
-  if (error) return <p>Error: {error.message}</p>;
+  if (error && !data.length) return <p>Error: {error.message}</p>;
 
   if (!data.length) {
     return <div>No post found</div>;
@@ -87,15 +95,12 @@ export default function TheLatestPosts({
                   {thumbnail && thumbnail.url ? (
                     <Image
                       className="object-cover"
-                      src={thumbnail.url}
-                      loader={({ src, width }) => {
-                        const transformWidth = width < 1000 ? 1000 : 600;
-                        return transformUrl(src, {
-                          width: String(transformWidth),
-                        });
-                      }}
-                      loading="eager"
-                      fetchPriority="high"
+                      src={transformUrl(thumbnail.url, {
+                        width: "1000",
+                      })}
+                      loading={index === 0 ? "eager" : "lazy"}
+                      fetchPriority={index === 0 ? "high" : "low"}
+                      priority={index === 0}
                       alt={post.title}
                       sizes="(max-width: 768px) 100vw, 66vw"
                       fill

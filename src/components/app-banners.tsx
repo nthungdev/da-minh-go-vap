@@ -12,7 +12,7 @@ const AppBannerVideo = dynamic(() => import("@/components/app-banner-video"), {
 });
 
 const CAROUSEL_ID = "app-banners-carousel";
-const PHOTO_DURATION = 5000; // 5 seconds
+const PHOTO_DURATION = 8000; // 8 seconds
 
 const isVideoUrl = (url: string) => {
   const videoExtensions = [".mp4", ".webm", ".ogg"];
@@ -62,9 +62,14 @@ export default function AppBanners(props: AppBannersProps) {
           ) : (
             <Image
               unoptimized
-              priority
+              priority={index === 0}
+              loading={index === 0 ? "eager" : "lazy"}
+              fetchPriority={index === 0 ? "high" : "low"}
               className="size-full object-cover"
-              src={transformUrl(item.url!)}
+              src={transformUrl(item.url!, {
+                width: "1280",
+                quality: "80",
+              })}
               alt={item.alt}
               sizes="100vw"
               fill

@@ -6,6 +6,7 @@ import config from "@payload-config";
 import { postToAppPost } from "@/utils/post";
 import { defaultLocale, Locale } from "@/i18n/config";
 import { Post } from "@/payload-types";
+import { cache } from "react";
 
 interface GetOptions {
   limit?: number;
@@ -14,32 +15,31 @@ interface GetOptions {
   locale?: Locale;
 }
 
-export const getPostBySlug = async (
-  slug: string,
-  { locale }: { locale?: Locale } = {},
-) => {
-  try {
-    const payload = await getPayload({ config });
-    const query = await payload.find({
-      collection: "posts",
-      where: {
-        slug: { equals: slug },
-        // Only get published posts
-        publishedAt: {
-          less_than: new Date().toISOString(),
+export const getPostBySlug = cache(
+  async (slug: string, { locale }: { locale?: Locale } = {}) => {
+    try {
+      const payload = await getPayload({ config });
+      const query = await payload.find({
+        collection: "posts",
+        where: {
+          slug: { equals: slug },
+          // Only get published posts
+          publishedAt: {
+            less_than: new Date().toISOString(),
+          },
         },
-      },
-      limit: 1,
-      locale: locale ?? defaultLocale,
-    });
-    const post = query.docs[0];
-    if (!post) return null;
+        limit: 1,
+        locale: locale ?? defaultLocale,
+      });
+      const post = query.docs[0];
+      if (!post) return null;
 
-    return postToAppPost(post);
-  } catch {
-    return null;
-  }
-};
+      return postToAppPost(post);
+    } catch {
+      return null;
+    }
+  },
+);
 
 export async function queryAllPosts({ limit, page, locale }: GetOptions = {}) {
   const payload = await getPayload({ config });

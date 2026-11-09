@@ -40,8 +40,12 @@ export default function AppPostGrid({
                     unoptimized
                     className="object-cover"
                     src={transformUrl(post.thumbnail.url, {
-                      width: "300",
+                      width: "400",
+                      quality: "80",
                     })}
+                    priority={index === 0}
+                    loading={index === 0 ? "eager" : "lazy"}
+                    fetchPriority={index === 0 ? "high" : "low"}
                     fill
                     sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
                     alt={`${post.title}'s thumbnail`}
