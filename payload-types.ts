@@ -329,6 +329,13 @@ export interface Page {
             blockType: 'quoteBlock';
           }
         | {
+            episodes?:
+              | {
+                  label: string;
+                  spotifyId: string;
+                  id?: string | null;
+                }[]
+              | null;
             /**
              * Số lượng podcast hiển thị trên một trang.
              */
@@ -493,6 +500,13 @@ export interface Page {
             blockType: 'quoteBlock';
           }
         | {
+            episodes?:
+              | {
+                  label: string;
+                  spotifyId: string;
+                  id?: string | null;
+                }[]
+              | null;
             /**
              * Số lượng podcast hiển thị trên một trang.
              */
@@ -1086,6 +1100,11 @@ export interface SpaceBlock {
  * via the `definition` "SpotifyPodcastList".
  */
 export interface SpotifyPodcastList {
+  episodes?: {
+    label: string;
+    spotifyId: string;
+    id?: string | null;
+  }[] | null;
   /**
    * Số lượng podcast hiển thị trên một trang.
    */
@@ -1616,6 +1635,13 @@ export interface QuoteBlockSelect<T extends boolean = true> {
  * via the `definition` "SpotifyPodcastList_select".
  */
 export interface SpotifyPodcastListSelect<T extends boolean = true> {
+  episodes?:
+    | T
+    | {
+        label?: T;
+        spotifyId?: T;
+        id?: T;
+      };
   pageSize?: T;
   id?: T;
   blockName?: T;

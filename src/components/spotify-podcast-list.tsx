@@ -1,60 +1,56 @@
 "use client";
 
-import { fetchSpotifyPodcasts } from "@/actions/spotify-podcast";
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import PaginationPanel from "@/components/pagination-panel";
-import Spinner from "@/components/spinner";
 
 const PAGE_SIZE = 10;
 
+interface SpotifyPodcastEpisode {
+  id?: string | null;
+  label: string;
+  spotifyId: string;
+}
+
 interface SpotifyPodcastListProps {
-  /** Number of podcasts to display per page. Defaults to 10. */
+  episodes?: SpotifyPodcastEpisode[] | null;
   pageSize?: number;
 }
 
 export default function SpotifyPodcastList({
+  episodes = [],
   pageSize,
 }: SpotifyPodcastListProps) {
   const [page, setPage] = useState(1);
-
-  const { data, isError, error, isPending, isFetching } = useQuery({
-    queryKey: ["spotifyPodcasts", page],
-    queryFn: () => fetchSpotifyPodcasts({ page, limit: pageSize || PAGE_SIZE }),
-    placeholderData: keepPreviousData,
-  });
-
-  const hidePagination = !data || data.totalPages <= 1;
+  const safePageSize = Math.max(1, pageSize || PAGE_SIZE);
+  const totalPages = Math.ceil((episodes?.length || 0) / safePageSize);
+  const currentPage = Math.min(page, Math.max(totalPages, 1));
+  const visibleEpisodes = (episodes || []).slice(
+    (currentPage - 1) * safePageSize,
+    currentPage * safePageSize,
+  );
 
   return (
     <div className="space-y-4">
-      {isPending || isFetching ? (
-        <div className="flex justify-center py-8">
-          <Spinner />
-        </div>
-      ) : isError ? (
-        <p className="text-center text-red-500">{error.message}</p>
-      ) : (
-        <div className="space-y-5">
-          {data.podcasts.map((podcast) => (
-            <iframe
-              key={podcast.id}
-              src={`https://open.spotify.com/embed/episode/${podcast.spotifyId}?utm_source=generator`}
-              width="100%"
-              height="152"
-              className="rounded-xl"
-              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-              loading="lazy"
-            />
-          ))}
-        </div>
-      )}
+      <div className="space-y-5">
+        {visibleEpisodes.map((episode, index) => (
+          <iframe
+            key={episode.id || `${episode.spotifyId}-${index}`}
+            title={episode.label}
+            src={`https://open.spotify.com/embed/episode/${episode.spotifyId}?utm_source=generator`}
+            width="100%"
+            height="152"
+            className="rounded-xl"
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            loading="lazy"
+          />
+        ))}
+      </div>
 
-      {!hidePagination && (
+      {totalPages > 1 && (
         <PaginationPanel
           className="mt-4"
-          totalPages={data!.totalPages}
-          page={data!.page}
+          totalPages={totalPages}
+          page={currentPage}
           onPageChange={setPage}
         />
       )}
