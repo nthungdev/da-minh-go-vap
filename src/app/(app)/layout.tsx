@@ -6,32 +6,45 @@ import TheFooter from "@/components/the-footer";
 import { getSiteSettings } from "@/payload/utils/site-settings-server";
 import { getServerOrigin } from "@/utils/url";
 import { getLocale } from "next-intl/server";
-import { Lora, Noto_Serif, Nunito } from "next/font/google";
+import localFont from "next/font/local";
 import { twMerge } from "tailwind-merge";
 import "./globals.css";
 import { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 
-const nunito = Nunito({
-  subsets: ["vietnamese"],
+// Keep production builds independent of Google Fonts response formats.
+const nunito = localFont({
+  src: "../fonts/nunito/Nunito-Variable.ttf",
+  weight: "200 1000",
   variable: "--font-nunito",
   display: "swap",
 });
 
 // Serif faces used by the news article and bilingual quote post templates
-const notoSerif = Noto_Serif({
-  subsets: ["vietnamese"],
-  weight: ["400", "600"],
+const notoSerif = localFont({
+  src: "../fonts/noto-serif/NotoSerif-Variable.ttf",
+  weight: "100 900",
   variable: "--next-font-noto-serif",
   display: "swap",
+  preload: false,
 });
 
-const lora = Lora({
-  subsets: ["vietnamese"],
-  weight: ["400", "600"],
-  style: ["normal", "italic"],
+const lora = localFont({
+  src: [
+    {
+      path: "../fonts/lora/Lora-Variable.ttf",
+      weight: "400 700",
+      style: "normal",
+    },
+    {
+      path: "../fonts/lora/Lora-Italic-Variable.ttf",
+      weight: "400 700",
+      style: "italic",
+    },
+  ],
   variable: "--next-font-lora",
   display: "swap",
+  preload: false,
 });
 
 export async function generateMetadata(): Promise<Metadata> {
