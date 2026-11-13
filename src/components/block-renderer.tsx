@@ -11,6 +11,7 @@ import PostGroup from "@/components/post-group";
 import TheBibleVerse from "@/components/the-bible-verse";
 import TheLatestPosts from "@/components/the-latest-posts";
 import SpotifyPodcastList from "@/components/spotify-podcast-list";
+import VideoGrid from "@/components/video-grid";
 import { BlockType } from "@/definitions";
 import { createRandomAlphaString } from "@/utils/common";
 import { getLocale } from "next-intl/server";
@@ -42,7 +43,7 @@ const componentsMap = {
   dynamicImageBlock: NotImplementedBlock,
   imageBlock: NotImplementedBlock,
   mapBlock: NotImplementedBlock,
-  videoGridBlock: NotImplementedBlock,
+  videoGridBlock: VideoGrid,
   spotifyPodcastList: SpotifyPodcastList,
 } satisfies BlockTypeMap;
 
@@ -182,7 +183,9 @@ const mapBlockToProps: BlockToPropsMap = {
       url: typeof item.link !== "string" ? item.link?.path : undefined,
     })),
   }),
-  videoGridBlock: () => ({}),
+  videoGridBlock: (block) => ({
+    videos: block.videos,
+  }),
   spotifyPodcastList: (block) => ({
     pageSize: block.pageSize || undefined,
   }),
