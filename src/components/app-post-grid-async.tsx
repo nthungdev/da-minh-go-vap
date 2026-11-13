@@ -29,7 +29,7 @@ export default function AppPostGridAsync({
 }: AppPostGridProps) {
   const locale = useLocale();
   const { data, error, isPending, isLoading } = useQuery({
-    queryKey: ["fetchPostsByHiddenTags", hiddenTags, locale],
+    queryKey: ["fetchPostsByHiddenTags", hiddenTags, locale, limit],
     queryFn: () =>
       fetchPostsByHiddenTags(hiddenTags, {
         locale,
