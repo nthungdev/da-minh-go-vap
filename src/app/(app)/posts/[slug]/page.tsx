@@ -18,6 +18,7 @@ import { getPayload } from "payload";
 import config from "@payload-config";
 import { getPublicHiddenTags } from "@/utils/post";
 import { PublicTagList } from "@/components/public-tag-list";
+import PostViewTracker from "@/components/post-view-tracker";
 import { getServerOrigin } from "@/utils/url";
 
 const relatedPostsLimit = 12;
@@ -99,6 +100,7 @@ export default async function Page(props: {
   return (
     <AppPage>
       <RefreshRouteOnSave />
+      <PostViewTracker slug={post.slug} title={post.title} />
 
       {!post.hideTitle && (
         <h1 className="text-3xl font-semibold">{post.title}</h1>
