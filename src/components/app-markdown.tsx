@@ -1,7 +1,8 @@
 import Markdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
+import rehypeSanitize from "rehype-sanitize";
 import remarkGfm from "remark-gfm";
-import { twMerge } from "tailwind-merge";
+import { cn } from "@/utils/common";
 
 interface AppMarkdownProps {
   className?: string;
@@ -14,10 +15,10 @@ export default function AppMarkdown({
   ...props
 }: AppMarkdownProps) {
   return (
-    <div className={twMerge("markdown", className)}>
+    <div className={cn("markdown", className)}>
       <Markdown
         remarkPlugins={[remarkGfm]}
-        rehypePlugins={[rehypeRaw]}
+        rehypePlugins={[rehypeRaw, rehypeSanitize]}
         {...props}
       >
         {children}
