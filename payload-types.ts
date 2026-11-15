@@ -714,14 +714,14 @@ export interface GospelReflectionSplitBlock {
  * via the `definition` "GospelReflectionCardBlock".
  */
 export interface GospelReflectionCardBlock {
-  liturgyMeta: string;
+  liturgyMeta?: string | null;
   headline?: string | null;
   image?: (string | null) | Media;
   imageCaption?: string | null;
   /**
    * Link bài podcast audio chia sẻ suy niệm trên Spotify.
    */
-  spotifyUrl: string;
+  spotifyUrl?: string | null;
   gospel?: {
     reference?: string | null;
     content?: string | null;

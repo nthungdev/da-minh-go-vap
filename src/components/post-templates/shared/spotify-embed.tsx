@@ -2,7 +2,7 @@ import { cn } from "@/utils/common";
 import { toSpotifyEmbedUrl } from "@/utils/spotify";
 
 interface SpotifyEmbedProps {
-  url: string;
+  url?: string | null;
   className?: string;
 }
 
