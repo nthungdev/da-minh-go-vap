@@ -4,18 +4,18 @@ import { Block } from "payload";
 const GospelReflectionCardBlock: Block = {
   slug: "gospelReflectionCard",
   labels: {
-    singular: "Suy Niệm Lời Chúa - Thẻ Tích Hợp",
-    plural: "Suy Niệm Lời Chúa - Thẻ Tích Hợp",
+    singular: "Chút men cho đời - Cảm nghiệm",
+    plural: "Chút men cho đời - Cảm nghiệm",
   },
   imageURL: "/images/template-previews/gospel-reflection-card.webp",
-  imageAltText: "Thẻ suy niệm tích hợp podcast Spotify và Lời Chúa",
+  imageAltText:
+    "Chút men cho đời - Cảm nghiệm: thẻ cảm nghiệm tích hợp podcast Spotify và Lời Chúa",
   interfaceName: "GospelReflectionCardBlock",
   fields: [
     {
       name: "liturgyMeta",
       type: "text",
       label: "Thời gian & Tuần phụng vụ",
-      required: true,
       localized: true,
       admin: {
         placeholder: "Ví dụ: THỨ HAI, 14/09/2026 — Tuần XXIV Mùa Thường Niên",
@@ -47,7 +47,7 @@ const GospelReflectionCardBlock: Block = {
         condition: (_, siblingData) => Boolean(siblingData?.image),
       },
     },
-    spotifyUrlField(),
+    spotifyUrlField({ required: false }),
     {
       name: "gospel",
       type: "group",

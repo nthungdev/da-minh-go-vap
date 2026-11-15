@@ -29,10 +29,12 @@ export default function GospelReflectionCardView({ block }: Props) {
 
   return (
     <article className="rounded-[18px] border border-[#008596]/12 bg-gradient-to-b from-white to-[#fbfbfe] p-4 font-[system-ui,-apple-system,'Segoe_UI',Roboto,Arial,sans-serif] text-base text-slate-900 shadow-[0_6px_20px_rgba(18,25,40,0.08)] sm:p-[26px] md:text-xl xl:text-2xl">
-      <div className="relative mb-2.5 flex flex-wrap items-center gap-3.5">
-        <span className="text-chill-800 rounded-[10px] bg-gradient-to-r from-[#008596]/12 to-[#008596]/6 px-3 py-2 text-[0.95em] leading-snug font-semibold">
-          {liturgyMeta}
-        </span>
+      <div className="relative mb-2.5 flex flex-wrap items-center gap-3.5 empty:hidden">
+        {liturgyMeta && (
+          <span className="text-chill-800 rounded-[10px] bg-gradient-to-r from-[#008596]/12 to-[#008596]/6 px-3 py-2 text-[0.95em] leading-snug font-semibold">
+            {liturgyMeta}
+          </span>
+        )}
 
         {gospel?.content && (
           <details className="group text-[0.95em]">
@@ -62,8 +64,8 @@ export default function GospelReflectionCardView({ block }: Props) {
 
       <div className="flow-root text-[0.98em] leading-[1.68]">
         {imageMedia?.url && (
-          <figure className="mx-auto mb-5 max-w-full md:float-left md:mr-5 md:mb-[15px] md:w-[40%]">
-            <div className="relative aspect-[3/2] w-full overflow-hidden rounded-lg md:aspect-square md:rounded-full">
+          <figure className="mb-5 max-w-full md:float-left md:mr-5 md:mb-[15px] md:w-[40%]">
+            <div className="relative aspect-[3/2] w-full overflow-hidden rounded-lg md:aspect-square">
               <Image
                 src={transformUrl(imageMedia.url, {
                   width: "800",

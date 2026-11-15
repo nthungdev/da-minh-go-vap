@@ -100,7 +100,7 @@ All formatted text fields use `markdownField`.
 
 ---
 
-### Template 2: Gospel Reflection (Card Layout) / _Suy Niệm Lời Chúa - Thẻ Tích Hợp_
+### Template 2: Gospel Reflection (Card Layout) / _Chút men cho đời - Cảm nghiệm_
 
 - **Slug**: `gospel-reflection-card`
 - **Category**: Suy Niệm / Phụng Vụ
@@ -110,16 +110,16 @@ All formatted text fields use `markdownField`.
 
 ```
 +-----------------------------------------------------------------------+
-|  [ Ngày & Tuần Phụng Vụ (liturgyMeta) ]           [ Xem Tin Mừng v ]  |
+|  [ Thời gian & Tuần Phụng Vụ (optional) ]          [ Xem Tin Mừng v ]  |
 +-----------------------------------------------------------------------+
 |  [ Hình Minh Họa (image - optional) ]                                 |
 |  +-----------------------------------------------------------------+  |
-|  |                     (16:9 Banner Image)                         |  |
+|  |        (Square image, body text wraps around it)                |  |
 |  +-----------------------------------------------------------------+  |
 |                                                                       |
-|  [ Spotify Podcast Player (spotifyUrl - required) ]                   |
+|  [ Spotify Podcast Player (spotifyUrl - optional) ]                   |
 |  +-----------------------------------------------------------------+  |
-|  | [> Play]  Suy Niệm Lời Chúa (Spotify Embed)            [ 12:45 ]|  |
+|  | [> Play]  Chút men cho đời (Spotify Embed)             [ 12:45 ]|  |
 |  +-----------------------------------------------------------------+  |
 |                                                                       |
 |  [ Nội Dung Suy Niệm (body - markdownField) ]                          |
@@ -133,9 +133,9 @@ All formatted text fields use `markdownField`.
 
 #### Parameters / Fields
 
-1. `liturgyMeta` (Text, required): e.g. "THỨ HAI, 14/09/2026 — Tuần XXIV Mùa Thường Niên"
+1. `liturgyMeta` (Text, optional): e.g. "THỨ HAI, 14/09/2026 — Tuần XXIV Mùa Thường Niên"
 2. `image` (Upload -> Media, optional): Hero image for the meditation card
-3. `spotifyUrl` (Text, required): Spotify podcast episode or track URL / embed ID
+3. `spotifyUrl` (Text, optional): Spotify podcast episode or track URL / embed ID
 4. `gospel` (Group, optional):
    - `reference` (Text): e.g. "Ga 3,13-17"
    - `content` (`markdownField`): Scripture reading text
