@@ -69,6 +69,7 @@ const EventGalleryReportBlock: Block = {
           required: true,
           defaultValue: "2",
           options: [
+            { label: "1 Cột (1 Column)", value: "1" },
             { label: "2 Cột (2 Columns)", value: "2" },
             { label: "3 Cột (3 Columns)", value: "3" },
             { label: "4 Cột (4 Columns)", value: "4" },

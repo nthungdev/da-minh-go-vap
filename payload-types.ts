@@ -811,7 +811,7 @@ export interface EventGalleryReportBlock {
           id?: string | null;
         }[]
       | null;
-    columns: '2' | '3' | '4';
+    columns: '1' | '2' | '3' | '4';
     /**
      * Bố cục hai bên chỉ dùng ảnh đầu tiên của nhóm.
      */
