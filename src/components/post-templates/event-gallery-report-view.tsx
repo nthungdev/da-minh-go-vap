@@ -107,7 +107,7 @@ export default function EventGalleryReportView({ block }: Props) {
           {eventTitle}
         </h2>
         {eventSubtitle && (
-          <div className="mt-4 rounded-xl border-l-4 border-blue-600 bg-slate-50 px-4 py-5 shadow-[0_2px_8px_rgba(0,0,0,0.06)] md:p-6">
+          <div className="mt-4 rounded-xl bg-slate-50 px-4 py-5 shadow-[0_2px_8px_rgba(0,0,0,0.06)] md:p-6">
             <p className="text-primary-800 text-lg leading-normal font-semibold italic md:text-2xl">
               {eventSubtitle}
             </p>
