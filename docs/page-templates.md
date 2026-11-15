@@ -274,7 +274,7 @@ All formatted text fields use `markdownField`.
 
 - **Slug**: `event-gallery-report`
 - **Category**: Bản Tin / Sinh Hoạt Hội Dòng
-- **Use Case**: Event reports (retreats, workshops, feast days) with title, subtitle, narrative sections interspersed with 2-column or 3-column responsive photo galleries with interactive lightboxes.
+- **Use Case**: Event reports (retreats, workshops, feast days) with title, subtitle, narrative sections interspersed with 1- to 4-column responsive photo galleries with interactive lightboxes.
 
 #### Visual Layout Wireframe
 
@@ -305,7 +305,7 @@ All formatted text fields use `markdownField`.
 3. `sections` (Array, required):
    - `narrative` (`markdownField`): Narrative section
    - `photos` (Array of Upload -> Media with caption): Images to render
-   - `columns` (Select: "2" | "3" | "4", default: "2"): Grid columns
+   - `columns` (Select: "1" | "2" | "3" | "4", default: "2"): Grid columns
 4. `credits` (Text, optional): Reporter or photographer attribution
 
 ---
