@@ -261,3 +261,15 @@ const optimizedSrc = transformUrl(image.url, {
   fill
 />
 ```
+
+---
+
+## 6. Infrastructure (Terraform)
+
+GCP infrastructure for `da-minh-go-vap` is managed in [infra/terraform](infra/terraform/README.md), with state in `gs://da-minh-go-vap-tfstate`.
+
+- Change App Hosting backends, domains, rollout policy, secrets (names and access), the `db-backup` job and Cloud Scheduler jobs in Terraform. Never use `gcloud`, `firebase` or the console to create or change them.
+- To add an App Hosting secret, add it to `local.app_hosting_secrets` in `secrets.tf`, apply, then set the value with `firebase apphosting:secrets:set`. Secret values never go in Terraform.
+- App env vars and scaling stay in `apphosting*.yaml`.
+- Run `terraform plan` and show the output before any `terraform apply`. Ask before applying anything that destroys or replaces a resource.
+- Not in Terraform: secret values, Cloud Run services owned by App Hosting, the Developer Connect GitHub connection, and Cloudflare (DNS, R2).
