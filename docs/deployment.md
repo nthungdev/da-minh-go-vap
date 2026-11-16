@@ -1,6 +1,6 @@
 # Deployment
 
-The app runs on Firebase App Hosting in project `da-minh-go-vap`, region `asia-southeast1`. MongoDB is still on Railway (project `daminhgovap`, service `MongoDB`) and is reached through its public TCP proxy.
+The app runs on Firebase App Hosting in project `da-minh-go-vap`, region `asia-southeast1`. MongoDB runs on MongoDB Atlas M0 (`SOUTHEASTERN_ASIA_PACIFIC`, projects `dmgv-production` and `dmgv-staging`) over TLS (`mongodb+srv://`).
 
 |                   | Production                                | Staging                                                   |
 | ----------------- | ----------------------------------------- | --------------------------------------------------------- |
@@ -51,3 +51,12 @@ Then roll out the backend so the new version is picked up.
 ## Keep-warm
 
 Both backends scale to zero. Cloud Scheduler job `keep-warm-production` (`asia-southeast1`) requests `https://dongdaminhgovap.org/` every 5 minutes.
+
+## Database backups
+
+A Cloud Run Job (`db-backup`, `asia-southeast1`, running as `db-backup@da-minh-go-vap.iam.gserviceaccount.com`) dumps the production database with `mongodump --archive --gzip` and uploads to R2 bucket `daminhgovap-db-backups` (30-day lifecycle retention).
+
+- **Image**: [docker/db-backup/Dockerfile](file:///Users/hung/orca/workspaces/da-minh-go-vap/migration-phase-2/docker/db-backup/Dockerfile) and [docker/db-backup/backup.sh](file:///Users/hung/orca/workspaces/da-minh-go-vap/migration-phase-2/docker/db-backup/backup.sh).
+- **Schedule**: Cloud Scheduler triggers `db-backup` daily at `03:00` `Asia/Ho_Chi_Minh`.
+- **Secrets**: `production-backup-database-uri` (Atlas `backup-readonly` user, `read` on `da-minh-go-vap`), `db-backup-r2-access-key-id`, `db-backup-r2-secret`.
+- **Verify migration counts**: `pnpm db:verify "<source-uri>" "<target-uri>"` ([scripts/db-verify-counts.sh](file:///Users/hung/orca/workspaces/da-minh-go-vap/migration-phase-2/scripts/db-verify-counts.sh)).
