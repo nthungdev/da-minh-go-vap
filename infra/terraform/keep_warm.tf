@@ -19,9 +19,3 @@ resource "google_cloud_scheduler_job" "keep_warm_production" {
     uri         = var.production_url
   }
 }
-
-# Adopts the job originally created with gcloud. Safe to delete once applied.
-import {
-  to = google_cloud_scheduler_job.keep_warm_production
-  id = "projects/da-minh-go-vap/locations/asia-southeast1/jobs/keep-warm-production"
-}
