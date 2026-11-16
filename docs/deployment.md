@@ -56,7 +56,7 @@ Both backends scale to zero. Cloud Scheduler job `keep-warm-production` (`asia-s
 
 A Cloud Run Job (`db-backup`, `asia-southeast1`, running as `db-backup@da-minh-go-vap.iam.gserviceaccount.com`) dumps the production database with `mongodump --archive --gzip` and uploads to R2 bucket `daminhgovap-db-backups` (30-day lifecycle retention).
 
-- **Image**: [docker/db-backup/Dockerfile](file:///Users/hung/orca/workspaces/da-minh-go-vap/migration-phase-2/docker/db-backup/Dockerfile) and [docker/db-backup/backup.sh](file:///Users/hung/orca/workspaces/da-minh-go-vap/migration-phase-2/docker/db-backup/backup.sh).
+- **Image**: [docker/db-backup/Dockerfile](../docker/db-backup/Dockerfile) and [docker/db-backup/backup.sh](../docker/db-backup/backup.sh).
 - **Schedule**: Cloud Scheduler triggers `db-backup` daily at `03:00` `Asia/Ho_Chi_Minh`.
 - **Secrets**: `production-backup-database-uri` (Atlas `backup-readonly` user, `read` on `da-minh-go-vap`), `db-backup-r2-access-key-id`, `db-backup-r2-secret`.
-- **Verify migration counts**: `pnpm db:verify "<source-uri>" "<target-uri>"` ([scripts/db-verify-counts.sh](file:///Users/hung/orca/workspaces/da-minh-go-vap/migration-phase-2/scripts/db-verify-counts.sh)).
+- **Verify migration counts**: `pnpm db:verify "<source-uri>" "<target-uri>"` ([scripts/db-verify-counts.sh](../scripts/db-verify-counts.sh)).
