@@ -7,13 +7,12 @@ import Spinner from "@/components/spinner";
 import { Locale } from "@/i18n/config";
 import { getDataOrUndefined } from "@/payload/utils/data";
 import { transformUrl } from "@/utils/cloudflare";
-import { createRandomAlphaString } from "@/utils/common";
+import { cn } from "@/utils/common";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useLocale } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
-import { twMerge } from "tailwind-merge";
+import { useId, useState } from "react";
 import { AppPost } from "@/definitions";
 
 const TRANSITION_DURATION = 8000;
@@ -35,6 +34,7 @@ export default function TheLatestPosts({
   initialPosts,
 }: TheLatestPostsProps) {
   const locale = useLocale();
+  const id = useId();
   const [currentIndex, setCurrentIndex] = useState(0);
   const {
     data = initialPosts || [],
@@ -60,18 +60,18 @@ export default function TheLatestPosts({
     return <div>No post found</div>;
   }
 
-  const carouselId = `the-latest-posts-carousel-${createRandomAlphaString(4)}`;
+  const carouselId = `the-latest-posts-carousel-${id}`;
   const postHref = `/posts/${data[currentIndex]?.slug}`;
 
   return (
-    <div className={twMerge("@container", className)}>
+    <div className={cn("@container", className)}>
       <div className="mb-4">
         <span className="bg-primary cursor-default rounded-md px-6 py-1 font-bold text-white uppercase">
           {labels[locale]}
         </span>
       </div>
       <div
-        className={twMerge(
+        className={cn(
           "flex flex-col gap-x-2 lg:flex-row",
           postCount === 4 && "lg:h-[320px]",
           postCount === 5 && "lg:h-[402px]",
@@ -90,13 +90,15 @@ export default function TheLatestPosts({
               return (
                 <div
                   key={index}
-                  className="hs-carousel-slide relative size-full"
+                  className="hs-carousel-slide relative size-full shrink-0"
                 >
                   {thumbnail && thumbnail.url ? (
                     <Image
+                      unoptimized
                       className="object-cover"
                       src={transformUrl(thumbnail.url, {
-                        width: "1000",
+                        width: "640",
+                        quality: "80",
                       })}
                       loading={index === 0 ? "eager" : "lazy"}
                       fetchPriority={index === 0 ? "high" : "low"}

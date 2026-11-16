@@ -5,6 +5,7 @@ import { HiddenTag, Media, NavBar, Page, Post } from "@/payload-types";
 import { defaultLocale, Locale } from "@/i18n/config";
 import { makePostPath } from "@/utils/post";
 import { cache } from "react";
+import { unstable_cache } from "next/cache";
 
 // Raw types extracted directly from Payload CMS definitions
 export type NavBarMenuItem = NonNullable<NavBar["menu"]>[number];
@@ -122,165 +123,211 @@ function getLinkHref(item?: MenuLinkFields | null) {
   return item.externalLink || "";
 }
 
-export const getMenu = cache(async (locale?: Locale): Promise<MenuItem[]> => {
+function stripMedia(media: string | Media | null | undefined): Media | null {
+  if (typeof media === "object" && media !== null) {
+    return {
+      id: media.id,
+      url: media.url,
+      alt: media.alt,
+      width: media.width,
+      height: media.height,
+    } as Media;
+  }
+  return null;
+}
+
+async function fetchNavBarGlobal(locale: Locale) {
   const payload = await getPayload({ config });
-  const navBar = await payload.findGlobal({ slug: "navBar", locale });
+  return payload.findGlobal({ slug: "navBar", locale, depth: 1 });
+}
 
-  const validMenuItems = (navBar.menu || []).filter((menuItem, index) => {
-    const hasLabel = Boolean(menuItem.label && menuItem.label.trim());
-    const hasIcon = Boolean(menuItem.icon);
-    if (!hasLabel && !hasIcon) {
-      console.warn(
-        `[getMenu] Skipping menu item at index ${index} because it has neither a label nor an icon.`,
-        menuItem,
-      );
-      return false;
-    }
-    return true;
-  });
+const getNavBarGlobalCached = unstable_cache(
+  fetchNavBarGlobal,
+  ["nav-bar-global"],
+  { tags: ["globals", "navBar"], revalidate: 300 },
+);
 
-  const menu: MenuItem[] = await Promise.all(
-    validMenuItems.map(async (menuItem, index) => {
-      const layout: MenuLayoutType = menuItem.layout || "grid";
+/**
+ * Fetches the cached NavBar global configuration for the specified locale.
+ */
+export const getNavBarGlobal = cache(async (locale?: Locale) => {
+  return getNavBarGlobalCached(locale ?? defaultLocale);
+});
 
-      // 1. Grid SubMenu
-      const children: SubMenuItem[] | undefined = menuItem.subMenu?.map(
-        (subMenuItem) => ({
-          href: getLinkHref(subMenuItem),
-          absoluteHref: getLinkHref(subMenuItem),
-          name: subMenuItem.label,
-          icon: typeof subMenuItem.icon === "string" ? subMenuItem.icon : null,
-          description: subMenuItem.description,
-          normalizedName: normalizeMenuName(subMenuItem.label),
-          children: subMenuItem.subMenu?.map((subSubMenuItem) => ({
-            href: getLinkHref(subSubMenuItem),
-            absoluteHref: getLinkHref(subSubMenuItem),
-            name: subSubMenuItem.label,
+function getMenuTimeBucketIso(): string {
+  const bucketMs = 60_000;
+  return new Date(Math.floor(Date.now() / bucketMs) * bucketMs).toISOString();
+}
+
+const getMenuCached = unstable_cache(
+  async (locale: Locale, nowIso: string): Promise<MenuItem[]> => {
+    const payload = await getPayload({ config });
+    const navBar = await fetchNavBarGlobal(locale);
+
+    const validMenuItems = (navBar.menu || []).filter((menuItem, index) => {
+      const hasLabel = Boolean(menuItem.label && menuItem.label.trim());
+      const hasIcon = Boolean(menuItem.icon);
+      if (!hasLabel && !hasIcon) {
+        console.warn(
+          `[getMenu] Skipping menu item at index ${index} because it has neither a label nor an icon.`,
+          menuItem,
+        );
+        return false;
+      }
+      return true;
+    });
+
+    const menu: MenuItem[] = await Promise.all(
+      validMenuItems.map(async (menuItem, index) => {
+        const layout: MenuLayoutType = menuItem.layout || "grid";
+
+        // 1. Grid SubMenu
+        const children: SubMenuItem[] | undefined = menuItem.subMenu?.map(
+          (subMenuItem) => ({
+            href: getLinkHref(subMenuItem),
+            absoluteHref: getLinkHref(subMenuItem),
+            name: subMenuItem.label,
             icon:
-              typeof subSubMenuItem.icon === "string"
-                ? subSubMenuItem.icon
-                : null,
-            normalizedName: normalizeMenuName(subSubMenuItem.label),
-          })),
-        }),
-      );
+              typeof subMenuItem.icon === "string" ? subMenuItem.icon : null,
+            description: subMenuItem.description,
+            normalizedName: normalizeMenuName(subMenuItem.label),
+            children: subMenuItem.subMenu?.map((subSubMenuItem) => ({
+              href: getLinkHref(subSubMenuItem),
+              absoluteHref: getLinkHref(subSubMenuItem),
+              name: subSubMenuItem.label,
+              icon:
+                typeof subSubMenuItem.icon === "string"
+                  ? subSubMenuItem.icon
+                  : null,
+              normalizedName: normalizeMenuName(subSubMenuItem.label),
+            })),
+          }),
+        );
 
-      // 2. Pillars
-      const pillars: PillarItem[] | undefined = menuItem.pillars?.map(
-        (pillar) => ({
-          headerBanner: {
-            title: pillar.headerBanner.title,
-            subtitle: pillar.headerBanner.subtitle,
-            image:
-              typeof pillar.headerBanner.image === "object"
-                ? (pillar.headerBanner.image as Media)
-                : null,
-            href: getLinkHref(pillar.headerBanner),
-            absoluteHref: getLinkHref(pillar.headerBanner),
-          },
-          links:
-            pillar.links?.map((link) => ({
-              name: link.label,
-              href: getLinkHref(link),
-              absoluteHref: getLinkHref(link),
-              icon: typeof link.icon === "string" ? link.icon : null,
-            })) || [],
-        }),
-      );
-
-      // Bottom bar for pillars
-      const bottomBar: BottomBarItem | undefined = menuItem.bottomBar
-        ? {
-            label: menuItem.bottomBar.label,
+        // 2. Pillars
+        const pillars: PillarItem[] | undefined = menuItem.pillars?.map(
+          (pillar) => ({
+            headerBanner: {
+              title: pillar.headerBanner.title,
+              subtitle: pillar.headerBanner.subtitle,
+              image: stripMedia(pillar.headerBanner.image),
+              href: getLinkHref(pillar.headerBanner),
+              absoluteHref: getLinkHref(pillar.headerBanner),
+            },
             links:
-              menuItem.bottomBar.links?.map((link) => ({
+              pillar.links?.map((link) => ({
                 name: link.label,
                 href: getLinkHref(link),
                 absoluteHref: getLinkHref(link),
                 icon: typeof link.icon === "string" ? link.icon : null,
               })) || [],
-          }
-        : undefined;
+          }),
+        );
 
-      // 3. Tabs + Posts Categories
-      const categories: CategoryTabItem[] | undefined = menuItem.categories
-        ? await Promise.all(
-            menuItem.categories.map(async (cat) => {
-              const tagIds =
-                cat.tags?.map((t: string | HiddenTag) =>
-                  typeof t === "string" ? t : t.id,
-                ) || [];
+        // Bottom bar for pillars
+        const bottomBar: BottomBarItem | undefined = menuItem.bottomBar
+          ? {
+              label: menuItem.bottomBar.label,
+              links:
+                menuItem.bottomBar.links?.map((link) => ({
+                  name: link.label,
+                  href: getLinkHref(link),
+                  absoluteHref: getLinkHref(link),
+                  icon: typeof link.icon === "string" ? link.icon : null,
+                })) || [],
+            }
+          : undefined;
 
-              // Fetch latest 8 posts for this category's tags
-              let posts: CategoryPostItem[] = [];
-              if (tagIds.length > 0) {
-                try {
-                  const postQuery = await payload.find({
-                    collection: "posts",
-                    where: {
-                      and: [
-                        { hiddenTags: { in: tagIds } },
-                        {
-                          publishedAt: {
-                            less_than: new Date().toISOString(),
+        // 3. Tabs + Posts Categories
+        const categories: CategoryTabItem[] | undefined = menuItem.categories
+          ? await Promise.all(
+              menuItem.categories.map(async (cat) => {
+                const tagIds =
+                  cat.tags?.map((t: string | HiddenTag) =>
+                    typeof t === "string" ? t : t.id,
+                  ) || [];
+
+                // Fetch latest 8 posts for this category's tags
+                let posts: CategoryPostItem[] = [];
+                if (tagIds.length > 0) {
+                  try {
+                    const postQuery = await payload.find({
+                      collection: "posts",
+                      depth: 1,
+                      select: {
+                        title: true,
+                        slug: true,
+                        thumbnail: true,
+                        publishedAt: true,
+                      },
+                      where: {
+                        and: [
+                          { hiddenTags: { in: tagIds } },
+                          {
+                            publishedAt: {
+                              less_than: nowIso,
+                            },
                           },
-                        },
-                      ],
-                    },
-                    limit: 8,
-                    sort: "-publishedAt",
-                    locale: locale ?? defaultLocale,
-                  });
+                        ],
+                      },
+                      limit: 8,
+                      sort: "-publishedAt",
+                      locale,
+                    });
 
-                  posts = postQuery.docs.map((p) => ({
-                    title: p.title,
-                    slug: p.slug,
-                    href: makePostPath(p.slug),
-                    thumbnail:
-                      typeof p.thumbnail === "object"
-                        ? (p.thumbnail as Media)
-                        : null,
-                    publishedAt: p.publishedAt,
-                  }));
-                } catch {
-                  posts = [];
+                    posts = postQuery.docs.map((p) => ({
+                      title: p.title,
+                      slug: p.slug,
+                      href: makePostPath(p.slug),
+                      thumbnail: stripMedia(p.thumbnail),
+                      publishedAt: p.publishedAt,
+                    }));
+                  } catch {
+                    posts = [];
+                  }
                 }
-              }
 
-              return {
-                name: cat.label,
-                href: getLinkHref(cat),
-                absoluteHref: getLinkHref(cat),
-                icon: typeof cat.icon === "string" ? cat.icon : null,
-                tagIds,
-                posts,
-              };
-            }),
-          )
-        : undefined;
+                return {
+                  name: cat.label,
+                  href: getLinkHref(cat),
+                  absoluteHref: getLinkHref(cat),
+                  icon: typeof cat.icon === "string" ? cat.icon : null,
+                  tagIds,
+                  posts,
+                };
+              }),
+            )
+          : undefined;
 
-      const name = menuItem.label || "";
-      const icon = typeof menuItem.icon === "string" ? menuItem.icon : null;
-      const normalizedName = normalizeMenuName(
-        menuItem.label || icon || `menu-${index}`,
-      );
+        const name = menuItem.label || "";
+        const icon = typeof menuItem.icon === "string" ? menuItem.icon : null;
+        const normalizedName = normalizeMenuName(
+          menuItem.label || icon || `menu-${index}`,
+        );
 
-      return {
-        href: getLinkHref(menuItem),
-        absoluteHref: getLinkHref(menuItem),
-        name,
-        normalizedName,
-        icon,
-        layout,
-        children,
-        pillars,
-        bottomBar,
-        categories,
-      };
-    }),
-  );
+        return {
+          href: getLinkHref(menuItem),
+          absoluteHref: getLinkHref(menuItem),
+          name,
+          normalizedName,
+          icon,
+          layout,
+          children,
+          pillars,
+          bottomBar,
+          categories,
+        };
+      }),
+    );
 
-  return menu;
+    return menu;
+  },
+  ["nav-menu"],
+  { tags: ["globals", "navBar", "posts"], revalidate: 300 },
+);
+
+export const getMenu = cache(async (locale?: Locale): Promise<MenuItem[]> => {
+  return getMenuCached(locale ?? defaultLocale, getMenuTimeBucketIso());
 });
 
 function normalizeMenuName(name: string) {

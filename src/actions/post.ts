@@ -1,7 +1,7 @@
 "use server";
 
 import { Locale } from "@/i18n/config";
-import { postToAppPost } from "@/utils/post";
+import { postToCardAppPost } from "@/utils/post";
 import * as postUtils from "@/utils/post-server";
 
 /**
@@ -31,7 +31,7 @@ export async function fetchAllPosts({
   locale,
 }: { limit?: number; locale?: Locale } = {}) {
   const query = await postUtils.queryAllPosts({ limit, locale });
-  const posts = query.docs.map(postToAppPost).filter((post) => !!post.slug);
+  const posts = query.docs.map(postToCardAppPost).filter((post) => !!post.slug);
   return posts;
 }
 
@@ -51,7 +51,7 @@ export const fetchPostsByHiddenTags = async (
     locale,
   });
 
-  const posts = query.docs.map(postToAppPost);
+  const posts = query.docs.map(postToCardAppPost);
   return {
     posts,
     hasMore: query.hasNextPage,
@@ -81,7 +81,7 @@ export const fetchPostsByPublicTag = async (
     return null;
   }
 
-  const posts = result.query.docs.map(postToAppPost);
+  const posts = result.query.docs.map(postToCardAppPost);
   return {
     tag: result.tag,
     posts,

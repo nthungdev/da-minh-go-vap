@@ -1,13 +1,13 @@
 import { HTMLAttributes } from "react";
-import { getPayload } from "payload";
 import Image from "next/image";
-import config from "@payload-config";
 import { Media } from "@/payload-types";
 import { getDataOrUndefined } from "@/payload/utils/data";
 import AppBanners from "@/components/app-banners";
 import AppPageContent from "@/components/app-page/app-page-content";
 import { getLocale } from "next-intl/server";
 import { transformUrl } from "@/utils/cloudflare";
+import { getNavBarGlobal } from "@/utils/menu";
+import { Locale } from "@/i18n/config";
 
 interface AppPageProps extends HTMLAttributes<HTMLDivElement> {
   banners?: Media[];
@@ -21,9 +21,8 @@ export default async function AppPage({
   showDecorativeGraphic,
   ...props
 }: AppPageProps) {
-  const locale = await getLocale();
-  const payload = await getPayload({ config: config });
-  const navBar = await payload.findGlobal({ slug: "navBar", locale });
+  const locale = (await getLocale()) as Locale;
+  const navBar = await getNavBarGlobal(locale);
 
   const hasBanners = !!banners?.length;
   const imageMobileUrl = getDataOrUndefined(
