@@ -9,6 +9,7 @@
     "db:down": "docker compose -f docker/dev/compose.yml down mongo",
     "db:backup": "bash scripts/db-backup.sh",
     "db:restore": "bash scripts/db-restore.sh",
+    "db:verify": "bash scripts/db-verify-counts.sh",
     "s3:backup": "bash scripts/s3-backup.sh",
     "s3:restore": "bash scripts/s3-restore.sh",
     "s3:copy": "bash scripts/s3-copy.sh",
