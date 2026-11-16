@@ -50,7 +50,7 @@ Then roll out the backend so the new version is picked up.
 
 ## Keep-warm
 
-Both backends scale to zero. Cloud Scheduler job `keep-warm-production` (`asia-southeast1`) requests `https://dongdaminhgovap.org/` every 5 minutes.
+Both backends scale to zero. Cloud Scheduler job `keep-warm-production` (`asia-southeast1`) requests `https://dongdaminhgovap.org/` every 5 minutes. Managed by Terraform in [infra/terraform](../infra/terraform/README.md).
 
 ## Database backups
 
