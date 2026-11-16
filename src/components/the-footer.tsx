@@ -1,16 +1,15 @@
 import Image from "next/image";
 import Markdown from "react-markdown";
 import Link from "next/link";
-import { getPayload } from "payload";
-import config from "@payload-config";
 import { getLocale } from "next-intl/server";
 import { useMessages } from "next-intl";
 import { transformUrl } from "@/utils/cloudflare";
+import { getFooter } from "@/payload/utils/queries";
+import { Locale } from "@/i18n/config";
 
 export default async function TheFooter() {
-  const locale = await getLocale();
-  const payload = await getPayload({ config });
-  const footer = await payload.findGlobal({ slug: "footer", locale });
+  const locale = (await getLocale()) as Locale;
+  const footer = await getFooter(locale);
 
   const splitExternalLinks = (
     links: NonNullable<(typeof footer)["externalLinks"]>,

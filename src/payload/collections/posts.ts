@@ -9,7 +9,7 @@ import {
 } from "@/payload/fields";
 import { postsReadAccess } from "@/payload/utils/access-control";
 import { buildPostPreviewUrl } from "@/payload/utils/config";
-import { slugify } from "@/payload/utils/data";
+import { revalidatePath, slugify } from "@/payload/utils/data";
 import Fuses from "@/utils/fuses";
 import { postToAppPost } from "@/utils/post";
 import { validateSlug } from "@/utils/slug";
@@ -287,6 +287,7 @@ async function updateFuse({
       Fuses.instance.replacePost(post, locale);
     }
   });
+  await revalidatePath("/");
 }
 
 function duplicateTitle({ value }: FieldHookArgs): ReturnType<FieldHook> {

@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { twMerge } from "tailwind-merge";
+import { cn } from "@/utils/common";
 import { Page } from "@/payload-types";
 import AppViewMoreLink from "@/components/app-view-more-link";
 import { getDataOrUndefined } from "@/payload/utils/data";
@@ -34,6 +34,7 @@ export default function PostGroupTabsPanel({
   viewMoreButton,
   title,
   initialPosts,
+  hidden,
   ...props
 }: PostGroupTabsPanelProps) {
   const locale = useLocale();
@@ -41,6 +42,7 @@ export default function PostGroupTabsPanel({
     queryKey: ["tabbed-post-group-content", ...hiddenTags, locale],
     queryFn: () =>
       fetchPostsByHiddenTags(hiddenTags, { limit: POST_COUNT, locale }),
+    enabled: !hidden,
     initialData: initialPosts
       ? {
           posts: initialPosts,
@@ -55,6 +57,7 @@ export default function PostGroupTabsPanel({
     return (
       <PostGroupTabPanelSkeleton
         viewMoreButtonEnable={viewMoreButton?.enable || true}
+        hidden={hidden}
         {...props}
       />
     );
@@ -62,7 +65,11 @@ export default function PostGroupTabsPanel({
 
   if (error && !initialPosts?.length) {
     // TODO prettier error
-    return <div {...props}>Error</div>;
+    return (
+      <div hidden={hidden} {...props}>
+        Error
+      </div>
+    );
   }
 
   const posts = data?.posts ?? initialPosts ?? [];
@@ -82,7 +89,7 @@ export default function PostGroupTabsPanel({
   const firstPostHref = `/posts/${firstPost.slug}`;
 
   return (
-    <div className={twMerge(className)} {...props}>
+    <div className={cn(className)} hidden={hidden} {...props}>
       <div className="flex flex-col gap-x-4 gap-y-4 lg:flex-row lg:p-3">
         <Link href={firstPostHref} className="block space-y-2 lg:w-3/5">
           <div className="relative aspect-video w-full">
@@ -92,6 +99,7 @@ export default function PostGroupTabsPanel({
                 className="object-cover"
                 src={transformUrl(firstPostThumbnail.url, { width: "600" })}
                 alt={firstPost.title}
+                loading="lazy"
                 sizes="(max-width: 768px) 100vw, 66vw"
                 fill
               />
@@ -124,7 +132,7 @@ function PostGroupTabPanelSkeleton({
   viewMoreButtonEnable: boolean;
 } & React.HTMLAttributes<HTMLDivElement>) {
   return (
-    <div className={twMerge("animate-pulse", className)} {...props}>
+    <div className={cn("animate-pulse", className)} {...props}>
       <div className="flex flex-col gap-x-4 lg:flex-row lg:p-3">
         <div className="block space-y-2 gap-y-2 lg:w-3/5">
           <div className="relative aspect-video w-full bg-gray-200"></div>

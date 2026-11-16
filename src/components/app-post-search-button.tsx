@@ -227,6 +227,8 @@ export default function AppPostSearchButton({ id }: { id: string }) {
       ></button>
 
       <button
+        type="button"
+        aria-label="Tìm kiếm"
         className="ring-primary relative flex flex-row items-center space-x-2 rounded-full border bg-white p-2 hover:cursor-pointer hover:ring-2"
         onClick={openSearchModal}
       >

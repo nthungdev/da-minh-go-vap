@@ -1,11 +1,19 @@
 import { getPayload } from "payload";
 import config from "@payload-config";
 import { cache } from "react";
+import { unstable_cache } from "next/cache";
+
+const getSiteSettingsCached = unstable_cache(
+  async () => {
+    const payload = await getPayload({ config });
+    return payload.findGlobal({ slug: "siteSettings" });
+  },
+  ["site-settings-global"],
+  { tags: ["globals", "siteSettings"], revalidate: 300 },
+);
 
 export const getSiteSettings = cache(async () => {
-  const payload = await getPayload({ config });
-  const siteSettings = await payload.findGlobal({ slug: "siteSettings" });
-  return siteSettings;
+  return getSiteSettingsCached();
 });
 
 export const getLogo = cache(async () => {
