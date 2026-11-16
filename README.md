@@ -91,15 +91,7 @@ pnpm generate
 
 ## Production
 
-Create a [.env](.env) file with
-
-```env
-MEDIA_PATH=<path/for/media>
-```
-
-`MEDIA_PATH` is the path where media files will be stored. It should be a directory other than the project directory to ensure persistence of media files across container restarts. For example, you can use `/srv/www/<domain>/media` with domain replaced with the actual domain name.
-
-Then follows: [https://beease.fr/blog/guide-payload-nextjs-docker-vps]
+Production and staging run on Firebase App Hosting. See [docs/deployment.md](docs/deployment.md).
 
 ## Test environment
 
