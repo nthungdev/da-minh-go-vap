@@ -136,11 +136,13 @@ function stripMedia(media: string | Media | null | undefined): Media | null {
   return null;
 }
 
+async function fetchNavBarGlobal(locale: Locale) {
+  const payload = await getPayload({ config });
+  return payload.findGlobal({ slug: "navBar", locale, depth: 1 });
+}
+
 const getNavBarGlobalCached = unstable_cache(
-  async (locale: Locale) => {
-    const payload = await getPayload({ config });
-    return payload.findGlobal({ slug: "navBar", locale, depth: 1 });
-  },
+  fetchNavBarGlobal,
   ["nav-bar-global"],
   { tags: ["globals", "navBar"], revalidate: 300 },
 );
@@ -152,10 +154,15 @@ export const getNavBarGlobal = cache(async (locale?: Locale) => {
   return getNavBarGlobalCached(locale ?? defaultLocale);
 });
 
+function getMenuTimeBucketIso(): string {
+  const bucketMs = 60_000;
+  return new Date(Math.floor(Date.now() / bucketMs) * bucketMs).toISOString();
+}
+
 const getMenuCached = unstable_cache(
-  async (locale: Locale): Promise<MenuItem[]> => {
+  async (locale: Locale, nowIso: string): Promise<MenuItem[]> => {
     const payload = await getPayload({ config });
-    const navBar = await getNavBarGlobal(locale);
+    const navBar = await fetchNavBarGlobal(locale);
 
     const validMenuItems = (navBar.menu || []).filter((menuItem, index) => {
       const hasLabel = Boolean(menuItem.label && menuItem.label.trim());
@@ -258,7 +265,7 @@ const getMenuCached = unstable_cache(
                           { hiddenTags: { in: tagIds } },
                           {
                             publishedAt: {
-                              less_than: new Date().toISOString(),
+                              less_than: nowIso,
                             },
                           },
                         ],
@@ -320,7 +327,7 @@ const getMenuCached = unstable_cache(
 );
 
 export const getMenu = cache(async (locale?: Locale): Promise<MenuItem[]> => {
-  return getMenuCached(locale ?? defaultLocale);
+  return getMenuCached(locale ?? defaultLocale, getMenuTimeBucketIso());
 });
 
 function normalizeMenuName(name: string) {

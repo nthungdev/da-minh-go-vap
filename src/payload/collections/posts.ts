@@ -11,7 +11,7 @@ import { postsReadAccess } from "@/payload/utils/access-control";
 import { buildPostPreviewUrl } from "@/payload/utils/config";
 import { revalidatePath, slugify } from "@/payload/utils/data";
 import Fuses from "@/utils/fuses";
-import { postToAppPost } from "@/utils/post";
+import { postToCardAppPost } from "@/utils/post";
 import { validateSlug } from "@/utils/slug";
 import type {
   CollectionAfterChangeHook,
@@ -280,14 +280,15 @@ async function updateFuse({
   operation,
 }: Parameters<CollectionAfterChangeHook<Post>>[0]) {
   locales.forEach(async (locale) => {
-    const post = postToAppPost(doc);
+    const post = postToCardAppPost(doc);
     if (operation === "create") {
       Fuses.instance.addPost(post, locale);
     } else if (operation === "update") {
       Fuses.instance.replacePost(post, locale);
     }
   });
-  await revalidatePath("/");
+  await revalidatePath(`/posts/${doc.slug}`, ["posts", "navBar", "pages"]);
+  await revalidatePath("/", ["posts", "navBar", "pages"]);
 }
 
 function duplicateTitle({ value }: FieldHookArgs): ReturnType<FieldHook> {

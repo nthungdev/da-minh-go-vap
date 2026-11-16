@@ -14,6 +14,7 @@ interface GetOptions {
   page?: number;
   skipSlug?: string;
   locale?: Locale;
+  includeBody?: boolean;
 }
 
 const POST_CARD_SELECT = {
@@ -28,6 +29,29 @@ const POST_CARD_SELECT = {
 } as const;
 
 const OBJECT_ID_REGEX = /^[a-f\d]{24}$/i;
+
+function getPublishedTimeBucketIso(): string {
+  const bucketMs = 60_000;
+  return new Date(Math.floor(Date.now() / bucketMs) * bucketMs).toISOString();
+}
+
+function normalizeCardPostsResult(
+  query: PaginatedDocs<Partial<Post>>,
+): PaginatedDocs<Post> {
+  return {
+    ...query,
+    docs: query.docs.map(
+      (doc) =>
+        ({
+          body: null,
+          template: null,
+          contentBlocks: null,
+          videos: [],
+          ...doc,
+        }) as Post,
+    ),
+  };
+}
 
 const getPostBySlugCached = cache(async (slug: string, locale?: Locale) => {
   try {
@@ -59,31 +83,50 @@ export const getPostBySlug = (
 ) => getPostBySlugCached(slug, locale);
 
 const queryAllPostsCached = unstable_cache(
-  async (limit: number, page: number, locale: Locale) => {
+  async (
+    limit: number,
+    page: number,
+    locale: Locale,
+    includeBody: boolean,
+    nowIso: string,
+  ) => {
     const payload = await getPayload({ config });
     const query = await payload.find({
       collection: "posts",
       depth: 1,
-      select: POST_CARD_SELECT,
+      select: includeBody ? undefined : POST_CARD_SELECT,
       limit,
       sort: "-publishedAt",
       page,
       where: {
         // Only get published posts
         publishedAt: {
-          less_than: new Date().toISOString(),
+          less_than: nowIso,
         },
       },
       locale,
     });
-    return query as PaginatedDocs<Post>;
+    return includeBody
+      ? (query as PaginatedDocs<Post>)
+      : normalizeCardPostsResult(query);
   },
   ["query-all-posts"],
-  { tags: ["posts"], revalidate: 300 },
+  { tags: ["posts"], revalidate: 60 },
 );
 
-export async function queryAllPosts({ limit, page, locale }: GetOptions = {}) {
-  return queryAllPostsCached(limit ?? 100, page ?? 1, locale ?? defaultLocale);
+export async function queryAllPosts({
+  limit,
+  page,
+  locale,
+  includeBody = false,
+}: GetOptions = {}) {
+  return queryAllPostsCached(
+    limit ?? 100,
+    page ?? 1,
+    locale ?? defaultLocale,
+    includeBody,
+    getPublishedTimeBucketIso(),
+  );
 }
 
 /** Create result for empty query to avoid making network requests */
@@ -112,6 +155,8 @@ const queryPostsByTagIdsCached = unstable_cache(
     page: number,
     skipSlug: string | undefined,
     locale: Locale,
+    includeBody: boolean,
+    nowIso: string,
   ) => {
     const payload = await getPayload({ config });
     const queryConditions: Where[] = [
@@ -121,7 +166,7 @@ const queryPostsByTagIdsCached = unstable_cache(
         },
         // Only get published posts
         publishedAt: {
-          less_than: new Date().toISOString(),
+          less_than: nowIso,
         },
       },
     ];
@@ -134,17 +179,19 @@ const queryPostsByTagIdsCached = unstable_cache(
     const query = await payload.find({
       collection: "posts",
       depth: 1,
-      select: POST_CARD_SELECT,
+      select: includeBody ? undefined : POST_CARD_SELECT,
       where: { and: queryConditions },
       sort: "-publishedAt", // Sort by publishedAt DESC
       limit,
       page,
       locale,
     });
-    return query as PaginatedDocs<Post>;
+    return includeBody
+      ? (query as PaginatedDocs<Post>)
+      : normalizeCardPostsResult(query);
   },
   ["query-posts-by-tag-ids"],
-  { tags: ["posts"], revalidate: 300 },
+  { tags: ["posts"], revalidate: 60 },
 );
 
 /**
@@ -152,7 +199,7 @@ const queryPostsByTagIdsCached = unstable_cache(
  */
 async function queryPostsByTagIds(
   tagIds: string[],
-  { limit, page, skipSlug, locale }: GetOptions = {},
+  { limit, page, skipSlug, locale, includeBody = false }: GetOptions = {},
 ) {
   if (tagIds.length === 0) {
     return createEmptyPostsQuery({ limit, page });
@@ -165,6 +212,8 @@ async function queryPostsByTagIds(
     page ?? 1,
     skipSlug,
     locale ?? defaultLocale,
+    includeBody,
+    getPublishedTimeBucketIso(),
   );
 }
 
@@ -187,7 +236,7 @@ const resolveHiddenTagIdsCached = unstable_cache(
 
 export async function queryPostsByHiddenTags(
   hiddenTags: string[],
-  { limit, page, skipSlug, locale }: GetOptions = {},
+  { limit, page, skipSlug, locale, includeBody }: GetOptions = {},
 ) {
   if (hiddenTags.length === 0) {
     return createEmptyPostsQuery({ limit, page });
@@ -203,6 +252,7 @@ export async function queryPostsByHiddenTags(
     page,
     skipSlug,
     locale,
+    includeBody,
   });
 }
 
@@ -228,7 +278,7 @@ export async function getPublicHiddenTagByTag(tag: string) {
  */
 export async function queryPostsByPublicTag(
   tag: string,
-  { limit, page, skipSlug, locale }: GetOptions = {},
+  { limit, page, skipSlug, locale, includeBody }: GetOptions = {},
 ) {
   const publicTag = await getPublicHiddenTagByTag(tag);
 
@@ -241,6 +291,7 @@ export async function queryPostsByPublicTag(
     page,
     skipSlug,
     locale,
+    includeBody,
   });
 
   return {
