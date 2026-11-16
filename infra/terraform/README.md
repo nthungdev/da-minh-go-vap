@@ -9,7 +9,6 @@ GCP infrastructure for project `da-minh-go-vap`. App runtime config (env vars, s
 | `secrets.tf`     | Secret Manager secrets (containers only) and access grants                                           |
 | `db_backup.tf`   | `db-backup` service account, Artifact Registry repo, Cloud Run Job, daily Cloud Scheduler trigger    |
 | `keep_warm.tf`   | Cloud Scheduler job `keep-warm-production`                                                           |
-| `imports.tf`     | One-time `import` blocks adopting the hand-created resources                                         |
 
 ## Not managed here
 
@@ -25,27 +24,18 @@ GCP infrastructure for project `da-minh-go-vap`. App runtime config (env vars, s
 - Terraform >= 1.7
 - `gcloud auth application-default login`, with Owner on `da-minh-go-vap`
 
-## First-time setup
+## Usage
 
-Create the state bucket once:
-
-```sh
-gcloud storage buckets create gs://da-minh-go-vap-tfstate \
-  --project=da-minh-go-vap --location=asia-southeast1 \
-  --uniform-bucket-level-access --public-access-prevention
-gcloud storage buckets update gs://da-minh-go-vap-tfstate --versioning
-```
-
-Then import:
+State is in `gs://da-minh-go-vap-tfstate` (versioned, created by hand on 2026-11-16).
 
 ```sh
 cd infra/terraform
 terraform init
-terraform plan    # expect: 79 to import, 0 to add, 0 to change, 0 to destroy
+terraform plan
 terraform apply
 ```
 
-After the apply succeeds, delete `imports.tf`.
+Resources were created by hand and adopted with `import` blocks on 2026-11-16 (see git history). To adopt another existing resource, add an `import` block, apply, then remove it.
 
 ## Notes
 
