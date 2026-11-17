@@ -6,6 +6,7 @@ import { defaultLocale, Locale } from "@/i18n/config";
 import { makePostPath } from "@/utils/post";
 import { cache } from "react";
 import { unstable_cache } from "next/cache";
+import { PUBLISHED_CONTENT_REVALIDATE_SECONDS } from "@/utils/published-content-cache";
 
 // Raw types extracted directly from Payload CMS definitions
 export type NavBarMenuItem = NonNullable<NavBar["menu"]>[number];
@@ -154,14 +155,10 @@ export const getNavBarGlobal = cache(async (locale?: Locale) => {
   return getNavBarGlobalCached(locale ?? defaultLocale);
 });
 
-function getMenuTimeBucketIso(): string {
-  const bucketMs = 60_000;
-  return new Date(Math.floor(Date.now() / bucketMs) * bucketMs).toISOString();
-}
-
 const getMenuCached = unstable_cache(
-  async (locale: Locale, nowIso: string): Promise<MenuItem[]> => {
+  async (locale: Locale): Promise<MenuItem[]> => {
     const payload = await getPayload({ config });
+    const nowIso = new Date().toISOString();
     const navBar = await fetchNavBarGlobal(locale);
 
     const validMenuItems = (navBar.menu || []).filter((menuItem, index) => {
@@ -323,11 +320,14 @@ const getMenuCached = unstable_cache(
     return menu;
   },
   ["nav-menu"],
-  { tags: ["globals", "navBar", "posts"], revalidate: 300 },
+  {
+    tags: ["globals", "navBar", "posts"],
+    revalidate: PUBLISHED_CONTENT_REVALIDATE_SECONDS,
+  },
 );
 
 export const getMenu = cache(async (locale?: Locale): Promise<MenuItem[]> => {
-  return getMenuCached(locale ?? defaultLocale, getMenuTimeBucketIso());
+  return getMenuCached(locale ?? defaultLocale);
 });
 
 function normalizeMenuName(name: string) {
