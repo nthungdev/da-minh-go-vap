@@ -93,6 +93,8 @@ pnpm generate
 
 Production and staging run on Firebase App Hosting. See [docs/deployment.md](docs/deployment.md).
 
+For editors adding keyword tooltips to Markdown posts, see [docs/keyword-tooltip.md](docs/keyword-tooltip.md).
+
 ## Test environment
 
 Create a [.env.test](.env.test) file using the [.env.example](.env.example) file as a template.
