@@ -48,7 +48,7 @@ export default function CopyButton({ className, text }: CopyButtonProps) {
   return (
     <button
       type="button"
-      disabled={state === "copying" || isCopied}
+      aria-busy={state === "copying"}
       aria-label={
         state === "error"
           ? "Copy failed. Try again"
@@ -61,9 +61,9 @@ export default function CopyButton({ className, text }: CopyButtonProps) {
       onClick={handleCopy}
     >
       {isCopied ? (
-        <FiCheck aria-label="Copied" />
+        <FiCheck aria-hidden="true" />
       ) : (
-        <FiCopy aria-label="Copy message" />
+        <FiCopy aria-hidden="true" />
       )}
     </button>
   );

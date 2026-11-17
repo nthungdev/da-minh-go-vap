@@ -194,7 +194,7 @@ export default function AppPostSearchButton({ id }: { id: string }) {
 
   const handleInputSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const id = ++requestId.current;
+    const currentRequest = ++requestId.current;
     const query = input.trim();
     if (!query) {
       setState({ status: ModalState.EMPTY });
@@ -203,14 +203,15 @@ export default function AppPostSearchButton({ id }: { id: string }) {
     setState({ status: ModalState.LOADING });
     try {
       const results = await searchPosts(query, { locale });
-      if (id === requestId.current) {
+      if (currentRequest === requestId.current) {
         setState({
           status: ModalState.LOADED,
           posts: results.map((r) => r.item),
         });
       }
     } catch {
-      if (id === requestId.current) setState({ status: ModalState.ERROR });
+      if (currentRequest === requestId.current)
+        setState({ status: ModalState.ERROR });
     }
   };
 
