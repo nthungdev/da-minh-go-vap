@@ -1,5 +1,6 @@
 import { getLogo } from "@/payload/utils/site-settings-server";
 import { getMenu } from "@/utils/menu";
+import { getMenuCategoryPosts } from "@/utils/menu-category-posts";
 import { getLocale } from "next-intl/server";
 import { cn } from "@/utils/common";
 import TheNavbarClient from "./the-navbar-client";
@@ -9,6 +10,8 @@ export default async function TheNavbar(
   props: React.HTMLAttributes<HTMLElement>,
 ) {
   const locale = await getLocale();
+  // Not awaited: mega-menu posts stream to the client after the navbar shell.
+  const categoryPostsPromise = getMenuCategoryPosts(locale as Locale);
   const [menu, logo] = await Promise.all([
     getMenu(locale as Locale),
     getLogo(),
@@ -22,7 +25,11 @@ export default async function TheNavbar(
       )}
     >
       <div className="mx-auto flex h-16 items-center justify-between px-4 sm:px-6 lg:justify-center lg:px-8">
-        <TheNavbarClient menu={menu} logo={logo} />
+        <TheNavbarClient
+          menu={menu}
+          logo={logo}
+          categoryPostsPromise={categoryPostsPromise}
+        />
       </div>
     </header>
   );
