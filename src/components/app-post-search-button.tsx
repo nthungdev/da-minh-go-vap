@@ -233,7 +233,8 @@ export default function AppPostSearchButton({ id }: { id: string }) {
       overlayElement,
       true,
     ) as ICollectionItem<HSOverlay>;
-    const o = overlayInstance.element;
+    const o = overlayInstance?.element;
+    if (!o) return null;
 
     o.on("close", () => {
       // Invalidate any in-flight search request and reset modal state
@@ -285,6 +286,9 @@ export default function AppPostSearchButton({ id }: { id: string }) {
   useEffect(() => {
     bodyRef.current = document.querySelector("body");
     forceUpdate();
+    return () => {
+      requestIdRef.current += 1;
+    };
   }, []);
 
   return (
