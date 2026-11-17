@@ -16,6 +16,8 @@ The app runs on Firebase App Hosting in project `da-minh-go-vap`, region `asia-s
 
 `apphosting.yaml` holds shared settings. Each backend's environment name selects the `apphosting.<environment>.yaml` that overrides it. Do not set environment variables in the Firebase console: console values override the files.
 
+Backends, domains, rollout policy, secrets (not values), the backup job and the keep-warm job are managed by Terraform in [infra/terraform](../infra/terraform/README.md). Change them there, not in the console or with `gcloud`.
+
 ## Releasing to production
 
 Staging deploys every push to `main`. After verifying staging, promote the same commit:
@@ -30,12 +32,13 @@ Roll back by creating a rollout from the previous good commit.
 
 Credentials live in Cloud Secret Manager and are referenced by name from the YAML files (`staging-*`, `production-*`, plus shared `payload-admin-email`). Both backends run as `firebase-app-hosting-compute@da-minh-go-vap.iam.gserviceaccount.com`.
 
-Add or rotate a secret:
+Add a secret: add its name to `local.app_hosting_secrets` in [infra/terraform/secrets.tf](../infra/terraform/secrets.tf) and `terraform apply` (creates the secret and access grants), then set the value:
 
 ```sh
 firebase apphosting:secrets:set <name> --project da-minh-go-vap
-firebase apphosting:secrets:grantaccess <name> --backend <backend> --location asia-southeast1 --project da-minh-go-vap
 ```
+
+Rotate a secret: run the same `secrets:set` command.
 
 Then roll out the backend so the new version is picked up.
 
