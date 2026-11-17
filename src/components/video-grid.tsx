@@ -1,10 +1,22 @@
 import { cn } from "@/utils/common";
 
+const YOUTUBE_ID_PATTERN = /^[a-zA-Z0-9_-]{11}$/;
+
+function parseHttpUrl(input: string): URL | null {
+  try {
+    const url = new URL(input.includes("://") ? input : `https://${input}`);
+    return url.protocol === "http:" || url.protocol === "https:" ? url : null;
+  } catch {
+    return null;
+  }
+}
+
 export interface VideoItem {
   id?: string | null;
   title: string;
   type: "youtube" | "facebook";
   url: string;
+  isShort?: boolean | null;
 }
 
 export interface VideoGridProps {
@@ -18,39 +30,53 @@ export interface VideoGridProps {
  * including watch, embed, shorts, youtu.be, or raw video IDs.
  *
  * @param urlOrId - The YouTube URL or raw video ID
- * @returns The parsed YouTube video ID string
+ * @returns The parsed YouTube video ID or an empty string for invalid input
  */
 export function extractYoutubeId(urlOrId: string): string {
   if (!urlOrId) return "";
 
-  // Check for shorts: https://www.youtube.com/shorts/<id>
-  const shortsMatch = urlOrId.match(/youtube\.com\/shorts\/([a-zA-Z0-9_-]+)/);
-  if (shortsMatch?.[1]) return shortsMatch[1];
+  const trimmedInput = urlOrId.trim();
+  if (YOUTUBE_ID_PATTERN.test(trimmedInput)) return trimmedInput;
 
-  // Check for standard watch: https://www.youtube.com/watch?v=<id>
-  const watchMatch = urlOrId.match(/[?&]v=([a-zA-Z0-9_-]+)/);
-  if (watchMatch?.[1]) return watchMatch[1];
+  const url = parseHttpUrl(trimmedInput);
+  if (!url) return "";
 
-  // Check for youtu.be/<id>
-  const shortUrlMatch = urlOrId.match(/youtu\.be\/([a-zA-Z0-9_-]+)/);
-  if (shortUrlMatch?.[1]) return shortUrlMatch[1];
+  const hostname = url.hostname.toLowerCase();
+  const isShortDomain = hostname === "youtu.be";
+  const isYoutubeDomain =
+    hostname === "youtube.com" || hostname.endsWith(".youtube.com");
+  let candidate = "";
 
-  // Check for embed: https://www.youtube.com/embed/<id>
-  const embedMatch = urlOrId.match(/youtube\.com\/embed\/([a-zA-Z0-9_-]+)/);
-  if (embedMatch?.[1]) return embedMatch[1];
+  if (isShortDomain) {
+    candidate = url.pathname.split("/").filter(Boolean)[0] ?? "";
+  } else if (isYoutubeDomain && url.pathname === "/watch") {
+    candidate = url.searchParams.get("v") ?? "";
+  } else if (isYoutubeDomain) {
+    const pathMatch = url.pathname.match(/^\/(?:shorts|embed)\/([^/]+)\/?$/);
+    candidate = pathMatch?.[1] ?? "";
+  }
 
-  // Otherwise assume it is already a video ID
-  return urlOrId.trim();
+  return YOUTUBE_ID_PATTERN.test(candidate) ? candidate : "";
 }
 
 /**
  * Determines whether a given video URL corresponds to a YouTube Short.
  *
  * @param url - Video URL string
- * @returns True if the URL contains YouTube shorts path
+ * @param explicitlyShort - Whether the CMS marks a bare ID as a Short
+ * @returns True if the URL or CMS field identifies a Short
  */
-export function isYoutubeShort(url: string): boolean {
-  return typeof url === "string" && url.includes("/shorts/");
+export function isYoutubeShort(url: string, explicitlyShort = false): boolean {
+  if (explicitlyShort) return true;
+
+  const parsedUrl = parseHttpUrl(url);
+  if (!parsedUrl) return false;
+
+  const hostname = parsedUrl.hostname.toLowerCase();
+  const isYoutubeDomain =
+    hostname === "youtube.com" || hostname.endsWith(".youtube.com");
+
+  return isYoutubeDomain && /^\/shorts\/[^/]+\/?$/.test(parsedUrl.pathname);
 }
 
 /**
@@ -76,7 +102,9 @@ export default function VideoGrid({
 
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {videos.map((video, index) => {
-          const isShort = isYoutubeShort(video.url);
+          const isShort =
+            video.type === "youtube" &&
+            isYoutubeShort(video.url, video.isShort ?? false);
           const youtubeId =
             video.type === "youtube" ? extractYoutubeId(video.url) : null;
 
