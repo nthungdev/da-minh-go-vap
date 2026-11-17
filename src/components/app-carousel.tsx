@@ -1,7 +1,7 @@
 "use client";
 
 import { Children, HTMLAttributes, useEffect, useRef, useState } from "react";
-import { twMerge } from "tailwind-merge";
+import { cn } from "@/utils/common";
 
 interface AppCarouselProps extends HTMLAttributes<HTMLElement> {
   id: string;
@@ -20,7 +20,6 @@ export default function AppCarousel({
   const childrenCount = Children.count(children);
   const [currentIndex, setCurrentIndex] = useState(0);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const carouselRef = useRef<HTMLDivElement | null>(null);
 
   function handleMoveButton(direction: "previous" | "next") {
     resetTimeout();
@@ -38,36 +37,13 @@ export default function AppCarousel({
     }
   }
 
-  // For some reason, need to create the carousel object for it to be rendered
-  useEffect(
-    function initCarousel() {
-      (async () => {
-        const carouselElement = carouselRef.current;
-        if (!carouselElement) {
-          console.warn("Carousel element not found");
-          return;
-        }
-        const { HSCarousel } = await import("preline/preline");
-        new HSCarousel(carouselElement, { currentIndex: 0 });
-      })();
-    },
-    [carouselRef],
-  );
-
   useEffect(() => {
+    if (durations.length <= 1) return;
     resetTimeout();
 
     const _currentIndex = currentIndex;
-    timeoutRef.current = setTimeout(async () => {
+    timeoutRef.current = setTimeout(() => {
       const newIndex = (currentIndex + 1) % durations.length;
-      const carouselElement = carouselRef.current;
-      if (!carouselElement) {
-        console.warn("Carousel element not found");
-        return;
-      }
-      const { HSCarousel } = await import("preline/preline");
-      const carousel = new HSCarousel(carouselElement, { currentIndex });
-      carousel.goTo(newIndex);
       setCurrentIndex(newIndex);
       onTransition?.(newIndex);
     }, durations[_currentIndex]);
@@ -77,19 +53,15 @@ export default function AppCarousel({
 
   return (
     <div
-      ref={carouselRef}
       id={id}
-      data-hs-carousel={JSON.stringify({
-        loadingClasses: "opacity-0",
-        dotsItemClasses:
-          "hs-carousel-active:bg-white hs-carousel-active:border-white size-3 border border-gray-400 rounded-full cursor-pointer dark:border-white dark:hs-carousel-active:bg-white dark:hs-carousel-active:border-white",
-        isInfiniteLoop: true,
-      })}
-      className={twMerge("relative aspect-[4/1.2] w-full", className)}
+      className={cn("relative aspect-[4/1.2] w-full", className)}
       {...props}
     >
       <div className="hs-carousel relative h-full w-full overflow-hidden bg-white">
-        <div className="hs-carousel-body pointer-events-none absolute start-0 top-0 bottom-0 flex flex-nowrap opacity-0 transition-transform duration-700">
+        <div
+          className="hs-carousel-body pointer-events-none absolute inset-0 flex flex-nowrap transition-transform duration-700 [&>.hs-carousel-slide]:size-full [&>.hs-carousel-slide]:shrink-0"
+          style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+        >
           {children}
         </div>
       </div>
@@ -102,7 +74,6 @@ export default function AppCarousel({
             onClick={(event) => {
               event.stopPropagation();
               event.preventDefault();
-              console.log("stop propagte");
               handleMoveButton("previous");
             }}
           >
@@ -133,7 +104,6 @@ export default function AppCarousel({
             onClick={(event) => {
               event.stopPropagation();
               event.preventDefault();
-              console.log("stop propagte");
               handleMoveButton("next");
             }}
           >

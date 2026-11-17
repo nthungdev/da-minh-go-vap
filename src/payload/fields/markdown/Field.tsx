@@ -1,7 +1,7 @@
 "use client";
 
 import MarkdownEditor from "@/payload/fields/markdown/MarkdownEditor";
-import { FieldLabel, useField } from "@payloadcms/ui";
+import { FieldDescription, FieldLabel, useField } from "@payloadcms/ui";
 import { CodeFieldClientComponent } from "payload";
 
 const MarkdownField: CodeFieldClientComponent = ({ path, field }) => {
@@ -18,6 +18,7 @@ const MarkdownField: CodeFieldClientComponent = ({ path, field }) => {
         htmlFor={id}
       />
       <MarkdownEditor id={id} value={value || ""} setValue={setValue} />
+      <FieldDescription description={field?.admin?.description} path={path} />
     </div>
   );
 };

@@ -4,9 +4,10 @@ import PostGroupTabsPanel from "@/components/post-group-tabs/panel";
 import PostGroupTabsSelect from "@/components/post-group-tabs/select";
 import { Locale } from "@/i18n/config";
 import { Page } from "@/payload-types";
+import { AppPost } from "@/definitions";
 import { useLocale } from "next-intl";
-import { useState } from "react";
-import { twMerge } from "tailwind-merge";
+import { useId, useState } from "react";
+import { cn } from "@/utils/common";
 
 const ALL_POSTS_CONTROL_LABELS: Record<Locale, string> = {
   en: "All",
@@ -15,6 +16,7 @@ const ALL_POSTS_CONTROL_LABELS: Record<Locale, string> = {
 
 interface PostGroupTabsProps extends React.HTMLAttributes<HTMLDivElement> {
   title?: string;
+  initialPosts?: AppPost[];
   viewMoreButton?: {
     enable: boolean;
     relativeUrl: Page | string | undefined | null;
@@ -35,11 +37,11 @@ function PostGroupTabs({
   viewMoreButton,
   groups,
   className,
+  initialPosts,
   ...props
 }: PostGroupTabsProps) {
-  const id = (title ?? Math.random().toString())
-    .replace(/\s+/g, "-")
-    .toLowerCase();
+  const fallbackId = useId();
+  const id = (title ?? fallbackId).replace(/\s+/g, "-").toLowerCase();
 
   const locale = useLocale();
 
@@ -62,7 +64,7 @@ function PostGroupTabs({
   if (!currentGroup) return null;
 
   return (
-    <div className={twMerge(className)} id={id} {...props}>
+    <div className={cn(className)} id={id} {...props}>
       <div
         className={
           "bg-primary flex flex-row items-center justify-between gap-x-8 rounded-t-md px-2 py-1.5 text-white md:px-6 lg:items-start"
@@ -85,7 +87,7 @@ function PostGroupTabs({
             <li
               key={index}
               onClick={() => setCurrentIndex(index)}
-              className={twMerge("flex flex-row gap-x-3 px-1")}
+              className={cn("flex flex-row gap-x-3 px-1")}
               role="tab"
               aria-selected={currentIndex === index}
               aria-controls={`group-${id}-${index}`}
@@ -94,7 +96,7 @@ function PostGroupTabs({
             >
               {index !== 0 && <div className="border-l"></div>}
               <span
-                className={twMerge(
+                className={cn(
                   "text-gray-100 transition-transform hover:scale-x-105 hover:cursor-pointer hover:text-white",
                   currentIndex === index && "font-bold text-white",
                 )}
@@ -113,6 +115,7 @@ function PostGroupTabs({
             id={`group-${id}-${index}`}
             hiddenTags={g.hiddenTags}
             title={g.title}
+            initialPosts={index === 0 ? initialPosts : undefined}
             viewMoreButton={g.viewMoreButton}
             role="tabpanel"
             tab-index="0"

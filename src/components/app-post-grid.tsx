@@ -1,9 +1,9 @@
 import { AppPost } from "@/definitions";
 import { transformUrl } from "@/utils/cloudflare";
+import { cn } from "@/utils/common";
 import Image from "next/image";
 import Link from "next/link";
 import { HTMLAttributes } from "react";
-import { twMerge } from "tailwind-merge";
 
 interface AppPostGridProps extends HTMLAttributes<HTMLElement> {
   posts: AppPost[];
@@ -17,7 +17,7 @@ export default function AppPostGrid({
 }: AppPostGridProps) {
   return (
     <ul
-      className={twMerge(
+      className={cn(
         "app-post-grid relative grid grid-flow-row gap-4 md:grid-cols-2 lg:grid-cols-4",
         className,
       )}
@@ -40,8 +40,10 @@ export default function AppPostGrid({
                     unoptimized
                     className="object-cover"
                     src={transformUrl(post.thumbnail.url, {
-                      width: "300",
+                      width: "400",
+                      quality: "80",
                     })}
+                    loading="lazy"
                     fill
                     sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
                     alt={`${post.title}'s thumbnail`}
