@@ -1,11 +1,9 @@
 "use client";
 
 import {
-  ChangeEvent,
   ChangeEventHandler,
   FormEvent,
   forwardRef,
-  KeyboardEvent,
   RefObject,
   useEffect,
   useReducer,
@@ -98,12 +96,7 @@ interface SearchModalProps {
   state: SearchState;
   locale: Locale;
   containerRef: RefObject<HTMLElement | null>;
-  onInputSubmit: (
-    event:
-      | ChangeEvent<HTMLInputElement>
-      | FormEvent<HTMLFormElement>
-      | KeyboardEvent<HTMLInputElement>,
-  ) => void;
+  onInputSubmit: (event: FormEvent<HTMLFormElement>) => void;
   onInputChange: ChangeEventHandler<HTMLInputElement>;
 }
 
@@ -152,11 +145,6 @@ const SearchModal = forwardRef<HTMLDivElement, SearchModalProps>(
                       value={state.query}
                       autoFocus
                       onChange={onInputChange}
-                      onKeyUp={(event) => {
-                        if (event.key === "Enter") {
-                          onInputSubmit(event);
-                        }
-                      }}
                     />
                   </form>
                 </div>
@@ -261,12 +249,7 @@ export default function AppPostSearchButton({ id }: { id: string }) {
     dispatch({ type: "SET_QUERY", query: event.target.value });
   };
 
-  const handleInputSubmit = async (
-    event:
-      | ChangeEvent<HTMLInputElement>
-      | FormEvent<HTMLFormElement>
-      | KeyboardEvent<HTMLInputElement>,
-  ) => {
+  const handleInputSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const trimmed = state.query.trim();
     if (!trimmed) {

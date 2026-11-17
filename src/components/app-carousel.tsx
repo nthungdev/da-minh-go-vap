@@ -19,8 +19,8 @@ export default function AppCarousel({
   ...props
 }: AppCarouselProps) {
   const childrenCount = Children.count(children);
-  const { currentIndex, next, prev, containerProps } = useCarousel({
-    count: durations.length,
+  const { currentIndex, next, prev, getContainerProps } = useCarousel({
+    count: childrenCount,
     durations,
     onTransition,
   });
@@ -29,8 +29,8 @@ export default function AppCarousel({
     <div
       id={id}
       className={cn("relative aspect-[4/1.2] w-full", className)}
-      {...containerProps}
       {...props}
+      {...getContainerProps<HTMLDivElement>(props)}
     >
       <div className="hs-carousel relative h-full w-full overflow-hidden bg-white">
         <div

@@ -21,7 +21,7 @@ export default function AppCarouselFade<T>({
   render,
   ...props
 }: AppCarouselFadeProps<T>) {
-  const { currentIndex, next, prev, containerProps } = useCarousel({
+  const { currentIndex, next, prev, getContainerProps } = useCarousel({
     count: items.length,
     durations,
     onTransition,
@@ -30,7 +30,7 @@ export default function AppCarouselFade<T>({
   return (
     <div
       {...props}
-      {...containerProps}
+      {...getContainerProps<HTMLDivElement>(props)}
       id={id}
       className={cn(
         "relative aspect-[4/1.2] w-full overflow-hidden",

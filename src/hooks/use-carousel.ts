@@ -1,6 +1,13 @@
 "use client";
 
-import { useCallback, useEffect, useReducer, useRef } from "react";
+import {
+  FocusEventHandler,
+  MouseEventHandler,
+  useCallback,
+  useEffect,
+  useReducer,
+  useRef,
+} from "react";
 
 export interface CarouselState {
   index: number;
@@ -158,5 +165,28 @@ export function useCarousel({
       onFocus: pause,
       onBlur: resume,
     },
+    getContainerProps: <T extends HTMLElement>(handlers?: {
+      onMouseEnter?: MouseEventHandler<T>;
+      onMouseLeave?: MouseEventHandler<T>;
+      onFocus?: FocusEventHandler<T>;
+      onBlur?: FocusEventHandler<T>;
+    }) => ({
+      onMouseEnter: (event: React.MouseEvent<T>) => {
+        pause();
+        handlers?.onMouseEnter?.(event);
+      },
+      onMouseLeave: (event: React.MouseEvent<T>) => {
+        resume();
+        handlers?.onMouseLeave?.(event);
+      },
+      onFocus: (event: React.FocusEvent<T>) => {
+        pause();
+        handlers?.onFocus?.(event);
+      },
+      onBlur: (event: React.FocusEvent<T>) => {
+        resume();
+        handlers?.onBlur?.(event);
+      },
+    }),
   };
 }
