@@ -1,11 +1,9 @@
 "use client";
 
 import {
-  ChangeEvent,
   ChangeEventHandler,
   FormEvent,
   forwardRef,
-  KeyboardEvent,
   RefObject,
   useEffect,
   useReducer,
@@ -19,7 +17,7 @@ import AppPostListItem from "./app-post-list-item";
 import { createPortal } from "react-dom";
 import Image from "next/image";
 import { AppPost } from "@/definitions";
-import { twMerge } from "tailwind-merge";
+import { cn } from "@/utils/common";
 import { useLocale } from "next-intl";
 
 enum ModalState {
@@ -29,13 +27,17 @@ enum ModalState {
   EMPTY,
 }
 
+type SearchState =
+  | { status: ModalState.LOADED; posts: AppPost[] }
+  | { status: ModalState.EMPTY | ModalState.LOADING | ModalState.ERROR };
+
 interface SearchModalProps {
   id: string;
   posts: AppPost[];
   input: string;
   state: ModalState;
   containerRef: RefObject<HTMLElement | null>;
-  onInputSubmit: (event: KeyboardEvent<HTMLInputElement>) => void;
+  onInputSubmit: (event: FormEvent<HTMLFormElement>) => void;
   onInputChange: ChangeEventHandler<HTMLInputElement>;
 }
 
@@ -65,7 +67,7 @@ const SearchModal = forwardRef<HTMLDivElement, SearchModalProps>(
             <div className="hs-overlay-open:opacity-100 hs-overlay-open:duration-500 m-3 opacity-0 transition-all sm:mx-auto sm:w-full sm:max-w-lg">
               <div className="pointer-events-auto flex flex-col overflow-hidden rounded-xl border bg-white shadow-xs">
                 <div className="relative border-b border-gray-200 p-4">
-                  <form className="relative">
+                  <form className="relative" onSubmit={onInputSubmit}>
                     <label
                       id={`${id}-label`}
                       htmlFor={`${id}-input`}
@@ -90,11 +92,6 @@ const SearchModal = forwardRef<HTMLDivElement, SearchModalProps>(
                       value={input}
                       autoFocus
                       onChange={onInputChange}
-                      onKeyUp={(event) => {
-                        if (event.key === "Enter") {
-                          onInputSubmit(event);
-                        }
-                      }}
                     />
                   </form>
                 </div>
@@ -112,13 +109,23 @@ const SearchModal = forwardRef<HTMLDivElement, SearchModalProps>(
                     </div>
                   )}
 
+                  {state === ModalState.ERROR && (
+                    <p role="alert" className="p-4">
+                      Không thể tìm kiếm. Vui lòng thử lại.
+                    </p>
+                  )}
+                  {state === ModalState.LOADED && posts.length === 0 && (
+                    <p role="status" className="p-4">
+                      Không tìm thấy bài viết.
+                    </p>
+                  )}
                   {state === ModalState.LOADED && (
                     <div className="space-y-1 p-1">
                       {posts.map((post, index) => (
                         <div key={post.slug} className="h-[60px] w-full">
                           <AppPostListItem
                             post={post}
-                            className={twMerge(
+                            className={cn(
                               index % 2 === 0
                                 ? "bg-primary-50"
                                 : "bg-primary-100",
@@ -143,10 +150,10 @@ export default function AppPostSearchButton({ id }: { id: string }) {
   const bodyRef = useRef<HTMLBodyElement | null>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
   const [input, setInput] = useState("");
-  const [posts, setPosts] = useState<AppPost[]>([]);
+  const requestId = useRef(0);
   const [overlay, setOverlay] = useState<HSOverlay | null>(null);
   const [, forceUpdate] = useReducer((x) => x + 1, 0);
-  const [state, setState] = useState(ModalState.EMPTY);
+  const [state, setState] = useState<SearchState>({ status: ModalState.EMPTY });
 
   const getOverlay = async () => {
     if (overlay) {
@@ -167,12 +174,14 @@ export default function AppPostSearchButton({ id }: { id: string }) {
       overlayElement,
       true,
     ) as ICollectionItem<HSOverlay>;
-    const o = overlayInstance.element;
+    const o = overlayInstance?.element;
+    if (!o) return null;
 
     setOverlay(o);
 
     o.on("close", () => {
-      setPosts([]);
+      requestId.current += 1;
+      setState({ status: ModalState.EMPTY });
       setInput("");
     });
 
@@ -183,17 +192,26 @@ export default function AppPostSearchButton({ id }: { id: string }) {
     setInput(event.target.value);
   };
 
-  const handleInputSubmit = async (
-    event:
-      | ChangeEvent<HTMLInputElement>
-      | FormEvent<HTMLFormElement>
-      | KeyboardEvent<HTMLInputElement>,
-  ) => {
+  const handleInputSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setState(ModalState.LOADING);
-    const results = await searchPosts(input, { locale });
-    setPosts(results.map((r) => r.item));
-    setState(ModalState.LOADED);
+    const id = ++requestId.current;
+    const query = input.trim();
+    if (!query) {
+      setState({ status: ModalState.EMPTY });
+      return;
+    }
+    setState({ status: ModalState.LOADING });
+    try {
+      const results = await searchPosts(query, { locale });
+      if (id === requestId.current) {
+        setState({
+          status: ModalState.LOADED,
+          posts: results.map((r) => r.item),
+        });
+      }
+    } catch {
+      if (id === requestId.current) setState({ status: ModalState.ERROR });
+    }
   };
 
   const openSearchModal = async () => {
@@ -203,15 +221,14 @@ export default function AppPostSearchButton({ id }: { id: string }) {
       return;
     }
     overlay.open();
-    overlay.on("close", () => {
-      setPosts([]);
-      setInput("");
-    });
   };
 
   useEffect(() => {
     bodyRef.current = document.querySelector("body");
     forceUpdate();
+    return () => {
+      requestId.current += 1;
+    };
   }, []);
 
   return (
@@ -244,9 +261,9 @@ export default function AppPostSearchButton({ id }: { id: string }) {
         id={id}
         ref={overlayRef}
         containerRef={bodyRef}
-        posts={posts}
+        posts={state.status === ModalState.LOADED ? state.posts : []}
         input={input}
-        state={state}
+        state={state.status}
         onInputChange={handleInputChange}
         onInputSubmit={handleInputSubmit}
       />

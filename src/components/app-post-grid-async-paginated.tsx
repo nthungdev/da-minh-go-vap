@@ -113,6 +113,7 @@ function AppPostGridPaginatedContent(props: AppPostGridPaginatedProps) {
             page,
             locale,
             skipSlug,
+            pageSize,
           ],
           queryFn: () =>
             fetchPostsByHiddenTags(hiddenTags, {
@@ -129,6 +130,7 @@ function AppPostGridPaginatedContent(props: AppPostGridPaginatedProps) {
             page,
             locale,
             skipSlug,
+            pageSize,
           ],
           queryFn: () =>
             fetchPostsByPublicTag(publicTag, {
@@ -153,9 +155,8 @@ function AppPostGridPaginatedContent(props: AppPostGridPaginatedProps) {
         : undefined,
   });
 
-  if (!data) return null;
-
-  const { posts, hasMore } = data;
+  const posts = data?.posts ?? [];
+  const hasMore = data?.hasMore ?? false;
   const hidePagination = !hasMore && page === 1;
   const isInitialLoading = !isFetched && isPending;
 
@@ -176,7 +177,7 @@ function AppPostGridPaginatedContent(props: AppPostGridPaginatedProps) {
         )}
       </div>
 
-      {!hidePagination && (
+      {data && !hidePagination && (
         <PaginationPanel
           className="mt-4 md:mt-8"
           totalPages={data.totalPages}
