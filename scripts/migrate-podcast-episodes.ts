@@ -26,7 +26,7 @@ const [{ default: config }, { getPayload }] = await Promise.all([
   import("../payload.config.ts"),
   import("payload"),
 ]);
-const payload = await getPayload({ config });
+const payload = await getPayload({ config, disableOnInit: true });
 
 async function fetchSourceEpisodes(): Promise<SourcePodcastEpisode[]> {
   const episodes: SourcePodcastEpisode[] = [];
