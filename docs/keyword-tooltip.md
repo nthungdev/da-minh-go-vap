@@ -2,11 +2,19 @@
 
 Trong bài viết ở chế độ Markdown, bọc cụm từ bằng thẻ `<keyword>` để hiện chú giải khi khách truy cập rê chuột vào hoặc chuyển tiêu điểm bàn phím đến cụm từ đó.
 
-## Cách chèn
+## Chèn bằng nút Chèn chú giải
 
 1. Mở bài viết trong Payload CMS.
 2. Đặt **Chế độ nội dung** thành **Văn bản thường (Markdown)**.
-3. Trong trường **Nội dung**, đặt đoạn mã sau tại vị trí cần chú giải và thay nội dung mẫu:
+3. Trong trường **Nội dung**, bôi đen cụm từ cần chú giải rồi bấm **Chèn chú giải** ở khung **Chú giải từ khóa**.
+4. Điền **Tiêu đề** và **Mô tả**. **URL ảnh** và **Đường dẫn "Xem thêm"** không bắt buộc. Khung **Xem trước** hiển thị nội dung thẻ chú giải.
+5. Bấm **Chèn vào nội dung**. Cụm từ đã chọn được thay bằng thẻ `<keyword>` hoàn chỉnh. Nếu không chọn cụm từ nào, thẻ được chèn tại vị trí con trỏ.
+
+Bấm **Hủy** hoặc phím `Esc` để đóng hộp thoại mà không thay đổi nội dung.
+
+## Chèn thủ công
+
+Trong trường **Nội dung**, đặt đoạn mã sau tại vị trí cần chú giải và thay nội dung mẫu:
 
 ```html
 <keyword
