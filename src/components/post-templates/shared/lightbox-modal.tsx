@@ -46,12 +46,13 @@ export default function LightboxModal({
       }
     };
 
+    const previousOverflow = document.body.style.overflow;
     document.addEventListener("keydown", handleKeyDown);
     document.body.style.overflow = "hidden";
 
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
-      document.body.style.overflow = "";
+      document.body.style.overflow = previousOverflow;
       trigger?.focus();
     };
   }, [isOpen]);

@@ -153,10 +153,9 @@ function AppPostGridPaginatedContent(props: AppPostGridPaginatedProps) {
         : undefined,
   });
 
-  if (!data) return null;
-
-  const { posts, hasMore } = data;
-  const hidePagination = !hasMore && page === 1;
+  const posts = data?.posts ?? [];
+  const hasMore = data?.hasMore ?? false;
+  const hidePagination = !data || (!hasMore && page === 1);
   const isInitialLoading = !isFetched && isPending;
 
   return (
@@ -176,7 +175,7 @@ function AppPostGridPaginatedContent(props: AppPostGridPaginatedProps) {
         )}
       </div>
 
-      {!hidePagination && (
+      {!hidePagination && data && (
         <PaginationPanel
           className="mt-4 md:mt-8"
           totalPages={data.totalPages}
