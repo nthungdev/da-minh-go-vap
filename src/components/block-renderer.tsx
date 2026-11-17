@@ -198,6 +198,7 @@ const mapBlockToProps: BlockToPropsMap = {
   }),
   videoGridBlock: () => ({}),
   spotifyPodcastList: (block) => ({
+    episodes: block.episodes || [],
     pageSize: block.pageSize || undefined,
   }),
 };
