@@ -68,6 +68,17 @@ export default function KeywordTooltip({
     }, 150);
   };
 
+  const handleBlur = (event: React.FocusEvent<HTMLSpanElement>) => {
+    const nextFocusedElement = event.relatedTarget;
+    if (
+      nextFocusedElement instanceof Node &&
+      event.currentTarget.contains(nextFocusedElement)
+    ) {
+      return;
+    }
+    handleMouseLeave();
+  };
+
   useEffect(() => {
     return () => {
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
@@ -86,7 +97,7 @@ export default function KeywordTooltip({
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onFocus={handleMouseEnter}
-      onBlur={handleMouseLeave}
+      onBlur={handleBlur}
       tabIndex={0}
       role="button"
       aria-haspopup="dialog"
