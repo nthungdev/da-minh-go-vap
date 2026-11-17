@@ -1,19 +1,20 @@
 "use client";
 
 import { HTMLAttributes, useEffect, useRef, useState } from "react";
-import { FiCheck, FiCopy } from "react-icons/fi";
+import { FiAlertCircle, FiCheck, FiCopy } from "react-icons/fi";
 import { cn } from "@/utils/common";
 
 /** In milliseconds */
 const RESET_AFTER_TIMEOUT = 1000;
 
+type CopyState = "idle" | "copying" | "copied" | "error";
+
 interface CopyButtonProps extends HTMLAttributes<HTMLButtonElement> {
   text: string;
 }
+
 export default function CopyButton({ className, text }: CopyButtonProps) {
-  const [state, setState] = useState<"idle" | "copying" | "copied" | "error">(
-    "idle",
-  );
+  const [state, setState] = useState<CopyState>("idle");
   const pending = useRef(false);
   const generation = useRef(0);
   const isCopied = state === "copied";
@@ -24,6 +25,7 @@ export default function CopyButton({ className, text }: CopyButtonProps) {
     },
     [],
   );
+
   useEffect(() => {
     if (state !== "copied") return;
     const timer = setTimeout(() => setState("idle"), RESET_AFTER_TIMEOUT);
@@ -62,6 +64,8 @@ export default function CopyButton({ className, text }: CopyButtonProps) {
     >
       {isCopied ? (
         <FiCheck aria-hidden="true" />
+      ) : state === "error" ? (
+        <FiAlertCircle aria-hidden="true" className="text-red-500" />
       ) : (
         <FiCopy aria-hidden="true" />
       )}

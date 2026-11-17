@@ -1,6 +1,7 @@
 "use client";
 
-import { Children, HTMLAttributes, useEffect, useRef, useState } from "react";
+import { Children, HTMLAttributes } from "react";
+import { useCarousel } from "@/hooks/use-carousel";
 import { cn } from "@/utils/common";
 
 interface AppCarouselProps extends HTMLAttributes<HTMLElement> {
@@ -18,44 +19,18 @@ export default function AppCarousel({
   ...props
 }: AppCarouselProps) {
   const childrenCount = Children.count(children);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-
-  function handleMoveButton(direction: "previous" | "next") {
-    resetTimeout();
-    const newIndex =
-      direction === "previous"
-        ? (currentIndex - 1 + durations.length) % durations.length
-        : (currentIndex + 1) % durations.length;
-    setCurrentIndex(newIndex);
-    onTransition?.(newIndex);
-  }
-
-  function resetTimeout() {
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
-    }
-  }
-
-  useEffect(() => {
-    if (durations.length <= 1) return;
-    resetTimeout();
-
-    const _currentIndex = currentIndex;
-    timeoutRef.current = setTimeout(() => {
-      const newIndex = (currentIndex + 1) % durations.length;
-      setCurrentIndex(newIndex);
-      onTransition?.(newIndex);
-    }, durations[_currentIndex]);
-
-    return () => resetTimeout();
-  }, [currentIndex, durations, id, onTransition]);
+  const { currentIndex, next, prev, getContainerProps } = useCarousel({
+    count: childrenCount,
+    durations,
+    onTransition,
+  });
 
   return (
     <div
       id={id}
       className={cn("relative aspect-[4/1.2] w-full", className)}
       {...props}
+      {...getContainerProps<HTMLDivElement>(props)}
     >
       <div className="hs-carousel relative h-full w-full overflow-hidden bg-white">
         <div
@@ -74,7 +49,7 @@ export default function AppCarousel({
             onClick={(event) => {
               event.stopPropagation();
               event.preventDefault();
-              handleMoveButton("previous");
+              prev();
             }}
           >
             <span
@@ -104,7 +79,7 @@ export default function AppCarousel({
             onClick={(event) => {
               event.stopPropagation();
               event.preventDefault();
-              handleMoveButton("next");
+              next();
             }}
           >
             <span className="sr-only">Next</span>

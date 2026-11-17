@@ -72,7 +72,7 @@ function PostGroupTabs({
       >
         <div className="text-xl font-bold">{title}</div>
         <PostGroupTabsSelect
-          id={id}
+          id={`${id}-select`}
           className="lg:hidden"
           activeIndex={currentIndex}
           options={postGroups.map((group) => ({ value: group.title }))}
@@ -92,7 +92,7 @@ function PostGroupTabs({
               aria-selected={currentIndex === index}
               aria-controls={`group-${id}-${index}`}
               id={`tab-${id}-${index}`}
-              tab-index={currentIndex === index ? 0 : 1}
+              tabIndex={currentIndex === index ? 0 : -1}
             >
               {index !== 0 && <div className="border-l"></div>}
               <span
