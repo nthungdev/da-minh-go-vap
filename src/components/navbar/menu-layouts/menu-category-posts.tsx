@@ -99,8 +99,8 @@ export function MenuCategoryPostsSkeleton() {
           aria-hidden="true"
         >
           <div className="aspect-[16/10] w-full rounded-md bg-gray-200" />
-          <div className="px-1 pt-2 pb-0.5">
-            {/* leading-snug text-base: two 22px lines */}
+          {/* flex-col stops margin collapse: two 22px lines (leading-snug base) */}
+          <div className="flex flex-col px-1 pt-2 pb-0.5">
             <div className="my-[3px] h-4 w-full rounded-sm bg-gray-200" />
             <div className="my-[3px] h-4 w-2/3 rounded-sm bg-gray-200" />
           </div>

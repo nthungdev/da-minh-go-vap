@@ -58,11 +58,12 @@ export default function PostGroupSkeleton({
             <div className="block overflow-hidden border border-gray-300 motion-safe:animate-pulse">
               <div className="aspect-video bg-gray-200" />
               {!hidePostTitles && (
-                // Two title lines: each bar plus margins equals one line box
-                // (24px base, 28px lg) to match the rendered post title.
-                <div className="p-1.5">
+                // Each bar plus margins equals one title line box (24px base,
+                // 28px lg). Full-width mobile cards usually fit one line;
+                // narrower md+ columns usually wrap to two.
+                <div className="flex flex-col p-1.5">
                   <div className="mx-auto my-1 h-4 w-11/12 bg-gray-200 lg:h-5" />
-                  <div className="mx-auto my-1 h-4 w-2/3 bg-gray-200 lg:h-5" />
+                  <div className="mx-auto my-1 hidden h-4 w-2/3 bg-gray-200 md:block lg:h-5" />
                 </div>
               )}
             </div>
