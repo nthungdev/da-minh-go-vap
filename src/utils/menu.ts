@@ -4,6 +4,7 @@ import { getPayload } from "payload";
 import { HiddenTag, Media, NavBar, Page, Post } from "@/payload-types";
 import { defaultLocale, Locale } from "@/i18n/config";
 import { makePostPath } from "@/utils/post";
+import { rewriteMediaUrls, toCdnMediaUrl } from "@/utils/cloudflare";
 import { cache } from "react";
 import { unstable_cache } from "next/cache";
 
@@ -127,7 +128,7 @@ function stripMedia(media: string | Media | null | undefined): Media | null {
   if (typeof media === "object" && media !== null) {
     return {
       id: media.id,
-      url: media.url,
+      url: media.url ? toCdnMediaUrl(media.url) : media.url,
       alt: media.alt,
       width: media.width,
       height: media.height,
@@ -138,7 +139,8 @@ function stripMedia(media: string | Media | null | undefined): Media | null {
 
 async function fetchNavBarGlobal(locale: Locale) {
   const payload = await getPayload({ config });
-  return payload.findGlobal({ slug: "navBar", locale, depth: 1 });
+  const navBar = await payload.findGlobal({ slug: "navBar", locale, depth: 1 });
+  return rewriteMediaUrls(navBar);
 }
 
 const getNavBarGlobalCached = unstable_cache(

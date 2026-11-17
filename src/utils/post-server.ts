@@ -8,6 +8,7 @@ import { defaultLocale, Locale } from "@/i18n/config";
 import { Post } from "@/payload-types";
 import { cache } from "react";
 import { unstable_cache } from "next/cache";
+import { rewriteMediaUrls } from "@/utils/cloudflare";
 
 interface GetOptions {
   limit?: number;
@@ -71,7 +72,7 @@ const getPostBySlugCached = cache(async (slug: string, locale?: Locale) => {
     const post = query.docs[0];
     if (!post) return null;
 
-    return postToAppPost(post);
+    return postToAppPost(rewriteMediaUrls(post));
   } catch {
     return null;
   }
@@ -106,9 +107,11 @@ const queryAllPostsCached = unstable_cache(
       },
       locale,
     });
-    return includeBody
-      ? (query as PaginatedDocs<Post>)
-      : normalizeCardPostsResult(query);
+    return rewriteMediaUrls(
+      includeBody
+        ? (query as PaginatedDocs<Post>)
+        : normalizeCardPostsResult(query),
+    );
   },
   ["query-all-posts"],
   { tags: ["posts"], revalidate: 60 },
@@ -186,9 +189,11 @@ const queryPostsByTagIdsCached = unstable_cache(
       page,
       locale,
     });
-    return includeBody
-      ? (query as PaginatedDocs<Post>)
-      : normalizeCardPostsResult(query);
+    return rewriteMediaUrls(
+      includeBody
+        ? (query as PaginatedDocs<Post>)
+        : normalizeCardPostsResult(query),
+    );
   },
   ["query-posts-by-tag-ids"],
   { tags: ["posts"], revalidate: 60 },
