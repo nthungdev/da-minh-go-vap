@@ -117,7 +117,7 @@ test("preserves existing block episodes while adding missing source episodes onc
         episodes: [
           { id: "existing-id", label: "Edited title", spotifyId: "middle" },
           { label: "Custom", spotifyId: "custom" },
-          { label: "Duplicate", spotifyId: "middle" },
+          { id: "duplicate-id", label: "Duplicate", spotifyId: "middle" },
         ],
         pageSize: 5,
       },
@@ -135,14 +135,60 @@ test("preserves existing block episodes while adding missing source episodes onc
   assert.deepEqual(
     block.episodes.map(({ label, spotifyId }) => ({ label, spotifyId })),
     [
-      { label: "Newest", spotifyId: "newest" },
       { label: "Edited title", spotifyId: "middle" },
-      { label: "Oldest", spotifyId: "oldest" },
       { label: "Custom", spotifyId: "custom" },
+      { label: "Duplicate", spotifyId: "middle" },
+      { label: "Newest", spotifyId: "newest" },
+      { label: "Oldest", spotifyId: "oldest" },
     ],
   );
-  assert.equal(block.episodes[1]?.id, "existing-id");
+  assert.equal(block.episodes[0]?.id, "existing-id");
+  assert.equal(block.episodes[2]?.id, "duplicate-id");
   assert.equal(migrated.blocksChanged, 1);
+
+  const rerun = createPodcastEpisodePageMigrator(sourceEpisodes)(migrated.page);
+  assert.equal(rerun.blocksChanged, 0);
+  assert.strictEqual(rerun.page, migrated.page);
+});
+
+test("copies only missing occurrences when source episodes share an ID", () => {
+  const migratePage = createPodcastEpisodePageMigrator([
+    {
+      createdAt: "2025-02-01T00:00:00.000Z",
+      label: "Newest duplicate",
+      spotifyId: "repeated",
+    },
+    {
+      createdAt: "2025-01-01T00:00:00.000Z",
+      label: "Older duplicate",
+      spotifyId: "repeated",
+    },
+  ]);
+  const page = {
+    main: [
+      {
+        blockType: "spotifyPodcastList",
+        episodes: [
+          { id: "curated-id", label: "Curated title", spotifyId: "repeated" },
+        ],
+      },
+    ],
+  };
+
+  const migrated = migratePage(page);
+  const block = migrated.page.main?.[0] as {
+    episodes: Array<{ id?: string; label: string; spotifyId: string }>;
+  };
+
+  assert.deepEqual(block.episodes, [
+    { id: "curated-id", label: "Curated title", spotifyId: "repeated" },
+    { label: "Older duplicate", spotifyId: "repeated" },
+  ]);
+  assert.equal(migrated.blocksChanged, 1);
+
+  const rerun = migratePage(migrated.page);
+  assert.equal(rerun.blocksChanged, 0);
+  assert.strictEqual(rerun.page, migrated.page);
 });
 
 test("leaves pages without podcast list blocks unchanged", () => {

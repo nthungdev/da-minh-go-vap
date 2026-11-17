@@ -66,31 +66,24 @@ function mergeEpisodes(
   existingEpisodes: readonly PodcastEpisode[] | null | undefined,
   sourceEpisodes: readonly SourcePodcastEpisode[],
 ): PodcastEpisode[] {
-  const existingBySpotifyId = new Map<string, PodcastEpisode>();
+  // Preserve editorial order and duplicates; append only source occurrences not already present.
+  const mergedEpisodes = [...(existingEpisodes ?? [])];
+  const existingCounts = new Map<string, number>();
   for (const episode of existingEpisodes ?? []) {
-    if (!existingBySpotifyId.has(episode.spotifyId)) {
-      existingBySpotifyId.set(episode.spotifyId, episode);
-    }
+    const count = existingCounts.get(episode.spotifyId) ?? 0;
+    existingCounts.set(episode.spotifyId, count + 1);
   }
 
-  const sourceBySpotifyId = new Map<string, PodcastEpisode>();
+  const sourceCounts = new Map<string, number>();
   for (const episode of sourceEpisodes) {
-    if (!sourceBySpotifyId.has(episode.spotifyId)) {
-      sourceBySpotifyId.set(episode.spotifyId, {
+    const count = (sourceCounts.get(episode.spotifyId) ?? 0) + 1;
+    sourceCounts.set(episode.spotifyId, count);
+
+    if (count > (existingCounts.get(episode.spotifyId) ?? 0)) {
+      mergedEpisodes.push({
         label: episode.label,
         spotifyId: episode.spotifyId,
       });
-    }
-  }
-
-  const mergedEpisodes: PodcastEpisode[] = [];
-  for (const [spotifyId, sourceEpisode] of sourceBySpotifyId) {
-    mergedEpisodes.push(existingBySpotifyId.get(spotifyId) ?? sourceEpisode);
-  }
-
-  for (const [spotifyId, existingEpisode] of existingBySpotifyId) {
-    if (!sourceBySpotifyId.has(spotifyId)) {
-      mergedEpisodes.push(existingEpisode);
     }
   }
 

@@ -62,9 +62,12 @@ try {
   const migratePage = createPodcastEpisodePageMigrator(sourceEpisodes);
   let pagesScanned = 0;
   let pagesWithPodcastBlocks = 0;
-  let pagesChanged = 0;
+  let pagesToChange = 0;
+  let pagesUpdated = 0;
+  let blocksToChange = 0;
+  let blocksUpdated = 0;
   let blocksFound = 0;
-  let blocksChanged = 0;
+  const failedPageUpdates: Array<{ id: string; message: string }> = [];
   let pageNumber = 1;
 
   while (true) {
@@ -74,18 +77,20 @@ try {
       limit: PAGE_SIZE,
       overrideAccess: true,
       page: pageNumber,
+      // Page updates do not change this unique field, so offset paging stays stable.
+      sort: "id",
     });
 
     for (const page of result.docs) {
       pagesScanned += 1;
       const migration = migratePage(page);
       blocksFound += migration.blocksFound;
-      blocksChanged += migration.blocksChanged;
 
       if (migration.blocksFound > 0) pagesWithPodcastBlocks += 1;
       if (migration.changedSections.length === 0) continue;
 
-      pagesChanged += 1;
+      pagesToChange += 1;
+      blocksToChange += migration.blocksChanged;
       if (!applyChanges) continue;
 
       const data: Partial<Pick<Page, "main" | "beforeMain">> = {};
@@ -96,23 +101,41 @@ try {
         data.beforeMain = migration.page.beforeMain;
       }
 
-      await payload.update({
-        collection: "pages",
-        data,
-        depth: 0,
-        id: page.id,
-        overrideAccess: true,
-      });
+      try {
+        await payload.update({
+          collection: "pages",
+          data,
+          depth: 0,
+          id: page.id,
+          overrideAccess: true,
+        });
+        pagesUpdated += 1;
+        blocksUpdated += migration.blocksChanged;
+      } catch (error) {
+        const message = error instanceof Error ? error.message : String(error);
+        failedPageUpdates.push({ id: String(page.id), message });
+        console.error(`Failed to update page ${page.id}: ${message}`);
+      }
     }
 
     if (!result.hasNextPage) break;
     pageNumber += 1;
   }
 
+  const updateSummary = applyChanges
+    ? `${pagesUpdated} pages and ${blocksUpdated} blocks updated; ${failedPageUpdates.length} page updates failed`
+    : `${pagesToChange} pages and ${blocksToChange} blocks to update`;
   console.log(
-    `${applyChanges ? "Applied" : "Dry run"}: ${pagesScanned} pages scanned, ${pagesWithPodcastBlocks} pages with podcast blocks, ${pagesChanged} pages ${applyChanges ? "updated" : "to update"}, ${blocksFound} blocks found, ${blocksChanged} blocks ${applyChanges ? "updated" : "to update"}.`,
+    `${applyChanges ? "Applied" : "Dry run"}: ${pagesScanned} pages scanned, ${pagesWithPodcastBlocks} pages with podcast blocks, ${blocksFound} blocks found, ${updateSummary}.`,
   );
   if (!applyChanges) console.log("Pass apply to write the page updates.");
+
+  if (failedPageUpdates.length > 0) {
+    const failedIds = failedPageUpdates.map(({ id }) => id).join(", ");
+    throw new Error(
+      `Migration had ${failedPageUpdates.length} failed page updates (${failedIds}). Rerun after resolving the reported errors.`,
+    );
+  }
 } finally {
   await payload.destroy();
 }
