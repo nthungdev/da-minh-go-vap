@@ -21,6 +21,8 @@
     "s3:restore": "bash scripts/s3-restore.sh",
     "s3:copy": "bash scripts/s3-copy.sh",
     "previews:capture": "node scripts/capture-template-previews.ts",
+    "tokens:export": "node scripts/export-tokens.ts",
+    "penpot:export": "node scripts/export-penpot.ts",
     "build": "next build",
     "build:compile": "next build --experimental-build-mode compile",
     "build:generate-env": "next build --experimental-build-mode generate-env",
