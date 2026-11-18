@@ -4,6 +4,7 @@ import { cn } from "@/utils/common";
 import Image from "next/image";
 import Link from "next/link";
 import { HTMLAttributes } from "react";
+import { useTranslations } from "next-intl";
 
 interface AppPostGridProps extends HTMLAttributes<HTMLElement> {
   posts: AppPost[];
@@ -15,6 +16,7 @@ export default function AppPostGrid({
   hidePostTitles,
   className,
 }: AppPostGridProps) {
+  const t = useTranslations("common");
   return (
     <ul
       className={cn(
@@ -46,7 +48,7 @@ export default function AppPostGrid({
                     loading="lazy"
                     fill
                     sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                    alt={`${post.title}'s thumbnail`}
+                    alt={t("thumbnailAlt", { title: post.title })}
                   />
                 )}
             </div>

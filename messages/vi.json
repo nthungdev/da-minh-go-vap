@@ -8,7 +8,8 @@
     "next": "Tiếp",
     "scrollToTop": "Lên đầu trang",
     "openInNewTab": "(mở trong tab mới)",
-    "readMore": "Xem thêm"
+    "readMore": "Xem thêm",
+    "thumbnailAlt": "Ảnh bìa: {title}"
   },
   "navigation": {
     "toggleMenu": "Mở/đóng menu",

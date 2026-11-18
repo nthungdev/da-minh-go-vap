@@ -52,7 +52,7 @@ export default function AppPostGridSix({
                     src={transformUrl(post.thumbnail.url)}
                     fill
                     sizes="100%"
-                    alt={`${post.title}'s thumbnail`}
+                    alt={t("thumbnailAlt", { title: post.title })}
                   />
                 )}
             </div>
