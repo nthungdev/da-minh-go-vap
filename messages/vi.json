@@ -1,10 +1,73 @@
 {
+  "common": {
+    "all": "Tất cả",
+    "viewMore": "Xem tiếp",
+    "loading": "Đang tải…",
+    "close": "Đóng",
+    "previous": "Trước",
+    "next": "Tiếp",
+    "scrollToTop": "Lên đầu trang",
+    "openInNewTab": "(mở trong tab mới)"
+  },
+  "navigation": {
+    "toggleMenu": "Mở/đóng menu",
+    "menu": "Menu",
+    "postGroups": "Nhóm bài viết",
+    "selectPostGroup": "Chọn nhóm bài viết"
+  },
+  "posts": {
+    "title": "Bài viết",
+    "allPosts": "Các bài viết",
+    "latest": "Tin Mới",
+    "related": "Các bài liên quan",
+    "tags": "Thẻ"
+  },
+  "search": {
+    "label": "Tìm kiếm",
+    "placeholder": "Tìm kiếm bài viết...",
+    "empty": "Không tìm thấy bài viết nào.",
+    "error": "Không thể tìm kiếm lúc này. Vui lòng thử lại."
+  },
+  "notFound": {
+    "title": "Không Tìm Thấy",
+    "description": "Trang này không tồn tại"
+  },
   "contact": {
     "phoneLabel": "Đt",
     "emailLabel": "Email",
     "marketingEmailLabel": "Ban truyền thông"
   },
+  "footer": {
+    "backgroundAlt": "Ảnh nền chân trang"
+  },
   "shareToolbar": {
     "title": "Chia sẻ"
+  },
+  "lightbox": {
+    "zoom": "Phóng to ảnh",
+    "zoomWithAlt": "Phóng to ảnh: {alt}",
+    "view": "Xem ảnh",
+    "close": "Đóng xem ảnh"
+  },
+  "postTemplates": {
+    "author": "Tác giả",
+    "translator": "Chuyển ngữ",
+    "audioReader": "Giọng đọc",
+    "source": "Nguồn",
+    "reflectionAuthor": "Bài suy niệm",
+    "producer": "Thực hiện",
+    "presenter": "Trình bày: {name}",
+    "references": "Tham khảo",
+    "gospelToday": "Tin Mừng hôm nay",
+    "viewGospel": "Xem Tin Mừng",
+    "viewGospelWithReference": "Xem Tin Mừng ({reference})",
+    "newsImageAlt": "Ảnh bản tin",
+    "eventPhotoAlt": "Ảnh sự kiện",
+    "reflectionImageAlt": "Hình suy niệm",
+    "saintLife": "Đôi nét cuộc đời",
+    "saintVirtues": "Gương nhân đức",
+    "saintPrayer": "Lời nguyện",
+    "videoPrayerTitle": "Ý chỉ cầu nguyện video",
+    "spotifyPlayerTitle": "Trình phát podcast Spotify"
   }
 }
