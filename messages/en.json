@@ -30,7 +30,8 @@
   },
   "notFound": {
     "title": "Not Found",
-    "description": "This page does not exist"
+    "description": "This page does not exist",
+    "backHome": "Back to home"
   },
   "contact": {
     "phoneLabel": "Phone",

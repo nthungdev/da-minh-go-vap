@@ -1,12 +1,15 @@
+import { useTranslations } from "next-intl";
+
 /**
  * Route fallback for public pages: lets the layout (navbar, footer) stream
  * while page data loads. `min-h-svh` keeps the footer below the fold so it
  * does not jump when the page replaces this skeleton.
  */
 export default function Loading() {
+  const t = useTranslations("common");
   return (
     <div className="min-h-svh w-full" role="status" aria-busy="true">
-      <span className="sr-only">Đang tải…</span>
+      <span className="sr-only">{t("loading")}</span>
       <div
         className="mx-auto w-full max-w-7xl space-y-8 px-4 pt-16 pb-8 motion-safe:animate-pulse"
         aria-hidden="true"

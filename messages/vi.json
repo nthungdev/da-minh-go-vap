@@ -30,7 +30,8 @@
   },
   "notFound": {
     "title": "Không Tìm Thấy",
-    "description": "Trang này không tồn tại"
+    "description": "Trang này không tồn tại",
+    "backHome": "Về Trang Chủ"
   },
   "contact": {
     "phoneLabel": "Đt",
