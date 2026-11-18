@@ -5,6 +5,7 @@ import config from "@payload-config";
 import { Locale } from "next-intl";
 import { cache } from "react";
 import { unstable_cache } from "next/cache";
+import { rewriteMediaUrls } from "@/utils/cloudflare";
 
 const getPageByPathCached = unstable_cache(
   async (path: string, locale: Locale) => {
@@ -18,7 +19,7 @@ const getPageByPathCached = unstable_cache(
       locale,
     });
     const page = query.docs[0] ?? null;
-    return page;
+    return rewriteMediaUrls(page);
   },
   ["page-by-path"],
   { tags: ["pages"], revalidate: 300 },
@@ -31,7 +32,12 @@ export const getPageByPath = cache(async (path: string, locale: Locale) => {
 const getFooterCached = unstable_cache(
   async (locale: Locale) => {
     const payload = await getPayload({ config });
-    return payload.findGlobal({ slug: "footer", locale, depth: 1 });
+    const footer = await payload.findGlobal({
+      slug: "footer",
+      locale,
+      depth: 1,
+    });
+    return rewriteMediaUrls(footer);
   },
   ["footer-global"],
   { tags: ["globals", "footer"], revalidate: 300 },
