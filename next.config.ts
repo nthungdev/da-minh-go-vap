@@ -1,6 +1,7 @@
 import { withPayload } from "@payloadcms/next/withPayload";
 import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
+import { buildLocaleRewrites } from "./src/i18n/routing";
 
 // Non-production deployments (e.g. staging) must not be indexed by search engines.
 const noIndex = process.env.SITE_NOINDEX === "true";
@@ -8,6 +9,9 @@ const noIndex = process.env.SITE_NOINDEX === "true";
 const nextConfig: NextConfig = {
   compress: true,
   poweredByHeader: false,
+  async rewrites() {
+    return { beforeFiles: buildLocaleRewrites(), afterFiles: [], fallback: [] };
+  },
   async headers() {
     if (!noIndex) return [];
     return [

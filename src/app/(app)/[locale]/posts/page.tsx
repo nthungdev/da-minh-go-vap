@@ -1,6 +1,7 @@
 import AppGridHeader from "@/components/app-grid-header";
 import AppPage from "@/components/app-page";
 import AppPostGridPaginated from "@/components/app-post-grid-async-paginated";
+import { applyRouteLocale, type LocaleParams } from "@/i18n/server";
 
 interface SearchParams {
   /** hidden tags */
@@ -9,9 +10,12 @@ interface SearchParams {
   ti?: string;
 }
 
+// Dynamic: the hidden-tag filter and title come from the query string.
 export default async function AppPostsPage(props: {
+  params: Promise<LocaleParams>;
   searchParams: Promise<SearchParams>;
 }) {
+  applyRouteLocale((await props.params).locale);
   const searchParams = await props.searchParams;
 
   const { ht, ti } = searchParams;
