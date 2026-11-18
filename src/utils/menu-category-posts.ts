@@ -14,36 +14,34 @@ const MENU_CATEGORY_POSTS_REVALIDATE_SECONDS = 60;
 /** Mega-menu posts keyed by `getCategoryPostsKey(category.tagIds)`. */
 export type MenuCategoryPosts = Record<string, CategoryPostItem[]>;
 
+// Errors propagate so unstable_cache never stores a failed result;
+// getMenuCategoryPosts falls back to {} for that request only.
 async function fetchCategoryPosts(
   tagIds: string[],
   locale: Locale,
 ): Promise<CategoryPostItem[]> {
   const payload = await getPayload({ config });
-  try {
-    const query = await payload.find({
-      collection: "posts",
-      depth: 1,
-      select: { title: true, slug: true, thumbnail: true, publishedAt: true },
-      where: {
-        and: [
-          { hiddenTags: { in: tagIds } },
-          { publishedAt: { less_than: new Date().toISOString() } },
-        ],
-      },
-      limit: MENU_CATEGORY_POST_LIMIT,
-      sort: "-publishedAt",
-      locale,
-    });
-    return query.docs.map((p) => ({
-      title: p.title,
-      slug: p.slug,
-      href: makePostPath(p.slug),
-      thumbnail: stripMedia(p.thumbnail),
-      publishedAt: p.publishedAt,
-    }));
-  } catch {
-    return [];
-  }
+  const query = await payload.find({
+    collection: "posts",
+    depth: 1,
+    select: { title: true, slug: true, thumbnail: true, publishedAt: true },
+    where: {
+      and: [
+        { hiddenTags: { in: tagIds } },
+        { publishedAt: { less_than: new Date().toISOString() } },
+      ],
+    },
+    limit: MENU_CATEGORY_POST_LIMIT,
+    sort: "-publishedAt",
+    locale,
+  });
+  return query.docs.map((p) => ({
+    title: p.title,
+    slug: p.slug,
+    href: makePostPath(p.slug),
+    thumbnail: stripMedia(p.thumbnail),
+    publishedAt: p.publishedAt,
+  }));
 }
 
 const getMenuCategoryPostsCached = unstable_cache(
@@ -59,8 +57,9 @@ const getMenuCategoryPostsCached = unstable_cache(
     const tagSets = new Map<string, string[]>();
     for (const menuItem of navBar.menu ?? []) {
       for (const cat of menuItem.categories ?? []) {
-        const tagIds = (cat.tags ?? []).map((t) =>
-          typeof t === "string" ? t : t.id,
+        // depth: 0 leaves relationships as ID strings.
+        const tagIds = (cat.tags ?? []).filter(
+          (t): t is string => typeof t === "string",
         );
         if (tagIds.length > 0) tagSets.set(getCategoryPostsKey(tagIds), tagIds);
       }
