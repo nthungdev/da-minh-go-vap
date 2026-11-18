@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 import { cn } from "@/utils/common";
+import { useTranslations } from "next-intl";
 
 interface PostGroupTabsSelectOption {
   value: string;
@@ -18,6 +19,7 @@ interface PostGroupTabsSelectProps {
 
 export default function PostGroupTabsSelect(props: PostGroupTabsSelectProps) {
   const { id, className, activeIndex, options, onChange } = props;
+  const t = useTranslations("navigation");
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
@@ -63,7 +65,7 @@ export default function PostGroupTabsSelect(props: PostGroupTabsSelectProps) {
         aria-haspopup="menu"
         aria-expanded={isOpen}
         aria-controls={menuId}
-        aria-label="Menu"
+        aria-label={t("menu")}
         onClick={() => setIsOpen((prev) => !prev)}
       >
         {isOpen ? <MdKeyboardArrowUp /> : <MdKeyboardArrowDown />}
