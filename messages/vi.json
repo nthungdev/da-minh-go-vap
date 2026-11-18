@@ -7,13 +7,15 @@
     "previous": "Trước",
     "next": "Tiếp",
     "scrollToTop": "Lên đầu trang",
-    "openInNewTab": "(mở trong tab mới)"
+    "openInNewTab": "(mở trong tab mới)",
+    "readMore": "Xem thêm"
   },
   "navigation": {
     "toggleMenu": "Mở/đóng menu",
     "menu": "Menu",
     "postGroups": "Nhóm bài viết",
-    "selectPostGroup": "Chọn nhóm bài viết"
+    "selectPostGroup": "Chọn nhóm bài viết",
+    "emptyCategory": "Chưa có bài viết nào cho danh mục này."
   },
   "posts": {
     "title": "Bài viết",
@@ -69,6 +71,9 @@
     "saintVirtues": "Gương nhân đức",
     "saintPrayer": "Lời nguyện",
     "videoPrayerTitle": "Ý chỉ cầu nguyện video",
-    "spotifyPlayerTitle": "Trình phát podcast Spotify"
+    "spotifyPlayerTitle": "Trình phát podcast Spotify",
+    "gospelReflectionHeading": "Suy Niệm Lời Chúa",
+    "gospelWithPassage": "Tin Mừng ({passage})",
+    "editor": "Biên tập"
   }
 }

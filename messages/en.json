@@ -7,13 +7,15 @@
     "previous": "Previous",
     "next": "Next",
     "scrollToTop": "Scroll to top",
-    "openInNewTab": "(opens in a new tab)"
+    "openInNewTab": "(opens in a new tab)",
+    "readMore": "Read more"
   },
   "navigation": {
     "toggleMenu": "Toggle menu",
     "menu": "Menu",
     "postGroups": "Post groups",
-    "selectPostGroup": "Select post group"
+    "selectPostGroup": "Select post group",
+    "emptyCategory": "No posts in this category yet."
   },
   "posts": {
     "title": "Posts",
@@ -69,6 +71,9 @@
     "saintVirtues": "Example of virtue",
     "saintPrayer": "Prayer",
     "videoPrayerTitle": "Video prayer intention",
-    "spotifyPlayerTitle": "Spotify podcast player"
+    "spotifyPlayerTitle": "Spotify podcast player",
+    "gospelReflectionHeading": "Reflection on the Word of God",
+    "gospelWithPassage": "Gospel ({passage})",
+    "editor": "Editor"
   }
 }

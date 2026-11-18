@@ -4,12 +4,14 @@ import SpotifyEmbed from "@/components/post-templates/shared/spotify-embed";
 import { GospelReflectionCardBlock, Media } from "@/payload-types";
 import { transformUrl } from "@/utils/cloudflare";
 import { ChevronDown } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 interface Props {
   block: GospelReflectionCardBlock;
 }
 
 export default function GospelReflectionCardView({ block }: Props) {
+  const t = useTranslations("postTemplates");
   const {
     liturgyMeta,
     headline,
@@ -24,8 +26,8 @@ export default function GospelReflectionCardView({ block }: Props) {
   const imageMedia =
     typeof image === "object" && image !== null ? (image as Media) : null;
   const gospelLabel = gospel?.reference
-    ? `Xem Tin Mừng (${gospel.reference})`
-    : "Xem Tin Mừng";
+    ? t("viewGospelWithReference", { reference: gospel.reference })
+    : t("viewGospel");
 
   return (
     <article className="rounded-[18px] border border-[#008596]/12 bg-gradient-to-b from-white to-[#fbfbfe] p-4 font-[system-ui,-apple-system,'Segoe_UI',Roboto,Arial,sans-serif] text-base text-slate-900 shadow-[0_6px_20px_rgba(18,25,40,0.08)] sm:p-[26px] md:text-xl xl:text-2xl">
@@ -71,7 +73,7 @@ export default function GospelReflectionCardView({ block }: Props) {
                   width: "800",
                   quality: "85",
                 })}
-                alt={imageMedia.alt || headline || "Hình suy niệm"}
+                alt={imageMedia.alt || headline || t("reflectionImageAlt")}
                 fill
                 sizes="(min-width: 768px) 40vw, 100vw"
                 className="object-cover"
@@ -94,12 +96,12 @@ export default function GospelReflectionCardView({ block }: Props) {
         <div className="mt-[18px] text-right text-[0.95em] leading-[1.6] text-gray-500">
           {author && (
             <p>
-              <strong>Tác giả:</strong> {author}
+              <strong>{t("author")}:</strong> {author}
             </p>
           )}
           {audioReader && (
             <p>
-              <strong>Giọng đọc:</strong> {audioReader}
+              <strong>{t("audioReader")}:</strong> {audioReader}
             </p>
           )}
         </div>

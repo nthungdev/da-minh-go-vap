@@ -1,12 +1,14 @@
 import AppMarkdown from "@/components/app-markdown";
 import { VerticalVideoPrayerBlock } from "@/payload-types";
 import { stripWrappingQuotes } from "@/utils/quote";
+import { useTranslations } from "next-intl";
 
 interface Props {
   block: VerticalVideoPrayerBlock;
 }
 
 export default function VerticalVideoPrayerView({ block }: Props) {
+  const t = useTranslations("postTemplates");
   const { video, intentionPrayer, scriptureAnchor } = block;
 
   const videoId = encodeURIComponent(video.videoId.trim());
@@ -25,7 +27,7 @@ export default function VerticalVideoPrayerView({ block }: Props) {
         <div className="aspect-[9/16] w-full max-w-[420px] overflow-hidden rounded-[14px] bg-black">
           <iframe
             src={embedUrl}
-            title="Ý chỉ cầu nguyện video"
+            title={t("videoPrayerTitle")}
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             referrerPolicy="strict-origin-when-cross-origin"
             allowFullScreen

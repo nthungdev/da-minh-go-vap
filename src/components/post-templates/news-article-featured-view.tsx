@@ -5,12 +5,14 @@ import { Media, NewsArticleFeaturedBlock } from "@/payload-types";
 import { transformUrl } from "@/utils/cloudflare";
 import { cn } from "@/utils/common";
 import { toSafeHttpUrl } from "@/utils/safe-url";
+import { useTranslations } from "next-intl";
 
 interface Props {
   block: NewsArticleFeaturedBlock;
 }
 
 export default function NewsArticleFeaturedView({ block }: Props) {
+  const t = useTranslations();
   const {
     featuredImage,
     imageCaption,
@@ -27,7 +29,8 @@ export default function NewsArticleFeaturedView({ block }: Props) {
     typeof featuredImage === "object" && featuredImage !== null
       ? (featuredImage as Media)
       : null;
-  const imageAlt = imageMedia?.alt || imageCaption || "Ảnh bản tin";
+  const imageAlt =
+    imageMedia?.alt || imageCaption || t("postTemplates.newsImageAlt");
 
   const alignmentClass =
     imageAlignment === "right"
@@ -83,17 +86,17 @@ export default function NewsArticleFeaturedView({ block }: Props) {
         <footer className="clear-both mt-[25px] text-right text-base italic">
           {translator && (
             <p>
-              <strong>Chuyển ngữ:</strong> {translator}
+              <strong>{t("postTemplates.translator")}:</strong> {translator}
             </p>
           )}
           {audioReader && (
             <p>
-              <strong>Giọng đọc:</strong> {audioReader}
+              <strong>{t("postTemplates.audioReader")}:</strong> {audioReader}
             </p>
           )}
           {(sourceName || sourceUrl) && (
             <p>
-              <strong>Nguồn:</strong>{" "}
+              <strong>{t("postTemplates.source")}:</strong>{" "}
               {sourceUrl ? (
                 <a
                   href={sourceUrl}
@@ -102,7 +105,7 @@ export default function NewsArticleFeaturedView({ block }: Props) {
                   className="focus-visible:ring-chill-700 rounded hover:underline focus:outline-none focus-visible:ring-2"
                 >
                   {sourceName || sourceUrl}
-                  <span className="sr-only"> (mở trong tab mới)</span>
+                  <span className="sr-only"> {t("common.openInNewTab")}</span>
                 </a>
               ) : (
                 sourceName

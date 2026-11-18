@@ -8,6 +8,7 @@ import { transformUrl } from "@/utils/cloudflare";
 import Image from "next/image";
 import Link from "next/link";
 import { use } from "react";
+import { useTranslations } from "next-intl";
 
 const GRID_CLASS_NAME = "grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4";
 const SKELETON_CARD_COUNT = 8;
@@ -24,12 +25,13 @@ export function MenuCategoryPostsGrid({
   categoryKey,
   pathname,
 }: MenuCategoryPostsGridProps) {
+  const t = useTranslations("navigation");
   const posts = use(postsPromise)[categoryKey] ?? [];
 
   if (posts.length === 0) {
     return (
       <div className="flex h-48 w-full items-center justify-center rounded-md border border-dashed border-gray-200 text-base text-gray-500">
-        Chưa có bài viết nào cho danh mục này.
+        {t("emptyCategory")}
       </div>
     );
   }
