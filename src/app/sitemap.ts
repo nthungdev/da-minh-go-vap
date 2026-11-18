@@ -6,7 +6,9 @@ import { defaultLocale } from "@/i18n/config";
 import { getSiteUrl } from "@/utils/url";
 import { PUBLISHED_CONTENT_REVALIDATE_SECONDS } from "@/utils/published-content-cache";
 
-export const revalidate = 3600;
+// Must stay a literal for Next segment config; keep equal to PUBLISHED_CONTENT_REVALIDATE_SECONDS
+// so scheduled content appears without waiting on a CMS write.
+export const revalidate = 60;
 
 type SitemapDoc = { loc: string; updatedAt: string };
 
@@ -62,6 +64,15 @@ const getSitemapDocs = unstable_cache(
 );
 
 /**
+ * Resolves a CMS path against the site origin. `URL` percent-encodes non-ASCII
+ * characters but leaves existing `%XX` escapes alone, so paths are never double-encoded.
+ */
+function toAbsoluteUrl(path: string, baseUrl: string): string {
+  const normalized = path.startsWith("/") ? path : `/${path}`;
+  return new URL(normalized, `${baseUrl}/`).href;
+}
+
+/**
  * Generates sitemap.xml from public CMS pages and posts.
  * @see https://nextjs.org/docs/app/api-reference/file-conventions/metadata/sitemap
  */
@@ -72,7 +83,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const docs = await getSitemapDocs();
 
   return docs.map(({ loc, updatedAt }) => ({
-    url: `${baseUrl}${encodeURI(loc)}`,
+    url: toAbsoluteUrl(loc, baseUrl),
     lastModified: updatedAt,
   }));
 }
