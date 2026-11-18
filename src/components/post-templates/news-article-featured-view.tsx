@@ -17,6 +17,7 @@ export default function NewsArticleFeaturedView({ block }: Props) {
     imageAlignment,
     content,
     translator,
+    audioReader,
     sourceName,
     sourceUrl: rawSourceUrl,
   } = block;
@@ -78,11 +79,16 @@ export default function NewsArticleFeaturedView({ block }: Props) {
         {content}
       </AppMarkdown>
 
-      {(translator || sourceName || sourceUrl) && (
+      {(translator || audioReader || sourceName || sourceUrl) && (
         <footer className="clear-both mt-[25px] text-right text-base italic">
           {translator && (
             <p>
               <strong>Chuyển ngữ:</strong> {translator}
+            </p>
+          )}
+          {audioReader && (
+            <p>
+              <strong>Giọng đọc:</strong> {audioReader}
             </p>
           )}
           {(sourceName || sourceUrl) && (

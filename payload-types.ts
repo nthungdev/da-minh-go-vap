@@ -332,6 +332,9 @@ export interface Page {
             episodes?:
               | {
                   label: string;
+                  /**
+                   * Ví dụ với Spotify, URL là https://open.spotify.com/episode/1234ABCD thì Audio ID là 1234ABCD.
+                   */
                   spotifyId: string;
                   id?: string | null;
                 }[]
@@ -503,6 +506,9 @@ export interface Page {
             episodes?:
               | {
                   label: string;
+                  /**
+                   * Ví dụ với Spotify, URL là https://open.spotify.com/episode/1234ABCD thì Audio ID là 1234ABCD.
+                   */
                   spotifyId: string;
                   id?: string | null;
                 }[]
@@ -714,6 +720,9 @@ export interface GospelReflectionSplitBlock {
   prayer?: string | null;
   gospel: {
     passage: string;
+    /**
+     * Số câu Kinh Thánh viết dạng chỉ số trên bằng thẻ <sup>, ví dụ: <sup>13</sup> Không ai đã lên trời…
+     */
     reading: string;
     translationCredit?: string | null;
   };
@@ -738,6 +747,9 @@ export interface GospelReflectionCardBlock {
   spotifyUrl?: string | null;
   gospel?: {
     reference?: string | null;
+    /**
+     * Số câu Kinh Thánh viết dạng chỉ số trên bằng thẻ <sup>, ví dụ: <sup>13</sup> Không ai đã lên trời…
+     */
     content?: string | null;
   };
   body: string;
@@ -803,6 +815,7 @@ export interface NewsArticleFeaturedBlock {
   imageAlignment: 'left' | 'right' | 'center';
   content: string;
   translator?: string | null;
+  audioReader?: string | null;
   sourceName?: string | null;
   sourceUrl?: string | null;
   id?: string | null;
@@ -845,6 +858,9 @@ export interface CatechismQASeriesBlock {
   title: string;
   introduction: string;
   items: {
+    /**
+     * Để trống nếu mục này là tiêu đề phụ (không có biểu tượng).
+     */
     icon?: string | null;
     title: string;
     body: string;
@@ -1100,11 +1116,16 @@ export interface SpaceBlock {
  * via the `definition` "SpotifyPodcastList".
  */
 export interface SpotifyPodcastList {
-  episodes?: {
-    label: string;
-    spotifyId: string;
-    id?: string | null;
-  }[] | null;
+  episodes?:
+    | {
+        label: string;
+        /**
+         * Ví dụ với Spotify, URL là https://open.spotify.com/episode/1234ABCD thì Audio ID là 1234ABCD.
+         */
+        spotifyId: string;
+        id?: string | null;
+      }[]
+    | null;
   /**
    * Số lượng podcast hiển thị trên một trang.
    */
@@ -1849,6 +1870,7 @@ export interface NewsArticleFeaturedBlockSelect<T extends boolean = true> {
   imageAlignment?: T;
   content?: T;
   translator?: T;
+  audioReader?: T;
   sourceName?: T;
   sourceUrl?: T;
   id?: T;

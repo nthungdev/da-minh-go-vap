@@ -265,8 +265,10 @@ All formatted text fields use `markdownField`.
 2. `imageCaption` (Text, optional): Image caption
 3. `imageAlignment` (Select: "left" | "right" | "center", default: "left")
 4. `content` (`markdownField`, required): News article text
-5. `sourceName` (Text, optional): e.g. "Rome Reports"
-6. `sourceUrl` (Text, optional): Link to original news source
+5. `translator` (Text, optional): e.g. "Paulthem, CSC"
+6. `audioReader` (Text, optional): Narrator, shown as "Giọng đọc"
+7. `sourceName` (Text, optional): e.g. "Rome Reports"
+8. `sourceUrl` (Text, optional): Link to original news source
 
 ---
 
