@@ -3,10 +3,8 @@ import config from "@payload-config";
 import { getPayload } from "payload";
 import { HiddenTag, Media, NavBar, Page, Post } from "@/payload-types";
 import { defaultLocale, Locale } from "@/i18n/config";
-import { makePostPath } from "@/utils/post";
 import { cache } from "react";
 import { unstable_cache } from "next/cache";
-import { PUBLISHED_CONTENT_REVALIDATE_SECONDS } from "@/utils/published-content-cache";
 
 // Raw types extracted directly from Payload CMS definitions
 export type NavBarMenuItem = NonNullable<NavBar["menu"]>[number];
@@ -93,7 +91,6 @@ export interface CategoryTabItem {
   absoluteHref: string;
   tagIds: string[];
   icon?: MenuIconType;
-  posts?: CategoryPostItem[];
 }
 
 /**
@@ -124,7 +121,9 @@ function getLinkHref(item?: MenuLinkFields | null) {
   return item.externalLink || "";
 }
 
-function stripMedia(media: string | Media | null | undefined): Media | null {
+export function stripMedia(
+  media: string | Media | null | undefined,
+): Media | null {
   if (typeof media === "object" && media !== null) {
     return {
       id: media.id,
@@ -157,10 +156,7 @@ export const getNavBarGlobal = cache(async (locale?: Locale) => {
 
 const getMenuCached = unstable_cache(
   async (locale: Locale): Promise<MenuItem[]> => {
-    const payload = await getPayload({ config });
     const navBar = await fetchNavBarGlobal(locale);
-    // Taken after the navbar fetch so the cutoff is as close to the cache write as possible.
-    const nowIso = new Date().toISOString();
 
     const validMenuItems = (navBar.menu || []).filter((menuItem, index) => {
       const hasLabel = Boolean(menuItem.label && menuItem.label.trim());
@@ -175,156 +171,103 @@ const getMenuCached = unstable_cache(
       return true;
     });
 
-    const menu: MenuItem[] = await Promise.all(
-      validMenuItems.map(async (menuItem, index) => {
-        const layout: MenuLayoutType = menuItem.layout || "grid";
+    const menu: MenuItem[] = validMenuItems.map((menuItem, index) => {
+      const layout: MenuLayoutType = menuItem.layout || "grid";
 
-        // 1. Grid SubMenu
-        const children: SubMenuItem[] | undefined = menuItem.subMenu?.map(
-          (subMenuItem) => ({
-            href: getLinkHref(subMenuItem),
-            absoluteHref: getLinkHref(subMenuItem),
-            name: subMenuItem.label,
+      // 1. Grid SubMenu
+      const children: SubMenuItem[] | undefined = menuItem.subMenu?.map(
+        (subMenuItem) => ({
+          href: getLinkHref(subMenuItem),
+          absoluteHref: getLinkHref(subMenuItem),
+          name: subMenuItem.label,
+          icon: typeof subMenuItem.icon === "string" ? subMenuItem.icon : null,
+          description: subMenuItem.description,
+          normalizedName: normalizeMenuName(subMenuItem.label),
+          children: subMenuItem.subMenu?.map((subSubMenuItem) => ({
+            href: getLinkHref(subSubMenuItem),
+            absoluteHref: getLinkHref(subSubMenuItem),
+            name: subSubMenuItem.label,
             icon:
-              typeof subMenuItem.icon === "string" ? subMenuItem.icon : null,
-            description: subMenuItem.description,
-            normalizedName: normalizeMenuName(subMenuItem.label),
-            children: subMenuItem.subMenu?.map((subSubMenuItem) => ({
-              href: getLinkHref(subSubMenuItem),
-              absoluteHref: getLinkHref(subSubMenuItem),
-              name: subSubMenuItem.label,
-              icon:
-                typeof subSubMenuItem.icon === "string"
-                  ? subSubMenuItem.icon
-                  : null,
-              normalizedName: normalizeMenuName(subSubMenuItem.label),
-            })),
-          }),
-        );
+              typeof subSubMenuItem.icon === "string"
+                ? subSubMenuItem.icon
+                : null,
+            normalizedName: normalizeMenuName(subSubMenuItem.label),
+          })),
+        }),
+      );
 
-        // 2. Pillars
-        const pillars: PillarItem[] | undefined = menuItem.pillars?.map(
-          (pillar) => ({
-            headerBanner: {
-              title: pillar.headerBanner.title,
-              subtitle: pillar.headerBanner.subtitle,
-              image: stripMedia(pillar.headerBanner.image),
-              href: getLinkHref(pillar.headerBanner),
-              absoluteHref: getLinkHref(pillar.headerBanner),
-            },
+      // 2. Pillars
+      const pillars: PillarItem[] | undefined = menuItem.pillars?.map(
+        (pillar) => ({
+          headerBanner: {
+            title: pillar.headerBanner.title,
+            subtitle: pillar.headerBanner.subtitle,
+            image: stripMedia(pillar.headerBanner.image),
+            href: getLinkHref(pillar.headerBanner),
+            absoluteHref: getLinkHref(pillar.headerBanner),
+          },
+          links:
+            pillar.links?.map((link) => ({
+              name: link.label,
+              href: getLinkHref(link),
+              absoluteHref: getLinkHref(link),
+              icon: typeof link.icon === "string" ? link.icon : null,
+            })) || [],
+        }),
+      );
+
+      // Bottom bar for pillars
+      const bottomBar: BottomBarItem | undefined = menuItem.bottomBar
+        ? {
+            label: menuItem.bottomBar.label,
             links:
-              pillar.links?.map((link) => ({
+              menuItem.bottomBar.links?.map((link) => ({
                 name: link.label,
                 href: getLinkHref(link),
                 absoluteHref: getLinkHref(link),
                 icon: typeof link.icon === "string" ? link.icon : null,
               })) || [],
-          }),
-        );
+          }
+        : undefined;
 
-        // Bottom bar for pillars
-        const bottomBar: BottomBarItem | undefined = menuItem.bottomBar
-          ? {
-              label: menuItem.bottomBar.label,
-              links:
-                menuItem.bottomBar.links?.map((link) => ({
-                  name: link.label,
-                  href: getLinkHref(link),
-                  absoluteHref: getLinkHref(link),
-                  icon: typeof link.icon === "string" ? link.icon : null,
-                })) || [],
-            }
-          : undefined;
+      // 3. Tabs + Posts Categories. Posts stream separately via
+      // getMenuCategoryPosts so the navbar shell does not wait on them.
+      const categories: CategoryTabItem[] | undefined =
+        menuItem.categories?.map((cat) => ({
+          name: cat.label,
+          href: getLinkHref(cat),
+          absoluteHref: getLinkHref(cat),
+          icon: typeof cat.icon === "string" ? cat.icon : null,
+          tagIds:
+            cat.tags?.map((t: string | HiddenTag) =>
+              typeof t === "string" ? t : t.id,
+            ) || [],
+        }));
 
-        // 3. Tabs + Posts Categories
-        const categories: CategoryTabItem[] | undefined = menuItem.categories
-          ? await Promise.all(
-              menuItem.categories.map(async (cat) => {
-                const tagIds =
-                  cat.tags?.map((t: string | HiddenTag) =>
-                    typeof t === "string" ? t : t.id,
-                  ) || [];
+      const name = menuItem.label || "";
+      const icon = typeof menuItem.icon === "string" ? menuItem.icon : null;
+      const normalizedName = normalizeMenuName(
+        menuItem.label || icon || `menu-${index}`,
+      );
 
-                // Fetch latest 8 posts for this category's tags
-                let posts: CategoryPostItem[] = [];
-                if (tagIds.length > 0) {
-                  try {
-                    const postQuery = await payload.find({
-                      collection: "posts",
-                      depth: 1,
-                      select: {
-                        title: true,
-                        slug: true,
-                        thumbnail: true,
-                        publishedAt: true,
-                      },
-                      where: {
-                        and: [
-                          { hiddenTags: { in: tagIds } },
-                          {
-                            publishedAt: {
-                              less_than: nowIso,
-                            },
-                          },
-                        ],
-                      },
-                      limit: 8,
-                      sort: "-publishedAt",
-                      locale,
-                    });
-
-                    posts = postQuery.docs.map((p) => ({
-                      title: p.title,
-                      slug: p.slug,
-                      href: makePostPath(p.slug),
-                      thumbnail: stripMedia(p.thumbnail),
-                      publishedAt: p.publishedAt,
-                    }));
-                  } catch {
-                    posts = [];
-                  }
-                }
-
-                return {
-                  name: cat.label,
-                  href: getLinkHref(cat),
-                  absoluteHref: getLinkHref(cat),
-                  icon: typeof cat.icon === "string" ? cat.icon : null,
-                  tagIds,
-                  posts,
-                };
-              }),
-            )
-          : undefined;
-
-        const name = menuItem.label || "";
-        const icon = typeof menuItem.icon === "string" ? menuItem.icon : null;
-        const normalizedName = normalizeMenuName(
-          menuItem.label || icon || `menu-${index}`,
-        );
-
-        return {
-          href: getLinkHref(menuItem),
-          absoluteHref: getLinkHref(menuItem),
-          name,
-          normalizedName,
-          icon,
-          layout,
-          children,
-          pillars,
-          bottomBar,
-          categories,
-        };
-      }),
-    );
+      return {
+        href: getLinkHref(menuItem),
+        absoluteHref: getLinkHref(menuItem),
+        name,
+        normalizedName,
+        icon,
+        layout,
+        children,
+        pillars,
+        bottomBar,
+        categories,
+      };
+    });
 
     return menu;
   },
   ["nav-menu"],
-  {
-    tags: ["globals", "navBar", "posts"],
-    revalidate: PUBLISHED_CONTENT_REVALIDATE_SECONDS,
-  },
+  { tags: ["globals", "navBar"], revalidate: 300 },
 );
 
 export const getMenu = cache(async (locale?: Locale): Promise<MenuItem[]> => {

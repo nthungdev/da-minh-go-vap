@@ -3,7 +3,11 @@ import { readFileSync } from "node:fs";
 import test from "node:test";
 import { PUBLISHED_CONTENT_REVALIDATE_SECONDS } from "../src/utils/published-content-cache.ts";
 
-const CACHED_SOURCES = ["src/utils/post-server.ts", "src/utils/menu.ts"];
+// Mega-menu posts (and their publishedAt filter) live in menu-category-posts.ts.
+const CACHED_SOURCES = [
+  "src/utils/post-server.ts",
+  "src/utils/menu-category-posts.ts",
+];
 
 // Arguments of an `unstable_cache` call become part of its cache key, so a
 // time value there splits the cache once per bucket.

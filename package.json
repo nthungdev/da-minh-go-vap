@@ -12,6 +12,7 @@
     "db:verify": "bash scripts/db-verify-counts.sh",
     "migrate:podcast-episodes": "PAYLOAD_CONFIG_PATH=payload.config.ts NODE_OPTIONS=--conditions=react-server payload run scripts/migrate-podcast-episodes.ts",
     "test:podcast-migration": "node --experimental-strip-types --test tests/podcast-episode-migration.test.ts",
+    "test:streaming": "node --experimental-strip-types --test tests/streaming.test.ts",
     "test:cache-keys": "node --experimental-strip-types --test tests/published-content-cache.test.ts",
     "s3:backup": "bash scripts/s3-backup.sh",
     "s3:restore": "bash scripts/s3-restore.sh",
