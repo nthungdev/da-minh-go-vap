@@ -38,7 +38,7 @@ export default async function TheFooter() {
               width: "1200",
               quality: "80",
             })}
-            alt="Footer background"
+            alt=""
             className="pointer-events-none z-0 w-full select-none"
             height={229}
             width={991}

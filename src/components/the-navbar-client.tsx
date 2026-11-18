@@ -36,6 +36,7 @@ import { usePathname } from "next/navigation";
 import MenuLayoutRenderer from "./navbar/menu-layouts/menu-layout-renderer";
 import { cn } from "@/utils/common";
 import { getMenuIconSrc } from "@/definitions/menu-icons";
+import { useTranslations } from "next-intl";
 
 interface TheNavbarClientProps {
   menu: MenuItem[];
@@ -49,6 +50,7 @@ export default function TheNavbarClient({
   logo,
   categoryPostsPromise,
 }: TheNavbarClientProps) {
+  const t = useTranslations("navigation");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
 
@@ -217,7 +219,7 @@ export default function TheNavbarClient({
         <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
           <SheetTrigger className="-mr-2 p-2 text-gray-50 hover:text-gray-200 focus:outline-none">
             <Menu className="h-6 w-6" />
-            <span className="sr-only">Toggle mobile menu</span>
+            <span className="sr-only">{t("toggleMenu")}</span>
           </SheetTrigger>
           <SheetContent
             side="left"
