@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCarousel } from "@/hooks/use-carousel";
 
 interface TheDominicQuoteProps {
   quotes: {
@@ -8,28 +8,21 @@ interface TheDominicQuoteProps {
   }[];
 }
 
-export default function TheDominicQuote(props: TheDominicQuoteProps) {
-  const { quotes } = props;
-
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) =>
-        prevIndex === quotes.length - 1 ? 0 : prevIndex + 1,
-      );
-    }, 5000);
-
-    return () => clearInterval(interval);
+export default function TheDominicQuote({ quotes }: TheDominicQuoteProps) {
+  const { currentIndex, containerProps } = useCarousel({
+    count: quotes.length,
+    durations: 5000,
   });
 
-  const currentQuote = quotes[currentIndex]!;
-  const quote = currentQuote.quote;
+  const currentQuote = quotes[currentIndex];
+  if (!currentQuote) return null;
 
   return (
-    <div className="h-64 md:h-32">
+    <div className="h-64 md:h-32" {...containerProps}>
       <blockquote>
-        <p className="text-center text-2xl font-semibold">{quote}</p>
+        <p className="text-center text-2xl font-semibold">
+          {currentQuote.quote}
+        </p>
       </blockquote>
     </div>
   );

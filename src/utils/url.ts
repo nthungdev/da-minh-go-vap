@@ -49,6 +49,10 @@ export function getRequestOrigin(request: Request | NextRequest): string {
  * @returns Fully qualified origin string with protocol.
  */
 export async function getServerOrigin(): Promise<string> {
+  if (process.env.NEXT_PUBLIC_BASE_URL) {
+    return process.env.NEXT_PUBLIC_BASE_URL;
+  }
+
   try {
     const headerList = await headers();
     const forwardedHost = headerList.get("x-forwarded-host");
