@@ -4,7 +4,7 @@ import Link from "next/link";
 import { getPayload } from "payload";
 import config from "@payload-config";
 import { getLocale } from "next-intl/server";
-import { useMessages } from "next-intl";
+import { useTranslations } from "next-intl";
 
 export default async function TheFooter() {
   const locale = await getLocale();
@@ -108,22 +108,22 @@ function Contact({
   address: string;
   marketingEmail?: string | null;
 }) {
-  const { contact } = useMessages();
+  const t = useTranslations("contact");
 
   return (
     <div>
       <p className="mb-1 font-bold">{name}</p>
       <Markdown>{address}</Markdown>
       <p>
-        {contact.phoneLabel}: <a href={`tel:${phone}`}>{phone}</a>
+        {t("phoneLabel")}: <a href={`tel:${phone}`}>{phone}</a>
       </p>
       <p>
-        {contact.emailLabel}: <a href={`mailto:${email}`}>{email}</a>
+        {t("emailLabel")}: <a href={`mailto:${email}`}>{email}</a>
       </p>
 
       {marketingEmail && (
         <p>
-          {contact.marketingEmailLabel}:{" "}
+          {t("marketingEmailLabel")}:{" "}
           <a href={`mailto:${marketingEmail}`}>{marketingEmail}</a>
         </p>
       )}
