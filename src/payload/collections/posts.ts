@@ -172,6 +172,7 @@ const Posts: CollectionConfig = {
               required: false,
               localized: true,
               admin: {
+                custom: { keywordTooltipHelper: true },
                 condition: (_, siblingData) =>
                   !siblingData?.contentMode ||
                   siblingData?.contentMode === "markdown",

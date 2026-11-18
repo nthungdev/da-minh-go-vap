@@ -6,10 +6,10 @@ import { cache } from "react";
 import { defaultLocale, Locale } from "@/i18n/config";
 import { CategoryPostItem, stripMedia } from "@/utils/menu";
 import { makePostPath } from "@/utils/post";
+import { PUBLISHED_CONTENT_REVALIDATE_SECONDS } from "@/utils/published-content-cache";
 import { getCategoryPostsKey } from "@/utils/streaming";
 
 const MENU_CATEGORY_POST_LIMIT = 8;
-const MENU_CATEGORY_POSTS_REVALIDATE_SECONDS = 60;
 
 /** Mega-menu posts keyed by `getCategoryPostsKey(category.tagIds)`. */
 export type MenuCategoryPosts = Record<string, CategoryPostItem[]>;
@@ -76,7 +76,7 @@ const getMenuCategoryPostsCached = unstable_cache(
   ["nav-menu-category-posts"],
   {
     tags: ["globals", "navBar", "posts"],
-    revalidate: MENU_CATEGORY_POSTS_REVALIDATE_SECONDS,
+    revalidate: PUBLISHED_CONTENT_REVALIDATE_SECONDS,
   },
 );
 
