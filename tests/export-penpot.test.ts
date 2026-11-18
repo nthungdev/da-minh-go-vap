@@ -36,9 +36,19 @@ function readZipEntries(buf: Buffer): Map<string, Buffer> {
   return entries;
 }
 
-test("design/da-minh-go-vap.penpot is a valid Penpot archive with all 4 pages, libraries, and responsive viewports", async () => {
-  const stat = await fs.stat(PENPOT_PATH);
-  assert.ok(stat.size > 0, "Archive should be non-empty");
+test("design/da-minh-go-vap.penpot is a valid Penpot v3 archive with all 4 pages, libraries, and responsive viewports", async (t) => {
+  try {
+    const stat = await fs.stat(PENPOT_PATH);
+    assert.ok(stat.size > 0, "Archive should be non-empty");
+  } catch (err) {
+    if ((err as NodeJS.ErrnoException).code === "ENOENT") {
+      t.skip(
+        "design/da-minh-go-vap.penpot is gitignored; run pnpm penpot:export to generate and test it locally",
+      );
+      return;
+    }
+    throw err;
+  }
 
   const buf = await fs.readFile(PENPOT_PATH);
   assert.equal(
@@ -53,9 +63,11 @@ test("design/da-minh-go-vap.penpot is a valid Penpot archive with all 4 pages, l
 
   const manifest = JSON.parse(manifestBuf.toString("utf8")) as {
     type: string;
-    files: Array<{ id: string; pages: string[] }>;
+    version: number;
+    files: Array<{ id: string; name: string; features: string[] }>;
   };
-  assert.equal(manifest.type, "penpot/export-file");
+  assert.equal(manifest.type, "penpot/export-files");
+  assert.equal(manifest.version, 1);
   assert.equal(manifest.files.length, 1);
 
   const fileMeta = manifest.files[0];
@@ -64,26 +76,83 @@ test("design/da-minh-go-vap.penpot is a valid Penpot archive with all 4 pages, l
   assert.ok(fileJsonBuf, `files/${fileMeta.id}.json must exist`);
 
   const fileJson = JSON.parse(fileJsonBuf.toString("utf8")) as {
-    pagesIndex: Record<string, { id: string; name: string }>;
-    colors: Record<string, unknown>;
-    typographies: Record<string, unknown>;
-    components: Record<string, unknown>;
+    id: string;
+    version: number;
+    features: string[];
   };
+  assert.equal(fileJson.id, fileMeta.id);
+  assert.ok(fileJson.version >= 67, "File version should be >= 67");
 
-  assert.ok(
-    Object.keys(fileJson.colors).length > 0,
-    "Color library should be non-empty",
+  const prefix = `files/${fileMeta.id}/`;
+  const colorEntries = [...entries.keys()].filter(
+    (k) => k.startsWith(`${prefix}colors/`) && k.endsWith(".json"),
   );
-  assert.ok(
-    Object.keys(fileJson.typographies).length > 0,
-    "Typography library should be non-empty",
+  const typoEntries = [...entries.keys()].filter(
+    (k) => k.startsWith(`${prefix}typographies/`) && k.endsWith(".json"),
   );
-  assert.ok(
-    Object.keys(fileJson.components).length > 0,
-    "Component library should be non-empty",
+  const compEntries = [...entries.keys()].filter(
+    (k) => k.startsWith(`${prefix}components/`) && k.endsWith(".json"),
   );
 
-  const pageNames = Object.values(fileJson.pagesIndex).map((p) => p.name);
+  assert.ok(colorEntries.length > 0, "Color library should be non-empty");
+  assert.ok(typoEntries.length > 0, "Typography library should be non-empty");
+  assert.ok(compEntries.length > 0, "Component library should be non-empty");
+
+  const pageMetaEntries = [...entries.keys()].filter((k) =>
+    /^files\/[^/]+\/pages\/[^/]+\.json$/.test(k),
+  );
+  assert.equal(pageMetaEntries.length, 4, "Should have 4 pages");
+
+  const pageNames: string[] = [];
+  const allObjectNames: string[] = [];
+
+  for (const pageMetaKey of pageMetaEntries) {
+    const pageMeta = JSON.parse(entries.get(pageMetaKey)!.toString("utf8")) as {
+      id: string;
+      name: string;
+    };
+    pageNames.push(pageMeta.name);
+
+    const shapePrefix = `${prefix}pages/${pageMeta.id}/`;
+    const shapeKeys = [...entries.keys()].filter(
+      (k) => k.startsWith(shapePrefix) && k.endsWith(".json"),
+    );
+    assert.ok(
+      shapeKeys.length > 1,
+      `Page ${pageMeta.name} must have non-empty shape files`,
+    );
+
+    for (const shapeKey of shapeKeys) {
+      const shape = JSON.parse(entries.get(shapeKey)!.toString("utf8")) as {
+        id: string;
+        name: string;
+        type: string;
+        selrect?: unknown;
+        points?: unknown[];
+        transform?: unknown;
+        transformInverse?: unknown;
+        svgString?: unknown;
+      };
+      assert.ok(shape.selrect, `Shape ${shape.id} must have selrect`);
+      assert.equal(
+        shape.points?.length,
+        4,
+        `Shape ${shape.id} must have 4 points`,
+      );
+      assert.ok(shape.transform, `Shape ${shape.id} must have transform`);
+      assert.ok(
+        shape.transformInverse,
+        `Shape ${shape.id} must have transformInverse`,
+      );
+      assert.equal(
+        shape.svgString,
+        undefined,
+        `Shape ${shape.id} must not have invalid svgString field`,
+      );
+      allObjectNames.push(shape.name);
+    }
+  }
+
   for (const expected of [
     "01 Foundations",
     "02 UI Components",
@@ -91,20 +160,6 @@ test("design/da-minh-go-vap.penpot is a valid Penpot archive with all 4 pages, l
     "04 Page Templates",
   ]) {
     assert.ok(pageNames.includes(expected), `Missing page: ${expected}`);
-  }
-
-  const allObjectNames: string[] = [];
-  for (const pageId of fileMeta.pages) {
-    const pageBuf = entries.get(`files/${fileMeta.id}/pages/${pageId}.json`);
-    assert.ok(pageBuf, `Page JSON ${pageId} must exist`);
-    const pageJson = JSON.parse(pageBuf.toString("utf8")) as {
-      objects: Record<string, { name: string }>;
-    };
-    const objs = Object.values(pageJson.objects);
-    assert.ok(objs.length > 1, `Page ${pageId} must have non-empty objects`);
-    for (const obj of objs) {
-      allObjectNames.push(obj.name);
-    }
   }
 
   for (const vp of ["1440px", "768px", "375px"]) {

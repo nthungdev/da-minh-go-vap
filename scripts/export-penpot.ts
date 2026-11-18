@@ -72,7 +72,48 @@ interface PenpotMediaEntry {
   width: number;
   height: number;
   mtype: string;
+  mediaId: string;
+  isLocal: boolean;
+}
+
+interface PenpotStorageObject {
+  id: string;
+  size: number;
+  contentType: string;
+  bucket: string;
   extension: string;
+  buffer: Buffer;
+}
+
+interface PenpotSvgContent {
+  tag: string;
+  attrs: Record<string, string>;
+  content: Array<PenpotSvgContent | string>;
+}
+
+interface PenpotRect {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  x1: number;
+  y1: number;
+  x2: number;
+  y2: number;
+}
+
+interface PenpotPoint {
+  x: number;
+  y: number;
+}
+
+interface PenpotMatrix {
+  a: number;
+  b: number;
+  c: number;
+  d: number;
+  e: number;
+  f: number;
 }
 
 interface PenpotShape {
@@ -83,8 +124,18 @@ interface PenpotShape {
   y: number;
   width: number;
   height: number;
+  rotation: number;
+  selrect: PenpotRect;
+  points: PenpotPoint[];
+  transform: PenpotMatrix;
+  transformInverse: PenpotMatrix;
   parentId: string;
   frameId: string;
+  pageId: string;
+  componentId?: string;
+  componentFile?: string;
+  componentRoot?: boolean;
+  mainInstance?: boolean;
   shapes?: string[];
   fills?: Array<{ fillColor: string; fillOpacity: number }>;
   strokes?: Array<{
@@ -106,7 +157,6 @@ interface PenpotShape {
     color: { color: string; opacity: number };
   }>;
   content?: unknown;
-  svgString?: string;
   metadata?: {
     id: string;
     width: number;
@@ -135,7 +185,7 @@ interface ExtractedNode {
   lineHeight?: number;
   color?: string;
   textAlign?: string;
-  svgString?: string;
+  svgContent?: PenpotSvgContent;
   imageSrc?: string;
   imageWidth?: number;
   imageHeight?: number;
@@ -148,6 +198,47 @@ interface ExtractedFrame {
   width: number;
   height: number;
   root: ExtractedNode;
+}
+
+const IDENTITY_MATRIX: PenpotMatrix = { a: 1, b: 0, c: 0, d: 1, e: 0, f: 0 };
+
+/** Build required Penpot v3 geometry attributes (selrect, points, transforms). */
+function buildGeometry(
+  x: number,
+  y: number,
+  rawWidth: number,
+  rawHeight: number,
+): {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  rotation: number;
+  selrect: PenpotRect;
+  points: PenpotPoint[];
+  transform: PenpotMatrix;
+  transformInverse: PenpotMatrix;
+} {
+  const width = Math.max(0.01, rawWidth);
+  const height = Math.max(0.01, rawHeight);
+  const x2 = Number((x + width).toFixed(2));
+  const y2 = Number((y + height).toFixed(2));
+  return {
+    x,
+    y,
+    width,
+    height,
+    rotation: 0,
+    selrect: { x, y, width, height, x1: x, y1: y, x2, y2 },
+    points: [
+      { x, y },
+      { x: x2, y },
+      { x: x2, y: y2 },
+      { x, y: y2 },
+    ],
+    transform: { ...IDENTITY_MATRIX },
+    transformInverse: { ...IDENTITY_MATRIX },
+  };
 }
 
 /** Deterministic or random UUID helper. */
@@ -437,6 +528,27 @@ async function extractFramesForViewport(
 
       const tag = el.tagName.toLowerCase();
 
+      function serializeSvgElement(el: Element): PenpotSvgContent {
+        const attrs: Record<string, string> = {};
+        for (const attr of Array.from(el.attributes)) {
+          attrs[attr.name] = attr.value;
+        }
+        const content: Array<PenpotSvgContent | string> = [];
+        for (const child of Array.from(el.childNodes)) {
+          if (child.nodeType === Node.ELEMENT_NODE) {
+            content.push(serializeSvgElement(child as Element));
+          } else if (child.nodeType === Node.TEXT_NODE) {
+            const text = child.textContent?.trim();
+            if (text) content.push(text);
+          }
+        }
+        return {
+          tag: el.tagName.toLowerCase(),
+          attrs,
+          content,
+        };
+      }
+
       if (tag === "svg") {
         return {
           kind: "svg",
@@ -445,7 +557,7 @@ async function extractFramesForViewport(
           y,
           width,
           height,
-          svgString: el.outerHTML,
+          svgContent: serializeSvgElement(el),
           children: [],
         };
       }
@@ -571,17 +683,18 @@ async function extractFramesForViewport(
 }
 
 /**
- * Convert an ExtractedNode tree into flat Penpot page objects.
+ * Convert an ExtractedNode tree into flat Penpot v3 page objects.
  */
 async function populatePenpotObjects(
   node: ExtractedNode,
   parentId: string,
   frameId: string,
+  pageId: string,
   offsetX: number,
   offsetY: number,
   objects: Record<string, PenpotShape>,
   mediaMap: Record<string, PenpotMediaEntry>,
-  mediaBuffers: Map<string, Buffer>,
+  storageObjects: Record<string, PenpotStorageObject>,
   baseUrl: string,
 ): Promise<string> {
   const id = uuid();
@@ -592,6 +705,12 @@ async function populatePenpotObjects(
 
   const x = isTopFrame ? offsetX : offsetX + node.x;
   const y = isTopFrame ? offsetY : offsetY + node.y;
+  const geom = buildGeometry(
+    x,
+    y,
+    Math.max(1, node.width),
+    Math.max(1, node.height),
+  );
 
   const fills: PenpotShape["fills"] = [];
   const bgParsed = parseCssColor(node.backgroundColor);
@@ -619,16 +738,20 @@ async function populatePenpotObjects(
       color: "#111827",
       opacity: 1,
     };
+    const textFills = [
+      {
+        fillColor: textColor.color,
+        fillOpacity: textColor.opacity,
+      },
+    ];
     objects[id] = {
       id,
       type: "text",
       name: node.name,
-      x,
-      y,
-      width: Math.max(1, node.width),
-      height: Math.max(1, node.height),
+      ...geom,
       parentId,
       frameId: currentFrameId,
+      pageId,
       content: {
         type: "root",
         children: [
@@ -637,28 +760,15 @@ async function populatePenpotObjects(
             children: [
               {
                 type: "paragraph",
-                textAlign: node.textAlign || "left",
+                fills: textFills,
                 children: [
                   {
                     text: node.text ?? "",
                     fontFamily: node.fontFamily || "Nunito",
                     fontSize: String(node.fontSize ?? 16),
                     fontWeight: node.fontWeight || "400",
-                    lineHeight: String(
-                      node.fontSize
-                        ? Number(
-                            ((node.lineHeight ?? 24) / node.fontSize).toFixed(
-                              2,
-                            ),
-                          )
-                        : 1.5,
-                    ),
-                    fills: [
-                      {
-                        fillColor: textColor.color,
-                        fillOpacity: textColor.opacity,
-                      },
-                    ],
+                    fontStyle: "normal",
+                    fills: textFills,
                   },
                 ],
               },
@@ -670,18 +780,16 @@ async function populatePenpotObjects(
     return id;
   }
 
-  if (node.kind === "svg" && node.svgString) {
+  if (node.kind === "svg" && node.svgContent) {
     objects[id] = {
       id,
       type: "svg-raw",
       name: node.name,
-      x,
-      y,
-      width: Math.max(1, node.width),
-      height: Math.max(1, node.height),
+      ...geom,
       parentId,
       frameId: currentFrameId,
-      svgString: node.svgString,
+      pageId,
+      content: node.svgContent,
     };
     return id;
   }
@@ -707,35 +815,43 @@ async function populatePenpotObjects(
               ? "svg"
               : "png";
         mediaId = uuid();
+        const storageId = uuid();
         mediaMap[mediaId] = {
           id: mediaId,
           name: node.name,
-          width: node.imageWidth || node.width,
-          height: node.imageHeight || node.height,
+          width: Math.max(1, Math.round(node.imageWidth || node.width)),
+          height: Math.max(1, Math.round(node.imageHeight || node.height)),
           mtype,
-          extension: ext,
+          mediaId: storageId,
+          isLocal: true,
         };
-        mediaBuffers.set(`${mediaId}.${ext}`, buf);
+        storageObjects[storageId] = {
+          id: storageId,
+          size: buf.length,
+          contentType: mtype,
+          bucket: "file-media-object",
+          extension: ext,
+          buffer: buf,
+        };
       }
     } catch {
       // Fallback to rect if image fetch fails
     }
 
-    if (mediaId) {
+    const mediaEntry = mediaId ? mediaMap[mediaId] : undefined;
+    if (mediaId && mediaEntry) {
       objects[id] = {
         id,
         type: "image",
         name: node.name,
-        x,
-        y,
-        width: Math.max(1, node.width),
-        height: Math.max(1, node.height),
+        ...geom,
         parentId,
         frameId: currentFrameId,
+        pageId,
         metadata: {
           id: mediaId,
-          width: node.imageWidth || node.width,
-          height: node.imageHeight || node.height,
+          width: mediaEntry.width,
+          height: mediaEntry.height,
           mtype,
         },
       };
@@ -748,11 +864,12 @@ async function populatePenpotObjects(
       child,
       id,
       currentFrameId,
+      pageId,
       isTopFrame ? x : offsetX,
       isTopFrame ? y : offsetY,
       objects,
       mediaMap,
-      mediaBuffers,
+      storageObjects,
       baseUrl,
     );
     childIds.push(childId);
@@ -762,12 +879,10 @@ async function populatePenpotObjects(
     id,
     type: node.kind === "frame" ? "frame" : "rect",
     name: node.name,
-    x,
-    y,
-    width: Math.max(1, node.width),
-    height: Math.max(1, node.height),
+    ...geom,
     parentId,
     frameId: currentFrameId,
+    pageId,
     ...(node.kind === "frame" ? { shapes: childIds } : {}),
     ...(fills.length > 0 ? { fills } : {}),
     ...(strokes.length > 0 ? { strokes } : {}),
@@ -847,20 +962,30 @@ async function main(): Promise<void> {
     }
 
     const fileId = uuid();
+    const nowIso = new Date().toISOString();
+    const features = [
+      "fdata/shape-data-type",
+      "components/v2",
+      "layout/grid",
+      "styles/v2",
+    ];
     const pageIds: string[] = [];
-    const pagesIndex: Record<string, { id: string; name: string }> = {};
     const pagePayloads = new Map<
       string,
-      { id: string; name: string; objects: Record<string, PenpotShape> }
+      {
+        id: string;
+        name: string;
+        index: number;
+        objects: Record<string, PenpotShape>;
+      }
     >();
     const components: Record<string, PenpotComponentEntry> = {};
     const mediaMap: Record<string, PenpotMediaEntry> = {};
-    const mediaBuffers = new Map<string, Buffer>();
+    const storageObjects: Record<string, PenpotStorageObject> = {};
 
-    for (const pageName of PAGE_NAMES) {
+    for (const [pageIndex, pageName] of PAGE_NAMES.entries()) {
       const pageId = uuid();
       pageIds.push(pageId);
-      pagesIndex[pageId] = { id: pageId, name: pageName };
 
       const rootId = "00000000-0000-0000-0000-000000000000";
       const rootShapes: string[] = [];
@@ -869,12 +994,10 @@ async function main(): Promise<void> {
           id: rootId,
           type: "frame",
           name: "Root Frame",
-          x: 0,
-          y: 0,
-          width: 0.01,
-          height: 0.01,
+          ...buildGeometry(0, 0, 0.01, 0.01),
           parentId: rootId,
           frameId: rootId,
+          pageId,
           shapes: rootShapes,
         },
       };
@@ -901,16 +1024,17 @@ async function main(): Promise<void> {
             frame.root,
             rootId,
             rootId,
+            pageId,
             cursorX,
             cursorY,
             objects,
             mediaMap,
-            mediaBuffers,
+            storageObjects,
             baseUrl,
           );
           rootShapes.push(topId);
 
-          if (pageName === "02 UI Components") {
+          if (pageName === "02 UI Components" && objects[topId]) {
             const compId = uuid();
             components[compId] = {
               id: compId,
@@ -919,6 +1043,10 @@ async function main(): Promise<void> {
               mainInstanceId: topId,
               mainInstancePage: pageId,
             };
+            objects[topId].componentId = compId;
+            objects[topId].componentFile = fileId;
+            objects[topId].componentRoot = true;
+            objects[topId].mainInstance = true;
           }
 
           cursorY += frame.height + 80;
@@ -928,33 +1056,41 @@ async function main(): Promise<void> {
         cursorX += maxColWidth + 120;
       }
 
-      pagePayloads.set(pageId, { id: pageId, name: pageName, objects });
+      pagePayloads.set(pageId, {
+        id: pageId,
+        name: pageName,
+        index: pageIndex,
+        objects,
+      });
     }
 
     const manifest = {
-      type: "penpot/export-file",
+      type: "penpot/export-files",
       version: 1,
       generatedBy: "scripts/export-penpot.ts",
+      referer: "penpot",
       files: [
         {
           id: fileId,
           name: "Đa Minh Gò Vấp Design System",
-          features: ["fdata/shape-data-type", "components/v2", "layout/grid"],
-          pages: pageIds,
-          hasMedia: mediaBuffers.size > 0,
+          features,
         },
       ],
+      relations: [],
     };
 
     const fileJson = {
       id: fileId,
       name: "Đa Minh Gò Vấp Design System",
-      pages: pageIds,
-      pagesIndex,
-      colors,
-      typographies,
-      components,
-      media: mediaMap,
+      revn: 0,
+      vern: 0,
+      createdAt: nowIso,
+      modifiedAt: nowIso,
+      version: 67,
+      features,
+      options: {
+        componentsV2: true,
+      },
     };
 
     const zipEntries: Array<{ name: string; data: Buffer }> = [
@@ -969,23 +1105,80 @@ async function main(): Promise<void> {
     ];
 
     for (const [pageId, payload] of pagePayloads) {
+      const pageMeta = {
+        id: payload.id,
+        name: payload.name,
+        index: payload.index,
+      };
       zipEntries.push({
         name: `files/${fileId}/pages/${pageId}.json`,
-        data: Buffer.from(JSON.stringify(payload, null, 2), "utf8"),
+        data: Buffer.from(JSON.stringify(pageMeta, null, 2), "utf8"),
+      });
+
+      for (const [shapeId, shape] of Object.entries(payload.objects)) {
+        zipEntries.push({
+          name: `files/${fileId}/pages/${pageId}/${shapeId}.json`,
+          data: Buffer.from(JSON.stringify(shape, null, 2), "utf8"),
+        });
+      }
+    }
+
+    for (const [colorId, color] of Object.entries(colors)) {
+      const colorPayload = {
+        id: color.id,
+        name: color.name,
+        color: color.color,
+        opacity: color.opacity,
+        ...(color.path ? { path: color.path } : {}),
+      };
+      zipEntries.push({
+        name: `files/${fileId}/colors/${colorId}.json`,
+        data: Buffer.from(JSON.stringify(colorPayload, null, 2), "utf8"),
       });
     }
 
-    for (const [filename, buf] of mediaBuffers) {
+    for (const [typoId, typo] of Object.entries(typographies)) {
       zipEntries.push({
-        name: `files/${fileId}/media/${filename}`,
-        data: buf,
+        name: `files/${fileId}/typographies/${typoId}.json`,
+        data: Buffer.from(JSON.stringify(typo, null, 2), "utf8"),
+      });
+    }
+
+    for (const [compId, comp] of Object.entries(components)) {
+      zipEntries.push({
+        name: `files/${fileId}/components/${compId}.json`,
+        data: Buffer.from(JSON.stringify(comp, null, 2), "utf8"),
+      });
+    }
+
+    for (const [mediaId, media] of Object.entries(mediaMap)) {
+      zipEntries.push({
+        name: `files/${fileId}/media/${mediaId}.json`,
+        data: Buffer.from(JSON.stringify(media, null, 2), "utf8"),
+      });
+    }
+
+    for (const [storageId, storage] of Object.entries(storageObjects)) {
+      const storageMeta = {
+        id: storage.id,
+        size: storage.size,
+        contentType: storage.contentType,
+        bucket: storage.bucket,
+      };
+      zipEntries.push({
+        name: `objects/${storageId}.json`,
+        data: Buffer.from(JSON.stringify(storageMeta, null, 2), "utf8"),
+      });
+      zipEntries.push({
+        name: `objects/${storageId}.${storage.extension}`,
+        data: storage.buffer,
       });
     }
 
     await fs.mkdir(path.dirname(OUTPUT_PATH), { recursive: true });
     await fs.writeFile(OUTPUT_PATH, createZipArchive(zipEntries));
     console.log(
-      `Generated ${OUTPUT_PATH} (${pageIds.length} pages, ${Object.keys(colors).length} colors, ${Object.keys(typographies).length} typographies, ${Object.keys(components).length} components, ${mediaBuffers.size} media assets)`,
+      `Generated ${OUTPUT_PATH} (${pageIds.length} pages, ${Object.keys(colors).length} colors, ${Object.keys(typographies).length} typographies, ${Object.keys(components).length} components, ${Object.keys(storageObjects).length} media assets)`,
     );
   } finally {
     await browser?.close();

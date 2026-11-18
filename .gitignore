@@ -50,3 +50,6 @@ src/payload-types.ts
 
 # AI
 .agents
+
+# Penpot generated archives
+design/*.penpot
