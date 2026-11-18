@@ -9,8 +9,9 @@ export default function robots(): MetadataRoute.Robots {
     return { rules: { userAgent: "*", disallow: "/" } };
   }
 
-  const baseUrl =
-    process.env.NEXT_PUBLIC_BASE_URL || "https://dongdaminhgovap.org";
+  const baseUrl = (
+    process.env.NEXT_PUBLIC_BASE_URL || "https://dongdaminhgovap.org"
+  ).replace(/\/+$/, "");
 
   return {
     rules: {
