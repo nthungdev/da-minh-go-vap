@@ -42,7 +42,7 @@ export default function KidsBibleStoryView({ block }: Props) {
 
       <div className="rounded-xl border border-gray-200 p-4 text-base md:p-[18px] md:text-xl">
         {summaryCard?.intro && (
-          <AppMarkdown className="mb-1 space-y-3 [&_strong]:font-bold">
+          <AppMarkdown className="mb-2.5 space-y-3 text-justify leading-normal [&_strong]:font-bold">
             {summaryCard.intro}
           </AppMarkdown>
         )}
@@ -50,7 +50,10 @@ export default function KidsBibleStoryView({ block }: Props) {
         {takeaways.length > 0 && (
           <ul className="grid gap-2.5">
             {takeaways.map((item, idx) => (
-              <li key={item.id ?? idx} className="relative pl-7 leading-normal">
+              <li
+                key={item.id ?? idx}
+                className="relative pl-7 text-justify leading-normal"
+              >
                 <span
                   aria-hidden="true"
                   className={cn(
@@ -65,7 +68,7 @@ export default function KidsBibleStoryView({ block }: Props) {
         )}
 
         {content && (
-          <AppMarkdown className="prose mt-4 max-w-none text-base leading-relaxed text-gray-900 md:text-lg">
+          <AppMarkdown className="prose prose-p:text-justify prose-li:text-justify mt-4 max-w-none text-base leading-relaxed text-gray-900 md:text-lg">
             {content}
           </AppMarkdown>
         )}

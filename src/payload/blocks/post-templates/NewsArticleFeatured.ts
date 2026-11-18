@@ -53,6 +53,15 @@ const NewsArticleFeaturedBlock: Block = {
       },
     },
     {
+      name: "audioReader",
+      type: "text",
+      label: "Giọng đọc",
+      localized: true,
+      admin: {
+        placeholder: "Ví dụ: Nữ tu Theresa Phùng Thị Huệ",
+      },
+    },
+    {
       name: "sourceName",
       type: "text",
       label: "Tên nguồn tin",

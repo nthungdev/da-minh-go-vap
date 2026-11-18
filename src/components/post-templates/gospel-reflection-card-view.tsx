@@ -65,7 +65,7 @@ export default function GospelReflectionCardView({ block }: Props) {
       <div className="flow-root text-[0.98em] leading-[1.68]">
         {imageMedia?.url && (
           <figure className="mb-5 max-w-full md:float-left md:mr-5 md:mb-[15px] md:w-[40%]">
-            <div className="relative aspect-[3/2] w-full overflow-hidden rounded-lg md:aspect-square">
+            <div className="relative aspect-video w-full overflow-hidden rounded-lg">
               <Image
                 src={transformUrl(imageMedia.url, {
                   width: "800",
