@@ -1,50 +1,85 @@
-# Internationalization (i18n) Architecture
+# Internationalization (i18n)
 
-This document outlines the internationalization architecture implemented in the Đa Minh Gò Vấp platform.
+The site supports Vietnamese (`vi`, default) and English (`en`). Fixed UI text
+comes from [`next-intl`](https://next-intl.dev) message files; editor-authored
+content comes from Payload CMS field localization. The active locale is stored
+in a cookie, so URLs carry no locale prefix.
 
----
+## Where text lives
 
-## 1. Selected Library: `next-intl`
+| Text                                                         | Source                                    | Edited by  |
+| ------------------------------------------------------------ | ----------------------------------------- | ---------- |
+| Posts, pages, blocks, globals (footer, site settings)        | Payload fields with `localized: true`     | Editors    |
+| Fixed UI copy: labels, headings, empty states, `aria-label`s | `messages/vi.json`, `messages/en.json`    | Developers |
+| Payload admin UI chrome                                      | `@payloadcms/translations` (`i18n` block) | Upstream   |
 
-After evaluating `next-i18next`, `react-i18next`, and `next-intl`, **`next-intl`** was chosen for the following reasons:
+Do not branch on the locale inline (`locale === "vi" ? "..." : "..."`) or keep
+per-component `{ en, vi }` maps. Add a message key instead.
 
-- **Full Next.js App Router & Server Components Support**: Works natively in React Server Components without client-side hydration overhead.
-- **Type-safe Messages**: Full TypeScript completion for translation keys defined in `messages/*.json`.
-- **Payload CMS Compatibility**: Works smoothly alongside Payload CMS's field-level localization (`localized: true`).
+## Locale resolution
 
----
+- `src/i18n/config.ts` is the single source of truth for `locales`,
+  `defaultLocale`, and `localeLabels`. `payload.config.ts` builds its
+  `localization` block from the same values, so the site and the CMS cannot
+  drift.
+- `src/i18n/request.ts` reads the `locale` cookie on every request and falls
+  back to `defaultLocale` when the cookie is missing or holds an unsupported
+  value.
+- `src/actions/locale.ts` (`setLocale`) is the server action behind
+  `src/components/locale-switcher.tsx`. It rejects unsupported locales and
+  writes the cookie.
+- `src/app/(app)/layout.tsx` sets `<html lang>` and wraps the tree in
+  `NextIntlClientProvider`.
+- Pass the active locale to Payload queries (`getLocale()` from
+  `next-intl/server`) so localized fields resolve in the same language as the
+  UI.
 
-## 2. Configuration & Structure
+### Trade-off of cookie-based locales
 
-- **Supported Locales**: `vi` (Vietnamese, default), `en` (English).
-- **Configuration**: Defined in `src/i18n/config.ts` and `src/i18n/request.ts`.
-- **Next.js Integration**: Configured in `next.config.ts` via `createNextIntlPlugin()`.
-- **Translation Files**: Stored under `messages/vi.json` and `messages/en.json`.
+There are no `/en/...` URLs. Search engines index one URL per page, in the
+default locale, and a shared link opens in the recipient's own cookie locale.
+Moving to URL-prefixed locales needs `next-intl` middleware and a
+`[locale]` route segment, which also interacts with the existing basic-auth
+logic in `src/middleware.ts`.
 
----
+## Messages
 
-## 3. Usage Examples
+- Keys are grouped by namespace (top-level object), for example `contact` and
+  `shareToolbar`.
+- `i18n.d.ts` types messages from `messages/vi.json`, so a key used in code but
+  missing from `vi.json` fails `pnpm check-types`. A key missing from
+  `en.json` is not caught by the compiler; keep both files in the same shape.
 
-### 3.1. Server Components
+### Adding a string
+
+1. Add the key to `messages/vi.json` and `messages/en.json` under the
+   namespace of the feature.
+2. Read it with the API that matches the component type (below).
+3. Switch locales with the locale switcher and check both renderings.
+
+## Usage
+
+Server Components (async):
 
 ```tsx
 import { getTranslations } from "next-intl/server";
 
-export default async function Component() {
-  const t = await getTranslations("Navigation");
-  return <nav>{t("home")}</nav>;
+export default async function ShareToolbar() {
+  const t = await getTranslations("shareToolbar");
+  return <div>{t("title")}</div>;
 }
 ```
 
-### 3.2. Client Components
+Client Components, and non-async Server Components:
 
 ```tsx
-"use client";
-
 import { useTranslations } from "next-intl";
 
-export default function ClientButton() {
-  const t = useTranslations("Common");
-  return <button>{t("submit")}</button>;
+function ContactLabel() {
+  const t = useTranslations("contact");
+  return <span>{t("phoneLabel")}</span>;
 }
 ```
+
+Current locale: `getLocale()` from `next-intl/server` on the server,
+`useLocale()` from `next-intl` on the client.
