@@ -1,7 +1,8 @@
 "use client";
 
-import { HTMLAttributes, ReactNode, useEffect, useRef, useState } from "react";
-import { twMerge } from "tailwind-merge";
+import { HTMLAttributes, ReactNode } from "react";
+import { useCarousel } from "@/hooks/use-carousel";
+import { cn } from "@/utils/common";
 
 interface AppCarouselFadeProps<T> extends HTMLAttributes<HTMLElement> {
   id: string;
@@ -20,45 +21,18 @@ export default function AppCarouselFade<T>({
   render,
   ...props
 }: AppCarouselFadeProps<T>) {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-
-  function handleMoveButton(direction: "previous" | "next") {
-    resetTimeout();
-    const newIndex =
-      direction === "previous"
-        ? (currentIndex - 1 + durations.length) % durations.length
-        : (currentIndex + 1) % durations.length;
-    setCurrentIndex(newIndex);
-    onTransition?.(newIndex);
-  }
-
-  function resetTimeout() {
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
-    }
-  }
-
-  useEffect(() => {
-    if (durations.length <= 1) return;
-
-    resetTimeout();
-
-    const _currentIndex = currentIndex;
-    timeoutRef.current = setTimeout(async () => {
-      const newIndex = (currentIndex + 1) % durations.length;
-      setCurrentIndex(newIndex);
-      onTransition?.(newIndex);
-    }, durations[_currentIndex]);
-
-    return () => resetTimeout();
-  }, [currentIndex, durations, id, onTransition]);
+  const { currentIndex, next, prev, getContainerProps } = useCarousel({
+    count: items.length,
+    durations,
+    onTransition,
+  });
 
   return (
     <div
       {...props}
+      {...getContainerProps<HTMLDivElement>(props)}
       id={id}
-      className={twMerge(
+      className={cn(
         "relative aspect-[4/1.2] w-full overflow-hidden",
         className,
       )}
@@ -67,7 +41,7 @@ export default function AppCarouselFade<T>({
         {items.map((item, index) => (
           <li
             key={index}
-            className={twMerge(
+            className={cn(
               "pointer-events-none absolute top-0 left-0 size-full opacity-0 transition-opacity duration-[2s] ease-in-out",
               currentIndex === index && "opacity-100",
             )}
@@ -82,7 +56,7 @@ export default function AppCarouselFade<T>({
           <button
             type="button"
             className="hs-carousel-prev hs-carousel-disabled:opacity-50 group absolute inset-y-0 start-0 inline-flex h-full w-11.5 items-center justify-center text-gray-800 hover:bg-gray-800/10 focus:bg-gray-800/10 focus:outline-hidden disabled:pointer-events-none dark:text-white dark:hover:bg-white/10 dark:focus:bg-white/10"
-            onClick={() => handleMoveButton("previous")}
+            onClick={prev}
           >
             <span
               className="text-2xl group-hover:text-white"
@@ -108,7 +82,7 @@ export default function AppCarouselFade<T>({
           <button
             type="button"
             className="hs-carousel-next hs-carousel-disabled:opacity-50 hover:text-whit group absolute inset-y-0 end-0 inline-flex h-full w-11.5 items-center justify-center text-gray-800 hover:bg-gray-800/10 focus:bg-gray-800/10 focus:outline-hidden disabled:pointer-events-none dark:text-white dark:hover:bg-white/10 dark:focus:bg-white/10"
-            onClick={() => handleMoveButton("next")}
+            onClick={next}
           >
             <span className="sr-only">Next</span>
             <span

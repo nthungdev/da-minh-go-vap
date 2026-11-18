@@ -1,0 +1,175 @@
+.panel {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+  padding: 10px 12px;
+  border: 1px solid var(--theme-elevation-150);
+  border-radius: var(--style-radius-s, 4px);
+  background: var(--theme-elevation-50);
+  font-size: 13px;
+}
+
+.panelText {
+  display: flex;
+  flex: 1 1 320px;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.panelText code {
+  overflow-wrap: anywhere;
+  font-size: 12px;
+}
+
+.panelText a {
+  color: var(--theme-success-500, inherit);
+  text-decoration: underline;
+}
+
+.primaryButton,
+.secondaryButton {
+  padding: 6px 14px;
+  border: 1px solid var(--theme-elevation-800);
+  border-radius: var(--style-radius-s, 4px);
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  transition: opacity 150ms ease;
+}
+
+.primaryButton {
+  background: var(--theme-elevation-800);
+  color: var(--theme-elevation-0);
+}
+
+.secondaryButton {
+  background: transparent;
+  color: var(--theme-elevation-800);
+}
+
+.primaryButton:hover,
+.secondaryButton:hover {
+  opacity: 0.85;
+}
+
+.primaryButton:focus-visible,
+.secondaryButton:focus-visible,
+.form input:focus-visible,
+.form textarea:focus-visible {
+  outline: 2px solid var(--theme-success-500, currentColor);
+  outline-offset: 2px;
+}
+
+.dialog {
+  width: min(720px, calc(100vw - 32px));
+  max-height: calc(100vh - 32px);
+  padding: 0;
+  border: 1px solid var(--theme-elevation-150);
+  border-radius: var(--style-radius-m, 6px);
+  background: var(--theme-elevation-0);
+  color: var(--theme-text);
+}
+
+.dialog::backdrop {
+  background: rgb(0 0 0 / 0.45);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px;
+}
+
+.heading {
+  margin: 0;
+  font-size: 18px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+  gap: 20px;
+}
+
+.inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.inputs label:not(:first-child) {
+  margin-top: 8px;
+}
+
+.inputs input,
+.inputs textarea {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid var(--theme-elevation-150);
+  border-radius: var(--style-radius-s, 4px);
+  background: var(--theme-input-bg, var(--theme-elevation-0));
+  color: var(--theme-text);
+  font: inherit;
+}
+
+.previewColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.previewLabel {
+  font-size: 12px;
+  color: var(--theme-elevation-500);
+}
+
+.preview {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 12px;
+  border: 1px solid var(--theme-elevation-150);
+  border-radius: var(--style-radius-m, 6px);
+  background: var(--theme-elevation-50);
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+
+.preview p {
+  margin: 0;
+}
+
+.previewImage {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: var(--style-radius-s, 4px);
+}
+
+.previewLink {
+  font-weight: 600;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+@media (max-width: 640px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .primaryButton,
+  .secondaryButton {
+    transition: none;
+  }
+}

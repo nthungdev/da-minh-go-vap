@@ -9,11 +9,14 @@ interface PostGroupProps extends ComponentProps<"div"> {
   type: "grid" | "list";
   title?: string;
   posts?: AppPost[];
+  initialPosts?: AppPost[];
   hasMore?: boolean;
   hidePostTitles?: boolean;
 }
 
 export default function PostGroup(props: PostGroupProps) {
+  const posts = props.initialPosts ?? props.posts;
+
   if (props.type === "grid") {
     return (
       <AppPostGridAsync
@@ -22,6 +25,7 @@ export default function PostGroup(props: PostGroupProps) {
         limit={props.limit}
         showViewMore={props.hasMore}
         hidePostTitles={props.hidePostTitles}
+        posts={posts}
       />
     );
   } else if (props.type === "list") {
@@ -30,6 +34,7 @@ export default function PostGroup(props: PostGroupProps) {
         title={props.title}
         hiddenTags={props.hiddenTags}
         limit={props.limit}
+        posts={posts}
       />
     );
   }
