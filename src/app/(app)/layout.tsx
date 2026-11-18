@@ -6,6 +6,7 @@ import TheFooter from "@/components/the-footer";
 import { getSiteSettings } from "@/payload/utils/site-settings-server";
 import { getServerOrigin } from "@/utils/url";
 import { getLocale } from "next-intl/server";
+import { headers } from "next/headers";
 import localFont from "next/font/local";
 import { twMerge } from "tailwind-merge";
 import "./globals.css";
@@ -48,6 +49,16 @@ const lora = localFont({
 });
 
 export async function generateMetadata(): Promise<Metadata> {
+  const pathname = (await headers()).get("x-pathname") ?? "";
+  if (pathname.startsWith("/design-system")) {
+    return {
+      title: "Design System | Hội dòng Đa Minh Gò Vấp",
+      description:
+        "Design system tokens, UI components, CMS blocks, and page templates.",
+      robots: { index: false, follow: false },
+    };
+  }
+
   const [locale, siteSettings, origin] = await Promise.all([
     getLocale(),
     getSiteSettings(),
@@ -79,7 +90,10 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const locale = await getLocale();
+  const [locale, headersList] = await Promise.all([getLocale(), headers()]);
+  const isDesignSystem = (headersList.get("x-pathname") ?? "").startsWith(
+    "/design-system",
+  );
 
   return (
     <html
@@ -94,11 +108,13 @@ export default async function RootLayout({
       >
         <NextIntlClientProvider>
           <ScrollToTopButton />
-          <TheNavbar className="sticky top-0 z-50 w-full" />
+          {!isDesignSystem && (
+            <TheNavbar className="sticky top-0 z-50 w-full" />
+          )}
           <div className="flex-1">
             <ReactQueryProvider>{children}</ReactQueryProvider>
           </div>
-          <TheFooter />
+          {!isDesignSystem && <TheFooter />}
         </NextIntlClientProvider>
       </body>
     </html>
