@@ -3,21 +3,27 @@ import AppGridHeader from "@/components/app-grid-header";
 import AppPage from "@/components/app-page";
 import AppPostGridPaginated from "@/components/app-post-grid-async-paginated";
 import { Metadata } from "next";
-import { getLocale, getTranslations } from "next-intl/server";
+import { getTranslations } from "next-intl/server";
+import { applyRouteLocale, type LocaleParams } from "@/i18n/server";
 import { notFound } from "next/navigation";
 
 const pageSize = 12;
 
 type Props = {
-  params: Promise<{ tag: string }>;
+  params: Promise<LocaleParams & { tag: string }>;
 };
 
+export const revalidate = 60;
+
+// Tag pages render on first request, then come from the ISR cache.
+export function generateStaticParams(): Awaited<Props["params"]>[] {
+  return [];
+}
+
 export async function generateMetadata(props: Props): Promise<Metadata> {
-  const [locale, params, t] = await Promise.all([
-    getLocale(),
-    props.params,
-    getTranslations(),
-  ]);
+  const params = await props.params;
+  const locale = applyRouteLocale(params.locale);
+  const t = await getTranslations({ locale });
   const decodedTag = decodeURIComponent(params.tag);
   const data = await fetchPostsByPublicTag(decodedTag, {
     locale,
@@ -37,7 +43,8 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 }
 
 export default async function PublicTagPage(props: Props) {
-  const [locale, params] = await Promise.all([getLocale(), props.params]);
+  const params = await props.params;
+  const locale = applyRouteLocale(params.locale);
   const decodedTag = decodeURIComponent(params.tag);
   const data = await fetchPostsByPublicTag(decodedTag, {
     locale,

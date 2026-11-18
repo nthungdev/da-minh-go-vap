@@ -1,3 +1,4 @@
+import { localizePathForAllLocales } from "@/i18n/routing";
 import { revalidatePath, revalidateTag } from "next/cache";
 
 const DEFAULT_CACHE_TAGS = [
@@ -15,14 +16,21 @@ export async function POST(req: Request) {
     path?: string;
     tags?: string[];
   };
-  if (path) {
-    revalidatePath(path);
+  // Public pages are cached per locale under the internal `/{locale}` routes.
+  const pathsToInvalidate = path ? localizePathForAllLocales(path) : [];
+  for (const localizedPath of pathsToInvalidate) {
+    revalidatePath(localizedPath);
   }
   const tagsToInvalidate =
     Array.isArray(tags) && tags.length > 0 ? tags : DEFAULT_CACHE_TAGS;
   for (const tag of tagsToInvalidate) {
     revalidateTag(tag);
   }
-  console.log("Revalidated path:", path, "tags:", tagsToInvalidate);
+  console.log(
+    "Revalidated paths:",
+    pathsToInvalidate,
+    "tags:",
+    tagsToInvalidate,
+  );
   return Response.json({ revalidated: true });
 }
