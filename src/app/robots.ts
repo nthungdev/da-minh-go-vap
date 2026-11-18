@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { getSiteUrl } from "@/utils/url";
 
 /**
  * Generates robots.txt metadata route for search engine crawlers.
@@ -9,9 +10,7 @@ export default function robots(): MetadataRoute.Robots {
     return { rules: { userAgent: "*", disallow: "/" } };
   }
 
-  const baseUrl = (
-    process.env.NEXT_PUBLIC_BASE_URL || "https://dongdaminhgovap.org"
-  ).replace(/\/+$/, "");
+  const baseUrl = getSiteUrl();
 
   return {
     rules: {
