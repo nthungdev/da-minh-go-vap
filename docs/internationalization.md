@@ -44,18 +44,27 @@ logic in `src/middleware.ts`.
 
 ## Messages
 
-- Keys are grouped by namespace (top-level object), for example `contact` and
-  `shareToolbar`.
+- Keys are grouped by namespace (top-level object): `common` for strings
+  shared across features, `navigation`, `posts`, `search`, `notFound`,
+  `lightbox`, `postTemplates`, and one namespace per single-use component
+  (`contact`, `shareToolbar`).
+- Interpolate values with ICU placeholders (`"presenter": "Trình bày: {name}"`,
+  `t("presenter", { name })`) instead of concatenating strings, so each
+  language controls word order.
 - `i18n.d.ts` types messages from `messages/vi.json`, so a key used in code but
-  missing from `vi.json` fails `pnpm check-types`. A key missing from
-  `en.json` is not caught by the compiler; keep both files in the same shape.
+  missing from `vi.json` fails `pnpm check-types`. `pnpm test:messages`
+  (`tests/messages.test.ts`) catches what the compiler cannot: keys present in
+  only one file, mismatched placeholders, and empty strings.
+- The site name ("Hội Dòng Đa Minh Gò Vấp") is a proper noun and stays
+  untranslated in both locales.
 
 ### Adding a string
 
 1. Add the key to `messages/vi.json` and `messages/en.json` under the
    namespace of the feature.
 2. Read it with the API that matches the component type (below).
-3. Switch locales with the locale switcher and check both renderings.
+3. Run `pnpm test:messages` and `pnpm check-types`.
+4. Switch locales with the locale switcher and check both renderings.
 
 ## Usage
 
