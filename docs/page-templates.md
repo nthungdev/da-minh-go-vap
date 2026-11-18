@@ -587,7 +587,7 @@ markdownField({
 
 ### 4.2. Next.js Frontend Rendering Engine
 
-In `src/app/(app)/posts/[slug]/page.tsx`:
+In `src/app/(app)/[locale]/posts/[slug]/page.tsx`:
 
 ```tsx
 import PostTemplateRenderer from "@/components/post-templates";

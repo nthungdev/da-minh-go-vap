@@ -1,6 +1,11 @@
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
-import { getLocale, getTranslations } from "next-intl/server";
+import { getTranslations } from "next-intl/server";
+import {
+  applyRouteLocale,
+  requireSiteAuth,
+  type LocaleParams,
+} from "@/i18n/server";
 import RefreshRouteOnSave from "@/components/refresh-route-on-save";
 import VideoIframe from "@/components/app-video-iframe";
 import AppPostGridPaginated from "@/components/app-post-grid-async-paginated";
@@ -13,9 +18,6 @@ import { fetchPostBySlug } from "@/actions/post";
 import { getDataOrUndefined } from "@/payload/utils/data";
 import ShareToolbar from "@/components/share-toolbar";
 import { formatDate } from "@/utils/date";
-import { basicAuthGuard } from "@/utils/auth";
-import { getPayload } from "payload";
-import config from "@payload-config";
 import { getPublicHiddenTags } from "@/utils/post";
 import { PublicTagList } from "@/components/public-tag-list";
 import { getServerOrigin } from "@/utils/url";
@@ -23,15 +25,12 @@ import { getServerOrigin } from "@/utils/url";
 const relatedPostsLimit = 12;
 
 type Props = {
-  params: Promise<{ slug: string }>;
+  params: Promise<LocaleParams & { slug: string }>;
 };
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
-  const [locale, params, origin] = await Promise.all([
-    getLocale(),
-    props.params,
-    getServerOrigin(),
-  ]);
+  const [params, origin] = await Promise.all([props.params, getServerOrigin()]);
+  const locale = applyRouteLocale(params.locale);
   const decodedSlug = decodeURIComponent(params.slug);
   const post = await fetchPostBySlug(decodedSlug, { locale });
 
@@ -58,33 +57,26 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   };
 }
 
-// export const revalidate = 3600; // revalidate every hour
+export const revalidate = 60;
 
-export async function generateStaticParams() {
-  const payload = await getPayload({ config });
-  const pages = await payload.find({ collection: "posts", limit: 1000 });
-  const params = pages.docs.map((page) => ({
-    slug: page.slug,
-  }));
-  return params;
+// Posts render on first request and are then served from the ISR cache;
+// prerendering every post in both locales would make builds hit the database
+// thousands of times.
+export function generateStaticParams(): Awaited<Props["params"]>[] {
+  return [];
 }
 
-export default async function Page(props: {
-  params: Promise<{ slug: string }>;
-}) {
-  const [locale, params, origin, t] = await Promise.all([
-    getLocale(),
-    props.params,
-    getServerOrigin(),
-    getTranslations("posts"),
-  ]);
+export default async function Page(props: Props) {
+  const [params, origin] = await Promise.all([props.params, getServerOrigin()]);
+  const locale = applyRouteLocale(params.locale);
+  const t = await getTranslations({ locale, namespace: "posts" });
   const decodedSlug = decodeURIComponent(params.slug);
   const post = await fetchPostBySlug(decodedSlug, { locale });
 
   if (!post) notFound();
 
   if (post.requireHttpBasicAuth) {
-    await basicAuthGuard();
+    requireSiteAuth(params.locale, `/posts/${post.slug}`);
   }
 
   const video = post.videos?.[0];
@@ -107,7 +99,7 @@ export default async function Page(props: {
 
       <p className="text-sm text-gray-500">{publishedAt}</p>
 
-      <ShareToolbar className="mt-4" shareUrl={postHref} />
+      <ShareToolbar className="mt-4" shareUrl={postHref} locale={locale} />
 
       {video && (
         <div className="mx-auto mt-8 max-w-[800px]">

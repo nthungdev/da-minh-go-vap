@@ -95,6 +95,8 @@ Production and staging run on Firebase App Hosting. See [docs/deployment.md](doc
 
 For editors adding keyword tooltips to Markdown posts, see [docs/keyword-tooltip.md](docs/keyword-tooltip.md).
 
+For how locales map to URLs and how public pages are cached, see [docs/locale-routing.md](docs/locale-routing.md).
+
 ## Test environment
 
 Create a [.env.test](.env.test) file using the [.env.example](.env.example) file as a template.

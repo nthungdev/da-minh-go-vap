@@ -1,17 +1,18 @@
-import { getPayload } from "payload";
-import config from "@payload-config";
 import AppPage from "@/components/app-page";
 import BlocksRenderer from "@/components/blocks-renderer";
 import { notFound } from "next/navigation";
-import { getLocale } from "next-intl/server";
+import {
+  applyRouteLocale,
+  requireSiteAuth,
+  type LocaleParams,
+} from "@/i18n/server";
 import { getPageByPath } from "@/payload/utils/queries";
 import RefreshRouteOnSave from "@/components/refresh-route-on-save";
 import { Metadata, ResolvingMetadata } from "next";
-import { basicAuthGuard } from "@/utils/auth";
 
 type Props = {
   // path must be an array of strings 🤷
-  params: Promise<{ path?: string[] }>;
+  params: Promise<LocaleParams & { path?: string[] }>;
 };
 
 export async function generateMetadata(
@@ -19,8 +20,8 @@ export async function generateMetadata(
   parent: ResolvingMetadata,
 ): Promise<Metadata> {
   const parentMetadata = await parent;
-  const locale = await getLocale();
   const params = await props.params;
+  const locale = applyRouteLocale(params.locale);
   const path = "/" + (params.path || []).join("/");
   const page = await getPageByPath(path, locale);
 
@@ -38,21 +39,21 @@ export async function generateMetadata(
   };
 }
 
-// export const revalidate = 3600; // revalidate every hour
+export const revalidate = 60;
 
-export async function generateStaticParams() {
-  const payload = await getPayload({ config });
-  const pages = await payload.find({ collection: "pages", limit: 1000 });
-  const params = pages.docs.map((page) => ({
-    // skip the leading slash
-    path: page.path.substring(1).split("/"),
-  }));
-  return params;
+// Prerender the homepage for each locale (the layout supplies `locale`); other
+// pages render on first request and are then served from the ISR cache, so
+// builds don't render ~100 pages per locale against the database.
+export function generateStaticParams(): Pick<
+  Awaited<Props["params"]>,
+  "path"
+>[] {
+  return [{ path: [] }];
 }
 
 export default async function Page(props: Props) {
-  const locale = await getLocale();
   const params = await props.params;
+  const locale = applyRouteLocale(params.locale);
   const path = "/" + (params.path || []).join("/");
   const page = await getPageByPath(path, locale);
   if (!page) {
@@ -66,7 +67,7 @@ export default async function Page(props: Props) {
   }
 
   if (page.requireHttpBasicAuth) {
-    await basicAuthGuard();
+    requireSiteAuth(params.locale, path);
   }
 
   const banners =
