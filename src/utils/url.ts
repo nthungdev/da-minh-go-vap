@@ -72,3 +72,10 @@ export async function getServerOrigin(): Promise<string> {
 
   return process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
 }
+
+/** Canonical public site origin without a trailing slash, for robots.txt and the sitemap. */
+export function getSiteUrl(): string {
+  return (
+    process.env.NEXT_PUBLIC_BASE_URL || "https://dongdaminhgovap.org"
+  ).replace(/\/+$/, "");
+}
