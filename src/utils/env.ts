@@ -9,7 +9,37 @@ interface EnvRule {
   required?: boolean;
   type?: "string" | "url" | "email";
   description?: string;
-  validate?: (value: string | undefined) => string | null;
+  validate?: (
+    value: string | undefined,
+    env: NodeJS.ProcessEnv,
+  ) => string | null;
+}
+
+function validateHttpUrl(val: string | undefined): string | null {
+  if (!val) return null;
+  try {
+    const { protocol } = new URL(val);
+    if (protocol === "http:" || protocol === "https:") return null;
+  } catch {
+    // fall through to the error below
+  }
+  return "Must be an absolute http(s) URL";
+}
+
+function requiredWhenS3BucketSet(
+  val: string | undefined,
+  env: NodeJS.ProcessEnv,
+): string | null {
+  return env.S3_BUCKET && !val ? "Required when S3_BUCKET is set" : null;
+}
+
+function requiredWhenAnalyticsEnabled(
+  val: string | undefined,
+  env: NodeJS.ProcessEnv,
+): string | null {
+  return env.NEXT_PUBLIC_FIREBASE_ANALYTICS_ENABLED === "true" && !val
+    ? "Required when NEXT_PUBLIC_FIREBASE_ANALYTICS_ENABLED is true"
+    : null;
 }
 
 const REQUIRED_SERVER_VARS: EnvRule[] = [
@@ -74,36 +104,46 @@ const CONDITIONAL_VARS: EnvRule[] = [
     name: "S3_ACCESS_KEY_ID",
     description:
       "S3 / Cloudflare R2 access key ID (required when S3_BUCKET is provided)",
-    validate: (val) => {
-      if (process.env.S3_BUCKET && !val) {
-        return "Required when S3_BUCKET is set";
-      }
-      return null;
-    },
+    validate: requiredWhenS3BucketSet,
   },
   {
     name: "S3_SECRET",
     description:
       "S3 / Cloudflare R2 secret access key (required when S3_BUCKET is provided)",
-    validate: (val) => {
-      if (process.env.S3_BUCKET && !val) {
-        return "Required when S3_BUCKET is set";
-      }
-      return null;
-    },
+    validate: requiredWhenS3BucketSet,
   },
   {
     name: "S3_ENDPOINT",
     description:
       "S3 / Cloudflare R2 endpoint URL (required when S3_BUCKET is provided)",
-    validate: (val) => {
-      if (process.env.S3_BUCKET && !val) {
-        return "Required when S3_BUCKET is set";
-      }
-      return null;
-    },
+    validate: requiredWhenS3BucketSet,
   },
 ];
+
+// Optional because the code falls back to localhost / the original media URL when unset.
+const OPTIONAL_URL_VARS: EnvRule[] = [
+  {
+    name: "NEXT_PUBLIC_BASE_URL",
+    description: "Public site origin (e.g. https://dongdaminhgovap.org)",
+    validate: validateHttpUrl,
+  },
+  {
+    name: "NEXT_PUBLIC_MEDIA_CDN_URL",
+    description: "Public CDN host serving the media bucket",
+    validate: validateHttpUrl,
+  },
+];
+
+const FIREBASE_ANALYTICS_VARS: EnvRule[] = [
+  "NEXT_PUBLIC_FIREBASE_API_KEY",
+  "NEXT_PUBLIC_FIREBASE_PROJECT_ID",
+  "NEXT_PUBLIC_FIREBASE_APP_ID",
+  "NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID",
+].map((name) => ({
+  name,
+  description: "Firebase web app config value",
+  validate: requiredWhenAnalyticsEnabled,
+}));
 
 export interface EnvValidationResult {
   isValid: boolean;
@@ -125,7 +165,12 @@ export function validateEnvironment(
     description?: string;
   }> = [];
 
-  const allRules = [...REQUIRED_SERVER_VARS, ...CONDITIONAL_VARS];
+  const allRules = [
+    ...REQUIRED_SERVER_VARS,
+    ...CONDITIONAL_VARS,
+    ...OPTIONAL_URL_VARS,
+    ...FIREBASE_ANALYTICS_VARS,
+  ];
 
   for (const rule of allRules) {
     const value = env[rule.name];
@@ -140,7 +185,7 @@ export function validateEnvironment(
     }
 
     if (rule.validate) {
-      const customError = rule.validate(value);
+      const customError = rule.validate(value, env);
       if (customError) {
         errors.push({
           name: rule.name,
