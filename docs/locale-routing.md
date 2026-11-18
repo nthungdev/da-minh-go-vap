@@ -5,7 +5,9 @@ Public URLs carry no locale (`/posts/abc`, never `/en/posts/abc`). The locale co
 ## Request flow
 
 1. `src/middleware.ts` runs first:
-   - External requests to an internal prefix (`/vi/...`, `/en/...`, `/vi-auth/...`, `/en-auth/...`) get a `307` to the unprefixed URL. For a locale prefix it also sets the `locale` cookie, never the site-auth cookie. Every page therefore has exactly one public URL.
+   - External requests to an internal prefix (`/vi/...`, `/en/...`, `/vi-auth/...`, `/en-auth/...`) get a `307` to the unprefixed URL on the same host. For a locale prefix it also sets the `locale` cookie, never the site-auth cookie. Every page therefore has exactly one public URL.
+   - The prefix is percent-decoded and lowercased before the check, because Next decodes route params: `/%76i-auth/a.pdf` and `/VI-AUTH/x` are redirected too. A first segment that cannot be decoded, or that hides an internal segment behind an encoded `/`, gets a `400`.
+   - The middleware matcher excludes only whole segments (`api`, `admin`, `_next/static`, `_next/image`) and exact static files. Every path the rewrite localizes therefore passes through the middleware. `tests/locale-routing.test.ts` checks this.
    - It sets `x-pathname`, `x-href` and `x-origin` and handles basic auth, as before.
    - It sets `cache-control: private, no-cache, no-store, max-age=0, must-revalidate` on public pages.
 2. Rewrites in `next.config.ts` (`buildLocaleRewrites()` in `src/i18n/routing.ts`) map `/foo` to the internal route `/{segment}/foo`:
