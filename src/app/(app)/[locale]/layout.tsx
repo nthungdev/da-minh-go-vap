@@ -8,13 +8,13 @@ import { getServerOrigin } from "@/utils/url";
 import { getLocale } from "next-intl/server";
 import localFont from "next/font/local";
 import { twMerge } from "tailwind-merge";
-import "./globals.css";
+import "../globals.css";
 import { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 
 // Keep production builds independent of Google Fonts response formats.
 const nunito = localFont({
-  src: "../fonts/nunito/Nunito-Variable.ttf",
+  src: "../../fonts/nunito/Nunito-Variable.ttf",
   weight: "200 1000",
   variable: "--font-nunito",
   display: "swap",
@@ -22,7 +22,7 @@ const nunito = localFont({
 
 // Serif faces used by the news article and bilingual quote post templates
 const notoSerif = localFont({
-  src: "../fonts/noto-serif/NotoSerif-Variable.ttf",
+  src: "../../fonts/noto-serif/NotoSerif-Variable.ttf",
   weight: "100 900",
   variable: "--next-font-noto-serif",
   display: "swap",
@@ -32,12 +32,12 @@ const notoSerif = localFont({
 const lora = localFont({
   src: [
     {
-      path: "../fonts/lora/Lora-Variable.ttf",
+      path: "../../fonts/lora/Lora-Variable.ttf",
       weight: "400 700",
       style: "normal",
     },
     {
-      path: "../fonts/lora/Lora-Italic-Variable.ttf",
+      path: "../../fonts/lora/Lora-Italic-Variable.ttf",
       weight: "400 700",
       style: "italic",
     },
