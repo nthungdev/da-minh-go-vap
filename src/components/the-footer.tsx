@@ -1,15 +1,15 @@
 import Image from "next/image";
 import Markdown from "react-markdown";
 import Link from "next/link";
-import { getPayload } from "payload";
-import config from "@payload-config";
 import { getLocale } from "next-intl/server";
 import { useTranslations } from "next-intl";
+import { transformUrl } from "@/utils/cloudflare";
+import { getFooter } from "@/payload/utils/queries";
+import { Locale } from "@/i18n/config";
 
 export default async function TheFooter() {
-  const locale = await getLocale();
-  const payload = await getPayload({ config });
-  const footer = await payload.findGlobal({ slug: "footer", locale });
+  const locale = (await getLocale()) as Locale;
+  const footer = await getFooter(locale);
 
   const splitExternalLinks = (
     links: NonNullable<(typeof footer)["externalLinks"]>,
@@ -33,12 +33,17 @@ export default async function TheFooter() {
         typeof footer.topFooterDecorativeGraphic !== "string" &&
         typeof footer.topFooterDecorativeGraphic.url === "string" && (
           <Image
-            src={footer.topFooterDecorativeGraphic.url}
+            unoptimized
+            src={transformUrl(footer.topFooterDecorativeGraphic.url, {
+              width: "1200",
+              quality: "80",
+            })}
             alt="Footer background"
             className="pointer-events-none z-0 w-full select-none"
             height={229}
             width={991}
             sizes="100vw"
+            loading="lazy"
           />
         )}
 
