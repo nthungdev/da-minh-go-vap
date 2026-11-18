@@ -1,6 +1,7 @@
 "use client";
 
 import { MenuItem } from "@/utils/menu";
+import type { MenuCategoryPosts } from "@/utils/menu-category-posts";
 import type { Media } from "@/payload-types";
 import { transformUrl } from "@/utils/cloudflare";
 import Image from "next/image";
@@ -39,9 +40,15 @@ import { getMenuIconSrc } from "@/definitions/menu-icons";
 interface TheNavbarClientProps {
   menu: MenuItem[];
   logo?: Media | null;
+  /** Pending mega-menu posts; resolved inside a Suspense boundary. */
+  categoryPostsPromise: Promise<MenuCategoryPosts>;
 }
 
-export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
+export default function TheNavbarClient({
+  menu,
+  logo,
+  categoryPostsPromise,
+}: TheNavbarClientProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
 
@@ -127,7 +134,11 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                           ) : null}
                         </NavigationMenuTrigger>
                         <NavigationMenuContent className="rounded-xl border-none text-gray-900 shadow-lg">
-                          <MenuLayoutRenderer item={item} pathname={pathname} />
+                          <MenuLayoutRenderer
+                            item={item}
+                            pathname={pathname}
+                            categoryPostsPromise={categoryPostsPromise}
+                          />
                         </NavigationMenuContent>
                       </>
                     ) : item.absoluteHref ? (
