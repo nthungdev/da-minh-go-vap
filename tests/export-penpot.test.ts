@@ -105,6 +105,7 @@ test("design/da-minh-go-vap.penpot is a valid Penpot v3 archive with all 4 pages
 
   const pageNames: string[] = [];
   const allObjectNames: string[] = [];
+  const shapeTypes = new Set<string>();
 
   for (const pageMetaKey of pageMetaEntries) {
     const pageMeta = JSON.parse(entries.get(pageMetaKey)!.toString("utf8")) as {
@@ -149,9 +150,22 @@ test("design/da-minh-go-vap.penpot is a valid Penpot v3 archive with all 4 pages
         undefined,
         `Shape ${shape.id} must not have invalid svgString field`,
       );
+      shapeTypes.add(shape.type);
       allObjectNames.push(shape.name);
     }
   }
+
+  for (const expectedType of ["frame", "rect", "text", "svg-raw", "image"]) {
+    assert.ok(
+      shapeTypes.has(expectedType),
+      `Expected at least one ${expectedType} shape in archive`,
+    );
+  }
+
+  const mediaEntries = [...entries.keys()].filter(
+    (k) => k.startsWith(`${prefix}media/`) && k.endsWith(".json"),
+  );
+  assert.ok(mediaEntries.length > 0, "Media entries should be non-empty");
 
   for (const expected of [
     "01 Foundations",

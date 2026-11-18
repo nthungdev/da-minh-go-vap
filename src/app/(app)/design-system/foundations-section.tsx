@@ -1,3 +1,4 @@
+import { cn } from "@/utils/common";
 import tokens from "../../../../design/tokens.json";
 
 type TokenLeaf = {
@@ -196,7 +197,10 @@ export default function FoundationsSection() {
                   {item.token}
                 </span>
                 <div
-                  className={`bg-primary-600 h-4 rounded-xs ${item.widthClass}`}
+                  className={cn(
+                    "bg-primary-600 h-4 rounded-xs",
+                    item.widthClass,
+                  )}
                 />
                 <span className="font-mono text-xs text-gray-600">
                   {item.px}
@@ -212,7 +216,10 @@ export default function FoundationsSection() {
             {RADII_SCALE.map((item) => (
               <div
                 key={item.label}
-                className={`border-primary-300 bg-primary-50 flex h-14 items-center justify-center border text-xs font-medium text-gray-800 ${item.className}`}
+                className={cn(
+                  "border-primary-300 bg-primary-50 flex h-14 items-center justify-center border text-xs font-medium text-gray-800",
+                  item.className,
+                )}
               >
                 {item.label}
               </div>
@@ -226,7 +233,10 @@ export default function FoundationsSection() {
             {SHADOW_SCALE.map((item) => (
               <div
                 key={item.label}
-                className={`flex h-16 items-center justify-center rounded-lg border border-gray-100 bg-white text-xs font-medium text-gray-800 ${item.className}`}
+                className={cn(
+                  "flex h-16 items-center justify-center rounded-lg border border-gray-100 bg-white text-xs font-medium text-gray-800",
+                  item.className,
+                )}
               >
                 {item.label}
               </div>

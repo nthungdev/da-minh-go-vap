@@ -1,4 +1,6 @@
+import { VideoItem } from "@/components/video-grid";
 import { AppPost } from "@/definitions";
+import { LinksBlock, Media } from "@/payload-types";
 
 export const MOCK_THUMBNAIL_SVG =
   "data:image/svg+xml;utf8," +
@@ -145,5 +147,95 @@ export const MOCK_TIMELINE_CARDS = [
       updatedAt: "2026-10-01T00:00:00Z",
       createdAt: "2026-10-01T00:00:00Z",
     },
+  },
+];
+
+export const MOCK_MEDIA_SLIDES: Media[] = [
+  {
+    id: "mock-slide-1",
+    url: "/og.png",
+    alt: "Khuôn viên Tu viện Đa Minh Gò Vấp",
+    width: 1200,
+    height: 630,
+    updatedAt: "2026-10-01T00:00:00Z",
+    createdAt: "2026-10-01T00:00:00Z",
+  },
+  {
+    id: "mock-slide-2",
+    url: MOCK_THUMBNAIL_SVG,
+    alt: "Sinh hoạt cộng đoàn",
+    width: 800,
+    height: 450,
+    updatedAt: "2026-10-01T00:00:00Z",
+    createdAt: "2026-10-01T00:00:00Z",
+  },
+];
+
+export const MOCK_LINKS: LinksBlock["links"] = [
+  {
+    id: "mock-link-1",
+    title: "Tỉnh dòng Đa Minh Việt Nam",
+    url: "https://daminhvn.net",
+    image: {
+      id: "mock-link-img-1",
+      url: "/og.png",
+      alt: "Tỉnh dòng Đa Minh Việt Nam",
+      width: 1200,
+      height: 630,
+      updatedAt: "2026-10-01T00:00:00Z",
+      createdAt: "2026-10-01T00:00:00Z",
+    },
+  },
+  {
+    id: "mock-link-2",
+    title: "Học viện Đa Minh",
+    url: "https://hocviendaminh.org",
+    image: {
+      id: "mock-link-img-2",
+      url: MOCK_THUMBNAIL_SVG,
+      alt: "Học viện Đa Minh",
+      width: 800,
+      height: 450,
+      updatedAt: "2026-10-01T00:00:00Z",
+      createdAt: "2026-10-01T00:00:00Z",
+    },
+  },
+];
+
+export const MOCK_POST_GROUPS = [
+  {
+    title: "Tin tức",
+    hiddenTags: ["tin-tuc"],
+    limit: 4,
+    viewMoreButton: { enable: true, relativeUrl: "/posts" },
+  },
+  {
+    title: "Suy niệm",
+    hiddenTags: ["suy-niem"],
+    limit: 4,
+    viewMoreButton: { enable: true, relativeUrl: "/posts" },
+  },
+];
+
+export const MOCK_VIDEOS: VideoItem[] = [
+  {
+    id: "mock-video-1",
+    title: "Thánh lễ Tạ ơn Khánh thành Nhà Nguyện mới",
+    type: "youtube",
+    url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+  },
+  {
+    id: "mock-video-2",
+    title: "Suy niệm Lời Chúa Chúa Nhật",
+    type: "youtube",
+    url: "https://www.youtube.com/watch?v=aqz-KE-bpKQ",
+  },
+];
+
+export const MOCK_PODCAST_EPISODES = [
+  {
+    id: "mock-podcast-1",
+    label: "Suy niệm Tin Mừng hằng ngày — Tập 1",
+    spotifyId: "4rOoJ6Egrf8K2IrywzwOMk",
   },
 ];

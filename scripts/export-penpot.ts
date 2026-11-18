@@ -396,7 +396,25 @@ function buildTokenLibraries(tokens: Record<string, unknown>): {
         ? primaryFamilyRaw
         : undefined) ?? "Nunito";
 
-  for (const [scaleName, token] of Object.entries(fontSizes)) {
+  const fallbackFontSizes: Record<string, string> = {
+    "4xl": "2.25rem",
+    "3xl": "1.875rem",
+    "2xl": "1.5rem",
+    xl: "1.25rem",
+    lg: "1.125rem",
+    base: "1rem",
+    sm: "0.875rem",
+    xs: "0.75rem",
+  };
+  const mergedFontSizes: Record<string, { $value?: string }> = {};
+  for (const [k, v] of Object.entries(fallbackFontSizes)) {
+    mergedFontSizes[k] = { $value: v };
+  }
+  for (const [k, v] of Object.entries(fontSizes)) {
+    mergedFontSizes[k] = v;
+  }
+
+  for (const [scaleName, token] of Object.entries(mergedFontSizes)) {
     if (scaleName.startsWith("$") || !token?.$value) continue;
     const id = uuid();
     const px = token.$value.endsWith("rem")
@@ -799,11 +817,23 @@ async function populatePenpotObjects(
     let mtype = "image/png";
     let ext = "png";
     try {
-      const resolvedUrl = node.imageSrc.startsWith("http")
-        ? node.imageSrc
-        : new URL(node.imageSrc, baseUrl).toString();
-      const res = await fetch(resolvedUrl);
-      if (res.ok) {
+      const resolvedUrl =
+        node.imageSrc.startsWith("http") || node.imageSrc.startsWith("data:")
+          ? node.imageSrc
+          : new URL(node.imageSrc, baseUrl).toString();
+      let res: Response | null = null;
+      try {
+        res = await fetch(resolvedUrl);
+      } catch {
+        res = null;
+      }
+      if (!res?.ok && !resolvedUrl.startsWith("data:")) {
+        const filename = new URL(resolvedUrl).pathname.split("/").pop();
+        if (filename) {
+          res = await fetch(new URL(`/${filename}`, baseUrl).toString());
+        }
+      }
+      if (res?.ok) {
         const buf = Buffer.from(await res.arrayBuffer());
         const ct = res.headers.get("content-type") || "image/png";
         mtype = (ct.split(";")[0] ?? "image/png").trim();

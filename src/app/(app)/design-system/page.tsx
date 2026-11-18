@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { notFound } from "next/navigation";
 import CmsBlocksSection from "./cms-blocks-section";
 import FoundationsSection from "./foundations-section";
 import PageTemplatesSection from "./page-templates-section";
@@ -22,6 +23,13 @@ const NAV_ITEMS = [
 ];
 
 export default function DesignSystemPage() {
+  if (
+    process.env.NODE_ENV === "production" &&
+    process.env.ENABLE_DESIGN_SYSTEM !== "true"
+  ) {
+    notFound();
+  }
+
   return (
     <div className="min-h-screen bg-gray-50">
       <header className="sticky top-0 z-40 border-b border-gray-200 bg-white/95 backdrop-blur-xs">

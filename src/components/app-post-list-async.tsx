@@ -32,9 +32,9 @@ export default function AppPostListAsync({
   });
 
   // TODO make skeleton component
-  if (isPending) return null;
+  if (isPending && !posts?.length) return null;
 
-  if (error) return <p>Error: {error.message}</p>;
+  if (error && !posts?.length) return <p>Error: {error.message}</p>;
 
   return (
     <div className="@container">

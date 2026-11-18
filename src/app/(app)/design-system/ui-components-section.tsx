@@ -203,7 +203,87 @@ export default function UiComponentsSection() {
         <AppQuote quote="Hãy nói với Chúa hoặc nói về Chúa. — Thánh Đa Minh" />
       </div>
 
-      {/* Frame 5: Header & Footer */}
+      {/* Frame 5: Modals & Forms */}
+      <div
+        data-penpot-frame="Modals & Forms"
+        className="grid gap-6 rounded-xl border border-gray-200 bg-white p-6 shadow-xs lg:grid-cols-2"
+      >
+        <div className="space-y-4">
+          <h3 className="text-lg font-semibold text-gray-900">
+            Form Layout (Static Preview)
+          </h3>
+          <div className="space-y-3 rounded-lg border border-gray-200 bg-gray-50 p-4">
+            <div className="space-y-1">
+              <label
+                htmlFor="ds-form-email"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Email liên hệ
+              </label>
+              <input
+                id="ds-form-email"
+                type="email"
+                placeholder="banmucvu@daminhgovap.org"
+                className="focus:border-primary-500 focus:ring-primary-500 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 focus:ring-1 focus:outline-none"
+              />
+            </div>
+            <div className="space-y-1">
+              <label
+                htmlFor="ds-form-message"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Nội dung
+              </label>
+              <textarea
+                id="ds-form-message"
+                rows={3}
+                placeholder="Nhập lời nhắn hoặc ý cầu nguyện..."
+                className="focus:border-primary-500 focus:ring-primary-500 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 focus:ring-1 focus:outline-none"
+              />
+            </div>
+            <div className="flex justify-end">
+              <Button variant="default" size="sm">
+                Gửi thông tin
+              </Button>
+            </div>
+          </div>
+        </div>
+
+        <div className="space-y-4">
+          <h3 className="text-lg font-semibold text-gray-900">
+            Modal / Dialog (Static Preview)
+          </h3>
+          <div className="rounded-xl border border-gray-200 bg-white p-5 shadow-lg">
+            <div className="flex items-start justify-between border-b border-gray-100 pb-3">
+              <div>
+                <h4 className="text-base font-bold text-gray-900">
+                  Xác nhận đăng ký Tĩnh tâm
+                </h4>
+                <p className="mt-0.5 text-xs text-gray-500">
+                  Tu viện Đa Minh Gò Vấp · Mùa Vọng 2026
+                </p>
+              </div>
+              <span className="rounded-md px-2 py-1 text-xs font-semibold text-gray-500">
+                ✕
+              </span>
+            </div>
+            <p className="mt-3 text-sm text-gray-700">
+              Thông tin đăng ký của bạn sẽ được gửi đến Ban Mục vụ Giới trẻ để
+              sắp xếp lịch tham dự.
+            </p>
+            <div className="mt-5 flex justify-end gap-2">
+              <Button variant="outline" size="sm">
+                Hủy
+              </Button>
+              <Button variant="default" size="sm">
+                Xác nhận
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Frame 6: Header & Footer */}
       <div
         data-penpot-frame="Header & Footer"
         className="space-y-6 rounded-xl border border-gray-200 bg-white p-6 shadow-xs"

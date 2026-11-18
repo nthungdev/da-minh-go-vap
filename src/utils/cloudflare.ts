@@ -14,6 +14,7 @@ export function transformUrl(
   options: Record<string, string> = {},
 ) {
   if (!url) return "";
+  if (url.startsWith("data:")) return url;
   const filename = url.split("/").pop();
 
   const optionsString = Object.entries({

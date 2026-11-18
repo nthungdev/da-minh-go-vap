@@ -19,6 +19,10 @@ export default function PageTemplatesSection() {
         <h2 className="mt-1 text-2xl font-bold text-gray-900">
           Key Page Layouts (Mock Data)
         </h2>
+        <p className="mt-1 text-sm text-gray-600">
+          Responsive templates captured across Desktop (1440px), Tablet (768px),
+          and Mobile (375px).
+        </p>
       </div>
 
       {/* Frame 1: Home Page */}
