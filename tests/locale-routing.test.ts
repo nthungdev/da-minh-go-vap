@@ -2,13 +2,12 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import test from "node:test";
 import {
-  getRouteSegmentPrefix,
   isLocalizedPath,
   localizePath,
   localizePathForAllLocales,
+  matchInternalPrefix,
   buildLocaleRewrites,
   parseRouteSegment,
-  stripLocalePrefix,
 } from "../src/i18n/routing.ts";
 
 /** Simulates Next's first-match rewrite resolution for one request. */
@@ -92,19 +91,51 @@ test("route segments round-trip and reject unknown values", () => {
   assert.equal(parseRouteSegment("-auth"), null);
 });
 
-test("locale prefixes are detected by whole segment", () => {
-  assert.equal(getRouteSegmentPrefix("/en")?.locale, "en");
-  assert.equal(getRouteSegmentPrefix("/vi/posts/x")?.locale, "vi");
-  assert.deepEqual(getRouteSegmentPrefix("/vi-auth/bantin"), {
-    locale: "vi",
-    isSiteAuthorized: true,
+test("internal prefixes redirect to the unprefixed path", () => {
+  assert.deepEqual(matchInternalPrefix("/en"), {
+    kind: "redirect",
+    locale: "en",
+    pathname: "/",
   });
-  assert.equal(getRouteSegmentPrefix("/video"), null);
-  assert.equal(getRouteSegmentPrefix("/english/x"), null);
-  assert.equal(stripLocalePrefix("/en"), "/");
-  assert.equal(stripLocalePrefix("/en-auth/bantin/x"), "/bantin/x");
-  assert.equal(stripLocalePrefix("/vi/posts/x"), "/posts/x");
-  assert.equal(stripLocalePrefix("/posts/x"), "/posts/x");
+  assert.deepEqual(matchInternalPrefix("/vi/posts/x"), {
+    kind: "redirect",
+    locale: "vi",
+    pathname: "/posts/x",
+  });
+  assert.deepEqual(matchInternalPrefix("/en-auth/bantin/x"), {
+    kind: "redirect",
+    locale: "en",
+    pathname: "/bantin/x",
+  });
+  for (const path of ["/", "/video", "/english/x", "/posts/x"]) {
+    assert.deepEqual(matchInternalPrefix(path), { kind: "none" }, path);
+  }
+});
+
+// M1: Next decodes dynamic params, so encoded or upper-case spellings of an
+// internal segment must be caught before they reach `[locale]`.
+test("encoded and upper-case internal prefixes are redirected", () => {
+  for (const [path, pathname] of [
+    ["/%76i-auth/a.pdf", "/a.pdf"],
+    ["/vi%2Dauth/a.b", "/a.b"],
+    ["/VI-AUTH/x", "/x"],
+    ["/%65%6E/x", "/x"],
+  ] as const) {
+    const match = matchInternalPrefix(path);
+    assert.equal(match.kind, "redirect", path);
+    assert.equal(match.kind === "redirect" && match.pathname, pathname, path);
+  }
+});
+
+test("undecodable or slash-smuggled prefixes are rejected", () => {
+  for (const path of [
+    "/%E0%A4%A/x",
+    "/%/x",
+    "/vi-auth%2Fbantin%2Ftinnoibo.x",
+    "/vi%2Fx",
+  ]) {
+    assert.deepEqual(matchInternalPrefix(path), { kind: "invalid" }, path);
+  }
 });
 
 test("only page paths are rewritten", () => {
@@ -156,4 +187,73 @@ test("next-intl request config does not read cookies", () => {
   );
   assert.doesNotMatch(source, /next\/headers/);
   assert.match(source, /requestLocale/);
+});
+
+/**
+ * The middleware matcher as Next compiles it: an anchored regex over the
+ * pathname (read from source because `config` must stay a static literal).
+ */
+function middlewareMatcher(): RegExp {
+  const source = readFileSync(
+    new URL("../src/middleware.ts", import.meta.url),
+    "utf8",
+  );
+  const literal = /source:\s*("(?:[^"\\]|\\.)*")/.exec(source)?.[1];
+  assert.ok(literal, "middleware matcher source not found");
+  return new RegExp(`^${JSON.parse(literal) as string}$`);
+}
+
+// M2: a path rewritten without passing the middleware would miss the
+// `private` cache-control and could be shared by a CDN across locales.
+test("middleware runs on every path the locale rewrite localizes", () => {
+  const matcher = middlewareMatcher();
+  for (const path of [
+    "/",
+    "/administration",
+    "/apix",
+    "/manifesto",
+    "/healthzz",
+    "/robots",
+    "/favicon",
+    "/_nextx",
+    "/posts/a",
+  ]) {
+    assert.ok(rewrite(path), `${path} should be localized`);
+    assert.ok(isLocalizedPath(path), `${path} should be localized`);
+    assert.match(path, matcher, `${path} must pass through the middleware`);
+  }
+});
+
+test("middleware skips API, admin and static files", () => {
+  const matcher = middlewareMatcher();
+  for (const path of [
+    "/api/revalidate",
+    "/admin",
+    "/admin/collections/posts",
+    "/_next/static/chunks/a.js",
+    "/_next/image",
+    "/favicon.ico",
+    "/robots.txt",
+    "/manifest.webmanifest",
+  ]) {
+    assert.doesNotMatch(path, matcher, path);
+  }
+  // Internal-prefix redirects must run for encoded spellings too.
+  for (const path of ["/%76i-auth/a.pdf", "/vi%2Dauth/a.b", "/VI-AUTH/x"]) {
+    assert.match(path, matcher, path);
+  }
+});
+
+// M5: the prefix redirect must not take its host from forwarded headers.
+test("prefix redirect is built from nextUrl", () => {
+  const source = readFileSync(
+    new URL("../src/middleware.ts", import.meta.url),
+    "utf8",
+  );
+  const redirectBlock = source.slice(
+    source.indexOf('internalPrefix.kind === "redirect"'),
+    source.indexOf("const authResult"),
+  );
+  assert.match(redirectBlock, /request\.nextUrl\.clone\(\)/);
+  assert.doesNotMatch(redirectBlock, /origin|x-forwarded/i);
 });
