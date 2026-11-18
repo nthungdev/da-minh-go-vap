@@ -9,6 +9,7 @@ import { Post } from "@/payload-types";
 import { cache } from "react";
 import { unstable_cache } from "next/cache";
 import { rewriteMediaUrls } from "@/utils/cloudflare";
+import { PUBLISHED_CONTENT_REVALIDATE_SECONDS } from "@/utils/published-content-cache";
 
 interface GetOptions {
   limit?: number;
@@ -30,11 +31,6 @@ const POST_CARD_SELECT = {
 } as const;
 
 const OBJECT_ID_REGEX = /^[a-f\d]{24}$/i;
-
-function getPublishedTimeBucketIso(): string {
-  const bucketMs = 60_000;
-  return new Date(Math.floor(Date.now() / bucketMs) * bucketMs).toISOString();
-}
 
 function normalizeCardPostsResult(
   query: PaginatedDocs<Partial<Post>>,
@@ -84,13 +80,7 @@ export const getPostBySlug = (
 ) => getPostBySlugCached(slug, locale);
 
 const queryAllPostsCached = unstable_cache(
-  async (
-    limit: number,
-    page: number,
-    locale: Locale,
-    includeBody: boolean,
-    nowIso: string,
-  ) => {
+  async (limit: number, page: number, locale: Locale, includeBody: boolean) => {
     const payload = await getPayload({ config });
     const query = await payload.find({
       collection: "posts",
@@ -102,7 +92,7 @@ const queryAllPostsCached = unstable_cache(
       where: {
         // Only get published posts
         publishedAt: {
-          less_than: nowIso,
+          less_than: new Date().toISOString(),
         },
       },
       locale,
@@ -114,7 +104,7 @@ const queryAllPostsCached = unstable_cache(
     );
   },
   ["query-all-posts"],
-  { tags: ["posts"], revalidate: 60 },
+  { tags: ["posts"], revalidate: PUBLISHED_CONTENT_REVALIDATE_SECONDS },
 );
 
 export async function queryAllPosts({
@@ -128,7 +118,6 @@ export async function queryAllPosts({
     page ?? 1,
     locale ?? defaultLocale,
     includeBody,
-    getPublishedTimeBucketIso(),
   );
 }
 
@@ -159,7 +148,6 @@ const queryPostsByTagIdsCached = unstable_cache(
     skipSlug: string | undefined,
     locale: Locale,
     includeBody: boolean,
-    nowIso: string,
   ) => {
     const payload = await getPayload({ config });
     const queryConditions: Where[] = [
@@ -169,7 +157,7 @@ const queryPostsByTagIdsCached = unstable_cache(
         },
         // Only get published posts
         publishedAt: {
-          less_than: nowIso,
+          less_than: new Date().toISOString(),
         },
       },
     ];
@@ -196,7 +184,7 @@ const queryPostsByTagIdsCached = unstable_cache(
     );
   },
   ["query-posts-by-tag-ids"],
-  { tags: ["posts"], revalidate: 60 },
+  { tags: ["posts"], revalidate: PUBLISHED_CONTENT_REVALIDATE_SECONDS },
 );
 
 /**
@@ -218,7 +206,6 @@ async function queryPostsByTagIds(
     skipSlug,
     locale ?? defaultLocale,
     includeBody,
-    getPublishedTimeBucketIso(),
   );
 }
 
