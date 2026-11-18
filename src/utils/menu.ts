@@ -158,8 +158,9 @@ export const getNavBarGlobal = cache(async (locale?: Locale) => {
 const getMenuCached = unstable_cache(
   async (locale: Locale): Promise<MenuItem[]> => {
     const payload = await getPayload({ config });
-    const nowIso = new Date().toISOString();
     const navBar = await fetchNavBarGlobal(locale);
+    // Taken after the navbar fetch so the cutoff is as close to the cache write as possible.
+    const nowIso = new Date().toISOString();
 
     const validMenuItems = (navBar.menu || []).filter((menuItem, index) => {
       const hasLabel = Boolean(menuItem.label && menuItem.label.trim());
