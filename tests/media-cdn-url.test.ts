@@ -87,3 +87,31 @@ test("transformUrl output is the same for proxied and CDN URLs", () => {
     transformUrl(proxied, { width: "1280" }),
   );
 });
+
+test("rewriteMediaUrls passes through null, undefined and non-plain objects", () => {
+  assert.equal(rewriteMediaUrls(null), null);
+  assert.equal(rewriteMediaUrls(undefined), undefined);
+  const date = new Date("2026-01-01T00:00:00.000Z");
+  assert.equal(rewriteMediaUrls(date), date);
+  assert.deepEqual(rewriteMediaUrls({ page: null, docs: [] }), {
+    page: null,
+    docs: [],
+  });
+});
+
+test("toCdnMediaUrl keeps Payload URLs when the CDN env var is unset", async () => {
+  const configured = process.env.NEXT_PUBLIC_MEDIA_CDN_URL;
+  delete process.env.NEXT_PUBLIC_MEDIA_CDN_URL;
+  try {
+    // Query string forces a fresh module evaluation with the env var unset.
+    const specifier = "../src/utils/cloudflare.ts?no-cdn-env";
+    const unconfigured: typeof import("../src/utils/cloudflare.ts") =
+      await import(specifier);
+    assert.equal(
+      unconfigured.toCdnMediaUrl("/api/media/file/banner.webp"),
+      "/api/media/file/banner.webp",
+    );
+  } finally {
+    process.env.NEXT_PUBLIC_MEDIA_CDN_URL = configured;
+  }
+});
