@@ -39,27 +39,36 @@ This generates a file like `src/migrations/20260929_120000_update_post_status_en
 import { MigrateUpArgs, MigrateDownArgs } from "@payloadcms/db-mongodb";
 
 export async function up({ payload, req }: MigrateUpArgs): Promise<void> {
-  // Execute data transformations using payload local API or mongoose model
+  // Pass `req` so the write joins the migration's transaction.
   await payload.update({
     collection: "posts",
     where: { status: { equals: "draft" } },
     data: { status: "unpublished" },
+    req,
   });
 }
 
 export async function down({ payload, req }: MigrateDownArgs): Promise<void> {
-  // Rollback logic
   await payload.update({
     collection: "posts",
     where: { status: { equals: "unpublished" } },
     data: { status: "draft" },
+    req,
   });
 }
 ```
 
+> **Rollback limitation:** this `down` reverts every `unpublished` post, including posts that were
+> already `unpublished` before `up` ran. For a lossless rollback, record the affected document IDs
+> in `up` (e.g. in a backup field or collection) and restore only those in `down`.
+
 ### 3.2. Running Migrations in Production
 
-Migrations are executed automatically before starting standalone server builds:
+Pending migrations run automatically only through the `prestandalone` hook, which executes
+`payload migrate` before `pnpm standalone` builds and starts the standalone server.
+
+Any other deploy path (`pnpm build` + `pnpm start`, or a platform build step) does **not** migrate.
+Run migrations manually against the target database before starting the new version:
 
 ```bash
 pnpm migrate
