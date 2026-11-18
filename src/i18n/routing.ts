@@ -38,18 +38,39 @@ export function isLocale(value: unknown): value is Locale {
   return locales.includes(value as Locale);
 }
 
-/**
- * Internal route segment (`vi`, `en-auth`, ...) named by the first path
- * segment of an external request, if any.
- */
-export function getRouteSegmentPrefix(pathname: string): RouteSegment | null {
-  return parseRouteSegment(pathname.split("/")[1] ?? "");
-}
+export type InternalPrefixMatch =
+  | { kind: "none" }
+  | { kind: "invalid" }
+  | { kind: "redirect"; locale: Locale; pathname: string };
 
-export function stripLocalePrefix(pathname: string): string {
-  const prefix = getRouteSegmentPrefix(pathname);
-  if (!prefix) return pathname;
-  return pathname.slice(toRouteSegment(prefix).length + 1) || "/";
+/**
+ * Checks whether an external request names an internal route segment (`vi`,
+ * `en-auth`, ...) as its first path segment. The segment is percent-decoded
+ * and lowercased first: Next decodes dynamic params, so `/%76i-auth/a.pdf`
+ * would otherwise reach the `vi-auth` segment without the site-auth cookie.
+ *
+ * @returns `redirect` with the unprefixed path, `invalid` for a first segment
+ * that cannot be decoded or hides an internal segment behind an encoded `/`,
+ * otherwise `none`.
+ */
+export function matchInternalPrefix(pathname: string): InternalPrefixMatch {
+  const [, rawSegment = "", ...rest] = pathname.split("/");
+  let segment: string;
+  try {
+    segment = decodeURIComponent(rawSegment).toLowerCase();
+  } catch {
+    return { kind: "invalid" };
+  }
+
+  const [head = "", ...encodedSlashParts] = segment.split("/");
+  const parsed = parseRouteSegment(head);
+  if (!parsed) return { kind: "none" };
+  if (encodedSlashParts.length > 0) return { kind: "invalid" };
+  return {
+    kind: "redirect",
+    locale: parsed.locale,
+    pathname: `/${rest.join("/")}`,
+  };
 }
 
 /** Whether the path is a public page that lives under `[locale]`. */

@@ -5,9 +5,8 @@ import {
   LOCALE_COOKIE,
   PUBLIC_PAGE_CACHE_CONTROL,
   SITE_AUTH_COOKIE,
-  getRouteSegmentPrefix,
   isLocalizedPath,
-  stripLocalePrefix,
+  matchInternalPrefix,
 } from "@/i18n/routing";
 
 const AUTH_USER = process.env.AUTH_USER;
@@ -31,14 +30,16 @@ export async function middleware(request: NextRequest) {
   // them switch the locale cookie (never the site-auth cookie) and redirect to
   // the unprefixed public URL, so each page keeps a single public URL and the
   // auth variants stay behind the cookie check in next.config rewrites.
-  const prefixedLocale = getRouteSegmentPrefix(pathname)?.locale;
-  if (prefixedLocale) {
-    const redirectUrl = new URL(
-      `${stripLocalePrefix(pathname)}${search}`,
-      origin,
-    );
+  const internalPrefix = matchInternalPrefix(pathname);
+  if (internalPrefix.kind === "invalid") {
+    return new NextResponse("Bad Request", { status: 400 });
+  }
+  if (internalPrefix.kind === "redirect") {
+    // Built from nextUrl, not forwarded headers, so it stays on this host.
+    const redirectUrl = request.nextUrl.clone();
+    redirectUrl.pathname = internalPrefix.pathname;
     const redirect = NextResponse.redirect(redirectUrl, 307);
-    redirect.cookies.set(LOCALE_COOKIE, prefixedLocale, { path: "/" });
+    redirect.cookies.set(LOCALE_COOKIE, internalPrefix.locale, { path: "/" });
     return redirect;
   }
 
@@ -114,12 +115,14 @@ function basicAuthCheck(request: NextRequest): BasicAuthResult {
   return null;
 }
 
-// Protect everything except static assets
+// Everything except API/admin routes and static assets. Exclusions match whole
+// segments or exact files: every path the locale rewrite localizes must pass
+// through here to get the `private` cache-control (see locale-routing test).
 export const config = {
   matcher: [
     {
       source:
-        "/((?!api|admin|_next/static|favicon.ico|robots.txt|sitemap.xml|manifest).*)",
+        "/((?!(?:api|admin|_next/static|_next/image)(?:/|$)|favicon\\.ico$|robots\\.txt$|sitemap\\.xml$|manifest\\.webmanifest$).*)",
     },
   ],
 };
