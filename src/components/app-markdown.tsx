@@ -33,7 +33,9 @@ const FA_ICON_MAP: Record<string, LucideIcon> = {
 };
 
 const markdownComponents: Components = {
-  img({ src, alt, width, height, loading, decoding, ...imgProps }) {
+  // `node` is the hast element; omit it so it is not serialized into the page payload.
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  img({ node, src, alt, width, height, loading, decoding, ...imgProps }) {
     const resolvedSrc =
       typeof src === "string" && src.includes("/api/media/file/")
         ? transformUrl(src, { width: "800", quality: "80" })
