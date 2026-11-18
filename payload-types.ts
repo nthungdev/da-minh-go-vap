@@ -1206,10 +1206,12 @@ export interface TimelineBlock {
  * via the `definition` "VideoGridBlock".
  */
 export interface VideoGridBlock {
+  title?: string | null;
   videos: {
     title: string;
     type: 'youtube' | 'facebook';
     url: string;
+    isShort?: boolean | null;
     id?: string | null;
   }[];
   id?: string | null;
@@ -1622,12 +1624,14 @@ export interface TimelineBlockSelect<T extends boolean = true> {
  * via the `definition` "VideoGridBlock_select".
  */
 export interface VideoGridBlockSelect<T extends boolean = true> {
+  title?: T;
   videos?:
     | T
     | {
         title?: T;
         type?: T;
         url?: T;
+        isShort?: T;
         id?: T;
       };
   id?: T;
