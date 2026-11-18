@@ -18,8 +18,7 @@ import { createPortal } from "react-dom";
 import Image from "next/image";
 import { AppPost } from "@/definitions";
 import { cn } from "@/utils/common";
-import { Locale } from "@/i18n/config";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 type SearchState =
   | { status: "idle"; query: string }
@@ -75,26 +74,9 @@ function searchReducer(state: SearchState, action: SearchAction): SearchState {
   }
 }
 
-const searchLabels: Record<
-  Locale,
-  { empty: string; error: string; placeholder: string }
-> = {
-  vi: {
-    empty: "Không tìm thấy bài viết nào.",
-    error: "Không thể tìm kiếm lúc này. Vui lòng thử lại.",
-    placeholder: "Tìm kiếm bài viết...",
-  },
-  en: {
-    empty: "No posts found.",
-    error: "Unable to search right now. Please try again.",
-    placeholder: "Search posts...",
-  },
-};
-
 interface SearchModalProps {
   id: string;
   state: SearchState;
-  locale: Locale;
   containerRef: RefObject<HTMLElement | null>;
   onInputSubmit: (event: FormEvent<HTMLFormElement>) => void;
   onInputChange: ChangeEventHandler<HTMLInputElement>;
@@ -103,9 +85,8 @@ interface SearchModalProps {
 // eslint-disable-next-line react/display-name
 const SearchModal = forwardRef<HTMLDivElement, SearchModalProps>(
   (props, ref) => {
-    const { id, state, locale, containerRef, onInputChange, onInputSubmit } =
-      props;
-    const labels = searchLabels[locale];
+    const { id, state, containerRef, onInputChange, onInputSubmit } = props;
+    const t = useTranslations();
 
     return containerRef.current
       ? createPortal(
@@ -126,7 +107,7 @@ const SearchModal = forwardRef<HTMLDivElement, SearchModalProps>(
                       htmlFor={`${id}-input`}
                       className="sr-only"
                     >
-                      Search input
+                      {t("search.label")}
                     </label>
                     <div className="pointer-events-none absolute inset-y-0 start-0 z-20 flex items-center ps-3.5">
                       <Image
@@ -141,7 +122,7 @@ const SearchModal = forwardRef<HTMLDivElement, SearchModalProps>(
                       className="focus:border-secondary focus:ring-secondary block w-full rounded-lg border-gray-200 py-3 ps-10 pe-4 text-sm disabled:pointer-events-none disabled:opacity-50"
                       type="text"
                       role="search"
-                      placeholder={labels.placeholder}
+                      placeholder={t("search.placeholder")}
                       value={state.query}
                       autoFocus
                       onChange={onInputChange}
@@ -158,9 +139,9 @@ const SearchModal = forwardRef<HTMLDivElement, SearchModalProps>(
                       <div
                         className="text-primary inline-block size-4 animate-spin rounded-full border-[3px] border-current border-t-transparent"
                         role="status"
-                        aria-label="loading"
+                        aria-label={t("common.loading")}
                       >
-                        <span className="sr-only">Loading...</span>
+                        <span className="sr-only">{t("common.loading")}</span>
                       </div>
                     </div>
                   )}
@@ -176,7 +157,7 @@ const SearchModal = forwardRef<HTMLDivElement, SearchModalProps>(
 
                   {state.status === "loaded" && state.results.length === 0 && (
                     <p className="px-4 py-6 text-center text-sm text-gray-500">
-                      {labels.empty}
+                      {t("search.empty")}
                     </p>
                   )}
 
@@ -207,7 +188,8 @@ const SearchModal = forwardRef<HTMLDivElement, SearchModalProps>(
 );
 
 export default function AppPostSearchButton({ id }: { id: string }) {
-  const locale = useLocale() as Locale;
+  const locale = useLocale();
+  const t = useTranslations("search");
   const bodyRef = useRef<HTMLBodyElement | null>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
   const requestIdRef = useRef(0);
@@ -272,7 +254,7 @@ export default function AppPostSearchButton({ id }: { id: string }) {
       dispatch({
         type: "REJECT",
         requestId,
-        message: searchLabels[locale].error,
+        message: t("error"),
       });
     }
   };
@@ -305,7 +287,7 @@ export default function AppPostSearchButton({ id }: { id: string }) {
 
       <button
         type="button"
-        aria-label="Tìm kiếm"
+        aria-label={t("label")}
         className="ring-primary relative flex flex-row items-center space-x-2 rounded-full border bg-white p-2 hover:cursor-pointer hover:ring-2"
         onClick={openSearchModal}
       >
@@ -322,7 +304,6 @@ export default function AppPostSearchButton({ id }: { id: string }) {
         ref={overlayRef}
         containerRef={bodyRef}
         state={state}
-        locale={locale}
         onInputChange={handleInputChange}
         onInputSubmit={handleInputSubmit}
       />

@@ -4,23 +4,17 @@ import { fetchAllPosts } from "@/actions/post";
 import AppCarousel from "@/components/app-carousel";
 import PostList from "@/components/post-list";
 import Spinner from "@/components/spinner";
-import { Locale } from "@/i18n/config";
 import { getDataOrUndefined } from "@/payload/utils/data";
 import { transformUrl } from "@/utils/cloudflare";
 import { cn } from "@/utils/common";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
 import { useId, useState } from "react";
 import { AppPost } from "@/definitions";
 
 const TRANSITION_DURATION = 8000;
-
-const labels: Record<Locale, string> = {
-  vi: "Tin Mới",
-  en: "Latest Posts",
-};
 
 interface TheLatestPostsProps {
   postCount?: 4 | 5;
@@ -34,6 +28,7 @@ export default function TheLatestPosts({
   initialPosts,
 }: TheLatestPostsProps) {
   const locale = useLocale();
+  const t = useTranslations("posts");
   const id = useId();
   const [currentIndex, setCurrentIndex] = useState(0);
   const {
@@ -67,7 +62,7 @@ export default function TheLatestPosts({
     <div className={cn("@container", className)}>
       <div className="mb-4">
         <span className="bg-primary cursor-default rounded-md px-6 py-1 font-bold text-white uppercase">
-          {labels[locale]}
+          {t("latest")}
         </span>
       </div>
       <div

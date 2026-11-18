@@ -1,6 +1,7 @@
 import AppGridHeader from "@/components/app-grid-header";
 import AppPage from "@/components/app-page";
 import AppPostGridPaginated from "@/components/app-post-grid-async-paginated";
+import { getTranslations } from "next-intl/server";
 import { applyRouteLocale, type LocaleParams } from "@/i18n/server";
 
 interface SearchParams {
@@ -15,13 +16,16 @@ export default async function AppPostsPage(props: {
   params: Promise<LocaleParams>;
   searchParams: Promise<SearchParams>;
 }) {
-  applyRouteLocale((await props.params).locale);
-  const searchParams = await props.searchParams;
+  const locale = applyRouteLocale((await props.params).locale);
+  const [searchParams, t] = await Promise.all([
+    props.searchParams,
+    getTranslations({ locale, namespace: "posts" }),
+  ]);
 
   const { ht, ti } = searchParams;
 
   const hiddenTags = ht ? decodeURIComponent(ht).split(",") : [];
-  const title = ti ? decodeURIComponent(ti) : "Bài viết";
+  const title = ti ? decodeURIComponent(ti) : t("title");
 
   return (
     <AppPage className="space-y-8">

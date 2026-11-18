@@ -3,6 +3,7 @@ import AppGridHeader from "@/components/app-grid-header";
 import AppPage from "@/components/app-page";
 import AppPostGridPaginated from "@/components/app-post-grid-async-paginated";
 import { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { applyRouteLocale, type LocaleParams } from "@/i18n/server";
 import { notFound } from "next/navigation";
 
@@ -22,6 +23,7 @@ export function generateStaticParams(): Awaited<Props["params"]>[] {
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const params = await props.params;
   const locale = applyRouteLocale(params.locale);
+  const t = await getTranslations({ locale });
   const decodedTag = decodeURIComponent(params.tag);
   const data = await fetchPostsByPublicTag(decodedTag, {
     locale,
@@ -30,13 +32,13 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 
   if (!data) {
     return {
-      title: locale === "vi" ? "Không Tìm Thấy" : "Not Found",
+      title: t("notFound.title"),
     };
   }
 
   return {
     title: data.tag.label,
-    description: locale === "vi" ? `Các bài viết` : "Posts",
+    description: t("posts.allPosts"),
   };
 }
 

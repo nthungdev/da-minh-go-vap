@@ -1,5 +1,6 @@
 import { cn } from "@/utils/common";
 import { toSpotifyEmbedUrl } from "@/utils/spotify";
+import { useTranslations } from "next-intl";
 
 interface SpotifyEmbedProps {
   url?: string | null;
@@ -7,6 +8,7 @@ interface SpotifyEmbedProps {
 }
 
 export default function SpotifyEmbed({ url, className }: SpotifyEmbedProps) {
+  const t = useTranslations("postTemplates");
   const embedUrl = url ? toSpotifyEmbedUrl(url) : null;
   if (!embedUrl) return null;
 
@@ -21,7 +23,7 @@ export default function SpotifyEmbed({ url, className }: SpotifyEmbedProps) {
         loading="lazy"
         sandbox="allow-scripts allow-same-origin allow-popups"
         className="block w-full rounded-xl"
-        title="Spotify Podcast Player"
+        title={t("spotifyPlayerTitle")}
       />
     </div>
   );

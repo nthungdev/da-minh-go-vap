@@ -2,6 +2,7 @@ import Image from "next/image";
 import AppMarkdown from "@/components/app-markdown";
 import { Media, SaintBiographyBlock } from "@/payload-types";
 import { transformUrl } from "@/utils/cloudflare";
+import { useTranslations } from "next-intl";
 
 interface Props {
   block: SaintBiographyBlock;
@@ -11,6 +12,7 @@ const SECTION_HEADING =
   "text-secondary mt-8 mb-5 text-2xl leading-snug md:text-[27px]";
 
 export default function SaintBiographyView({ block }: Props) {
+  const t = useTranslations("postTemplates");
   const {
     saintName,
     saintTitle,
@@ -58,7 +60,7 @@ export default function SaintBiographyView({ block }: Props) {
 
       {timeline && timeline.length > 0 && (
         <section>
-          <h3 className={SECTION_HEADING}>1. Đôi nét cuộc đời</h3>
+          <h3 className={SECTION_HEADING}>1. {t("saintLife")}</h3>
           <ol className="before:bg-primary-700 relative space-y-6 pl-7 before:absolute before:top-0 before:left-2.5 before:h-full before:w-1 before:rounded md:pl-8 md:before:left-3">
             {timeline.map((item, index) => (
               <li
@@ -79,7 +81,7 @@ export default function SaintBiographyView({ block }: Props) {
 
       {virtues && virtues.length > 0 && (
         <section>
-          <h3 className={SECTION_HEADING}>2. Gương nhân đức</h3>
+          <h3 className={SECTION_HEADING}>2. {t("saintVirtues")}</h3>
           <div className="space-y-6">
             {virtues.map((virtue, idx) => (
               <div
@@ -100,7 +102,7 @@ export default function SaintBiographyView({ block }: Props) {
 
       {prayer && (
         <section>
-          <h3 className={SECTION_HEADING}>3. Lời nguyện</h3>
+          <h3 className={SECTION_HEADING}>3. {t("saintPrayer")}</h3>
           <AppMarkdown className="space-y-3 rounded-lg border-l-4 border-red-500 bg-rose-50 p-5 italic md:p-[22px] [&_p]:leading-[1.8]">
             {prayer}
           </AppMarkdown>
@@ -109,13 +111,13 @@ export default function SaintBiographyView({ block }: Props) {
 
       {editor && (
         <p className="mt-6 text-right text-base md:text-[17px]">
-          ✍️ Biên tập: {editor}
+          ✍️ {t("editor")}: {editor}
         </p>
       )}
 
       {references && (
         <div className="mt-5 rounded-lg bg-slate-50 px-5 py-4 text-[15px] leading-[1.8] md:text-base">
-          <p className="text-primary-800 font-bold">Tham khảo:</p>
+          <p className="text-primary-800 font-bold">{t("references")}:</p>
           <AppMarkdown className="[&_a]:text-primary-800 [&_a]:focus-visible:ring-primary-700 [&_a]:rounded-sm [&_a]:hover:underline [&_a]:focus-visible:ring-2 [&_a]:focus-visible:outline-none">
             {references}
           </AppMarkdown>

@@ -5,6 +5,7 @@ import Image from "next/image";
 import { X } from "lucide-react";
 import { transformUrl } from "@/utils/cloudflare";
 import { cn } from "@/utils/common";
+import { useTranslations } from "next-intl";
 
 interface LightboxModalProps {
   src: string;
@@ -26,6 +27,7 @@ export default function LightboxModal({
   children,
   className,
 }: LightboxModalProps) {
+  const t = useTranslations("lightbox");
   const [isOpen, setIsOpen] = useState(false);
   const triggerRef = useRef<HTMLDivElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
@@ -64,7 +66,7 @@ export default function LightboxModal({
         role="button"
         tabIndex={0}
         aria-haspopup="dialog"
-        aria-label={alt ? `Phóng to ảnh: ${alt}` : "Phóng to ảnh"}
+        aria-label={alt ? t("zoomWithAlt", { alt }) : t("zoom")}
         onClick={() => setIsOpen(true)}
         onKeyDown={(e) => {
           if (e.key === "Enter" || e.key === " ") {
@@ -84,7 +86,7 @@ export default function LightboxModal({
         <div
           role="dialog"
           aria-modal="true"
-          aria-label={alt || "Xem ảnh"}
+          aria-label={alt || t("view")}
           className="animate-in fade-in fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm duration-200 motion-reduce:animate-none"
           onClick={() => setIsOpen(false)}
         >
@@ -95,7 +97,7 @@ export default function LightboxModal({
               e.stopPropagation();
               setIsOpen(false);
             }}
-            aria-label="Đóng xem ảnh"
+            aria-label={t("close")}
             className="absolute top-4 right-4 z-10 rounded-full bg-white/20 p-2 text-white transition hover:bg-white/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
           >
             <X className="size-6" />

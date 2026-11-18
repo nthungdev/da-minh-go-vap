@@ -2,6 +2,7 @@ import AppMarkdown from "@/components/app-markdown";
 import { KidsBibleStoryBlock } from "@/payload-types";
 import { cn } from "@/utils/common";
 import { stripWrappingQuotes } from "@/utils/quote";
+import { useTranslations } from "next-intl";
 
 interface Props {
   block: KidsBibleStoryBlock;
@@ -13,6 +14,7 @@ const BLUE_SQUARE =
   "rounded-[3px] bg-gradient-to-br from-blue-600 to-cyan-500 shadow-[0_6px_14px_rgba(37,99,235,0.25)]";
 
 export default function KidsBibleStoryView({ block }: Props) {
+  const t = useTranslations("postTemplates");
   const {
     episodeLabel,
     title,
@@ -83,11 +85,13 @@ export default function KidsBibleStoryView({ block }: Props) {
           <p className="mt-3 border-t border-dashed border-gray-300 pt-1.5 text-right text-[13px] leading-snug text-gray-600 italic">
             {presenters.map((name, idx) => (
               <span key={idx} className="block">
-                {idx === 0 ? `Trình bày: ${name}` : name}
+                {idx === 0 ? t("presenter", { name }) : name}
               </span>
             ))}
             {credits?.productionUnit && (
-              <span className="block">Thực hiện: {credits.productionUnit}</span>
+              <span className="block">
+                {t("producer")}: {credits.productionUnit}
+              </span>
             )}
           </p>
         )}

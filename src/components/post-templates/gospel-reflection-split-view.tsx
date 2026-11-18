@@ -1,6 +1,7 @@
 import AppMarkdown from "@/components/app-markdown";
 import { GospelReflectionSplitBlock } from "@/payload-types";
 import { cn } from "@/utils/common";
+import { useTranslations } from "next-intl";
 
 interface Props {
   block: GospelReflectionSplitBlock;
@@ -10,6 +11,7 @@ const PLAIN_BLOCKQUOTE =
   "prose-blockquote:m-0 prose-blockquote:border-s-0 prose-blockquote:p-0 prose-blockquote:ps-0 prose-blockquote:font-normal prose-blockquote:not-italic prose-blockquote:text-inherit [&_blockquote_p]:before:content-none [&_blockquote_p]:after:content-none";
 
 export default function GospelReflectionSplitView({ block }: Props) {
+  const t = useTranslations("postTemplates");
   const {
     liturgyDate,
     liturgyWeek,
@@ -31,7 +33,7 @@ export default function GospelReflectionSplitView({ block }: Props) {
       </header>
 
       <h2 className="mt-2 mb-4 text-[1.5em] leading-tight font-bold text-orange-600">
-        Suy Niệm Lời Chúa
+        {t("gospelReflectionHeading")}
       </h2>
 
       <div className="grid gap-5 min-[900px]:grid-cols-[minmax(0,1fr)_320px]">
@@ -52,12 +54,12 @@ export default function GospelReflectionSplitView({ block }: Props) {
         </section>
 
         <aside
-          aria-label="Tin Mừng hôm nay"
+          aria-label={t("gospelToday")}
           className="relative order-first rounded-[14px] bg-gradient-to-b from-white to-[#e6f9f9] py-4 pr-4 pl-5 shadow-[0_4px_14px_rgba(0,133,150,0.08)] before:absolute before:inset-y-0 before:left-0 before:w-1 before:rounded before:bg-gradient-to-b before:from-[#008596] before:to-[#32c7c7] min-[900px]:order-none"
         >
           <div className="min-[900px]:sticky min-[900px]:top-24">
             <h3 className="mb-2 text-[1.05em] font-bold text-orange-700">
-              Tin Mừng ({gospel.passage})
+              {t("gospelWithPassage", { passage: gospel.passage })}
             </h3>
 
             <AppMarkdown
@@ -82,12 +84,15 @@ export default function GospelReflectionSplitView({ block }: Props) {
         <footer className="mt-5 text-[0.9em] text-gray-500">
           {author && (
             <p>
-              <strong className="text-gray-600">Bài suy niệm:</strong> {author}
+              <strong className="text-gray-600">
+                {t("reflectionAuthor")}:
+              </strong>{" "}
+              {author}
             </p>
           )}
           {productionUnit && (
             <p>
-              <strong className="text-gray-600">Thực hiện:</strong>{" "}
+              <strong className="text-gray-600">{t("producer")}:</strong>{" "}
               {productionUnit}
             </p>
           )}

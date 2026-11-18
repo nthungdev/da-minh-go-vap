@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import {
   applyRouteLocale,
   requireSiteAuth,
@@ -68,6 +69,7 @@ export function generateStaticParams(): Awaited<Props["params"]>[] {
 export default async function Page(props: Props) {
   const [params, origin] = await Promise.all([props.params, getServerOrigin()]);
   const locale = applyRouteLocale(params.locale);
+  const t = await getTranslations({ locale, namespace: "posts" });
   const decodedSlug = decodeURIComponent(params.slug);
   const post = await fetchPostBySlug(decodedSlug, { locale });
 
@@ -79,8 +81,8 @@ export default async function Page(props: Props) {
 
   const video = post.videos?.[0];
   const hiddenTags = post.hiddenTags
-    .filter((t) => typeof t !== "string")
-    .map((t) => t.tag);
+    .filter((tag) => typeof tag !== "string")
+    .map((tag) => tag.tag);
   const publicTags = getPublicHiddenTags(post.hiddenTags);
 
   const publishedAt = formatDate(post.publishedAt);
@@ -97,7 +99,7 @@ export default async function Page(props: Props) {
 
       <p className="text-sm text-gray-500">{publishedAt}</p>
 
-      <ShareToolbar className="mt-4" shareUrl={postHref} />
+      <ShareToolbar className="mt-4" shareUrl={postHref} locale={locale} />
 
       {video && (
         <div className="mx-auto mt-8 max-w-[800px]">
@@ -124,7 +126,7 @@ export default async function Page(props: Props) {
       <hr className="my-4 md:my-8" />
 
       <div className="space-y-4">
-        <h2 className="text-2xl">Các bài liên quan</h2>
+        <h2 className="text-2xl">{t("related")}</h2>
         <AppPostGridPaginated
           hiddenTags={hiddenTags}
           skipSlug={post.slug}
