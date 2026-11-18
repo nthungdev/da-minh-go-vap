@@ -2,17 +2,11 @@
 
 import PostGroupTabsPanel from "@/components/post-group-tabs/panel";
 import PostGroupTabsSelect from "@/components/post-group-tabs/select";
-import { Locale } from "@/i18n/config";
 import { Page } from "@/payload-types";
 import { AppPost } from "@/definitions";
-import { useLocale } from "next-intl";
+import { useTranslations } from "next-intl";
 import { useId, useState } from "react";
 import { cn } from "@/utils/common";
-
-const ALL_POSTS_CONTROL_LABELS: Record<Locale, string> = {
-  en: "All",
-  vi: "Tất cả",
-};
 
 interface PostGroupTabsProps extends React.HTMLAttributes<HTMLDivElement> {
   title?: string;
@@ -43,7 +37,7 @@ function PostGroupTabs({
   const fallbackId = useId();
   const id = (title ?? fallbackId).replace(/\s+/g, "-").toLowerCase();
 
-  const locale = useLocale();
+  const t = useTranslations();
 
   const allUniqueHiddenTags = Array.from(
     new Set(groups.flatMap((group) => group.hiddenTags)),
@@ -51,7 +45,7 @@ function PostGroupTabs({
 
   const postGroups = [
     {
-      title: ALL_POSTS_CONTROL_LABELS[locale],
+      title: t("common.all"),
       hiddenTags: allUniqueHiddenTags,
       limit: 6,
       viewMoreButton,
@@ -80,7 +74,7 @@ function PostGroupTabs({
         />
         <ol
           role="tablist"
-          aria-label="Select post group"
+          aria-label={t("navigation.selectPostGroup")}
           className="hidden flex-1 flex-row flex-wrap justify-end gap-x-2 gap-y-1 pt-1 pb-1 lg:flex"
         >
           {postGroups.map((g, index) => (

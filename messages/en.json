@@ -1,4 +1,41 @@
 {
+  "common": {
+    "all": "All",
+    "viewMore": "View more",
+    "loading": "Loading…",
+    "close": "Close",
+    "previous": "Previous",
+    "next": "Next",
+    "scrollToTop": "Scroll to top",
+    "openInNewTab": "(opens in a new tab)",
+    "readMore": "Read more",
+    "thumbnailAlt": "Thumbnail: {title}"
+  },
+  "navigation": {
+    "toggleMenu": "Toggle menu",
+    "menu": "Menu",
+    "postGroups": "Post groups",
+    "selectPostGroup": "Select post group",
+    "emptyCategory": "No posts in this category yet."
+  },
+  "posts": {
+    "title": "Posts",
+    "allPosts": "Posts",
+    "latest": "Latest Posts",
+    "related": "Related posts",
+    "tags": "Tags"
+  },
+  "search": {
+    "label": "Search",
+    "placeholder": "Search posts...",
+    "empty": "No posts found.",
+    "error": "Unable to search right now. Please try again."
+  },
+  "notFound": {
+    "title": "Not Found",
+    "description": "This page does not exist",
+    "backHome": "Back to home"
+  },
   "contact": {
     "phoneLabel": "Phone",
     "emailLabel": "Email",
@@ -6,5 +43,35 @@
   },
   "shareToolbar": {
     "title": "Share"
+  },
+  "lightbox": {
+    "zoom": "Enlarge image",
+    "zoomWithAlt": "Enlarge image: {alt}",
+    "view": "View image",
+    "close": "Close image viewer"
+  },
+  "postTemplates": {
+    "author": "Author",
+    "translator": "Translator",
+    "audioReader": "Narrator",
+    "source": "Source",
+    "reflectionAuthor": "Reflection",
+    "producer": "Produced by",
+    "presenter": "Presented by: {name}",
+    "references": "References",
+    "gospelToday": "Today's Gospel",
+    "viewGospel": "Read the Gospel",
+    "viewGospelWithReference": "Read the Gospel ({reference})",
+    "newsImageAlt": "News image",
+    "eventPhotoAlt": "Event photo",
+    "reflectionImageAlt": "Reflection image",
+    "saintLife": "Life at a glance",
+    "saintVirtues": "Example of virtue",
+    "saintPrayer": "Prayer",
+    "videoPrayerTitle": "Video prayer intention",
+    "spotifyPlayerTitle": "Spotify podcast player",
+    "gospelReflectionHeading": "Reflection on the Word of God",
+    "gospelWithPassage": "Gospel ({passage})",
+    "editor": "Editor"
   }
 }

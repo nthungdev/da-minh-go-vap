@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/utils/common";
 import { transformUrl } from "@/utils/cloudflare";
+import { useTranslations } from "next-intl";
 
 export interface KeywordTooltipProps {
   /** The keyword or phrase displayed in text (if children not provided) */
@@ -39,6 +40,7 @@ export default function KeywordTooltip({
   className,
   children,
 }: KeywordTooltipProps) {
+  const t = useTranslations("common");
   const [isOpen, setIsOpen] = useState(false);
   const [position, setPosition] = useState<"top" | "bottom">("top");
   const triggerRef = useRef<HTMLSpanElement>(null);
@@ -155,7 +157,7 @@ export default function KeywordTooltip({
                   className="text-primary-600 hover:text-primary-700 text-xs font-medium hover:underline"
                   onClick={(e) => e.stopPropagation()}
                 >
-                  Xem thêm →
+                  {t("readMore")} →
                 </Link>
               </span>
             )}

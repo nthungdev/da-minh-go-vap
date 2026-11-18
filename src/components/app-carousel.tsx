@@ -3,6 +3,7 @@
 import { Children, HTMLAttributes } from "react";
 import { useCarousel } from "@/hooks/use-carousel";
 import { cn } from "@/utils/common";
+import { useTranslations } from "next-intl";
 
 interface AppCarouselProps extends HTMLAttributes<HTMLElement> {
   id: string;
@@ -18,6 +19,7 @@ export default function AppCarousel({
   onTransition,
   ...props
 }: AppCarouselProps) {
+  const t = useTranslations("common");
   const childrenCount = Children.count(children);
   const { currentIndex, next, prev, getContainerProps } = useCarousel({
     count: childrenCount,
@@ -71,7 +73,7 @@ export default function AppCarousel({
                 <path d="m15 18-6-6 6-6"></path>
               </svg>
             </span>
-            <span className="sr-only">Previous</span>
+            <span className="sr-only">{t("previous")}</span>
           </button>
           <button
             type="button"
@@ -82,7 +84,7 @@ export default function AppCarousel({
               next();
             }}
           >
-            <span className="sr-only">Next</span>
+            <span className="sr-only">{t("next")}</span>
             <span
               className="text-2xl group-hover:text-white"
               aria-hidden="true"

@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
-import { getLocale } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import RefreshRouteOnSave from "@/components/refresh-route-on-save";
 import VideoIframe from "@/components/app-video-iframe";
 import AppPostGridPaginated from "@/components/app-post-grid-async-paginated";
@@ -72,10 +72,11 @@ export async function generateStaticParams() {
 export default async function Page(props: {
   params: Promise<{ slug: string }>;
 }) {
-  const [locale, params, origin] = await Promise.all([
+  const [locale, params, origin, t] = await Promise.all([
     getLocale(),
     props.params,
     getServerOrigin(),
+    getTranslations("posts"),
   ]);
   const decodedSlug = decodeURIComponent(params.slug);
   const post = await fetchPostBySlug(decodedSlug, { locale });
@@ -88,8 +89,8 @@ export default async function Page(props: {
 
   const video = post.videos?.[0];
   const hiddenTags = post.hiddenTags
-    .filter((t) => typeof t !== "string")
-    .map((t) => t.tag);
+    .filter((tag) => typeof tag !== "string")
+    .map((tag) => tag.tag);
   const publicTags = getPublicHiddenTags(post.hiddenTags);
 
   const publishedAt = formatDate(post.publishedAt);
@@ -133,7 +134,7 @@ export default async function Page(props: {
       <hr className="my-4 md:my-8" />
 
       <div className="space-y-4">
-        <h2 className="text-2xl">Các bài liên quan</h2>
+        <h2 className="text-2xl">{t("related")}</h2>
         <AppPostGridPaginated
           hiddenTags={hiddenTags}
           skipSlug={post.slug}

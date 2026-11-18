@@ -2,12 +2,14 @@ import AppMarkdown from "@/components/app-markdown";
 import { ParableLifeLessonBlock } from "@/payload-types";
 import { stripWrappingQuotes } from "@/utils/quote";
 import { toSafeHttpUrl } from "@/utils/safe-url";
+import { useTranslations } from "next-intl";
 
 interface Props {
   block: ParableLifeLessonBlock;
 }
 
 export default function ParableLifeLessonView({ block }: Props) {
+  const t = useTranslations("postTemplates");
   const { contents, translator, source } = block;
   const sourceUrl = toSafeHttpUrl(source?.url);
 
@@ -76,13 +78,17 @@ export default function ParableLifeLessonView({ block }: Props) {
           <footer className="mt-10 border-t border-slate-200 pt-6 text-right text-[0.95rem] leading-[1.9] text-slate-500 italic">
             {translator && (
               <p>
-                <strong className="font-bold text-teal-700">Chuyển ngữ:</strong>{" "}
+                <strong className="font-bold text-teal-700">
+                  {t("translator")}:
+                </strong>{" "}
                 {translator}
               </p>
             )}
             {source?.name && (
               <p>
-                <strong className="font-bold text-teal-700">Nguồn:</strong>{" "}
+                <strong className="font-bold text-teal-700">
+                  {t("source")}:
+                </strong>{" "}
                 {sourceUrl ? (
                   <a
                     href={sourceUrl}

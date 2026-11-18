@@ -1,6 +1,7 @@
 import AppMarkdown from "@/components/app-markdown";
 import { DominicanSpiritualityBlock } from "@/payload-types";
 import { stripWrappingQuotes } from "@/utils/quote";
+import { useTranslations } from "next-intl";
 
 interface Props {
   block: DominicanSpiritualityBlock;
@@ -19,6 +20,7 @@ const HEADING_CLASS_NAME =
   "mt-8 mb-4 text-center text-2xl leading-[1.35] font-bold text-orange-600 uppercase md:text-[1.9rem]";
 
 export default function DominicanSpiritualityView({ block }: Props) {
+  const t = useTranslations("postTemplates");
   const {
     reflectionTitle,
     theme,
@@ -61,7 +63,7 @@ export default function DominicanSpiritualityView({ block }: Props) {
 
       <footer className="mt-8 text-right text-[1.05rem] italic md:text-lg">
         <p>
-          <strong className="font-bold">Tác giả:</strong> {author}
+          <strong className="font-bold">{t("author")}:</strong> {author}
         </p>
         {authorAffiliation && <p>{authorAffiliation}</p>}
       </footer>

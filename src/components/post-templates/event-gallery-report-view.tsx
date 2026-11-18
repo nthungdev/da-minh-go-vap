@@ -4,6 +4,7 @@ import LightboxModal from "@/components/post-templates/shared/lightbox-modal";
 import { EventGalleryReportBlock, Media } from "@/payload-types";
 import { transformUrl } from "@/utils/cloudflare";
 import { cn } from "@/utils/common";
+import { useTranslations } from "next-intl";
 
 interface Props {
   block: EventGalleryReportBlock;
@@ -34,13 +35,14 @@ function PhotoFigure({
   photo: Photo;
   sizes?: string;
 }) {
+  const t = useTranslations("postTemplates");
   const media =
     typeof photo.image === "object" && photo.image !== null
       ? (photo.image as Media)
       : null;
   if (!media?.url) return null;
 
-  const alt = media.alt || photo.caption || "Ảnh sự kiện";
+  const alt = media.alt || photo.caption || t("eventPhotoAlt");
   const hasDimensions = Boolean(media.width && media.height);
 
   return (
