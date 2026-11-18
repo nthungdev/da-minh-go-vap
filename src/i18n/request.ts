@@ -1,11 +1,13 @@
-import { defaultLocale } from "@/i18n/config";
-import { Locale } from "next-intl";
+import { defaultLocale, locales } from "@/i18n/config";
+import { hasLocale } from "next-intl";
 import { getRequestConfig } from "next-intl/server";
 import { cookies } from "next/headers";
 
 export default getRequestConfig(async () => {
   const store = await cookies();
-  const locale = (store.get("locale")?.value as Locale) || defaultLocale;
+  const requested = store.get("locale")?.value;
+  // The cookie is client-controlled; an unknown value would break the dynamic messages import.
+  const locale = hasLocale(locales, requested) ? requested : defaultLocale;
 
   return {
     locale,
