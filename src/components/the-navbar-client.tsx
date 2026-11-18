@@ -1,7 +1,9 @@
 "use client";
 
 import { MenuItem } from "@/utils/menu";
+import type { MenuCategoryPosts } from "@/utils/menu-category-posts";
 import type { Media } from "@/payload-types";
+import { transformUrl } from "@/utils/cloudflare";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -38,9 +40,15 @@ import { getMenuIconSrc } from "@/definitions/menu-icons";
 interface TheNavbarClientProps {
   menu: MenuItem[];
   logo?: Media | null;
+  /** Pending mega-menu posts; resolved inside a Suspense boundary. */
+  categoryPostsPromise: Promise<MenuCategoryPosts>;
 }
 
-export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
+export default function TheNavbarClient({
+  menu,
+  logo,
+  categoryPostsPromise,
+}: TheNavbarClientProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
 
@@ -60,7 +68,7 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
             {typeof logo?.url === "string" ? (
               <div className="relative h-10 w-10">
                 <Image
-                  src={logo.url}
+                  src={transformUrl(logo.url)}
                   alt={logo.alt || "Logo"}
                   fill
                   className="object-contain"
@@ -79,12 +87,10 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
             <div className="relative z-20 hidden h-16 w-20 self-start lg:block">
               <div className="absolute top-[20%] left-0 size-20 overflow-auto">
                 <Image
-                  src={logo.url}
+                  src={transformUrl(logo.url)}
                   alt={logo.alt || "Logo"}
-                  quality={100}
-                  sizes="100%"
+                  sizes="80px"
                   fill
-                  priority
                 />
               </div>
             </div>
@@ -128,7 +134,11 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                           ) : null}
                         </NavigationMenuTrigger>
                         <NavigationMenuContent className="rounded-xl border-none text-gray-900 shadow-lg">
-                          <MenuLayoutRenderer item={item} pathname={pathname} />
+                          <MenuLayoutRenderer
+                            item={item}
+                            pathname={pathname}
+                            categoryPostsPromise={categoryPostsPromise}
+                          />
                         </NavigationMenuContent>
                       </>
                     ) : item.absoluteHref ? (
@@ -223,7 +233,7 @@ export default function TheNavbarClient({ menu, logo }: TheNavbarClientProps) {
                   {typeof logo?.url === "string" ? (
                     <div className="relative h-12 w-12 shrink-0">
                       <Image
-                        src={logo.url}
+                        src={transformUrl(logo.url)}
                         alt={logo.alt || "Logo"}
                         fill
                         className="object-contain"

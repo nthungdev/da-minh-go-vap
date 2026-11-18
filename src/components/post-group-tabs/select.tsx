@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
-import { twMerge } from "tailwind-merge";
+import { cn } from "@/utils/common";
 
 interface PostGroupTabsSelectOption {
   value: string;
@@ -17,59 +17,91 @@ interface PostGroupTabsSelectProps {
 }
 
 export default function PostGroupTabsSelect(props: PostGroupTabsSelectProps) {
-  const [open, setOpen] = useState(false);
   const { id, className, activeIndex, options, onChange } = props;
+  const [isOpen, setIsOpen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const menuId = `${id}-menu`;
 
-  async function handleToggle() {
-    const dropdownElement = document.querySelector<HTMLElement>(`#${id}`);
-    if (!dropdownElement) {
-      console.log("dropdown not found");
-      return;
-    }
-    const { HSDropdown } = await import("preline/preline");
+  useEffect(() => {
+    if (!isOpen) return;
 
-    if (open) {
-      setOpen(false);
-      HSDropdown.close(dropdownElement);
-    } else {
-      setOpen(true);
-      HSDropdown.open(dropdownElement);
-    }
-  }
+    const handlePointerDown = (event: PointerEvent) => {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false);
+      }
+    };
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsOpen(false);
+        triggerRef.current?.focus();
+      }
+    };
+
+    document.addEventListener("pointerdown", handlePointerDown);
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("pointerdown", handlePointerDown);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isOpen]);
 
   return (
     <div
+      ref={containerRef}
       id={id}
-      className={twMerge("hs-dropdown relative inline-flex", className)}
+      className={cn("relative inline-flex", className)}
     >
       <button
+        ref={triggerRef}
         type="button"
-        className="hs-dropdown-toggle inline-flex cursor-pointer items-center justify-center gap-x-2 p-1"
-        aria-expanded="false"
+        className="inline-flex cursor-pointer items-center justify-center gap-x-2 p-1"
+        aria-haspopup="menu"
+        aria-expanded={isOpen}
+        aria-controls={menuId}
         aria-label="Menu"
-        onClick={handleToggle}
+        onClick={() => setIsOpen((prev) => !prev)}
       >
-        {open ? <MdKeyboardArrowUp /> : <MdKeyboardArrowDown />}
+        {isOpen ? <MdKeyboardArrowUp /> : <MdKeyboardArrowDown />}
       </button>
 
-      <div
-        className="hs-dropdown-menu duration hs-dropdown-open:opacity-100 z-10 mt-2 hidden rounded-md bg-white p-2 text-black opacity-0 shadow-2xl/20 transition-[opacity,margin]"
-        role="menu"
-        aria-labelledby={id}
-      >
-        {options.map((option, index) => (
-          <li
-            key={index}
-            className={twMerge(
-              "block cursor-pointer rounded-sm px-2 py-1 hover:bg-gray-100",
-              index === activeIndex && "font-bold",
-            )}
-            onClick={() => onChange?.(index)}
-          >
-            {option.value}
-          </li>
-        ))}
-      </div>
+      {isOpen && (
+        <ul
+          id={menuId}
+          className="absolute end-0 top-full z-10 mt-2 min-w-44 rounded-md bg-white p-2 text-black shadow-2xl/20"
+          role="menu"
+          aria-labelledby={id}
+        >
+          {options.map((option, index) => (
+            <li
+              key={index}
+              role="menuitem"
+              tabIndex={0}
+              className={cn(
+                "block cursor-pointer rounded-sm px-2 py-1 hover:bg-gray-100",
+                index === activeIndex && "font-bold",
+              )}
+              onClick={() => {
+                onChange?.(index);
+                setIsOpen(false);
+              }}
+              onKeyDown={(event) => {
+                if (event.key === "Enter" || event.key === " ") {
+                  event.preventDefault();
+                  onChange?.(index);
+                  setIsOpen(false);
+                }
+              }}
+            >
+              {option.value}
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }

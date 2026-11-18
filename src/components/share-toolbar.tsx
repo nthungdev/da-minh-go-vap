@@ -1,5 +1,5 @@
 import CopyButton from "@/components/copy-button";
-import { getMessages } from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 import Link from "next/link";
 import { HTMLAttributes } from "react";
 import { FaViber } from "react-icons/fa";
@@ -25,11 +25,11 @@ export default async function ShareToolbar({
   // Facebook doesn't seem to recognize localhost url, so it won't work in local
   const facebookHref = buildFacebookShareUrl(shareUrl);
 
-  const messages = await getMessages();
+  const t = await getTranslations("shareToolbar");
 
   return (
     <div className={className}>
-      <div>{messages.shareToolbar.title}</div>
+      <div>{t("title")}</div>
       <div className={twMerge("mt-1 flex flex-row gap-2")}>
         <CopyButton
           text={shareUrl}

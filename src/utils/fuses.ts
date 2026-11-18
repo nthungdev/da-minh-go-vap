@@ -1,6 +1,6 @@
 import { AppPost } from "@/definitions";
 import { Locale } from "@/i18n/config";
-import { postToAppPost } from "@/utils/post";
+import { postToCardAppPost } from "@/utils/post";
 import { queryAllPosts } from "@/utils/post-server";
 import Fuse from "fuse.js";
 
@@ -21,7 +21,7 @@ class Fuses {
   async getPostFuse() {
     if (!this.postFuse) {
       const q = await queryAllPosts({ limit: 9999 });
-      const posts = q.docs.map(postToAppPost);
+      const posts = q.docs.map(postToCardAppPost);
       this.postFuse = new Fuse(posts, { keys: ["title"] });
     }
     return this.postFuse;
@@ -30,7 +30,7 @@ class Fuses {
   async getPostFuseByLocale(locale: Locale) {
     if (!this.postFuses[locale]) {
       const q = await queryAllPosts({ limit: 9999, locale });
-      const posts = q.docs.map(postToAppPost);
+      const posts = q.docs.map(postToCardAppPost);
       this.postFuses[locale] = new Fuse(posts, { keys: ["title"] });
     }
     return this.postFuses[locale];
