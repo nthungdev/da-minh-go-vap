@@ -175,6 +175,16 @@ function getListContentOffset(line: string): number | null {
   return getIndentWidth(leading) + marker.length + getIndentWidth(gap);
 }
 
+function isIndentedBlockSyntax(spaces: string, rest: string): boolean {
+  if (getIndentWidth(spaces) > 3) return false;
+  // CommonMark allows 0-3 leading spaces for ATX headings, thematic breaks, and GFM tables.
+  return (
+    /^#{1,6}(?:\s|$)/.test(rest) ||
+    /^(?:(?:-\s*){3,}|(?:\*\s*){3,}|(?:_\s*){3,})$/.test(rest) ||
+    rest.startsWith("|")
+  );
+}
+
 /**
  * Preprocesses markdown text to preserve intentional leading indentation spaces
  * and whitespace in paragraphs without triggering CommonMark indented code blocks.
@@ -274,6 +284,10 @@ export function preserveMarkdownWhitespace(content: string): string {
         }
         listContentOffset = null;
         sawBlankLineInList = false;
+      }
+
+      if (isIndentedBlockSyntax(spaces, rest)) {
+        return line;
       }
 
       return `${convertLeadingSpacesToNbsp(spaces)}${rest}`;
