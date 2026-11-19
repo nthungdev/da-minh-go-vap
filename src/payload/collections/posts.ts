@@ -7,7 +7,7 @@ import {
   publishedAtField,
   videoSourceFields,
 } from "@/payload/fields";
-import { postsReadAccess } from "@/payload/utils/access-control";
+import { onlyRoles, postsReadAccess } from "@/payload/utils/access-control";
 import { buildPostPreviewUrl } from "@/payload/utils/config";
 import { revalidatePath, slugify } from "@/payload/utils/data";
 import Fuses from "@/utils/fuses";
@@ -34,6 +34,9 @@ const Posts: CollectionConfig = {
   },
   access: {
     read: postsReadAccess,
+    create: onlyRoles(["admin", "manager", "editor", "author"]),
+    update: onlyRoles(["admin", "manager", "editor"]),
+    delete: onlyRoles(["admin", "manager"]),
   },
   admin: {
     useAsTitle: "title",
