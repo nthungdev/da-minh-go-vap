@@ -1,3 +1,13 @@
+const DEFAULT_CACHE_TAGS = [
+  "pages",
+  "posts",
+  "globals",
+  "navBar",
+  "footer",
+  "siteSettings",
+  "hiddenTags",
+] as const;
+
 export function isDataValid<T extends object>(
   data: string | T | null | undefined,
 ) {
@@ -23,24 +33,37 @@ export function slugify(str: string): string {
 }
 
 /**
- * Revalidates Next.js cache for the given path.
+ * Revalidates Next.js route and data cache tags for the given path.
  *
- * Calls the internal revalidate endpoint with fallback to localhost or NEXT_PUBLIC_BASE_URL.
+ * Calls the internal `/api/revalidate` endpoint with fallback to localhost or NEXT_PUBLIC_BASE_URL.
  *
  * @param path - The route path to revalidate.
+ * @param tags - Cache tags to invalidate alongside the path.
  */
-export async function revalidatePath(path: string) {
+export async function revalidatePath(
+  path: string,
+  tags: readonly string[] = DEFAULT_CACHE_TAGS,
+) {
   const baseUrl =
     process.env.NEXT_PUBLIC_BASE_URL ||
     `http://127.0.0.1:${process.env.PORT || 3000}`;
+  const secret = process.env.REVALIDATION_SECRET;
+  if (!secret) {
+    console.error(
+      "REVALIDATION_SECRET is not configured; skipping revalidation for path:",
+      path,
+    );
+    return;
+  }
+
   try {
     const res = await fetch(`${baseUrl}/api/revalidate`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "x-revalidation-secret": process.env.REVALIDATION_SECRET || "",
+        "x-revalidation-secret": secret,
       },
-      body: JSON.stringify({ path }),
+      body: JSON.stringify({ path, tags }),
     });
     if (!res.ok) {
       console.error(

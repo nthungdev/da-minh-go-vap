@@ -2,6 +2,7 @@
 
 import type { PostParams } from "@/definitions";
 import { transformUrl } from "@/utils/cloudflare";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
 import { twMerge } from "tailwind-merge";
@@ -15,6 +16,7 @@ export default function AppPostGridSix({
   posts,
   className,
 }: AppPostGridFiveProps) {
+  const t = useTranslations("common");
   const cellClasses: Record<number, string> = {
     0: "",
     1: "row-start-2 col-start-1",
@@ -50,7 +52,7 @@ export default function AppPostGridSix({
                     src={transformUrl(post.thumbnail.url)}
                     fill
                     sizes="100%"
-                    alt={`${post.title}'s thumbnail`}
+                    alt={t("thumbnailAlt", { title: post.title })}
                   />
                 )}
             </div>
@@ -58,7 +60,9 @@ export default function AppPostGridSix({
               <h2 className="block truncate text-center text-xl">
                 {post.title}
               </h2>
-              <button className="block w-full text-center">Xem tiếp...</button>
+              <button className="block w-full text-center">
+                {t("viewMore")}...
+              </button>
             </div>
 
             <div className="group absolute top-0 left-0 hidden size-full hover:cursor-pointer md:block">

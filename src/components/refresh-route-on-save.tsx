@@ -1,25 +1,32 @@
 "use client";
 
-import { RefreshRouteOnSave as PayloadLivePreview } from "@payloadcms/live-preview-react";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { ComponentType, useEffect, useState } from "react";
+
+interface LivePreviewProps {
+  refresh: () => void;
+  serverURL: string;
+}
 
 export default function RefreshRouteOnSave() {
   const router = useRouter();
   const [serverURL, setServerURL] = useState<string>("");
+  const [LivePreview, setLivePreview] =
+    useState<ComponentType<LivePreviewProps> | null>(null);
 
   useEffect(() => {
+    if (window.self === window.top) {
+      return;
+    }
     setServerURL(window.location.origin);
+    import("@payloadcms/live-preview-react").then((mod) => {
+      setLivePreview(() => mod.RefreshRouteOnSave);
+    });
   }, []);
 
-  if (!serverURL) {
+  if (!serverURL || !LivePreview) {
     return null;
   }
 
-  return (
-    <PayloadLivePreview
-      refresh={() => router.refresh()}
-      serverURL={serverURL}
-    />
-  );
+  return <LivePreview refresh={() => router.refresh()} serverURL={serverURL} />;
 }

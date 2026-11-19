@@ -49,6 +49,10 @@ export function getRequestOrigin(request: Request | NextRequest): string {
  * @returns Fully qualified origin string with protocol.
  */
 export async function getServerOrigin(): Promise<string> {
+  if (process.env.NEXT_PUBLIC_BASE_URL) {
+    return process.env.NEXT_PUBLIC_BASE_URL;
+  }
+
   try {
     const headerList = await headers();
     const forwardedHost = headerList.get("x-forwarded-host");
@@ -111,4 +115,11 @@ export function isValidNextUrl(url: unknown): url is string {
   } catch {
     return false;
   }
+}
+
+/** Canonical public site origin without a trailing slash, for robots.txt and the sitemap. */
+export function getSiteUrl(): string {
+  return (
+    process.env.NEXT_PUBLIC_BASE_URL || "https://dongdaminhgovap.org"
+  ).replace(/\/+$/, "");
 }
