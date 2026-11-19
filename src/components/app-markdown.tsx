@@ -158,8 +158,21 @@ function convertLeadingSpacesToNbsp(spaces: string): string {
     .replace(/\t/g, "\u00A0\u00A0\u00A0\u00A0");
 }
 
-function isListItemLine(text: string): boolean {
-  return /^[-*+]\s+/.test(text) || /^\d+[.)]\s+/.test(text);
+function getIndentWidth(spaces: string): number {
+  let width = 0;
+  for (const ch of spaces) {
+    width += ch === "\t" ? 4 : 1;
+  }
+  return width;
+}
+
+function getListContentOffset(line: string): number | null {
+  const match = line.match(/^([ \t]*)([-*+]|\d+[.)])([ \t]+)(.*)$/);
+  if (!match) return null;
+  const leading = match[1] ?? "";
+  const marker = match[2] ?? "";
+  const gap = match[3] ?? "";
+  return getIndentWidth(leading) + marker.length + getIndentWidth(gap);
 }
 
 /**
@@ -179,7 +192,8 @@ export function preserveMarkdownWhitespace(content: string): string {
 
   const lines = content.split("\n");
   let activeFence: { char: string; length: number } | null = null;
-  let inListContext = false;
+  let listContentOffset: number | null = null;
+  let sawBlankLineInList = false;
 
   const processedLines = lines.map((line) => {
     const trimmed = line.trimStart();
@@ -208,10 +222,11 @@ export function preserveMarkdownWhitespace(content: string): string {
       return line;
     }
 
-    // Do not transform empty or whitespace-only lines; reset list context so
-    // an indented paragraph after a blank line still preserves its indentation.
+    // Do not transform empty or whitespace-only lines
     if (!line.trim()) {
-      inListContext = false;
+      if (listContentOffset !== null) {
+        sawBlankLineInList = true;
+      }
       return line;
     }
 
@@ -219,7 +234,8 @@ export function preserveMarkdownWhitespace(content: string): string {
     // so additional leading indentation in `rest` is preserved.
     const blockquoteMatch = line.match(/^(\s*(?:> ?)+)(.*)$/);
     if (blockquoteMatch) {
-      inListContext = false;
+      listContentOffset = null;
+      sawBlankLineInList = false;
       const prefix = blockquoteMatch[1] ?? "";
       const rest = blockquoteMatch[2] ?? "";
       const leadingSpacesMatch = rest.match(/^([ \t]+)(.*)$/);
@@ -231,26 +247,35 @@ export function preserveMarkdownWhitespace(content: string): string {
       return line;
     }
 
+    const itemOffset = getListContentOffset(line);
+    if (itemOffset !== null) {
+      listContentOffset = itemOffset;
+      sawBlankLineInList = false;
+      return line;
+    }
+
     // Check for leading spaces/tabs on regular lines
     const leadingSpacesMatch = line.match(/^([ \t]+)(.*)$/);
     if (leadingSpacesMatch) {
       const spaces = leadingSpacesMatch[1] ?? "";
       const rest = leadingSpacesMatch[2] ?? "";
 
-      // Keep standard markdown list indentation and list item continuations intact
-      if (isListItemLine(rest)) {
-        inListContext = true;
-        return line;
-      }
-
-      if (inListContext) {
-        return line;
+      if (listContentOffset !== null) {
+        const indentWidth = getIndentWidth(spaces);
+        // Preserve tight list continuations or loose-list paragraphs aligned with the item's content offset.
+        if (!sawBlankLineInList || indentWidth === listContentOffset) {
+          sawBlankLineInList = false;
+          return line;
+        }
+        listContentOffset = null;
+        sawBlankLineInList = false;
       }
 
       return `${convertLeadingSpacesToNbsp(spaces)}${rest}`;
     }
 
-    inListContext = isListItemLine(line);
+    listContentOffset = null;
+    sawBlankLineInList = false;
     return line;
   });
 
