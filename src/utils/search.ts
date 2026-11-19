@@ -9,6 +9,36 @@ export interface PopulatedTagLike {
   isPublic?: boolean | null;
 }
 
+export interface SearchTagOption {
+  id: string;
+  tagId: string;
+  label: string;
+}
+
+export interface RawSearchTagDoc {
+  id: string;
+  label?: string | null;
+  tag?: string | { id: string; label?: string | null } | null;
+}
+
+/**
+ * Normalizes Payload `searchTags` documents into pill options, skipping any
+ * entries with unpopulated or empty tag references.
+ */
+export function resolveSearchTagOptions(
+  docs: RawSearchTagDoc[],
+): SearchTagOption[] {
+  const options: SearchTagOption[] = [];
+  for (const doc of docs) {
+    if (!doc.tag || typeof doc.tag !== "object") continue;
+    const tagId = doc.tag.id;
+    const label = doc.label?.trim() || doc.tag.label?.trim() || "";
+    if (!tagId || !label) continue;
+    options.push({ id: doc.id, tagId, label });
+  }
+  return options;
+}
+
 export const RECENT_SEARCHES_STORAGE_KEY = "daminh_recent_searches";
 export const MAX_RECENT_SEARCHES = 5;
 
