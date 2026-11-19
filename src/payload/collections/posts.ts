@@ -1,4 +1,3 @@
-import { locales } from "@/i18n/config";
 import { Post } from "@/payload-types";
 import { pageBlocks } from "@/payload/blocks";
 import { postTemplates } from "@/payload/blocks/post-templates";
@@ -10,8 +9,6 @@ import {
 import { onlyRoles, postsReadAccess } from "@/payload/utils/access-control";
 import { buildPostPreviewUrl } from "@/payload/utils/config";
 import { revalidatePath, slugify } from "@/payload/utils/data";
-import Fuses from "@/utils/fuses";
-import { postToCardAppPost } from "@/utils/post";
 import { validateSlug } from "@/utils/slug";
 import type {
   CollectionAfterChangeHook,
@@ -274,26 +271,16 @@ const Posts: CollectionConfig = {
     },
   ],
   hooks: {
-    afterChange: [updateFuse],
+    afterChange: [revalidatePost],
   },
 };
 
-async function updateFuse({
+async function revalidatePost({
   doc,
-  operation,
 }: Parameters<CollectionAfterChangeHook<Post>>[0]) {
-  locales.forEach(async (locale) => {
-    const post = postToCardAppPost(doc);
-    if (operation === "create") {
-      Fuses.instance.addPost(post, locale);
-    } else if (operation === "update") {
-      Fuses.instance.replacePost(post, locale);
-    }
-  });
   await revalidatePath(`/posts/${doc.slug}`, ["posts", "navBar", "pages"]);
   await revalidatePath("/", ["posts", "navBar", "pages"]);
 }
-
 function duplicateTitle({ value }: FieldHookArgs): ReturnType<FieldHook> {
   return `[Duplicate] ${value}`;
 }
