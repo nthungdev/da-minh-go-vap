@@ -1,20 +1,15 @@
 "use client";
 
+import Image from "next/image";
+import { useLocale, useTranslations } from "next-intl";
 import {
-  ChangeEventHandler,
-  FormEvent,
+  type ChangeEventHandler,
+  type FormEvent,
   useReducer,
   useRef,
   useState,
 } from "react";
-import SearchIcon from "@/public/svgs/search.svg";
 import { searchPosts } from "@/actions/search";
-import AppPostListItem from "./app-post-list-item";
-import Image from "next/image";
-import { AppPost } from "@/definitions";
-import { cn } from "@/utils/common";
-import { useLocale, useTranslations } from "next-intl";
-import { Locale } from "@/i18n/config";
 import {
   Dialog,
   DialogContent,
@@ -22,6 +17,11 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import type { AppPost } from "@/definitions";
+import type { Locale } from "@/i18n/config";
+import SearchIcon from "@/public/svgs/search.svg";
+import { cn } from "@/utils/common";
+import AppPostListItem from "./app-post-list-item";
 
 type SearchState =
   | { status: "idle"; query: string }

@@ -17,15 +17,15 @@
  *   pnpm s3:restore ./media --env production --dry-run
  */
 
+import { execFileSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
 import readline from "node:readline";
-import { execFileSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import {
-  S3Client,
   ListObjectsV2Command,
   PutObjectCommand,
+  S3Client,
 } from "@aws-sdk/client-s3";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -85,7 +85,7 @@ function formatBytes(bytes) {
   const k = 1024;
   const sizes = ["B", "KB", "MB", "GB", "TB"];
   const i = Math.floor(Math.log(bytes) / Math.log(k));
-  return `${parseFloat((bytes / Math.pow(k, i)).toFixed(2))} ${sizes[i]}`;
+  return `${parseFloat((bytes / k ** i).toFixed(2))} ${sizes[i]}`;
 }
 
 /**
@@ -441,7 +441,7 @@ async function main() {
     process.exit(1);
   }
 
-  if (!accessKeyId || !secretAccessKey) {
+  if (!(accessKeyId && secretAccessKey)) {
     console.error("❌ Error: S3 credentials are missing.");
     console.error("Please set S3_ACCESS_KEY_ID and S3_SECRET in your .env.");
     process.exit(1);
@@ -546,7 +546,7 @@ async function main() {
   console.log(`========================================\n`);
 
   // Confirmation safety check
-  if (!options.yes && !options.dryRun) {
+  if (!(options.yes || options.dryRun)) {
     const confirmed = await confirmPrompt(
       `⚠️ Are you sure you want to restore ${filesToUpload.length} files to bucket '${bucket}'?`,
     );
@@ -571,7 +571,7 @@ async function main() {
   // Step 1: Query existing objects in the bucket to skip identical files
   console.log(`⏳ Querying existing objects in bucket '${bucket}'...`);
   const existingBucketKeys = new Map(); // key -> size
-  let continuationToken = undefined;
+  let continuationToken;
 
   try {
     do {

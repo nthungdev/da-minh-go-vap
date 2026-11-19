@@ -1,13 +1,13 @@
 "use client";
 
-import { NavigationMenuLink } from "@/components/ui/navigation-menu";
-import { cn } from "@/utils/common";
-import { MenuItem } from "@/utils/menu";
 import { ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { getMenuIconSrc } from "@/definitions/menu-icons";
 import { Suspense, useState } from "react";
+import { NavigationMenuLink } from "@/components/ui/navigation-menu";
+import { getMenuIconSrc } from "@/definitions/menu-icons";
+import { cn } from "@/utils/common";
+import type { MenuItem } from "@/utils/menu";
 import type { MenuCategoryPosts } from "@/utils/menu-category-posts";
 import { getCategoryPostsKey } from "@/utils/streaming";
 import {

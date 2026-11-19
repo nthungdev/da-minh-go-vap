@@ -1,8 +1,8 @@
 import Image from "next/image";
-import AppMarkdown from "@/components/app-markdown";
-import { Media, SaintBiographyBlock } from "@/payload-types";
-import { transformUrl } from "@/utils/cloudflare";
 import { useTranslations } from "next-intl";
+import AppMarkdown from "@/components/app-markdown";
+import type { Media, SaintBiographyBlock } from "@/payload-types";
+import { transformUrl } from "@/utils/cloudflare";
 
 interface Props {
   block: SaintBiographyBlock;

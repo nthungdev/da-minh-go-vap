@@ -1,7 +1,7 @@
-import { BilingualQuoteCardBlock } from "@/payload-types";
+import { useTranslations } from "next-intl";
+import type { BilingualQuoteCardBlock } from "@/payload-types";
 import { cn } from "@/utils/common";
 import { stripWrappingQuotes } from "@/utils/quote";
-import { useTranslations } from "next-intl";
 
 interface Props {
   block: BilingualQuoteCardBlock;

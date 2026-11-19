@@ -1,10 +1,10 @@
+import { getLocale } from "next-intl/server";
+import type { Locale } from "@/i18n/config";
 import { getLogo } from "@/payload/utils/site-settings-server";
+import { cn } from "@/utils/common";
 import { getMenu } from "@/utils/menu";
 import { getMenuCategoryPosts } from "@/utils/menu-category-posts";
-import { getLocale } from "next-intl/server";
-import { cn } from "@/utils/common";
 import TheNavbarClient from "./the-navbar-client";
-import { Locale } from "@/i18n/config";
 
 export default async function TheNavbar(
   props: React.HTMLAttributes<HTMLElement>,

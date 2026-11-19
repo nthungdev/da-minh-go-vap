@@ -1,9 +1,9 @@
-import { Page } from "@/payload-types";
+import type { CollectionConfig } from "payload";
 import AccordionContentBlock from "@/payload/blocks/AccordionContentBlock";
 import BibleVerseBlock from "@/payload/blocks/BibleVerseBlock";
 import DynamicImageBlock from "@/payload/blocks/DynamicImageBlock";
-import ImageSlideshowBlock from "@/payload/blocks/image-slideshow-block";
 import ImageBlock from "@/payload/blocks/ImageBlock";
+import ImageSlideshowBlock from "@/payload/blocks/image-slideshow-block";
 import LatestPostGridBlock from "@/payload/blocks/LatestPostGridBlock";
 import LinksBlock from "@/payload/blocks/links-block";
 import MapBlock from "@/payload/blocks/MapBlock";
@@ -20,7 +20,7 @@ import { publishedAtField } from "@/payload/fields";
 import { onlyRoles } from "@/payload/utils/access-control";
 import { buildPagePreviewUrl } from "@/payload/utils/config";
 import { revalidatePath } from "@/payload/utils/data";
-import type { CollectionConfig } from "payload";
+import type { Page } from "@/payload-types";
 
 const Pages: CollectionConfig = {
   slug: "pages",
@@ -226,7 +226,7 @@ const Pages: CollectionConfig = {
   ],
   hooks: {
     afterChange: [
-      async function ({ doc }: { doc: Page }) {
+      async ({ doc }: { doc: Page }) => {
         await revalidatePath(doc.path);
       },
     ],

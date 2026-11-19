@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
 import { X } from "lucide-react";
+import Image from "next/image";
+import { useTranslations } from "next-intl";
+import { useEffect, useRef, useState } from "react";
 import { transformUrl } from "@/utils/cloudflare";
 import { cn } from "@/utils/common";
-import { useTranslations } from "next-intl";
 
 interface LightboxModalProps {
   src: string;

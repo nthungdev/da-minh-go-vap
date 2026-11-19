@@ -1,8 +1,7 @@
 import { NavigationMenu as NavigationMenuPrimitive } from "@base-ui/react/navigation-menu";
 import { cva } from "class-variance-authority";
-
-import { cn } from "@/utils/common";
 import { ChevronDownIcon } from "lucide-react";
+import { cn } from "@/utils/common";
 
 function NavigationMenu({
   align = "center",
@@ -165,7 +164,7 @@ export {
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
+  NavigationMenuPositioner,
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
-  NavigationMenuPositioner,
 };

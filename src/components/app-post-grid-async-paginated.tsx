@@ -1,15 +1,15 @@
 "use client";
 
-import { fetchPostsByHiddenTags, fetchPostsByPublicTag } from "@/actions/post";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { Suspense, useCallback, useRef, useState } from "react";
-import AppPostGridSkeleton from "./app-post-grid-skeleton";
-import { AppPost } from "@/definitions";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useLocale } from "next-intl";
+import { Suspense, useCallback, useRef, useState } from "react";
+import { fetchPostsByHiddenTags, fetchPostsByPublicTag } from "@/actions/post";
 import AppPostGrid from "@/components/app-post-grid";
 import PaginationPanel from "@/components/pagination-panel";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import type { AppPost } from "@/definitions";
 import { cn } from "@/utils/common";
+import AppPostGridSkeleton from "./app-post-grid-skeleton";
 
 const DEFAULT_PAGE_SIZE = 12;
 

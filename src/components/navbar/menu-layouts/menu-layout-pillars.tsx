@@ -1,11 +1,11 @@
-import { NavigationMenuLink } from "@/components/ui/navigation-menu";
-import { cn } from "@/utils/common";
-import { MenuItem } from "@/utils/menu";
 import { ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { NavigationMenuLink } from "@/components/ui/navigation-menu";
 import { getMenuIconSrc } from "@/definitions/menu-icons";
 import { transformUrl } from "@/utils/cloudflare";
+import { cn } from "@/utils/common";
+import type { MenuItem } from "@/utils/menu";
 
 interface MenuLayoutPillarsProps {
   item: MenuItem;

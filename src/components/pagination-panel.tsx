@@ -1,4 +1,4 @@
-import { HTMLAttributes } from "react";
+import type { HTMLAttributes } from "react";
 import { IoIosSkipBackward, IoIosSkipForward } from "react-icons/io";
 import {
   MdOutlineArrowBackIosNew,

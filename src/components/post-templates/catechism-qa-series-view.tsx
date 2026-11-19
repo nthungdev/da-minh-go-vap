@@ -1,5 +1,5 @@
 import AppMarkdown from "@/components/app-markdown";
-import { CatechismQASeriesBlock } from "@/payload-types";
+import type { CatechismQASeriesBlock } from "@/payload-types";
 
 interface Props {
   block: CatechismQASeriesBlock;

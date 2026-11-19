@@ -1,10 +1,10 @@
+import { ChevronDown } from "lucide-react";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import AppMarkdown from "@/components/app-markdown";
 import SpotifyEmbed from "@/components/post-templates/shared/spotify-embed";
-import { GospelReflectionCardBlock, Media } from "@/payload-types";
+import type { GospelReflectionCardBlock, Media } from "@/payload-types";
 import { transformUrl } from "@/utils/cloudflare";
-import { ChevronDown } from "lucide-react";
-import { useTranslations } from "next-intl";
 
 interface Props {
   block: GospelReflectionCardBlock;

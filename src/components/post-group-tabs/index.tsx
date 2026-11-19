@@ -1,11 +1,11 @@
 "use client";
 
-import PostGroupTabsPanel from "@/components/post-group-tabs/panel";
-import PostGroupTabsSelect from "@/components/post-group-tabs/select";
-import { Page } from "@/payload-types";
-import { AppPost } from "@/definitions";
 import { useTranslations } from "next-intl";
 import { useId, useState } from "react";
+import PostGroupTabsPanel from "@/components/post-group-tabs/panel";
+import PostGroupTabsSelect from "@/components/post-group-tabs/select";
+import type { AppPost } from "@/definitions";
+import type { Page } from "@/payload-types";
 import { cn } from "@/utils/common";
 
 interface PostGroupTabsProps extends React.HTMLAttributes<HTMLDivElement> {

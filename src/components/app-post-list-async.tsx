@@ -1,11 +1,11 @@
 "use client";
 
+import { useQuery } from "@tanstack/react-query";
+import { useLocale } from "next-intl";
 import { fetchPostsByHiddenTags } from "@/actions/post";
 import AppPostCard from "@/components/app-post-card";
 import AppSectionHeader from "@/components/app-section-header";
-import { AppPost } from "@/definitions";
-import { useQuery } from "@tanstack/react-query";
-import { useLocale } from "next-intl";
+import type { AppPost } from "@/definitions";
 
 interface AppPostListAsyncProps {
   hiddenTags: string[];

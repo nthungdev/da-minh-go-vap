@@ -1,9 +1,9 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 import { cn } from "@/utils/common";
-import { useTranslations } from "next-intl";
 
 interface PostGroupTabsSelectOption {
   value: string;

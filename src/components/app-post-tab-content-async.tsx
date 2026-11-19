@@ -1,16 +1,16 @@
 "use client";
 
-import React from "react";
-import AppPostGrid from "./app-post-grid";
-import { cn } from "@/utils/common";
-import { Page } from "@/payload-types";
-import AppViewMoreLink from "@/components/app-view-more-link";
-import { getDataOrUndefined } from "@/payload/utils/data";
-import { fetchPostsByHiddenTags } from "@/actions/post";
 import { useQuery } from "@tanstack/react-query";
-import { makePostsPath } from "@/utils/post";
-import Spinner from "@/components/spinner";
 import { useLocale } from "next-intl";
+import type React from "react";
+import { fetchPostsByHiddenTags } from "@/actions/post";
+import AppViewMoreLink from "@/components/app-view-more-link";
+import Spinner from "@/components/spinner";
+import { getDataOrUndefined } from "@/payload/utils/data";
+import type { Page } from "@/payload-types";
+import { cn } from "@/utils/common";
+import { makePostsPath } from "@/utils/post";
+import AppPostGrid from "./app-post-grid";
 
 const POST_COUNT = 6;
 

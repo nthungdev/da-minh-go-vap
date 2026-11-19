@@ -72,7 +72,7 @@ export default function KeywordTooltipHelper({
     event.stopPropagation();
     const editor = editorRef.current;
     const selection = selectionRef.current;
-    if (!editor || !selection) return;
+    if (!(editor && selection)) return;
 
     const markup = buildKeywordMarkup({
       phrase: form.phrase,

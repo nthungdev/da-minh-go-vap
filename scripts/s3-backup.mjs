@@ -17,16 +17,16 @@
  *   node scripts/s3-backup.mjs --prefix media/ --out ./my-backups
  */
 
+import { execFileSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
-import { pipeline } from "node:stream/promises";
 import { Readable } from "node:stream";
-import { execFileSync } from "node:child_process";
+import { pipeline } from "node:stream/promises";
 import { fileURLToPath } from "node:url";
 import {
-  S3Client,
-  ListObjectsV2Command,
   GetObjectCommand,
+  ListObjectsV2Command,
+  S3Client,
 } from "@aws-sdk/client-s3";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -42,7 +42,7 @@ function formatBytes(bytes) {
   const k = 1024;
   const sizes = ["B", "KB", "MB", "GB", "TB"];
   const i = Math.floor(Math.log(bytes) / Math.log(k));
-  return `${parseFloat((bytes / Math.pow(k, i)).toFixed(2))} ${sizes[i]}`;
+  return `${parseFloat((bytes / k ** i).toFixed(2))} ${sizes[i]}`;
 }
 
 /**
@@ -246,7 +246,7 @@ function parseArgs() {
       options.cleanDir = true;
     } else if (arg === "-f" || arg === "--force") {
       options.force = true;
-    } else if (!arg.startsWith("-") && !options.envName) {
+    } else if (!(arg.startsWith("-") || options.envName)) {
       // Positional environment parameter, e.g. "pnpm s3:backup production"
       options.envName = arg;
     }
@@ -292,7 +292,7 @@ async function main() {
     process.exit(1);
   }
 
-  if (!accessKeyId || !secretAccessKey) {
+  if (!(accessKeyId && secretAccessKey)) {
     console.error("❌ Error: S3 credentials are missing.");
     console.error("Please set S3_ACCESS_KEY_ID and S3_SECRET in your .env.");
     process.exit(1);
@@ -337,7 +337,7 @@ async function main() {
   console.log(`⏳ Listing objects from bucket '${bucket}'...`);
   const startTime = Date.now();
   const objects = [];
-  let continuationToken = undefined;
+  let continuationToken;
 
   do {
     const listCommand = new ListObjectsV2Command({

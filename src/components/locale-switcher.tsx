@@ -1,12 +1,12 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+import { useLocale } from "next-intl";
+import { useTransition } from "react";
 import { setLocale } from "@/actions/locale";
 import Spinner from "@/components/spinner";
-import { Locale, localeLabels } from "@/i18n/config";
+import { type Locale, localeLabels } from "@/i18n/config";
 import { cn } from "@/utils/common";
-import { useLocale } from "next-intl";
-import { useRouter } from "next/navigation";
-import { useTransition } from "react";
 
 export default function LocaleSwitcher() {
   const [isPending, startTransition] = useTransition();
@@ -16,7 +16,7 @@ export default function LocaleSwitcher() {
   const label = localeLabels[nextLocale];
 
   async function switchLocale() {
-    startTransition(async function () {
+    startTransition(async () => {
       await setLocale(nextLocale);
       // The action's own response re-renders the locale route chosen before
       // the cookie changed; a refresh re-runs the cookie-based rewrite.

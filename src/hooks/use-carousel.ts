@@ -1,8 +1,8 @@
 "use client";
 
 import {
-  FocusEventHandler,
-  MouseEventHandler,
+  type FocusEventHandler,
+  type MouseEventHandler,
   useCallback,
   useEffect,
   useReducer,

@@ -1,23 +1,23 @@
 import { mongooseAdapter } from "@payloadcms/db-mongodb";
 import { payloadCloudPlugin } from "@payloadcms/payload-cloud";
 import { lexicalEditor } from "@payloadcms/richtext-lexical";
-import path from "path";
-import { buildConfig, Payload } from "payload";
-import { fileURLToPath } from "url";
-import sharp from "sharp";
+import { s3Storage } from "@payloadcms/storage-s3";
 import { en } from "@payloadcms/translations/languages/en";
 import { vi } from "@payloadcms/translations/languages/vi";
-import { s3Storage } from "@payloadcms/storage-s3";
-import Users from "@/payload/collections/Users";
-import Media from "@/payload/collections/Media";
-import Posts from "@/payload/collections/posts";
-import Pages from "@/payload/collections/pages";
-import HiddenTags from "@/payload/collections/HiddenTags";
-import SiteSettings from "@/payload/globals/site-settings";
-import NavBar from "@/payload/globals/NavBar";
-import Footer from "@/payload/globals/Footer";
+import path from "path";
+import { buildConfig, type Payload } from "payload";
+import sharp from "sharp";
+import { fileURLToPath } from "url";
 import { defaultLocale, localeLabels, locales } from "@/i18n/config";
+import HiddenTags from "@/payload/collections/HiddenTags";
+import Media from "@/payload/collections/Media";
+import Pages from "@/payload/collections/pages";
+import Posts from "@/payload/collections/posts";
 import SpotifyPodcasts from "@/payload/collections/spotify-podcasts";
+import Users from "@/payload/collections/Users";
+import Footer from "@/payload/globals/Footer";
+import NavBar from "@/payload/globals/NavBar";
+import SiteSettings from "@/payload/globals/site-settings";
 
 if (!process.env.PAYLOAD_SECRET) {
   throw new Error("PAYLOAD_SECRET environment variable is required");

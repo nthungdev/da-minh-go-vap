@@ -1,5 +1,5 @@
-import { AppPost } from "@/definitions";
-import { HiddenTag, Media, Post } from "@/payload-types";
+import type { AppPost } from "@/definitions";
+import type { HiddenTag, Media, Post } from "@/payload-types";
 
 export function postToAppPost(post: Post): AppPost {
   return {

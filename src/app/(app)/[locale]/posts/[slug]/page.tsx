@@ -1,29 +1,29 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import { fetchPostBySlug } from "@/actions/post";
+import AppMarkdown from "@/components/app-markdown";
+import AppPage from "@/components/app-page";
+import AppPostGridPaginated from "@/components/app-post-grid-async-paginated";
+import VideoIframe from "@/components/app-video-iframe";
+import BlocksRenderer from "@/components/blocks-renderer";
+import PostTableOfContents from "@/components/post-table-of-contents";
+import PostTemplateRenderer from "@/components/post-templates";
+import PostViewTracker from "@/components/post-view-tracker";
+import { PublicTagList } from "@/components/public-tag-list";
+import RefreshRouteOnSave from "@/components/refresh-route-on-save";
+import ShareToolbar from "@/components/share-toolbar";
+import type { BlockType } from "@/definitions";
 import {
   applyRouteLocale,
-  requireSiteAuth,
   type LocaleParams,
+  requireSiteAuth,
 } from "@/i18n/server";
-import RefreshRouteOnSave from "@/components/refresh-route-on-save";
-import VideoIframe from "@/components/app-video-iframe";
-import AppPostGridPaginated from "@/components/app-post-grid-async-paginated";
-import AppPage from "@/components/app-page";
-import AppMarkdown from "@/components/app-markdown";
-import PostTemplateRenderer from "@/components/post-templates";
-import BlocksRenderer from "@/components/blocks-renderer";
-import { BlockType } from "@/definitions";
-import { fetchPostBySlug } from "@/actions/post";
 import { getDataOrUndefined } from "@/payload/utils/data";
-import ShareToolbar from "@/components/share-toolbar";
-import PostTableOfContents from "@/components/post-table-of-contents";
+import { transformUrl } from "@/utils/cloudflare";
 import { formatDate } from "@/utils/date";
 import { getPublicHiddenTags } from "@/utils/post";
-import { PublicTagList } from "@/components/public-tag-list";
-import PostViewTracker from "@/components/post-view-tracker";
 import { getServerOrigin } from "@/utils/url";
-import { transformUrl } from "@/utils/cloudflare";
 
 const relatedPostsLimit = 12;
 

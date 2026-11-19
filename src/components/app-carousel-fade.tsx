@@ -1,9 +1,9 @@
 "use client";
 
-import { HTMLAttributes, ReactNode } from "react";
+import { useTranslations } from "next-intl";
+import type { HTMLAttributes, ReactNode } from "react";
 import { useCarousel } from "@/hooks/use-carousel";
 import { cn } from "@/utils/common";
-import { useTranslations } from "next-intl";
 
 interface AppCarouselFadeProps<T> extends HTMLAttributes<HTMLElement> {
   id: string;

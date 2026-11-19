@@ -1,6 +1,6 @@
 "use client";
 
-import { HTMLProps, useEffect } from "react";
+import { type HTMLProps, useEffect } from "react";
 import { cn } from "@/utils/common";
 
 interface AppAccordionToggle {

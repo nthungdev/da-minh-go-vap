@@ -3,8 +3,8 @@
  * Run with `pnpm migrate:podcast-episodes [apply]`; without `apply`, it only reports changes.
  */
 import type { Page } from "../payload-types.ts";
-import { createPodcastEpisodePageMigrator } from "../src/utils/podcast-episode-migration.ts";
 import type { SourcePodcastEpisode } from "../src/utils/podcast-episode-migration.ts";
+import { createPodcastEpisodePageMigrator } from "../src/utils/podcast-episode-migration.ts";
 
 const PAGE_SIZE = 500;
 const args = process.argv.slice(2);

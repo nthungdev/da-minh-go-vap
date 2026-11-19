@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import BlockRenderer from "@/components/block-renderer";
 import PostGroupSkeleton from "@/components/post-group-skeleton";
-import { BlockType } from "@/definitions";
+import type { BlockType } from "@/definitions";
 import { shouldStreamBlock } from "@/utils/streaming";
 
 function BlockFallback({ block }: { block: BlockType }) {

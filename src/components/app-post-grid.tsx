@@ -1,10 +1,10 @@
-import { AppPost } from "@/definitions";
-import { transformUrl } from "@/utils/cloudflare";
-import { cn } from "@/utils/common";
 import Image from "next/image";
 import Link from "next/link";
-import { HTMLAttributes } from "react";
 import { useTranslations } from "next-intl";
+import type { HTMLAttributes } from "react";
+import type { AppPost } from "@/definitions";
+import { transformUrl } from "@/utils/cloudflare";
+import { cn } from "@/utils/common";
 
 interface AppPostGridProps extends HTMLAttributes<HTMLElement> {
   posts: AppPost[];

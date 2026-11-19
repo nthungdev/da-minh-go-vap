@@ -1,7 +1,7 @@
-import AppMarkdown from "@/components/app-markdown";
-import { DominicanSpiritualityBlock } from "@/payload-types";
-import { stripWrappingQuotes } from "@/utils/quote";
 import { useTranslations } from "next-intl";
+import AppMarkdown from "@/components/app-markdown";
+import type { DominicanSpiritualityBlock } from "@/payload-types";
+import { stripWrappingQuotes } from "@/utils/quote";
 
 interface Props {
   block: DominicanSpiritualityBlock;

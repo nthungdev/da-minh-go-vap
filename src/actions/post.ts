@@ -1,6 +1,6 @@
 "use server";
 
-import { Locale } from "@/i18n/config";
+import type { Locale } from "@/i18n/config";
 import { postToCardAppPost } from "@/utils/post";
 import * as postUtils from "@/utils/post-server";
 
@@ -30,7 +30,10 @@ export const fetchPostsBySlugs = async (
 export async function fetchAllPosts({
   limit = undefined,
   locale,
-}: { limit?: number; locale?: Locale } = {}) {
+}: {
+  limit?: number;
+  locale?: Locale;
+} = {}) {
   const query = await postUtils.queryAllPosts({ limit, locale });
   const posts = query.docs.map(postToCardAppPost).filter((post) => !!post.slug);
   return posts;

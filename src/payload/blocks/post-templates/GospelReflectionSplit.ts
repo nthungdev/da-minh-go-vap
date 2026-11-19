@@ -1,5 +1,5 @@
+import type { Block } from "payload";
 import { authorField, markdownField } from "@/payload/fields";
-import { Block } from "payload";
 
 const GospelReflectionSplitBlock: Block = {
   slug: "gospelReflectionSplit",

@@ -1,8 +1,8 @@
+import { useTranslations } from "next-intl";
 import AppMarkdown from "@/components/app-markdown";
-import { KidsBibleStoryBlock } from "@/payload-types";
+import type { KidsBibleStoryBlock } from "@/payload-types";
 import { cn } from "@/utils/common";
 import { stripWrappingQuotes } from "@/utils/quote";
-import { useTranslations } from "next-intl";
 
 interface Props {
   block: KidsBibleStoryBlock;

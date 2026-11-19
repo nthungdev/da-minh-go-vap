@@ -1,5 +1,5 @@
-import { cn } from "@/utils/common";
 import { useTranslations } from "next-intl";
+import { cn } from "@/utils/common";
 
 export default function Spinner({
   className,

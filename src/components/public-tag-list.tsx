@@ -1,9 +1,9 @@
-import { HiddenTag } from "@/payload-types";
-import { makePublicTagPath } from "@/utils/post";
-import { useTranslations } from "next-intl";
 import Link from "next/link";
-import { ComponentProps } from "react";
+import { useTranslations } from "next-intl";
+import type { ComponentProps } from "react";
+import type { HiddenTag } from "@/payload-types";
 import { cn } from "@/utils/common";
+import { makePublicTagPath } from "@/utils/post";
 
 export function PublicTagList({
   className,

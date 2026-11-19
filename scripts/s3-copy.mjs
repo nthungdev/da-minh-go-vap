@@ -26,11 +26,11 @@ import path from "node:path";
 import readline from "node:readline";
 import { fileURLToPath } from "node:url";
 import {
-  S3Client,
-  ListObjectsV2Command,
-  GetObjectCommand,
-  PutObjectCommand,
   CopyObjectCommand,
+  GetObjectCommand,
+  ListObjectsV2Command,
+  PutObjectCommand,
+  S3Client,
 } from "@aws-sdk/client-s3";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -83,7 +83,7 @@ function formatBytes(bytes) {
   const k = 1024;
   const sizes = ["B", "KB", "MB", "GB", "TB"];
   const i = Math.floor(Math.log(bytes) / Math.log(k));
-  return `${parseFloat((bytes / Math.pow(k, i)).toFixed(2))} ${sizes[i]}`;
+  return `${parseFloat((bytes / k ** i).toFixed(2))} ${sizes[i]}`;
 }
 
 function formatDuration(ms) {
@@ -349,12 +349,12 @@ async function main() {
   const destSecret =
     toEnv.S3_SECRET || toEnv.S3_SECRET_ACCESS_KEY || toEnv.R2_SECRET_ACCESS_KEY;
 
-  if (!srcAccessKey || !srcSecret) {
+  if (!(srcAccessKey && srcSecret)) {
     console.error("❌ Error: Source S3 credentials missing.");
     process.exit(1);
   }
 
-  if (!destAccessKey || !destSecret) {
+  if (!(destAccessKey && destSecret)) {
     console.error("❌ Error: Destination S3 credentials missing.");
     process.exit(1);
   }
@@ -406,7 +406,7 @@ async function main() {
   // Step 1: List objects in source bucket
   console.log(`⏳ Listing objects from source bucket '${srcBucket}'...`);
   const srcObjects = [];
-  let continuationToken = undefined;
+  let continuationToken;
 
   do {
     const listCmd = new ListObjectsV2Command({
@@ -436,7 +436,7 @@ async function main() {
   );
 
   // Safety confirmation check
-  if (!options.yes && !options.dryRun) {
+  if (!(options.yes || options.dryRun)) {
     const confirmed = await confirmPrompt(
       `⚠️ Confirm copying ${srcObjects.length} objects (${formatBytes(totalBytes)}) from '${srcBucket}' to '${destBucket}'?`,
     );

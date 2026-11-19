@@ -1,5 +1,5 @@
-import { useTranslations } from "next-intl";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { FaArrowRight } from "react-icons/fa";
 
 export default function AppViewMoreLink({ href }: { href: string }) {

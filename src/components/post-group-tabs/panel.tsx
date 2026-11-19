@@ -1,19 +1,19 @@
 "use client";
 
-import React from "react";
-import { cn } from "@/utils/common";
-import { Page } from "@/payload-types";
-import AppViewMoreLink from "@/components/app-view-more-link";
-import { getDataOrUndefined } from "@/payload/utils/data";
-import { fetchPostsByHiddenTags } from "@/actions/post";
 import { useQuery } from "@tanstack/react-query";
-import { makePostsPath } from "@/utils/post";
-import { useLocale } from "next-intl";
-import PostList from "@/components/post-list";
 import Image from "next/image";
 import Link from "next/link";
+import { useLocale } from "next-intl";
+import type React from "react";
+import { fetchPostsByHiddenTags } from "@/actions/post";
+import AppViewMoreLink from "@/components/app-view-more-link";
+import PostList from "@/components/post-list";
+import type { AppPost } from "@/definitions";
+import { getDataOrUndefined } from "@/payload/utils/data";
+import type { Page } from "@/payload-types";
 import { transformUrl } from "@/utils/cloudflare";
-import { AppPost } from "@/definitions";
+import { cn } from "@/utils/common";
+import { makePostsPath } from "@/utils/post";
 
 const POST_COUNT = 6;
 

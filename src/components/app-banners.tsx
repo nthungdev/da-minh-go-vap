@@ -1,10 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import dynamic from "next/dynamic";
-import { HTMLAttributes, useState } from "react";
-import { Media } from "@/payload-types";
+import Image from "next/image";
+import { type HTMLAttributes, useState } from "react";
 import AppCarouselFade from "@/components/app-carousel-fade";
+import type { Media } from "@/payload-types";
 import { transformUrl } from "@/utils/cloudflare";
 
 const AppBannerVideo = dynamic(() => import("@/components/app-banner-video"), {

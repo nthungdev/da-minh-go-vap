@@ -1,14 +1,14 @@
+import type { Metadata, ResolvingMetadata } from "next";
+import { notFound } from "next/navigation";
 import AppPage from "@/components/app-page";
 import BlocksRenderer from "@/components/blocks-renderer";
-import { notFound } from "next/navigation";
+import RefreshRouteOnSave from "@/components/refresh-route-on-save";
 import {
   applyRouteLocale,
-  requireSiteAuth,
   type LocaleParams,
+  requireSiteAuth,
 } from "@/i18n/server";
 import { getPageByPath } from "@/payload/utils/queries";
-import RefreshRouteOnSave from "@/components/refresh-route-on-save";
-import { Metadata, ResolvingMetadata } from "next";
 
 type Props = {
   // path must be an array of strings 🤷

@@ -1,9 +1,9 @@
+import type { Block } from "payload";
 import {
   markdownField,
   scriptureFields,
   sourceGroupField,
 } from "@/payload/fields";
-import { Block } from "payload";
 
 const ParableLifeLessonBlock: Block = {
   slug: "parableLifeLesson",

@@ -1,12 +1,12 @@
 import Image from "next/image";
-import Markdown from "react-markdown";
 import Link from "next/link";
-import { getLocale } from "next-intl/server";
 import { useTranslations } from "next-intl";
+import { getLocale } from "next-intl/server";
+import Markdown from "react-markdown";
+import type { Locale } from "@/i18n/config";
+import { getFooter } from "@/payload/utils/queries";
 import { transformUrl } from "@/utils/cloudflare";
 import { cn } from "@/utils/common";
-import { getFooter } from "@/payload/utils/queries";
-import { Locale } from "@/i18n/config";
 
 export default async function TheFooter() {
   const locale = (await getLocale()) as Locale;

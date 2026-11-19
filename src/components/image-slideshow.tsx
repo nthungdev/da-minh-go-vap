@@ -2,9 +2,9 @@
 
 import Image from "next/image";
 import AppCarousel from "@/components/app-carousel";
-import { cn } from "@/utils/common";
-import { Media } from "@/payload-types";
+import type { Media } from "@/payload-types";
 import { transformUrl } from "@/utils/cloudflare";
+import { cn } from "@/utils/common";
 
 interface ImageSlideshowProps extends React.HTMLAttributes<HTMLDivElement> {
   id: string;

@@ -1,9 +1,9 @@
-import AppMarkdown from "@/components/app-markdown";
-import AppSectionHeader from "@/components/app-section-header";
-import { Media } from "@/payload-types";
-import { transformUrl } from "@/utils/cloudflare";
 import Image from "next/image";
 import Link from "next/link";
+import AppMarkdown from "@/components/app-markdown";
+import AppSectionHeader from "@/components/app-section-header";
+import type { Media } from "@/payload-types";
+import { transformUrl } from "@/utils/cloudflare";
 import { cn } from "@/utils/common";
 
 interface AppTimelineCardsProps {

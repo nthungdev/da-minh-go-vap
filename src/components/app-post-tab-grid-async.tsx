@@ -1,13 +1,14 @@
 "use client";
 
-import React, { ChangeEvent } from "react";
+import { useTranslations } from "next-intl";
+import type React from "react";
+import type { ChangeEvent } from "react";
+import AppPostTabContentAsync from "@/components/app-post-tab-content-async";
+import type { Page } from "@/payload-types";
+import { cn } from "@/utils/common";
+import { makePostsPath } from "@/utils/post";
 import AppPostGrid from "./app-post-grid";
 import AppSelectBasic from "./app-select-basic";
-import { cn } from "@/utils/common";
-import { Page } from "@/payload-types";
-import AppPostTabContentAsync from "@/components/app-post-tab-content-async";
-import { makePostsPath } from "@/utils/post";
-import { useTranslations } from "next-intl";
 
 /** id should be provided when there are multiple AppPostTabGrid components on the same page */
 interface AppPostTabGridAsyncProps

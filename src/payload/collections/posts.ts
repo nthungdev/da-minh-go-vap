@@ -1,4 +1,9 @@
-import { Post } from "@/payload-types";
+import type {
+  CollectionAfterChangeHook,
+  CollectionConfig,
+  FieldHook,
+  FieldHookArgs,
+} from "payload";
 import { pageBlocks } from "@/payload/blocks";
 import { postTemplates } from "@/payload/blocks/post-templates";
 import {
@@ -9,13 +14,8 @@ import {
 import { onlyRoles, postsReadAccess } from "@/payload/utils/access-control";
 import { buildPostPreviewUrl } from "@/payload/utils/config";
 import { revalidatePath, slugify } from "@/payload/utils/data";
+import type { Post } from "@/payload-types";
 import { validateSlug } from "@/utils/slug";
-import type {
-  CollectionAfterChangeHook,
-  CollectionConfig,
-  FieldHook,
-  FieldHookArgs,
-} from "payload";
 
 const Posts: CollectionConfig = {
   slug: "posts",

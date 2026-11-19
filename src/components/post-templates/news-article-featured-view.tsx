@@ -1,11 +1,11 @@
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import AppMarkdown from "@/components/app-markdown";
 import LightboxModal from "@/components/post-templates/shared/lightbox-modal";
-import { Media, NewsArticleFeaturedBlock } from "@/payload-types";
+import type { Media, NewsArticleFeaturedBlock } from "@/payload-types";
 import { transformUrl } from "@/utils/cloudflare";
 import { cn } from "@/utils/common";
 import { toSafeHttpUrl } from "@/utils/safe-url";
-import { useTranslations } from "next-intl";
 
 interface Props {
   block: NewsArticleFeaturedBlock;

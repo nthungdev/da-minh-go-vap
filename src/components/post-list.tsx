@@ -1,9 +1,9 @@
-import { AppPost } from "@/definitions";
+import Image from "next/image";
+import Link from "next/link";
+import type { AppPost } from "@/definitions";
 import { getDataOrUndefined } from "@/payload/utils/data";
 import { transformUrl } from "@/utils/cloudflare";
 import { cn } from "@/utils/common";
-import Image from "next/image";
-import Link from "next/link";
 
 interface PostListProps extends React.HTMLAttributes<HTMLUListElement> {
   posts: AppPost[];

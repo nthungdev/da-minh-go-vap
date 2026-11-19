@@ -1,7 +1,7 @@
-import { AppPost } from "@/definitions";
-import { transformUrl } from "@/utils/cloudflare";
 import Image from "next/image";
 import Link from "next/link";
+import type { AppPost } from "@/definitions";
+import { transformUrl } from "@/utils/cloudflare";
 import { cn } from "@/utils/common";
 
 interface AppPostListItemProps {

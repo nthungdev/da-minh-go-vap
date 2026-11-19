@@ -1,6 +1,3 @@
-import { transformUrl } from "@/utils/cloudflare";
-import { cn } from "@/utils/common";
-import KeywordTooltip from "@/components/keyword-tooltip";
 import {
   BookOpen,
   Church,
@@ -10,15 +7,18 @@ import {
   HandHeart,
   HeartHandshake,
   Languages,
-  LucideIcon,
+  type LucideIcon,
   Mic,
   Users,
   Video,
 } from "lucide-react";
-import Markdown, { Components } from "react-markdown";
+import Markdown, { type Components } from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import rehypeSanitize, { defaultSchema } from "rehype-sanitize";
 import remarkGfm from "remark-gfm";
+import KeywordTooltip from "@/components/keyword-tooltip";
+import { transformUrl } from "@/utils/cloudflare";
+import { cn } from "@/utils/common";
 
 const sanitizeSchema = {
   ...defaultSchema,

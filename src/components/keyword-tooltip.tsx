@@ -1,11 +1,11 @@
 "use client";
 
-import { useState, useRef, useEffect, ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { cn } from "@/utils/common";
-import { transformUrl } from "@/utils/cloudflare";
 import { useTranslations } from "next-intl";
+import { type ReactNode, useEffect, useRef, useState } from "react";
+import { transformUrl } from "@/utils/cloudflare";
+import { cn } from "@/utils/common";
 
 export interface KeywordTooltipProps {
   /** The keyword or phrase displayed in text (if children not provided) */

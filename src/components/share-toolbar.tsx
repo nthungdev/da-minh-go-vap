@@ -1,10 +1,10 @@
-import CopyButton from "@/components/copy-button";
-import { Locale } from "@/i18n/config";
-import { getTranslations } from "next-intl/server";
 import Link from "next/link";
-import { HTMLAttributes } from "react";
+import { getTranslations } from "next-intl/server";
+import type { HTMLAttributes } from "react";
 import { FaViber } from "react-icons/fa";
 import { RiFacebookFill } from "react-icons/ri";
+import CopyButton from "@/components/copy-button";
+import type { Locale } from "@/i18n/config";
 import { cn } from "@/utils/common";
 
 function buildFacebookShareUrl(url: string) {

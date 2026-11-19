@@ -1,9 +1,9 @@
-import AppSectionHeader from "@/components/app-section-header";
-import { LinksBlock } from "@/payload-types";
-import { isDataValid } from "@/payload/utils/data";
-import { transformUrl } from "@/utils/cloudflare";
 import Image from "next/image";
 import Link from "next/link";
+import AppSectionHeader from "@/components/app-section-header";
+import { isDataValid } from "@/payload/utils/data";
+import type { LinksBlock } from "@/payload-types";
+import { transformUrl } from "@/utils/cloudflare";
 
 interface ImageLinkListProps extends React.HTMLAttributes<HTMLDivElement> {
   title: string;

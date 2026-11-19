@@ -1,8 +1,8 @@
+import { useTranslations } from "next-intl";
 import AppMarkdown from "@/components/app-markdown";
-import { ParableLifeLessonBlock } from "@/payload-types";
+import type { ParableLifeLessonBlock } from "@/payload-types";
 import { stripWrappingQuotes } from "@/utils/quote";
 import { toSafeHttpUrl } from "@/utils/safe-url";
-import { useTranslations } from "next-intl";
 
 interface Props {
   block: ParableLifeLessonBlock;
