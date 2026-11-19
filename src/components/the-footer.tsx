@@ -4,6 +4,7 @@ import Link from "next/link";
 import { getLocale } from "next-intl/server";
 import { useTranslations } from "next-intl";
 import { transformUrl } from "@/utils/cloudflare";
+import { cn } from "@/utils/common";
 import { getFooter } from "@/payload/utils/queries";
 import { Locale } from "@/i18n/config";
 
@@ -11,6 +12,9 @@ export default async function TheFooter() {
   const locale = (await getLocale()) as Locale;
   const footer = await getFooter(locale);
 
+  /**
+   * Splits an array of external links into chunks for multi-column footer display.
+   */
   const splitExternalLinks = (
     links: NonNullable<(typeof footer)["externalLinks"]>,
     chunkSize: number,
@@ -27,11 +31,17 @@ export default async function TheFooter() {
     4,
   );
 
+  const hasGraphic = Boolean(
+    footer.topFooterDecorativeGraphic &&
+      typeof footer.topFooterDecorativeGraphic !== "string" &&
+      typeof footer.topFooterDecorativeGraphic.url === "string",
+  );
+
   return (
     <footer className="relative">
-      {footer.topFooterDecorativeGraphic &&
+      {hasGraphic &&
         typeof footer.topFooterDecorativeGraphic !== "string" &&
-        typeof footer.topFooterDecorativeGraphic.url === "string" && (
+        typeof footer.topFooterDecorativeGraphic?.url === "string" && (
           <Image
             unoptimized
             src={transformUrl(footer.topFooterDecorativeGraphic.url, {
@@ -47,35 +57,13 @@ export default async function TheFooter() {
           />
         )}
 
-      {/* layout for small screens */}
-      <div className="bg-primary">
-        <div className="flex flex-col gap-8 p-4 text-left text-white sm:hidden md:flex-row">
-          <Contact
-            name={footer.contact.name}
-            phone={footer.contact.phone}
-            email={footer.contact.email}
-            address={footer.contact.address}
-            marketingEmail={footer.contact.marketingEmail}
-          />
-
-          {chunkedExternalLinks.length > 0 && (
-            <div className="flex flex-col gap-x-4 md:flex-row">
-              {chunkedExternalLinks.map((chunk, index) => (
-                <div key={index} className="flex flex-col justify-end">
-                  {chunk.map((link, index) => (
-                    <div key={index}>
-                      <Link href={link.url}>{link.name}</Link>
-                    </div>
-                  ))}
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-      </div>
-
-      {/* layout for large screens */}
-      <div className="3xl:text-xl absolute bottom-0 left-0 hidden max-w-7xl flex-col gap-8 px-4 py-4 text-left text-[0.9vw] text-white sm:flex md:flex-row">
+      <div
+        className={cn(
+          "bg-primary 3xl:text-xl flex flex-col gap-8 p-4 text-left text-white md:flex-row",
+          hasGraphic &&
+            "sm:absolute sm:bottom-0 sm:left-0 sm:max-w-7xl sm:bg-transparent sm:text-[0.9vw]",
+        )}
+      >
         <Contact
           name={footer.contact.name}
           phone={footer.contact.phone}
@@ -84,17 +72,19 @@ export default async function TheFooter() {
           marketingEmail={footer.contact.marketingEmail}
         />
 
-        <div className="flex flex-col gap-x-4 md:flex-row">
-          {chunkedExternalLinks.map((chunk, index) => (
-            <div key={index} className="flex flex-col justify-end">
-              {chunk.map((link, index) => (
-                <div key={index}>
-                  <Link href={link.url}>{link.name}</Link>
-                </div>
-              ))}
-            </div>
-          ))}
-        </div>
+        {chunkedExternalLinks.length > 0 && (
+          <div className="flex flex-col gap-x-4 md:flex-row">
+            {chunkedExternalLinks.map((chunk, chunkIndex) => (
+              <div key={chunkIndex} className="flex flex-col justify-end">
+                {chunk.map((link, linkIndex) => (
+                  <div key={link.id || `${chunkIndex}-${linkIndex}`}>
+                    <Link href={link.url}>{link.name}</Link>
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </footer>
   );
