@@ -1,8 +1,8 @@
 import { AppPost } from "@/definitions";
 import { transformUrl } from "@/utils/cloudflare";
+import { cn } from "@/utils/common";
 import Image from "next/image";
 import Link from "next/link";
-import { twMerge } from "tailwind-merge";
 
 interface AppPostCardProps {
   post: AppPost;
@@ -16,7 +16,7 @@ export default function AppPostCard(props: AppPostCardProps) {
   return (
     <Link
       href={`/posts/${post.slug}`}
-      className={twMerge(
+      className={cn(
         "flex h-full w-full flex-col gap-x-2 overflow-hidden border border-transparent text-base hover:cursor-pointer hover:ring-3 lg:flex-row",
         className,
       )}
@@ -28,6 +28,7 @@ export default function AppPostCard(props: AppPostCardProps) {
               unoptimized
               src={transformUrl(post.thumbnail.url, { width: "100" })}
               alt={post.title}
+              loading="lazy"
               fill
               sizes="(max-width: 640px) 100vw, 33vw"
               className="object-cover"

@@ -12,9 +12,9 @@ import PostGroup from "@/components/post-group";
 import TheBibleVerse from "@/components/the-bible-verse";
 import TheLatestPosts from "@/components/the-latest-posts";
 import SpotifyPodcastList from "@/components/spotify-podcast-list";
+import VideoGrid from "@/components/video-grid";
 import { AppPost, BlockType } from "@/definitions";
 import { Locale } from "@/i18n/config";
-import { createRandomAlphaString } from "@/utils/common";
 import { getLocale } from "next-intl/server";
 
 function NotImplementedBlock() {
@@ -42,7 +42,7 @@ const componentsMap = {
   dynamicImageBlock: NotImplementedBlock,
   imageBlock: NotImplementedBlock,
   mapBlock: NotImplementedBlock,
-  videoGridBlock: NotImplementedBlock,
+  videoGridBlock: VideoGrid,
   spotifyPodcastList: SpotifyPodcastList,
 } satisfies BlockTypeMap;
 
@@ -56,16 +56,22 @@ type BlockToPropsMap = {
 
 const mapBlockToProps: BlockToPropsMap = {
   accordionContentBlock: (block) => ({
-    id: createRandomAlphaString(4),
+    id: block.id || "accordion",
     items: block.items.map((item) => ({
       title: item.title,
-      body: item.content,
+      body: item.content ? (
+        <AppMarkdown>{item.content}</AppMarkdown>
+      ) : undefined,
       items: item.children?.map((subItem) => ({
         title: subItem.title,
-        body: subItem.content,
+        body: subItem.content ? (
+          <AppMarkdown>{subItem.content}</AppMarkdown>
+        ) : undefined,
         items: subItem.children?.map((subSubItem) => ({
           title: subSubItem.title,
-          body: subSubItem.content,
+          body: subSubItem.content ? (
+            <AppMarkdown>{subSubItem.content}</AppMarkdown>
+          ) : undefined,
         })),
       })),
     })),
@@ -81,7 +87,7 @@ const mapBlockToProps: BlockToPropsMap = {
   dynamicImageBlock: () => ({}),
   imageBlock: () => ({}),
   imageSlideshowBlock: (block) => ({
-    id: createRandomAlphaString(4),
+    id: block.id || "slideshow",
     slides: block.images?.filter((image) => typeof image !== "string") || [],
   }),
   latestPostGridBlock: async (block) => {
@@ -130,6 +136,7 @@ const mapBlockToProps: BlockToPropsMap = {
       hiddenTags,
       type: block.displayType,
       posts,
+      initialPosts: posts,
     };
   },
   quoteBlock: (block) => ({
@@ -141,28 +148,56 @@ const mapBlockToProps: BlockToPropsMap = {
   tabbedContentBlock: (block) => ({
     tabs: block.tabs.map((t) => ({
       title: t.title,
-      body: t.content,
+      body: <AppMarkdown>{t.content}</AppMarkdown>,
     })),
   }),
-  tabbedPostGroupBlock: (block) => ({
-    title: block.title || undefined,
-    viewMoreButton: {
-      enable: block.viewMoreButton.enableViewMoreButton,
-      relativeUrl: block.viewMoreButton.relativeUrl,
-    },
-    groups:
-      block.tabs?.map((tab) => ({
-        title: tab.title,
-        hiddenTags: tab.hiddenTags
-          .filter((t) => typeof t !== "string")
-          .map((t) => t.tag),
-        limit: tab.limit,
-        viewMoreButton: {
-          enable: tab.viewMoreButton.enableViewMoreButton,
-          relativeUrl: tab.viewMoreButton.relativeUrl,
-        },
-      })) ?? [],
-  }),
+  tabbedPostGroupBlock: async (block) => {
+    const locale = (await getLocale()) as Locale;
+    const groups =
+      block.tabs?.map((tab) => {
+        const rel = tab.viewMoreButton.relativeUrl;
+        return {
+          title: tab.title,
+          hiddenTags: tab.hiddenTags
+            .filter((t) => typeof t !== "string")
+            .map((t) => t.tag),
+          limit: tab.limit,
+          viewMoreButton: {
+            enable: tab.viewMoreButton.enableViewMoreButton,
+            relativeUrl:
+              typeof rel === "object" && rel !== null ? rel.path : rel,
+          },
+        };
+      }) ?? [];
+
+    const allUniqueHiddenTags = Array.from(
+      new Set(groups.flatMap((group) => group.hiddenTags)),
+    );
+
+    let initialPosts = undefined;
+    if (allUniqueHiddenTags.length > 0) {
+      const query = await fetchPostsByHiddenTags(allUniqueHiddenTags, {
+        limit: 6,
+        locale,
+      });
+      initialPosts = query.posts;
+    }
+
+    const blockRel = block.viewMoreButton.relativeUrl;
+
+    return {
+      title: block.title || undefined,
+      viewMoreButton: {
+        enable: block.viewMoreButton.enableViewMoreButton,
+        relativeUrl:
+          typeof blockRel === "object" && blockRel !== null
+            ? blockRel.path
+            : blockRel,
+      },
+      groups,
+      initialPosts,
+    };
+  },
   textBlock: (block) => ({
     children: block.content,
   }),
@@ -175,11 +210,15 @@ const mapBlockToProps: BlockToPropsMap = {
       url: typeof item.link !== "string" ? item.link?.path : undefined,
     })),
   }),
-  videoGridBlock: () => ({}),
+  videoGridBlock: (block) => ({
+    title: block.title || undefined,
+    videos: block.videos,
+  }),
   spotifyPodcastList: (block) => ({
+    episodes: block.episodes || [],
     pageSize: block.pageSize || undefined,
   }),
-} as const;
+};
 
 const BlockRenderer = async ({ block }: { block: BlockType }) => {
   const Component = componentsMap[block.blockType];
