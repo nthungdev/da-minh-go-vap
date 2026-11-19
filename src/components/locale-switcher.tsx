@@ -18,6 +18,8 @@ export default function LocaleSwitcher() {
   async function switchLocale() {
     startTransition(async function () {
       await setLocale(nextLocale);
+      // The action's own response re-renders the locale route chosen before
+      // the cookie changed; a refresh re-runs the cookie-based rewrite.
       router.refresh();
     });
   }

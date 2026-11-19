@@ -1,12 +1,19 @@
 "use client";
 
-import MarkdownEditor from "@/payload/fields/markdown/MarkdownEditor";
-import { FieldLabel, useField } from "@payloadcms/ui";
+import { useRef } from "react";
+import KeywordTooltipHelper from "@/payload/fields/markdown/KeywordTooltipHelper";
+import MarkdownEditor, {
+  type MarkdownEditorHandle,
+} from "@/payload/fields/markdown/MarkdownEditor";
+import { FieldDescription, FieldLabel, useField } from "@payloadcms/ui";
 import { CodeFieldClientComponent } from "payload";
 
 const MarkdownField: CodeFieldClientComponent = ({ path, field }) => {
   const { value, setValue } = useField<string>({ path });
+  const editorRef = useRef<MarkdownEditorHandle>(null);
   const id = `markdown-field-${path.replace(/\./g, "-")}`;
+  const showKeywordHelper =
+    field?.admin?.custom?.keywordTooltipHelper !== false;
 
   return (
     <div className="field-type markdown">
@@ -17,7 +24,14 @@ const MarkdownField: CodeFieldClientComponent = ({ path, field }) => {
         localized={field?.localized}
         htmlFor={id}
       />
-      <MarkdownEditor id={id} value={value || ""} setValue={setValue} />
+      {showKeywordHelper && <KeywordTooltipHelper editorRef={editorRef} />}
+      <MarkdownEditor
+        ref={editorRef}
+        id={id}
+        value={value || ""}
+        setValue={setValue}
+      />
+      <FieldDescription description={field?.admin?.description} path={path} />
     </div>
   );
 };

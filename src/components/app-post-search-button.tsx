@@ -1,13 +1,19 @@
 "use client";
 
-import { ChangeEventHandler, FormEvent, useRef, useState } from "react";
+import {
+  ChangeEventHandler,
+  FormEvent,
+  useReducer,
+  useRef,
+  useState,
+} from "react";
 import SearchIcon from "@/public/svgs/search.svg";
 import { searchPosts } from "@/actions/search";
 import AppPostListItem from "./app-post-list-item";
 import Image from "next/image";
 import { AppPost } from "@/definitions";
 import { cn } from "@/utils/common";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Locale } from "@/i18n/config";
 import {
   Dialog,
@@ -17,27 +23,71 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
-enum ModalState {
-  EMPTY,
-  LOADING,
-  LOADED,
-  ERROR,
+type SearchState =
+  | { status: "idle"; query: string }
+  | { status: "loading"; query: string; requestId: number }
+  | { status: "loaded"; query: string; results: AppPost[] }
+  | { status: "error"; query: string; message: string };
+
+type SearchAction =
+  | { type: "SET_QUERY"; query: string }
+  | { type: "SUBMIT"; requestId: number }
+  | { type: "RESOLVE"; requestId: number; results: AppPost[] }
+  | { type: "REJECT"; requestId: number; message: string }
+  | { type: "RESET" };
+
+const INITIAL_SEARCH_STATE: SearchState = {
+  status: "idle",
+  query: "",
+};
+
+function searchReducer(state: SearchState, action: SearchAction): SearchState {
+  switch (action.type) {
+    case "SET_QUERY":
+      if (state.status === "error") {
+        return { status: "idle", query: action.query };
+      }
+      return { ...state, query: action.query };
+    case "SUBMIT":
+      return {
+        status: "loading",
+        query: state.query,
+        requestId: action.requestId,
+      };
+    case "RESOLVE":
+      if (state.status !== "loading" || state.requestId !== action.requestId) {
+        return state;
+      }
+      return {
+        status: "loaded",
+        query: state.query,
+        results: action.results,
+      };
+    case "REJECT":
+      if (state.status !== "loading" || state.requestId !== action.requestId) {
+        return state;
+      }
+      return {
+        status: "error",
+        query: state.query,
+        message: action.message,
+      };
+    case "RESET":
+      return INITIAL_SEARCH_STATE;
+  }
 }
 
 export default function AppPostSearchButton({ id }: { id?: string }) {
   const locale = useLocale();
+  const t = useTranslations();
   const [open, setOpen] = useState(false);
-  const [input, setInput] = useState("");
-  const [posts, setPosts] = useState<AppPost[]>([]);
-  const [state, setState] = useState(ModalState.EMPTY);
-  const searchIdRef = useRef(0);
+  const [state, dispatch] = useReducer(searchReducer, INITIAL_SEARCH_STATE);
+  const requestIdRef = useRef(0);
 
   const handleClose = () => {
-    searchIdRef.current += 1;
+    requestIdRef.current += 1;
     setOpen(false);
-    setPosts([]);
-    setInput("");
-    setState(ModalState.EMPTY);
+    dispatch({ type: "RESET" });
   };
 
   const handleOpenChange = (isOpen: boolean) => {
@@ -49,26 +99,36 @@ export default function AppPostSearchButton({ id }: { id?: string }) {
   };
 
   const handleInputChange: ChangeEventHandler<HTMLInputElement> = (event) => {
-    setInput(event.target.value);
+    dispatch({ type: "SET_QUERY", query: event.target.value });
   };
 
   const handleInputSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const query = input.trim();
-    if (state === ModalState.LOADING || !query) return;
+    const trimmed = state.query.trim();
+    if (!trimmed) {
+      dispatch({ type: "RESET" });
+      return;
+    }
+    if (state.status === "loading") return;
 
-    const currentSearchId = ++searchIdRef.current;
-    setState(ModalState.LOADING);
+    const requestId = ++requestIdRef.current;
+    dispatch({ type: "SUBMIT", requestId });
+
     try {
-      const results = await searchPosts(query, {
+      const results = await searchPosts(trimmed, {
         locale: locale as Locale,
       });
-      if (searchIdRef.current !== currentSearchId) return;
-      setPosts(results.map((r) => r.item));
-      setState(ModalState.LOADED);
+      dispatch({
+        type: "RESOLVE",
+        requestId,
+        results: results.map((r) => r.item),
+      });
     } catch {
-      if (searchIdRef.current !== currentSearchId) return;
-      setState(ModalState.ERROR);
+      dispatch({
+        type: "REJECT",
+        requestId,
+        message: t("search.error"),
+      });
     }
   };
 
@@ -79,7 +139,7 @@ export default function AppPostSearchButton({ id }: { id?: string }) {
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogTrigger
         className="ring-primary relative flex flex-row items-center space-x-2 rounded-full border bg-white p-2 hover:cursor-pointer hover:ring-2"
-        aria-label="Search"
+        aria-label={t("search.label")}
       >
         <Image
           unoptimized
@@ -93,15 +153,15 @@ export default function AppPostSearchButton({ id }: { id?: string }) {
         className="gap-0 overflow-hidden p-0 sm:max-w-lg"
         showCloseButton={false}
       >
-        <DialogTitle className="sr-only">Search</DialogTitle>
+        <DialogTitle className="sr-only">{t("search.label")}</DialogTitle>
         <DialogDescription className="sr-only">
-          Search for posts and articles
+          {t("search.placeholder")}
         </DialogDescription>
 
         <div className="relative border-b border-gray-200 p-4">
           <form role="search" className="relative" onSubmit={handleInputSubmit}>
             <label id={labelId} htmlFor={inputId} className="sr-only">
-              Search input
+              {t("search.label")}
             </label>
             <div className="pointer-events-none absolute inset-y-0 start-0 z-20 flex items-center ps-3.5">
               <Image
@@ -115,61 +175,61 @@ export default function AppPostSearchButton({ id }: { id?: string }) {
               id={inputId}
               className="focus:border-secondary focus:ring-secondary block w-full rounded-lg border-gray-200 py-3 ps-10 pe-4 text-sm disabled:pointer-events-none disabled:opacity-50"
               type="text"
-              value={input}
+              value={state.query}
               autoFocus
-              placeholder={
-                locale === "vi" ? "Tìm kiếm bài viết..." : "Search posts..."
-              }
+              placeholder={t("search.placeholder")}
               onChange={handleInputChange}
             />
           </form>
         </div>
 
-        <div className="relative max-h-[75vh] w-full overflow-y-auto rounded-xs">
-          {state === ModalState.LOADING && (
+        <div
+          className="relative max-h-[75vh] w-full overflow-y-auto rounded-xs"
+          aria-live="polite"
+        >
+          {state.status === "loading" && (
             <div className="py-4 text-center">
               <div
                 className="text-primary inline-block size-4 animate-spin rounded-full border-[3px] border-current border-t-transparent"
                 role="status"
-                aria-label="loading"
+                aria-label={t("common.loading")}
               >
-                <span className="sr-only">Loading...</span>
+                <span className="sr-only">{t("common.loading")}</span>
               </div>
             </div>
           )}
 
-          {state === ModalState.ERROR && (
-            <div className="py-6 text-center text-sm text-red-500">
-              {locale === "vi"
-                ? "Có lỗi xảy ra khi tìm kiếm. Vui lòng thử lại sau."
-                : "An error occurred while searching. Please try again later."}
-            </div>
+          {state.status === "error" && (
+            <p
+              role="alert"
+              className="px-4 py-6 text-center text-sm text-red-600"
+            >
+              {state.message}
+            </p>
           )}
 
-          {state === ModalState.LOADED && (
+          {state.status === "loaded" && state.results.length === 0 && (
+            <p className="px-4 py-6 text-center text-sm text-gray-500">
+              {t("search.empty")}
+            </p>
+          )}
+
+          {state.status === "loaded" && state.results.length > 0 && (
             <div className="space-y-1 p-1">
-              {posts.length === 0 ? (
-                <div className="py-6 text-center text-sm text-gray-500">
-                  {locale === "vi"
-                    ? "Không tìm thấy kết quả"
-                    : "No results found"}
+              {state.results.map((post, index) => (
+                <div
+                  key={post.slug}
+                  className="h-[60px] w-full"
+                  onClick={handleClose}
+                >
+                  <AppPostListItem
+                    post={post}
+                    className={cn(
+                      index % 2 === 0 ? "bg-primary-50" : "bg-primary-100",
+                    )}
+                  />
                 </div>
-              ) : (
-                posts.map((post, index) => (
-                  <div
-                    key={post.slug}
-                    className="h-[60px] w-full"
-                    onClick={handleClose}
-                  >
-                    <AppPostListItem
-                      post={post}
-                      className={cn(
-                        index % 2 === 0 ? "bg-primary-50" : "bg-primary-100",
-                      )}
-                    />
-                  </div>
-                ))
-              )}
+              ))}
             </div>
           )}
         </div>
