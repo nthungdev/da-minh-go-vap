@@ -152,6 +152,16 @@ interface AppMarkdownProps {
   children: string | null | undefined;
 }
 
+function convertLeadingSpacesToNbsp(spaces: string): string {
+  return spaces
+    .replace(/ /g, "\u00A0")
+    .replace(/\t/g, "\u00A0\u00A0\u00A0\u00A0");
+}
+
+function isListItemLine(text: string): boolean {
+  return /^[-*+]\s+/.test(text) || /^\d+[.)]\s+/.test(text);
+}
+
 /**
  * Preprocesses markdown text to preserve intentional leading indentation spaces
  * and whitespace in paragraphs without triggering CommonMark indented code blocks.
@@ -168,16 +178,33 @@ export function preserveMarkdownWhitespace(content: string): string {
   if (!content) return content;
 
   const lines = content.split("\n");
-  let inFencedCodeBlock = false;
+  let activeFence: { char: string; length: number } | null = null;
+  let inListContext = false;
 
   const processedLines = lines.map((line) => {
     const trimmed = line.trimStart();
-    if (trimmed.startsWith("```") || trimmed.startsWith("~~~")) {
-      inFencedCodeBlock = !inFencedCodeBlock;
+
+    if (activeFence) {
+      const closeMatch = trimmed.match(/^(`{3,}|~{3,})[ \t]*$/);
+      const closeMarker = closeMatch?.[1];
+      if (
+        closeMarker &&
+        closeMarker[0] === activeFence.char &&
+        closeMarker.length >= activeFence.length
+      ) {
+        activeFence = null;
+      }
       return line;
     }
 
-    if (inFencedCodeBlock) {
+    const openMatch = trimmed.match(/^(`{3,}|~{3,})(.*)$/);
+    const openMarker = openMatch?.[1];
+    const openInfo = openMatch?.[2] ?? "";
+    if (openMarker && (openMarker[0] === "~" || !openInfo.includes("`"))) {
+      activeFence = {
+        char: openMarker[0] ?? "`",
+        length: openMarker.length,
+      };
       return line;
     }
 
@@ -190,16 +217,14 @@ export function preserveMarkdownWhitespace(content: string): string {
     // so additional leading indentation in `rest` is preserved.
     const blockquoteMatch = line.match(/^(\s*(?:> ?)+)(.*)$/);
     if (blockquoteMatch) {
+      inListContext = false;
       const prefix = blockquoteMatch[1] ?? "";
       const rest = blockquoteMatch[2] ?? "";
       const leadingSpacesMatch = rest.match(/^([ \t]+)(.*)$/);
       if (leadingSpacesMatch) {
         const spaces = leadingSpacesMatch[1] ?? "";
         const tail = leadingSpacesMatch[2] ?? "";
-        const converted = spaces
-          .replace(/ /g, "\u00A0")
-          .replace(/\t/g, "\u00A0\u00A0\u00A0\u00A0");
-        return `${prefix}${converted}${tail}`;
+        return `${prefix}${convertLeadingSpacesToNbsp(spaces)}${tail}`;
       }
       return line;
     }
@@ -210,18 +235,20 @@ export function preserveMarkdownWhitespace(content: string): string {
       const spaces = leadingSpacesMatch[1] ?? "";
       const rest = leadingSpacesMatch[2] ?? "";
 
-      // Keep standard markdown list indentation intact
-      if (/^[-*+]\s+/.test(rest) || /^\d+\.\s+/.test(rest)) {
+      // Keep standard markdown list indentation and list item continuations intact
+      if (isListItemLine(rest)) {
+        inListContext = true;
         return line;
       }
 
-      // Convert leading spaces to non-breaking spaces
-      const convertedSpaces = spaces
-        .replace(/ /g, "\u00A0")
-        .replace(/\t/g, "\u00A0\u00A0\u00A0\u00A0");
-      return `${convertedSpaces}${rest}`;
+      if (inListContext) {
+        return line;
+      }
+
+      return `${convertLeadingSpacesToNbsp(spaces)}${rest}`;
     }
 
+    inListContext = isListItemLine(line);
     return line;
   });
 
