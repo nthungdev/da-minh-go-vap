@@ -3,23 +3,36 @@
 import { useEffect, useRef } from "react";
 import { logEvent } from "@/utils/log-event";
 
+const DEDUP_WINDOW_MS = 1000;
+let lastTrackedEvent: { slug: string; timestamp: number } | null = null;
+
 interface PostViewTrackerProps {
   slug: string;
   title?: string;
 }
 
 /**
- * Tracks post views by sending standard GA4 / Firebase Analytics events
- * (`view_item` and `select_content`) when a user visits a post page.
+ * Tracks post views by sending a standard GA4 / Firebase Analytics `view_item`
+ * event when a user visits a post page.
  */
 export default function PostViewTracker({ slug, title }: PostViewTrackerProps) {
   const lastTrackedSlugRef = useRef<string | null>(null);
 
   useEffect(() => {
+    const now = Date.now();
     if (lastTrackedSlugRef.current === slug) return;
-    lastTrackedSlugRef.current = slug;
+    if (
+      lastTrackedEvent &&
+      lastTrackedEvent.slug === slug &&
+      now - lastTrackedEvent.timestamp < DEDUP_WINDOW_MS
+    ) {
+      lastTrackedSlugRef.current = slug;
+      return;
+    }
 
-    // Log standard GA4 view_item event for post views
+    lastTrackedSlugRef.current = slug;
+    lastTrackedEvent = { slug, timestamp: now };
+
     logEvent("view_item", {
       content_type: "post",
       item_id: slug,
@@ -29,12 +42,6 @@ export default function PostViewTracker({ slug, title }: PostViewTrackerProps) {
           item_name: title || slug,
         },
       ],
-    });
-
-    // Also log select_content event for content analytics
-    logEvent("select_content", {
-      content_type: "post",
-      item_id: slug,
     });
   }, [slug, title]);
 
