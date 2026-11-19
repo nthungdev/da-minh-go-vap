@@ -6,6 +6,7 @@ import {
   getPostPrimaryCategoryLabel,
   normalizeVietnamese,
   parseRecentSearches,
+  resolveSearchTagOptions,
   splitHighlightSegments,
 } from "../src/utils/search.ts";
 
@@ -105,4 +106,39 @@ test("parseRecentSearches and addRecentSearch sanitize, deduplicate, and cap", (
 
   const capped = addRecentSearch(["a", "b", "c", "d", "e"], "f", 5);
   assert.deepEqual(capped, ["f", "a", "b", "c", "d"]);
+});
+
+test("resolveSearchTagOptions normalizes populated tags and skips invalid refs", () => {
+  const result = resolveSearchTagOptions([
+    {
+      id: "st-1",
+      label: "  Suy niệm  ",
+      tag: { id: "ht-1", label: "Suy niệm Lời Chúa" },
+    },
+    {
+      id: "st-2",
+      label: "",
+      tag: { id: "ht-2", label: "Tin hội dòng" },
+    },
+    {
+      id: "st-3",
+      label: "Unpopulated",
+      tag: "ht-3",
+    },
+    {
+      id: "st-4",
+      label: null,
+      tag: null,
+    },
+    {
+      id: "st-5",
+      label: "   ",
+      tag: { id: "ht-5", label: "   " },
+    },
+  ]);
+
+  assert.deepEqual(result, [
+    { id: "st-1", tagId: "ht-1", label: "Suy niệm" },
+    { id: "st-2", tagId: "ht-2", label: "Tin hội dòng" },
+  ]);
 });
