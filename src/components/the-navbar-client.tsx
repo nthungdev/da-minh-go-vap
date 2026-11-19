@@ -316,37 +316,93 @@ export default function TheNavbarClient({
                             <ul className="flex flex-col gap-2 border-l-2 border-gray-100 pl-4">
                               {/* Layout 1: Grid */}
                               {item.layout === "grid" &&
-                                item.children?.map((child, childIndex) => (
-                                  <li key={childIndex}>
-                                    {child.absoluteHref ? (
-                                      <Link
-                                        href={child.absoluteHref}
-                                        onClick={() => setMobileMenuOpen(false)}
-                                        className={cn(
-                                          "hover:text-primary-600 flex items-center gap-2 py-2 text-base text-gray-700 transition-colors",
-                                          pathname === child.absoluteHref &&
-                                            "text-primary-600 font-semibold",
-                                        )}
-                                      >
-                                        <MenuIcon
-                                          icon={child.icon}
-                                          name={child.name}
-                                          size={5}
-                                        />
-                                        <span>{child.name}</span>
-                                      </Link>
-                                    ) : (
-                                      <span className="flex items-center gap-2 py-2 text-base font-medium text-gray-700">
-                                        <MenuIcon
-                                          icon={child.icon}
-                                          name={child.name}
-                                          size={5}
-                                        />
-                                        <span>{child.name}</span>
-                                      </span>
-                                    )}
-                                  </li>
-                                ))}
+                                item.children?.map((child, childIndex) => {
+                                  const hasNestedChildren = Boolean(
+                                    child.children && child.children.length > 0,
+                                  );
+
+                                  return (
+                                    <li key={childIndex}>
+                                      {child.absoluteHref ? (
+                                        <Link
+                                          href={child.absoluteHref}
+                                          onClick={() =>
+                                            setMobileMenuOpen(false)
+                                          }
+                                          className={cn(
+                                            "hover:text-primary-600 flex items-center gap-2 py-2 text-base text-gray-700 transition-colors",
+                                            hasNestedChildren &&
+                                              "font-semibold",
+                                            pathname === child.absoluteHref &&
+                                              "text-primary-600 font-semibold",
+                                          )}
+                                        >
+                                          <MenuIcon
+                                            icon={child.icon}
+                                            name={child.name}
+                                            size={5}
+                                          />
+                                          <span>{child.name}</span>
+                                        </Link>
+                                      ) : (
+                                        <span
+                                          className={cn(
+                                            "flex items-center gap-2 py-2 text-base font-medium text-gray-700",
+                                            hasNestedChildren &&
+                                              "font-semibold",
+                                          )}
+                                        >
+                                          <MenuIcon
+                                            icon={child.icon}
+                                            name={child.name}
+                                            size={5}
+                                          />
+                                          <span>{child.name}</span>
+                                        </span>
+                                      )}
+                                      {hasNestedChildren && (
+                                        <ul className="mt-1 flex flex-col gap-1 border-l-2 border-gray-100 pl-4">
+                                          {child.children?.map(
+                                            (subChild, subIndex) => (
+                                              <li key={subIndex}>
+                                                {subChild.absoluteHref ? (
+                                                  <Link
+                                                    href={subChild.absoluteHref}
+                                                    onClick={() =>
+                                                      setMobileMenuOpen(false)
+                                                    }
+                                                    className={cn(
+                                                      "hover:text-primary-600 flex items-center gap-2 py-1.5 text-base text-gray-700 transition-colors",
+                                                      pathname ===
+                                                        subChild.absoluteHref &&
+                                                        "text-primary-600 font-semibold",
+                                                    )}
+                                                  >
+                                                    <MenuIcon
+                                                      icon={subChild.icon}
+                                                      name={subChild.name}
+                                                      size={4}
+                                                    />
+                                                    <span>{subChild.name}</span>
+                                                  </Link>
+                                                ) : (
+                                                  <span className="flex items-center gap-2 py-1.5 text-base text-gray-600">
+                                                    <MenuIcon
+                                                      icon={subChild.icon}
+                                                      name={subChild.name}
+                                                      size={4}
+                                                    />
+                                                    <span>{subChild.name}</span>
+                                                  </span>
+                                                )}
+                                              </li>
+                                            ),
+                                          )}
+                                        </ul>
+                                      )}
+                                    </li>
+                                  );
+                                })}
 
                               {/* Layout 2: Pillars */}
                               {item.layout === "pillars" && (
