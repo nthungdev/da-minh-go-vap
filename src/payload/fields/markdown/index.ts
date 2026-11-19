@@ -9,6 +9,10 @@ function markdownField(override: MarkdownFieldOptions): CodeField {
     type: "code",
     admin: {
       ...(admin || {}),
+      custom: {
+        keywordTooltipHelper: true,
+        ...(admin?.custom || {}),
+      },
       components: {
         ...(admin?.components || {}),
         Field: "@/payload/fields/markdown/Field",

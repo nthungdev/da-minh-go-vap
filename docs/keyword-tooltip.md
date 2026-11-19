@@ -1,45 +1,34 @@
-# Chú giải từ khóa trong bài viết
+# Keyword Tooltips
 
-Trong bài viết ở chế độ Markdown, bọc cụm từ bằng thẻ `<keyword>` để hiện chú giải khi khách truy cập rê chuột vào hoặc chuyển tiêu điểm bàn phím đến cụm từ đó.
+Wrap any phrase in a Markdown field (plain Markdown posts, post templates, or content blocks) with `<keyword>` to show a hover/focus tooltip card on the public page.
 
-## Chèn bằng nút Chèn chú giải
+## Insert via the Admin Helper
 
-1. Mở bài viết trong Payload CMS.
-2. Đặt **Chế độ nội dung** thành **Văn bản thường (Markdown)**.
-3. Trong trường **Nội dung**, bôi đen cụm từ cần chú giải rồi bấm **Chèn chú giải** ở khung **Chú giải từ khóa**.
-4. Điền **Tiêu đề** và **Mô tả**. **URL ảnh** và **Đường dẫn "Xem thêm"** không bắt buộc. Khung **Xem trước** hiển thị nội dung thẻ chú giải.
-5. Bấm **Chèn vào nội dung**. Cụm từ đã chọn được thay bằng thẻ `<keyword>` hoàn chỉnh. Nếu không chọn cụm từ nào, thẻ được chèn tại vị trí con trỏ.
+1. Open any Markdown field in Payload CMS.
+2. Select a phrase (or place the cursor) and click **Chèn chú giải** in the **Chú giải từ khóa** banner.
+3. Enter **Tiêu đề** and **Mô tả** (optionally **URL ảnh** and **Đường dẫn "Xem thêm"**).
+4. Click **Chèn vào nội dung** to insert the `<keyword>` tag. Press **Hủy** or `Esc` to cancel.
 
-Bấm **Hủy** hoặc phím `Esc` để đóng hộp thoại mà không thay đổi nội dung.
-
-## Chèn thủ công
-
-Trong trường **Nội dung**, đặt đoạn mã sau tại vị trí cần chú giải và thay nội dung mẫu:
+## Manual Syntax
 
 ```html
 <keyword
-  data-title="Thánh Lễ Chúa Nhật"
-  data-description="Thánh lễ hằng tuần cử hành mầu nhiệm Chúa Phục Sinh."
-  data-image="https://example.org/media/thanh-le.jpg"
-  data-href="/duong-dan-bai-viet-lien-quan"
+  data-title="Sunday Mass"
+  data-description="Weekly liturgical celebration of the Resurrection."
+  data-image="https://example.org/media/mass.jpg"
+  data-href="/related-post"
 >
-  Thánh Lễ Chúa Nhật
+  Sunday Mass
 </keyword>
 ```
 
-| Thuộc tính         | Bắt buộc | Cách dùng                                                                                 |
-| ------------------ | -------- | ----------------------------------------------------------------------------------------- |
-| `data-title`       | Nên có   | Tiêu đề trong thẻ chú giải.                                                               |
-| `data-description` | Nên có   | Định nghĩa hoặc phần giải thích ngắn.                                                     |
-| `data-image`       | Không    | URL ảnh trong thư viện Media của Payload. Ảnh được tối ưu tự động trên trang.             |
-| `data-href`        | Không    | Đường dẫn đến trang liên quan. Khi có đường dẫn, thẻ chú giải hiện liên kết **Xem thêm**. |
+| Attribute          | Required | Purpose                                                            |
+| ------------------ | -------- | ------------------------------------------------------------------ |
+| `data-title`       | Yes      | Tooltip heading.                                                   |
+| `data-description` | Yes      | Short definition or explanation.                                   |
+| `data-image`       | No       | Payload Media URL (auto-optimized on render).                      |
+| `data-href`        | No       | Target path/URL; displays a **Xem thêm** link in the tooltip card. |
 
-Phần chữ giữa `<keyword>` và `</keyword>` là cụm từ khách truy cập thấy trong bài viết. Có thể bọc một từ hoặc một cụm từ. Dùng URL ảnh và đường dẫn bài viết thật thay cho các giá trị mẫu ở trên.
-
-## Kiểm tra kết quả
-
-Trình soạn thảo Markdown chỉ hiển thị vùng nhập liệu, không mở thẻ chú giải tương tác. Lưu bài viết rồi mở trang bài viết để kiểm tra nội dung, ảnh và liên kết. Khách truy cập có thể mở chú giải bằng cách rê chuột hoặc đưa tiêu điểm bàn phím đến cụm từ.
-
-## Tên thuộc tính trong nội dung cũ
-
-Nội dung hiện có cũng có thể dùng `title`, `description`, `image`, `data-image-url` và `href`. Với nội dung mới, hãy dùng các tên `data-*` trong ví dụ để thống nhất.
+- Legacy attributes (`title`, `description`, `image`, `data-image-url`, `href`) are still supported for existing content; use `data-*` for new markup.
+- The Markdown editor shows raw source only—save and view the published page to verify the interactive tooltip.
+- To hide the helper banner on a specific `markdownField()`, pass `admin: { custom: { keywordTooltipHelper: false } }`.

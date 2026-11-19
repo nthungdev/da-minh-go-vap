@@ -12,7 +12,8 @@ const MarkdownField: CodeFieldClientComponent = ({ path, field }) => {
   const { value, setValue } = useField<string>({ path });
   const editorRef = useRef<MarkdownEditorHandle>(null);
   const id = `markdown-field-${path.replace(/\./g, "-")}`;
-  const showKeywordHelper = field?.admin?.custom?.keywordTooltipHelper === true;
+  const showKeywordHelper =
+    field?.admin?.custom?.keywordTooltipHelper !== false;
 
   return (
     <div className="field-type markdown">
