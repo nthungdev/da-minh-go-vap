@@ -262,8 +262,13 @@ export function preserveMarkdownWhitespace(content: string): string {
 
       if (listContentOffset !== null) {
         const indentWidth = getIndentWidth(spaces);
-        // Preserve tight list continuations or loose-list paragraphs aligned with the item's content offset.
-        if (!sawBlankLineInList || indentWidth === listContentOffset) {
+        // Preserve tight list continuations or loose-list paragraphs within the item's
+        // CommonMark continuation range [listContentOffset, listContentOffset + 4).
+        if (
+          !sawBlankLineInList ||
+          (indentWidth >= listContentOffset &&
+            indentWidth < listContentOffset + 4)
+        ) {
           sawBlankLineInList = false;
           return line;
         }
