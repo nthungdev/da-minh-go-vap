@@ -1,6 +1,6 @@
 import { HiddenTag } from "@/payload-types";
 import { makePublicTagPath } from "@/utils/post";
-import { useLocale } from "next-intl";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { ComponentProps } from "react";
 import { cn } from "@/utils/common";
@@ -10,14 +10,13 @@ export function PublicTagList({
   tags,
   ...props
 }: ComponentProps<"div"> & { tags: HiddenTag[] }) {
-  const local = useLocale();
-  const label = local === "vi" ? "Thẻ" : "Tags";
+  const t = useTranslations("posts");
   return (
     <div
       className={cn("mt-6 flex flex-wrap items-center gap-2", className)}
       {...props}
     >
-      <span className="text-sm font-medium text-gray-600">{label}</span>
+      <span className="text-sm font-medium text-gray-600">{t("tags")}</span>
       {tags.map((tag) => (
         <Link
           key={tag.id}

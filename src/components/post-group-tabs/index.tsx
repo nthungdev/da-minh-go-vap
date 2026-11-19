@@ -2,19 +2,15 @@
 
 import PostGroupTabsPanel from "@/components/post-group-tabs/panel";
 import PostGroupTabsSelect from "@/components/post-group-tabs/select";
-import { Locale } from "@/i18n/config";
 import { Page } from "@/payload-types";
-import { useLocale } from "next-intl";
-import { useState } from "react";
+import { AppPost } from "@/definitions";
+import { useTranslations } from "next-intl";
+import { useId, useState } from "react";
 import { cn } from "@/utils/common";
-
-const ALL_POSTS_CONTROL_LABELS: Record<Locale, string> = {
-  en: "All",
-  vi: "Tất cả",
-};
 
 interface PostGroupTabsProps extends React.HTMLAttributes<HTMLDivElement> {
   title?: string;
+  initialPosts?: AppPost[];
   viewMoreButton?: {
     enable: boolean;
     relativeUrl: Page | string | undefined | null;
@@ -35,13 +31,13 @@ function PostGroupTabs({
   viewMoreButton,
   groups,
   className,
+  initialPosts,
   ...props
 }: PostGroupTabsProps) {
-  const id = (title ?? Math.random().toString())
-    .replace(/\s+/g, "-")
-    .toLowerCase();
+  const fallbackId = useId();
+  const id = (title ?? fallbackId).replace(/\s+/g, "-").toLowerCase();
 
-  const locale = useLocale();
+  const t = useTranslations();
 
   const allUniqueHiddenTags = Array.from(
     new Set(groups.flatMap((group) => group.hiddenTags)),
@@ -49,7 +45,7 @@ function PostGroupTabs({
 
   const postGroups = [
     {
-      title: ALL_POSTS_CONTROL_LABELS[locale],
+      title: t("common.all"),
       hiddenTags: allUniqueHiddenTags,
       limit: 6,
       viewMoreButton,
@@ -70,7 +66,7 @@ function PostGroupTabs({
       >
         <div className="text-xl font-bold">{title}</div>
         <PostGroupTabsSelect
-          id={id}
+          id={`${id}-select`}
           className="lg:hidden"
           activeIndex={currentIndex}
           options={postGroups.map((group) => ({ value: group.title }))}
@@ -78,7 +74,7 @@ function PostGroupTabs({
         />
         <ol
           role="tablist"
-          aria-label="Select post group"
+          aria-label={t("navigation.selectPostGroup")}
           className="hidden flex-1 flex-row flex-wrap justify-end gap-x-2 gap-y-1 pt-1 pb-1 lg:flex"
         >
           {postGroups.map((g, index) => (
@@ -90,7 +86,7 @@ function PostGroupTabs({
               aria-selected={currentIndex === index}
               aria-controls={`group-${id}-${index}`}
               id={`tab-${id}-${index}`}
-              tab-index={currentIndex === index ? 0 : 1}
+              tabIndex={currentIndex === index ? 0 : -1}
             >
               {index !== 0 && <div className="border-l"></div>}
               <span
@@ -113,6 +109,7 @@ function PostGroupTabs({
             id={`group-${id}-${index}`}
             hiddenTags={g.hiddenTags}
             title={g.title}
+            initialPosts={index === 0 ? initialPosts : undefined}
             viewMoreButton={g.viewMoreButton}
             role="tabpanel"
             tab-index="0"

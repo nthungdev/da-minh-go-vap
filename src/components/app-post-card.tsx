@@ -1,8 +1,8 @@
 import { AppPost } from "@/definitions";
 import { transformUrl } from "@/utils/cloudflare";
+import { cn } from "@/utils/common";
 import Image from "next/image";
 import Link from "next/link";
-import { cn } from "@/utils/common";
 
 interface AppPostCardProps {
   post: AppPost;
@@ -28,6 +28,7 @@ export default function AppPostCard(props: AppPostCardProps) {
               unoptimized
               src={transformUrl(post.thumbnail.url, { width: "100" })}
               alt={post.title}
+              loading="lazy"
               fill
               sizes="(max-width: 640px) 100vw, 33vw"
               className="object-cover"

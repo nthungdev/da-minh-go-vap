@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCarousel } from "@/hooks/use-carousel";
 import { cn } from "@/utils/common";
 
 interface TheBibleVerseProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -10,38 +10,29 @@ interface TheBibleVerseProps extends React.HTMLAttributes<HTMLDivElement> {
   }[];
 }
 
-export default function TheBibleVerse(props: TheBibleVerseProps) {
-  const { verses, className } = props;
-
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  useEffect(() => {
-    if (verses.length === 0) return;
-
-    const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) =>
-        prevIndex === verses.length - 1 ? 0 : prevIndex + 1,
-      );
-    }, 5000);
-
-    return () => clearInterval(interval);
+export default function TheBibleVerse({
+  verses,
+  className,
+}: TheBibleVerseProps) {
+  const { currentIndex, containerProps } = useCarousel({
+    count: verses.length,
+    durations: 5000,
   });
 
-  const currentVerse = verses[currentIndex]!;
-  const verse = currentVerse.verse;
-  const reference = currentVerse.reference;
+  const currentVerse = verses[currentIndex];
+  if (!currentVerse) return null;
 
   return (
-    <div className="py-2">
+    <div className="py-2" {...containerProps}>
       <blockquote
         className={cn(
           "border-secondary text-primary shadow-neon relative mx-auto flex max-w-max flex-col items-center justify-center rounded-full border-2 bg-white px-10 pt-3 pb-2 transition-shadow md:px-20",
           className,
         )}
       >
-        <p className="text-center text-xl font-bold">{verse}</p>
+        <p className="text-center text-xl font-bold">{currentVerse.verse}</p>
         <cite className="block w-full text-right text-xs font-semibold not-italic">
-          {reference}
+          {currentVerse.reference}
         </cite>
       </blockquote>
     </div>

@@ -1,11 +1,9 @@
 "use client";
 
 import {
-  ChangeEvent,
   ChangeEventHandler,
   FormEvent,
   forwardRef,
-  KeyboardEvent,
   RefObject,
   useEffect,
   useReducer,
@@ -20,37 +18,75 @@ import { createPortal } from "react-dom";
 import Image from "next/image";
 import { AppPost } from "@/definitions";
 import { cn } from "@/utils/common";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
-enum ModalState {
-  LOADING,
-  LOADED,
-  ERROR,
-  EMPTY,
+type SearchState =
+  | { status: "idle"; query: string }
+  | { status: "loading"; query: string; requestId: number }
+  | { status: "loaded"; query: string; results: AppPost[] }
+  | { status: "error"; query: string; message: string };
+
+type SearchAction =
+  | { type: "SET_QUERY"; query: string }
+  | { type: "SUBMIT"; requestId: number }
+  | { type: "RESOLVE"; requestId: number; results: AppPost[] }
+  | { type: "REJECT"; requestId: number; message: string }
+  | { type: "RESET" };
+
+const INITIAL_SEARCH_STATE: SearchState = {
+  status: "idle",
+  query: "",
+};
+
+function searchReducer(state: SearchState, action: SearchAction): SearchState {
+  switch (action.type) {
+    case "SET_QUERY":
+      if (state.status === "error") {
+        return { status: "idle", query: action.query };
+      }
+      return { ...state, query: action.query };
+    case "SUBMIT":
+      return {
+        status: "loading",
+        query: state.query,
+        requestId: action.requestId,
+      };
+    case "RESOLVE":
+      if (state.status !== "loading" || state.requestId !== action.requestId) {
+        return state;
+      }
+      return {
+        status: "loaded",
+        query: state.query,
+        results: action.results,
+      };
+    case "REJECT":
+      if (state.status !== "loading" || state.requestId !== action.requestId) {
+        return state;
+      }
+      return {
+        status: "error",
+        query: state.query,
+        message: action.message,
+      };
+    case "RESET":
+      return INITIAL_SEARCH_STATE;
+  }
 }
 
 interface SearchModalProps {
   id: string;
-  posts: AppPost[];
-  input: string;
-  state: ModalState;
+  state: SearchState;
   containerRef: RefObject<HTMLElement | null>;
-  onInputSubmit: (event: KeyboardEvent<HTMLInputElement>) => void;
+  onInputSubmit: (event: FormEvent<HTMLFormElement>) => void;
   onInputChange: ChangeEventHandler<HTMLInputElement>;
 }
 
 // eslint-disable-next-line react/display-name
 const SearchModal = forwardRef<HTMLDivElement, SearchModalProps>(
   (props, ref) => {
-    const {
-      id,
-      posts,
-      input,
-      state,
-      containerRef,
-      onInputChange,
-      onInputSubmit,
-    } = props;
+    const { id, state, containerRef, onInputChange, onInputSubmit } = props;
+    const t = useTranslations();
 
     return containerRef.current
       ? createPortal(
@@ -65,16 +101,15 @@ const SearchModal = forwardRef<HTMLDivElement, SearchModalProps>(
             <div className="hs-overlay-open:opacity-100 hs-overlay-open:duration-500 m-3 opacity-0 transition-all sm:mx-auto sm:w-full sm:max-w-lg">
               <div className="pointer-events-auto flex flex-col overflow-hidden rounded-xl border bg-white shadow-xs">
                 <div className="relative border-b border-gray-200 p-4">
-                  <form className="relative">
+                  <form className="relative" onSubmit={onInputSubmit}>
                     <label
                       id={`${id}-label`}
                       htmlFor={`${id}-input`}
                       className="sr-only"
                     >
-                      Search input
+                      {t("search.label")}
                     </label>
                     <div className="pointer-events-none absolute inset-y-0 start-0 z-20 flex items-center ps-3.5">
-                      {/* <SearchIcon className="shrink-0 size-4 text-gray-400" /> */}
                       <Image
                         unoptimized
                         src={SearchIcon}
@@ -87,34 +122,48 @@ const SearchModal = forwardRef<HTMLDivElement, SearchModalProps>(
                       className="focus:border-secondary focus:ring-secondary block w-full rounded-lg border-gray-200 py-3 ps-10 pe-4 text-sm disabled:pointer-events-none disabled:opacity-50"
                       type="text"
                       role="search"
-                      value={input}
+                      placeholder={t("search.placeholder")}
+                      value={state.query}
                       autoFocus
                       onChange={onInputChange}
-                      onKeyUp={(event) => {
-                        if (event.key === "Enter") {
-                          onInputSubmit(event);
-                        }
-                      }}
                     />
                   </form>
                 </div>
 
-                <div className="relative max-h-[75vh] w-full overflow-y-auto rounded-xs">
-                  {state === ModalState.LOADING && (
+                <div
+                  className="relative max-h-[75vh] w-full overflow-y-auto rounded-xs"
+                  aria-live="polite"
+                >
+                  {state.status === "loading" && (
                     <div className="py-4 text-center">
                       <div
                         className="text-primary inline-block size-4 animate-spin rounded-full border-[3px] border-current border-t-transparent"
                         role="status"
-                        aria-label="loading"
+                        aria-label={t("common.loading")}
                       >
-                        <span className="sr-only">Loading...</span>
+                        <span className="sr-only">{t("common.loading")}</span>
                       </div>
                     </div>
                   )}
 
-                  {state === ModalState.LOADED && (
+                  {state.status === "error" && (
+                    <p
+                      role="alert"
+                      className="px-4 py-6 text-center text-sm text-red-600"
+                    >
+                      {state.message}
+                    </p>
+                  )}
+
+                  {state.status === "loaded" && state.results.length === 0 && (
+                    <p className="px-4 py-6 text-center text-sm text-gray-500">
+                      {t("search.empty")}
+                    </p>
+                  )}
+
+                  {state.status === "loaded" && state.results.length > 0 && (
                     <div className="space-y-1 p-1">
-                      {posts.map((post, index) => (
+                      {state.results.map((post, index) => (
                         <div key={post.slug} className="h-[60px] w-full">
                           <AppPostListItem
                             post={post}
@@ -140,13 +189,13 @@ const SearchModal = forwardRef<HTMLDivElement, SearchModalProps>(
 
 export default function AppPostSearchButton({ id }: { id: string }) {
   const locale = useLocale();
+  const t = useTranslations("search");
   const bodyRef = useRef<HTMLBodyElement | null>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
-  const [input, setInput] = useState("");
-  const [posts, setPosts] = useState<AppPost[]>([]);
+  const requestIdRef = useRef(0);
   const [overlay, setOverlay] = useState<HSOverlay | null>(null);
   const [, forceUpdate] = useReducer((x) => x + 1, 0);
-  const [state, setState] = useState(ModalState.EMPTY);
+  const [state, dispatch] = useReducer(searchReducer, INITIAL_SEARCH_STATE);
 
   const getOverlay = async () => {
     if (overlay) {
@@ -157,7 +206,6 @@ export default function AppPostSearchButton({ id }: { id: string }) {
       `[data-hs-overlay="#${id}"]`,
     );
     if (overlayElement === null) {
-      console.log("element not found");
       return null;
     }
 
@@ -167,51 +215,62 @@ export default function AppPostSearchButton({ id }: { id: string }) {
       overlayElement,
       true,
     ) as ICollectionItem<HSOverlay>;
-    const o = overlayInstance.element;
-
-    setOverlay(o);
+    const o = overlayInstance?.element;
+    if (!o) return null;
 
     o.on("close", () => {
-      setPosts([]);
-      setInput("");
+      // Invalidate any in-flight search request and reset modal state
+      requestIdRef.current += 1;
+      dispatch({ type: "RESET" });
     });
 
+    setOverlay(o);
     return o;
   };
 
   const handleInputChange: ChangeEventHandler<HTMLInputElement> = (event) => {
-    setInput(event.target.value);
+    dispatch({ type: "SET_QUERY", query: event.target.value });
   };
 
-  const handleInputSubmit = async (
-    event:
-      | ChangeEvent<HTMLInputElement>
-      | FormEvent<HTMLFormElement>
-      | KeyboardEvent<HTMLInputElement>,
-  ) => {
+  const handleInputSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setState(ModalState.LOADING);
-    const results = await searchPosts(input, { locale });
-    setPosts(results.map((r) => r.item));
-    setState(ModalState.LOADED);
+    const trimmed = state.query.trim();
+    if (!trimmed) {
+      dispatch({ type: "RESET" });
+      return;
+    }
+
+    const requestId = ++requestIdRef.current;
+    dispatch({ type: "SUBMIT", requestId });
+
+    try {
+      const results = await searchPosts(trimmed, { locale });
+      dispatch({
+        type: "RESOLVE",
+        requestId,
+        results: results.map((r) => r.item),
+      });
+    } catch {
+      dispatch({
+        type: "REJECT",
+        requestId,
+        message: t("error"),
+      });
+    }
   };
 
   const openSearchModal = async () => {
-    const overlay = await getOverlay();
-    if (!overlay) {
-      console.log("overlay not found");
-      return;
-    }
-    overlay.open();
-    overlay.on("close", () => {
-      setPosts([]);
-      setInput("");
-    });
+    const o = await getOverlay();
+    if (!o) return;
+    o.open();
   };
 
   useEffect(() => {
     bodyRef.current = document.querySelector("body");
     forceUpdate();
+    return () => {
+      requestIdRef.current += 1;
+    };
   }, []);
 
   return (
@@ -227,6 +286,8 @@ export default function AppPostSearchButton({ id }: { id: string }) {
       ></button>
 
       <button
+        type="button"
+        aria-label={t("label")}
         className="ring-primary relative flex flex-row items-center space-x-2 rounded-full border bg-white p-2 hover:cursor-pointer hover:ring-2"
         onClick={openSearchModal}
       >
@@ -242,8 +303,6 @@ export default function AppPostSearchButton({ id }: { id: string }) {
         id={id}
         ref={overlayRef}
         containerRef={bodyRef}
-        posts={posts}
-        input={input}
         state={state}
         onInputChange={handleInputChange}
         onInputSubmit={handleInputSubmit}

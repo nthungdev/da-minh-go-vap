@@ -2,18 +2,15 @@
 
 import { setLocale } from "@/actions/locale";
 import Spinner from "@/components/spinner";
-import { Locale } from "@/i18n/config";
+import { localeLabels } from "@/i18n/config";
 import { useLocale } from "next-intl";
+import { useRouter } from "next/navigation";
 import { useTransition } from "react";
 import { cn } from "@/utils/common";
 
-const localeLabels: Record<Locale, string> = {
-  en: "English",
-  vi: "Tiếng Việt",
-};
-
 export default function LocaleSwitcher() {
   const [isPending, startTransition] = useTransition();
+  const router = useRouter();
   const locale = useLocale();
   const nextLocale = locale === "en" ? "vi" : "en";
   const label = localeLabels[nextLocale];
@@ -21,6 +18,9 @@ export default function LocaleSwitcher() {
   async function switchLocale() {
     startTransition(async function () {
       await setLocale(nextLocale);
+      // The action's own response re-renders the locale route chosen before
+      // the cookie changed; a refresh re-runs the cookie-based rewrite.
+      router.refresh();
     });
   }
 

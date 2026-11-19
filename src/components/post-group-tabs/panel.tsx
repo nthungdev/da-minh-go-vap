@@ -13,6 +13,7 @@ import PostList from "@/components/post-list";
 import Image from "next/image";
 import Link from "next/link";
 import { transformUrl } from "@/utils/cloudflare";
+import { AppPost } from "@/definitions";
 
 const POST_COUNT = 6;
 
@@ -20,6 +21,7 @@ interface PostGroupTabsPanelProps extends React.HTMLAttributes<HTMLDivElement> {
   component?: React.ElementType;
   title: string;
   hiddenTags: string[];
+  initialPosts?: AppPost[];
   viewMoreButton?: {
     enable: boolean;
     relativeUrl: Page | string | undefined | null;
@@ -31,6 +33,8 @@ export default function PostGroupTabsPanel({
   hiddenTags,
   viewMoreButton,
   title,
+  initialPosts,
+  hidden,
   ...props
 }: PostGroupTabsPanelProps) {
   const locale = useLocale();
@@ -38,28 +42,45 @@ export default function PostGroupTabsPanel({
     queryKey: ["tabbed-post-group-content", ...hiddenTags, locale],
     queryFn: () =>
       fetchPostsByHiddenTags(hiddenTags, { limit: POST_COUNT, locale }),
+    enabled: !hidden,
+    initialData: initialPosts
+      ? {
+          posts: initialPosts,
+          hasMore: false,
+          page: 1,
+          totalPages: 1,
+        }
+      : undefined,
   });
 
-  if (isPending) {
+  if (isPending && !initialPosts?.length) {
     return (
       <PostGroupTabPanelSkeleton
         viewMoreButtonEnable={viewMoreButton?.enable || true}
+        hidden={hidden}
         {...props}
       />
     );
   }
 
-  if (error) {
+  if (error && !initialPosts?.length) {
     // TODO prettier error
-    return <div {...props}>Error</div>;
+    return (
+      <div hidden={hidden} {...props}>
+        Error
+      </div>
+    );
   }
+
+  const posts = data?.posts ?? initialPosts ?? [];
+  if (!posts.length) return null;
 
   const page = getDataOrUndefined<Page>(viewMoreButton?.relativeUrl);
 
   const viewMoreHref = page ? page.path : makePostsPath(hiddenTags, title);
 
-  const firstPost = data.posts[0];
-  const otherPosts = data.posts.slice(1);
+  const firstPost = posts[0];
+  const otherPosts = posts.slice(1);
 
   if (!firstPost) return null;
 
@@ -68,7 +89,7 @@ export default function PostGroupTabsPanel({
   const firstPostHref = `/posts/${firstPost.slug}`;
 
   return (
-    <div className={cn(className)} {...props}>
+    <div className={cn(className)} hidden={hidden} {...props}>
       <div className="flex flex-col gap-x-4 gap-y-4 lg:flex-row lg:p-3">
         <Link href={firstPostHref} className="block space-y-2 lg:w-3/5">
           <div className="relative aspect-video w-full">
@@ -78,6 +99,7 @@ export default function PostGroupTabsPanel({
                 className="object-cover"
                 src={transformUrl(firstPostThumbnail.url, { width: "600" })}
                 alt={firstPost.title}
+                loading="lazy"
                 sizes="(max-width: 768px) 100vw, 66vw"
                 fill
               />

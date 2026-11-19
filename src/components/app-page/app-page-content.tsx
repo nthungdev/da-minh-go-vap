@@ -8,11 +8,11 @@ export default function AppPageContent({
   className,
   children,
   ...props
-}: HTMLAttributes<HTMLDivElement>) {
+}: HTMLAttributes<HTMLElement>) {
   const pathname = usePathname();
 
   return (
-    <div
+    <main
       className={cn(
         "mx-auto w-full max-w-7xl px-4 py-8",
         pathname !== "/" && "pt-16",
@@ -21,6 +21,6 @@ export default function AppPageContent({
       {...props}
     >
       {children}
-    </div>
+    </main>
   );
 }

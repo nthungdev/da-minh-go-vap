@@ -7,16 +7,7 @@ import { cn } from "@/utils/common";
 import { Page } from "@/payload-types";
 import AppPostTabContentAsync from "@/components/app-post-tab-content-async";
 import { makePostsPath } from "@/utils/post";
-import { Locale, useLocale } from "next-intl";
-
-const ALL_POSTS_CONTROL_LABELS: Record<Locale, string> = {
-  en: "All",
-  vi: "Tất cả",
-};
-const ALL_POSTS_TITLES: Record<Locale, string> = {
-  en: "Posts",
-  vi: "Các bài viết",
-};
+import { useTranslations } from "next-intl";
 
 /** id should be provided when there are multiple AppPostTabGrid components on the same page */
 interface AppPostTabGridAsyncProps
@@ -35,7 +26,7 @@ interface AppPostTabGridAsyncProps
 
 export default function AppPostTabGridAsync(props: AppPostTabGridAsyncProps) {
   const { id, postGroups, className, component } = props;
-  const locale = useLocale();
+  const t = useTranslations();
 
   const ContentComponent = component ?? AppPostGrid;
 
@@ -45,15 +36,12 @@ export default function AppPostTabGridAsync(props: AppPostTabGridAsyncProps) {
 
   const postGroupsData = [
     {
-      title: ALL_POSTS_CONTROL_LABELS[locale],
+      title: t("common.all"),
       hiddenTags: allUniqueHiddenTags,
       limit: 6,
       viewMoreButton: {
         enable: true,
-        relativeUrl: makePostsPath(
-          allUniqueHiddenTags,
-          ALL_POSTS_TITLES[locale],
-        ),
+        relativeUrl: makePostsPath(allUniqueHiddenTags, t("posts.allPosts")),
       },
     },
     ...postGroups,
@@ -82,10 +70,10 @@ export default function AppPostTabGridAsync(props: AppPostTabGridAsyncProps) {
       <div className="relative">
         <AppSelectBasic
           className="lg:hidden"
-          defaultValue={ALL_POSTS_CONTROL_LABELS[locale]}
+          defaultValue={t("common.all")}
           options={[
             {
-              value: ALL_POSTS_CONTROL_LABELS[locale],
+              value: t("common.all"),
             },
             ...postGroups.map((group) => ({
               value: group.title,
@@ -95,7 +83,7 @@ export default function AppPostTabGridAsync(props: AppPostTabGridAsyncProps) {
         />
         <nav
           className="group hidden flex-row-reverse justify-end lg:flex"
-          aria-label="Tabs"
+          aria-label={t("navigation.postGroups")}
           role="tablist"
           aria-orientation="horizontal"
         >

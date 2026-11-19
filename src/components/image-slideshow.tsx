@@ -29,7 +29,10 @@ export default function ImageSlideshow({
       {slides
         .filter((slide) => typeof slide.url === "string")
         .map((slide, index) => (
-          <div key={index} className="hs-carousel-slide">
+          <div
+            key={index}
+            className="hs-carousel-slide relative size-full shrink-0"
+          >
             <Image
               unoptimized
               className="h-full w-full object-cover"
@@ -37,6 +40,7 @@ export default function ImageSlideshow({
               alt={slide.alt}
               width={0}
               height={0}
+              loading={index === 0 ? "eager" : "lazy"}
               sizes="(max-width: 640px) 100vw, 20vw"
             />
           </div>

@@ -1,9 +1,9 @@
 import { AppPost } from "@/definitions";
 import { getDataOrUndefined } from "@/payload/utils/data";
 import { transformUrl } from "@/utils/cloudflare";
+import { cn } from "@/utils/common";
 import Image from "next/image";
 import Link from "next/link";
-import { cn } from "@/utils/common";
 
 interface PostListProps extends React.HTMLAttributes<HTMLUListElement> {
   posts: AppPost[];
@@ -48,6 +48,7 @@ export default function PostList({
                     className="object-cover"
                     src={transformUrl(thumbnail.url, { width: "150" })}
                     alt={post.title}
+                    loading="lazy"
                     sizes="150px"
                     fill
                   />

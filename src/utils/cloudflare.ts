@@ -1,3 +1,8 @@
+const CONFIGURED_MEDIA_CDN_URL = process.env.NEXT_PUBLIC_MEDIA_CDN_URL;
+
+/** Path Payload uses to stream uploaded files from storage through the app server. */
+const PAYLOAD_MEDIA_FILE_PATH = "/api/media/file/";
+
 /**
  * Transforms a Payload media URL or pathname into an optimized Cloudflare Image Resizing URL.
  * Ref: https://developers.cloudflare.com/images/transform-images/transform-via-url
@@ -31,7 +36,9 @@ export function transformUrl(
   }
 
   let cdnBase = (
-    process.env.NEXT_PUBLIC_CDN_URL || "https://cdn.dongdaminhgovap.org"
+    process.env.NEXT_PUBLIC_CDN_URL ||
+    CONFIGURED_MEDIA_CDN_URL ||
+    "https://cdn.dongdaminhgovap.org"
   ).replace(/\/+$/, "");
 
   let cdnHost = "cdn.dongdaminhgovap.org";
@@ -71,6 +78,11 @@ export function transformUrl(
     relativePath = cdnCgiMatch[1];
   }
 
+  // Strip Payload media proxy prefix so proxied URLs map to the same CDN key
+  if (relativePath.startsWith(PAYLOAD_MEDIA_FILE_PATH)) {
+    relativePath = relativePath.slice(PAYLOAD_MEDIA_FILE_PATH.length);
+  }
+
   // Retain full relative pathname without leading slashes for URL concatenation
   const cleanPath = relativePath.replace(/^\/+/, "");
   if (!cleanPath) {
@@ -91,4 +103,42 @@ export function transformUrl(
     .join(",");
 
   return `${cdnBase}/cdn-cgi/image/${optionsString}/${cleanPath}`;
+}
+
+/**
+ * Rewrites a Payload-proxied media URL (`/api/media/file/<name>`) to the media CDN origin.
+ * Other values are returned unchanged.
+ * Without `NEXT_PUBLIC_MEDIA_CDN_URL` (e.g. local dev) the URL is kept, so media that only
+ * exists in a local or staging bucket still loads through Payload instead of 404ing on the
+ * production CDN.
+ */
+export function toCdnMediaUrl(url: string): string {
+  if (!CONFIGURED_MEDIA_CDN_URL) return url;
+  if (!url.startsWith(PAYLOAD_MEDIA_FILE_PATH)) return url;
+  return `${CONFIGURED_MEDIA_CDN_URL}/${url.slice(PAYLOAD_MEDIA_FILE_PATH.length)}`;
+}
+
+function isPlainObject(value: unknown): value is Record<string, unknown> {
+  if (typeof value !== "object" || value === null) return false;
+  const proto = Object.getPrototypeOf(value);
+  return proto === Object.prototype || proto === null;
+}
+
+/**
+ * Deep-copies Payload data for public rendering, pointing every media URL at the CDN
+ * so pages never reference (or serialize) `/api/media/file/` URLs.
+ * Only strings that start with the Payload file path are rewritten; free text such as
+ * markdown bodies is left as-is. Expects Payload Local API output, which is plain JSON
+ * (ids and dates are strings); other class instances are returned by reference.
+ */
+export function rewriteMediaUrls<T>(value: T): T {
+  if (typeof value === "string") return toCdnMediaUrl(value) as T;
+  if (Array.isArray(value)) return value.map(rewriteMediaUrls) as T;
+  if (!isPlainObject(value)) return value;
+
+  const result: Record<string, unknown> = {};
+  for (const [key, entry] of Object.entries(value)) {
+    result[key] = rewriteMediaUrls(entry);
+  }
+  return result as T;
 }
