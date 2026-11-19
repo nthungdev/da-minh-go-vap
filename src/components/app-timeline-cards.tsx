@@ -4,7 +4,7 @@ import { Media } from "@/payload-types";
 import { transformUrl } from "@/utils/cloudflare";
 import Image from "next/image";
 import Link from "next/link";
-import { twMerge } from "tailwind-merge";
+import { cn } from "@/utils/common";
 
 interface AppTimelineCardsProps {
   className?: string;
@@ -23,7 +23,7 @@ export default function AppTimelineCards({
   title,
 }: AppTimelineCardsProps) {
   return (
-    <div className={twMerge("space-y-12", className)}>
+    <div className={cn("space-y-12", className)}>
       {title && (
         <AppSectionHeader className="text-2xl">{title}</AppSectionHeader>
       )}
@@ -32,7 +32,7 @@ export default function AppTimelineCards({
         {cards.map((card, index) => (
           <li
             key={index}
-            className={twMerge(
+            className={cn(
               "flex",
               index % 2 === 0 ? "flex-row" : "md:flex-row-reverse",
             )}
@@ -63,10 +63,10 @@ export default function AppTimelineCards({
 
             <div className="relative px-2">
               <div
-                className={twMerge(
-                  `bg-primary absolute top-0 right-0 left-0 mx-auto h-full w-1`,
-                  index === 0 ? "rounded-t-full" : "",
-                  index === cards.length - 1 ? "rounded-b-full" : "",
+                className={cn(
+                  "bg-primary absolute top-0 right-0 left-0 mx-auto h-full w-1",
+                  index === 0 && "rounded-t-full",
+                  index === cards.length - 1 && "rounded-b-full",
                 )}
               ></div>
               <div className="relative mt-2 h-8 w-8 rounded-full bg-red-300">
