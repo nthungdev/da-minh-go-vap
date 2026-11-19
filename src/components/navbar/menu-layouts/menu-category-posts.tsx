@@ -11,7 +11,16 @@ import type { MenuCategoryPosts } from "@/utils/menu-category-posts";
 import { makePostPath } from "@/utils/post";
 
 const GRID_CLASS_NAME = "grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4";
-const SKELETON_CARD_COUNT = 8;
+const SKELETON_CARD_KEYS = [
+  "skeleton-1",
+  "skeleton-2",
+  "skeleton-3",
+  "skeleton-4",
+  "skeleton-5",
+  "skeleton-6",
+  "skeleton-7",
+  "skeleton-8",
+] as const;
 
 interface MenuCategoryPostsGridProps {
   postsPromise: Promise<MenuCategoryPosts>;
@@ -94,9 +103,9 @@ export function MenuCategoryPostsGrid({
 export function MenuCategoryPostsSkeleton() {
   return (
     <div className={GRID_CLASS_NAME} aria-busy="true">
-      {Array.from({ length: SKELETON_CARD_COUNT }, (_, index) => (
+      {SKELETON_CARD_KEYS.map((skeletonKey) => (
         <div
-          key={index}
+          key={skeletonKey}
           className="flex flex-col p-1.5 motion-safe:animate-pulse"
           aria-hidden="true"
         >

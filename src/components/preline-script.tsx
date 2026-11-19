@@ -15,6 +15,8 @@ export default function PrelineScript() {
   const path = usePathname();
 
   useEffect(() => {
+    if (!path) return;
+
     const initPreline = () => {
       import("preline/preline").then(() => {
         window.HSStaticMethods?.autoInit?.();

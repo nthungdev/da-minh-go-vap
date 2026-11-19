@@ -84,7 +84,7 @@ export default function KidsBibleStoryView({ block }: Props) {
         {hasCredits && (
           <p className="mt-3 border-t border-dashed border-gray-300 pt-1.5 text-right text-[13px] leading-snug text-gray-600 italic">
             {presenters.map((name, idx) => (
-              <span key={idx} className="block">
+              <span key={name} className="block">
                 {idx === 0 ? t("presenter", { name }) : name}
               </span>
             ))}

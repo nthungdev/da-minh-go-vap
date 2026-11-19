@@ -12,8 +12,7 @@ if (!(AUTH_USER && AUTH_PASSWORD)) {
  */
 export function verifyHttpBasicAuth(authorizationHeader: string) {
   // Expected format: "Basic base64encoded(user:pass)"
-  const expectedAuth =
-    "Basic " + Buffer.from(`${AUTH_USER}:${AUTH_PASSWORD}`).toString("base64");
+  const expectedAuth = `Basic ${Buffer.from(`${AUTH_USER}:${AUTH_PASSWORD}`).toString("base64")}`;
 
   return authorizationHeader === expectedAuth;
 }

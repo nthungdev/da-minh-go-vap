@@ -39,25 +39,41 @@ export function slugifyHeading(text: string): string {
   return normalized || "section";
 }
 
-/**
- * Extracts `h2` and `h3` items from heading elements, assigning deterministic unique `id`s
- * (disambiguating duplicates with `-2`, `-3`, etc.) and applying a scroll-margin class.
- *
- * @param elements - Ordered heading elements from the article body container.
- * @param options - Optional extraction configuration.
- * @returns Ordered table of contents items.
- */
-export function extractHeadingsFromElements(
-  elements: Iterable<HeadingElementLike>,
-  options: ExtractHeadingsOptions = {},
-): TocItem[] {
-  const { scrollMarginClass = "scroll-mt-20" } = options;
+function resolveUniqueHeadingId(
+  existingId: string,
+  text: string,
+  assignedIds: Set<string>,
+  reservedIds: Set<string>,
+): { id: string; mutated: boolean } {
+  if (existingId && !assignedIds.has(existingId)) {
+    return { id: existingId, mutated: false };
+  }
 
-  const validHeadings: Array<{
-    element: HeadingElementLike;
-    text: string;
-    level: 2 | 3;
-  }> = [];
+  const baseSlug = existingId || slugifyHeading(text);
+  let candidate = baseSlug;
+  let suffix = 2;
+
+  while (
+    assignedIds.has(candidate) ||
+    (candidate !== existingId && reservedIds.has(candidate))
+  ) {
+    candidate = `${baseSlug}-${suffix}`;
+    suffix += 1;
+  }
+
+  return { id: candidate, mutated: true };
+}
+
+interface ValidHeading {
+  element: HeadingElementLike;
+  text: string;
+  level: 2 | 3;
+}
+
+function collectValidHeadings(
+  elements: Iterable<HeadingElementLike>,
+): ValidHeading[] {
+  const validHeadings: ValidHeading[] = [];
 
   for (const element of elements) {
     const tag = element.tagName.toUpperCase();
@@ -73,6 +89,24 @@ export function extractHeadingsFromElements(
     });
   }
 
+  return validHeadings;
+}
+
+/**
+ * Extracts `h2` and `h3` items from heading elements, assigning deterministic unique `id`s
+ * (disambiguating duplicates with `-2`, `-3`, etc.) and applying a scroll-margin class.
+ *
+ * @param elements - Ordered heading elements from the article body container.
+ * @param options - Optional extraction configuration.
+ * @returns Ordered table of contents items.
+ */
+export function extractHeadingsFromElements(
+  elements: Iterable<HeadingElementLike>,
+  options: ExtractHeadingsOptions = {},
+): TocItem[] {
+  const { scrollMarginClass = "scroll-mt-20" } = options;
+  const validHeadings = collectValidHeadings(elements);
+
   // Reserve pre-existing IDs first so generated slugs never collide with later headings.
   const reservedIds = new Set<string>();
   for (const { element } of validHeadings) {
@@ -87,24 +121,14 @@ export function extractHeadingsFromElements(
 
   for (const { element, text, level } of validHeadings) {
     const existingId = element.id.trim();
-    let finalId: string;
+    const { id: finalId, mutated } = resolveUniqueHeadingId(
+      existingId,
+      text,
+      assignedIds,
+      reservedIds,
+    );
 
-    if (existingId && !assignedIds.has(existingId)) {
-      finalId = existingId;
-    } else {
-      const baseSlug = existingId || slugifyHeading(text);
-      let candidate = baseSlug;
-      let suffix = 2;
-
-      while (
-        assignedIds.has(candidate) ||
-        (candidate !== existingId && reservedIds.has(candidate))
-      ) {
-        candidate = `${baseSlug}-${suffix}`;
-        suffix += 1;
-      }
-
-      finalId = candidate;
+    if (mutated) {
       element.id = finalId;
     }
 

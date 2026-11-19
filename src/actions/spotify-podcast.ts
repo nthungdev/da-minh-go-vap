@@ -19,7 +19,7 @@ export async function fetchSpotifyPodcasts({
   });
   return {
     podcasts: query.docs,
-    page: query.page!,
+    page: query.page ?? page,
     totalPages: query.totalPages,
     hasMore: query.hasNextPage,
   };

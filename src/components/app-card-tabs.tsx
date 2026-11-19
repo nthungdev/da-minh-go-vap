@@ -21,7 +21,8 @@ export default function AppCardTabs({ tabs }: AppCardTabsProps) {
         <nav className="flex gap-x-2">
           {tabs.map(({ title }, index) => (
             <button
-              key={index}
+              type="button"
+              key={title}
               className={cn(
                 "-mb-px inline-flex items-center gap-2 rounded-t-lg border px-4 py-3 text-center text-sm font-medium hover:cursor-pointer focus:outline-hidden",
                 index === activeTab

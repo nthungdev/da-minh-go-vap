@@ -2,8 +2,8 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import {
   extractHeadingsFromElements,
-  slugifyHeading,
   type HeadingElementLike,
+  slugifyHeading,
 } from "../src/utils/table-of-contents.ts";
 
 function createHeading(

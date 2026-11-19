@@ -20,8 +20,8 @@ export default function ImageLinkList({
     <div {...props} className={className}>
       <AppSectionHeader className="uppercase">{title}</AppSectionHeader>
       <ul className="space-y-2 p-2">
-        {links.map((link, index) => (
-          <li key={index}>
+        {links.map((link) => (
+          <li key={link.id ?? link.url}>
             <Link
               target="_blank"
               href={link.url}

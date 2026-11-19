@@ -97,7 +97,7 @@ const getPostsBySlugsCached = unstable_cache(
       locale,
     });
 
-    const entries: Array<[string, AppPost]> = [];
+    const entries: [string, AppPost][] = [];
     for (const doc of query.docs) {
       if (!doc.slug) continue;
       try {

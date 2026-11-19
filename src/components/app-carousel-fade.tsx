@@ -13,6 +13,16 @@ interface AppCarouselFadeProps<T> extends HTMLAttributes<HTMLElement> {
   onTransition?: (index: number) => void;
 }
 
+function getCarouselItemKey<T>(item: T, index: number): string | number {
+  if (item && typeof item === "object" && "id" in item) {
+    const id = (item as { id?: unknown }).id;
+    if (typeof id === "string" || typeof id === "number") {
+      return id;
+    }
+  }
+  return `slide-${index}`;
+}
+
 export default function AppCarouselFade<T>({
   id,
   className,
@@ -42,7 +52,7 @@ export default function AppCarouselFade<T>({
       <ul className="relative size-full">
         {items.map((item, index) => (
           <li
-            key={index}
+            key={getCarouselItemKey(item, index)}
             className={cn(
               "pointer-events-none absolute top-0 left-0 size-full opacity-0 transition-opacity duration-[2s] ease-in-out",
               currentIndex === index && "opacity-100",

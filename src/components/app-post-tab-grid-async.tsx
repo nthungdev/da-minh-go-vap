@@ -56,7 +56,7 @@ export default function AppPostTabGridAsync(props: AppPostTabGridAsyncProps) {
 
     if (selectedGroup) {
       const controls = document.querySelectorAll<HTMLButtonElement>(
-        `#${id} nav button`,
+        `#${id} [role="tablist"] button`,
       );
       const control = controls[postGroupsData.indexOf(selectedGroup)];
 
@@ -82,7 +82,7 @@ export default function AppPostTabGridAsync(props: AppPostTabGridAsyncProps) {
           ]}
           onChange={handleSelectChange}
         />
-        <nav
+        <div
           className="group hidden flex-row-reverse justify-end lg:flex"
           aria-label={t("navigation.postGroups")}
           role="tablist"
@@ -90,7 +90,7 @@ export default function AppPostTabGridAsync(props: AppPostTabGridAsyncProps) {
         >
           {postGroupsDataReversed.map(({ title }, index) => (
             <button
-              key={`${id}-control-${index}`}
+              key={`${id}-control-${title}`}
               type="button"
               className={cn(
                 "peer border-secondary-400 bg-primary-4 relative -mr-12 inline-flex items-center justify-center gap-x-2 rounded-full border-[6px] px-12 py-1 text-center text-xl font-bold text-nowrap text-white transition disabled:pointer-events-none disabled:opacity-50",
@@ -108,14 +108,14 @@ export default function AppPostTabGridAsync(props: AppPostTabGridAsyncProps) {
               {title}
             </button>
           ))}
-        </nav>
+        </div>
       </div>
 
       <div>
         {postGroupsDataReversed.map(
           ({ title, hiddenTags, viewMoreButton }, index) => (
             <div
-              key={`${id}-content-${index}`}
+              key={`${id}-content-${title}`}
               id={`${id}-content-${index}`}
               className={
                 index === postGroupsDataReversed.length - 1 ? "" : "hidden"

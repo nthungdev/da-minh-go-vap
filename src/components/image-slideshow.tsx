@@ -27,16 +27,19 @@ export default function ImageSlideshow({
       {...props}
     >
       {slides
-        .filter((slide) => typeof slide.url === "string")
+        .filter(
+          (slide): slide is Media & { url: string } =>
+            typeof slide.url === "string",
+        )
         .map((slide, index) => (
           <div
-            key={index}
+            key={slide.id}
             className="hs-carousel-slide relative size-full shrink-0"
           >
             <Image
               unoptimized
               className="h-full w-full object-cover"
-              src={transformUrl(slide.url!)}
+              src={transformUrl(slide.url)}
               alt={slide.alt}
               width={0}
               height={0}

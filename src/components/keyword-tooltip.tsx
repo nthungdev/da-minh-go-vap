@@ -70,11 +70,11 @@ export default function KeywordTooltip({
     }, 150);
   };
 
-  const handleBlur = (event: React.FocusEvent<HTMLSpanElement>) => {
+  const handleBlur = (event: React.FocusEvent<HTMLElement>) => {
     const nextFocusedElement = event.relatedTarget;
     if (
       nextFocusedElement instanceof Node &&
-      event.currentTarget.contains(nextFocusedElement)
+      triggerRef.current?.contains(nextFocusedElement)
     ) {
       return;
     }
@@ -90,22 +90,22 @@ export default function KeywordTooltip({
   const triggerContent = children || keyword || title;
 
   return (
-    <span
-      ref={triggerRef}
-      className={cn(
-        "border-primary-500 text-primary-700 hover:border-primary-700 hover:text-primary-800 relative inline-block cursor-help border-b border-dashed font-medium transition-colors",
-        className,
-      )}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      onFocus={handleMouseEnter}
-      onBlur={handleBlur}
-      tabIndex={0}
-      role="button"
-      aria-haspopup="dialog"
-      aria-expanded={isOpen}
-    >
-      {triggerContent}
+    <span ref={triggerRef} className="relative inline-block">
+      <button
+        type="button"
+        className={cn(
+          "border-primary-500 text-primary-700 hover:border-primary-700 hover:text-primary-800 inline cursor-help border-b border-dashed bg-transparent p-0 font-medium transition-colors",
+          className,
+        )}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        onFocus={handleMouseEnter}
+        onBlur={handleBlur}
+        aria-haspopup="dialog"
+        aria-expanded={isOpen}
+      >
+        {triggerContent}
+      </button>
 
       {isOpen && (
         <span
@@ -113,6 +113,7 @@ export default function KeywordTooltip({
           role="tooltip"
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
+          onBlur={handleBlur}
           className={cn(
             "animate-in fade-in zoom-in-95 absolute left-1/2 z-50 w-72 -translate-x-1/2 rounded-xl border border-gray-200 bg-white p-3.5 shadow-xl transition-all duration-200",
             position === "top" ? "bottom-full mb-2" : "top-full mt-2",

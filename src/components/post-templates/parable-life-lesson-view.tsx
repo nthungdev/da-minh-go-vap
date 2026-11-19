@@ -22,11 +22,14 @@ export default function ParableLifeLessonView({ block }: Props) {
         />
 
         <div className="space-y-6">
-          {contents.map((item, idx) => {
+          {contents.map((item) => {
+            const itemKey =
+              item.id ?? `${item.type}-${item.verse ?? item.content ?? ""}`;
+
             if (item.type === "scripture") {
               return (
                 <figure
-                  key={idx}
+                  key={itemKey}
                   className="relative my-10 rounded-[26px] border border-teal-500/20 bg-linear-to-br from-teal-500/8 to-white px-5 pt-[34px] pb-[26px] md:px-[30px] md:py-[38px]"
                 >
                   <span
@@ -52,7 +55,7 @@ export default function ParableLifeLessonView({ block }: Props) {
             if (item.type === "callout") {
               return (
                 <aside
-                  key={idx}
+                  key={itemKey}
                   className="mt-[30px] flex gap-1.5 rounded-2xl border-l-4 border-teal-500 bg-teal-50 px-6 py-[22px] leading-[1.9] text-teal-700"
                 >
                   <span aria-hidden="true">❤️</span>
@@ -65,7 +68,7 @@ export default function ParableLifeLessonView({ block }: Props) {
 
             return (
               <AppMarkdown
-                key={idx}
+                key={itemKey}
                 className="text-[1.06rem] leading-[1.9] hyphens-auto md:text-justify [&_p+p]:mt-6 [&_strong]:font-bold [&_strong]:text-teal-700"
               >
                 {item.content}

@@ -161,7 +161,7 @@ const getMenuCached = unstable_cache(
     const navBar = await fetchNavBarGlobal(locale);
 
     const validMenuItems = (navBar.menu || []).filter((menuItem, index) => {
-      const hasLabel = Boolean(menuItem.label && menuItem.label.trim());
+      const hasLabel = Boolean(menuItem.label?.trim());
       const hasIcon = Boolean(menuItem.icon);
       if (!(hasLabel || hasIcon)) {
         console.warn(

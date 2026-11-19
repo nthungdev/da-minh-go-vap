@@ -16,18 +16,23 @@ function BlockFallback({ block }: { block: BlockType }) {
   );
 }
 
+function getBlockKey(block: BlockType, index: number): string {
+  return block.id ?? `${block.blockType}-${index}`;
+}
+
 const BlocksRenderer = ({ blocks }: { blocks: BlockType[] }) => {
   return (
     <div>
-      {blocks.map((block, index) =>
-        shouldStreamBlock(block.blockType, index) ? (
-          <Suspense key={index} fallback={<BlockFallback block={block} />}>
+      {blocks.map((block, index) => {
+        const key = getBlockKey(block, index);
+        return shouldStreamBlock(block.blockType, index) ? (
+          <Suspense key={key} fallback={<BlockFallback block={block} />}>
             <BlockRenderer block={block} />
           </Suspense>
         ) : (
-          <BlockRenderer block={block} key={index} />
-        ),
-      )}
+          <BlockRenderer block={block} key={key} />
+        );
+      })}
     </div>
   );
 };

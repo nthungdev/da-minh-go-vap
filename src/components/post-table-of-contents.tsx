@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useId, useRef, useState } from "react";
 import { ChevronDown, List } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { useEffect, useId, useRef, useState } from "react";
 import { cn } from "@/utils/common";
 import {
   extractTableOfContents,

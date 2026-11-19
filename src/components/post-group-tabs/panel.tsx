@@ -16,6 +16,13 @@ import { cn } from "@/utils/common";
 import { makePostsPath } from "@/utils/post";
 
 const POST_COUNT = 6;
+const SKELETON_LIST_KEYS = [
+  "skeleton-1",
+  "skeleton-2",
+  "skeleton-3",
+  "skeleton-4",
+  "skeleton-5",
+] as const;
 
 interface PostGroupTabsPanelProps extends React.HTMLAttributes<HTMLDivElement> {
   component?: React.ElementType;
@@ -93,7 +100,7 @@ export default function PostGroupTabsPanel({
       <div className="flex flex-col gap-x-4 gap-y-4 lg:flex-row lg:p-3">
         <Link href={firstPostHref} className="block space-y-2 lg:w-3/5">
           <div className="relative aspect-video w-full">
-            {firstPostThumbnail && firstPostThumbnail.url ? (
+            {firstPostThumbnail?.url ? (
               <Image
                 unoptimized
                 className="object-cover"
@@ -141,9 +148,9 @@ function PostGroupTabPanelSkeleton({
           <p className="line-clamp-3 h-20 bg-gray-200"></p>
         </div>
         <div className="flex-1 space-y-2">
-          {[...Array(5)].map((_, index) => (
+          {SKELETON_LIST_KEYS.map((skeletonKey) => (
             <div
-              key={index}
+              key={skeletonKey}
               className="flex w-full flex-row gap-x-3 bg-gray-200"
             >
               <div className="aspect-video w-32 bg-gray-200 md:w-40 lg:w-28"></div>

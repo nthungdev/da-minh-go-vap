@@ -45,38 +45,43 @@ export default function AppBanners(props: AppBannersProps) {
       durations={durations}
       className={className}
       items={banners}
-      render={(item, index) => (
-        <div key={index} className="relative size-full">
-          {isVideoUrl(item.url!) ? (
-            <AppBannerVideo
-              className="size-full object-cover"
-              src={item.url!}
-              autoPlay
-              crossOrigin="anonymous"
-              loop
-              muted
-              playsInline
-              preload="metadata"
-              onLoadedMetadata={handleLoadedMetadata(index)}
-            />
-          ) : (
-            <Image
-              unoptimized
-              priority={index === 0}
-              loading={index === 0 ? "eager" : "lazy"}
-              fetchPriority={index === 0 ? "high" : "low"}
-              className="size-full object-cover"
-              src={transformUrl(item.url!, {
-                width: "1280",
-                quality: "80",
-              })}
-              alt={item.alt}
-              sizes="100vw"
-              fill
-            />
-          )}
-        </div>
-      )}
+      render={(item, index) => {
+        const url = item.url;
+        if (!url) return null;
+
+        return (
+          <div key={item.id} className="relative size-full">
+            {isVideoUrl(url) ? (
+              <AppBannerVideo
+                className="size-full object-cover"
+                src={url}
+                autoPlay
+                crossOrigin="anonymous"
+                loop
+                muted
+                playsInline
+                preload="metadata"
+                onLoadedMetadata={handleLoadedMetadata(index)}
+              />
+            ) : (
+              <Image
+                unoptimized
+                priority={index === 0}
+                loading={index === 0 ? "eager" : "lazy"}
+                fetchPriority={index === 0 ? "high" : "low"}
+                className="size-full object-cover"
+                src={transformUrl(url, {
+                  width: "1280",
+                  quality: "80",
+                })}
+                alt={item.alt}
+                sizes="100vw"
+                fill
+              />
+            )}
+          </div>
+        );
+      }}
     />
   );
 }

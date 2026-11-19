@@ -193,6 +193,42 @@ Examples:
 `);
 }
 
+const BACKUP_VALUE_FLAGS = {
+  "-e": "envName",
+  "--env": "envName",
+  "--env-file": "envFile",
+  "-b": "bucket",
+  "--bucket": "bucket",
+  "-p": "prefix",
+  "--prefix": "prefix",
+  "-o": "outDir",
+  "--out": "outDir",
+  "-c": "concurrency",
+  "--concurrency": "concurrency",
+};
+
+const BACKUP_BOOLEAN_FLAGS = {
+  "-z": "archive",
+  "--archive": "archive",
+  "--tar": "archive",
+  "--clean-dir": "cleanDir",
+  "-f": "force",
+  "--force": "force",
+};
+
+function setBackupOption(options, key, value) {
+  options[key] = key === "concurrency" ? parseInt(value, 10) || 10 : value;
+}
+
+function tryApplyEqualsFlag(arg, options) {
+  const eqIndex = arg.indexOf("=");
+  if (eqIndex === -1) return false;
+  const flag = arg.slice(0, eqIndex);
+  if (!(flag in BACKUP_VALUE_FLAGS)) return false;
+  setBackupOption(options, BACKUP_VALUE_FLAGS[flag], arg.slice(eqIndex + 1));
+  return true;
+}
+
 /**
  * Parse CLI options.
  */
@@ -216,37 +252,23 @@ function parseArgs() {
     if (arg === "-h" || arg === "--help") {
       printHelp();
       process.exit(0);
-    } else if (arg === "-e" || arg === "--env") {
-      options.envName = args[++i];
-    } else if (arg.startsWith("--env=")) {
-      options.envName = arg.split("=")[1];
-    } else if (arg === "--env-file") {
-      options.envFile = args[++i];
-    } else if (arg.startsWith("--env-file=")) {
-      options.envFile = arg.split("=")[1];
-    } else if (arg === "-b" || arg === "--bucket") {
-      options.bucket = args[++i];
-    } else if (arg.startsWith("--bucket=")) {
-      options.bucket = arg.split("=")[1];
-    } else if (arg === "-p" || arg === "--prefix") {
-      options.prefix = args[++i];
-    } else if (arg.startsWith("--prefix=")) {
-      options.prefix = arg.split("=")[1];
-    } else if (arg === "-o" || arg === "--out") {
-      options.outDir = args[++i];
-    } else if (arg.startsWith("--out=")) {
-      options.outDir = arg.split("=")[1];
-    } else if (arg === "-c" || arg === "--concurrency") {
-      options.concurrency = parseInt(args[++i], 10) || 10;
-    } else if (arg.startsWith("--concurrency=")) {
-      options.concurrency = parseInt(arg.split("=")[1], 10) || 10;
-    } else if (arg === "-z" || arg === "--archive" || arg === "--tar") {
-      options.archive = true;
-    } else if (arg === "--clean-dir") {
-      options.cleanDir = true;
-    } else if (arg === "-f" || arg === "--force") {
-      options.force = true;
-    } else if (!(arg.startsWith("-") || options.envName)) {
+    }
+
+    if (arg in BACKUP_BOOLEAN_FLAGS) {
+      options[BACKUP_BOOLEAN_FLAGS[arg]] = true;
+      continue;
+    }
+
+    if (arg in BACKUP_VALUE_FLAGS) {
+      setBackupOption(options, BACKUP_VALUE_FLAGS[arg], args[++i]);
+      continue;
+    }
+
+    if (tryApplyEqualsFlag(arg, options)) {
+      continue;
+    }
+
+    if (!(arg.startsWith("-") || options.envName)) {
       // Positional environment parameter, e.g. "pnpm s3:backup production"
       options.envName = arg;
     }
@@ -255,27 +277,15 @@ function parseArgs() {
   return options;
 }
 
-/**
- * Main runner function.
- */
-async function main() {
-  const options = parseArgs();
-  const fileEnv = loadEnvironment(options.envName, options.envFile);
-
-  // Merge process.env with loaded file env (loaded file env takes precedence if explicitly requested)
-  const env = { ...process.env, ...fileEnv };
-
+function resolveBackupConfig(options, env) {
   const bucket = options.bucket || env.S3_BUCKET || env.R2_BUCKET;
-
   const accessKeyId =
     env.S3_ACCESS_KEY_ID || env.R2_ACCESS_KEY_ID || env.AWS_ACCESS_KEY_ID;
-
   const secretAccessKey =
     env.S3_SECRET ||
     env.S3_SECRET_ACCESS_KEY ||
     env.R2_SECRET_ACCESS_KEY ||
     env.AWS_SECRET_ACCESS_KEY;
-
   const endpoint = normalizeEndpoint(
     env.S3_ENDPOINT ||
       env.R2_ENDPOINT ||
@@ -283,7 +293,6 @@ async function main() {
       env.AWS_ENDPOINT_URL,
     bucket,
   );
-
   const region = env.S3_REGION || "auto";
 
   if (!bucket) {
@@ -298,18 +307,174 @@ async function main() {
     process.exit(1);
   }
 
+  return { bucket, accessKeyId, secretAccessKey, endpoint, region };
+}
+
+function resolveTargetDir(options, bucket) {
   const timestamp = new Date()
     .toISOString()
     .replace(/[-:]/g, "")
     .replace("T", "_")
     .split(".")[0];
-
   const backupDirName = `s3_${bucket}_${timestamp}`;
   const targetDir = options.outDir
     ? path.resolve(options.outDir)
     : path.join(DEFAULT_BACKUP_DIR, backupDirName);
 
   fs.mkdirSync(targetDir, { recursive: true });
+  return targetDir;
+}
+
+async function listBucketObjects(s3Client, bucket, prefix) {
+  const objects = [];
+  let continuationToken;
+
+  do {
+    const listCommand = new ListObjectsV2Command({
+      Bucket: bucket,
+      Prefix: prefix || undefined,
+      ContinuationToken: continuationToken,
+    });
+
+    const listResponse = await s3Client.send(listCommand);
+    for (const item of listResponse.Contents ?? []) {
+      // Skip directory marker keys (keys ending with '/')
+      if (!item.Key.endsWith("/")) {
+        objects.push(item);
+      }
+    }
+    continuationToken = listResponse.NextContinuationToken;
+  } while (continuationToken);
+
+  return objects;
+}
+
+async function writeS3BodyToFile(body, destPath) {
+  const writeStream = fs.createWriteStream(destPath);
+
+  if (body instanceof Readable) {
+    await pipeline(body, writeStream);
+    return;
+  }
+
+  if (body && typeof body.transformToWebStream === "function") {
+    await pipeline(Readable.fromWeb(body.transformToWebStream()), writeStream);
+    return;
+  }
+
+  throw new Error("Unsupported S3 response body stream");
+}
+
+function isFileUpToDate(destPath, expectedSize, force) {
+  if (force || !fs.existsSync(destPath)) {
+    return false;
+  }
+  return fs.statSync(destPath).size === expectedSize;
+}
+
+async function downloadObjects({
+  s3Client,
+  bucket,
+  objects,
+  targetDir,
+  options,
+}) {
+  const stats = {
+    completedCount: 0,
+    downloadedCount: 0,
+    skippedCount: 0,
+    failedCount: 0,
+    downloadedBytes: 0,
+  };
+
+  async function downloadObject(item) {
+    const key = item.Key;
+    const destPath = path.join(targetDir, key);
+
+    try {
+      if (isFileUpToDate(destPath, item.Size, options.force)) {
+        stats.skippedCount++;
+        stats.completedCount++;
+        return;
+      }
+
+      fs.mkdirSync(path.dirname(destPath), { recursive: true });
+
+      const response = await s3Client.send(
+        new GetObjectCommand({ Bucket: bucket, Key: key }),
+      );
+      await writeS3BodyToFile(response.Body, destPath);
+
+      stats.downloadedCount++;
+      stats.downloadedBytes += item.Size || 0;
+      stats.completedCount++;
+
+      const percent = ((stats.completedCount / objects.length) * 100).toFixed(
+        1,
+      );
+      process.stdout.write(
+        `\r⏳ [${stats.completedCount}/${objects.length}] (${percent}%) - ${path.basename(key).slice(0, 40)}`,
+      );
+    } catch (err) {
+      stats.failedCount++;
+      stats.completedCount++;
+      console.error(`\n❌ Failed to download '${key}': ${err.message}`);
+    }
+  }
+
+  const concurrency = Math.max(1, options.concurrency);
+  let queueIndex = 0;
+
+  async function worker() {
+    while (queueIndex < objects.length) {
+      const currentItem = objects[queueIndex++];
+      await downloadObject(currentItem);
+    }
+  }
+
+  const workers = Array.from(
+    { length: Math.min(concurrency, objects.length) },
+    () => worker(),
+  );
+  await Promise.all(workers);
+
+  return stats;
+}
+
+function createBackupArchive(targetDir, cleanDir) {
+  const archivePath = `${targetDir}.tar.gz`;
+  console.log(`\n⏳ Compressing backup to ${archivePath} ...`);
+
+  try {
+    execFileSync("tar", ["-czf", archivePath, "-C", targetDir, "."], {
+      stdio: "inherit",
+    });
+
+    const archiveStats = fs.statSync(archivePath);
+    console.log(
+      `📦 Archive created: ${archivePath} (${formatBytes(archiveStats.size)})`,
+    );
+
+    if (cleanDir) {
+      console.log(`🧹 Removing uncompressed directory ${targetDir} ...`);
+      fs.rmSync(targetDir, { recursive: true, force: true });
+    }
+  } catch (archiveErr) {
+    console.error(`❌ Archive compression failed: ${archiveErr.message}`);
+  }
+}
+
+/**
+ * Main runner function.
+ */
+async function main() {
+  const options = parseArgs();
+  const fileEnv = loadEnvironment(options.envName, options.envFile);
+  // Merge process.env with loaded file env (loaded file env takes precedence if explicitly requested)
+  const env = { ...process.env, ...fileEnv };
+  const { bucket, accessKeyId, secretAccessKey, endpoint, region } =
+    resolveBackupConfig(options, env);
+  const targetDir = resolveTargetDir(options, bucket);
 
   console.log(`\n========================================`);
   console.log(`🚀 Starting S3 Backup`);
@@ -327,36 +492,13 @@ async function main() {
   const s3Client = new S3Client({
     region,
     endpoint: endpoint || undefined,
-    credentials: {
-      accessKeyId,
-      secretAccessKey,
-    },
+    credentials: { accessKeyId, secretAccessKey },
   });
 
   // Step 1: List all objects
   console.log(`⏳ Listing objects from bucket '${bucket}'...`);
   const startTime = Date.now();
-  const objects = [];
-  let continuationToken;
-
-  do {
-    const listCommand = new ListObjectsV2Command({
-      Bucket: bucket,
-      Prefix: options.prefix || undefined,
-      ContinuationToken: continuationToken,
-    });
-
-    const listResponse = await s3Client.send(listCommand);
-    if (listResponse.Contents && listResponse.Contents.length > 0) {
-      for (const item of listResponse.Contents) {
-        // Skip directory marker keys (keys ending with '/')
-        if (!item.Key.endsWith("/")) {
-          objects.push(item);
-        }
-      }
-    }
-    continuationToken = listResponse.NextContinuationToken;
-  } while (continuationToken);
+  const objects = await listBucketObjects(s3Client, bucket, options.prefix);
 
   if (objects.length === 0) {
     console.log(
@@ -371,85 +513,11 @@ async function main() {
   );
 
   // Step 2: Download objects with concurrency control
-  let completedCount = 0;
-  let downloadedCount = 0;
-  let skippedCount = 0;
-  let failedCount = 0;
-  let downloadedBytes = 0;
-
-  async function downloadObject(item) {
-    const key = item.Key;
-    const destPath = path.join(targetDir, key);
-
-    try {
-      // Check if file already exists with same size
-      if (!options.force && fs.existsSync(destPath)) {
-        const stats = fs.statSync(destPath);
-        if (stats.size === item.Size) {
-          skippedCount++;
-          completedCount++;
-          return;
-        }
-      }
-
-      fs.mkdirSync(path.dirname(destPath), { recursive: true });
-
-      const getCommand = new GetObjectCommand({
-        Bucket: bucket,
-        Key: key,
-      });
-
-      const response = await s3Client.send(getCommand);
-      const writeStream = fs.createWriteStream(destPath);
-
-      if (response.Body instanceof Readable) {
-        await pipeline(response.Body, writeStream);
-      } else if (
-        response.Body &&
-        typeof response.Body.transformToWebStream === "function"
-      ) {
-        await pipeline(
-          Readable.fromWeb(response.Body.transformToWebStream()),
-          writeStream,
-        );
-      } else {
-        throw new Error("Unsupported S3 response body stream");
-      }
-
-      downloadedCount++;
-      downloadedBytes += item.Size || 0;
-      completedCount++;
-
-      const percent = ((completedCount / objects.length) * 100).toFixed(1);
-      process.stdout.write(
-        `\r⏳ [${completedCount}/${objects.length}] (${percent}%) - ${path.basename(key).slice(0, 40)}`,
-      );
-    } catch (err) {
-      failedCount++;
-      completedCount++;
-      console.error(`\n❌ Failed to download '${key}': ${err.message}`);
-    }
-  }
-
-  // Worker pool queue
-  const concurrency = Math.max(1, options.concurrency);
-  let queueIndex = 0;
-
-  async function worker() {
-    while (queueIndex < objects.length) {
-      const currentItem = objects[queueIndex++];
-      await downloadObject(currentItem);
-    }
-  }
-
-  const workers = Array.from(
-    { length: Math.min(concurrency, objects.length) },
-    () => worker(),
-  );
-  await Promise.all(workers);
+  const { downloadedCount, skippedCount, failedCount, downloadedBytes } =
+    await downloadObjects({ s3Client, bucket, objects, targetDir, options });
 
   const duration = Date.now() - startTime;
-  process.stdout.write("\r" + " ".repeat(80) + "\r"); // Clear progress line
+  process.stdout.write(`\r${" ".repeat(80)}\r`); // Clear progress line
 
   console.log(`\n========================================`);
   console.log(`✅ Backup Completed in ${formatDuration(duration)}`);
@@ -467,28 +535,7 @@ async function main() {
 
   // Step 3: Create archive if requested
   if (options.archive) {
-    const archivePath = `${targetDir}.tar.gz`;
-    console.log(`\n⏳ Compressing backup to ${archivePath} ...`);
-    const parentDir = path.dirname(targetDir);
-    const folderName = path.basename(targetDir);
-
-    try {
-      execFileSync("tar", ["-czf", archivePath, "-C", targetDir, "."], {
-        stdio: "inherit",
-      });
-
-      const archiveStats = fs.statSync(archivePath);
-      console.log(
-        `📦 Archive created: ${archivePath} (${formatBytes(archiveStats.size)})`,
-      );
-
-      if (options.cleanDir) {
-        console.log(`🧹 Removing uncompressed directory ${targetDir} ...`);
-        fs.rmSync(targetDir, { recursive: true, force: true });
-      }
-    } catch (archiveErr) {
-      console.error(`❌ Archive compression failed: ${archiveErr.message}`);
-    }
+    createBackupArchive(targetDir, options.cleanDir);
   }
 
   console.log(`========================================\n`);

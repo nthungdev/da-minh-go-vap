@@ -24,11 +24,11 @@ export default function AppPostGrid({
         className,
       )}
     >
-      {posts.map((post, index) => (
+      {posts.map((post) => (
         // min-w-0 to override min-width: min-content that cause post title to not be truncated
         <li
           className="block size-full min-w-0 border border-transparent bg-white hover:ring-3"
-          key={index}
+          key={post.slug}
         >
           <Link
             prefetch={false}

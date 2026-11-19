@@ -40,8 +40,8 @@ export default function DominicanSpiritualityView({ block }: Props) {
 
       <AppMarkdown className={MARKDOWN_CLASS_NAME}>{lead}</AppMarkdown>
 
-      {points.map((p, idx) => (
-        <section key={idx}>
+      {points.map((p) => (
+        <section key={p.id ?? p.title}>
           <h2 className={HEADING_CLASS_NAME}>
             {p.symbol && <span aria-hidden="true">{p.symbol} </span>}
             {p.title}

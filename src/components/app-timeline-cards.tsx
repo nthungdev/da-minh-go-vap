@@ -31,7 +31,7 @@ export default function AppTimelineCards({
       <ol className="flex flex-col">
         {cards.map((card, index) => (
           <li
-            key={index}
+            key={`${card.title}-${card.url ?? ""}`}
             className={cn(
               "flex",
               index % 2 === 0 ? "flex-row" : "md:flex-row-reverse",

@@ -159,28 +159,30 @@ export default function AppPostSearchButton({ id }: { id?: string }) {
         </DialogDescription>
 
         <div className="relative border-b border-gray-200 p-4">
-          <form role="search" className="relative" onSubmit={handleInputSubmit}>
-            <label id={labelId} htmlFor={inputId} className="sr-only">
-              {t("search.label")}
-            </label>
-            <div className="pointer-events-none absolute inset-y-0 start-0 z-20 flex items-center ps-3.5">
-              <Image
-                unoptimized
-                src={SearchIcon}
-                alt=""
-                className="size-4 shrink-0 text-gray-400"
+          <search>
+            <form className="relative" onSubmit={handleInputSubmit}>
+              <label id={labelId} htmlFor={inputId} className="sr-only">
+                {t("search.label")}
+              </label>
+              <div className="pointer-events-none absolute inset-y-0 start-0 z-20 flex items-center ps-3.5">
+                <Image
+                  unoptimized
+                  src={SearchIcon}
+                  alt=""
+                  className="size-4 shrink-0 text-gray-400"
+                />
+              </div>
+              <input
+                id={inputId}
+                className="focus:border-secondary focus:ring-secondary block w-full rounded-lg border-gray-200 py-3 ps-10 pe-4 text-sm disabled:pointer-events-none disabled:opacity-50"
+                type="text"
+                value={state.query}
+                autoFocus
+                placeholder={t("search.placeholder")}
+                onChange={handleInputChange}
               />
-            </div>
-            <input
-              id={inputId}
-              className="focus:border-secondary focus:ring-secondary block w-full rounded-lg border-gray-200 py-3 ps-10 pe-4 text-sm disabled:pointer-events-none disabled:opacity-50"
-              type="text"
-              value={state.query}
-              autoFocus
-              placeholder={t("search.placeholder")}
-              onChange={handleInputChange}
-            />
-          </form>
+            </form>
+          </search>
         </div>
 
         <div
@@ -220,7 +222,7 @@ export default function AppPostSearchButton({ id }: { id?: string }) {
                 <div
                   key={post.slug}
                   className="h-[60px] w-full"
-                  onClick={handleClose}
+                  onClickCapture={handleClose}
                 >
                   <AppPostListItem
                     post={post}

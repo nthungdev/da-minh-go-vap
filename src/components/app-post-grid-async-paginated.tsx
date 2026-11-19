@@ -8,6 +8,7 @@ import { fetchPostsByHiddenTags, fetchPostsByPublicTag } from "@/actions/post";
 import AppPostGrid from "@/components/app-post-grid";
 import PaginationPanel from "@/components/pagination-panel";
 import type { AppPost } from "@/definitions";
+import type { Locale } from "@/i18n/config";
 import { cn } from "@/utils/common";
 import AppPostGridSkeleton from "./app-post-grid-skeleton";
 
@@ -40,6 +41,80 @@ type AppPostGridPaginatedProps = BasePostGridPaginatedProps &
       }
   );
 
+function resolveActivePage(
+  syncWithQueryParam: boolean,
+  queryPage: string | null | undefined,
+  localPage: number,
+): number {
+  if (!syncWithQueryParam) return localPage;
+  const parsedQueryPage = queryPage ? Number.parseInt(queryPage, 10) : 1;
+  return !Number.isNaN(parsedQueryPage) && parsedQueryPage > 0
+    ? parsedQueryPage
+    : 1;
+}
+
+function buildPostGridQueryOptions(params: {
+  publicTag?: string;
+  hiddenTags?: string[];
+  page: number;
+  locale: Locale;
+  skipSlug?: string;
+  pageSize: number;
+}) {
+  const { publicTag, hiddenTags, page, locale, skipSlug, pageSize } = params;
+
+  if (publicTag === undefined) {
+    return {
+      queryKey: [
+        "fetchPostsByHiddenTags",
+        hiddenTags,
+        page,
+        locale,
+        skipSlug,
+        pageSize,
+      ],
+      queryFn: () =>
+        fetchPostsByHiddenTags(hiddenTags ?? [], {
+          limit: pageSize,
+          page,
+          skipSlug,
+          locale,
+        }),
+    };
+  }
+
+  return {
+    queryKey: [
+      "fetchPostsByPublicTag",
+      publicTag,
+      page,
+      locale,
+      skipSlug,
+      pageSize,
+    ],
+    queryFn: () =>
+      fetchPostsByPublicTag(publicTag, {
+        limit: pageSize,
+        page,
+        skipSlug,
+        locale,
+      }),
+  };
+}
+
+function scrollContainerIntoViewIfAboveFold(
+  container: HTMLDivElement | null,
+): void {
+  if (!container) return;
+  const rect = container.getBoundingClientRect();
+  if (rect.top < 0) {
+    container.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  }
+}
+
 /**
  * Inner component to read searchParams and handle pagination state.
  */
@@ -64,14 +139,11 @@ function AppPostGridPaginatedContent(props: AppPostGridPaginatedProps) {
   // Local state as fallback when query params are disabled
   const [localPage, setLocalPage] = useState(1);
 
-  // Determine active page from query params if enabled
-  const queryPage = searchParams?.get(queryParamName);
-  const parsedQueryPage = queryPage ? parseInt(queryPage, 10) : 1;
-  const page = syncWithQueryParam
-    ? !isNaN(parsedQueryPage) && parsedQueryPage > 0
-      ? parsedQueryPage
-      : 1
-    : localPage;
+  const page = resolveActivePage(
+    syncWithQueryParam,
+    searchParams?.get(queryParamName),
+    localPage,
+  );
 
   const handlePageChange = useCallback(
     (newPage: number) => {
@@ -91,61 +163,28 @@ function AppPostGridPaginatedContent(props: AppPostGridPaginatedProps) {
       }
 
       // Smoothly scroll to the top of the container to prevent abrupt jumping
-      if (containerRef.current) {
-        const rect = containerRef.current.getBoundingClientRect();
-        if (rect.top < 0) {
-          containerRef.current.scrollIntoView({
-            behavior: "smooth",
-            block: "start",
-          });
-        }
-      }
+      scrollContainerIntoViewIfAboveFold(containerRef.current);
     },
     [syncWithQueryParam, searchParams, queryParamName, pathname, router],
   );
 
-  const queryOptions =
-    publicTag === undefined
-      ? {
-          queryKey: [
-            "fetchPostsByHiddenTags",
-            hiddenTags,
-            page,
-            locale,
-            skipSlug,
-            pageSize,
-          ],
-          queryFn: () =>
-            fetchPostsByHiddenTags(hiddenTags, {
-              limit: pageSize,
-              page,
-              skipSlug,
-              locale,
-            }),
-        }
-      : {
-          queryKey: [
-            "fetchPostsByPublicTag",
-            publicTag,
-            page,
-            locale,
-            skipSlug,
-            pageSize,
-          ],
-          queryFn: () =>
-            fetchPostsByPublicTag(publicTag, {
-              limit: pageSize,
-              page,
-              skipSlug,
-              locale,
-            }),
-        };
+  const queryOptions = buildPostGridQueryOptions({
+    publicTag,
+    hiddenTags,
+    page,
+    locale,
+    skipSlug,
+    pageSize,
+  });
+
+  const hasInitialData =
+    Boolean(initialPosts && initialPosts.length > 0) && page === 1;
 
   const { data, error, isError, isPending, isFetched, isFetching } = useQuery({
     ...queryOptions,
     placeholderData: keepPreviousData,
     initialData:
-      initialPosts && initialPosts.length > 0 && page === 1
+      hasInitialData && initialPosts
         ? {
             posts: initialPosts,
             hasMore: false,

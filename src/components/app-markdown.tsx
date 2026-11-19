@@ -64,6 +64,7 @@ const markdownComponents: Components = {
 
     return (
       // eslint-disable-next-line @next/next/no-img-element
+      // biome-ignore lint/performance/noImgElement: markdown renders arbitrary external image URLs
       <img
         {...imgProps}
         src={resolvedSrc}
@@ -185,6 +186,151 @@ function isIndentedBlockSyntax(spaces: string, rest: string): boolean {
   );
 }
 
+interface MarkdownWhitespaceState {
+  activeFence: { char: string; length: number } | null;
+  listContentOffset: number | null;
+  sawBlankLineInList: boolean;
+}
+
+function resetListState(state: MarkdownWhitespaceState): void {
+  state.listContentOffset = null;
+  state.sawBlankLineInList = false;
+}
+
+function tryCloseFence(trimmed: string, state: MarkdownWhitespaceState): void {
+  if (!state.activeFence) return;
+  const closeMatch = trimmed.match(/^(`{3,}|~{3,})[ \t]*$/);
+  const closeMarker = closeMatch?.[1];
+  if (
+    closeMarker &&
+    closeMarker[0] === state.activeFence.char &&
+    closeMarker.length >= state.activeFence.length
+  ) {
+    state.activeFence = null;
+  }
+}
+
+function tryOpenFence(
+  line: string,
+  trimmed: string,
+  state: MarkdownWhitespaceState,
+): boolean {
+  const openMatch = trimmed.match(/^(`{3,}|~{3,})(.*)$/);
+  const openMarker = openMatch?.[1];
+  const openInfo = openMatch?.[2] ?? "";
+  if (!openMarker || (openMarker[0] !== "~" && openInfo.includes("`"))) {
+    return false;
+  }
+
+  const fenceIndent = getIndentWidth(
+    line.slice(0, line.length - trimmed.length),
+  );
+  if (
+    state.listContentOffset !== null &&
+    fenceIndent < state.listContentOffset
+  ) {
+    resetListState(state);
+  }
+  state.activeFence = {
+    char: openMarker[0] ?? "`",
+    length: openMarker.length,
+  };
+  return true;
+}
+
+function transformBlockquoteLine(line: string): string | null {
+  // Check for blockquote prefix (e.g. "> " or ">> "), consuming at most one space per marker
+  // so additional leading indentation in `rest` is preserved.
+  const blockquoteMatch = line.match(/^(\s*(?:> ?)+)(.*)$/);
+  if (!blockquoteMatch) return null;
+
+  const prefix = blockquoteMatch[1] ?? "";
+  const rest = blockquoteMatch[2] ?? "";
+  const leadingSpacesMatch = rest.match(/^([ \t]+)(.*)$/);
+  if (!leadingSpacesMatch) return line;
+
+  const spaces = leadingSpacesMatch[1] ?? "";
+  const tail = leadingSpacesMatch[2] ?? "";
+  return `${prefix}${convertLeadingSpacesToNbsp(spaces)}${tail}`;
+}
+
+function transformIndentedLine(
+  line: string,
+  state: MarkdownWhitespaceState,
+): string | null {
+  const leadingSpacesMatch = line.match(/^([ \t]+)(.*)$/);
+  if (!leadingSpacesMatch) return null;
+
+  const spaces = leadingSpacesMatch[1] ?? "";
+  const rest = leadingSpacesMatch[2] ?? "";
+
+  if (state.listContentOffset !== null) {
+    const indentWidth = getIndentWidth(spaces);
+    // Preserve tight list continuations or loose-list paragraphs within the item's
+    // CommonMark continuation range [listContentOffset, listContentOffset + 4).
+    const isWithinListContinuation =
+      !state.sawBlankLineInList ||
+      (indentWidth >= state.listContentOffset &&
+        indentWidth < state.listContentOffset + 4);
+    if (isWithinListContinuation) {
+      state.sawBlankLineInList = false;
+      return line;
+    }
+    resetListState(state);
+  }
+
+  if (isIndentedBlockSyntax(spaces, rest)) {
+    return line;
+  }
+
+  return `${convertLeadingSpacesToNbsp(spaces)}${rest}`;
+}
+
+function processMarkdownLine(
+  line: string,
+  state: MarkdownWhitespaceState,
+): string {
+  const trimmed = line.trimStart();
+
+  if (state.activeFence) {
+    tryCloseFence(trimmed, state);
+    return line;
+  }
+
+  if (tryOpenFence(line, trimmed, state)) {
+    return line;
+  }
+
+  // Do not transform empty or whitespace-only lines
+  if (!line.trim()) {
+    if (state.listContentOffset !== null) {
+      state.sawBlankLineInList = true;
+    }
+    return line;
+  }
+
+  const blockquoteLine = transformBlockquoteLine(line);
+  if (blockquoteLine !== null) {
+    resetListState(state);
+    return blockquoteLine;
+  }
+
+  const itemOffset = getListContentOffset(line);
+  if (itemOffset !== null) {
+    state.listContentOffset = itemOffset;
+    state.sawBlankLineInList = false;
+    return line;
+  }
+
+  const indentedLine = transformIndentedLine(line, state);
+  if (indentedLine !== null) {
+    return indentedLine;
+  }
+
+  resetListState(state);
+  return line;
+}
+
 /**
  * Preprocesses markdown text to preserve intentional leading indentation spaces
  * and whitespace in paragraphs without triggering CommonMark indented code blocks.
@@ -200,112 +346,16 @@ function isIndentedBlockSyntax(spaces: string, rest: string): boolean {
 export function preserveMarkdownWhitespace(content: string): string {
   if (!content) return content;
 
-  const lines = content.split("\n");
-  let activeFence: { char: string; length: number } | null = null;
-  let listContentOffset: number | null = null;
-  let sawBlankLineInList = false;
+  const state: MarkdownWhitespaceState = {
+    activeFence: null,
+    listContentOffset: null,
+    sawBlankLineInList: false,
+  };
 
-  const processedLines = lines.map((line) => {
-    const trimmed = line.trimStart();
-
-    if (activeFence) {
-      const closeMatch = trimmed.match(/^(`{3,}|~{3,})[ \t]*$/);
-      const closeMarker = closeMatch?.[1];
-      if (
-        closeMarker &&
-        closeMarker[0] === activeFence.char &&
-        closeMarker.length >= activeFence.length
-      ) {
-        activeFence = null;
-      }
-      return line;
-    }
-
-    const openMatch = trimmed.match(/^(`{3,}|~{3,})(.*)$/);
-    const openMarker = openMatch?.[1];
-    const openInfo = openMatch?.[2] ?? "";
-    if (openMarker && (openMarker[0] === "~" || !openInfo.includes("`"))) {
-      const fenceIndent = getIndentWidth(
-        line.slice(0, line.length - trimmed.length),
-      );
-      if (listContentOffset !== null && fenceIndent < listContentOffset) {
-        listContentOffset = null;
-        sawBlankLineInList = false;
-      }
-      activeFence = {
-        char: openMarker[0] ?? "`",
-        length: openMarker.length,
-      };
-      return line;
-    }
-
-    // Do not transform empty or whitespace-only lines
-    if (!line.trim()) {
-      if (listContentOffset !== null) {
-        sawBlankLineInList = true;
-      }
-      return line;
-    }
-
-    // Check for blockquote prefix (e.g. "> " or ">> "), consuming at most one space per marker
-    // so additional leading indentation in `rest` is preserved.
-    const blockquoteMatch = line.match(/^(\s*(?:> ?)+)(.*)$/);
-    if (blockquoteMatch) {
-      listContentOffset = null;
-      sawBlankLineInList = false;
-      const prefix = blockquoteMatch[1] ?? "";
-      const rest = blockquoteMatch[2] ?? "";
-      const leadingSpacesMatch = rest.match(/^([ \t]+)(.*)$/);
-      if (leadingSpacesMatch) {
-        const spaces = leadingSpacesMatch[1] ?? "";
-        const tail = leadingSpacesMatch[2] ?? "";
-        return `${prefix}${convertLeadingSpacesToNbsp(spaces)}${tail}`;
-      }
-      return line;
-    }
-
-    const itemOffset = getListContentOffset(line);
-    if (itemOffset !== null) {
-      listContentOffset = itemOffset;
-      sawBlankLineInList = false;
-      return line;
-    }
-
-    // Check for leading spaces/tabs on regular lines
-    const leadingSpacesMatch = line.match(/^([ \t]+)(.*)$/);
-    if (leadingSpacesMatch) {
-      const spaces = leadingSpacesMatch[1] ?? "";
-      const rest = leadingSpacesMatch[2] ?? "";
-
-      if (listContentOffset !== null) {
-        const indentWidth = getIndentWidth(spaces);
-        // Preserve tight list continuations or loose-list paragraphs within the item's
-        // CommonMark continuation range [listContentOffset, listContentOffset + 4).
-        if (
-          !sawBlankLineInList ||
-          (indentWidth >= listContentOffset &&
-            indentWidth < listContentOffset + 4)
-        ) {
-          sawBlankLineInList = false;
-          return line;
-        }
-        listContentOffset = null;
-        sawBlankLineInList = false;
-      }
-
-      if (isIndentedBlockSyntax(spaces, rest)) {
-        return line;
-      }
-
-      return `${convertLeadingSpacesToNbsp(spaces)}${rest}`;
-    }
-
-    listContentOffset = null;
-    sawBlankLineInList = false;
-    return line;
-  });
-
-  return processedLines.join("\n");
+  return content
+    .split("\n")
+    .map((line) => processMarkdownLine(line, state))
+    .join("\n");
 }
 
 export default function AppMarkdown({

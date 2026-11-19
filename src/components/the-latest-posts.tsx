@@ -86,10 +86,10 @@ export default function TheLatestPosts({
 
               return (
                 <div
-                  key={index}
+                  key={post.slug}
                   className="hs-carousel-slide relative size-full shrink-0"
                 >
-                  {thumbnail && thumbnail.url ? (
+                  {thumbnail?.url ? (
                     <Image
                       unoptimized
                       className="object-cover"

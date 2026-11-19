@@ -74,15 +74,20 @@ export default async function TheFooter() {
 
         {chunkedExternalLinks.length > 0 && (
           <div className="flex flex-col gap-x-4 md:flex-row">
-            {chunkedExternalLinks.map((chunk, chunkIndex) => (
-              <div key={chunkIndex} className="flex flex-col justify-end">
-                {chunk.map((link, linkIndex) => (
-                  <div key={link.id || `${chunkIndex}-${linkIndex}`}>
-                    <Link href={link.url}>{link.name}</Link>
-                  </div>
-                ))}
-              </div>
-            ))}
+            {chunkedExternalLinks.map((chunk) => {
+              const chunkKey = chunk
+                .map((link) => link.id || link.url)
+                .join("|");
+              return (
+                <div key={chunkKey} className="flex flex-col justify-end">
+                  {chunk.map((link) => (
+                    <div key={link.id || `${link.name}-${link.url}`}>
+                      <Link href={link.url}>{link.name}</Link>
+                    </div>
+                  ))}
+                </div>
+              );
+            })}
           </div>
         )}
       </div>

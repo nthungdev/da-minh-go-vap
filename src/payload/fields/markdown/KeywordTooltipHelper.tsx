@@ -115,11 +115,11 @@ export default function KeywordTooltipHelper({
           <dialog
             ref={dialogRef}
             className={styles.dialog}
-            aria-labelledby={fieldId("phrase") + "-heading"}
+            aria-labelledby={`${fieldId("phrase")}-heading`}
           >
             <form className={styles.form} onSubmit={onSubmit}>
               <h2
-                id={fieldId("phrase") + "-heading"}
+                id={`${fieldId("phrase")}-heading`}
                 className={styles.heading}
               >
                 Chèn chú giải từ khóa
@@ -185,6 +185,7 @@ export default function KeywordTooltipHelper({
                   <div className={styles.preview} aria-live="polite">
                     {form.image.trim() && (
                       // eslint-disable-next-line @next/next/no-img-element -- admin preview of an arbitrary URL
+                      // biome-ignore lint/performance/noImgElement: admin preview of an arbitrary URL
                       <img
                         src={form.image.trim()}
                         alt=""

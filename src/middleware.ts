@@ -98,8 +98,7 @@ function basicAuthCheck(request: NextRequest): BasicAuthResult {
   const authHeader = request.headers.get("authorization");
 
   // Expected format: "Basic base64encoded(user:pass)"
-  const expectedAuth =
-    "Basic " + Buffer.from(`${AUTH_USER}:${AUTH_PASSWORD}`).toString("base64");
+  const expectedAuth = `Basic ${Buffer.from(`${AUTH_USER}:${AUTH_PASSWORD}`).toString("base64")}`;
 
   const passBasicAuth = authHeader === expectedAuth;
   const isAuthBasicRoute = pathname.startsWith("/auth/basic");

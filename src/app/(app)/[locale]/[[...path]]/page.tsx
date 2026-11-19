@@ -22,7 +22,7 @@ export async function generateMetadata(
   const parentMetadata = await parent;
   const params = await props.params;
   const locale = applyRouteLocale(params.locale);
-  const path = "/" + (params.path || []).join("/");
+  const path = `/${(params.path || []).join("/")}`;
   const page = await getPageByPath(path, locale);
 
   return {
@@ -54,7 +54,7 @@ export function generateStaticParams(): Pick<
 export default async function Page(props: Props) {
   const params = await props.params;
   const locale = applyRouteLocale(params.locale);
-  const path = "/" + (params.path || []).join("/");
+  const path = `/${(params.path || []).join("/")}`;
   const page = await getPageByPath(path, locale);
   if (!page) {
     console.info("Page not found for path:", path);
@@ -71,10 +71,7 @@ export default async function Page(props: Props) {
   }
 
   const banners =
-    (page.banners &&
-      page.banners.every((b) => typeof b === "object") &&
-      page.banners) ||
-    [];
+    (page.banners?.every((b) => typeof b === "object") && page.banners) || [];
 
   return (
     <AppPage

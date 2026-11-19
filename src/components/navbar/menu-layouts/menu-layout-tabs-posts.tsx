@@ -76,9 +76,10 @@ export default function MenuLayoutTabsPosts({
             isRouteActive && "bg-gray-200 font-semibold text-primary-700",
           );
 
+          const categoryKey = `${cat.name}-${cat.absoluteHref}`;
           return cat.absoluteHref ? (
             <NavigationMenuLink
-              key={idx}
+              key={categoryKey}
               className={tabClassName}
               render={
                 <Link
@@ -91,7 +92,7 @@ export default function MenuLayoutTabsPosts({
             </NavigationMenuLink>
           ) : (
             <button
-              key={idx}
+              key={categoryKey}
               type="button"
               onMouseEnter={() => setActiveTabIndex(idx)}
               className={tabClassName}

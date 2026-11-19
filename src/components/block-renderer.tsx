@@ -174,7 +174,7 @@ const mapBlockToProps: BlockToPropsMap = {
       new Set(groups.flatMap((group) => group.hiddenTags)),
     );
 
-    let initialPosts;
+    let initialPosts: AppPost[] | undefined;
     if (allUniqueHiddenTags.length > 0) {
       const query = await fetchPostsByHiddenTags(allUniqueHiddenTags, {
         limit: 6,

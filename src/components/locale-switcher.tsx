@@ -26,6 +26,7 @@ export default function LocaleSwitcher() {
 
   return (
     <button
+      type="button"
       className="group relative rounded px-2 py-1 hover:cursor-pointer disabled:pointer-events-none"
       onClick={switchLocale}
       disabled={isPending}

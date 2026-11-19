@@ -69,6 +69,28 @@ export function generateStaticParams(): Awaited<Props["params"]>[] {
   return [];
 }
 
+function renderArticleContent(
+  post: NonNullable<Awaited<ReturnType<typeof fetchPostBySlug>>>,
+) {
+  if (post.contentMode === "template" && post.template?.[0]) {
+    return (
+      <div data-post-template={post.template[0].blockType}>
+        <PostTemplateRenderer block={post.template[0]} />
+      </div>
+    );
+  }
+
+  if (post.contentMode === "blocks" && post.contentBlocks?.length) {
+    return <BlocksRenderer blocks={post.contentBlocks as BlockType[]} />;
+  }
+
+  if ((post.contentMode === "markdown" || !post.contentMode) && post.body) {
+    return <AppMarkdown>{post.body}</AppMarkdown>;
+  }
+
+  return null;
+}
+
 export default async function Page(props: Props) {
   const [params, origin] = await Promise.all([props.params, getServerOrigin()]);
   const locale = applyRouteLocale(params.locale);
@@ -91,17 +113,7 @@ export default async function Page(props: Props) {
   const publishedAt = formatDate(post.publishedAt);
 
   const postHref = `${origin}/posts/${post.slug}`;
-
-  const articleContent =
-    post.contentMode === "template" && post.template?.[0] ? (
-      <div data-post-template={post.template[0].blockType}>
-        <PostTemplateRenderer block={post.template[0]} />
-      </div>
-    ) : post.contentMode === "blocks" && post.contentBlocks?.length ? (
-      <BlocksRenderer blocks={post.contentBlocks as BlockType[]} />
-    ) : (post.contentMode === "markdown" || !post.contentMode) && post.body ? (
-      <AppMarkdown>{post.body}</AppMarkdown>
-    ) : null;
+  const articleContent = renderArticleContent(post);
 
   return (
     <AppPage>
