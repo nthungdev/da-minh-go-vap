@@ -2,8 +2,6 @@ namespace NodeJS {
   interface ProcessEnv {
     NEXT_PUBLIC_BASE_URL?: string;
 
-    GOOGLE_MAPS_EMBED_API_KEY?: string;
-
     NEXT_PUBLIC_MEDIA_CDN_URL?: string;
     SITE_NOINDEX?: string;
 
