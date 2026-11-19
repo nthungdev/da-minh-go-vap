@@ -225,6 +225,13 @@ export function preserveMarkdownWhitespace(content: string): string {
     const openMarker = openMatch?.[1];
     const openInfo = openMatch?.[2] ?? "";
     if (openMarker && (openMarker[0] === "~" || !openInfo.includes("`"))) {
+      const fenceIndent = getIndentWidth(
+        line.slice(0, line.length - trimmed.length),
+      );
+      if (listContentOffset !== null && fenceIndent < listContentOffset) {
+        listContentOffset = null;
+        sawBlankLineInList = false;
+      }
       activeFence = {
         char: openMarker[0] ?? "`",
         length: openMarker.length,
