@@ -1,3 +1,4 @@
+import { fetchAllPosts, fetchPostsByHiddenTags } from "@/actions/post";
 import { AppAccordionDefault } from "@/components/app-accordion";
 import AppCardTabs from "@/components/app-card-tabs";
 import AppMarkdown from "@/components/app-markdown";
@@ -12,10 +13,9 @@ import TheBibleVerse from "@/components/the-bible-verse";
 import TheLatestPosts from "@/components/the-latest-posts";
 import SpotifyPodcastList from "@/components/spotify-podcast-list";
 import VideoGrid from "@/components/video-grid";
-import { BlockType } from "@/definitions";
-import { getLocale } from "next-intl/server";
+import { AppPost, BlockType } from "@/definitions";
 import { Locale } from "@/i18n/config";
-import { fetchAllPosts, fetchPostsByHiddenTags } from "@/actions/post";
+import { getLocale } from "next-intl/server";
 
 function NotImplementedBlock() {
   return <div>Not Implemented</div>;
@@ -91,10 +91,15 @@ const mapBlockToProps: BlockToPropsMap = {
     slides: block.images?.filter((image) => typeof image !== "string") || [],
   }),
   latestPostGridBlock: async (block) => {
-    const locale = (await getLocale()) as Locale;
     const postCount =
       block.postCount === "4" ? 4 : block.postCount === "5" ? 5 : undefined;
-    const initialPosts = await fetchAllPosts({ limit: postCount, locale });
+    let initialPosts: AppPost[] | undefined;
+    try {
+      const locale = (await getLocale()) as Locale;
+      initialPosts = await fetchAllPosts({ limit: postCount ?? 4, locale });
+    } catch (error) {
+      console.error("Failed to preload latest posts on server:", error);
+    }
     return {
       postCount,
       initialPosts,
@@ -106,15 +111,23 @@ const mapBlockToProps: BlockToPropsMap = {
   }),
   mapBlock: () => ({}),
   postGroupBlock: async (block) => {
-    const locale = (await getLocale()) as Locale;
     const hiddenTags = block.hiddenTags
       .filter((tag) => typeof tag !== "string")
       .map((tag) => tag.tag);
     const limit = block.limit || 4;
-    const query = await fetchPostsByHiddenTags(hiddenTags, {
-      limit,
-      locale,
-    });
+    let posts: AppPost[] | undefined;
+    if (hiddenTags.length > 0) {
+      try {
+        const locale = (await getLocale()) as Locale;
+        const result = await fetchPostsByHiddenTags(hiddenTags, {
+          limit,
+          locale,
+        });
+        posts = result.posts;
+      } catch (error) {
+        console.error("Failed to preload post group on server:", error);
+      }
+    }
     return {
       title: block.title,
       limit,
@@ -122,8 +135,8 @@ const mapBlockToProps: BlockToPropsMap = {
       hidePostTitles: block.hidePostTitles,
       hiddenTags,
       type: block.displayType,
-      posts: query.posts,
-      initialPosts: query.posts,
+      posts,
+      initialPosts: posts,
     };
   },
   quoteBlock: (block) => ({
