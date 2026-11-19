@@ -208,8 +208,10 @@ export function preserveMarkdownWhitespace(content: string): string {
       return line;
     }
 
-    // Do not transform empty or whitespace-only lines
+    // Do not transform empty or whitespace-only lines; reset list context so
+    // an indented paragraph after a blank line still preserves its indentation.
     if (!line.trim()) {
+      inListContext = false;
       return line;
     }
 
