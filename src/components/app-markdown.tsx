@@ -186,8 +186,9 @@ export function preserveMarkdownWhitespace(content: string): string {
       return line;
     }
 
-    // Check for blockquote prefix (e.g. "> " or ">> ")
-    const blockquoteMatch = line.match(/^(\s*>+\s*)(.*)$/);
+    // Check for blockquote prefix (e.g. "> " or ">> "), consuming at most one space per marker
+    // so additional leading indentation in `rest` is preserved.
+    const blockquoteMatch = line.match(/^(\s*(?:> ?)+)(.*)$/);
     if (blockquoteMatch) {
       const prefix = blockquoteMatch[1] ?? "";
       const rest = blockquoteMatch[2] ?? "";
