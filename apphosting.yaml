@@ -1,0 +1,18 @@
+# Shared Firebase App Hosting config. Per-environment values live in
+# apphosting.<environment>.yaml, selected by each backend's environment name.
+# Docs: https://firebase.google.com/docs/app-hosting/configure
+
+runConfig:
+  minInstances: 0
+  maxInstances: 4
+  concurrency: 80
+  cpu: 1
+  memoryMiB: 1024
+
+env:
+  - variable: S3_ENDPOINT
+    value: https://e1f0f771e8517f9b38e89867592e826a.r2.cloudflarestorage.com
+  - variable: PAYLOAD_ADMIN_EMAIL
+    secret: payload-admin-email
+  - variable: AUTH_USER
+    value: daminhgovap

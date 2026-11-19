@@ -1,21 +1,47 @@
 "use server";
 
+import { AppPost } from "@/definitions";
+import { defaultLocale, Locale } from "@/i18n/config";
+import { Post } from "@/payload-types";
+import { rewriteMediaUrls } from "@/utils/cloudflare";
+import { postToCardAppPost } from "@/utils/post";
 import config from "@payload-config";
 import Fuse from "fuse.js";
 import { getPayload } from "payload";
-import { defaultLocale, Locale } from "@/i18n/config";
-import { postToAppPost } from "@/utils/post";
-import { AppPost } from "@/definitions";
 
 export interface PostSearchResult {
   item: AppPost;
 }
 
+const POST_SEARCH_SELECT = {
+  title: true,
+  slug: true,
+  shortBody: true,
+  publishedAt: true,
+  createdAt: true,
+  updatedAt: true,
+  thumbnail: true,
+  hiddenTags: true,
+} as const;
+
+/**
+ * Strips Vietnamese diacritics and normalizes casing so queries like
+ * "da minh" match titles like "Đa Minh".
+ */
+function normalizeVietnamese(text: string): string {
+  return text
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/đ/g, "d")
+    .replace(/Đ/g, "D")
+    .toLowerCase();
+}
+
 /**
  * Searches published posts by title matching the search query for the given locale.
- * Uses Payload Local API with access control enforcement (`overrideAccess: false`)
- * and per-token title matching (`like`), followed by Fuse.js relevance ranking over
- * the matched candidates.
+ * Uses Payload Local API with access control enforcement (`overrideAccess: false`),
+ * fast per-token `like` filtering first, and diacritic-insensitive Fuse.js fuzzy
+ * fallback/ranking so unaccented Vietnamese queries and minor typos still match.
  *
  * @param query - The user search string.
  * @param options - Optional locale setting (defaults to defaultLocale).
@@ -36,24 +62,27 @@ export const searchPosts = async (
     return [];
   }
 
+  const targetLocale = locale ?? defaultLocale;
   const payload = await getPayload({ config });
+  const nowIso = new Date().toISOString();
 
-  // Each word token in the query must match in the post title
+  // Fast path: DB-level per-token case-insensitive substring match
   const tokenConditions = tokens.map((token) => ({
     title: {
       like: token,
     },
   }));
 
-  // Query database for posts matching all tokens with collection access control enforced
-  const result = await payload.find({
+  const directResult = await payload.find({
     collection: "posts",
     overrideAccess: false,
+    depth: 1,
+    select: POST_SEARCH_SELECT,
     where: {
       and: [
         {
           publishedAt: {
-            less_than: new Date().toISOString(),
+            less_than: nowIso,
           },
         },
         ...tokenConditions,
@@ -61,29 +90,60 @@ export const searchPosts = async (
     },
     sort: "-publishedAt",
     limit: 100,
-    locale: locale ?? defaultLocale,
+    locale: targetLocale,
   });
 
-  const appPosts = result.docs.map((doc) => postToAppPost(doc));
+  // Fall back to a broader candidate pool when strict DB `like` finds nothing
+  // (e.g. unaccented Vietnamese queries like "da minh" or minor typos).
+  const usedFallback = directResult.docs.length === 0;
+  const sourceDocs = usedFallback
+    ? (
+        await payload.find({
+          collection: "posts",
+          overrideAccess: false,
+          depth: 1,
+          select: POST_SEARCH_SELECT,
+          where: {
+            publishedAt: {
+              less_than: nowIso,
+            },
+          },
+          sort: "-publishedAt",
+          limit: 500,
+          locale: targetLocale,
+        })
+      ).docs
+    : directResult.docs;
 
-  if (appPosts.length <= 1) {
+  const appPosts = sourceDocs.map((doc) =>
+    postToCardAppPost(rewriteMediaUrls(doc as Post)),
+  );
+
+  if (appPosts.length === 0) {
+    return [];
+  }
+
+  if (!usedFallback && appPosts.length === 1) {
     return appPosts.map((item) => ({ item }));
   }
 
-  // Rank matching candidates by relevance using Fuse
   const fuse = new Fuse(appPosts, {
-    keys: ["title"],
+    keys: [
+      {
+        name: "title",
+        getFn: (item) => normalizeVietnamese(item.title),
+      },
+    ],
     threshold: 0.6,
+    ignoreLocation: true,
   });
 
-  const scored = fuse.search(normalized);
+  const scored = fuse.search(normalizeVietnamese(normalized));
 
-  // Return Fuse relevance-ranked items, falling back to chronological order
-  // if Fuse filtered all candidates out.
-  const ranked =
-    scored.length > 0
-      ? scored.map((r) => ({ item: r.item }))
-      : appPosts.map((item) => ({ item }));
+  if (scored.length > 0) {
+    return scored.slice(0, 20).map((r) => ({ item: r.item }));
+  }
 
-  return ranked.slice(0, 20);
+  // Only fall back to chronological order when the DB `like` filter already matched
+  return usedFallback ? [] : appPosts.slice(0, 20).map((item) => ({ item }));
 };

@@ -1,3 +1,5 @@
 pnpm-lock.yaml
 payload-types.ts
 src/app/(payload)/admin/importMap.js
+
+.terraform

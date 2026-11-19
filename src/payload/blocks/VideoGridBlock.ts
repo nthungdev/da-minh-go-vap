@@ -9,6 +9,11 @@ const VideoGridBlock: Block = {
   interfaceName: "VideoGridBlock",
   fields: [
     {
+      name: "title",
+      type: "text",
+      localized: true,
+    },
+    {
       name: "videos",
       type: "array",
       required: true,
@@ -38,6 +43,16 @@ const VideoGridBlock: Block = {
           name: "url",
           type: "text",
           required: true,
+        },
+        {
+          name: "isShort",
+          type: "checkbox",
+          defaultValue: false,
+          label: "YouTube Short (9:16)",
+          admin: {
+            description:
+              "Set this when a YouTube Short is entered as a bare ID.",
+          },
         },
       ],
     },
