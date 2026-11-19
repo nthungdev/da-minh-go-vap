@@ -1,6 +1,6 @@
 "use client";
 
-import { forwardRef, useImperativeHandle, useState } from "react";
+import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import MDEditor from "@uiw/react-md-editor";
 import rehypeSanitize from "rehype-sanitize";
 
@@ -11,6 +11,8 @@ interface MarkdownEditorProps {
 }
 
 export interface MarkdownEditorHandle {
+  /** Current markdown text value in the editor. */
+  getValue: () => string;
   /** Current selection range and text in the editor textarea. */
   getSelection: () => { start: number; end: number; text: string };
   /** Replaces `[start, end)` with `text`, then focuses the editor with the caret after the insertion. */
@@ -20,6 +22,10 @@ export interface MarkdownEditorHandle {
 const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
   function MarkdownEditor({ value, setValue, id }, ref) {
     const [internalValue, setInternalValue] = useState(value || "");
+
+    useEffect(() => {
+      setInternalValue(value || "");
+    }, [value]);
 
     function onChange(value?: string) {
       if (value === undefined) return;
@@ -32,6 +38,9 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
         document.getElementById(id) as HTMLTextAreaElement | null;
 
       return {
+        getValue() {
+          return internalValue;
+        },
         getSelection() {
           const textarea = getTextarea();
           const start = textarea?.selectionStart ?? internalValue.length;

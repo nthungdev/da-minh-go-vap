@@ -18,6 +18,7 @@
     "test:cache-keys": "node --experimental-strip-types --test tests/published-content-cache.test.ts",
     "test:locale-routing": "node --experimental-strip-types --test tests/locale-routing.test.ts",
     "test:env": "node --experimental-strip-types --test tests/env.test.ts",
+    "test:markdown-footnotes": "node --experimental-strip-types --test tests/markdown-footnotes.test.ts",
     "test:messages": "node --experimental-strip-types --test tests/messages.test.ts",
     "s3:backup": "bash scripts/s3-backup.sh",
     "s3:restore": "bash scripts/s3-restore.sh",
