@@ -23,7 +23,10 @@
     "allPosts": "Posts",
     "latest": "Latest Posts",
     "related": "Related posts",
-    "tags": "Tags"
+    "tags": "Tags",
+    "tableOfContents": "Table of Contents",
+    "expandTableOfContents": "Expand table of contents",
+    "collapseTableOfContents": "Collapse table of contents"
   },
   "search": {
     "label": "Search",

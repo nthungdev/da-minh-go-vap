@@ -17,6 +17,7 @@ import { BlockType } from "@/definitions";
 import { fetchPostBySlug } from "@/actions/post";
 import { getDataOrUndefined } from "@/payload/utils/data";
 import ShareToolbar from "@/components/share-toolbar";
+import PostTableOfContents from "@/components/post-table-of-contents";
 import { formatDate } from "@/utils/date";
 import { getPublicHiddenTags } from "@/utils/post";
 import { PublicTagList } from "@/components/public-tag-list";
@@ -110,17 +111,17 @@ export default async function Page(props: Props) {
         </div>
       )}
 
-      {post.contentMode === "template" && post.template?.[0] ? (
-        <div className="mt-8" data-post-template={post.template[0].blockType}>
-          <PostTemplateRenderer block={post.template[0]} />
-        </div>
-      ) : post.contentMode === "blocks" && post.contentBlocks?.length ? (
-        <div className="mt-8">
+      <PostTableOfContents enabled={Boolean(post.showTableOfContents)}>
+        {post.contentMode === "template" && post.template?.[0] ? (
+          <div data-post-template={post.template[0].blockType}>
+            <PostTemplateRenderer block={post.template[0]} />
+          </div>
+        ) : post.contentMode === "blocks" && post.contentBlocks?.length ? (
           <BlocksRenderer blocks={post.contentBlocks as BlockType[]} />
-        </div>
-      ) : post.contentMode === "markdown" || !post.contentMode ? (
-        <AppMarkdown className="mt-8">{post.body}</AppMarkdown>
-      ) : null}
+        ) : post.contentMode === "markdown" || !post.contentMode ? (
+          <AppMarkdown>{post.body}</AppMarkdown>
+        ) : null}
+      </PostTableOfContents>
 
       {publicTags.length > 0 && (
         <PublicTagList className="mt-6" tags={publicTags} />
