@@ -13,6 +13,7 @@ import Media from "@/payload/collections/Media";
 import Posts from "@/payload/collections/posts";
 import Pages from "@/payload/collections/pages";
 import HiddenTags from "@/payload/collections/HiddenTags";
+import SearchTags from "@/payload/collections/search-tags";
 import SiteSettings from "@/payload/globals/site-settings";
 import NavBar from "@/payload/globals/NavBar";
 import Footer from "@/payload/globals/Footer";
@@ -45,7 +46,15 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [HiddenTags, Media, Pages, Posts, Users, SpotifyPodcasts],
+  collections: [
+    HiddenTags,
+    SearchTags,
+    Media,
+    Pages,
+    Posts,
+    Users,
+    SpotifyPodcasts,
+  ],
   globals: [NavBar, Footer, SiteSettings],
   i18n: {
     supportedLanguages: { en, vi },
