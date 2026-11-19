@@ -1,4 +1,4 @@
-import { twMerge } from "tailwind-merge";
+import { cn } from "@/utils/common";
 import { useTranslations } from "next-intl";
 
 export default function Spinner({
@@ -8,7 +8,7 @@ export default function Spinner({
   const t = useTranslations("common");
   return (
     <div
-      className={twMerge(
+      className={cn(
         "text-primary-600 inline-block size-6 animate-spin rounded-full border-3 border-current border-t-transparent",
         className,
       )}

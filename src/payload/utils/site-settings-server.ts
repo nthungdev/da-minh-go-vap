@@ -1,6 +1,6 @@
+import { cache } from "react";
 import { getPayload } from "payload";
 import config from "@payload-config";
-import { cache } from "react";
 import { unstable_cache } from "next/cache";
 import { rewriteMediaUrls } from "@/utils/cloudflare";
 

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { HTMLAttributes } from "react";
 import { FaViber } from "react-icons/fa";
 import { RiFacebookFill } from "react-icons/ri";
-import { twMerge } from "tailwind-merge";
+import { cn } from "@/utils/common";
 
 function buildFacebookShareUrl(url: string) {
   const params = new URLSearchParams();
@@ -35,7 +35,7 @@ export default async function ShareToolbar({
   return (
     <div className={className}>
       <div>{t("title")}</div>
-      <div className={twMerge("mt-1 flex flex-row gap-2")}>
+      <div className={cn("mt-1 flex flex-row gap-2")}>
         <CopyButton
           text={shareUrl}
           className="hover:border-primary cursor-pointer rounded-full border p-2"
