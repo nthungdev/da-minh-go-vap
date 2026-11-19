@@ -1,8 +1,7 @@
 "use client";
 
 import { HTMLProps, useEffect } from "react";
-import AppMarkdown from "./app-markdown";
-import { twMerge } from "tailwind-merge";
+import { cn } from "@/utils/common";
 
 interface AppAccordionToggle {
   title: string;
@@ -21,7 +20,7 @@ function AppAccordionToggle(props: AppAccordionToggle) {
 
   return (
     <button
-      className={twMerge(
+      className={cn(
         "hs-accordion-toggle hs-accordion-active:hover:text-gray-50 inline-flex w-full items-center gap-x-3 rounded-lg px-2 py-3 text-start font-semibold text-gray-800 hover:text-gray-50 focus:outline-hidden disabled:pointer-events-none disabled:opacity-50",
         colorVariants[colorLevel],
         "hs-accordion-active:text-gray-800 hover:bg-primary-800",
@@ -65,7 +64,7 @@ function AppAccordionToggle(props: AppAccordionToggle) {
 interface AppAccordionContentProps {
   id: string;
   labeledById: string;
-  body?: string;
+  body?: React.ReactNode;
   children?: React.ReactNode;
 }
 
@@ -81,7 +80,7 @@ function AppAccordionContent(props: AppAccordionContentProps) {
       style={{ height: "0px" }}
     >
       <div className="space-y-4 p-4">
-        {body && <AppMarkdown>{body}</AppMarkdown>}
+        {body}
         {children}
       </div>
     </div>
@@ -90,10 +89,10 @@ function AppAccordionContent(props: AppAccordionContentProps) {
 
 export interface AppAccordionItem {
   title: string;
-  body?: string;
+  body?: React.ReactNode;
   items?: {
     title: string;
-    body?: string;
+    body?: React.ReactNode;
     items?: AppAccordionItem[];
   }[];
 }

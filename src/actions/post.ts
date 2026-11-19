@@ -3,8 +3,9 @@
 import config from "@payload-config";
 import { defaultLocale, Locale } from "@/i18n/config";
 import { AppPost } from "@/definitions";
-import { postToAppPost } from "@/utils/post";
+import { postToAppPost, postToCardAppPost } from "@/utils/post";
 import * as postUtils from "@/utils/post-server";
+import { rewriteMediaUrls } from "@/utils/cloudflare";
 import { getPayload } from "payload";
 
 /**
@@ -56,7 +57,7 @@ export const fetchPostsBySlugs = async (
     for (const doc of query.docs) {
       if (doc.slug) {
         try {
-          postMap.set(doc.slug, postToAppPost(doc));
+          postMap.set(doc.slug, postToAppPost(rewriteMediaUrls(doc)));
         } catch {
           // Skip malformed document without dropping the entire batch
         }
@@ -77,7 +78,7 @@ export async function fetchAllPosts({
   locale,
 }: { limit?: number; locale?: Locale } = {}) {
   const query = await postUtils.queryAllPosts({ limit, locale });
-  const posts = query.docs.map(postToAppPost).filter((post) => !!post.slug);
+  const posts = query.docs.map(postToCardAppPost).filter((post) => !!post.slug);
   return posts;
 }
 
@@ -97,7 +98,7 @@ export const fetchPostsByHiddenTags = async (
     locale,
   });
 
-  const posts = query.docs.map(postToAppPost);
+  const posts = query.docs.map(postToCardAppPost);
   return {
     posts,
     hasMore: query.hasNextPage,
@@ -127,7 +128,7 @@ export const fetchPostsByPublicTag = async (
     return null;
   }
 
-  const posts = result.query.docs.map(postToAppPost);
+  const posts = result.query.docs.map(postToCardAppPost);
   return {
     tag: result.tag,
     posts,

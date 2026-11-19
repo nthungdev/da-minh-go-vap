@@ -11,8 +11,11 @@ import PostGroup from "@/components/post-group";
 import TheBibleVerse from "@/components/the-bible-verse";
 import TheLatestPosts from "@/components/the-latest-posts";
 import SpotifyPodcastList from "@/components/spotify-podcast-list";
-import { useId } from "react";
+import VideoGrid from "@/components/video-grid";
 import { BlockType } from "@/definitions";
+import { getLocale } from "next-intl/server";
+import { Locale } from "@/i18n/config";
+import { fetchAllPosts, fetchPostsByHiddenTags } from "@/actions/post";
 
 function NotImplementedBlock() {
   return <div>Not Implemented</div>;
@@ -39,29 +42,36 @@ const componentsMap = {
   dynamicImageBlock: NotImplementedBlock,
   imageBlock: NotImplementedBlock,
   mapBlock: NotImplementedBlock,
-  videoGridBlock: NotImplementedBlock,
+  videoGridBlock: VideoGrid,
   spotifyPodcastList: SpotifyPodcastList,
 } satisfies BlockTypeMap;
 
 type BlockToPropsMap = {
   [K in BlockType["blockType"]]: (
     block: Extract<BlockType, { blockType: K }>,
-    id: string,
-  ) => React.ComponentProps<(typeof componentsMap)[K]>;
+  ) =>
+    | React.ComponentProps<(typeof componentsMap)[K]>
+    | Promise<React.ComponentProps<(typeof componentsMap)[K]>>;
 };
 
 const mapBlockToProps: BlockToPropsMap = {
-  accordionContentBlock: (block, id) => ({
-    id,
+  accordionContentBlock: (block) => ({
+    id: block.id || "accordion",
     items: block.items.map((item) => ({
       title: item.title,
-      body: item.content,
+      body: item.content ? (
+        <AppMarkdown>{item.content}</AppMarkdown>
+      ) : undefined,
       items: item.children?.map((subItem) => ({
         title: subItem.title,
-        body: subItem.content,
+        body: subItem.content ? (
+          <AppMarkdown>{subItem.content}</AppMarkdown>
+        ) : undefined,
         items: subItem.children?.map((subSubItem) => ({
           title: subSubItem.title,
-          body: subSubItem.content,
+          body: subSubItem.content ? (
+            <AppMarkdown>{subSubItem.content}</AppMarkdown>
+          ) : undefined,
         })),
       })),
     })),
@@ -76,29 +86,46 @@ const mapBlockToProps: BlockToPropsMap = {
   }),
   dynamicImageBlock: () => ({}),
   imageBlock: () => ({}),
-  imageSlideshowBlock: (block, id) => ({
-    id,
+  imageSlideshowBlock: (block) => ({
+    id: block.id || "slideshow",
     slides: block.images?.filter((image) => typeof image !== "string") || [],
   }),
-  latestPostGridBlock: (block) => ({
-    postCount:
-      block.postCount === "4" ? 4 : block.postCount === "5" ? 5 : undefined,
-  }),
+  latestPostGridBlock: async (block) => {
+    const locale = (await getLocale()) as Locale;
+    const postCount =
+      block.postCount === "4" ? 4 : block.postCount === "5" ? 5 : undefined;
+    const initialPosts = await fetchAllPosts({ limit: postCount, locale });
+    return {
+      postCount,
+      initialPosts,
+    };
+  },
   linksBlock: (block) => ({
     title: block.title,
     links: block.links,
   }),
   mapBlock: () => ({}),
-  postGroupBlock: (block) => ({
-    title: block.title,
-    limit: block.limit || 4,
-    hasMore: block.viewMoreButton.enableViewMoreButton,
-    hidePostTitles: block.hidePostTitles,
-    hiddenTags: block.hiddenTags
+  postGroupBlock: async (block) => {
+    const locale = (await getLocale()) as Locale;
+    const hiddenTags = block.hiddenTags
       .filter((tag) => typeof tag !== "string")
-      .map((tag) => tag.tag),
-    type: block.displayType,
-  }),
+      .map((tag) => tag.tag);
+    const limit = block.limit || 4;
+    const query = await fetchPostsByHiddenTags(hiddenTags, {
+      limit,
+      locale,
+    });
+    return {
+      title: block.title,
+      limit,
+      hasMore: block.viewMoreButton.enableViewMoreButton,
+      hidePostTitles: block.hidePostTitles,
+      hiddenTags,
+      type: block.displayType,
+      posts: query.posts,
+      initialPosts: query.posts,
+    };
+  },
   quoteBlock: (block) => ({
     quote: block.content,
   }),
@@ -108,28 +135,56 @@ const mapBlockToProps: BlockToPropsMap = {
   tabbedContentBlock: (block) => ({
     tabs: block.tabs.map((t) => ({
       title: t.title,
-      body: t.content,
+      body: <AppMarkdown>{t.content}</AppMarkdown>,
     })),
   }),
-  tabbedPostGroupBlock: (block) => ({
-    title: block.title || undefined,
-    viewMoreButton: {
-      enable: block.viewMoreButton.enableViewMoreButton,
-      relativeUrl: block.viewMoreButton.relativeUrl,
-    },
-    groups:
-      block.tabs?.map((tab) => ({
-        title: tab.title,
-        hiddenTags: tab.hiddenTags
-          .filter((t) => typeof t !== "string")
-          .map((t) => t.tag),
-        limit: tab.limit,
-        viewMoreButton: {
-          enable: tab.viewMoreButton.enableViewMoreButton,
-          relativeUrl: tab.viewMoreButton.relativeUrl,
-        },
-      })) ?? [],
-  }),
+  tabbedPostGroupBlock: async (block) => {
+    const locale = (await getLocale()) as Locale;
+    const groups =
+      block.tabs?.map((tab) => {
+        const rel = tab.viewMoreButton.relativeUrl;
+        return {
+          title: tab.title,
+          hiddenTags: tab.hiddenTags
+            .filter((t) => typeof t !== "string")
+            .map((t) => t.tag),
+          limit: tab.limit,
+          viewMoreButton: {
+            enable: tab.viewMoreButton.enableViewMoreButton,
+            relativeUrl:
+              typeof rel === "object" && rel !== null ? rel.path : rel,
+          },
+        };
+      }) ?? [];
+
+    const allUniqueHiddenTags = Array.from(
+      new Set(groups.flatMap((group) => group.hiddenTags)),
+    );
+
+    let initialPosts = undefined;
+    if (allUniqueHiddenTags.length > 0) {
+      const query = await fetchPostsByHiddenTags(allUniqueHiddenTags, {
+        limit: 6,
+        locale,
+      });
+      initialPosts = query.posts;
+    }
+
+    const blockRel = block.viewMoreButton.relativeUrl;
+
+    return {
+      title: block.title || undefined,
+      viewMoreButton: {
+        enable: block.viewMoreButton.enableViewMoreButton,
+        relativeUrl:
+          typeof blockRel === "object" && blockRel !== null
+            ? blockRel.path
+            : blockRel,
+      },
+      groups,
+      initialPosts,
+    };
+  },
   textBlock: (block) => ({
     children: block.content,
   }),
@@ -142,18 +197,21 @@ const mapBlockToProps: BlockToPropsMap = {
       url: typeof item.link !== "string" ? item.link?.path : undefined,
     })),
   }),
-  videoGridBlock: () => ({}),
+  videoGridBlock: (block) => ({
+    title: block.title || undefined,
+    videos: block.videos,
+  }),
   spotifyPodcastList: (block) => ({
+    episodes: block.episodes || [],
     pageSize: block.pageSize || undefined,
   }),
-} as const;
+};
 
-const BlockRenderer = ({ block }: { block: BlockType }) => {
-  const id = useId().replace(/:/g, "");
+const BlockRenderer = async ({ block }: { block: BlockType }) => {
   const Component = componentsMap[block.blockType];
   if (!Component) return null;
   const propsMapper = mapBlockToProps[block.blockType];
-  const props = propsMapper(block as never, id);
+  const props = await propsMapper(block as never);
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   return <Component {...props} />;

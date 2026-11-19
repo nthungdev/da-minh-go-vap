@@ -1,5 +1,6 @@
 import CopyButton from "@/components/copy-button";
-import { getMessages } from "next-intl/server";
+import { Locale } from "@/i18n/config";
+import { getTranslations } from "next-intl/server";
 import Link from "next/link";
 import { HTMLAttributes } from "react";
 import { FaViber } from "react-icons/fa";
@@ -15,21 +16,25 @@ function buildFacebookShareUrl(url: string) {
 
 interface ShareToolbarProps extends HTMLAttributes<HTMLDivElement> {
   shareUrl: string;
+  locale?: Locale;
 }
 
 export default async function ShareToolbar({
   shareUrl,
   className,
+  locale,
 }: ShareToolbarProps) {
   const viberHref = `viber://forward?text=${shareUrl}`;
   // Facebook doesn't seem to recognize localhost url, so it won't work in local
   const facebookHref = buildFacebookShareUrl(shareUrl);
 
-  const messages = await getMessages();
+  const t = locale
+    ? await getTranslations({ locale, namespace: "shareToolbar" })
+    : await getTranslations("shareToolbar");
 
   return (
     <div className={className}>
-      <div>{messages.shareToolbar.title}</div>
+      <div>{t("title")}</div>
       <div className={twMerge("mt-1 flex flex-row gap-2")}>
         <CopyButton
           text={shareUrl}
