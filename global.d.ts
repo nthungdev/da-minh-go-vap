@@ -4,6 +4,9 @@ namespace NodeJS {
 
     GOOGLE_MAPS_EMBED_API_KEY?: string;
 
+    NEXT_PUBLIC_MEDIA_CDN_URL?: string;
+    SITE_NOINDEX?: string;
+
     PAYLOAD_SECRET?: string;
     PAYLOAD_ADMIN_EMAIL?: string;
     PAYLOAD_ADMIN_PASSWORD?: string;

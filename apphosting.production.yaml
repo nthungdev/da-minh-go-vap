@@ -1,0 +1,34 @@
+# Backend: da-minh-go-vap (environment "production")
+
+env:
+  - variable: NEXT_PUBLIC_BASE_URL
+    value: https://dongdaminhgovap.org
+  - variable: NEXT_PUBLIC_MEDIA_CDN_URL
+    value: https://cdn.dongdaminhgovap.org
+  - variable: NEXT_PUBLIC_FIREBASE_ANALYTICS_ENABLED
+    value: "true"
+  - variable: NEXT_PUBLIC_FIREBASE_API_KEY
+    value: AIzaSyBOLAvUIZkB7r3e7Mlpk21d_BOqq_0GiX0
+  - variable: NEXT_PUBLIC_FIREBASE_PROJECT_ID
+    value: da-minh-go-vap
+  - variable: NEXT_PUBLIC_FIREBASE_APP_ID
+    value: 1:209549284638:web:1f2b8db0bf41a423eee50f
+  - variable: NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
+    value: G-PW0DJSED28
+  - variable: SITE_NOINDEX
+    value: "false"
+  - variable: S3_BUCKET
+    value: daminhgovap
+
+  - variable: DATABASE_URI
+    secret: production-database-uri
+  - variable: PAYLOAD_SECRET
+    secret: production-payload-secret
+  - variable: PAYLOAD_ADMIN_PASSWORD
+    secret: production-payload-admin-password
+  - variable: AUTH_PASSWORD
+    secret: production-auth-password
+  - variable: S3_ACCESS_KEY_ID
+    secret: production-s3-access-key-id
+  - variable: S3_SECRET
+    secret: production-s3-secret
