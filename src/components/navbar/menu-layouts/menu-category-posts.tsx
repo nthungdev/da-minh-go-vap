@@ -85,7 +85,7 @@ export function MenuCategoryPostsGrid({
             <div className="px-1 pt-2 pb-0.5">
               <h4
                 className={cn(
-                  "group-hover:text-primary-700 line-clamp-2 text-base leading-snug font-semibold text-gray-900 transition-colors",
+                  "line-clamp-2 text-base leading-snug font-semibold text-gray-900 transition-colors group-hover:text-primary-700",
                   isPostActive && "text-primary-700",
                 )}
               >

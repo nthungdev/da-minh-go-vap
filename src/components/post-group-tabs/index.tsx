@@ -61,7 +61,7 @@ function PostGroupTabs({
     <div className={cn(className)} id={id} {...props}>
       <div
         className={
-          "bg-primary flex flex-row items-center justify-between gap-x-8 rounded-t-md px-2 py-1.5 text-white md:px-6 lg:items-start"
+          "flex flex-row items-center justify-between gap-x-8 rounded-t-md bg-primary px-2 py-1.5 text-white md:px-6 lg:items-start"
         }
       >
         <div className="text-xl font-bold">{title}</div>

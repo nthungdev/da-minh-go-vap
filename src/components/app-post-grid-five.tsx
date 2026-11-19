@@ -70,9 +70,9 @@ export default function AppPostGridSix({
 
             <div className="group absolute top-0 left-0 hidden size-full hover:cursor-pointer md:block">
               {/* static black gradient background */}
-              <div className="bg-opacity-50 to-primary-800 absolute bottom-0 left-0 w-full bg-linear-to-b from-transparent from-5% md:h-20 lg:h-24"></div>
+              <div className="bg-opacity-50 absolute bottom-0 left-0 w-full bg-linear-to-b from-transparent from-5% to-primary-800 md:h-20 lg:h-24"></div>
               {/* slide up secondary color gradient background */}
-              <div className="bg-opacity-50 via-secondary-400 to-secondary-400 absolute bottom-0 left-0 w-full translate-y-full bg-linear-to-b from-transparent from-5% via-40% transition group-hover:translate-y-0 md:h-20 lg:h-24"></div>
+              <div className="bg-opacity-50 absolute bottom-0 left-0 w-full translate-y-full bg-linear-to-b from-transparent from-5% via-secondary-400 via-40% to-secondary-400 transition group-hover:translate-y-0 md:h-20 lg:h-24"></div>
               {/* static post title */}
               <div className="absolute bottom-0 left-0 w-full p-3">
                 <span className="line-clamp-2 text-white md:text-sm lg:text-lg">

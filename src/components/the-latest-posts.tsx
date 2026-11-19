@@ -63,7 +63,7 @@ export default function TheLatestPosts({
   return (
     <div className={cn("@container", className)}>
       <div className="mb-4">
-        <span className="bg-primary cursor-default rounded-md px-6 py-1 font-bold text-white uppercase">
+        <span className="cursor-default rounded-md bg-primary px-6 py-1 font-bold text-white uppercase">
           {t("latest")}
         </span>
       </div>
@@ -77,7 +77,7 @@ export default function TheLatestPosts({
         <Link href={postHref}>
           <AppCarousel
             id={carouselId}
-            className="bg-primary-2 aspect-video h-full w-auto"
+            className="aspect-video h-full w-auto bg-primary-2"
             durations={data.map(() => TRANSITION_DURATION)}
             onTransition={setCurrentIndex}
           >

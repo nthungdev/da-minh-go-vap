@@ -27,7 +27,7 @@ export default function PaginationPanel({
     <div className={cn("flex flex-row justify-center gap-x-1", className)}>
       <button
         type="button"
-        className="text-primary rounded-md border px-3 py-1 hover:cursor-pointer disabled:text-black disabled:hover:cursor-auto"
+        className="rounded-md border px-3 py-1 text-primary hover:cursor-pointer disabled:text-black disabled:hover:cursor-auto"
         onClick={() => onPageChange?.(page - 1)}
         disabled={page <= 1}
       >
@@ -35,7 +35,7 @@ export default function PaginationPanel({
       </button>
       <button
         type="button"
-        className="text-primary rounded-md border px-3 py-1 hover:cursor-pointer disabled:text-black disabled:hover:cursor-auto"
+        className="rounded-md border px-3 py-1 text-primary hover:cursor-pointer disabled:text-black disabled:hover:cursor-auto"
         disabled={page <= 1}
         onClick={() => onPageChange?.(1)}
       >
@@ -46,7 +46,7 @@ export default function PaginationPanel({
           key={p}
           type="button"
           className={
-            "text-primary rounded-md border px-3 py-1 hover:cursor-pointer disabled:text-black disabled:hover:cursor-auto"
+            "rounded-md border px-3 py-1 text-primary hover:cursor-pointer disabled:text-black disabled:hover:cursor-auto"
           }
           disabled={p === page}
           onClick={() => onPageChange?.(p)}
@@ -56,7 +56,7 @@ export default function PaginationPanel({
       ))}
       <button
         type="button"
-        className="text-primary rounded-md border px-3 py-1 hover:cursor-pointer disabled:text-black disabled:hover:cursor-auto"
+        className="rounded-md border px-3 py-1 text-primary hover:cursor-pointer disabled:text-black disabled:hover:cursor-auto"
         disabled={page >= totalPages}
         onClick={() => onPageChange?.(totalPages)}
       >
@@ -64,7 +64,7 @@ export default function PaginationPanel({
       </button>
       <button
         type="button"
-        className="text-primary rounded-md border px-3 py-1 hover:cursor-pointer disabled:text-black disabled:hover:cursor-auto"
+        className="rounded-md border px-3 py-1 text-primary hover:cursor-pointer disabled:text-black disabled:hover:cursor-auto"
         onClick={() => onPageChange?.(page + 1)}
         disabled={page >= totalPages}
       >

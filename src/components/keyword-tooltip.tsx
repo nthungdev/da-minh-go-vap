@@ -94,7 +94,7 @@ export default function KeywordTooltip({
       <button
         type="button"
         className={cn(
-          "border-primary-500 text-primary-700 hover:border-primary-700 hover:text-primary-800 inline cursor-help border-b border-dashed bg-transparent p-0 font-medium transition-colors",
+          "inline cursor-help border-b border-dashed border-primary-500 bg-transparent p-0 font-medium text-primary-700 transition-colors hover:border-primary-700 hover:text-primary-800",
           className,
         )}
         onMouseEnter={handleMouseEnter}
@@ -115,7 +115,7 @@ export default function KeywordTooltip({
           onMouseLeave={handleMouseLeave}
           onBlur={handleBlur}
           className={cn(
-            "animate-in fade-in zoom-in-95 absolute left-1/2 z-50 w-72 -translate-x-1/2 rounded-xl border border-gray-200 bg-white p-3.5 shadow-xl transition-all duration-200",
+            "absolute left-1/2 z-50 w-72 -translate-x-1/2 animate-in rounded-xl border border-gray-200 bg-white p-3.5 shadow-xl transition-all duration-200 zoom-in-95 fade-in",
             position === "top" ? "bottom-full mb-2" : "top-full mt-2",
           )}
         >
@@ -155,7 +155,7 @@ export default function KeywordTooltip({
               <span className="mt-1 flex justify-end border-t border-gray-100 pt-1.5">
                 <Link
                   href={href}
-                  className="text-primary-600 hover:text-primary-700 text-xs font-medium hover:underline"
+                  className="text-xs font-medium text-primary-600 hover:text-primary-700 hover:underline"
                   onClick={(e) => e.stopPropagation()}
                 >
                   {t("readMore")} →

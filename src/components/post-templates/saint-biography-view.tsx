@@ -47,10 +47,10 @@ export default function SaintBiographyView({ block }: Props) {
         )}
 
         <div className="flex-1">
-          <h2 className="text-secondary mb-3 text-[28px] leading-tight md:text-4xl">
+          <h2 className="mb-3 text-[28px] leading-tight text-secondary md:text-4xl">
             {saintName}
           </h2>
-          <p className="text-primary-800 text-[19px] leading-relaxed md:text-xl">
+          <p className="text-[19px] leading-relaxed text-primary-800 md:text-xl">
             {saintTitle}
             <br />
             {feastDay}
@@ -61,13 +61,13 @@ export default function SaintBiographyView({ block }: Props) {
       {timeline && timeline.length > 0 && (
         <section>
           <h3 className={SECTION_HEADING}>1. {t("saintLife")}</h3>
-          <ol className="before:bg-primary-700 relative space-y-6 pl-7 before:absolute before:top-0 before:left-2.5 before:h-full before:w-1 before:rounded md:pl-8 md:before:left-3">
+          <ol className="relative space-y-6 pl-7 before:absolute before:top-0 before:left-2.5 before:h-full before:w-1 before:rounded before:bg-primary-700 md:pl-8 md:before:left-3">
             {timeline.map((item, index) => (
               <li
                 key={item.id ?? index}
-                className="before:border-primary-700 relative pl-4 before:absolute before:top-1.5 before:-left-6 before:size-4 before:rounded-full before:border-[3px] before:bg-white md:before:-left-[26px]"
+                className="relative pl-4 before:absolute before:top-1.5 before:-left-6 before:size-4 before:rounded-full before:border-[3px] before:border-primary-700 before:bg-white md:before:-left-[26px]"
               >
-                <p className="text-primary-700 mb-1 text-[19px] leading-normal font-bold md:text-xl">
+                <p className="mb-1 text-[19px] leading-normal font-bold text-primary-700 md:text-xl">
                   {item.periodOrYear}
                 </p>
                 <p className="leading-[1.9] md:text-justify md:leading-[1.7]">
@@ -88,7 +88,7 @@ export default function SaintBiographyView({ block }: Props) {
                 key={virtue.id ?? idx}
                 className="rounded-xl bg-slate-50 p-5 md:p-6"
               >
-                <h4 className="text-primary-700 mb-4 text-[21px] leading-normal font-bold md:text-[22px]">
+                <h4 className="mb-4 text-[21px] leading-normal font-bold text-primary-700 md:text-[22px]">
                   ✦ {virtue.title}
                 </h4>
                 <AppMarkdown className="space-y-[18px] md:text-justify [&_p]:leading-[1.9] md:[&_p]:leading-[1.7]">
@@ -117,8 +117,8 @@ export default function SaintBiographyView({ block }: Props) {
 
       {references && (
         <div className="mt-5 rounded-lg bg-slate-50 px-5 py-4 text-[15px] leading-[1.8] md:text-base">
-          <p className="text-primary-800 font-bold">{t("references")}:</p>
-          <AppMarkdown className="[&_a]:text-primary-800 [&_a]:focus-visible:ring-primary-700 [&_a]:rounded-sm [&_a]:hover:underline [&_a]:focus-visible:ring-2 [&_a]:focus-visible:outline-none">
+          <p className="font-bold text-primary-800">{t("references")}:</p>
+          <AppMarkdown className="[&_a]:rounded-sm [&_a]:text-primary-800 [&_a]:hover:underline [&_a]:focus-visible:ring-2 [&_a]:focus-visible:ring-primary-700 [&_a]:focus-visible:outline-none">
             {references}
           </AppMarkdown>
         </div>

@@ -101,7 +101,7 @@ function PillarColumn({
               href={banner.absoluteHref}
               className={cn(
                 "group relative block h-28 w-full overflow-hidden rounded-md bg-gray-900 transition-colors focus:outline-none",
-                isBannerActive && "ring-primary-600 ring-2",
+                isBannerActive && "ring-2 ring-primary-600",
               )}
             />
           }
@@ -129,9 +129,9 @@ function PillarColumn({
                   <NavigationMenuLink
                     className={cn(
                       "flex w-full items-center gap-1.5 rounded-md bg-gray-100 px-3 py-1.5 text-left text-base text-gray-700 transition-colors select-none",
-                      "hover:text-primary-700 focus:text-primary-700 hover:bg-gray-200 focus:bg-gray-200",
+                      "hover:bg-gray-200 hover:text-primary-700 focus:bg-gray-200 focus:text-primary-700",
                       isLinkActive &&
-                        "text-primary-700 bg-gray-200 font-medium",
+                        "bg-gray-200 font-medium text-primary-700",
                     )}
                     render={<Link href={link.absoluteHref} />}
                   >
@@ -182,9 +182,9 @@ function PillarBottomBar({
                   href={link.absoluteHref}
                   className={cn(
                     "flex items-center gap-1.5 rounded-md bg-gray-100 px-2.5 py-1 text-left text-base text-gray-700 transition-colors select-none",
-                    "hover:text-primary-700 focus:text-primary-700 hover:bg-gray-200 focus:bg-gray-200",
+                    "hover:bg-gray-200 hover:text-primary-700 focus:bg-gray-200 focus:text-primary-700",
                     isBottomLinkActive &&
-                      "text-primary-700 bg-gray-200 font-medium",
+                      "bg-gray-200 font-medium text-primary-700",
                   )}
                 />
               }

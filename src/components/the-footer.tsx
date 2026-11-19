@@ -59,7 +59,7 @@ export default async function TheFooter() {
 
       <div
         className={cn(
-          "bg-primary 3xl:text-xl flex flex-col gap-8 p-4 text-left text-white md:flex-row",
+          "3xl:text-xl flex flex-col gap-8 bg-primary p-4 text-left text-white md:flex-row",
           hasGraphic &&
             "sm:absolute sm:bottom-0 sm:left-0 sm:max-w-7xl sm:bg-transparent sm:text-[0.9vw]",
         )}

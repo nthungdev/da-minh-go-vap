@@ -22,15 +22,15 @@ function AppAccordionToggle(props: AppAccordionToggle) {
     <button
       type="button"
       className={cn(
-        "hs-accordion-toggle hs-accordion-active:hover:text-gray-50 inline-flex w-full items-center gap-x-3 rounded-lg px-2 py-3 text-start font-semibold text-gray-800 hover:text-gray-50 focus:outline-hidden disabled:pointer-events-none disabled:opacity-50",
+        "hs-accordion-toggle inline-flex w-full items-center gap-x-3 rounded-lg px-2 py-3 text-start font-semibold text-gray-800 hover:text-gray-50 focus:outline-hidden disabled:pointer-events-none disabled:opacity-50 hs-accordion-active:hover:text-gray-50",
         colorVariants[colorLevel],
-        "hs-accordion-active:text-gray-800 hover:bg-primary-800",
+        "hover:bg-primary-800 hs-accordion-active:text-gray-800",
       )}
       aria-expanded={false}
       aria-controls={controlId}
     >
       <svg
-        className="hs-accordion-active:hidden block size-4"
+        className="block size-4 hs-accordion-active:hidden"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"
@@ -44,7 +44,7 @@ function AppAccordionToggle(props: AppAccordionToggle) {
         <path d="m6 9 6 6 6-6"></path>
       </svg>
       <svg
-        className="hs-accordion-active:block hidden size-4"
+        className="hidden size-4 hs-accordion-active:block"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"
@@ -135,7 +135,7 @@ function AppAccordionItem(props: AppAccordionItemProps) {
   const { id, children } = props;
 
   return (
-    <div className={`hs-accordion bg-primary-50 rounded-lg`} id={id}>
+    <div className={`hs-accordion rounded-lg bg-primary-50`} id={id}>
       {children}
     </div>
   );

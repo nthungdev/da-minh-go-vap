@@ -68,7 +68,7 @@ export default function LightboxModal({
         aria-label={alt ? t("zoomWithAlt", { alt }) : t("zoom")}
         onClick={() => setIsOpen(true)}
         className={cn(
-          "focus-visible:ring-primary-500 block w-full cursor-pointer rounded-lg text-left focus:outline-none focus-visible:ring-2",
+          "block w-full cursor-pointer rounded-lg text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500",
           className,
         )}
       >
@@ -80,7 +80,7 @@ export default function LightboxModal({
           role="dialog"
           aria-modal="true"
           aria-label={alt || t("view")}
-          className="animate-in fade-in fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm duration-200 motion-reduce:animate-none"
+          className="fixed inset-0 z-50 flex animate-in items-center justify-center bg-black/80 p-4 backdrop-blur-sm duration-200 fade-in motion-reduce:animate-none"
         >
           <button
             type="button"

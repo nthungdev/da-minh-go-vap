@@ -62,7 +62,7 @@ export default function MenuLayoutTabsPosts({
                 <span className="truncate">{cat.name}</span>
               </div>
               {cat.absoluteHref && (
-                <ChevronRight className="group-hover:text-primary-600 size-4 shrink-0 text-gray-400 transition-all group-hover:translate-x-0.5" />
+                <ChevronRight className="size-4 shrink-0 text-gray-400 transition-all group-hover:translate-x-0.5 group-hover:text-primary-600" />
               )}
             </>
           );

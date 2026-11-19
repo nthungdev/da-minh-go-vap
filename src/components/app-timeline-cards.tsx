@@ -64,7 +64,7 @@ export default function AppTimelineCards({
             <div className="relative px-2">
               <div
                 className={cn(
-                  "bg-primary absolute top-0 right-0 left-0 mx-auto h-full w-1",
+                  "absolute top-0 right-0 left-0 mx-auto h-full w-1 bg-primary",
                   index === 0 && "rounded-t-full",
                   index === cards.length - 1 && "rounded-b-full",
                 )}
