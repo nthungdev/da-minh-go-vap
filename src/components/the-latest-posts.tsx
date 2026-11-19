@@ -4,6 +4,7 @@ import { fetchAllPosts } from "@/actions/post";
 import AppCarousel from "@/components/app-carousel";
 import PostList from "@/components/post-list";
 import Spinner from "@/components/spinner";
+import { AppPost } from "@/definitions";
 import { getDataOrUndefined } from "@/payload/utils/data";
 import { transformUrl } from "@/utils/cloudflare";
 import { cn } from "@/utils/common";
@@ -12,7 +13,6 @@ import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
 import { useId, useState } from "react";
-import { AppPost } from "@/definitions";
 
 const TRANSITION_DURATION = 8000;
 
@@ -23,13 +23,14 @@ interface TheLatestPostsProps {
 }
 
 export default function TheLatestPosts({
-  postCount,
+  postCount = 4,
   className,
   initialPosts,
 }: TheLatestPostsProps) {
   const locale = useLocale();
   const t = useTranslations("posts");
   const id = useId();
+  const carouselId = `the-latest-posts-carousel-${id.replace(/[^a-zA-Z0-9_-]/g, "")}`;
   const [currentIndex, setCurrentIndex] = useState(0);
   const {
     data = initialPosts || [],
@@ -38,8 +39,9 @@ export default function TheLatestPosts({
   } = useQuery({
     queryKey: ["fetchLatestPosts", locale, postCount],
     queryFn: () => fetchAllPosts({ limit: postCount, locale }),
-    initialData: initialPosts,
     placeholderData: keepPreviousData,
+    initialData: initialPosts,
+    staleTime: initialPosts ? 60_000 : undefined,
   });
 
   if (isPending && !data.length)
@@ -49,13 +51,13 @@ export default function TheLatestPosts({
       </div>
     );
 
-  if (error && !data.length) return <p>Error: {error.message}</p>;
+  // If initial or cached data is available, keep showing it even if a background refetch fails
+  if (error && !data?.length) return <p>Error: {error.message}</p>;
 
-  if (!data.length) {
+  if (!data?.length) {
     return <div>No post found</div>;
   }
 
-  const carouselId = `the-latest-posts-carousel-${id.replace(/:/g, "")}`;
   const postHref = `/posts/${data[currentIndex]?.slug}`;
 
   return (

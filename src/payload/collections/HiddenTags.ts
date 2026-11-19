@@ -9,7 +9,9 @@ const HiddenTags: CollectionConfig = {
   },
   access: {
     read: () => true,
+    create: onlyRoles(["admin", "manager"]),
     update: onlyRoles(["admin", "manager"]),
+    delete: onlyRoles(["admin", "manager"]),
   },
   fields: [
     {
