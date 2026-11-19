@@ -1,4 +1,4 @@
-import { twMerge } from "tailwind-merge";
+import { cn } from "@/utils/common";
 
 interface AppSectionHeaderProps {
   className?: string;
@@ -12,10 +12,7 @@ export default function AppSectionHeader({
 }: AppSectionHeaderProps) {
   return (
     <div
-      className={twMerge(
-        "bg-primary-800 p-2.5 text-center text-gray-50",
-        className,
-      )}
+      className={cn("bg-primary-800 p-2.5 text-center text-gray-50", className)}
       {...props}
     >
       {children}

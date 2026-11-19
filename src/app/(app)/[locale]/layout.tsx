@@ -8,7 +8,7 @@ import { getServerOrigin } from "@/utils/url";
 import { locales } from "@/i18n/config";
 import { applyRouteLocale, type LocaleParams } from "@/i18n/server";
 import localFont from "next/font/local";
-import { twMerge } from "tailwind-merge";
+import { cn } from "@/utils/common";
 import "../globals.css";
 import { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
@@ -97,13 +97,11 @@ export default async function RootLayout({ children, params }: LayoutProps) {
   return (
     <html
       lang={locale}
-      className={twMerge(nunito.className, notoSerif.variable, lora.variable)}
+      className={cn(nunito.className, notoSerif.variable, lora.variable)}
     >
       <PrelineScriptWrapper />
       <body
-        className={twMerge(
-          "relative flex min-h-screen w-full flex-col bg-white",
-        )}
+        className={cn("relative flex min-h-screen w-full flex-col bg-white")}
       >
         <NextIntlClientProvider>
           <ScrollToTopButton />

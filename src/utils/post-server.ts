@@ -1,11 +1,12 @@
 import "server-only";
 
+import { cache } from "react";
 import { getPayload, PaginatedDocs, Where } from "payload";
 import config from "@payload-config";
 import { postToAppPost } from "@/utils/post";
+import { AppPost } from "@/definitions";
 import { defaultLocale, Locale } from "@/i18n/config";
 import { Post } from "@/payload-types";
-import { cache } from "react";
 import { unstable_cache } from "next/cache";
 import { rewriteMediaUrls } from "@/utils/cloudflare";
 import { PUBLISHED_CONTENT_REVALIDATE_SECONDS } from "@/utils/published-content-cache";
@@ -49,7 +50,7 @@ function normalizeCardPostsResult(
   };
 }
 
-const getPostBySlugCached = cache(async (slug: string, locale?: Locale) => {
+const getPostBySlugCached = cache(async (slug: string, locale: Locale) => {
   try {
     const payload = await getPayload({ config });
     const query = await payload.find({
@@ -62,7 +63,8 @@ const getPostBySlugCached = cache(async (slug: string, locale?: Locale) => {
         },
       },
       limit: 1,
-      locale: locale ?? defaultLocale,
+      pagination: false,
+      locale,
     });
     const post = query.docs[0];
     if (!post) return null;
@@ -76,7 +78,70 @@ const getPostBySlugCached = cache(async (slug: string, locale?: Locale) => {
 export const getPostBySlug = (
   slug: string,
   { locale }: { locale?: Locale } = {},
-) => getPostBySlugCached(slug, locale);
+) => getPostBySlugCached(slug, locale ?? defaultLocale);
+
+const getPostsBySlugsCached = unstable_cache(
+  async (sortedUniqueSlugs: string[], locale: Locale) => {
+    const payload = await getPayload({ config });
+    const query = await payload.find({
+      collection: "posts",
+      where: {
+        slug: { in: sortedUniqueSlugs },
+        // Only get published posts
+        publishedAt: {
+          less_than: new Date().toISOString(),
+        },
+      },
+      limit: sortedUniqueSlugs.length,
+      pagination: false,
+      locale,
+    });
+
+    const entries: Array<[string, AppPost]> = [];
+    for (const doc of query.docs) {
+      if (!doc.slug) continue;
+      try {
+        entries.push([doc.slug, postToAppPost(rewriteMediaUrls(doc))]);
+      } catch (error) {
+        console.error(
+          `[post-server] Failed to map post "${doc.slug}" in batch:`,
+          error,
+        );
+      }
+    }
+    return entries;
+  },
+  ["posts-by-slugs"],
+  { tags: ["posts"], revalidate: PUBLISHED_CONTENT_REVALIDATE_SECONDS },
+);
+
+/**
+ * Fetches multiple published posts by their slugs in a single batched, cached query,
+ * preserving the order of the input slugs and omitting unpublished or missing posts.
+ */
+export const getPostsBySlugs = cache(
+  async (slugs: string[], { locale }: { locale?: Locale } = {}) => {
+    if (slugs.length === 0) {
+      return [];
+    }
+
+    try {
+      const sortedUniqueSlugs = Array.from(new Set(slugs)).sort();
+      const entries = await getPostsBySlugsCached(
+        sortedUniqueSlugs,
+        locale ?? defaultLocale,
+      );
+      const postMap = new Map<string, AppPost>(entries);
+
+      return slugs
+        .map((slug) => postMap.get(slug))
+        .filter((post): post is AppPost => post !== undefined);
+    } catch (error) {
+      console.error("[post-server] Failed to fetch posts by slugs:", error);
+      return [];
+    }
+  },
+);
 
 const queryAllPostsCached = unstable_cache(
   async (limit: number, page: number, locale: Locale, includeBody: boolean) => {
@@ -250,7 +315,7 @@ export async function queryPostsByHiddenTags(
 /**
  * Returns the public hidden tag document for a tag value, or null if it is private or missing.
  */
-export async function getPublicHiddenTagByTag(tag: string) {
+export const getPublicHiddenTagByTag = cache(async (tag: string) => {
   const payload = await getPayload({ config });
 
   const query = await payload.find({
@@ -259,34 +324,60 @@ export async function getPublicHiddenTagByTag(tag: string) {
       and: [{ tag: { equals: tag } }, { isPublic: { equals: true } }],
     },
     limit: 1,
+    pagination: false,
   });
 
   return query.docs[0] ?? null;
-}
+});
+
+/**
+ * Internal cached query for public tag posts using primitive parameters.
+ */
+const queryPostsByPublicTagInternal = cache(
+  async (
+    tag: string,
+    limit: number,
+    page: number,
+    skipSlug: string | undefined,
+    locale: Locale,
+    includeBody: boolean,
+  ) => {
+    const publicTag = await getPublicHiddenTagByTag(tag);
+
+    if (!publicTag) {
+      return null;
+    }
+
+    const query = await queryPostsByTagIds([publicTag.id], {
+      limit,
+      page,
+      skipSlug,
+      locale,
+      includeBody,
+    });
+
+    return {
+      tag: publicTag,
+      query,
+    };
+  },
+);
 
 /**
  * Queries published posts for a public tag and returns both the tag and paginated post query.
  */
-export async function queryPostsByPublicTag(
-  tag: string,
-  { limit, page, skipSlug, locale, includeBody }: GetOptions = {},
-) {
-  const publicTag = await getPublicHiddenTagByTag(tag);
-
-  if (!publicTag) {
-    return null;
-  }
-
-  const query = await queryPostsByTagIds([publicTag.id], {
-    limit,
-    page,
-    skipSlug,
-    locale,
-    includeBody,
-  });
-
-  return {
-    tag: publicTag,
-    query,
-  };
-}
+export const queryPostsByPublicTag = cache(
+  async (
+    tag: string,
+    { limit, page, skipSlug, locale, includeBody }: GetOptions = {},
+  ) => {
+    return queryPostsByPublicTagInternal(
+      tag,
+      limit ?? 10,
+      page ?? 1,
+      skipSlug,
+      locale ?? defaultLocale,
+      includeBody ?? false,
+    );
+  },
+);

@@ -22,6 +22,7 @@ import { getPublicHiddenTags } from "@/utils/post";
 import { PublicTagList } from "@/components/public-tag-list";
 import PostViewTracker from "@/components/post-view-tracker";
 import { getServerOrigin } from "@/utils/url";
+import { transformUrl } from "@/utils/cloudflare";
 
 const relatedPostsLimit = 12;
 
@@ -50,7 +51,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
       images: thumbnail?.url
         ? [
             {
-              url: thumbnail.url,
+              url: transformUrl(thumbnail.url),
             },
           ]
         : undefined,
