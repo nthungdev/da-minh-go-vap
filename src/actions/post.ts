@@ -16,14 +16,15 @@ export const fetchPostBySlug = async (
   return post;
 };
 
+/**
+ * Fetches multiple published posts by their slugs in a single batched query,
+ * preserving the order of the input slugs and omitting unpublished/missing posts.
+ */
 export const fetchPostsBySlugs = async (
   slugs: string[],
   { locale }: { locale?: Locale } = {},
 ) => {
-  const posts = await Promise.all(
-    slugs.map((slug) => fetchPostBySlug(slug, { locale })),
-  );
-  return posts.filter((p) => p !== null);
+  return postUtils.getPostsBySlugs(slugs, { locale });
 };
 
 export async function fetchAllPosts({

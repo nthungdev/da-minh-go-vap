@@ -3,22 +3,25 @@
 import {
   ChangeEventHandler,
   FormEvent,
-  forwardRef,
-  RefObject,
-  useEffect,
   useReducer,
   useRef,
   useState,
 } from "react";
 import SearchIcon from "@/public/svgs/search.svg";
 import { searchPosts } from "@/actions/search";
-import { HSOverlay, ICollectionItem } from "preline/preline";
 import AppPostListItem from "./app-post-list-item";
-import { createPortal } from "react-dom";
 import Image from "next/image";
 import { AppPost } from "@/definitions";
 import { cn } from "@/utils/common";
 import { useLocale, useTranslations } from "next-intl";
+import { Locale } from "@/i18n/config";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 type SearchState =
   | { status: "idle"; query: string }
@@ -74,158 +77,25 @@ function searchReducer(state: SearchState, action: SearchAction): SearchState {
   }
 }
 
-interface SearchModalProps {
-  id: string;
-  state: SearchState;
-  containerRef: RefObject<HTMLElement | null>;
-  onInputSubmit: (event: FormEvent<HTMLFormElement>) => void;
-  onInputChange: ChangeEventHandler<HTMLInputElement>;
-}
-
-// eslint-disable-next-line react/display-name
-const SearchModal = forwardRef<HTMLDivElement, SearchModalProps>(
-  (props, ref) => {
-    const { id, state, containerRef, onInputChange, onInputSubmit } = props;
-    const t = useTranslations();
-
-    return containerRef.current
-      ? createPortal(
-          <div
-            ref={ref}
-            id={id}
-            className="hs-overlay hs-overlay-open:opacity-100 hs-overlay-open:duration-500 pointer-events-none fixed start-0 top-0 z-80 hidden size-full overflow-x-hidden overflow-y-auto opacity-0 transition-all"
-            role="dialog"
-            tabIndex={-1}
-            aria-labelledby={`${id}-label`}
-          >
-            <div className="hs-overlay-open:opacity-100 hs-overlay-open:duration-500 m-3 opacity-0 transition-all sm:mx-auto sm:w-full sm:max-w-lg">
-              <div className="pointer-events-auto flex flex-col overflow-hidden rounded-xl border bg-white shadow-xs">
-                <div className="relative border-b border-gray-200 p-4">
-                  <form className="relative" onSubmit={onInputSubmit}>
-                    <label
-                      id={`${id}-label`}
-                      htmlFor={`${id}-input`}
-                      className="sr-only"
-                    >
-                      {t("search.label")}
-                    </label>
-                    <div className="pointer-events-none absolute inset-y-0 start-0 z-20 flex items-center ps-3.5">
-                      <Image
-                        unoptimized
-                        src={SearchIcon}
-                        alt=""
-                        className="size-4 shrink-0 text-gray-400"
-                      />
-                    </div>
-                    <input
-                      id={`${id}-input`}
-                      className="focus:border-secondary focus:ring-secondary block w-full rounded-lg border-gray-200 py-3 ps-10 pe-4 text-sm disabled:pointer-events-none disabled:opacity-50"
-                      type="text"
-                      role="search"
-                      placeholder={t("search.placeholder")}
-                      value={state.query}
-                      autoFocus
-                      onChange={onInputChange}
-                    />
-                  </form>
-                </div>
-
-                <div
-                  className="relative max-h-[75vh] w-full overflow-y-auto rounded-xs"
-                  aria-live="polite"
-                >
-                  {state.status === "loading" && (
-                    <div className="py-4 text-center">
-                      <div
-                        className="text-primary inline-block size-4 animate-spin rounded-full border-[3px] border-current border-t-transparent"
-                        role="status"
-                        aria-label={t("common.loading")}
-                      >
-                        <span className="sr-only">{t("common.loading")}</span>
-                      </div>
-                    </div>
-                  )}
-
-                  {state.status === "error" && (
-                    <p
-                      role="alert"
-                      className="px-4 py-6 text-center text-sm text-red-600"
-                    >
-                      {state.message}
-                    </p>
-                  )}
-
-                  {state.status === "loaded" && state.results.length === 0 && (
-                    <p className="px-4 py-6 text-center text-sm text-gray-500">
-                      {t("search.empty")}
-                    </p>
-                  )}
-
-                  {state.status === "loaded" && state.results.length > 0 && (
-                    <div className="space-y-1 p-1">
-                      {state.results.map((post, index) => (
-                        <div key={post.slug} className="h-[60px] w-full">
-                          <AppPostListItem
-                            post={post}
-                            className={cn(
-                              index % 2 === 0
-                                ? "bg-primary-50"
-                                : "bg-primary-100",
-                            )}
-                          />
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-          </div>,
-          containerRef.current,
-        )
-      : null;
-  },
-);
-
-export default function AppPostSearchButton({ id }: { id: string }) {
+export default function AppPostSearchButton({ id }: { id?: string }) {
   const locale = useLocale();
-  const t = useTranslations("search");
-  const bodyRef = useRef<HTMLBodyElement | null>(null);
-  const overlayRef = useRef<HTMLDivElement>(null);
-  const requestIdRef = useRef(0);
-  const [overlay, setOverlay] = useState<HSOverlay | null>(null);
-  const [, forceUpdate] = useReducer((x) => x + 1, 0);
+  const t = useTranslations();
+  const [open, setOpen] = useState(false);
   const [state, dispatch] = useReducer(searchReducer, INITIAL_SEARCH_STATE);
+  const requestIdRef = useRef(0);
 
-  const getOverlay = async () => {
-    if (overlay) {
-      return overlay;
+  const handleClose = () => {
+    requestIdRef.current += 1;
+    setOpen(false);
+    dispatch({ type: "RESET" });
+  };
+
+  const handleOpenChange = (isOpen: boolean) => {
+    if (!isOpen) {
+      handleClose();
+    } else {
+      setOpen(true);
     }
-
-    const overlayElement = document.querySelector<HTMLElement>(
-      `[data-hs-overlay="#${id}"]`,
-    );
-    if (overlayElement === null) {
-      return null;
-    }
-
-    const { HSOverlay } = await import("preline/preline");
-
-    const overlayInstance = HSOverlay.getInstance(
-      overlayElement,
-      true,
-    ) as ICollectionItem<HSOverlay>;
-    const o = overlayInstance?.element;
-    if (!o) return null;
-
-    o.on("close", () => {
-      // Invalidate any in-flight search request and reset modal state
-      requestIdRef.current += 1;
-      dispatch({ type: "RESET" });
-    });
-
-    setOverlay(o);
-    return o;
   };
 
   const handleInputChange: ChangeEventHandler<HTMLInputElement> = (event) => {
@@ -239,12 +109,15 @@ export default function AppPostSearchButton({ id }: { id: string }) {
       dispatch({ type: "RESET" });
       return;
     }
+    if (state.status === "loading") return;
 
     const requestId = ++requestIdRef.current;
     dispatch({ type: "SUBMIT", requestId });
 
     try {
-      const results = await searchPosts(trimmed, { locale });
+      const results = await searchPosts(trimmed, {
+        locale: locale as Locale,
+      });
       dispatch({
         type: "RESOLVE",
         requestId,
@@ -254,42 +127,19 @@ export default function AppPostSearchButton({ id }: { id: string }) {
       dispatch({
         type: "REJECT",
         requestId,
-        message: t("error"),
+        message: t("search.error"),
       });
     }
   };
 
-  const openSearchModal = async () => {
-    const o = await getOverlay();
-    if (!o) return;
-    o.open();
-  };
-
-  useEffect(() => {
-    bodyRef.current = document.querySelector("body");
-    forceUpdate();
-    return () => {
-      requestIdRef.current += 1;
-    };
-  }, []);
+  const inputId = id ? `${id}-input` : "search-input";
+  const labelId = id ? `${id}-label` : "search-input-label";
 
   return (
-    <div>
-      {/* SearchBox Trigger */}
-      <button
-        type="button"
-        className="hidden"
-        aria-haspopup="dialog"
-        aria-expanded="false"
-        aria-controls={id}
-        data-hs-overlay={`#${id}`}
-      ></button>
-
-      <button
-        type="button"
-        aria-label={t("label")}
+    <Dialog open={open} onOpenChange={handleOpenChange}>
+      <DialogTrigger
         className="ring-primary relative flex flex-row items-center space-x-2 rounded-full border bg-white p-2 hover:cursor-pointer hover:ring-2"
-        onClick={openSearchModal}
+        aria-label={t("search.label")}
       >
         <Image
           unoptimized
@@ -297,16 +147,93 @@ export default function AppPostSearchButton({ id }: { id: string }) {
           alt=""
           className="size-4 shrink-0 text-gray-400"
         />
-      </button>
+      </DialogTrigger>
 
-      <SearchModal
-        id={id}
-        ref={overlayRef}
-        containerRef={bodyRef}
-        state={state}
-        onInputChange={handleInputChange}
-        onInputSubmit={handleInputSubmit}
-      />
-    </div>
+      <DialogContent
+        className="gap-0 overflow-hidden p-0 sm:max-w-lg"
+        showCloseButton={false}
+      >
+        <DialogTitle className="sr-only">{t("search.label")}</DialogTitle>
+        <DialogDescription className="sr-only">
+          {t("search.placeholder")}
+        </DialogDescription>
+
+        <div className="relative border-b border-gray-200 p-4">
+          <form role="search" className="relative" onSubmit={handleInputSubmit}>
+            <label id={labelId} htmlFor={inputId} className="sr-only">
+              {t("search.label")}
+            </label>
+            <div className="pointer-events-none absolute inset-y-0 start-0 z-20 flex items-center ps-3.5">
+              <Image
+                unoptimized
+                src={SearchIcon}
+                alt=""
+                className="size-4 shrink-0 text-gray-400"
+              />
+            </div>
+            <input
+              id={inputId}
+              className="focus:border-secondary focus:ring-secondary block w-full rounded-lg border-gray-200 py-3 ps-10 pe-4 text-sm disabled:pointer-events-none disabled:opacity-50"
+              type="text"
+              value={state.query}
+              autoFocus
+              placeholder={t("search.placeholder")}
+              onChange={handleInputChange}
+            />
+          </form>
+        </div>
+
+        <div
+          className="relative max-h-[75vh] w-full overflow-y-auto rounded-xs"
+          aria-live="polite"
+        >
+          {state.status === "loading" && (
+            <div className="py-4 text-center">
+              <div
+                className="text-primary inline-block size-4 animate-spin rounded-full border-[3px] border-current border-t-transparent"
+                role="status"
+                aria-label={t("common.loading")}
+              >
+                <span className="sr-only">{t("common.loading")}</span>
+              </div>
+            </div>
+          )}
+
+          {state.status === "error" && (
+            <p
+              role="alert"
+              className="px-4 py-6 text-center text-sm text-red-600"
+            >
+              {state.message}
+            </p>
+          )}
+
+          {state.status === "loaded" && state.results.length === 0 && (
+            <p className="px-4 py-6 text-center text-sm text-gray-500">
+              {t("search.empty")}
+            </p>
+          )}
+
+          {state.status === "loaded" && state.results.length > 0 && (
+            <div className="space-y-1 p-1">
+              {state.results.map((post, index) => (
+                <div
+                  key={post.slug}
+                  className="h-[60px] w-full"
+                  onClick={handleClose}
+                >
+                  <AppPostListItem
+                    post={post}
+                    className={cn(
+                      index % 2 === 0 ? "bg-primary-50" : "bg-primary-100",
+                    )}
+                  />
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </DialogContent>
+    </Dialog>
   );
 }
