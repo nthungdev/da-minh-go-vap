@@ -1,0 +1,26 @@
+# Backend: da-minh-go-vap-staging (environment "staging")
+
+env:
+  - variable: NEXT_PUBLIC_BASE_URL
+    value: https://staging.dongdaminhgovap.org
+  - variable: NEXT_PUBLIC_MEDIA_CDN_URL
+    value: https://cdn-staging.dongdaminhgovap.org
+  - variable: NEXT_PUBLIC_FIREBASE_ANALYTICS_ENABLED
+    value: "false"
+  - variable: SITE_NOINDEX
+    value: "true"
+  - variable: S3_BUCKET
+    value: daminhgovap-staging
+
+  - variable: DATABASE_URI
+    secret: staging-database-uri
+  - variable: PAYLOAD_SECRET
+    secret: staging-payload-secret
+  - variable: PAYLOAD_ADMIN_PASSWORD
+    secret: staging-payload-admin-password
+  - variable: AUTH_PASSWORD
+    secret: staging-auth-password
+  - variable: S3_ACCESS_KEY_ID
+    secret: staging-s3-access-key-id
+  - variable: S3_SECRET
+    secret: staging-s3-secret

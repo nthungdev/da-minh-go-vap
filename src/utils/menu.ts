@@ -3,8 +3,9 @@ import config from "@payload-config";
 import { getPayload } from "payload";
 import { HiddenTag, Media, NavBar, Page, Post } from "@/payload-types";
 import { defaultLocale, Locale } from "@/i18n/config";
-import { makePostPath } from "@/utils/post";
+import { rewriteMediaUrls, toCdnMediaUrl } from "@/utils/cloudflare";
 import { cache } from "react";
+import { unstable_cache } from "next/cache";
 
 // Raw types extracted directly from Payload CMS definitions
 export type NavBarMenuItem = NonNullable<NavBar["menu"]>[number];
@@ -91,7 +92,6 @@ export interface CategoryTabItem {
   absoluteHref: string;
   tagIds: string[];
   icon?: MenuIconType;
-  posts?: CategoryPostItem[];
 }
 
 /**
@@ -122,25 +122,58 @@ function getLinkHref(item?: MenuLinkFields | null) {
   return item.externalLink || "";
 }
 
-export const getMenu = cache(async (locale?: Locale): Promise<MenuItem[]> => {
+export function stripMedia(
+  media: string | Media | null | undefined,
+): Media | null {
+  if (typeof media === "object" && media !== null) {
+    return {
+      id: media.id,
+      url: media.url ? toCdnMediaUrl(media.url) : media.url,
+      alt: media.alt,
+      width: media.width,
+      height: media.height,
+    } as Media;
+  }
+  return null;
+}
+
+async function fetchNavBarGlobal(locale: Locale) {
   const payload = await getPayload({ config });
-  const navBar = await payload.findGlobal({ slug: "navBar", locale });
+  const navBar = await payload.findGlobal({ slug: "navBar", locale, depth: 1 });
+  return rewriteMediaUrls(navBar);
+}
 
-  const validMenuItems = (navBar.menu || []).filter((menuItem, index) => {
-    const hasLabel = Boolean(menuItem.label && menuItem.label.trim());
-    const hasIcon = Boolean(menuItem.icon);
-    if (!hasLabel && !hasIcon) {
-      console.warn(
-        `[getMenu] Skipping menu item at index ${index} because it has neither a label nor an icon.`,
-        menuItem,
-      );
-      return false;
-    }
-    return true;
-  });
+const getNavBarGlobalCached = unstable_cache(
+  fetchNavBarGlobal,
+  ["nav-bar-global"],
+  { tags: ["globals", "navBar"], revalidate: 300 },
+);
 
-  const menu: MenuItem[] = await Promise.all(
-    validMenuItems.map(async (menuItem, index) => {
+/**
+ * Fetches the cached NavBar global configuration for the specified locale.
+ */
+export const getNavBarGlobal = cache(async (locale?: Locale) => {
+  return getNavBarGlobalCached(locale ?? defaultLocale);
+});
+
+const getMenuCached = unstable_cache(
+  async (locale: Locale): Promise<MenuItem[]> => {
+    const navBar = await fetchNavBarGlobal(locale);
+
+    const validMenuItems = (navBar.menu || []).filter((menuItem, index) => {
+      const hasLabel = Boolean(menuItem.label && menuItem.label.trim());
+      const hasIcon = Boolean(menuItem.icon);
+      if (!hasLabel && !hasIcon) {
+        console.warn(
+          `[getMenu] Skipping menu item at index ${index} because it has neither a label nor an icon.`,
+          menuItem,
+        );
+        return false;
+      }
+      return true;
+    });
+
+    const menu: MenuItem[] = validMenuItems.map((menuItem, index) => {
       const layout: MenuLayoutType = menuItem.layout || "grid";
 
       // 1. Grid SubMenu
@@ -171,10 +204,7 @@ export const getMenu = cache(async (locale?: Locale): Promise<MenuItem[]> => {
           headerBanner: {
             title: pillar.headerBanner.title,
             subtitle: pillar.headerBanner.subtitle,
-            image:
-              typeof pillar.headerBanner.image === "object"
-                ? (pillar.headerBanner.image as Media)
-                : null,
+            image: stripMedia(pillar.headerBanner.image),
             href: getLinkHref(pillar.headerBanner),
             absoluteHref: getLinkHref(pillar.headerBanner),
           },
@@ -202,62 +232,19 @@ export const getMenu = cache(async (locale?: Locale): Promise<MenuItem[]> => {
           }
         : undefined;
 
-      // 3. Tabs + Posts Categories
-      const categories: CategoryTabItem[] | undefined = menuItem.categories
-        ? await Promise.all(
-            menuItem.categories.map(async (cat) => {
-              const tagIds =
-                cat.tags?.map((t: string | HiddenTag) =>
-                  typeof t === "string" ? t : t.id,
-                ) || [];
-
-              // Fetch latest 8 posts for this category's tags
-              let posts: CategoryPostItem[] = [];
-              if (tagIds.length > 0) {
-                try {
-                  const postQuery = await payload.find({
-                    collection: "posts",
-                    where: {
-                      and: [
-                        { hiddenTags: { in: tagIds } },
-                        {
-                          publishedAt: {
-                            less_than: new Date().toISOString(),
-                          },
-                        },
-                      ],
-                    },
-                    limit: 8,
-                    sort: "-publishedAt",
-                    locale: locale ?? defaultLocale,
-                  });
-
-                  posts = postQuery.docs.map((p) => ({
-                    title: p.title,
-                    slug: p.slug,
-                    href: makePostPath(p.slug),
-                    thumbnail:
-                      typeof p.thumbnail === "object"
-                        ? (p.thumbnail as Media)
-                        : null,
-                    publishedAt: p.publishedAt,
-                  }));
-                } catch {
-                  posts = [];
-                }
-              }
-
-              return {
-                name: cat.label,
-                href: getLinkHref(cat),
-                absoluteHref: getLinkHref(cat),
-                icon: typeof cat.icon === "string" ? cat.icon : null,
-                tagIds,
-                posts,
-              };
-            }),
-          )
-        : undefined;
+      // 3. Tabs + Posts Categories. Posts stream separately via
+      // getMenuCategoryPosts so the navbar shell does not wait on them.
+      const categories: CategoryTabItem[] | undefined =
+        menuItem.categories?.map((cat) => ({
+          name: cat.label,
+          href: getLinkHref(cat),
+          absoluteHref: getLinkHref(cat),
+          icon: typeof cat.icon === "string" ? cat.icon : null,
+          tagIds:
+            cat.tags?.map((t: string | HiddenTag) =>
+              typeof t === "string" ? t : t.id,
+            ) || [],
+        }));
 
       const name = menuItem.label || "";
       const icon = typeof menuItem.icon === "string" ? menuItem.icon : null;
@@ -277,10 +264,16 @@ export const getMenu = cache(async (locale?: Locale): Promise<MenuItem[]> => {
         bottomBar,
         categories,
       };
-    }),
-  );
+    });
 
-  return menu;
+    return menu;
+  },
+  ["nav-menu"],
+  { tags: ["globals", "navBar"], revalidate: 300 },
+);
+
+export const getMenu = cache(async (locale?: Locale): Promise<MenuItem[]> => {
+  return getMenuCached(locale ?? defaultLocale);
 });
 
 function normalizeMenuName(name: string) {

@@ -1,6 +1,7 @@
 import { ElementType } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 interface VideoTileProps {
   videoUrl: string;
@@ -15,6 +16,7 @@ export default function AppVideoTile({
   title,
   titleComponent: TitleComponent = "div",
 }: VideoTileProps) {
+  const t = useTranslations("common");
   return (
     <Link
       href={videoUrl}
@@ -27,7 +29,7 @@ export default function AppVideoTile({
             className="w-full object-cover"
             src={thumbnail}
             fill
-            alt={`${title}'s thumbnail`}
+            alt={t("thumbnailAlt", { title })}
           />
         </div>
         <TitleComponent className="block truncate px-2 py-2 text-center">
