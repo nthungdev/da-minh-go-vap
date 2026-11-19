@@ -1,5 +1,7 @@
 import LocaleSwitcher from "@/components/locale-switcher";
+import { Locale } from "@/i18n/config";
 import { getLogo } from "@/payload/utils/site-settings-server";
+import { getSearchTags } from "@/payload/utils/search-tags-server";
 import { getMenu } from "@/utils/menu";
 import { getLocale } from "next-intl/server";
 import Image from "next/image";
@@ -12,7 +14,11 @@ export default async function TheDesktopNavbar(
   props: React.HTMLAttributes<HTMLElement>,
 ) {
   const locale = await getLocale();
-  const [menu, logo] = await Promise.all([getMenu(locale), getLogo()]);
+  const [menu, logo, searchTags] = await Promise.all([
+    getMenu(locale),
+    getLogo(),
+    getSearchTags(locale as Locale),
+  ]);
 
   return (
     <nav
@@ -98,7 +104,10 @@ export default async function TheDesktopNavbar(
         </ul>
 
         <div className="p-1">
-          <AppPostSearchButton id="desktop-navbar-search" />
+          <AppPostSearchButton
+            id="desktop-navbar-search"
+            searchTags={searchTags}
+          />
         </div>
 
         <LocaleSwitcher />

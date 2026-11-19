@@ -20,7 +20,6 @@ import {
   SearchErrorState,
   SearchIdleState,
   SearchSkeletonList,
-  TopicOption,
 } from "@/components/search/search-modal-states";
 import { SearchResultCard } from "@/components/search/search-result-card";
 import {
@@ -37,6 +36,7 @@ import {
   addRecentSearch,
   parseRecentSearches,
   RECENT_SEARCHES_STORAGE_KEY,
+  SearchTagOption,
 } from "@/utils/search";
 
 const SEARCH_DEBOUNCE_MS = 275;
@@ -52,9 +52,16 @@ type SearchState =
       status: "loaded";
       query: string;
       submittedQuery: string;
+      submittedTagId: string | null;
       results: AppPost[];
     }
-  | { status: "error"; query: string; submittedQuery: string; message: string };
+  | {
+      status: "error";
+      query: string;
+      submittedQuery: string;
+      submittedTagId: string | null;
+      message: string;
+    };
 
 type SearchAction =
   | { type: "SET_QUERY"; query: string }
@@ -63,12 +70,14 @@ type SearchAction =
       type: "RESOLVE";
       requestId: number;
       submittedQuery: string;
+      submittedTagId: string | null;
       results: AppPost[];
     }
   | {
       type: "REJECT";
       requestId: number;
       submittedQuery: string;
+      submittedTagId: string | null;
       message: string;
     }
   | { type: "RESET" };
@@ -99,6 +108,7 @@ function searchReducer(state: SearchState, action: SearchAction): SearchState {
         status: "loaded",
         query: state.query,
         submittedQuery: action.submittedQuery,
+        submittedTagId: action.submittedTagId,
         results: action.results,
       };
     case "REJECT":
@@ -109,6 +119,7 @@ function searchReducer(state: SearchState, action: SearchAction): SearchState {
         status: "error",
         query: state.query,
         submittedQuery: action.submittedQuery,
+        submittedTagId: action.submittedTagId,
         message: action.message,
       };
     case "RESET":
@@ -116,13 +127,22 @@ function searchReducer(state: SearchState, action: SearchAction): SearchState {
   }
 }
 
-export default function AppPostSearchButton({ id }: { id?: string }) {
+interface AppPostSearchButtonProps {
+  id?: string;
+  searchTags?: SearchTagOption[];
+}
+
+export default function AppPostSearchButton({
+  id,
+  searchTags = [],
+}: AppPostSearchButtonProps) {
   const locale = useLocale();
   const t = useTranslations();
   const router = useRouter();
 
   const [open, setOpen] = useState(false);
   const [state, dispatch] = useReducer(searchReducer, INITIAL_SEARCH_STATE);
+  const [selectedTagId, setSelectedTagId] = useState<string | null>(null);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [recentSearches, setRecentSearches] = useState<string[]>([]);
 
@@ -131,35 +151,9 @@ export default function AppPostSearchButton({ id }: { id?: string }) {
   const requestIdRef = useRef(0);
   const debounceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const topics: TopicOption[] = useMemo(
-    () => [
-      {
-        id: "dominican",
-        label: t("search.topicDominican"),
-        query: t("search.topicDominican"),
-      },
-      {
-        id: "reflection",
-        label: t("search.topicReflection"),
-        query: t("search.topicReflection"),
-      },
-      {
-        id: "gospel",
-        label: t("search.topicGospel"),
-        query: t("search.topicGospel"),
-      },
-      {
-        id: "congregation",
-        label: t("search.topicCongregation"),
-        query: t("search.topicCongregation"),
-      },
-      {
-        id: "prayer",
-        label: t("search.topicPrayer"),
-        query: t("search.topicPrayer"),
-      },
-    ],
-    [t],
+  const tagLabelById = useMemo(
+    () => new Map(searchTags.map((tag) => [tag.tagId, tag.label])),
+    [searchTags],
   );
 
   const clearDebounce = useCallback(() => {
@@ -190,6 +184,7 @@ export default function AppPostSearchButton({ id }: { id?: string }) {
     clearDebounce();
     requestIdRef.current += 1;
     setOpen(false);
+    setSelectedTagId(null);
     setSelectedIndex(0);
     dispatch({ type: "RESET" });
   }, [clearDebounce]);
@@ -252,9 +247,9 @@ export default function AppPostSearchButton({ id }: { id?: string }) {
   useEffect(() => clearDebounce, [clearDebounce]);
 
   const executeSearch = useCallback(
-    async (rawQuery: string) => {
+    async (rawQuery: string, tagId: string | null) => {
       const trimmed = rawQuery.trim();
-      if (!trimmed) {
+      if (!trimmed && !tagId) {
         requestIdRef.current += 1;
         dispatch({ type: "RESET" });
         setSelectedIndex(0);
@@ -268,11 +263,13 @@ export default function AppPostSearchButton({ id }: { id?: string }) {
       try {
         const results = await searchPosts(trimmed, {
           locale: locale as Locale,
+          tagId: tagId ?? undefined,
         });
         dispatch({
           type: "RESOLVE",
           requestId,
           submittedQuery: trimmed,
+          submittedTagId: tagId,
           results: results.map((r) => r.item),
         });
       } catch {
@@ -280,6 +277,7 @@ export default function AppPostSearchButton({ id }: { id?: string }) {
           type: "REJECT",
           requestId,
           submittedQuery: trimmed,
+          submittedTagId: tagId,
           message: t("search.error"),
         });
       }
@@ -287,22 +285,52 @@ export default function AppPostSearchButton({ id }: { id?: string }) {
     [locale, t],
   );
 
-  const handleClear = useCallback(() => {
+  const handleClearQuery = useCallback(() => {
+    clearDebounce();
+    dispatch({ type: "SET_QUERY", query: "" });
+    if (selectedTagId) {
+      void executeSearch("", selectedTagId);
+    } else {
+      requestIdRef.current += 1;
+      setSelectedIndex(0);
+      dispatch({ type: "RESET" });
+    }
+    inputRef.current?.focus();
+  }, [clearDebounce, executeSearch, selectedTagId]);
+
+  const handleClearAll = useCallback(() => {
     clearDebounce();
     requestIdRef.current += 1;
+    setSelectedTagId(null);
     setSelectedIndex(0);
     dispatch({ type: "RESET" });
     inputRef.current?.focus();
   }, [clearDebounce]);
 
+  const handleSelectTag = useCallback(
+    (tagId: string | null) => {
+      clearDebounce();
+      const nextTagId =
+        tagId === null ? null : selectedTagId === tagId ? null : tagId;
+      if (nextTagId === selectedTagId && !state.query.trim()) {
+        inputRef.current?.focus();
+        return;
+      }
+      setSelectedTagId(nextTagId);
+      void executeSearch(state.query, nextTagId);
+      inputRef.current?.focus();
+    },
+    [clearDebounce, executeSearch, selectedTagId, state.query],
+  );
+
   const handlePickQuery = useCallback(
     (pickedQuery: string) => {
       clearDebounce();
       dispatch({ type: "SET_QUERY", query: pickedQuery });
-      void executeSearch(pickedQuery);
+      void executeSearch(pickedQuery, selectedTagId);
       inputRef.current?.focus();
     },
-    [clearDebounce, executeSearch],
+    [clearDebounce, executeSearch, selectedTagId],
   );
 
   const handleClearRecent = useCallback(() => {
@@ -320,14 +348,18 @@ export default function AppPostSearchButton({ id }: { id?: string }) {
     clearDebounce();
 
     if (!nextQuery.trim()) {
-      requestIdRef.current += 1;
-      setSelectedIndex(0);
-      dispatch({ type: "RESET" });
+      if (selectedTagId) {
+        void executeSearch("", selectedTagId);
+      } else {
+        requestIdRef.current += 1;
+        setSelectedIndex(0);
+        dispatch({ type: "RESET" });
+      }
       return;
     }
 
     debounceTimerRef.current = setTimeout(() => {
-      void executeSearch(nextQuery);
+      void executeSearch(nextQuery, selectedTagId);
     }, SEARCH_DEBOUNCE_MS);
   };
 
@@ -336,14 +368,15 @@ export default function AppPostSearchButton({ id }: { id?: string }) {
     clearDebounce();
 
     const trimmed = state.query.trim();
-    if (!trimmed) {
-      handleClear();
+    if (!trimmed && !selectedTagId) {
+      handleClearAll();
       return;
     }
 
     if (
       state.status === "loaded" &&
       state.submittedQuery === trimmed &&
+      state.submittedTagId === selectedTagId &&
       state.results[selectedIndex]
     ) {
       const selectedPost = state.results[selectedIndex];
@@ -353,7 +386,7 @@ export default function AppPostSearchButton({ id }: { id?: string }) {
       return;
     }
 
-    void executeSearch(trimmed);
+    void executeSearch(trimmed, selectedTagId);
   };
 
   const handleInputKeyDown: KeyboardEventHandler<HTMLInputElement> = (
@@ -376,8 +409,12 @@ export default function AppPostSearchButton({ id }: { id?: string }) {
 
   const inputId = id ? `${id}-input` : "search-input";
   const labelId = id ? `${id}-label` : "search-input-label";
-  const normalizedQuery = state.query.trim().toLowerCase();
-  const isAllActive = normalizedQuery.length === 0;
+  const isAllActive = selectedTagId === null;
+  const submittedTagLabel =
+    (state.status === "loaded" || state.status === "error") &&
+    state.submittedTagId
+      ? (tagLabelById.get(state.submittedTagId) ?? null)
+      : null;
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
@@ -451,7 +488,7 @@ export default function AppPostSearchButton({ id }: { id?: string }) {
             {state.query.length > 0 && (
               <button
                 type="button"
-                onClick={handleClear}
+                onClick={handleClearQuery}
                 aria-label={t("search.clear")}
                 className={cn(
                   "inline-flex size-6 shrink-0 items-center justify-center rounded-full bg-stone-200/75 text-stone-600 transition-colors hover:bg-stone-300/80 hover:text-stone-900 motion-reduce:transition-none",
@@ -463,44 +500,43 @@ export default function AppPostSearchButton({ id }: { id?: string }) {
             )}
           </form>
 
-          {/* Topic Quick-Filter Pills */}
-          <div className="flex gap-1.5 overflow-x-auto pt-3 pb-0.5">
-            <button
-              type="button"
-              onClick={handleClear}
-              className={cn(
-                "rounded-full border px-3 py-1 text-xs font-bold whitespace-nowrap transition-colors motion-reduce:transition-none",
-                "focus-visible:ring-primary-700 focus-visible:ring-2 focus-visible:outline-none",
-                isAllActive
-                  ? "border-primary-700 bg-primary-700 text-white"
-                  : "hover:border-primary-700 hover:text-primary-800 border-[#e8e2d8] bg-[#faf8f5] text-stone-600",
-              )}
-            >
-              {t("search.allTopics")}
-            </button>
-            {topics.map((topic) => {
-              const isActive =
-                normalizedQuery === topic.query.trim().toLowerCase();
-              return (
-                <button
-                  key={topic.id}
-                  type="button"
-                  onClick={() =>
-                    isActive ? handleClear() : handlePickQuery(topic.query)
-                  }
-                  className={cn(
-                    "rounded-full border px-3 py-1 text-xs font-bold whitespace-nowrap transition-colors motion-reduce:transition-none",
-                    "focus-visible:ring-primary-700 focus-visible:ring-2 focus-visible:outline-none",
-                    isActive
-                      ? "border-primary-700 bg-primary-700 text-white"
-                      : "hover:border-primary-700 hover:text-primary-800 border-[#e8e2d8] bg-[#faf8f5] text-stone-600",
-                  )}
-                >
-                  {topic.label}
-                </button>
-              );
-            })}
-          </div>
+          {/* Tag Quick-Filter Pills */}
+          {searchTags.length > 0 && (
+            <div className="flex gap-1.5 overflow-x-auto pt-3 pb-0.5">
+              <button
+                type="button"
+                onClick={() => handleSelectTag(null)}
+                className={cn(
+                  "rounded-full border px-3 py-1 text-xs font-bold whitespace-nowrap transition-colors motion-reduce:transition-none",
+                  "focus-visible:ring-primary-700 focus-visible:ring-2 focus-visible:outline-none",
+                  isAllActive
+                    ? "border-primary-700 bg-primary-700 text-white"
+                    : "hover:border-primary-700 hover:text-primary-800 border-[#e8e2d8] bg-[#faf8f5] text-stone-600",
+                )}
+              >
+                {t("search.allTopics")}
+              </button>
+              {searchTags.map((tag) => {
+                const isActive = selectedTagId === tag.tagId;
+                return (
+                  <button
+                    key={tag.id}
+                    type="button"
+                    onClick={() => handleSelectTag(tag.tagId)}
+                    className={cn(
+                      "rounded-full border px-3 py-1 text-xs font-bold whitespace-nowrap transition-colors motion-reduce:transition-none",
+                      "focus-visible:ring-primary-700 focus-visible:ring-2 focus-visible:outline-none",
+                      isActive
+                        ? "border-primary-700 bg-primary-700 text-white"
+                        : "hover:border-primary-700 hover:text-primary-800 border-[#e8e2d8] bg-[#faf8f5] text-stone-600",
+                    )}
+                  >
+                    {tag.label}
+                  </button>
+                );
+              })}
+            </div>
+          )}
         </div>
 
         {/* Scrollable Editorial Body */}
@@ -511,7 +547,6 @@ export default function AppPostSearchButton({ id }: { id?: string }) {
           {state.status === "idle" && (
             <SearchIdleState
               recentSearches={recentSearches}
-              topics={topics}
               onPickQuery={handlePickQuery}
               onClearRecent={handleClearRecent}
             />
@@ -522,24 +557,38 @@ export default function AppPostSearchButton({ id }: { id?: string }) {
           {state.status === "error" && (
             <SearchErrorState
               message={state.message}
-              onRetry={() => void executeSearch(state.submittedQuery)}
+              onRetry={() =>
+                void executeSearch(state.submittedQuery, state.submittedTagId)
+              }
             />
           )}
 
           {state.status === "loaded" && state.results.length === 0 && (
             <SearchEmptyState
               query={state.submittedQuery}
-              onClear={handleClear}
+              tagLabel={submittedTagLabel}
+              onClear={handleClearAll}
             />
           )}
 
           {state.status === "loaded" && state.results.length > 0 && (
             <div>
               <div className="pt-1 pb-1 text-xs font-bold text-stone-500">
-                {t("search.resultsCount", {
-                  count: state.results.length,
-                  query: state.submittedQuery,
-                })}
+                {state.submittedQuery && submittedTagLabel
+                  ? t("search.resultsCountWithTag", {
+                      count: state.results.length,
+                      query: state.submittedQuery,
+                      tag: submittedTagLabel,
+                    })
+                  : submittedTagLabel
+                    ? t("search.resultsCountByTag", {
+                        count: state.results.length,
+                        tag: submittedTagLabel,
+                      })
+                    : t("search.resultsCount", {
+                        count: state.results.length,
+                        query: state.submittedQuery,
+                      })}
               </div>
               <div role="listbox" aria-label={t("search.label")}>
                 {state.results.map((post, index) => (

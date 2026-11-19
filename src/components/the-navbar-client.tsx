@@ -3,6 +3,7 @@
 import { MenuItem } from "@/utils/menu";
 import type { MenuCategoryPosts } from "@/utils/menu-category-posts";
 import type { Media } from "@/payload-types";
+import type { SearchTagOption } from "@/utils/search";
 import { transformUrl } from "@/utils/cloudflare";
 import Image from "next/image";
 import Link from "next/link";
@@ -85,12 +86,14 @@ interface TheNavbarClientProps {
   logo?: Media | null;
   /** Pending mega-menu posts; resolved inside a Suspense boundary. */
   categoryPostsPromise: Promise<MenuCategoryPosts>;
+  searchTags?: SearchTagOption[];
 }
 
 export default function TheNavbarClient({
   menu,
   logo,
   categoryPostsPromise,
+  searchTags = [],
 }: TheNavbarClientProps) {
   const t = useTranslations("navigation");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -222,7 +225,10 @@ export default function TheNavbarClient({
         {/* Right Actions (Desktop) */}
         <div className="hidden items-center space-x-2 lg:flex">
           <div className="p-1 text-gray-50">
-            <AppPostSearchButton id="desktop-navbar-search" />
+            <AppPostSearchButton
+              id="desktop-navbar-search"
+              searchTags={searchTags}
+            />
           </div>
           <LocaleSwitcher />
         </div>
@@ -230,7 +236,10 @@ export default function TheNavbarClient({
 
       {/* Right Actions & Mobile Toggle (Mobile) */}
       <div className="flex items-center space-x-2 text-gray-50 lg:hidden">
-        <AppPostSearchButton id="mobile-navbar-search" />
+        <AppPostSearchButton
+          id="mobile-navbar-search"
+          searchTags={searchTags}
+        />
         <LocaleSwitcher />
         <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
           <SheetTrigger className="-mr-2 p-2 text-gray-50 hover:text-gray-200 focus:outline-none">

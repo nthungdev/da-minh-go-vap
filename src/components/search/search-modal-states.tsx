@@ -1,14 +1,8 @@
 "use client";
 
-import { AlertCircle, Clock, Search, Sparkles } from "lucide-react";
+import { AlertCircle, Clock, Search } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { cn } from "@/utils/common";
-
-export interface TopicOption {
-  id: string;
-  label: string;
-  query: string;
-}
 
 const SKELETON_ROWS = [0, 1, 2];
 
@@ -32,85 +26,62 @@ export function SearchSkeletonList() {
 
 interface SearchIdleStateProps {
   recentSearches: string[];
-  topics: TopicOption[];
   onPickQuery: (query: string) => void;
   onClearRecent: () => void;
 }
 
 export function SearchIdleState({
   recentSearches,
-  topics,
   onPickQuery,
   onClearRecent,
 }: SearchIdleStateProps) {
   const t = useTranslations("search");
 
-  return (
-    <div className="space-y-5 py-2">
-      {recentSearches.length > 0 && (
-        <section aria-labelledby="search-recent-heading">
-          <div className="mb-2.5 flex items-center justify-between">
-            <h4
-              id="search-recent-heading"
-              className="text-xs font-extrabold tracking-wider text-stone-500 uppercase"
-            >
-              {t("recentSearches")}
-            </h4>
-            <button
-              type="button"
-              onClick={onClearRecent}
-              className={cn(
-                "text-xs font-semibold text-stone-500 transition-colors hover:text-stone-800 motion-reduce:transition-none",
-                "focus-visible:ring-primary-700 rounded px-1.5 py-0.5 focus-visible:ring-2 focus-visible:outline-none",
-              )}
-            >
-              {t("clearRecent")}
-            </button>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            {recentSearches.map((item) => (
-              <button
-                key={item}
-                type="button"
-                onClick={() => onPickQuery(item)}
-                className={cn(
-                  "inline-flex items-center gap-1.5 rounded-full border border-[#e8e2d8] bg-white px-3 py-1.5 text-xs font-semibold text-stone-700 transition-colors motion-reduce:transition-none",
-                  "hover:border-primary-700 hover:text-primary-800",
-                  "focus-visible:ring-primary-700 focus-visible:ring-2 focus-visible:outline-none",
-                )}
-              >
-                <Clock className="size-3.5 text-stone-400" aria-hidden="true" />
-                <span>{item}</span>
-              </button>
-            ))}
-          </div>
-        </section>
-      )}
+  if (recentSearches.length === 0) {
+    return (
+      <div className="flex flex-col items-center justify-center px-4 py-8 text-center">
+        <p className="max-w-sm text-xs leading-relaxed text-stone-500">
+          {t("idlePrompt")}
+        </p>
+      </div>
+    );
+  }
 
-      <section aria-labelledby="search-topics-heading">
-        <h4
-          id="search-topics-heading"
-          className="mb-2.5 text-xs font-extrabold tracking-wider text-stone-500 uppercase"
-        >
-          {t("suggestedTopics")}
-        </h4>
+  return (
+    <div className="py-2">
+      <section aria-labelledby="search-recent-heading">
+        <div className="mb-2.5 flex items-center justify-between">
+          <h4
+            id="search-recent-heading"
+            className="text-xs font-extrabold tracking-wider text-stone-500 uppercase"
+          >
+            {t("recentSearches")}
+          </h4>
+          <button
+            type="button"
+            onClick={onClearRecent}
+            className={cn(
+              "text-xs font-semibold text-stone-500 transition-colors hover:text-stone-800 motion-reduce:transition-none",
+              "focus-visible:ring-primary-700 rounded px-1.5 py-0.5 focus-visible:ring-2 focus-visible:outline-none",
+            )}
+          >
+            {t("clearRecent")}
+          </button>
+        </div>
         <div className="flex flex-wrap gap-2">
-          {topics.map((topic) => (
+          {recentSearches.map((item) => (
             <button
-              key={topic.id}
+              key={item}
               type="button"
-              onClick={() => onPickQuery(topic.query)}
+              onClick={() => onPickQuery(item)}
               className={cn(
                 "inline-flex items-center gap-1.5 rounded-full border border-[#e8e2d8] bg-white px-3 py-1.5 text-xs font-semibold text-stone-700 transition-colors motion-reduce:transition-none",
-                "hover:border-primary-700 hover:bg-primary-50/40 hover:text-primary-800",
+                "hover:border-primary-700 hover:text-primary-800",
                 "focus-visible:ring-primary-700 focus-visible:ring-2 focus-visible:outline-none",
               )}
             >
-              <Sparkles
-                className="text-secondary-600 size-3.5"
-                aria-hidden="true"
-              />
-              <span>{topic.label}</span>
+              <Clock className="size-3.5 text-stone-400" aria-hidden="true" />
+              <span>{item}</span>
             </button>
           ))}
         </div>
@@ -121,11 +92,23 @@ export function SearchIdleState({
 
 interface SearchEmptyStateProps {
   query: string;
+  tagLabel?: string | null;
   onClear: () => void;
 }
 
-export function SearchEmptyState({ query, onClear }: SearchEmptyStateProps) {
+export function SearchEmptyState({
+  query,
+  tagLabel,
+  onClear,
+}: SearchEmptyStateProps) {
   const t = useTranslations("search");
+  const trimmedQuery = query.trim();
+  const contextLabel = [
+    trimmedQuery ? `"${trimmedQuery}"` : null,
+    tagLabel ? `#${tagLabel}` : null,
+  ]
+    .filter(Boolean)
+    .join(" · ");
 
   return (
     <div className="flex flex-col items-center justify-center px-4 py-10 text-center">
@@ -136,11 +119,9 @@ export function SearchEmptyState({ query, onClear }: SearchEmptyStateProps) {
         {t("empty")}
       </p>
       <p className="mt-1.5 max-w-sm text-xs leading-relaxed text-stone-600">
-        {query.trim() ? (
+        {contextLabel ? (
           <>
-            <span className="font-semibold text-stone-800">
-              &ldquo;{query.trim()}&rdquo;
-            </span>{" "}
+            <span className="font-semibold text-stone-800">{contextLabel}</span>{" "}
             — {t("emptyHint")}
           </>
         ) : (

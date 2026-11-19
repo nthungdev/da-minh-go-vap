@@ -7,6 +7,7 @@ import AppPostSearchButton from "./app-post-search-button";
 import { HTMLAttributes } from "react";
 import { cn } from "@/utils/common";
 import LocaleSwitcher from "@/components/locale-switcher";
+import type { SearchTagOption } from "@/utils/search";
 
 const MENU_ID = "hs-the-mobile-menu";
 
@@ -163,11 +164,13 @@ const defaultItemRender = (onClick: () => void) =>
 
 interface TheMobileNavbarProps extends HTMLAttributes<HTMLElement> {
   menu: MenuItem[];
+  searchTags?: SearchTagOption[];
 }
 
 export default function TheMobileNavbar({
   className,
   menu,
+  searchTags = [],
 }: TheMobileNavbarProps) {
   const closeMenu = async () => {
     const menuElement = document.querySelector<HTMLElement>(`#${MENU_ID}`);
@@ -213,7 +216,10 @@ export default function TheMobileNavbar({
           <Link href="/" aria-label="Brand">
             Hội Dòng Đa Minh Gò Vấp
           </Link>
-          <AppPostSearchButton id="mobile-navbar-search" />
+          <AppPostSearchButton
+            id="mobile-navbar-search"
+            searchTags={searchTags}
+          />
           <LocaleSwitcher />
         </div>
       </div>

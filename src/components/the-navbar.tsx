@@ -1,4 +1,5 @@
 import { getLogo } from "@/payload/utils/site-settings-server";
+import { getSearchTags } from "@/payload/utils/search-tags-server";
 import { getMenu } from "@/utils/menu";
 import { getMenuCategoryPosts } from "@/utils/menu-category-posts";
 import { getLocale } from "next-intl/server";
@@ -12,9 +13,10 @@ export default async function TheNavbar(
   const locale = await getLocale();
   // Not awaited: mega-menu posts stream to the client after the navbar shell.
   const categoryPostsPromise = getMenuCategoryPosts(locale as Locale);
-  const [menu, logo] = await Promise.all([
+  const [menu, logo, searchTags] = await Promise.all([
     getMenu(locale as Locale),
     getLogo(),
+    getSearchTags(locale as Locale),
   ]);
 
   return (
@@ -29,6 +31,7 @@ export default async function TheNavbar(
           menu={menu}
           logo={logo}
           categoryPostsPromise={categoryPostsPromise}
+          searchTags={searchTags}
         />
       </div>
     </header>
