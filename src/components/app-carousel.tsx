@@ -1,7 +1,9 @@
 "use client";
 
-import { Children, HTMLAttributes, useEffect, useRef, useState } from "react";
-import { twMerge } from "tailwind-merge";
+import { Children, HTMLAttributes } from "react";
+import { useCarousel } from "@/hooks/use-carousel";
+import { cn } from "@/utils/common";
+import { useTranslations } from "next-intl";
 
 interface AppCarouselProps extends HTMLAttributes<HTMLElement> {
   id: string;
@@ -17,79 +19,26 @@ export default function AppCarousel({
   onTransition,
   ...props
 }: AppCarouselProps) {
+  const t = useTranslations("common");
   const childrenCount = Children.count(children);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const carouselRef = useRef<HTMLDivElement | null>(null);
-
-  function handleMoveButton(direction: "previous" | "next") {
-    resetTimeout();
-    const newIndex =
-      direction === "previous"
-        ? (currentIndex - 1 + durations.length) % durations.length
-        : (currentIndex + 1) % durations.length;
-    setCurrentIndex(newIndex);
-    onTransition?.(newIndex);
-  }
-
-  function resetTimeout() {
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
-    }
-  }
-
-  // For some reason, need to create the carousel object for it to be rendered
-  useEffect(
-    function initCarousel() {
-      (async () => {
-        const carouselElement = carouselRef.current;
-        if (!carouselElement) {
-          console.warn("Carousel element not found");
-          return;
-        }
-        const { HSCarousel } = await import("preline/preline");
-        new HSCarousel(carouselElement, { currentIndex: 0 });
-      })();
-    },
-    [carouselRef],
-  );
-
-  useEffect(() => {
-    resetTimeout();
-
-    const _currentIndex = currentIndex;
-    timeoutRef.current = setTimeout(async () => {
-      const newIndex = (currentIndex + 1) % durations.length;
-      const carouselElement = carouselRef.current;
-      if (!carouselElement) {
-        console.warn("Carousel element not found");
-        return;
-      }
-      const { HSCarousel } = await import("preline/preline");
-      const carousel = new HSCarousel(carouselElement, { currentIndex });
-      carousel.goTo(newIndex);
-      setCurrentIndex(newIndex);
-      onTransition?.(newIndex);
-    }, durations[_currentIndex]);
-
-    return () => resetTimeout();
-  }, [currentIndex, durations, id, onTransition]);
+  const { currentIndex, next, prev, getContainerProps } = useCarousel({
+    count: childrenCount,
+    durations,
+    onTransition,
+  });
 
   return (
     <div
-      ref={carouselRef}
       id={id}
-      data-hs-carousel={JSON.stringify({
-        loadingClasses: "opacity-0",
-        dotsItemClasses:
-          "hs-carousel-active:bg-white hs-carousel-active:border-white size-3 border border-gray-400 rounded-full cursor-pointer dark:border-white dark:hs-carousel-active:bg-white dark:hs-carousel-active:border-white",
-        isInfiniteLoop: true,
-      })}
-      className={twMerge("relative aspect-[4/1.2] w-full", className)}
+      className={cn("relative aspect-[4/1.2] w-full", className)}
       {...props}
+      {...getContainerProps<HTMLDivElement>(props)}
     >
       <div className="hs-carousel relative h-full w-full overflow-hidden bg-white">
-        <div className="hs-carousel-body pointer-events-none absolute start-0 top-0 bottom-0 flex flex-nowrap opacity-0 transition-transform duration-700">
+        <div
+          className="hs-carousel-body pointer-events-none absolute inset-0 flex flex-nowrap transition-transform duration-700 [&>.hs-carousel-slide]:size-full [&>.hs-carousel-slide]:shrink-0"
+          style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+        >
           {children}
         </div>
       </div>
@@ -102,8 +51,7 @@ export default function AppCarousel({
             onClick={(event) => {
               event.stopPropagation();
               event.preventDefault();
-              console.log("stop propagte");
-              handleMoveButton("previous");
+              prev();
             }}
           >
             <span
@@ -125,7 +73,7 @@ export default function AppCarousel({
                 <path d="m15 18-6-6 6-6"></path>
               </svg>
             </span>
-            <span className="sr-only">Previous</span>
+            <span className="sr-only">{t("previous")}</span>
           </button>
           <button
             type="button"
@@ -133,11 +81,10 @@ export default function AppCarousel({
             onClick={(event) => {
               event.stopPropagation();
               event.preventDefault();
-              console.log("stop propagte");
-              handleMoveButton("next");
+              next();
             }}
           >
-            <span className="sr-only">Next</span>
+            <span className="sr-only">{t("next")}</span>
             <span
               className="text-2xl group-hover:text-white"
               aria-hidden="true"
