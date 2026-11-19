@@ -37,7 +37,7 @@ export function transformUrl(
 
   let cdnBase = (
     process.env.NEXT_PUBLIC_CDN_URL ||
-    CONFIGURED_MEDIA_CDN_URL ||
+    process.env.NEXT_PUBLIC_MEDIA_CDN_URL ||
     "https://cdn.dongdaminhgovap.org"
   ).replace(/\/+$/, "");
 
@@ -71,25 +71,33 @@ export function transformUrl(
     }
   }
 
+  // Separate pathname from query/hash so regexes and prefix checks don't match query params
+  const suffixIndex = relativePath.search(/[?#]/);
+  let pathname =
+    suffixIndex === -1 ? relativePath : relativePath.slice(0, suffixIndex);
+  const suffix = suffixIndex === -1 ? "" : relativePath.slice(suffixIndex);
+
   // Strip existing Cloudflare transform prefix if already present
   // e.g. /cdn-cgi/image/width=100,onerror=redirect/media/pic.jpg -> /media/pic.jpg
-  const cdnCgiMatch = relativePath.match(/^\/?cdn-cgi\/image\/[^/]+(\/.*)$/);
+  const cdnCgiMatch = pathname.match(/^\/?cdn-cgi\/image\/[^/]+(\/.*)$/);
   if (cdnCgiMatch && cdnCgiMatch[1]) {
-    relativePath = cdnCgiMatch[1];
+    pathname = cdnCgiMatch[1];
   }
 
   // Strip Payload media proxy prefix so proxied URLs map to the same CDN key
-  if (relativePath.startsWith(PAYLOAD_MEDIA_FILE_PATH)) {
-    relativePath = relativePath.slice(PAYLOAD_MEDIA_FILE_PATH.length);
+  if (pathname.startsWith(PAYLOAD_MEDIA_FILE_PATH)) {
+    pathname = pathname.slice(PAYLOAD_MEDIA_FILE_PATH.length);
   }
 
   // Retain full relative pathname without leading slashes for URL concatenation
-  const cleanPath = relativePath.replace(/^\/+/, "");
+  const cleanPath = pathname.replace(/^\/+/, "");
   if (!cleanPath) {
     return "";
   }
 
   const optionsMap: Record<string, string | number> = {
+    format: "auto",
+    quality: "85",
     onerror: "redirect",
     ...options,
   };
@@ -102,7 +110,7 @@ export function transformUrl(
     .map(([key, value]) => `${key}=${value}`)
     .join(",");
 
-  return `${cdnBase}/cdn-cgi/image/${optionsString}/${cleanPath}`;
+  return `${cdnBase}/cdn-cgi/image/${optionsString}/${cleanPath}${suffix}`;
 }
 
 /**
