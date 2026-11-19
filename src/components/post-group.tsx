@@ -38,5 +38,6 @@ export default function PostGroup(props: PostGroupProps) {
       />
     );
   }
+  console.warn(`PostGroup: unexpected displayType "${String(props.type)}"`);
   return null;
 }
