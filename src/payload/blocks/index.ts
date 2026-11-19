@@ -12,7 +12,7 @@ import SpaceBlock from "./SpaceBlock";
 import SpotifyPodcastListBlock from "./spotify-podcast-list-block";
 import TabbedContentBlock from "./TabbedContentBlock";
 import TabbedPostGroupBlock from "./TabbedPostGroupBlock";
-import TextBlock from "./TextBock";
+import TextBlock from "./TextBlock";
 import TimelineBlock from "./TimelineBlock";
 import VideoGridBlock from "./VideoGridBlock";
 
