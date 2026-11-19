@@ -439,13 +439,14 @@ export default function AppPostSearchButton({ id }: { id?: string }) {
               ref={inputRef}
               id={inputId}
               type="search"
+              enterKeyHint="search"
               autoFocus
               autoComplete="off"
               value={state.query}
               placeholder={t("search.placeholder")}
               onChange={handleInputChange}
               onKeyDown={handleInputKeyDown}
-              className="font-lora flex-1 border-0 bg-transparent p-0 text-lg text-stone-900 placeholder:text-stone-400 placeholder:italic focus:ring-0 focus:outline-none sm:text-xl"
+              className="font-lora flex-1 border-0 bg-transparent p-0 text-lg text-stone-900 placeholder:text-stone-400 placeholder:italic focus:ring-0 focus:outline-none sm:text-xl [&::-webkit-search-cancel-button]:appearance-none [&::-webkit-search-decoration]:appearance-none"
             />
             {state.query.length > 0 && (
               <button
@@ -453,11 +454,11 @@ export default function AppPostSearchButton({ id }: { id?: string }) {
                 onClick={handleClear}
                 aria-label={t("search.clear")}
                 className={cn(
-                  "inline-flex size-7 shrink-0 items-center justify-center rounded-lg text-stone-500 transition-colors hover:bg-stone-100 hover:text-stone-900 motion-reduce:transition-none",
+                  "inline-flex size-6 shrink-0 items-center justify-center rounded-full bg-stone-200/75 text-stone-600 transition-colors hover:bg-stone-300/80 hover:text-stone-900 motion-reduce:transition-none",
                   "focus-visible:ring-primary-700 focus-visible:ring-2 focus-visible:outline-none",
                 )}
               >
-                <X className="size-4" aria-hidden="true" />
+                <X className="size-3.5" aria-hidden="true" />
               </button>
             )}
           </form>
