@@ -47,11 +47,30 @@ export async function revalidatePath(
   const baseUrl =
     process.env.NEXT_PUBLIC_BASE_URL ||
     `http://127.0.0.1:${process.env.PORT || 3000}`;
-  await fetch(`${baseUrl}/api/revalidate`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ path, tags }),
-  }).catch((err) => {
+  const secret = process.env.REVALIDATION_SECRET;
+  if (!secret) {
+    console.error(
+      "REVALIDATION_SECRET is not configured; skipping revalidation for path:",
+      path,
+    );
+    return;
+  }
+
+  try {
+    const res = await fetch(`${baseUrl}/api/revalidate`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-revalidation-secret": secret,
+      },
+      body: JSON.stringify({ path, tags }),
+    });
+    if (!res.ok) {
+      console.error(
+        `Failed to revalidate path "${path}": received status ${res.status} (${res.statusText})`,
+      );
+    }
+  } catch (err) {
     console.error("Failed to revalidate path:", path, err);
-  });
+  }
 }

@@ -12,10 +12,43 @@ const DEFAULT_CACHE_TAGS = [
 ];
 
 export async function POST(req: Request) {
-  const { path, tags } = (await req.json()) as {
-    path?: string;
-    tags?: string[];
-  };
+  const secret = process.env.REVALIDATION_SECRET;
+  const headerSecret = req.headers.get("x-revalidation-secret");
+
+  if (!secret || !headerSecret || headerSecret !== secret) {
+    return Response.json({ message: "Unauthorized" }, { status: 401 });
+  }
+
+  let path: unknown;
+  let tags: unknown;
+  try {
+    const body = await req.json();
+    path = body?.path;
+    tags = body?.tags;
+  } catch {
+    return Response.json({ message: "Invalid JSON body" }, { status: 400 });
+  }
+
+  if (
+    path !== undefined &&
+    (typeof path !== "string" || !path.startsWith("/"))
+  ) {
+    return Response.json(
+      { message: "Path must be a non-empty string starting with '/'" },
+      { status: 400 },
+    );
+  }
+
+  if (
+    tags !== undefined &&
+    (!Array.isArray(tags) || tags.some((tag) => typeof tag !== "string"))
+  ) {
+    return Response.json(
+      { message: "Tags must be an array of strings" },
+      { status: 400 },
+    );
+  }
+
   // Public pages are cached per locale under the internal `/{locale}` routes.
   const pathsToInvalidate = path ? localizePathForAllLocales(path) : [];
   for (const localizedPath of pathsToInvalidate) {

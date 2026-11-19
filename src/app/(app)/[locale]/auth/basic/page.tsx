@@ -1,5 +1,6 @@
 import { applyRouteLocale, type LocaleParams } from "@/i18n/server";
-import { notFound, redirect } from "next/navigation";
+import { isValidNextUrl } from "@/utils/url";
+import { redirect } from "next/navigation";
 
 export default async function AuthBasicPage(props: {
   params: Promise<LocaleParams>;
@@ -8,10 +9,7 @@ export default async function AuthBasicPage(props: {
   applyRouteLocale((await props.params).locale);
   const { nextUrl } = await props.searchParams;
 
-  if (!nextUrl || typeof nextUrl !== "string") {
-    // invalid nextUrl
-    return notFound();
-  }
+  const targetUrl = isValidNextUrl(nextUrl) ? nextUrl : "/";
 
-  redirect(nextUrl);
+  redirect(targetUrl);
 }

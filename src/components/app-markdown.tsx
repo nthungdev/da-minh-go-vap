@@ -17,7 +17,28 @@ import {
 } from "lucide-react";
 import Markdown, { Components } from "react-markdown";
 import rehypeRaw from "rehype-raw";
+import rehypeSanitize, { defaultSchema } from "rehype-sanitize";
 import remarkGfm from "remark-gfm";
+
+const sanitizeSchema = {
+  ...defaultSchema,
+  tagNames: [...(defaultSchema.tagNames ?? []), "keyword"],
+  attributes: {
+    ...defaultSchema.attributes,
+    i: [...(defaultSchema.attributes?.i ?? []), "className"],
+    keyword: [
+      "dataTitle",
+      "dataDescription",
+      "dataImage",
+      "dataImageUrl",
+      "dataHref",
+      "title",
+      "description",
+      "image",
+      "href",
+    ],
+  },
+};
 
 const FA_ICON_MAP: Record<string, LucideIcon> = {
   "fa-earth-asia": Globe,
@@ -139,10 +160,10 @@ export default function AppMarkdown({
   return (
     <div className={cn("markdown", className)}>
       <Markdown
-        remarkPlugins={[remarkGfm]}
-        rehypePlugins={[rehypeRaw]}
-        components={markdownComponents}
         {...props}
+        remarkPlugins={[remarkGfm]}
+        rehypePlugins={[rehypeRaw, [rehypeSanitize, sanitizeSchema]]}
+        components={markdownComponents}
       >
         {children}
       </Markdown>
