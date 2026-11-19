@@ -8,7 +8,7 @@ const Media: CollectionConfig = {
     read: () => true,
     create: onlyRoles(["admin", "manager", "editor", "author"]),
     update: onlyRoles(["admin", "manager", "editor", "author"]),
-    delete: onlyRoles(["admin", "manager", "editor", "author"]),
+    delete: onlyRoles(["admin", "manager"]),
   },
   fields: [
     {
