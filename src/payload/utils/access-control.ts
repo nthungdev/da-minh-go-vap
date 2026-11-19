@@ -35,10 +35,23 @@ export function postsReadAccess({ req }: AccessArgs<Post>): AccessResult {
   return {
     publishedAt: { less_than_equal: new Date().toISOString() },
     and: [
+      // title and body can be undefined for unedited locales
+      { title: { exists: true } },
       {
-        // title and body can be undefined for unedited locales
-        title: { exists: true },
-        body: { exists: true },
+        // Content must exist for the post's content mode. `blockType` is
+        // queried instead of the array itself so empty arrays don't match.
+        or: [
+          { contentMode: { exists: false }, body: { exists: true } },
+          { contentMode: { equals: "markdown" }, body: { exists: true } },
+          {
+            contentMode: { equals: "template" },
+            "template.blockType": { exists: true },
+          },
+          {
+            contentMode: { equals: "blocks" },
+            "contentBlocks.blockType": { exists: true },
+          },
+        ],
       },
     ],
   };
