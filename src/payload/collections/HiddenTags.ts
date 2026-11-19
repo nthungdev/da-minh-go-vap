@@ -1,4 +1,5 @@
 import { onlyRoles } from "@/payload/utils/access-control";
+import { revalidatePath } from "@/payload/utils/data";
 import { CollectionConfig } from "payload";
 
 const HiddenTags: CollectionConfig = {
@@ -33,6 +34,9 @@ const HiddenTags: CollectionConfig = {
       defaultValue: false,
     },
   ],
+  hooks: {
+    afterChange: [() => revalidatePath("/", ["hiddenTags", "posts", "navBar"])],
+  },
 };
 
 export default HiddenTags;

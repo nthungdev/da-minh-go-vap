@@ -33,6 +33,7 @@ export default function ImageLinkList({
                   className="object-cover"
                   src={transformUrl(link.image.url, { width: "250" })}
                   alt={link.image.alt}
+                  loading="lazy"
                   fill
                   sizes="(max-width: 640px) 100vw, 20vw"
                 />

@@ -1,9 +1,11 @@
 import { twMerge } from "tailwind-merge";
+import { useTranslations } from "next-intl";
 
 export default function Spinner({
   className,
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) {
+  const t = useTranslations("common");
   return (
     <div
       className={twMerge(
@@ -11,10 +13,10 @@ export default function Spinner({
         className,
       )}
       role="status"
-      aria-label="loading"
+      aria-label={t("loading")}
       {...props}
     >
-      <span className="sr-only">Loading...</span>
+      <span className="sr-only">{t("loading")}</span>
     </div>
   );
 }

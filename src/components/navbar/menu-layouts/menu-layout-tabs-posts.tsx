@@ -7,18 +7,24 @@ import { ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { getMenuIconSrc } from "@/definitions/menu-icons";
-import { useState } from "react";
-import { transformUrl } from "@/utils/cloudflare";
-import { makePostPath } from "@/utils/post";
+import { Suspense, useState } from "react";
+import type { MenuCategoryPosts } from "@/utils/menu-category-posts";
+import { getCategoryPostsKey } from "@/utils/streaming";
+import {
+  MenuCategoryPostsGrid,
+  MenuCategoryPostsSkeleton,
+} from "./menu-category-posts";
 
 interface MenuLayoutTabsPostsProps {
   item: MenuItem;
   pathname: string;
+  categoryPostsPromise: Promise<MenuCategoryPosts>;
 }
 
 export default function MenuLayoutTabsPosts({
   item,
   pathname,
+  categoryPostsPromise,
 }: MenuLayoutTabsPostsProps) {
   const [activeTabIndex, setActiveTabIndex] = useState(0);
 
@@ -96,66 +102,15 @@ export default function MenuLayoutTabsPosts({
         })}
       </div>
 
-      {/* Right Content Area: Post Grid */}
+      {/* Right Content Area: Post Grid (streams in after the navbar shell) */}
       <div className="flex-1 pl-1">
-        {activeCategory &&
-        activeCategory.posts &&
-        activeCategory.posts.length > 0 ? (
-          <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4">
-            {activeCategory.posts.map((post, pIdx) => {
-              const postHref = post.href || makePostPath(post.slug);
-              const isPostActive = pathname === postHref;
-
-              return (
-                <NavigationMenuLink
-                  key={post.slug || `${activeTabIndex}-${pIdx}`}
-                  className="p-0 text-left"
-                  render={
-                    <Link
-                      href={postHref}
-                      className={cn(
-                        "group flex flex-col overflow-hidden rounded-md p-1.5 text-left transition-colors outline-none select-none",
-                        "hover:bg-gray-100 focus:bg-gray-100",
-                        isPostActive && "bg-gray-100",
-                      )}
-                    />
-                  }
-                >
-                  <div className="relative aspect-[16/10] w-full overflow-hidden rounded-md bg-gray-200">
-                    {post.thumbnail?.url ? (
-                      <Image
-                        key={post.thumbnail.url}
-                        src={transformUrl(post.thumbnail.url, { width: "300" })}
-                        alt={post.thumbnail.alt || post.title}
-                        fill
-                        sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 250px"
-                        className="object-cover transition-transform duration-300 group-hover:scale-105"
-                      />
-                    ) : (
-                      <div className="flex h-full w-full items-center justify-center text-sm text-gray-400">
-                        No image
-                      </div>
-                    )}
-                  </div>
-                  <div className="px-1 pt-2 pb-0.5">
-                    <h4
-                      className={cn(
-                        "group-hover:text-primary-700 line-clamp-2 text-base leading-snug font-semibold text-gray-900 transition-colors",
-                        isPostActive && "text-primary-700",
-                      )}
-                    >
-                      {post.title}
-                    </h4>
-                  </div>
-                </NavigationMenuLink>
-              );
-            })}
-          </div>
-        ) : (
-          <div className="flex h-48 w-full items-center justify-center rounded-md border border-dashed border-gray-200 text-base text-gray-500">
-            Chưa có bài viết nào cho danh mục này.
-          </div>
-        )}
+        <Suspense fallback={<MenuCategoryPostsSkeleton />}>
+          <MenuCategoryPostsGrid
+            postsPromise={categoryPostsPromise}
+            categoryKey={getCategoryPostsKey(activeCategory?.tagIds ?? [])}
+            pathname={pathname}
+          />
+        </Suspense>
       </div>
     </div>
   );
