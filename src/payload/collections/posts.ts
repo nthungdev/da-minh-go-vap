@@ -67,6 +67,16 @@ const Posts: CollectionConfig = {
               defaultValue: false,
             },
             {
+              name: "showTableOfContents",
+              type: "checkbox",
+              label: "Hiển thị mục lục",
+              defaultValue: false,
+              admin: {
+                description:
+                  "Tự động tạo mục lục từ các tiêu đề H2, H3 trong nội dung bài viết.",
+              },
+            },
+            {
               name: "hiddenTags",
               type: "relationship",
               relationTo: "hiddenTags",
