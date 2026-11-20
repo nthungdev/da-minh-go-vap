@@ -652,6 +652,10 @@ export interface Post {
   id: string;
   title: string;
   hideTitle?: boolean | null;
+  /**
+   * Tự động tạo mục lục từ các tiêu đề H2, H3 trong nội dung bài viết.
+   */
+  showTableOfContents?: boolean | null;
   hiddenTags: (string | HiddenTag)[];
   thumbnail: string | Media;
   videos?:
@@ -1751,6 +1755,7 @@ export interface LinksBlockSelect<T extends boolean = true> {
 export interface PostsSelect<T extends boolean = true> {
   title?: T;
   hideTitle?: T;
+  showTableOfContents?: T;
   hiddenTags?: T;
   thumbnail?: T;
   videos?:

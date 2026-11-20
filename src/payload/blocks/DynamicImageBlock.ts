@@ -1,4 +1,4 @@
-import { Block } from "payload";
+import type { Block } from "payload";
 
 const DynamicImageBlock: Block = {
   slug: "dynamicImageBlock",

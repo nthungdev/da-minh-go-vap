@@ -1,10 +1,10 @@
-import { AppPost } from "@/definitions";
-import { transformUrl } from "@/utils/cloudflare";
-import { cn } from "@/utils/common";
 import Image from "next/image";
 import Link from "next/link";
-import { HTMLAttributes } from "react";
 import { useTranslations } from "next-intl";
+import type { HTMLAttributes } from "react";
+import type { AppPost } from "@/definitions";
+import { transformUrl } from "@/utils/cloudflare";
+import { cn } from "@/utils/common";
 
 interface AppPostGridProps extends HTMLAttributes<HTMLElement> {
   posts: AppPost[];
@@ -24,11 +24,11 @@ export default function AppPostGrid({
         className,
       )}
     >
-      {posts.map((post, index) => (
+      {posts.map((post) => (
         // min-w-0 to override min-width: min-content that cause post title to not be truncated
         <li
           className="block size-full min-w-0 border border-transparent bg-white hover:ring-3"
-          key={index}
+          key={post.slug}
         >
           <Link
             prefetch={false}

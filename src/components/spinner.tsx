@@ -1,5 +1,5 @@
-import { cn } from "@/utils/common";
 import { useTranslations } from "next-intl";
+import { cn } from "@/utils/common";
 
 export default function Spinner({
   className,
@@ -9,7 +9,7 @@ export default function Spinner({
   return (
     <div
       className={cn(
-        "text-primary-600 inline-block size-6 animate-spin rounded-full border-3 border-current border-t-transparent",
+        "inline-block size-6 animate-spin rounded-full border-3 border-current border-t-transparent text-primary-600",
         className,
       )}
       role="status"

@@ -1,4 +1,4 @@
-import { HTMLAttributes } from "react";
+import type { HTMLAttributes } from "react";
 import { IoIosSkipBackward, IoIosSkipForward } from "react-icons/io";
 import {
   MdOutlineArrowBackIosNew,
@@ -26,14 +26,16 @@ export default function PaginationPanel({
   return (
     <div className={cn("flex flex-row justify-center gap-x-1", className)}>
       <button
-        className="text-primary rounded-md border px-3 py-1 hover:cursor-pointer disabled:text-black disabled:hover:cursor-auto"
+        type="button"
+        className="rounded-md border px-3 py-1 text-primary hover:cursor-pointer disabled:text-black disabled:hover:cursor-auto"
         onClick={() => onPageChange?.(page - 1)}
         disabled={page <= 1}
       >
         <MdOutlineArrowBackIosNew />
       </button>
       <button
-        className="text-primary rounded-md border px-3 py-1 hover:cursor-pointer disabled:text-black disabled:hover:cursor-auto"
+        type="button"
+        className="rounded-md border px-3 py-1 text-primary hover:cursor-pointer disabled:text-black disabled:hover:cursor-auto"
         disabled={page <= 1}
         onClick={() => onPageChange?.(1)}
       >
@@ -42,8 +44,9 @@ export default function PaginationPanel({
       {shownPages.map((p) => (
         <button
           key={p}
+          type="button"
           className={
-            "text-primary rounded-md border px-3 py-1 hover:cursor-pointer disabled:text-black disabled:hover:cursor-auto"
+            "rounded-md border px-3 py-1 text-primary hover:cursor-pointer disabled:text-black disabled:hover:cursor-auto"
           }
           disabled={p === page}
           onClick={() => onPageChange?.(p)}
@@ -52,14 +55,16 @@ export default function PaginationPanel({
         </button>
       ))}
       <button
-        className="text-primary rounded-md border px-3 py-1 hover:cursor-pointer disabled:text-black disabled:hover:cursor-auto"
+        type="button"
+        className="rounded-md border px-3 py-1 text-primary hover:cursor-pointer disabled:text-black disabled:hover:cursor-auto"
         disabled={page >= totalPages}
         onClick={() => onPageChange?.(totalPages)}
       >
         <IoIosSkipForward />
       </button>
       <button
-        className="text-primary rounded-md border px-3 py-1 hover:cursor-pointer disabled:text-black disabled:hover:cursor-auto"
+        type="button"
+        className="rounded-md border px-3 py-1 text-primary hover:cursor-pointer disabled:text-black disabled:hover:cursor-auto"
         onClick={() => onPageChange?.(page + 1)}
         disabled={page >= totalPages}
       >

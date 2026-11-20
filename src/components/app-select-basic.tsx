@@ -1,6 +1,6 @@
 "use client";
 
-import { ChangeEvent } from "react";
+import type { ChangeEvent } from "react";
 
 interface AppSelectBasicOption {
   value: string;
@@ -37,8 +37,8 @@ export default function AppSelectBasic(props: AppSelectBasicProps) {
         onChange={onChange}
       >
         <option value="">Choose</option>
-        {options.map((option, index) => (
-          <option key={index}>{option.value}</option>
+        {options.map((option) => (
+          <option key={option.value}>{option.value}</option>
         ))}
       </select>
     </div>

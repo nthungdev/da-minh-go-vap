@@ -1,11 +1,11 @@
 "use client";
 
+import { useQuery } from "@tanstack/react-query";
+import { useLocale } from "next-intl";
 import { fetchPostsByHiddenTags } from "@/actions/post";
 import AppPostCard from "@/components/app-post-card";
 import AppSectionHeader from "@/components/app-section-header";
-import { AppPost } from "@/definitions";
-import { useQuery } from "@tanstack/react-query";
-import { useLocale } from "next-intl";
+import type { AppPost } from "@/definitions";
 
 interface AppPostListAsyncProps {
   hiddenTags: string[];
@@ -44,8 +44,8 @@ export default function AppPostListAsync({
         </AppSectionHeader>
       )}
       <ul className="relative flex flex-col gap-2 rounded-xs p-2">
-        {data.posts.map((post, index) => (
-          <li className="block w-full" key={index}>
+        {data.posts.map((post) => (
+          <li className="block w-full" key={post.slug}>
             <ItemComponent post={post} className="h-14 text-sm" />
           </li>
         ))}

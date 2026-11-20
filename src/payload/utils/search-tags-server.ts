@@ -1,10 +1,10 @@
 import "server-only";
-import { cache } from "react";
+import config from "@payload-config";
 import { unstable_cache } from "next/cache";
 import { getPayload } from "payload";
-import config from "@payload-config";
-import { Locale } from "@/i18n/config";
-import { resolveSearchTagOptions, SearchTagOption } from "@/utils/search";
+import { cache } from "react";
+import type { Locale } from "@/i18n/config";
+import { resolveSearchTagOptions, type SearchTagOption } from "@/utils/search";
 
 const getSearchTagsCached = unstable_cache(
   async (locale: Locale): Promise<SearchTagOption[]> => {

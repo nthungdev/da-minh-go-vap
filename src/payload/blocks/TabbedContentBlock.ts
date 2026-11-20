@@ -1,5 +1,5 @@
+import type { Block } from "payload";
 import markdownField from "@/payload/fields/markdown";
-import { Block } from "payload";
 
 const TabbedContentBlock: Block = {
   slug: "tabbedContentBlock",

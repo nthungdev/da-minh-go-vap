@@ -26,7 +26,6 @@ export default function MenuLayoutRenderer({
           categoryPostsPromise={categoryPostsPromise}
         />
       );
-    case "grid":
     default:
       return <MenuLayoutGrid item={item} pathname={pathname} />;
   }

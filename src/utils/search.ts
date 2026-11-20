@@ -33,7 +33,7 @@ export function resolveSearchTagOptions(
     if (!doc.tag || typeof doc.tag !== "object") continue;
     const tagId = doc.tag.id;
     const label = doc.label?.trim() || doc.tag.label?.trim() || "";
-    if (!tagId || !label) continue;
+    if (!(tagId && label)) continue;
     options.push({ id: doc.id, tagId, label });
   }
   return options;
@@ -89,6 +89,61 @@ function buildNormalizedMap(text: string): NormalizedCharMap {
   return { normalized, origStarts, origEnds };
 }
 
+function buildHighlightTokens(query: string): string[] {
+  const normalizedPhrase = normalizeVietnamese(query.trim()).replace(
+    /\s+/g,
+    " ",
+  );
+  const wordTokens = normalizedPhrase
+    .split(" ")
+    .map((t) => t.trim())
+    .filter(Boolean);
+
+  return Array.from(
+    new Set(
+      wordTokens.length > 1 ? [normalizedPhrase, ...wordTokens] : wordTokens,
+    ),
+  );
+}
+
+function collectTokenRanges(
+  normalized: string,
+  token: string,
+  origStarts: number[],
+  origEnds: number[],
+): [number, number][] {
+  const ranges: [number, number][] = [];
+  let searchFrom = 0;
+
+  while (searchFrom < normalized.length) {
+    const matchIdx = normalized.indexOf(token, searchFrom);
+    if (matchIdx === -1) break;
+    const start = origStarts[matchIdx];
+    const end = origEnds[matchIdx + token.length - 1];
+    if (start !== undefined && end !== undefined && end > start) {
+      ranges.push([start, end]);
+    }
+    searchFrom = matchIdx + token.length;
+  }
+
+  return ranges;
+}
+
+function mergeRanges(ranges: [number, number][]): [number, number][] {
+  ranges.sort((a, b) => a[0] - b[0] || a[1] - b[1]);
+
+  const merged: [number, number][] = [];
+  for (const [start, end] of ranges) {
+    const prev = merged[merged.length - 1];
+    if (prev && start <= prev[1]) {
+      prev[1] = Math.max(prev[1], end);
+    } else {
+      merged.push([start, end]);
+    }
+  }
+  return merged;
+}
+
 /**
  * Splits `text` into plain and highlighted segments matching `query` tokens
  * diacritic-insensitively. Safe for React rendering without HTML injection.
@@ -98,61 +153,25 @@ export function splitHighlightSegments(
   query: string,
 ): HighlightSegment[] {
   if (!text) return [];
-
-  const trimmed = query.trim();
-  if (!trimmed) {
+  if (!query.trim()) {
     return [{ text, highlighted: false }];
   }
 
-  const normalizedPhrase = normalizeVietnamese(trimmed).replace(/\s+/g, " ");
-  const wordTokens = normalizedPhrase
-    .split(" ")
-    .map((t) => t.trim())
-    .filter(Boolean);
-
-  const tokens = Array.from(
-    new Set(
-      wordTokens.length > 1 ? [normalizedPhrase, ...wordTokens] : wordTokens,
-    ),
-  );
-
+  const tokens = buildHighlightTokens(query);
   if (tokens.length === 0) {
     return [{ text, highlighted: false }];
   }
 
   const { normalized, origStarts, origEnds } = buildNormalizedMap(text);
-  const ranges: Array<[number, number]> = [];
-
-  for (const token of tokens) {
-    let searchFrom = 0;
-    while (searchFrom < normalized.length) {
-      const matchIdx = normalized.indexOf(token, searchFrom);
-      if (matchIdx === -1) break;
-      const start = origStarts[matchIdx];
-      const end = origEnds[matchIdx + token.length - 1];
-      if (start !== undefined && end !== undefined && end > start) {
-        ranges.push([start, end]);
-      }
-      searchFrom = matchIdx + token.length;
-    }
-  }
+  const ranges = tokens.flatMap((token) =>
+    collectTokenRanges(normalized, token, origStarts, origEnds),
+  );
 
   if (ranges.length === 0) {
     return [{ text, highlighted: false }];
   }
 
-  ranges.sort((a, b) => a[0] - b[0] || a[1] - b[1]);
-
-  const merged: Array<[number, number]> = [];
-  for (const [start, end] of ranges) {
-    const prev = merged[merged.length - 1];
-    if (prev && start <= prev[1]) {
-      prev[1] = Math.max(prev[1], end);
-    } else {
-      merged.push([start, end]);
-    }
-  }
-
+  const merged = mergeRanges(ranges);
   const segments: HighlightSegment[] = [];
   let cursor = 0;
 

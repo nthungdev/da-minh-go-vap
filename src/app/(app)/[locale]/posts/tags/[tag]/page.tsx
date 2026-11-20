@@ -1,11 +1,11 @@
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { getTranslations } from "next-intl/server";
 import { fetchPostsByPublicTag } from "@/actions/post";
 import AppGridHeader from "@/components/app-grid-header";
 import AppPage from "@/components/app-page";
 import AppPostGridPaginated from "@/components/app-post-grid-async-paginated";
-import { Metadata } from "next";
-import { getTranslations } from "next-intl/server";
 import { applyRouteLocale, type LocaleParams } from "@/i18n/server";
-import { notFound } from "next/navigation";
 
 const pageSize = 12;
 

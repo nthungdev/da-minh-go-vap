@@ -1,4 +1,4 @@
-import { Post } from "@/payload-types";
+import type { Post } from "@/payload-types";
 import BilingualQuoteCardView from "./bilingual-quote-card-view";
 import CatechismQASeriesView from "./catechism-qa-series-view";
 import DominicanSpiritualityView from "./dominican-spirituality-view";

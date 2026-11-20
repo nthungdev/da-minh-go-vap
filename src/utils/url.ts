@@ -73,6 +73,19 @@ export async function getServerOrigin(): Promise<string> {
   return process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
 }
 
+function hasControlOrWhitespace(value: string): boolean {
+  if (/\s/.test(value)) {
+    return true;
+  }
+  for (let i = 0; i < value.length; i += 1) {
+    const code = value.charCodeAt(i);
+    if (code <= 0x1f || code === 0x7f) {
+      return true;
+    }
+  }
+  return false;
+}
+
 /**
  * Validates that a redirect URL is a safe internal relative path.
  *
@@ -102,7 +115,7 @@ export function isValidNextUrl(url: unknown): url is string {
 
   // Reject ASCII whitespace and control characters (e.g. \t, \r, \n, \0)
   // WHATWG URL spec strips ASCII tab and newline before parsing, which could turn /\t/evil.com into //evil.com
-  if (/[\s\x00-\x1F\x7F]/.test(url)) {
+  if (hasControlOrWhitespace(url)) {
     return false;
   }
 

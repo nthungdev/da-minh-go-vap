@@ -1,7 +1,7 @@
-import { cache } from "react";
-import { getPayload } from "payload";
 import config from "@payload-config";
 import { unstable_cache } from "next/cache";
+import { getPayload } from "payload";
+import { cache } from "react";
 import { rewriteMediaUrls } from "@/utils/cloudflare";
 
 const getSiteSettingsCached = unstable_cache(

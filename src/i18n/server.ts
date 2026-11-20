@@ -1,9 +1,9 @@
 import "server-only";
 
-import { type Locale } from "@/i18n/config";
-import { parseRouteSegment } from "@/i18n/routing";
-import { setRequestLocale } from "next-intl/server";
 import { notFound, redirect } from "next/navigation";
+import { setRequestLocale } from "next-intl/server";
+import type { Locale } from "@/i18n/config";
+import { parseRouteSegment } from "@/i18n/routing";
 
 export type LocaleParams = { locale: string };
 

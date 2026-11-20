@@ -1,10 +1,10 @@
-import type { MetadataRoute } from "next";
-import { getPayload, type Where } from "payload";
 import config from "@payload-config";
+import type { MetadataRoute } from "next";
 import { unstable_cache } from "next/cache";
+import { getPayload, type Where } from "payload";
 import { defaultLocale } from "@/i18n/config";
-import { getSiteUrl } from "@/utils/url";
 import { PUBLISHED_CONTENT_REVALIDATE_SECONDS } from "@/utils/published-content-cache";
+import { getSiteUrl } from "@/utils/url";
 
 // Must stay a literal for Next segment config; keep equal to PUBLISHED_CONTENT_REVALIDATE_SECONDS
 // so scheduled content appears without waiting on a CMS write.

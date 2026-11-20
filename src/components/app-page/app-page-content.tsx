@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { HTMLAttributes } from "react";
+import type { HTMLAttributes } from "react";
 import { cn } from "@/utils/common";
 
 export default function AppPageContent({

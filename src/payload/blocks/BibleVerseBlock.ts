@@ -1,5 +1,5 @@
+import type { Block } from "payload";
 import { scriptureFields } from "@/payload/fields";
-import { Block } from "payload";
 
 const BibleVerseBlock: Block = {
   slug: "bibleVerseBlock",

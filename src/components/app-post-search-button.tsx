@@ -1,9 +1,12 @@
 "use client";
 
+import { Search, X } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useLocale, useTranslations } from "next-intl";
 import {
-  ChangeEventHandler,
-  FormEvent,
-  KeyboardEventHandler,
+  type ChangeEventHandler,
+  type FormEvent,
+  type KeyboardEventHandler,
   useCallback,
   useEffect,
   useMemo,
@@ -11,9 +14,6 @@ import {
   useRef,
   useState,
 } from "react";
-import { useRouter } from "next/navigation";
-import { Search, X } from "lucide-react";
-import { useLocale, useTranslations } from "next-intl";
 import { searchPosts } from "@/actions/search";
 import {
   SearchEmptyState,
@@ -29,14 +29,14 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { AppPost } from "@/definitions";
-import { Locale } from "@/i18n/config";
+import type { AppPost } from "@/definitions";
+import type { Locale } from "@/i18n/config";
 import { cn } from "@/utils/common";
 import {
   addRecentSearch,
   parseRecentSearches,
   RECENT_SEARCHES_STORAGE_KEY,
-  SearchTagOption,
+  type SearchTagOption,
 } from "@/utils/search";
 
 const SEARCH_DEBOUNCE_MS = 275;
@@ -132,6 +132,29 @@ interface AppPostSearchButtonProps {
   searchTags?: SearchTagOption[];
 }
 
+function isCmdOrCtrlK(event: globalThis.KeyboardEvent): boolean {
+  return (
+    !event.defaultPrevented &&
+    (event.metaKey || event.ctrlKey) &&
+    event.key.toLowerCase() === "k"
+  );
+}
+
+function formatResultsSummary(
+  t: ReturnType<typeof useTranslations<never>>,
+  count: number,
+  query: string,
+  tagLabel: string | null,
+): string {
+  if (query && tagLabel) {
+    return t("search.resultsCountWithTag", { count, query, tag: tagLabel });
+  }
+  if (tagLabel) {
+    return t("search.resultsCountByTag", { count, tag: tagLabel });
+  }
+  return t("search.resultsCount", { count, query });
+}
+
 export default function AppPostSearchButton({
   id,
   searchTags = [],
@@ -222,9 +245,7 @@ export default function AppPostSearchButton({
   // Global Cmd/Ctrl+K shortcut guarded so only a visible trigger opens
   useEffect(() => {
     const handleGlobalKeyDown = (event: globalThis.KeyboardEvent) => {
-      if (event.defaultPrevented) return;
-      if (!(event.metaKey || event.ctrlKey)) return;
-      if (event.key.toLowerCase() !== "k") return;
+      if (!isCmdOrCtrlK(event)) return;
 
       if (activeSearchCloseHandler) {
         event.preventDefault();
@@ -249,7 +270,7 @@ export default function AppPostSearchButton({
   const executeSearch = useCallback(
     async (rawQuery: string, tagId: string | null) => {
       const trimmed = rawQuery.trim();
-      if (!trimmed && !tagId) {
+      if (!(trimmed || tagId)) {
         requestIdRef.current += 1;
         dispatch({ type: "RESET" });
         setSelectedIndex(0);
@@ -368,7 +389,7 @@ export default function AppPostSearchButton({
     clearDebounce();
 
     const trimmed = state.query.trim();
-    if (!trimmed && !selectedTagId) {
+    if (!(trimmed || selectedTagId)) {
       handleClearAll();
       return;
     }
@@ -421,8 +442,8 @@ export default function AppPostSearchButton({
       <DialogTrigger
         ref={triggerRef}
         className={cn(
-          "ring-primary relative flex flex-row items-center space-x-2 rounded-full border bg-white p-2 text-stone-600 transition-shadow hover:cursor-pointer hover:ring-2 motion-reduce:transition-none",
-          "focus-visible:ring-primary-700 focus-visible:ring-2 focus-visible:outline-none",
+          "relative flex flex-row items-center space-x-2 rounded-full border bg-white p-2 text-stone-600 ring-primary transition-shadow hover:cursor-pointer hover:ring-2 motion-reduce:transition-none",
+          "focus-visible:ring-2 focus-visible:ring-primary-700 focus-visible:outline-none",
         )}
         aria-label={t("search.label")}
       >
@@ -444,7 +465,7 @@ export default function AppPostSearchButton({
         {/* Editorial Header */}
         <div className="border-b border-[#e8e2d8] bg-white px-5 pt-4 pb-3.5 sm:px-6 sm:pt-5">
           <div className="mb-2.5 flex items-center justify-between gap-2">
-            <span className="text-primary-700 text-[11px] font-extrabold tracking-[0.1em] uppercase">
+            <span className="text-[11px] font-extrabold tracking-[0.1em] text-primary-700 uppercase">
               {t("search.kicker")}
             </span>
             <button
@@ -453,52 +474,53 @@ export default function AppPostSearchButton({
               aria-label={t("common.close")}
               className={cn(
                 "inline-flex size-8 items-center justify-center rounded-lg text-stone-500 transition-colors hover:bg-stone-100 hover:text-stone-900 motion-reduce:transition-none",
-                "focus-visible:ring-primary-700 focus-visible:ring-2 focus-visible:outline-none",
+                "focus-visible:ring-2 focus-visible:ring-primary-700 focus-visible:outline-none",
               )}
             >
               <X className="size-4.5" aria-hidden="true" />
             </button>
           </div>
 
-          <form
-            role="search"
-            onSubmit={handleFormSubmit}
-            className="border-primary-700 flex items-center gap-3 border-b-2 pb-2.5"
-          >
-            <label id={labelId} htmlFor={inputId} className="sr-only">
-              {t("search.label")}
-            </label>
-            <Search
-              className="text-primary-700 size-5 shrink-0"
-              aria-hidden="true"
-            />
-            <input
-              ref={inputRef}
-              id={inputId}
-              type="search"
-              enterKeyHint="search"
-              autoFocus
-              autoComplete="off"
-              value={state.query}
-              placeholder={t("search.placeholder")}
-              onChange={handleInputChange}
-              onKeyDown={handleInputKeyDown}
-              className="font-lora flex-1 border-0 bg-transparent p-0 text-lg text-stone-900 placeholder:text-stone-400 placeholder:italic focus:ring-0 focus:outline-none sm:text-xl [&::-webkit-search-cancel-button]:appearance-none [&::-webkit-search-decoration]:appearance-none"
-            />
-            {state.query.length > 0 && (
-              <button
-                type="button"
-                onClick={handleClearQuery}
-                aria-label={t("search.clear")}
-                className={cn(
-                  "inline-flex size-6 shrink-0 items-center justify-center rounded-full bg-stone-200/75 text-stone-600 transition-colors hover:bg-stone-300/80 hover:text-stone-900 motion-reduce:transition-none",
-                  "focus-visible:ring-primary-700 focus-visible:ring-2 focus-visible:outline-none",
-                )}
-              >
-                <X className="size-3.5" aria-hidden="true" />
-              </button>
-            )}
-          </form>
+          <search>
+            <form
+              onSubmit={handleFormSubmit}
+              className="flex items-center gap-3 border-b-2 border-primary-700 pb-2.5"
+            >
+              <label id={labelId} htmlFor={inputId} className="sr-only">
+                {t("search.label")}
+              </label>
+              <Search
+                className="size-5 shrink-0 text-primary-700"
+                aria-hidden="true"
+              />
+              <input
+                ref={inputRef}
+                id={inputId}
+                type="search"
+                enterKeyHint="search"
+                autoFocus
+                autoComplete="off"
+                value={state.query}
+                placeholder={t("search.placeholder")}
+                onChange={handleInputChange}
+                onKeyDown={handleInputKeyDown}
+                className="flex-1 border-0 bg-transparent p-0 font-lora text-lg text-stone-900 placeholder:text-stone-400 placeholder:italic focus:ring-0 focus:outline-none sm:text-xl [&::-webkit-search-cancel-button]:appearance-none [&::-webkit-search-decoration]:appearance-none"
+              />
+              {state.query.length > 0 && (
+                <button
+                  type="button"
+                  onClick={handleClearQuery}
+                  aria-label={t("search.clear")}
+                  className={cn(
+                    "inline-flex size-6 shrink-0 items-center justify-center rounded-full bg-stone-200/75 text-stone-600 transition-colors hover:bg-stone-300/80 hover:text-stone-900 motion-reduce:transition-none",
+                    "focus-visible:ring-2 focus-visible:ring-primary-700 focus-visible:outline-none",
+                  )}
+                >
+                  <X className="size-3.5" aria-hidden="true" />
+                </button>
+              )}
+            </form>
+          </search>
 
           {/* Tag Quick-Filter Pills */}
           {searchTags.length > 0 && (
@@ -508,10 +530,10 @@ export default function AppPostSearchButton({
                 onClick={() => handleSelectTag(null)}
                 className={cn(
                   "rounded-full border px-3 py-1 text-xs font-bold whitespace-nowrap transition-colors motion-reduce:transition-none",
-                  "focus-visible:ring-primary-700 focus-visible:ring-2 focus-visible:outline-none",
+                  "focus-visible:ring-2 focus-visible:ring-primary-700 focus-visible:outline-none",
                   isAllActive
                     ? "border-primary-700 bg-primary-700 text-white"
-                    : "hover:border-primary-700 hover:text-primary-800 border-[#e8e2d8] bg-[#faf8f5] text-stone-600",
+                    : "border-[#e8e2d8] bg-[#faf8f5] text-stone-600 hover:border-primary-700 hover:text-primary-800",
                 )}
               >
                 {t("search.allTopics")}
@@ -525,10 +547,10 @@ export default function AppPostSearchButton({
                     onClick={() => handleSelectTag(tag.tagId)}
                     className={cn(
                       "rounded-full border px-3 py-1 text-xs font-bold whitespace-nowrap transition-colors motion-reduce:transition-none",
-                      "focus-visible:ring-primary-700 focus-visible:ring-2 focus-visible:outline-none",
+                      "focus-visible:ring-2 focus-visible:ring-primary-700 focus-visible:outline-none",
                       isActive
                         ? "border-primary-700 bg-primary-700 text-white"
-                        : "hover:border-primary-700 hover:text-primary-800 border-[#e8e2d8] bg-[#faf8f5] text-stone-600",
+                        : "border-[#e8e2d8] bg-[#faf8f5] text-stone-600 hover:border-primary-700 hover:text-primary-800",
                     )}
                   >
                     {tag.label}
@@ -574,21 +596,12 @@ export default function AppPostSearchButton({
           {state.status === "loaded" && state.results.length > 0 && (
             <div>
               <div className="pt-1 pb-1 text-xs font-bold text-stone-500">
-                {state.submittedQuery && submittedTagLabel
-                  ? t("search.resultsCountWithTag", {
-                      count: state.results.length,
-                      query: state.submittedQuery,
-                      tag: submittedTagLabel,
-                    })
-                  : submittedTagLabel
-                    ? t("search.resultsCountByTag", {
-                        count: state.results.length,
-                        tag: submittedTagLabel,
-                      })
-                    : t("search.resultsCount", {
-                        count: state.results.length,
-                        query: state.submittedQuery,
-                      })}
+                {formatResultsSummary(
+                  t,
+                  state.results.length,
+                  state.submittedQuery,
+                  submittedTagLabel,
+                )}
               </div>
               <div role="listbox" aria-label={t("search.label")}>
                 {state.results.map((post, index) => (

@@ -1,10 +1,10 @@
 "use client";
 
-import { analytics } from "@/utils/firebase";
 import {
   logEvent as analyticsLogEvent,
-  EventNameString,
+  type EventNameString,
 } from "firebase/analytics";
+import { analytics } from "@/utils/firebase";
 
 // Add more event name as needed
 export type EventName = EventNameString;

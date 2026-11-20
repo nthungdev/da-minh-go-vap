@@ -62,7 +62,7 @@ export function SearchIdleState({
             onClick={onClearRecent}
             className={cn(
               "text-xs font-semibold text-stone-500 transition-colors hover:text-stone-800 motion-reduce:transition-none",
-              "focus-visible:ring-primary-700 rounded px-1.5 py-0.5 focus-visible:ring-2 focus-visible:outline-none",
+              "rounded px-1.5 py-0.5 focus-visible:ring-2 focus-visible:ring-primary-700 focus-visible:outline-none",
             )}
           >
             {t("clearRecent")}
@@ -77,7 +77,7 @@ export function SearchIdleState({
               className={cn(
                 "inline-flex items-center gap-1.5 rounded-full border border-[#e8e2d8] bg-white px-3 py-1.5 text-xs font-semibold text-stone-700 transition-colors motion-reduce:transition-none",
                 "hover:border-primary-700 hover:text-primary-800",
-                "focus-visible:ring-primary-700 focus-visible:ring-2 focus-visible:outline-none",
+                "focus-visible:ring-2 focus-visible:ring-primary-700 focus-visible:outline-none",
               )}
             >
               <Clock className="size-3.5 text-stone-400" aria-hidden="true" />
@@ -112,7 +112,7 @@ export function SearchEmptyState({
 
   return (
     <div className="flex flex-col items-center justify-center px-4 py-10 text-center">
-      <div className="bg-primary-50 text-primary-700 mb-3 flex size-11 items-center justify-center rounded-full border border-[#e8e2d8]">
+      <div className="mb-3 flex size-11 items-center justify-center rounded-full border border-[#e8e2d8] bg-primary-50 text-primary-700">
         <Search className="size-5" aria-hidden="true" />
       </div>
       <p className="font-lora text-base font-semibold text-stone-900">
@@ -134,7 +134,7 @@ export function SearchEmptyState({
         className={cn(
           "mt-4 rounded-full border border-[#e8e2d8] bg-white px-4 py-1.5 text-xs font-bold text-stone-700 transition-colors motion-reduce:transition-none",
           "hover:border-primary-700 hover:text-primary-800",
-          "focus-visible:ring-primary-700 focus-visible:ring-2 focus-visible:outline-none",
+          "focus-visible:ring-2 focus-visible:ring-primary-700 focus-visible:outline-none",
         )}
       >
         {t("clear")}
@@ -169,8 +169,8 @@ export function SearchErrorState({ message, onRetry }: SearchErrorStateProps) {
         type="button"
         onClick={onRetry}
         className={cn(
-          "bg-primary-700 hover:bg-primary-800 mt-4 rounded-full px-4 py-1.5 text-xs font-bold text-white transition-colors motion-reduce:transition-none",
-          "focus-visible:ring-primary-700 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none",
+          "mt-4 rounded-full bg-primary-700 px-4 py-1.5 text-xs font-bold text-white transition-colors hover:bg-primary-800 motion-reduce:transition-none",
+          "focus-visible:ring-2 focus-visible:ring-primary-700 focus-visible:ring-offset-2 focus-visible:outline-none",
         )}
       >
         {t("retry")}

@@ -1,5 +1,5 @@
 import type { Rewrite } from "next/dist/lib/load-custom-routes";
-import { defaultLocale, locales, type Locale } from "./config.ts";
+import { defaultLocale, type Locale, locales } from "./config.ts";
 
 /**
  * Public URLs never carry the locale. `next.config` rewrites read it from this
@@ -79,7 +79,7 @@ export function isLocalizedPath(pathname: string): boolean {
     (segment) =>
       pathname === `/${segment}` || pathname.startsWith(`/${segment}/`),
   );
-  return !isUnlocalized && !FILE_EXTENSION.test(pathname);
+  return !(isUnlocalized || FILE_EXTENSION.test(pathname));
 }
 
 export function toRouteSegment({

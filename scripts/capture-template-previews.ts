@@ -52,7 +52,7 @@ const slugByTemplate = new Map<string, string>();
 for (const post of docs) {
   const blockType = post.template?.[0]?.blockType;
   // blockType becomes a file name and a CSS selector; accept only identifiers.
-  if (!blockType || !/^[a-zA-Z0-9]+$/.test(blockType)) continue;
+  if (!(blockType && /^[a-zA-Z0-9]+$/.test(blockType))) continue;
   if (!slugByTemplate.has(blockType)) {
     slugByTemplate.set(blockType, post.slug);
   }

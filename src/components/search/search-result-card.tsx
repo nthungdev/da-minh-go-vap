@@ -1,16 +1,16 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { BookOpenText } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { BookOpenText } from "lucide-react";
-import { AppPost } from "@/definitions";
+import { useEffect, useRef } from "react";
+import type { AppPost } from "@/definitions";
 import { transformUrl } from "@/utils/cloudflare";
 import { cn } from "@/utils/common";
 import {
   formatSearchPostDate,
   getPostPrimaryCategoryLabel,
-  PopulatedTagLike,
+  type PopulatedTagLike,
   splitHighlightSegments,
 } from "@/utils/search";
 
@@ -46,6 +46,12 @@ export function SearchResultCard({
   );
   const formattedDate = formatSearchPostDate(post.publishedAt, locale);
   const titleSegments = splitHighlightSegments(post.title, query);
+  let titleOffset = 0;
+  const keyedTitleSegments = titleSegments.map((segment) => {
+    const start = titleOffset;
+    titleOffset += segment.text.length;
+    return { ...segment, start };
+  });
   const thumbnailUrl =
     typeof post.thumbnail === "object" &&
     post.thumbnail !== null &&
@@ -63,7 +69,7 @@ export function SearchResultCard({
       onMouseEnter={onMouseEnter}
       className={cn(
         "group flex gap-3.5 border-b border-[#e8e2d8] py-4 transition-colors duration-150 last:border-b-0 motion-reduce:transition-none sm:gap-4",
-        "focus-visible:ring-primary-700 focus-visible:rounded-xl focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-[#faf8f5] focus-visible:outline-none",
+        "focus-visible:rounded-xl focus-visible:ring-2 focus-visible:ring-primary-700 focus-visible:ring-offset-2 focus-visible:ring-offset-[#faf8f5] focus-visible:outline-none",
         isSelected &&
           "-mx-3 rounded-xl border-b-transparent bg-white px-3 shadow-[0_2px_10px_rgba(0,0,0,0.04)]",
       )}
@@ -81,10 +87,10 @@ export function SearchResultCard({
         ) : (
           <div
             aria-hidden="true"
-            className="from-primary-800 via-primary-700 to-keppel-600 flex h-full w-full flex-col items-center justify-center gap-1 bg-gradient-to-br p-2 text-white/90"
+            className="flex h-full w-full flex-col items-center justify-center gap-1 bg-gradient-to-br from-primary-800 via-primary-700 to-keppel-600 p-2 text-white/90"
           >
             <BookOpenText className="size-4 opacity-85" />
-            <span className="font-lora line-clamp-1 text-center text-[10px] font-semibold tracking-wide">
+            <span className="line-clamp-1 text-center font-lora text-[10px] font-semibold tracking-wide">
               {categoryLabel ?? fallbackLabel}
             </span>
           </div>
@@ -93,7 +99,7 @@ export function SearchResultCard({
 
       <div className="min-w-0 flex-1">
         {(categoryLabel || formattedDate) && (
-          <div className="text-secondary-600 mb-0.5 flex flex-wrap items-center gap-1.5 text-[11.5px] font-bold">
+          <div className="mb-0.5 flex flex-wrap items-center gap-1.5 text-[11.5px] font-bold text-secondary-600">
             {categoryLabel && <span>{categoryLabel}</span>}
             {categoryLabel && formattedDate && (
               <span aria-hidden="true" className="text-stone-400">
@@ -110,21 +116,21 @@ export function SearchResultCard({
 
         <h3
           className={cn(
-            "font-lora line-clamp-2 text-[16px] leading-[1.35] font-semibold text-stone-900 transition-colors duration-150 motion-reduce:transition-none sm:text-[16.5px]",
+            "line-clamp-2 font-lora text-[16px] leading-[1.35] font-semibold text-stone-900 transition-colors duration-150 motion-reduce:transition-none sm:text-[16.5px]",
             "group-hover:text-primary-700",
             isSelected && "text-primary-700",
           )}
         >
-          {titleSegments.map((segment, index) =>
+          {keyedTitleSegments.map((segment) =>
             segment.highlighted ? (
               <mark
-                key={index}
-                className="bg-primary-100/80 text-primary-900 rounded-xs px-0.5 font-semibold"
+                key={segment.start}
+                className="rounded-xs bg-primary-100/80 px-0.5 font-semibold text-primary-900"
               >
                 {segment.text}
               </mark>
             ) : (
-              <span key={index}>{segment.text}</span>
+              <span key={segment.start}>{segment.text}</span>
             ),
           )}
         </h3>

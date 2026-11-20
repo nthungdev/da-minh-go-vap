@@ -1,9 +1,9 @@
-import AppSectionHeader from "@/components/app-section-header";
-import { LinksBlock } from "@/payload-types";
-import { isDataValid } from "@/payload/utils/data";
-import { transformUrl } from "@/utils/cloudflare";
 import Image from "next/image";
 import Link from "next/link";
+import AppSectionHeader from "@/components/app-section-header";
+import { isDataValid } from "@/payload/utils/data";
+import type { LinksBlock } from "@/payload-types";
+import { transformUrl } from "@/utils/cloudflare";
 
 interface ImageLinkListProps extends React.HTMLAttributes<HTMLDivElement> {
   title: string;
@@ -20,8 +20,8 @@ export default function ImageLinkList({
     <div {...props} className={className}>
       <AppSectionHeader className="uppercase">{title}</AppSectionHeader>
       <ul className="space-y-2 p-2">
-        {links.map((link, index) => (
-          <li key={index}>
+        {links.map((link) => (
+          <li key={link.id ?? link.url}>
             <Link
               target="_blank"
               href={link.url}

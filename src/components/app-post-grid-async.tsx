@@ -1,11 +1,11 @@
 "use client";
 
+import { useQuery } from "@tanstack/react-query";
+import { useLocale } from "next-intl";
 import { fetchPostsByHiddenTags } from "@/actions/post";
 import AppGridHeader from "@/components/app-grid-header";
 import AppPostGrid from "@/components/app-post-grid";
-import { AppPost } from "@/definitions";
-import { useQuery } from "@tanstack/react-query";
-import { useLocale } from "next-intl";
+import type { AppPost } from "@/definitions";
 import AppPostGridSkeleton from "./app-post-grid-skeleton";
 import AppViewMoreLink from "./app-view-more-link";
 

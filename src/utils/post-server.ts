@@ -1,14 +1,14 @@
 import "server-only";
 
-import { cache } from "react";
-import { getPayload, PaginatedDocs, Where } from "payload";
 import config from "@payload-config";
-import { postToAppPost } from "@/utils/post";
-import { AppPost } from "@/definitions";
-import { defaultLocale, Locale } from "@/i18n/config";
-import { Post } from "@/payload-types";
 import { unstable_cache } from "next/cache";
+import { getPayload, type PaginatedDocs, type Where } from "payload";
+import { cache } from "react";
+import type { AppPost } from "@/definitions";
+import { defaultLocale, type Locale } from "@/i18n/config";
+import type { Post } from "@/payload-types";
 import { rewriteMediaUrls } from "@/utils/cloudflare";
+import { postToAppPost } from "@/utils/post";
 import { PUBLISHED_CONTENT_REVALIDATE_SECONDS } from "@/utils/published-content-cache";
 
 interface GetOptions {
@@ -97,7 +97,7 @@ const getPostsBySlugsCached = unstable_cache(
       locale,
     });
 
-    const entries: Array<[string, AppPost]> = [];
+    const entries: [string, AppPost][] = [];
     for (const doc of query.docs) {
       if (!doc.slug) continue;
       try {

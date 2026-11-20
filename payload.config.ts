@@ -1,24 +1,24 @@
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { mongooseAdapter } from "@payloadcms/db-mongodb";
 import { payloadCloudPlugin } from "@payloadcms/payload-cloud";
 import { lexicalEditor } from "@payloadcms/richtext-lexical";
-import path from "path";
-import { buildConfig, Payload } from "payload";
-import { fileURLToPath } from "url";
-import sharp from "sharp";
+import { s3Storage } from "@payloadcms/storage-s3";
 import { en } from "@payloadcms/translations/languages/en";
 import { vi } from "@payloadcms/translations/languages/vi";
-import { s3Storage } from "@payloadcms/storage-s3";
-import Users from "@/payload/collections/Users";
-import Media from "@/payload/collections/Media";
-import Posts from "@/payload/collections/posts";
-import Pages from "@/payload/collections/pages";
-import HiddenTags from "@/payload/collections/HiddenTags";
-import SearchTags from "@/payload/collections/search-tags";
-import SiteSettings from "@/payload/globals/site-settings";
-import NavBar from "@/payload/globals/NavBar";
-import Footer from "@/payload/globals/Footer";
+import { buildConfig, type Payload } from "payload";
+import sharp from "sharp";
 import { defaultLocale, localeLabels, locales } from "@/i18n/config";
+import HiddenTags from "@/payload/collections/HiddenTags";
+import Media from "@/payload/collections/Media";
+import Pages from "@/payload/collections/pages";
+import Posts from "@/payload/collections/posts";
+import SearchTags from "@/payload/collections/search-tags";
 import SpotifyPodcasts from "@/payload/collections/spotify-podcasts";
+import Users from "@/payload/collections/Users";
+import Footer from "@/payload/globals/Footer";
+import NavBar from "@/payload/globals/NavBar";
+import SiteSettings from "@/payload/globals/site-settings";
 
 if (!process.env.PAYLOAD_SECRET) {
   throw new Error("PAYLOAD_SECRET environment variable is required");
@@ -107,9 +107,33 @@ export default buildConfig({
   onInit: createDefaultAdmin,
 });
 
+function isUniqueConstraintError(error: unknown): boolean {
+  if (typeof error !== "object" || error === null || !("data" in error)) {
+    return false;
+  }
+  const data = (error as { data?: { errors?: unknown } }).data;
+  if (!Array.isArray(data?.errors)) {
+    return false;
+  }
+  return data.errors.some(
+    (entry): boolean =>
+      typeof entry === "object" &&
+      entry !== null &&
+      "message" in entry &&
+      typeof entry.message === "string" &&
+      entry.message.includes("Value must be unique"),
+  );
+}
+
 async function createDefaultAdmin(payload: Payload) {
-  const adminEmail = process.env.PAYLOAD_ADMIN_EMAIL!;
-  const adminPassword = process.env.PAYLOAD_ADMIN_PASSWORD!;
+  const adminEmail = process.env.PAYLOAD_ADMIN_EMAIL;
+  const adminPassword = process.env.PAYLOAD_ADMIN_PASSWORD;
+
+  if (!(adminEmail && adminPassword)) {
+    throw new Error(
+      "PAYLOAD_ADMIN_EMAIL and PAYLOAD_ADMIN_PASSWORD environment variables are required",
+    );
+  }
 
   const admins = await payload.find({
     collection: "users",
@@ -134,14 +158,10 @@ async function createDefaultAdmin(payload: Payload) {
         role: "admin",
       },
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
     if (error instanceof Error) {
       console.error("Error creating default admin user:", error.message);
-    } else if (
-      error?.data?.errors?.some((e: any) =>
-        e?.message.includes("Value must be unique"),
-      )
-    ) {
+    } else if (isUniqueConstraintError(error)) {
       console.warn(
         "Admin user already exists from a race condition, skipping creation.",
       );

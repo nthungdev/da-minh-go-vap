@@ -1,5 +1,5 @@
-import { localizePathForAllLocales } from "@/i18n/routing";
 import { revalidatePath, revalidateTag } from "next/cache";
+import { localizePathForAllLocales } from "@/i18n/routing";
 
 const DEFAULT_CACHE_TAGS = [
   "pages",
@@ -16,7 +16,7 @@ export async function POST(req: Request) {
   const secret = process.env.REVALIDATION_SECRET;
   const headerSecret = req.headers.get("x-revalidation-secret");
 
-  if (!secret || !headerSecret || headerSecret !== secret) {
+  if (!(secret && headerSecret) || headerSecret !== secret) {
     return Response.json({ message: "Unauthorized" }, { status: 401 });
   }
 

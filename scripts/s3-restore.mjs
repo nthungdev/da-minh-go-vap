@@ -17,15 +17,15 @@
  *   pnpm s3:restore ./media --env production --dry-run
  */
 
+import { execFileSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
 import readline from "node:readline";
-import { execFileSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import {
-  S3Client,
   ListObjectsV2Command,
   PutObjectCommand,
+  S3Client,
 } from "@aws-sdk/client-s3";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -85,7 +85,7 @@ function formatBytes(bytes) {
   const k = 1024;
   const sizes = ["B", "KB", "MB", "GB", "TB"];
   const i = Math.floor(Math.log(bytes) / Math.log(k));
-  return `${parseFloat((bytes / Math.pow(k, i)).toFixed(2))} ${sizes[i]}`;
+  return `${parseFloat((bytes / k ** i).toFixed(2))} ${sizes[i]}`;
 }
 
 /**
@@ -315,6 +315,46 @@ Examples:
 `);
 }
 
+const RESTORE_VALUE_FLAGS = {
+  "-e": "envName",
+  "--env": "envName",
+  "--env-file": "envFile",
+  "-b": "bucket",
+  "--bucket": "bucket",
+  "-p": "prefix",
+  "--prefix": "prefix",
+  "-s": "source",
+  "--src": "source",
+  "--source": "source",
+  "-c": "concurrency",
+  "--concurrency": "concurrency",
+};
+
+const RESTORE_BOOLEAN_FLAGS = {
+  "--dry-run": "dryRun",
+  "-f": "force",
+  "--force": "force",
+  "-y": "yes",
+  "--yes": "yes",
+};
+
+function setRestoreOption(options, key, value) {
+  options[key] = key === "concurrency" ? parseInt(value, 10) || 10 : value;
+}
+
+function applyPositionalRestoreArg(arg, options) {
+  const looksLikePath =
+    fs.existsSync(arg) ||
+    arg.endsWith(".tar.gz") ||
+    arg.includes("/") ||
+    arg.includes("\\");
+  if (looksLikePath) {
+    options.source = arg;
+  } else if (!options.envName) {
+    options.envName = arg;
+  }
+}
+
 /**
  * Parse CLI options.
  */
@@ -338,86 +378,66 @@ function parseArgs() {
     if (arg === "-h" || arg === "--help") {
       printHelp();
       process.exit(0);
-    } else if (arg === "-e" || arg === "--env") {
-      options.envName = args[++i];
-    } else if (arg.startsWith("--env=")) {
-      options.envName = arg.split("=")[1];
-    } else if (arg === "--env-file") {
-      options.envFile = args[++i];
-    } else if (arg.startsWith("--env-file=")) {
-      options.envFile = arg.split("=")[1];
-    } else if (arg === "-b" || arg === "--bucket") {
-      options.bucket = args[++i];
-    } else if (arg.startsWith("--bucket=")) {
-      options.bucket = arg.split("=")[1];
-    } else if (arg === "-p" || arg === "--prefix") {
-      options.prefix = args[++i];
-    } else if (arg.startsWith("--prefix=")) {
-      options.prefix = arg.split("=")[1];
-    } else if (arg === "-s" || arg === "--src" || arg === "--source") {
-      options.source = args[++i];
-    } else if (arg.startsWith("--src=")) {
-      options.source = arg.split("=")[1];
-    } else if (arg === "-c" || arg === "--concurrency") {
-      options.concurrency = parseInt(args[++i], 10) || 10;
-    } else if (arg.startsWith("--concurrency=")) {
-      options.concurrency = parseInt(arg.split("=")[1], 10) || 10;
-    } else if (arg === "--dry-run") {
-      options.dryRun = true;
-    } else if (arg === "-f" || arg === "--force") {
-      options.force = true;
-    } else if (arg === "-y" || arg === "--yes") {
-      options.yes = true;
-    } else if (!arg.startsWith("-")) {
-      // Positional argument: either environment name or source path
-      if (
-        fs.existsSync(arg) ||
-        arg.endsWith(".tar.gz") ||
-        arg.includes("/") ||
-        arg.includes("\\")
-      ) {
-        options.source = arg;
-      } else if (!options.envName) {
-        options.envName = arg;
+    }
+
+    if (arg in RESTORE_BOOLEAN_FLAGS) {
+      options[RESTORE_BOOLEAN_FLAGS[arg]] = true;
+      continue;
+    }
+
+    if (arg in RESTORE_VALUE_FLAGS) {
+      setRestoreOption(options, RESTORE_VALUE_FLAGS[arg], args[++i]);
+      continue;
+    }
+
+    const eqIndex = arg.indexOf("=");
+    if (eqIndex !== -1) {
+      const flag = arg.slice(0, eqIndex);
+      if (flag in RESTORE_VALUE_FLAGS) {
+        setRestoreOption(
+          options,
+          RESTORE_VALUE_FLAGS[flag],
+          arg.slice(eqIndex + 1),
+        );
+        continue;
       }
+    }
+
+    if (!arg.startsWith("-")) {
+      applyPositionalRestoreArg(arg, options);
     }
   }
 
   return options;
 }
 
-/**
- * Main runner function.
- */
-async function main() {
-  const options = parseArgs();
-  const fileEnv = loadEnvironment(options.envName, options.envFile);
-  const env = { ...process.env, ...fileEnv };
-
-  // Resolve source
-  let sourcePath = options.source;
+function resolveSourcePath(explicitSource) {
+  let sourcePath = explicitSource;
   if (!sourcePath) {
     const latest = findLatestBackup();
-    if (latest) {
-      sourcePath = latest;
-      console.log(
-        `ℹ️ No source provided. Using latest backup: ${path.relative(PROJECT_ROOT, sourcePath)}`,
-      );
-    } else {
+    if (!latest) {
       console.error(
         "❌ Error: No source backup provided and none found in tmp/backups.",
       );
       console.error("Usage: pnpm s3:restore <path-to-folder-or-tar.gz>");
       process.exit(1);
     }
+    sourcePath = latest;
+    console.log(
+      `ℹ️ No source provided. Using latest backup: ${path.relative(PROJECT_ROOT, sourcePath)}`,
+    );
   }
 
-  sourcePath = path.resolve(sourcePath);
-  if (!fs.existsSync(sourcePath)) {
-    console.error(`❌ Error: Source path not found: ${sourcePath}`);
+  const resolvedPath = path.resolve(sourcePath);
+  if (!fs.existsSync(resolvedPath)) {
+    console.error(`❌ Error: Source path not found: ${resolvedPath}`);
     process.exit(1);
   }
 
+  return resolvedPath;
+}
+
+function resolveRestoreConfig(options, env) {
   const bucket = options.bucket || env.S3_BUCKET || env.R2_BUCKET;
   const accessKeyId =
     env.S3_ACCESS_KEY_ID || env.R2_ACCESS_KEY_ID || env.AWS_ACCESS_KEY_ID;
@@ -441,54 +461,70 @@ async function main() {
     process.exit(1);
   }
 
-  if (!accessKeyId || !secretAccessKey) {
+  if (!(accessKeyId && secretAccessKey)) {
     console.error("❌ Error: S3 credentials are missing.");
     console.error("Please set S3_ACCESS_KEY_ID and S3_SECRET in your .env.");
     process.exit(1);
   }
 
-  // Handle archive extraction if source is a tar.gz / tar
-  let workingDir = sourcePath;
-  let tempExtractedDir = null;
+  return { bucket, accessKeyId, secretAccessKey, endpoint, region };
+}
 
+function cleanupTempDir(tempDir) {
+  if (tempDir && fs.existsSync(tempDir)) {
+    fs.rmSync(tempDir, { recursive: true, force: true });
+  }
+}
+
+function extractArchiveIfNeeded(sourcePath) {
   const isArchive =
     sourcePath.endsWith(".tar.gz") ||
     sourcePath.endsWith(".tgz") ||
     sourcePath.endsWith(".tar");
-
-  if (isArchive) {
-    const tempDirName = `restore_temp_${Date.now()}`;
-    tempExtractedDir = path.join(PROJECT_ROOT, "tmp", tempDirName);
-    fs.mkdirSync(tempExtractedDir, { recursive: true });
-
-    console.log(
-      `⏳ Extracting archive ${path.basename(sourcePath)} to temporary folder...`,
-    );
-    try {
-      execFileSync("tar", ["-xzf", sourcePath, "-C", tempExtractedDir], {
-        stdio: "inherit",
-      });
-      // Check if tar extracted a single top-level folder
-      const items = fs.readdirSync(tempExtractedDir);
-      if (
-        items.length === 1 &&
-        fs.statSync(path.join(tempExtractedDir, items[0])).isDirectory()
-      ) {
-        workingDir = path.join(tempExtractedDir, items[0]);
-      } else {
-        workingDir = tempExtractedDir;
-      }
-      console.log(`✅ Archive extracted successfully.`);
-    } catch (err) {
-      console.error(`❌ Failed to extract archive: ${err.message}`);
-      if (tempExtractedDir && fs.existsSync(tempExtractedDir)) {
-        fs.rmSync(tempExtractedDir, { recursive: true, force: true });
-      }
-      process.exit(1);
-    }
+  if (!isArchive) {
+    return { workingDir: sourcePath, tempExtractedDir: null };
   }
 
-  // Detect and unwrap any outer wrapper directory (e.g. s3_..., daminhgovap_..., etc.)
+  const tempExtractedDir = path.join(
+    PROJECT_ROOT,
+    "tmp",
+    `restore_temp_${Date.now()}`,
+  );
+  fs.mkdirSync(tempExtractedDir, { recursive: true });
+
+  console.log(
+    `⏳ Extracting archive ${path.basename(sourcePath)} to temporary folder...`,
+  );
+  try {
+    execFileSync("tar", ["-xzf", sourcePath, "-C", tempExtractedDir], {
+      stdio: "inherit",
+    });
+    const items = fs.readdirSync(tempExtractedDir);
+    const singleChild =
+      items.length === 1 ? path.join(tempExtractedDir, items[0]) : null;
+    const workingDir =
+      singleChild && fs.statSync(singleChild).isDirectory()
+        ? singleChild
+        : tempExtractedDir;
+    console.log(`✅ Archive extracted successfully.`);
+    return { workingDir, tempExtractedDir };
+  } catch (err) {
+    console.error(`❌ Failed to extract archive: ${err.message}`);
+    cleanupTempDir(tempExtractedDir);
+    process.exit(1);
+  }
+}
+
+function isWrapperBackupDir(dirName, bucket) {
+  return (
+    dirName.startsWith("s3_") ||
+    dirName === bucket ||
+    dirName.includes(bucket) ||
+    dirName.includes("backup")
+  );
+}
+
+function unwrapBackupDir(workingDir, bucket) {
   let currentDir = workingDir;
   while (true) {
     const entries = fs
@@ -497,30 +533,156 @@ async function main() {
     const subDirs = entries.filter((e) => e.isDirectory());
     const files = entries.filter((e) => e.isFile());
 
-    if (files.length === 0 && subDirs.length === 1) {
+    if (
+      files.length === 0 &&
+      subDirs.length === 1 &&
+      isWrapperBackupDir(subDirs[0].name, bucket)
+    ) {
       const singleDir = subDirs[0].name;
-      if (
-        singleDir.startsWith("s3_") ||
-        singleDir === bucket ||
-        singleDir.includes(bucket) ||
-        singleDir.includes("backup")
-      ) {
-        console.log(`ℹ️ Stepping into nested backup directory: ${singleDir}`);
-        currentDir = path.join(currentDir, singleDir);
-        continue;
-      }
+      console.log(`ℹ️ Stepping into nested backup directory: ${singleDir}`);
+      currentDir = path.join(currentDir, singleDir);
+      continue;
     }
     break;
   }
-  workingDir = currentDir;
+  return currentDir;
+}
 
-  // Collect all local files to upload
+async function listExistingBucketKeys(s3Client, bucket, prefix) {
+  const existingBucketKeys = new Map();
+  let continuationToken;
+
+  try {
+    do {
+      const listRes = await s3Client.send(
+        new ListObjectsV2Command({
+          Bucket: bucket,
+          Prefix: prefix || undefined,
+          ContinuationToken: continuationToken,
+        }),
+      );
+      for (const item of listRes.Contents ?? []) {
+        existingBucketKeys.set(item.Key, item.Size || 0);
+      }
+      continuationToken = listRes.NextContinuationToken;
+    } while (continuationToken);
+
+    console.log(
+      `ℹ️ Found ${existingBucketKeys.size} existing objects in bucket.`,
+    );
+  } catch (listErr) {
+    console.warn(
+      `⚠️ Warning: Could not list remote objects (${listErr.message}). Will upload without pre-filtering.`,
+    );
+  }
+
+  return existingBucketKeys;
+}
+
+async function uploadFilesConcurrently({
+  s3Client,
+  bucket,
+  filesToUpload,
+  existingBucketKeys,
+  options,
+}) {
+  const stats = {
+    completedCount: 0,
+    uploadedCount: 0,
+    skippedCount: 0,
+    failedCount: 0,
+    uploadedBytes: 0,
+  };
+
+  async function uploadFile(fileItem) {
+    const s3Key = options.prefix
+      ? `${options.prefix.replace(/\/$/, "")}/${fileItem.relativeKey}`
+      : fileItem.relativeKey;
+
+    try {
+      if (
+        !options.force &&
+        existingBucketKeys.has(s3Key) &&
+        existingBucketKeys.get(s3Key) === fileItem.size
+      ) {
+        stats.skippedCount++;
+        stats.completedCount++;
+        return;
+      }
+
+      if (options.dryRun) {
+        stats.uploadedCount++;
+        stats.uploadedBytes += fileItem.size;
+        stats.completedCount++;
+        return;
+      }
+
+      await s3Client.send(
+        new PutObjectCommand({
+          Bucket: bucket,
+          Key: s3Key,
+          Body: fs.readFileSync(fileItem.fullPath),
+          ContentType: getContentType(fileItem.fullPath),
+        }),
+      );
+
+      stats.uploadedCount++;
+      stats.uploadedBytes += fileItem.size;
+      stats.completedCount++;
+
+      const percent = (
+        (stats.completedCount / filesToUpload.length) *
+        100
+      ).toFixed(1);
+      process.stdout.write(
+        `\r⏳ [${stats.completedCount}/${filesToUpload.length}] (${percent}%) - ${path.basename(s3Key).slice(0, 40)}`,
+      );
+    } catch (err) {
+      stats.failedCount++;
+      stats.completedCount++;
+      console.error(`\n❌ Failed to upload '${s3Key}': ${err.message}`);
+    }
+  }
+
+  const concurrency = Math.max(1, options.concurrency);
+  let queueIndex = 0;
+
+  async function worker() {
+    while (queueIndex < filesToUpload.length) {
+      const currentItem = filesToUpload[queueIndex++];
+      await uploadFile(currentItem);
+    }
+  }
+
+  const workers = Array.from(
+    { length: Math.min(concurrency, filesToUpload.length) },
+    () => worker(),
+  );
+  await Promise.all(workers);
+
+  return stats;
+}
+
+/**
+ * Main runner function.
+ */
+async function main() {
+  const options = parseArgs();
+  const fileEnv = loadEnvironment(options.envName, options.envFile);
+  const env = { ...process.env, ...fileEnv };
+
+  const sourcePath = resolveSourcePath(options.source);
+  const { bucket, accessKeyId, secretAccessKey, endpoint, region } =
+    resolveRestoreConfig(options, env);
+
+  const { workingDir: extractedDir, tempExtractedDir } =
+    extractArchiveIfNeeded(sourcePath);
+  const workingDir = unwrapBackupDir(extractedDir, bucket);
+
   const filesToUpload = getAllFiles(workingDir);
   if (filesToUpload.length === 0) {
     console.log(`⚠️ No files found in source: ${workingDir}`);
-    if (tempExtractedDir && fs.existsSync(tempExtractedDir)) {
-      fs.rmSync(tempExtractedDir, { recursive: true, force: true });
-    }
+    cleanupTempDir(tempExtractedDir);
     return;
   }
 
@@ -545,16 +707,13 @@ async function main() {
   }
   console.log(`========================================\n`);
 
-  // Confirmation safety check
-  if (!options.yes && !options.dryRun) {
+  if (!(options.yes || options.dryRun)) {
     const confirmed = await confirmPrompt(
       `⚠️ Are you sure you want to restore ${filesToUpload.length} files to bucket '${bucket}'?`,
     );
     if (!confirmed) {
       console.log("Restoration aborted by user.");
-      if (tempExtractedDir && fs.existsSync(tempExtractedDir)) {
-        fs.rmSync(tempExtractedDir, { recursive: true, force: true });
-      }
+      cleanupTempDir(tempExtractedDir);
       process.exit(0);
     }
   }
@@ -562,126 +721,34 @@ async function main() {
   const s3Client = new S3Client({
     region,
     endpoint: endpoint || undefined,
-    credentials: {
-      accessKeyId,
-      secretAccessKey,
-    },
+    credentials: { accessKeyId, secretAccessKey },
   });
 
   // Step 1: Query existing objects in the bucket to skip identical files
   console.log(`⏳ Querying existing objects in bucket '${bucket}'...`);
-  const existingBucketKeys = new Map(); // key -> size
-  let continuationToken = undefined;
-
-  try {
-    do {
-      const listCommand = new ListObjectsV2Command({
-        Bucket: bucket,
-        Prefix: options.prefix || undefined,
-        ContinuationToken: continuationToken,
-      });
-      const listRes = await s3Client.send(listCommand);
-      if (listRes.Contents) {
-        for (const item of listRes.Contents) {
-          existingBucketKeys.set(item.Key, item.Size || 0);
-        }
-      }
-      continuationToken = listRes.NextContinuationToken;
-    } while (continuationToken);
-
-    console.log(
-      `ℹ️ Found ${existingBucketKeys.size} existing objects in bucket.`,
-    );
-  } catch (listErr) {
-    console.warn(
-      `⚠️ Warning: Could not list remote objects (${listErr.message}). Will upload without pre-filtering.`,
-    );
-  }
+  const existingBucketKeys = await listExistingBucketKeys(
+    s3Client,
+    bucket,
+    options.prefix,
+  );
 
   // Step 2: Upload files
   const startTime = Date.now();
-  let completedCount = 0;
-  let uploadedCount = 0;
-  let skippedCount = 0;
-  let failedCount = 0;
-  let uploadedBytes = 0;
-
-  async function uploadFile(fileItem) {
-    const s3Key = options.prefix
-      ? `${options.prefix.replace(/\/$/, "")}/${fileItem.relativeKey}`
-      : fileItem.relativeKey;
-
-    try {
-      // Check if file exists in bucket with identical size
-      if (!options.force && existingBucketKeys.has(s3Key)) {
-        const existingSize = existingBucketKeys.get(s3Key);
-        if (existingSize === fileItem.size) {
-          skippedCount++;
-          completedCount++;
-          return;
-        }
-      }
-
-      if (options.dryRun) {
-        uploadedCount++;
-        uploadedBytes += fileItem.size;
-        completedCount++;
-        return;
-      }
-
-      const fileBuffer = fs.readFileSync(fileItem.fullPath);
-      const contentType = getContentType(fileItem.fullPath);
-
-      const putCommand = new PutObjectCommand({
-        Bucket: bucket,
-        Key: s3Key,
-        Body: fileBuffer,
-        ContentType: contentType,
-      });
-
-      await s3Client.send(putCommand);
-
-      uploadedCount++;
-      uploadedBytes += fileItem.size;
-      completedCount++;
-
-      const percent = ((completedCount / filesToUpload.length) * 100).toFixed(
-        1,
-      );
-      process.stdout.write(
-        `\r⏳ [${completedCount}/${filesToUpload.length}] (${percent}%) - ${path.basename(s3Key).slice(0, 40)}`,
-      );
-    } catch (err) {
-      failedCount++;
-      completedCount++;
-      console.error(`\n❌ Failed to upload '${s3Key}': ${err.message}`);
-    }
-  }
-
-  // Worker pool queue
-  const concurrency = Math.max(1, options.concurrency);
-  let queueIndex = 0;
-
-  async function worker() {
-    while (queueIndex < filesToUpload.length) {
-      const currentItem = filesToUpload[queueIndex++];
-      await uploadFile(currentItem);
-    }
-  }
-
-  const workers = Array.from(
-    { length: Math.min(concurrency, filesToUpload.length) },
-    () => worker(),
-  );
-  await Promise.all(workers);
+  const { uploadedCount, skippedCount, failedCount, uploadedBytes } =
+    await uploadFilesConcurrently({
+      s3Client,
+      bucket,
+      filesToUpload,
+      existingBucketKeys,
+      options,
+    });
 
   const duration = Date.now() - startTime;
-  process.stdout.write("\r" + " ".repeat(80) + "\r");
+  process.stdout.write(`\r${" ".repeat(80)}\r`);
 
-  // Clean up temporary extracted folder if one was created
   if (tempExtractedDir && fs.existsSync(tempExtractedDir)) {
     console.log(`🧹 Cleaning up temporary extraction directory...`);
-    fs.rmSync(tempExtractedDir, { recursive: true, force: true });
+    cleanupTempDir(tempExtractedDir);
   }
 
   console.log(`\n========================================`);

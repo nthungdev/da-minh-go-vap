@@ -1,4 +1,9 @@
-import { Post } from "@/payload-types";
+import type {
+  CollectionAfterChangeHook,
+  CollectionConfig,
+  FieldHook,
+  FieldHookArgs,
+} from "payload";
 import { pageBlocks } from "@/payload/blocks";
 import { postTemplates } from "@/payload/blocks/post-templates";
 import {
@@ -9,13 +14,8 @@ import {
 import { onlyRoles, postsReadAccess } from "@/payload/utils/access-control";
 import { buildPostPreviewUrl } from "@/payload/utils/config";
 import { revalidatePath, slugify } from "@/payload/utils/data";
+import type { Post } from "@/payload-types";
 import { validateSlug } from "@/utils/slug";
-import type {
-  CollectionAfterChangeHook,
-  CollectionConfig,
-  FieldHook,
-  FieldHookArgs,
-} from "payload";
 
 const Posts: CollectionConfig = {
   slug: "posts",
@@ -65,6 +65,16 @@ const Posts: CollectionConfig = {
               type: "checkbox",
               label: "Ẩn tiêu đề",
               defaultValue: false,
+            },
+            {
+              name: "showTableOfContents",
+              type: "checkbox",
+              label: "Hiển thị mục lục",
+              defaultValue: false,
+              admin: {
+                description:
+                  "Tự động tạo mục lục từ các tiêu đề H2, H3 trong nội dung bài viết.",
+              },
             },
             {
               name: "hiddenTags",

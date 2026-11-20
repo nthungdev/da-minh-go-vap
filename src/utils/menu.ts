@@ -1,11 +1,11 @@
-import { normalizeText } from "normalize-text";
 import config from "@payload-config";
-import { getPayload } from "payload";
-import { HiddenTag, Media, NavBar, Page, Post } from "@/payload-types";
-import { defaultLocale, Locale } from "@/i18n/config";
-import { rewriteMediaUrls, toCdnMediaUrl } from "@/utils/cloudflare";
-import { cache } from "react";
 import { unstable_cache } from "next/cache";
+import { normalizeText } from "normalize-text";
+import { getPayload } from "payload";
+import { cache } from "react";
+import { defaultLocale, type Locale } from "@/i18n/config";
+import type { HiddenTag, Media, NavBar, Page, Post } from "@/payload-types";
+import { rewriteMediaUrls, toCdnMediaUrl } from "@/utils/cloudflare";
 
 // Raw types extracted directly from Payload CMS definitions
 export type NavBarMenuItem = NonNullable<NavBar["menu"]>[number];
@@ -161,9 +161,9 @@ const getMenuCached = unstable_cache(
     const navBar = await fetchNavBarGlobal(locale);
 
     const validMenuItems = (navBar.menu || []).filter((menuItem, index) => {
-      const hasLabel = Boolean(menuItem.label && menuItem.label.trim());
+      const hasLabel = Boolean(menuItem.label?.trim());
       const hasIcon = Boolean(menuItem.icon);
-      if (!hasLabel && !hasIcon) {
+      if (!(hasLabel || hasIcon)) {
         console.warn(
           `[getMenu] Skipping menu item at index ${index} because it has neither a label nor an icon.`,
           menuItem,
