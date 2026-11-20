@@ -95,6 +95,8 @@ Production and staging run on Firebase App Hosting. See [docs/deployment.md](doc
 
 For editors adding keyword tooltips to Markdown posts, see [docs/keyword-tooltip.md](docs/keyword-tooltip.md).
 
+For editors adding footnotes to Markdown posts, see [docs/markdown-footnotes.md](docs/markdown-footnotes.md).
+
 For how locales map to URLs and how public pages are cached, see [docs/locale-routing.md](docs/locale-routing.md).
 
 ## Test environment

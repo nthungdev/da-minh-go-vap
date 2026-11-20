@@ -32,3 +32,4 @@ Wrap any phrase in a Markdown field (plain Markdown posts, post templates, or co
 - Legacy attributes (`title`, `description`, `image`, `data-image-url`, `href`) are still supported for existing content; use `data-*` for new markup.
 - The Markdown editor shows raw source only—save and view the published page to verify the interactive tooltip.
 - To hide the helper banner on a specific `markdownField()`, pass `admin: { custom: { keywordTooltipHelper: false } }`.
+- For adding Wikipedia-style footnote links and definitions, see [docs/markdown-footnotes.md](markdown-footnotes.md).
