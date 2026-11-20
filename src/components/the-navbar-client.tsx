@@ -220,20 +220,50 @@ function MobileSubContent({
   if (item.layout === "grid") {
     return (
       <>
-        {item.children?.map((child) => (
-          <li key={`${child.name}-${child.absoluteHref}`}>
-            <MobileSubLink
-              name={child.name}
-              href={child.absoluteHref}
-              icon={child.icon}
-              iconSize={5}
-              pathname={pathname}
-              onNavigate={onNavigate}
-              linkClassName="hover:text-primary-600 flex items-center gap-2 py-2 text-base text-gray-700 transition-colors"
-              staticClassName="flex items-center gap-2 py-2 text-base font-medium text-gray-700"
-            />
-          </li>
-        ))}
+        {item.children?.map((child) => {
+          const hasNestedChildren = Boolean(
+            child.children && child.children.length > 0,
+          );
+
+          return (
+            <li key={`${child.name}-${child.absoluteHref}`}>
+              <MobileSubLink
+                name={child.name}
+                href={child.absoluteHref}
+                icon={child.icon}
+                iconSize={5}
+                pathname={pathname}
+                onNavigate={onNavigate}
+                linkClassName={cn(
+                  "flex items-center gap-2 py-2 text-base text-gray-700 transition-colors hover:text-primary-600",
+                  hasNestedChildren && "font-semibold",
+                )}
+                staticClassName={cn(
+                  "flex items-center gap-2 py-2 text-base font-medium text-gray-700",
+                  hasNestedChildren && "font-semibold",
+                )}
+              />
+              {hasNestedChildren && (
+                <ul className="mt-1 flex flex-col gap-1 border-l-2 border-gray-100 pl-4">
+                  {child.children?.map((subChild) => (
+                    <li key={`${subChild.name}-${subChild.absoluteHref}`}>
+                      <MobileSubLink
+                        name={subChild.name}
+                        href={subChild.absoluteHref}
+                        icon={subChild.icon}
+                        iconSize={4}
+                        pathname={pathname}
+                        onNavigate={onNavigate}
+                        linkClassName="flex items-center gap-2 py-1.5 text-base text-gray-700 transition-colors hover:text-primary-600"
+                        staticClassName="flex items-center gap-2 py-1.5 text-base text-gray-600"
+                      />
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </li>
+          );
+        })}
       </>
     );
   }
