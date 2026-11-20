@@ -15,12 +15,10 @@ import {
 import { useLocale } from "next-intl";
 import Markdown, { type Components } from "react-markdown";
 import rehypeRaw from "rehype-raw";
-import rehypeSanitize from "rehype-sanitize";
 import remarkGfm from "remark-gfm";
 import KeywordTooltip from "@/components/keyword-tooltip";
 import { transformUrl } from "@/utils/cloudflare";
 import { cn } from "@/utils/common";
-import { markdownSanitizeSchema } from "@/utils/markdown-sanitize";
 import { preserveMarkdownWhitespace } from "@/utils/markdown-whitespace";
 
 export { preserveMarkdownWhitespace };
@@ -189,7 +187,7 @@ function AppMarkdownContent({
       <Markdown
         {...props}
         remarkPlugins={[remarkGfm]}
-        rehypePlugins={[rehypeRaw, [rehypeSanitize, markdownSanitizeSchema]]}
+        rehypePlugins={[rehypeRaw]}
         components={components}
       >
         {content}

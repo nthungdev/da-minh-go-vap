@@ -4,13 +4,11 @@ import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import Markdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
-import rehypeSanitize from "rehype-sanitize";
 import remarkGfm from "remark-gfm";
 import {
   getNextFootnoteNumber,
   insertFootnoteMarkup,
 } from "../src/payload/fields/markdown/footnote-markup.ts";
-import { markdownSanitizeSchema } from "../src/utils/markdown-sanitize.ts";
 import { preserveMarkdownWhitespace } from "../src/utils/markdown-whitespace.ts";
 
 test("preserveMarkdownWhitespace preserves single-line footnote definitions", () => {
@@ -110,6 +108,16 @@ test("insertFootnoteMarkup inserts [^n] at cursor and appends [^n]:  at bottom w
   );
 });
 
+function renderMarkdown(input: string): string {
+  return renderToStaticMarkup(
+    createElement(
+      Markdown,
+      { remarkPlugins: [remarkGfm], rehypePlugins: [rehypeRaw] },
+      input,
+    ),
+  );
+}
+
 test("rendered footnotes have matching href=#id targets without double clobber prefix", () => {
   const input = preserveMarkdownWhitespace(
     [
@@ -120,16 +128,7 @@ test("rendered footnotes have matching href=#id targets without double clobber p
     ].join("\n"),
   );
 
-  const html = renderToStaticMarkup(
-    createElement(
-      Markdown,
-      {
-        remarkPlugins: [remarkGfm],
-        rehypePlugins: [rehypeRaw, [rehypeSanitize, markdownSanitizeSchema]],
-      },
-      input,
-    ),
-  );
+  const html = renderMarkdown(input);
 
   assert.equal(html.includes("user-content-user-content-"), false);
 
@@ -145,4 +144,26 @@ test("rendered footnotes have matching href=#id targets without double clobber p
       `expected href="#${targetId}" to match an element id in rendered HTML`,
     );
   }
+});
+
+test("raw HTML style blocks and class attributes render intact", () => {
+  const html = renderMarkdown(
+    [
+      '<section class="vocation-invite" aria-labelledby="invite-title">',
+      "  <style>",
+      "    .card{color:red}",
+      "  </style>",
+      '  <h2 id="invite-title">Title</h2>',
+      '  <div class="card">Body</div>',
+      "</section>",
+    ].join("\n"),
+  );
+
+  assert.match(
+    html,
+    /<section class="vocation-invite" aria-labelledby="invite-title">/,
+  );
+  assert.match(html, /<style>\s*\.card\{color:red\}\s*<\/style>/);
+  assert.match(html, /<h2 id="invite-title">/);
+  assert.match(html, /<div class="card">Body<\/div>/);
 });
