@@ -147,7 +147,7 @@ function createMarkdownComponents(footnoteHeading: string): Components {
           <h2
             id={id}
             className={cn(
-              "mb-3 text-base font-semibold tracking-tight text-gray-900",
+              "mb-3 text-base tracking-tight text-gray-900",
               visibleClass,
             )}
             {...h2Props}
