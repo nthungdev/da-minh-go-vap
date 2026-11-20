@@ -1,14 +1,74 @@
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import AppMarkdown from "@/components/app-markdown";
 import LightboxModal from "@/components/post-templates/shared/lightbox-modal";
-import { Media, NewsArticleFeaturedBlock } from "@/payload-types";
+import type { Media, NewsArticleFeaturedBlock } from "@/payload-types";
 import { transformUrl } from "@/utils/cloudflare";
 import { cn } from "@/utils/common";
 import { toSafeHttpUrl } from "@/utils/safe-url";
-import { useTranslations } from "next-intl";
 
 interface Props {
   block: NewsArticleFeaturedBlock;
+}
+
+const ALIGNMENT_CLASSES: Record<string, string> = {
+  right: "md:float-right md:ml-5 md:mb-[15px] md:max-w-[320px]",
+  center: "mb-8 md:max-w-2xl",
+  left: "md:float-left md:mr-5 md:mb-[15px] md:max-w-[320px]",
+};
+
+function NewsArticleFooter({
+  translator,
+  audioReader,
+  sourceName,
+  sourceUrl,
+}: {
+  translator?: string | null;
+  audioReader?: string | null;
+  sourceName?: string | null;
+  sourceUrl?: string | null;
+}) {
+  const t = useTranslations();
+
+  const hasFooterContent = Boolean(
+    translator || audioReader || sourceName || sourceUrl,
+  );
+  if (!hasFooterContent) {
+    return null;
+  }
+
+  return (
+    <footer className="clear-both mt-[25px] text-right text-base italic">
+      {translator && (
+        <p>
+          <strong>{t("postTemplates.translator")}:</strong> {translator}
+        </p>
+      )}
+      {audioReader && (
+        <p>
+          <strong>{t("postTemplates.audioReader")}:</strong> {audioReader}
+        </p>
+      )}
+      {(sourceName || sourceUrl) && (
+        <p>
+          <strong>{t("postTemplates.source")}:</strong>{" "}
+          {sourceUrl ? (
+            <a
+              href={sourceUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-chill-700"
+            >
+              {sourceName || sourceUrl}
+              <span className="sr-only"> {t("common.openInNewTab")}</span>
+            </a>
+          ) : (
+            sourceName
+          )}
+        </p>
+      )}
+    </footer>
+  );
 }
 
 export default function NewsArticleFeaturedView({ block }: Props) {
@@ -31,16 +91,11 @@ export default function NewsArticleFeaturedView({ block }: Props) {
       : null;
   const imageAlt =
     imageMedia?.alt || imageCaption || t("postTemplates.newsImageAlt");
-
   const alignmentClass =
-    imageAlignment === "right"
-      ? "md:float-right md:ml-5 md:mb-[15px] md:max-w-[320px]"
-      : imageAlignment === "center"
-        ? "mb-8 md:max-w-2xl"
-        : "md:float-left md:mr-5 md:mb-[15px] md:max-w-[320px]";
+    ALIGNMENT_CLASSES[imageAlignment ?? "left"] ?? ALIGNMENT_CLASSES.left;
 
   return (
-    <article className="font-noto-serif flow-root text-lg leading-[1.8] text-[#003f44] md:text-[1.45rem]">
+    <article className="flow-root font-noto-serif text-lg leading-[1.8] text-[#003f44] md:text-[1.45rem]">
       {imageMedia?.url && (
         <figure
           className={cn(
@@ -78,42 +133,16 @@ export default function NewsArticleFeaturedView({ block }: Props) {
         </figure>
       )}
 
-      <AppMarkdown className="prose prose-p:mt-0 prose-p:mb-[15px] prose-p:text-justify font-noto-serif max-w-none text-[1em] leading-[1.8] text-[#003f44]">
+      <AppMarkdown className="prose prose-p:mt-0 prose-p:mb-[15px] prose-p:text-justify max-w-none font-noto-serif text-[1em] leading-[1.8] text-[#003f44]">
         {content}
       </AppMarkdown>
 
-      {(translator || audioReader || sourceName || sourceUrl) && (
-        <footer className="clear-both mt-[25px] text-right text-base italic">
-          {translator && (
-            <p>
-              <strong>{t("postTemplates.translator")}:</strong> {translator}
-            </p>
-          )}
-          {audioReader && (
-            <p>
-              <strong>{t("postTemplates.audioReader")}:</strong> {audioReader}
-            </p>
-          )}
-          {(sourceName || sourceUrl) && (
-            <p>
-              <strong>{t("postTemplates.source")}:</strong>{" "}
-              {sourceUrl ? (
-                <a
-                  href={sourceUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="focus-visible:ring-chill-700 rounded hover:underline focus:outline-none focus-visible:ring-2"
-                >
-                  {sourceName || sourceUrl}
-                  <span className="sr-only"> {t("common.openInNewTab")}</span>
-                </a>
-              ) : (
-                sourceName
-              )}
-            </p>
-          )}
-        </footer>
-      )}
+      <NewsArticleFooter
+        translator={translator}
+        audioReader={audioReader}
+        sourceName={sourceName}
+        sourceUrl={sourceUrl}
+      />
     </article>
   );
 }

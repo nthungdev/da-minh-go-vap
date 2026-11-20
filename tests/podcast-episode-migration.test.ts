@@ -85,12 +85,14 @@ test("migrates multiple pages independently and is safe to rerun", () => {
 
   const firstRun = pages.map((page) => migratePage(page));
   const secondRun = firstRun.map(({ page }) => migratePage(page));
-  const firstPageEpisodes = (
-    firstRun[0]?.page.main as unknown as Array<{ episodes?: unknown[] }>
-  )[0]?.episodes;
-  const secondPageEpisodes = (
-    firstRun[1]?.page.beforeMain as unknown as Array<{ episodes?: unknown[] }>
-  )[0]?.episodes;
+  const firstPageMain = firstRun[0]?.page.main as
+    | { episodes?: unknown[] }[]
+    | undefined;
+  const secondPageBeforeMain = firstRun[1]?.page.beforeMain as
+    | { episodes?: unknown[] }[]
+    | undefined;
+  const firstPageEpisodes = firstPageMain?.[0]?.episodes;
+  const secondPageEpisodes = secondPageBeforeMain?.[0]?.episodes;
 
   assert.deepEqual(
     firstRun.map((result) => result.blocksChanged),

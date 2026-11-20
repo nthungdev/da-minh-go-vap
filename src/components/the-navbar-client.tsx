@@ -1,14 +1,26 @@
 "use client";
 
-import { MenuItem } from "@/utils/menu";
-import type { MenuCategoryPosts } from "@/utils/menu-category-posts";
-import type { Media } from "@/payload-types";
-import { transformUrl } from "@/utils/cloudflare";
+import { Menu } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
+import { getMenuIconSrc } from "@/definitions/menu-icons";
+import type { Media } from "@/payload-types";
+import { transformUrl } from "@/utils/cloudflare";
+import { cn } from "@/utils/common";
+import type { MenuIconType, MenuItem } from "@/utils/menu";
+import type { MenuCategoryPosts } from "@/utils/menu-category-posts";
 import AppPostSearchButton from "./app-post-search-button";
 import LocaleSwitcher from "./locale-switcher";
+import MenuLayoutRenderer from "./navbar/menu-layouts/menu-layout-renderer";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "./ui/accordion";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -25,18 +37,6 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "./ui/sheet";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "./ui/accordion";
-import { Menu } from "lucide-react";
-import { usePathname } from "next/navigation";
-import MenuLayoutRenderer from "./navbar/menu-layouts/menu-layout-renderer";
-import { cn } from "@/utils/common";
-import { getMenuIconSrc } from "@/definitions/menu-icons";
-import { useTranslations } from "next-intl";
 
 export interface MenuIconProps {
   icon?: string | null;
@@ -80,6 +80,349 @@ export function MenuIcon({ icon, name, size = 5, className }: MenuIconProps) {
   );
 }
 
+function hasSubContent(item: MenuItem): boolean {
+  if (item.layout === "pillars") return Boolean(item.pillars?.length);
+  if (item.layout === "tabs-posts") return Boolean(item.categories?.length);
+  return Boolean(item.children?.length);
+}
+
+function getMenuItemKey(item: MenuItem): string {
+  return `${item.name}-${item.absoluteHref}-${item.icon ?? ""}`;
+}
+
+function DesktopNavItem({
+  item,
+  pathname,
+  categoryPostsPromise,
+}: {
+  item: MenuItem;
+  pathname: string;
+  categoryPostsPromise: Promise<MenuCategoryPosts>;
+}) {
+  const label = item.name ? <span>{item.name.toUpperCase()}</span> : null;
+
+  if (hasSubContent(item)) {
+    return (
+      <NavigationMenuItem>
+        <NavigationMenuTrigger
+          render={
+            item.absoluteHref ? <Link href={item.absoluteHref} /> : undefined
+          }
+          nativeButton={!item.absoluteHref}
+          aria-label={item.name || item.icon || "Menu"}
+          className="flex items-center gap-1.5 transition-colors hover:bg-white hover:text-primary-700 focus:bg-white focus:text-primary-700 data-popup-open:bg-white data-popup-open:text-primary-700 data-[state=open]:bg-white data-[state=open]:text-primary-700 data-open:bg-white data-open:text-primary-700"
+        >
+          <MenuIcon icon={item.icon} name={item.name} size={5} />
+          {label}
+        </NavigationMenuTrigger>
+        <NavigationMenuContent className="rounded-xl border-none text-gray-900 shadow-lg">
+          <MenuLayoutRenderer
+            item={item}
+            pathname={pathname}
+            categoryPostsPromise={categoryPostsPromise}
+          />
+        </NavigationMenuContent>
+      </NavigationMenuItem>
+    );
+  }
+
+  if (item.absoluteHref) {
+    return (
+      <NavigationMenuItem>
+        <NavigationMenuLink
+          render={
+            <Link
+              href={item.absoluteHref}
+              aria-label={item.name || item.icon || "Link"}
+              className={cn(
+                navigationMenuTriggerStyle(),
+                "flex items-center gap-1.5 text-gray-50 transition-colors hover:bg-white hover:text-primary-700 focus:bg-white focus:text-primary-700",
+                pathname === item.absoluteHref &&
+                  "bg-white font-bold text-primary-700",
+              )}
+            />
+          }
+        >
+          <MenuIcon icon={item.icon} name={item.name} size={5} />
+          {label}
+        </NavigationMenuLink>
+      </NavigationMenuItem>
+    );
+  }
+
+  return (
+    <NavigationMenuItem>
+      <span
+        className={cn(
+          navigationMenuTriggerStyle(),
+          "flex cursor-default items-center gap-1.5 bg-transparent text-gray-50 select-none",
+        )}
+      >
+        <MenuIcon icon={item.icon} name={item.name} size={5} />
+        {label}
+      </span>
+    </NavigationMenuItem>
+  );
+}
+
+function MobileSubLink({
+  name,
+  href,
+  icon,
+  iconSize,
+  pathname,
+  onNavigate,
+  linkClassName,
+  staticClassName,
+}: {
+  name: string;
+  href?: string;
+  icon?: MenuIconType;
+  iconSize: number;
+  pathname: string;
+  onNavigate: () => void;
+  linkClassName: string;
+  staticClassName: string;
+}) {
+  if (href) {
+    return (
+      <Link
+        href={href}
+        onClick={onNavigate}
+        className={cn(
+          linkClassName,
+          pathname === href && "font-semibold text-primary-600",
+        )}
+      >
+        <MenuIcon icon={icon} name={name} size={iconSize} />
+        <span>{name}</span>
+      </Link>
+    );
+  }
+
+  return (
+    <span className={staticClassName}>
+      <MenuIcon icon={icon} name={name} size={iconSize} />
+      <span>{name}</span>
+    </span>
+  );
+}
+
+function MobileSubContent({
+  item,
+  pathname,
+  onNavigate,
+}: {
+  item: MenuItem;
+  pathname: string;
+  onNavigate: () => void;
+}) {
+  if (item.layout === "grid") {
+    return (
+      <>
+        {item.children?.map((child) => (
+          <li key={`${child.name}-${child.absoluteHref}`}>
+            <MobileSubLink
+              name={child.name}
+              href={child.absoluteHref}
+              icon={child.icon}
+              iconSize={5}
+              pathname={pathname}
+              onNavigate={onNavigate}
+              linkClassName="hover:text-primary-600 flex items-center gap-2 py-2 text-base text-gray-700 transition-colors"
+              staticClassName="flex items-center gap-2 py-2 text-base font-medium text-gray-700"
+            />
+          </li>
+        ))}
+      </>
+    );
+  }
+
+  if (item.layout === "pillars") {
+    return (
+      <>
+        {item.pillars?.map((pillar) => (
+          <li
+            key={`${pillar.headerBanner.title}-${pillar.headerBanner.absoluteHref}`}
+            className="space-y-1 py-1"
+          >
+            {pillar.headerBanner.absoluteHref ? (
+              <Link
+                href={pillar.headerBanner.absoluteHref}
+                onClick={onNavigate}
+                className={cn(
+                  "block text-base font-bold uppercase transition-colors hover:text-primary-600",
+                  pathname === pillar.headerBanner.absoluteHref
+                    ? "text-primary-600"
+                    : "text-gray-800",
+                )}
+              >
+                {pillar.headerBanner.title}
+              </Link>
+            ) : (
+              <span className="text-base font-bold text-gray-700 uppercase">
+                {pillar.headerBanner.title}
+              </span>
+            )}
+            {pillar.links.map((link) => (
+              <div key={`${link.name}-${link.absoluteHref}`}>
+                <MobileSubLink
+                  name={link.name}
+                  href={link.absoluteHref}
+                  icon={link.icon}
+                  iconSize={4}
+                  pathname={pathname}
+                  onNavigate={onNavigate}
+                  linkClassName="hover:text-primary-600 flex items-center gap-2 py-1.5 text-base text-gray-700 transition-colors"
+                  staticClassName="flex items-center gap-2 py-1.5 text-base text-gray-600"
+                />
+              </div>
+            ))}
+          </li>
+        ))}
+        {item.bottomBar?.links.map((link) => (
+          <li key={`bottom-${link.name}-${link.absoluteHref}`}>
+            <MobileSubLink
+              name={link.name}
+              href={link.absoluteHref}
+              icon={link.icon}
+              iconSize={4}
+              pathname={pathname}
+              onNavigate={onNavigate}
+              linkClassName="hover:text-primary-600 flex items-center gap-2 py-1.5 text-base font-medium text-gray-700 transition-colors"
+              staticClassName="flex items-center gap-2 py-1.5 text-base font-medium text-gray-600"
+            />
+          </li>
+        ))}
+      </>
+    );
+  }
+
+  if (item.layout === "tabs-posts") {
+    return (
+      <>
+        {item.categories?.map((cat) => (
+          <li key={`${cat.name}-${cat.absoluteHref}`}>
+            <MobileSubLink
+              name={cat.name}
+              href={cat.absoluteHref}
+              icon={cat.icon}
+              iconSize={4}
+              pathname={pathname}
+              onNavigate={onNavigate}
+              linkClassName="hover:text-primary-600 flex items-center gap-2 py-2 text-base text-gray-700 transition-colors"
+              staticClassName="flex items-center gap-2 py-2 text-base font-medium text-gray-700"
+            />
+          </li>
+        ))}
+      </>
+    );
+  }
+
+  return null;
+}
+
+function MobileNavLabel({
+  item,
+  pathname,
+  onNavigate,
+  className,
+  fallbackAriaLabel,
+}: {
+  item: MenuItem;
+  pathname: string;
+  onNavigate: () => void;
+  className?: string;
+  fallbackAriaLabel: string;
+}) {
+  const content = (
+    <>
+      <MenuIcon icon={item.icon} name={item.name} size={5} />
+      {item.name ? <span>{item.name}</span> : null}
+    </>
+  );
+
+  if (item.absoluteHref) {
+    return (
+      <Link
+        href={item.absoluteHref}
+        onClick={onNavigate}
+        aria-label={item.name || item.icon || fallbackAriaLabel}
+        className={cn(
+          "flex items-center gap-2 px-2 py-3 text-base font-medium text-gray-800 transition-colors hover:text-primary-600",
+          className,
+          pathname === item.absoluteHref && "text-primary-600",
+        )}
+      >
+        {content}
+      </Link>
+    );
+  }
+
+  return (
+    <div
+      className={cn(
+        "flex items-center gap-2 px-2 py-3 text-base font-medium text-gray-800",
+        className,
+      )}
+    >
+      {content}
+    </div>
+  );
+}
+
+function MobileNavItem({
+  item,
+  itemKey,
+  pathname,
+  onNavigate,
+}: {
+  item: MenuItem;
+  itemKey: string;
+  pathname: string;
+  onNavigate: () => void;
+}) {
+  if (hasSubContent(item)) {
+    return (
+      <div className="border-b border-gray-100 last:border-0">
+        <AccordionItem value={itemKey} className="border-none">
+          <div className="flex items-center justify-between">
+            <MobileNavLabel
+              item={item}
+              pathname={pathname}
+              onNavigate={onNavigate}
+              className="flex-1"
+              fallbackAriaLabel="Menu"
+            />
+            <AccordionTrigger className="w-10 shrink-0 justify-center p-2 text-gray-500 hover:text-primary-600 hover:no-underline" />
+          </div>
+          <AccordionContent className="pb-3 pl-4">
+            <ul className="flex flex-col gap-2 border-l-2 border-gray-100 pl-4">
+              <MobileSubContent
+                item={item}
+                pathname={pathname}
+                onNavigate={onNavigate}
+              />
+            </ul>
+          </AccordionContent>
+        </AccordionItem>
+      </div>
+    );
+  }
+
+  return (
+    <div className="border-b border-gray-100 last:border-0">
+      <MobileNavLabel
+        item={item}
+        pathname={pathname}
+        onNavigate={onNavigate}
+        className={item.absoluteHref ? undefined : "select-none"}
+        fallbackAriaLabel="Link"
+      />
+    </div>
+  );
+}
+
 interface TheNavbarClientProps {
   menu: MenuItem[];
   logo?: Media | null;
@@ -95,12 +438,7 @@ export default function TheNavbarClient({
   const t = useTranslations("navigation");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
-
-  const hasSubContent = (item: MenuItem) => {
-    if (item.layout === "pillars") return !!item.pillars?.length;
-    if (item.layout === "tabs-posts") return !!item.categories?.length;
-    return !!item.children?.length;
-  };
+  const closeMobileMenu = () => setMobileMenuOpen(false);
 
   return (
     <>
@@ -145,76 +483,14 @@ export default function TheNavbarClient({
         <div className="hidden flex-1 items-center lg:flex">
           <NavigationMenu>
             <NavigationMenuList className="gap-1">
-              {menu.map((item, index) => {
-                const hasContent = hasSubContent(item);
-
-                return (
-                  <NavigationMenuItem key={index}>
-                    {hasContent ? (
-                      <>
-                        <NavigationMenuTrigger
-                          render={
-                            item.absoluteHref ? (
-                              <Link href={item.absoluteHref} />
-                            ) : undefined
-                          }
-                          nativeButton={!item.absoluteHref}
-                          aria-label={item.name || item.icon || "Menu"}
-                          className="hover:text-primary-700 data-[state=open]:text-primary-700 focus:text-primary-700 data-open:text-primary-700 data-popup-open:text-primary-700 flex items-center gap-1.5 transition-colors hover:bg-white focus:bg-white data-open:bg-white data-popup-open:bg-white data-[state=open]:bg-white"
-                        >
-                          <MenuIcon
-                            icon={item.icon}
-                            name={item.name}
-                            size={5}
-                          />
-                          {item.name ? (
-                            <span>{item.name.toUpperCase()}</span>
-                          ) : null}
-                        </NavigationMenuTrigger>
-                        <NavigationMenuContent className="rounded-xl border-none text-gray-900 shadow-lg">
-                          <MenuLayoutRenderer
-                            item={item}
-                            pathname={pathname}
-                            categoryPostsPromise={categoryPostsPromise}
-                          />
-                        </NavigationMenuContent>
-                      </>
-                    ) : item.absoluteHref ? (
-                      <NavigationMenuLink
-                        render={
-                          <Link
-                            href={item.absoluteHref}
-                            aria-label={item.name || item.icon || "Link"}
-                            className={cn(
-                              navigationMenuTriggerStyle(),
-                              "hover:text-primary-700 focus:text-primary-700 flex items-center gap-1.5 text-gray-50 transition-colors hover:bg-white focus:bg-white",
-                              pathname === item.absoluteHref &&
-                                "text-primary-700 bg-white font-bold",
-                            )}
-                          />
-                        }
-                      >
-                        <MenuIcon icon={item.icon} name={item.name} size={5} />
-                        {item.name ? (
-                          <span>{item.name.toUpperCase()}</span>
-                        ) : null}
-                      </NavigationMenuLink>
-                    ) : (
-                      <span
-                        className={cn(
-                          navigationMenuTriggerStyle(),
-                          "flex cursor-default items-center gap-1.5 bg-transparent text-gray-50 select-none",
-                        )}
-                      >
-                        <MenuIcon icon={item.icon} name={item.name} size={5} />
-                        {item.name ? (
-                          <span>{item.name.toUpperCase()}</span>
-                        ) : null}
-                      </span>
-                    )}
-                  </NavigationMenuItem>
-                );
-              })}
+              {menu.map((item) => (
+                <DesktopNavItem
+                  key={getMenuItemKey(item)}
+                  item={item}
+                  pathname={pathname}
+                  categoryPostsPromise={categoryPostsPromise}
+                />
+              ))}
             </NavigationMenuList>
           </NavigationMenu>
         </div>
@@ -245,7 +521,7 @@ export default function TheNavbarClient({
               <SheetTitle>
                 <Link
                   href="/"
-                  onClick={() => setMobileMenuOpen(false)}
+                  onClick={closeMobileMenu}
                   className="flex items-center gap-3"
                 >
                   {typeof logo?.url === "string" ? (
@@ -268,252 +544,16 @@ export default function TheNavbarClient({
             </SheetHeader>
             <nav className="flex flex-col gap-2">
               <Accordion className="w-full">
-                {menu.map((item, index) => {
-                  const hasContent = hasSubContent(item);
-
+                {menu.map((item) => {
+                  const itemKey = getMenuItemKey(item);
                   return (
-                    <div
-                      key={index}
-                      className="border-b border-gray-100 last:border-0"
-                    >
-                      {hasContent ? (
-                        <AccordionItem
-                          value={`item-${index}`}
-                          className="border-none"
-                        >
-                          <div className="flex items-center justify-between">
-                            {item.absoluteHref ? (
-                              <Link
-                                href={item.absoluteHref}
-                                onClick={() => setMobileMenuOpen(false)}
-                                aria-label={item.name || item.icon || "Menu"}
-                                className={cn(
-                                  "hover:text-primary-600 flex flex-1 items-center gap-2 px-2 py-3 text-base font-medium text-gray-800 transition-colors",
-                                  pathname === item.absoluteHref &&
-                                    "text-primary-600",
-                                )}
-                              >
-                                <MenuIcon
-                                  icon={item.icon}
-                                  name={item.name}
-                                  size={5}
-                                />
-                                {item.name ? <span>{item.name}</span> : null}
-                              </Link>
-                            ) : (
-                              <div className="flex flex-1 items-center gap-2 px-2 py-3 text-base font-medium text-gray-800">
-                                <MenuIcon
-                                  icon={item.icon}
-                                  name={item.name}
-                                  size={5}
-                                />
-                                {item.name ? <span>{item.name}</span> : null}
-                              </div>
-                            )}
-                            <AccordionTrigger className="hover:text-primary-600 w-10 shrink-0 justify-center p-2 text-gray-500 hover:no-underline" />
-                          </div>
-                          <AccordionContent className="pb-3 pl-4">
-                            <ul className="flex flex-col gap-2 border-l-2 border-gray-100 pl-4">
-                              {/* Layout 1: Grid */}
-                              {item.layout === "grid" &&
-                                item.children?.map((child, childIndex) => (
-                                  <li key={childIndex}>
-                                    {child.absoluteHref ? (
-                                      <Link
-                                        href={child.absoluteHref}
-                                        onClick={() => setMobileMenuOpen(false)}
-                                        className={cn(
-                                          "hover:text-primary-600 flex items-center gap-2 py-2 text-base text-gray-700 transition-colors",
-                                          pathname === child.absoluteHref &&
-                                            "text-primary-600 font-semibold",
-                                        )}
-                                      >
-                                        <MenuIcon
-                                          icon={child.icon}
-                                          name={child.name}
-                                          size={5}
-                                        />
-                                        <span>{child.name}</span>
-                                      </Link>
-                                    ) : (
-                                      <span className="flex items-center gap-2 py-2 text-base font-medium text-gray-700">
-                                        <MenuIcon
-                                          icon={child.icon}
-                                          name={child.name}
-                                          size={5}
-                                        />
-                                        <span>{child.name}</span>
-                                      </span>
-                                    )}
-                                  </li>
-                                ))}
-
-                              {/* Layout 2: Pillars */}
-                              {item.layout === "pillars" && (
-                                <>
-                                  {item.pillars?.map((pillar, pIdx) => (
-                                    <li key={pIdx} className="space-y-1 py-1">
-                                      {pillar.headerBanner.absoluteHref ? (
-                                        <Link
-                                          href={
-                                            pillar.headerBanner.absoluteHref
-                                          }
-                                          onClick={() =>
-                                            setMobileMenuOpen(false)
-                                          }
-                                          className={cn(
-                                            "hover:text-primary-600 block text-base font-bold uppercase transition-colors",
-                                            pathname ===
-                                              pillar.headerBanner.absoluteHref
-                                              ? "text-primary-600"
-                                              : "text-gray-800",
-                                          )}
-                                        >
-                                          {pillar.headerBanner.title}
-                                        </Link>
-                                      ) : (
-                                        <span className="text-base font-bold text-gray-700 uppercase">
-                                          {pillar.headerBanner.title}
-                                        </span>
-                                      )}
-                                      {pillar.links.map((link, lIdx) => (
-                                        <div key={lIdx}>
-                                          {link.absoluteHref ? (
-                                            <Link
-                                              key={lIdx}
-                                              href={link.absoluteHref}
-                                              onClick={() =>
-                                                setMobileMenuOpen(false)
-                                              }
-                                              className={cn(
-                                                "hover:text-primary-600 flex items-center gap-2 py-1.5 text-base text-gray-700 transition-colors",
-                                                pathname ===
-                                                  link.absoluteHref &&
-                                                  "text-primary-600 font-semibold",
-                                              )}
-                                            >
-                                              <MenuIcon
-                                                icon={link.icon}
-                                                name={link.name}
-                                                size={4}
-                                              />
-                                              <span>{link.name}</span>
-                                            </Link>
-                                          ) : (
-                                            <span className="flex items-center gap-2 py-1.5 text-base text-gray-600">
-                                              <MenuIcon
-                                                icon={link.icon}
-                                                name={link.name}
-                                                size={4}
-                                              />
-                                              <span>{link.name}</span>
-                                            </span>
-                                          )}
-                                        </div>
-                                      ))}
-                                    </li>
-                                  ))}
-                                  {item.bottomBar?.links.map((link, bIdx) => (
-                                    <li key={`b-${bIdx}`}>
-                                      {link.absoluteHref ? (
-                                        <Link
-                                          href={link.absoluteHref}
-                                          onClick={() =>
-                                            setMobileMenuOpen(false)
-                                          }
-                                          className={cn(
-                                            "hover:text-primary-600 flex items-center gap-2 py-1.5 text-base font-medium text-gray-700 transition-colors",
-                                            pathname === link.absoluteHref &&
-                                              "text-primary-600 font-semibold",
-                                          )}
-                                        >
-                                          <MenuIcon
-                                            icon={link.icon}
-                                            name={link.name}
-                                            size={4}
-                                          />
-                                          <span>{link.name}</span>
-                                        </Link>
-                                      ) : (
-                                        <span className="flex items-center gap-2 py-1.5 text-base font-medium text-gray-600">
-                                          <MenuIcon
-                                            icon={link.icon}
-                                            name={link.name}
-                                            size={4}
-                                          />
-                                          <span>{link.name}</span>
-                                        </span>
-                                      )}
-                                    </li>
-                                  ))}
-                                </>
-                              )}
-
-                              {/* Layout 3: Tabs + Posts Categories */}
-                              {item.layout === "tabs-posts" &&
-                                item.categories?.map((cat, catIdx) => (
-                                  <li key={catIdx}>
-                                    {cat.absoluteHref ? (
-                                      <Link
-                                        href={cat.absoluteHref}
-                                        onClick={() => setMobileMenuOpen(false)}
-                                        className={cn(
-                                          "hover:text-primary-600 flex items-center gap-2 py-2 text-base text-gray-700 transition-colors",
-                                          pathname === cat.absoluteHref &&
-                                            "text-primary-600 font-semibold",
-                                        )}
-                                      >
-                                        <MenuIcon
-                                          icon={cat.icon}
-                                          name={cat.name}
-                                          size={4}
-                                        />
-                                        <span>{cat.name}</span>
-                                      </Link>
-                                    ) : (
-                                      <span className="flex items-center gap-2 py-2 text-base font-medium text-gray-700">
-                                        <MenuIcon
-                                          icon={cat.icon}
-                                          name={cat.name}
-                                          size={4}
-                                        />
-                                        <span>{cat.name}</span>
-                                      </span>
-                                    )}
-                                  </li>
-                                ))}
-                            </ul>
-                          </AccordionContent>
-                        </AccordionItem>
-                      ) : item.absoluteHref ? (
-                        <Link
-                          href={item.absoluteHref}
-                          onClick={() => setMobileMenuOpen(false)}
-                          aria-label={item.name || item.icon || "Link"}
-                          className={cn(
-                            "hover:text-primary-600 flex items-center gap-2 px-2 py-3 text-base font-medium text-gray-800 transition-colors",
-                            pathname === item.absoluteHref &&
-                              "text-primary-600",
-                          )}
-                        >
-                          <MenuIcon
-                            icon={item.icon}
-                            name={item.name}
-                            size={5}
-                          />
-                          {item.name ? <span>{item.name}</span> : null}
-                        </Link>
-                      ) : (
-                        <div className="flex items-center gap-2 px-2 py-3 text-base font-medium text-gray-800 select-none">
-                          <MenuIcon
-                            icon={item.icon}
-                            name={item.name}
-                            size={5}
-                          />
-                          {item.name ? <span>{item.name}</span> : null}
-                        </div>
-                      )}
-                    </div>
+                    <MobileNavItem
+                      key={itemKey}
+                      item={item}
+                      itemKey={itemKey}
+                      pathname={pathname}
+                      onNavigate={closeMobileMenu}
+                    />
                   );
                 })}
               </Accordion>

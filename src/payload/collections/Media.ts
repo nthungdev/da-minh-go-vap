@@ -1,6 +1,6 @@
+import type { CollectionConfig } from "payload";
 import { onlyRoles } from "@/payload/utils/access-control";
 import { transformUrl } from "@/utils/cloudflare";
-import type { CollectionConfig } from "payload";
 
 const Media: CollectionConfig = {
   slug: "media",

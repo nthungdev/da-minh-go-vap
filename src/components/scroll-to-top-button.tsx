@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { FaArrowUp } from "react-icons/fa";
 import { useTranslations } from "next-intl";
+import { useEffect, useState } from "react";
+import { FaArrowUp } from "react-icons/fa";
 
 export default function ScrollToTopButton() {
   const t = useTranslations("common");
@@ -33,7 +33,7 @@ export default function ScrollToTopButton() {
       type="button"
       aria-label={t("scrollToTop")}
       onClick={scrollToTop}
-      className="text-primary-700 hover:bg-primary-700 fixed right-6 bottom-6 z-20 rounded-full bg-gray-200/50 p-3 shadow-lg transition-all hover:text-white"
+      className="fixed right-6 bottom-6 z-20 rounded-full bg-gray-200/50 p-3 text-primary-700 shadow-lg transition-all hover:bg-primary-700 hover:text-white"
     >
       <FaArrowUp className="size-4" />
     </button>

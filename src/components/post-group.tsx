@@ -1,7 +1,7 @@
+import type { ComponentProps } from "react";
 import AppPostGridAsync from "@/components/app-post-grid-async";
 import AppPostListAsync from "@/components/app-post-list-async";
-import { AppPost } from "@/definitions";
-import { ComponentProps } from "react";
+import type { AppPost } from "@/definitions";
 
 interface PostGroupProps extends ComponentProps<"div"> {
   hiddenTags: string[];

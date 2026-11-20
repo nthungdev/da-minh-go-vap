@@ -1,9 +1,9 @@
-import { HiddenTag } from "@/payload-types";
-import { makePublicTagPath } from "@/utils/post";
-import { useTranslations } from "next-intl";
 import Link from "next/link";
-import { ComponentProps } from "react";
+import { useTranslations } from "next-intl";
+import type { ComponentProps } from "react";
+import type { HiddenTag } from "@/payload-types";
 import { cn } from "@/utils/common";
+import { makePublicTagPath } from "@/utils/post";
 
 export function PublicTagList({
   className,
@@ -21,7 +21,7 @@ export function PublicTagList({
         <Link
           key={tag.id}
           href={makePublicTagPath(tag.tag)}
-          className="border:bg-secondary-300 bg-secondary-400 hover:bg-secondary-600 rounded-full border px-3 py-1 text-sm text-white transition"
+          className="border:bg-secondary-300 rounded-full border bg-secondary-400 px-3 py-1 text-sm text-white transition hover:bg-secondary-600"
         >
           {tag.label}
         </Link>

@@ -1,10 +1,10 @@
 "use client";
 
-import type { PostParams } from "@/definitions";
-import { transformUrl } from "@/utils/cloudflare";
-import { useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
+import type { PostParams } from "@/definitions";
+import { transformUrl } from "@/utils/cloudflare";
 import { cn } from "@/utils/common";
 
 interface AppPostGridFiveProps {
@@ -36,7 +36,7 @@ export default function AppPostGridSix({
       {posts.slice(0, 6).map((post, index) => (
         // min-w-0 to override min-width: min-content that cause post title to not be truncated
         <li
-          key={index}
+          key={post.slug}
           className={cn(
             "relative block w-full min-w-0 overflow-hidden border bg-white hover:ring-3 md:aspect-video md:border-transparent",
             cellClasses[index],
@@ -63,16 +63,16 @@ export default function AppPostGridSix({
               <h2 className="block truncate text-center text-xl">
                 {post.title}
               </h2>
-              <button className="block w-full text-center">
+              <button type="button" className="block w-full text-center">
                 {t("viewMore")}...
               </button>
             </div>
 
             <div className="group absolute top-0 left-0 hidden size-full hover:cursor-pointer md:block">
               {/* static black gradient background */}
-              <div className="bg-opacity-50 to-primary-800 absolute bottom-0 left-0 w-full bg-linear-to-b from-transparent from-5% md:h-20 lg:h-24"></div>
+              <div className="bg-opacity-50 absolute bottom-0 left-0 w-full bg-linear-to-b from-transparent from-5% to-primary-800 md:h-20 lg:h-24"></div>
               {/* slide up secondary color gradient background */}
-              <div className="bg-opacity-50 via-secondary-400 to-secondary-400 absolute bottom-0 left-0 w-full translate-y-full bg-linear-to-b from-transparent from-5% via-40% transition group-hover:translate-y-0 md:h-20 lg:h-24"></div>
+              <div className="bg-opacity-50 absolute bottom-0 left-0 w-full translate-y-full bg-linear-to-b from-transparent from-5% via-secondary-400 via-40% to-secondary-400 transition group-hover:translate-y-0 md:h-20 lg:h-24"></div>
               {/* static post title */}
               <div className="absolute bottom-0 left-0 w-full p-3">
                 <span className="line-clamp-2 text-white md:text-sm lg:text-lg">

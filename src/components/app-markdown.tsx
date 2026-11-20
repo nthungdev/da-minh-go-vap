@@ -1,7 +1,3 @@
-import { transformUrl } from "@/utils/cloudflare";
-import { cn } from "@/utils/common";
-import { preserveMarkdownWhitespace } from "@/utils/markdown-whitespace";
-import KeywordTooltip from "@/components/keyword-tooltip";
 import {
   BookOpen,
   Church,
@@ -11,16 +7,20 @@ import {
   HandHeart,
   HeartHandshake,
   Languages,
-  LucideIcon,
+  type LucideIcon,
   Mic,
   Users,
   Video,
 } from "lucide-react";
 import { useLocale } from "next-intl";
-import Markdown, { Components } from "react-markdown";
+import Markdown, { type Components } from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import rehypeSanitize, { defaultSchema } from "rehype-sanitize";
 import remarkGfm from "remark-gfm";
+import KeywordTooltip from "@/components/keyword-tooltip";
+import { transformUrl } from "@/utils/cloudflare";
+import { cn } from "@/utils/common";
+import { preserveMarkdownWhitespace } from "@/utils/markdown-whitespace";
 
 export { preserveMarkdownWhitespace };
 
@@ -87,18 +87,37 @@ const FA_ICON_MAP: Record<string, LucideIcon> = {
   "fa-video": Video,
 };
 
+function pickStringProp(
+  props: Record<string, unknown>,
+  ...keys: string[]
+): string {
+  for (const key of keys) {
+    const val = props[key];
+    if (typeof val === "string") return val;
+  }
+  return "";
+}
+
 function createMarkdownComponents(footnoteHeading: string): Components {
   return {
     // `node` is the hast element; omit it so it is not serialized into the page payload.
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    img({ node, src, alt, width, height, loading, decoding, ...imgProps }) {
+    img({
+      node: _node,
+      src,
+      alt,
+      width,
+      height,
+      loading,
+      decoding,
+      ...imgProps
+    }) {
       const resolvedSrc =
         typeof src === "string" && src.includes("/api/media/file/")
           ? transformUrl(src, { width: "800", quality: "80" })
           : src;
 
       return (
-        // eslint-disable-next-line @next/next/no-img-element
+        // biome-ignore lint/performance/noImgElement: markdown renders arbitrary external image URLs
         <img
           {...imgProps}
           src={resolvedSrc}
@@ -142,32 +161,19 @@ function createMarkdownComponents(footnoteHeading: string): Components {
       children?: React.ReactNode;
       [key: string]: unknown;
     }) => {
-      const title =
-        typeof props["data-title"] === "string"
-          ? props["data-title"]
-          : typeof props.title === "string"
-            ? props.title
-            : "";
-      const description =
-        typeof props["data-description"] === "string"
-          ? props["data-description"]
-          : typeof props.description === "string"
-            ? props.description
-            : "";
-      const imageUrl =
-        typeof props["data-image"] === "string"
-          ? props["data-image"]
-          : typeof props.image === "string"
-            ? props.image
-            : typeof props["data-image-url"] === "string"
-              ? props["data-image-url"]
-              : "";
-      const href =
-        typeof props["data-href"] === "string"
-          ? props["data-href"]
-          : typeof props.href === "string"
-            ? props.href
-            : "";
+      const title = pickStringProp(props, "data-title", "title");
+      const description = pickStringProp(
+        props,
+        "data-description",
+        "description",
+      );
+      const imageUrl = pickStringProp(
+        props,
+        "data-image",
+        "image",
+        "data-image-url",
+      );
+      const href = pickStringProp(props, "data-href", "href");
 
       return (
         <KeywordTooltip
@@ -180,8 +186,7 @@ function createMarkdownComponents(footnoteHeading: string): Components {
         </KeywordTooltip>
       );
     },
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    h2({ node, id, className, children, ...h2Props }) {
+    h2({ node: _node, id, className, children, ...h2Props }) {
       if (id === "footnote-label" || id === "user-content-footnote-label") {
         const visibleClass =
           typeof className === "string"

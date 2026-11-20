@@ -1,17 +1,26 @@
 "use client";
 
+import Image from "next/image";
+import Link from "next/link";
+import { useTranslations } from "next-intl";
+import { use } from "react";
 import { NavigationMenuLink } from "@/components/ui/navigation-menu";
+import { transformUrl } from "@/utils/cloudflare";
 import { cn } from "@/utils/common";
 import type { MenuCategoryPosts } from "@/utils/menu-category-posts";
 import { makePostPath } from "@/utils/post";
-import { transformUrl } from "@/utils/cloudflare";
-import Image from "next/image";
-import Link from "next/link";
-import { use } from "react";
-import { useTranslations } from "next-intl";
 
 const GRID_CLASS_NAME = "grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4";
-const SKELETON_CARD_COUNT = 8;
+const SKELETON_CARD_KEYS = [
+  "skeleton-1",
+  "skeleton-2",
+  "skeleton-3",
+  "skeleton-4",
+  "skeleton-5",
+  "skeleton-6",
+  "skeleton-7",
+  "skeleton-8",
+] as const;
 
 interface MenuCategoryPostsGridProps {
   postsPromise: Promise<MenuCategoryPosts>;
@@ -76,7 +85,7 @@ export function MenuCategoryPostsGrid({
             <div className="px-1 pt-2 pb-0.5">
               <h4
                 className={cn(
-                  "group-hover:text-primary-700 line-clamp-2 text-base leading-snug font-semibold text-gray-900 transition-colors",
+                  "line-clamp-2 text-base leading-snug font-semibold text-gray-900 transition-colors group-hover:text-primary-700",
                   isPostActive && "text-primary-700",
                 )}
               >
@@ -94,9 +103,9 @@ export function MenuCategoryPostsGrid({
 export function MenuCategoryPostsSkeleton() {
   return (
     <div className={GRID_CLASS_NAME} aria-busy="true">
-      {Array.from({ length: SKELETON_CARD_COUNT }, (_, index) => (
+      {SKELETON_CARD_KEYS.map((skeletonKey) => (
         <div
-          key={index}
+          key={skeletonKey}
           className="flex flex-col p-1.5 motion-safe:animate-pulse"
           aria-hidden="true"
         >

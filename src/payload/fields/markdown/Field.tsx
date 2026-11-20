@@ -1,13 +1,13 @@
 "use client";
 
+import { FieldDescription, FieldLabel, useField } from "@payloadcms/ui";
+import type { CodeFieldClientComponent } from "payload";
 import { useRef } from "react";
 import FootnoteHelper from "@/payload/fields/markdown/footnote-helper";
 import KeywordTooltipHelper from "@/payload/fields/markdown/KeywordTooltipHelper";
 import MarkdownEditor, {
   type MarkdownEditorHandle,
 } from "@/payload/fields/markdown/MarkdownEditor";
-import { FieldDescription, FieldLabel, useField } from "@payloadcms/ui";
-import { CodeFieldClientComponent } from "payload";
 
 const MarkdownField: CodeFieldClientComponent = ({ path, field }) => {
   const { value, setValue } = useField<string>({ path });

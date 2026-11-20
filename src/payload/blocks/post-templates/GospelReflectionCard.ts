@@ -1,5 +1,5 @@
+import type { Block } from "payload";
 import { authorField, markdownField, spotifyUrlField } from "@/payload/fields";
-import { Block } from "payload";
 
 const GospelReflectionCardBlock: Block = {
   slug: "gospelReflectionCard",

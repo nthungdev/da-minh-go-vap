@@ -1,6 +1,6 @@
+import type { GlobalConfig } from "payload";
 import { onlyRoles } from "@/payload/utils/access-control";
 import { revalidatePath } from "@/payload/utils/data";
-import { GlobalConfig } from "payload";
 
 const SiteSettings: GlobalConfig = {
   slug: "siteSettings",

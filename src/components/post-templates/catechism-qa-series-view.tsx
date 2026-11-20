@@ -1,5 +1,5 @@
 import AppMarkdown from "@/components/app-markdown";
-import { CatechismQASeriesBlock } from "@/payload-types";
+import type { CatechismQASeriesBlock } from "@/payload-types";
 
 interface Props {
   block: CatechismQASeriesBlock;
@@ -10,10 +10,10 @@ export default function CatechismQASeriesView({ block }: Props) {
 
   return (
     <article className="mx-auto max-w-5xl rounded-xl bg-white px-4 py-5 shadow-[0_4px_16px_rgba(0,0,0,0.06)] md:px-6">
-      <h2 className="text-secondary mb-2 text-[22px] font-bold uppercase md:text-[28px]">
+      <h2 className="mb-2 text-[22px] font-bold text-secondary uppercase md:text-[28px]">
         {title}
       </h2>
-      <AppMarkdown className="text-primary-800 mb-5 space-y-3 border-l-4 border-orange-500 pl-3 text-justify text-[17px] leading-relaxed md:text-xl">
+      <AppMarkdown className="mb-5 space-y-3 border-l-4 border-orange-500 pl-3 text-justify text-[17px] leading-relaxed text-primary-800 md:text-xl">
         {introduction}
       </AppMarkdown>
 
@@ -26,7 +26,7 @@ export default function CatechismQASeriesView({ block }: Props) {
             {item.icon && (
               <div
                 aria-hidden="true"
-                className="bg-primary-700/10 grid size-9 shrink-0 place-items-center rounded-lg text-lg sm:size-[42px] sm:text-[22px]"
+                className="grid size-9 shrink-0 place-items-center rounded-lg bg-primary-700/10 text-lg sm:size-[42px] sm:text-[22px]"
               >
                 {item.icon}
               </div>

@@ -1,7 +1,7 @@
+import type { Field, GlobalConfig } from "payload";
 import { MENU_ICON_OPTIONS } from "@/definitions/menu-icons";
 import { onlyRoles } from "@/payload/utils/access-control";
 import { revalidatePath } from "@/payload/utils/data";
-import { Field, GlobalConfig } from "payload";
 
 const linkFields: Field[] = [
   {
@@ -368,7 +368,7 @@ function labelValidation(
   const hasLabel =
     typeof val === "string" ? val.trim().length > 0 : Boolean(val);
   const hasIcon = Boolean(siblingData?.icon);
-  if (!hasLabel && !hasIcon) {
+  if (!(hasLabel || hasIcon)) {
     return "Phải nhập nhãn hoặc chọn biểu tượng";
   }
   return true;
@@ -390,14 +390,14 @@ function iconValidation(
     typeof siblingData?.label === "string"
       ? siblingData.label.trim().length > 0
       : Boolean(siblingData?.label);
-  if (!hasIcon && !hasLabel) {
+  if (!(hasIcon || hasLabel)) {
     return "Phải nhập nhãn hoặc chọn biểu tượng";
   }
   return true;
 }
 
 function linkValidation(linkType: "internal" | "external") {
-  return function (
+  return (
     val: unknown,
     {
       siblingData,
@@ -406,7 +406,7 @@ function linkValidation(linkType: "internal" | "external") {
         linkType?: "none" | "internal" | "external";
       }>;
     },
-  ) {
+  ) => {
     if (siblingData.linkType === linkType && !val) {
       return "This field is required";
     }

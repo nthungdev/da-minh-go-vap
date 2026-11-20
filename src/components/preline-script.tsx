@@ -1,8 +1,8 @@
 "use client";
 
 import { usePathname } from "next/navigation";
+import type { IStaticMethods } from "preline/preline";
 import { useEffect } from "react";
-import { IStaticMethods } from "preline/preline";
 
 declare global {
   interface Window {
@@ -15,6 +15,8 @@ export default function PrelineScript() {
   const path = usePathname();
 
   useEffect(() => {
+    if (!path) return;
+
     const initPreline = () => {
       import("preline/preline").then(() => {
         window.HSStaticMethods?.autoInit?.();

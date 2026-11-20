@@ -1,4 +1,4 @@
-import { VideoHTMLAttributes } from "react";
+import type { VideoHTMLAttributes } from "react";
 import { cn } from "@/utils/common";
 
 export default function AppBannerVideo(

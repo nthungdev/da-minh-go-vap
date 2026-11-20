@@ -1,7 +1,7 @@
 "use client";
 
-import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import MDEditor from "@uiw/react-md-editor";
+import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import rehypeSanitize from "rehype-sanitize";
 
 interface MarkdownEditorProps {

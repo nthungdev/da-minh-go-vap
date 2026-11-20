@@ -1,10 +1,10 @@
-import { NavigationMenuLink } from "@/components/ui/navigation-menu";
-import { cn } from "@/utils/common";
-import { MenuItem } from "@/utils/menu";
 import { ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { NavigationMenuLink } from "@/components/ui/navigation-menu";
 import { getMenuIconSrc } from "@/definitions/menu-icons";
+import { cn } from "@/utils/common";
+import type { MenuItem } from "@/utils/menu";
 
 interface MenuLayoutGridProps {
   item: MenuItem;
@@ -21,7 +21,8 @@ export default function MenuLayoutGrid({
 
   return (
     <ul className="grid w-[400px] gap-2 p-2 sm:w-[540px] md:w-[720px] md:grid-cols-2 lg:w-[960px] lg:grid-cols-3">
-      {item.children.map((child, index) => {
+      {item.children.map((child) => {
+        const childKey = `${child.name}-${child.absoluteHref}`;
         const isActive = child.absoluteHref
           ? pathname === child.absoluteHref
           : false;
@@ -42,7 +43,7 @@ export default function MenuLayoutGrid({
             <div className="flex flex-1 shrink-0 items-center justify-between gap-x-2">
               <div className="flex-1">
                 <div className="flex w-full items-center justify-between gap-2 text-left">
-                  <span className="group-hover:text-primary-700 text-left text-lg leading-snug font-bold text-gray-900">
+                  <span className="text-left text-lg leading-snug font-bold text-gray-900 group-hover:text-primary-700">
                     {child.name}
                   </span>
                 </div>
@@ -55,14 +56,14 @@ export default function MenuLayoutGrid({
               </div>
 
               {child.absoluteHref && (
-                <ChevronRight className="group-hover:text-primary-600 size-4 shrink-0 text-gray-400 transition-all group-hover:translate-x-0.5" />
+                <ChevronRight className="size-4 shrink-0 text-gray-400 transition-all group-hover:translate-x-0.5 group-hover:text-primary-600" />
               )}
             </div>
           </div>
         );
 
         return (
-          <li key={index} className="flex flex-col justify-start">
+          <li key={childKey} className="flex flex-col justify-start">
             {/* Parent Header Link */}
             {child.absoluteHref ? (
               <NavigationMenuLink
@@ -73,7 +74,7 @@ export default function MenuLayoutGrid({
                     className={cn(
                       "group flex w-full items-center justify-between gap-x-2 rounded-md p-2.5 text-left transition-colors outline-none select-none",
                       "hover:bg-gray-100 focus:bg-gray-100",
-                      isActive && "text-primary-700 bg-gray-100",
+                      isActive && "bg-gray-100 text-primary-700",
                     )}
                   />
                 }
@@ -89,15 +90,16 @@ export default function MenuLayoutGrid({
             {/* Sub-items if any */}
             {child.children && child.children.length > 0 && (
               <div className="mt-1.5 flex w-full flex-wrap justify-start gap-1.5 border-t border-gray-100 pt-2.5 text-left">
-                {child.children.map((subChild, subIdx) =>
-                  subChild.absoluteHref ? (
+                {child.children.map((subChild) => {
+                  const subChildKey = `${subChild.name}-${subChild.absoluteHref}`;
+                  return subChild.absoluteHref ? (
                     <Link
-                      key={subIdx}
+                      key={subChildKey}
                       href={subChild.absoluteHref}
                       className={cn(
-                        "hover:text-primary-700 flex items-center gap-1.5 rounded-md bg-gray-100 px-2 py-0.5 text-left text-base text-gray-700 transition-colors hover:bg-gray-200",
+                        "flex items-center gap-1.5 rounded-md bg-gray-100 px-2 py-0.5 text-left text-base text-gray-700 transition-colors hover:bg-gray-200 hover:text-primary-700",
                         pathname === subChild.absoluteHref &&
-                          "text-primary-700 bg-gray-200 font-medium",
+                          "bg-gray-200 font-medium text-primary-700",
                       )}
                     >
                       {subChild.icon && (
@@ -115,7 +117,7 @@ export default function MenuLayoutGrid({
                     </Link>
                   ) : (
                     <span
-                      key={subIdx}
+                      key={subChildKey}
                       className="flex items-center gap-1.5 rounded-md bg-gray-100 px-2 py-0.5 text-left text-base text-gray-600"
                     >
                       {subChild.icon && (
@@ -131,8 +133,8 @@ export default function MenuLayoutGrid({
                       )}
                       <span>{subChild.name}</span>
                     </span>
-                  ),
-                )}
+                  );
+                })}
               </div>
             )}
           </li>

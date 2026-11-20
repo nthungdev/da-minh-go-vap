@@ -1,13 +1,13 @@
 "use client";
 
-import { NavigationMenuLink } from "@/components/ui/navigation-menu";
-import { cn } from "@/utils/common";
-import { MenuItem } from "@/utils/menu";
 import { ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { getMenuIconSrc } from "@/definitions/menu-icons";
 import { Suspense, useState } from "react";
+import { NavigationMenuLink } from "@/components/ui/navigation-menu";
+import { getMenuIconSrc } from "@/definitions/menu-icons";
+import { cn } from "@/utils/common";
+import type { MenuItem } from "@/utils/menu";
 import type { MenuCategoryPosts } from "@/utils/menu-category-posts";
 import { getCategoryPostsKey } from "@/utils/streaming";
 import {
@@ -62,7 +62,7 @@ export default function MenuLayoutTabsPosts({
                 <span className="truncate">{cat.name}</span>
               </div>
               {cat.absoluteHref && (
-                <ChevronRight className="group-hover:text-primary-600 size-4 shrink-0 text-gray-400 transition-all group-hover:translate-x-0.5" />
+                <ChevronRight className="size-4 shrink-0 text-gray-400 transition-all group-hover:translate-x-0.5 group-hover:text-primary-600" />
               )}
             </>
           );
@@ -76,9 +76,10 @@ export default function MenuLayoutTabsPosts({
             isRouteActive && "bg-gray-200 font-semibold text-primary-700",
           );
 
+          const categoryKey = `${cat.name}-${cat.absoluteHref}`;
           return cat.absoluteHref ? (
             <NavigationMenuLink
-              key={idx}
+              key={categoryKey}
               className={tabClassName}
               render={
                 <Link
@@ -91,7 +92,7 @@ export default function MenuLayoutTabsPosts({
             </NavigationMenuLink>
           ) : (
             <button
-              key={idx}
+              key={categoryKey}
               type="button"
               onMouseEnter={() => setActiveTabIndex(idx)}
               className={tabClassName}

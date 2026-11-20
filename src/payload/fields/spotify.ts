@@ -1,5 +1,5 @@
-import { toSpotifyEmbedUrl } from "@/utils/spotify";
 import type { TextField } from "payload";
+import { toSpotifyEmbedUrl } from "@/utils/spotify";
 
 type TextFieldSingle = Extract<TextField, { hasMany?: false }>;
 

@@ -1,7 +1,7 @@
-import AppMarkdown from "@/components/app-markdown";
-import { GospelReflectionSplitBlock } from "@/payload-types";
-import { cn } from "@/utils/common";
 import { useTranslations } from "next-intl";
+import AppMarkdown from "@/components/app-markdown";
+import type { GospelReflectionSplitBlock } from "@/payload-types";
+import { cn } from "@/utils/common";
 
 interface Props {
   block: GospelReflectionSplitBlock;
@@ -26,7 +26,7 @@ export default function GospelReflectionSplitView({ block }: Props) {
   return (
     <article className="rounded-[18px] border border-[#008596]/12 bg-gradient-to-b from-white to-[#fbfbfe] p-4 font-[system-ui,-apple-system,'Segoe_UI',Roboto,Arial,sans-serif] text-[clamp(16px,1.1vw,19px)] leading-[1.7] text-slate-900 shadow-[0_6px_20px_rgba(18,25,40,0.08)] sm:p-6">
       <header className="mb-3 flex flex-wrap items-center gap-3">
-        <span className="text-chill-800 rounded-lg bg-[#008596]/10 px-3 py-1.5 text-[0.9em] font-semibold">
+        <span className="rounded-lg bg-[#008596]/10 px-3 py-1.5 text-[0.9em] font-semibold text-chill-800">
           {liturgyDate}
         </span>
         <span className="text-[0.9em] text-gray-500">{liturgyWeek}</span>

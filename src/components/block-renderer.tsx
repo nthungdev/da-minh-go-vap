@@ -1,21 +1,21 @@
+import { getLocale } from "next-intl/server";
 import { fetchAllPosts, fetchPostsByHiddenTags } from "@/actions/post";
 import { AppAccordionDefault } from "@/components/app-accordion";
 import AppCardTabs from "@/components/app-card-tabs";
 import AppMarkdown from "@/components/app-markdown";
 import AppQuote from "@/components/app-quote";
 import AppSpace from "@/components/app-space";
-import PostGroupTabs from "@/components/post-group-tabs";
 import AppTimelineCards from "@/components/app-timeline-cards";
 import ImageLinkList from "@/components/image-link-list";
 import ImageSlideshow from "@/components/image-slideshow";
 import PostGroup from "@/components/post-group";
+import PostGroupTabs from "@/components/post-group-tabs";
+import SpotifyPodcastList from "@/components/spotify-podcast-list";
 import TheBibleVerse from "@/components/the-bible-verse";
 import TheLatestPosts from "@/components/the-latest-posts";
-import SpotifyPodcastList from "@/components/spotify-podcast-list";
 import VideoGrid from "@/components/video-grid";
-import { AppPost, BlockType } from "@/definitions";
-import { Locale } from "@/i18n/config";
-import { getLocale } from "next-intl/server";
+import type { AppPost, BlockType } from "@/definitions";
+import type { Locale } from "@/i18n/config";
 
 function NotImplementedBlock() {
   return <div>Not Implemented</div>;
@@ -174,7 +174,7 @@ const mapBlockToProps: BlockToPropsMap = {
       new Set(groups.flatMap((group) => group.hiddenTags)),
     );
 
-    let initialPosts = undefined;
+    let initialPosts: AppPost[] | undefined;
     if (allUniqueHiddenTags.length > 0) {
       const query = await fetchPostsByHiddenTags(allUniqueHiddenTags, {
         limit: 6,
@@ -225,7 +225,6 @@ const BlockRenderer = async ({ block }: { block: BlockType }) => {
   if (!Component) return null;
   const propsMapper = mapBlockToProps[block.blockType];
   const props = await propsMapper(block as never);
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   return <Component {...props} />;
 };

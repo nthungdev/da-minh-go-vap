@@ -1,20 +1,15 @@
 "use client";
 
+import Image from "next/image";
+import { useLocale, useTranslations } from "next-intl";
 import {
-  ChangeEventHandler,
-  FormEvent,
+  type ChangeEventHandler,
+  type FormEvent,
   useReducer,
   useRef,
   useState,
 } from "react";
-import SearchIcon from "@/public/svgs/search.svg";
 import { searchPosts } from "@/actions/search";
-import AppPostListItem from "./app-post-list-item";
-import Image from "next/image";
-import { AppPost } from "@/definitions";
-import { cn } from "@/utils/common";
-import { useLocale, useTranslations } from "next-intl";
-import { Locale } from "@/i18n/config";
 import {
   Dialog,
   DialogContent,
@@ -22,6 +17,11 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import type { AppPost } from "@/definitions";
+import type { Locale } from "@/i18n/config";
+import SearchIcon from "@/public/svgs/search.svg";
+import { cn } from "@/utils/common";
+import AppPostListItem from "./app-post-list-item";
 
 type SearchState =
   | { status: "idle"; query: string }
@@ -138,7 +138,7 @@ export default function AppPostSearchButton({ id }: { id?: string }) {
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogTrigger
-        className="ring-primary relative flex flex-row items-center space-x-2 rounded-full border bg-white p-2 hover:cursor-pointer hover:ring-2"
+        className="relative flex flex-row items-center space-x-2 rounded-full border bg-white p-2 ring-primary hover:cursor-pointer hover:ring-2"
         aria-label={t("search.label")}
       >
         <Image
@@ -159,28 +159,30 @@ export default function AppPostSearchButton({ id }: { id?: string }) {
         </DialogDescription>
 
         <div className="relative border-b border-gray-200 p-4">
-          <form role="search" className="relative" onSubmit={handleInputSubmit}>
-            <label id={labelId} htmlFor={inputId} className="sr-only">
-              {t("search.label")}
-            </label>
-            <div className="pointer-events-none absolute inset-y-0 start-0 z-20 flex items-center ps-3.5">
-              <Image
-                unoptimized
-                src={SearchIcon}
-                alt=""
-                className="size-4 shrink-0 text-gray-400"
+          <search>
+            <form className="relative" onSubmit={handleInputSubmit}>
+              <label id={labelId} htmlFor={inputId} className="sr-only">
+                {t("search.label")}
+              </label>
+              <div className="pointer-events-none absolute inset-y-0 start-0 z-20 flex items-center ps-3.5">
+                <Image
+                  unoptimized
+                  src={SearchIcon}
+                  alt=""
+                  className="size-4 shrink-0 text-gray-400"
+                />
+              </div>
+              <input
+                id={inputId}
+                className="block w-full rounded-lg border-gray-200 py-3 ps-10 pe-4 text-sm focus:border-secondary focus:ring-secondary disabled:pointer-events-none disabled:opacity-50"
+                type="text"
+                value={state.query}
+                autoFocus
+                placeholder={t("search.placeholder")}
+                onChange={handleInputChange}
               />
-            </div>
-            <input
-              id={inputId}
-              className="focus:border-secondary focus:ring-secondary block w-full rounded-lg border-gray-200 py-3 ps-10 pe-4 text-sm disabled:pointer-events-none disabled:opacity-50"
-              type="text"
-              value={state.query}
-              autoFocus
-              placeholder={t("search.placeholder")}
-              onChange={handleInputChange}
-            />
-          </form>
+            </form>
+          </search>
         </div>
 
         <div
@@ -190,7 +192,7 @@ export default function AppPostSearchButton({ id }: { id?: string }) {
           {state.status === "loading" && (
             <div className="py-4 text-center">
               <div
-                className="text-primary inline-block size-4 animate-spin rounded-full border-[3px] border-current border-t-transparent"
+                className="inline-block size-4 animate-spin rounded-full border-[3px] border-current border-t-transparent text-primary"
                 role="status"
                 aria-label={t("common.loading")}
               >
@@ -220,7 +222,7 @@ export default function AppPostSearchButton({ id }: { id?: string }) {
                 <div
                   key={post.slug}
                   className="h-[60px] w-full"
-                  onClick={handleClose}
+                  onClickCapture={handleClose}
                 >
                   <AppPostListItem
                     post={post}

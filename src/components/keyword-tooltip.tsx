@@ -1,11 +1,11 @@
 "use client";
 
-import { useState, useRef, useEffect, ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { cn } from "@/utils/common";
-import { transformUrl } from "@/utils/cloudflare";
 import { useTranslations } from "next-intl";
+import { type ReactNode, useEffect, useRef, useState } from "react";
+import { transformUrl } from "@/utils/cloudflare";
+import { cn } from "@/utils/common";
 
 export interface KeywordTooltipProps {
   /** The keyword or phrase displayed in text (if children not provided) */
@@ -70,11 +70,11 @@ export default function KeywordTooltip({
     }, 150);
   };
 
-  const handleBlur = (event: React.FocusEvent<HTMLSpanElement>) => {
+  const handleBlur = (event: React.FocusEvent<HTMLElement>) => {
     const nextFocusedElement = event.relatedTarget;
     if (
       nextFocusedElement instanceof Node &&
-      event.currentTarget.contains(nextFocusedElement)
+      triggerRef.current?.contains(nextFocusedElement)
     ) {
       return;
     }
@@ -90,22 +90,22 @@ export default function KeywordTooltip({
   const triggerContent = children || keyword || title;
 
   return (
-    <span
-      ref={triggerRef}
-      className={cn(
-        "border-primary-500 text-primary-700 hover:border-primary-700 hover:text-primary-800 relative inline-block cursor-help border-b border-dashed font-medium transition-colors",
-        className,
-      )}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      onFocus={handleMouseEnter}
-      onBlur={handleBlur}
-      tabIndex={0}
-      role="button"
-      aria-haspopup="dialog"
-      aria-expanded={isOpen}
-    >
-      {triggerContent}
+    <span ref={triggerRef} className="relative inline-block">
+      <button
+        type="button"
+        className={cn(
+          "inline cursor-help border-b border-dashed border-primary-500 bg-transparent p-0 font-medium text-primary-700 transition-colors hover:border-primary-700 hover:text-primary-800",
+          className,
+        )}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        onFocus={handleMouseEnter}
+        onBlur={handleBlur}
+        aria-haspopup="dialog"
+        aria-expanded={isOpen}
+      >
+        {triggerContent}
+      </button>
 
       {isOpen && (
         <span
@@ -113,8 +113,9 @@ export default function KeywordTooltip({
           role="tooltip"
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
+          onBlur={handleBlur}
           className={cn(
-            "animate-in fade-in zoom-in-95 absolute left-1/2 z-50 w-72 -translate-x-1/2 rounded-xl border border-gray-200 bg-white p-3.5 shadow-xl transition-all duration-200",
+            "absolute left-1/2 z-50 w-72 -translate-x-1/2 animate-in rounded-xl border border-gray-200 bg-white p-3.5 shadow-xl transition-all duration-200 zoom-in-95 fade-in",
             position === "top" ? "bottom-full mb-2" : "top-full mt-2",
           )}
         >
@@ -154,7 +155,7 @@ export default function KeywordTooltip({
               <span className="mt-1 flex justify-end border-t border-gray-100 pt-1.5">
                 <Link
                   href={href}
-                  className="text-primary-600 hover:text-primary-700 text-xs font-medium hover:underline"
+                  className="text-xs font-medium text-primary-600 hover:text-primary-700 hover:underline"
                   onClick={(e) => e.stopPropagation()}
                 >
                   {t("readMore")} →

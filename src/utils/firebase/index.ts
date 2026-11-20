@@ -1,7 +1,7 @@
 "use client";
 
-import type { FirebaseApp, FirebaseOptions } from "firebase/app";
 import type { Analytics } from "firebase/analytics";
+import type { FirebaseApp, FirebaseOptions } from "firebase/app";
 
 const firebaseConfig: FirebaseOptions = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,

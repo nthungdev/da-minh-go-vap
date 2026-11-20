@@ -1,5 +1,5 @@
-import { onlyRoles, onlySelfAndRoles } from "@/payload/utils/access-control";
 import type { CollectionConfig } from "payload";
+import { onlyRoles, onlySelfAndRoles } from "@/payload/utils/access-control";
 
 const Users: CollectionConfig = {
   slug: "users",

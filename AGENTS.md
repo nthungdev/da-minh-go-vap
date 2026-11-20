@@ -19,18 +19,18 @@ Welcome to the **Đa Minh Gò Vấp** project codebase. This document outlines t
 
 Always use `pnpm` to run package scripts:
 
-| Action                      | Command                              | Description                                           |
-| --------------------------- | ------------------------------------ | ----------------------------------------------------- |
-| **Development**             | `pnpm dev`                           | Starts Next.js dev server with Turbopack              |
-| **Type Check**              | `pnpm check-types`                   | Validates TypeScript types (`tsc --noemit`)           |
-| **Lint**                    | `pnpm lint`                          | Runs ESLint across the codebase                       |
-| **Lint & Fix**              | `pnpm lint:fix`                      | Runs ESLint auto-fix and Prettier formatting          |
-| **Prettier Check**          | `pnpm prettier`                      | Checks code formatting                                |
-| **Prettier Fix**            | `pnpm prettier:fix`                  | Formats all files with Prettier                       |
-| **Production Build**        | `pnpm build`                         | Generates the Next.js production build                |
-| **Payload Generate**        | `pnpm generate`                      | Regenerates Payload types and import map              |
-| **Local Database**          | `pnpm db:up` / `pnpm db:down`        | Starts/stops MongoDB dev container via Docker Compose |
-| **Database Backup/Restore** | `pnpm db:backup` / `pnpm db:restore` | Runs database backup and restore shell scripts        |
+| Action                      | Command                              | Description                                                                        |
+| --------------------------- | ------------------------------------ | ---------------------------------------------------------------------------------- |
+| **Development**             | `pnpm dev`                           | Starts Next.js dev server with Turbopack                                           |
+| **Type Check**              | `pnpm check-types`                   | Validates TypeScript types (`tsc --noemit`)                                        |
+| **Lint**                    | `pnpm lint`                          | Runs Biome check (JS/TS/JSX/TSX/JSON/CSS: lint, format, imports, Tailwind classes) |
+| **Lint & Fix**              | `pnpm lint:fix`                      | Runs Biome `check --write` and Prettier fix (Markdown/YAML)                        |
+| **Prettier Check**          | `pnpm prettier`                      | Checks Markdown & YAML formatting with Prettier                                    |
+| **Prettier Fix**            | `pnpm prettier:fix`                  | Formats Markdown & YAML files with Prettier                                        |
+| **Production Build**        | `pnpm build`                         | Generates the Next.js production build                                             |
+| **Payload Generate**        | `pnpm generate`                      | Regenerates Payload types and import map                                           |
+| **Local Database**          | `pnpm db:up` / `pnpm db:down`        | Starts/stops MongoDB dev container via Docker Compose                              |
+| **Database Backup/Restore** | `pnpm db:backup` / `pnpm db:restore` | Runs database backup and restore shell scripts                                     |
 
 ---
 
@@ -38,9 +38,12 @@ Always use `pnpm` to run package scripts:
 
 ### 3.1. Always Run Lint and Format at the End
 
-Whenever you make changes, verify and format the codebase before submitting or committing:
+Whenever you make changes, verify and format the codebase before submitting or committing. Tooling scopes are strictly separated with zero overlap:
 
-1. Run `pnpm lint:fix` (or `pnpm lint` and `pnpm prettier:fix`).
+- **Biome**: Owns JS/TS/JSX/TSX/JSON/CSS (linting, formatting, import sorting, and Tailwind class sorting).
+- **Prettier**: Owns Markdown (`.md`/`.mdx`) and YAML (`.yml`/`.yaml`) only.
+
+1. Run `pnpm lint:fix` (runs Biome `check --write` followed by Prettier for Markdown/YAML), or check with `pnpm lint` and `pnpm prettier`.
 2. Run `pnpm check-types` to ensure zero TypeScript errors.
 3. Fix any reported warnings or errors before marking tasks as complete.
 

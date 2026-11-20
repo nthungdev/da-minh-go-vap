@@ -1,9 +1,9 @@
 "use client";
 
-import { Children, HTMLAttributes } from "react";
+import { useTranslations } from "next-intl";
+import { Children, type HTMLAttributes } from "react";
 import { useCarousel } from "@/hooks/use-carousel";
 import { cn } from "@/utils/common";
-import { useTranslations } from "next-intl";
 
 interface AppCarouselProps extends HTMLAttributes<HTMLElement> {
   id: string;
@@ -47,7 +47,7 @@ export default function AppCarousel({
         <>
           <button
             type="button"
-            className="hs-carousel-prev hs-carousel-disabled:opacity-50 group absolute inset-y-0 start-0 inline-flex h-full w-11.5 items-center justify-center text-gray-800 hover:bg-gray-800/10 focus:bg-gray-800/10 focus:outline-hidden disabled:pointer-events-none dark:text-white dark:hover:bg-white/10 dark:focus:bg-white/10"
+            className="hs-carousel-prev group absolute inset-y-0 start-0 inline-flex h-full w-11.5 items-center justify-center text-gray-800 hover:bg-gray-800/10 focus:bg-gray-800/10 focus:outline-hidden disabled:pointer-events-none dark:text-white dark:hover:bg-white/10 dark:focus:bg-white/10 hs-carousel-disabled:opacity-50"
             onClick={(event) => {
               event.stopPropagation();
               event.preventDefault();
@@ -77,7 +77,7 @@ export default function AppCarousel({
           </button>
           <button
             type="button"
-            className="hs-carousel-next hs-carousel-disabled:opacity-50 hover:text-whit group absolute inset-y-0 end-0 inline-flex h-full w-11.5 items-center justify-center text-gray-800 hover:bg-gray-800/10 focus:bg-gray-800/10 focus:outline-hidden disabled:pointer-events-none dark:text-white dark:hover:bg-white/10 dark:focus:bg-white/10"
+            className="hs-carousel-next hover:text-whit group absolute inset-y-0 end-0 inline-flex h-full w-11.5 items-center justify-center text-gray-800 hover:bg-gray-800/10 focus:bg-gray-800/10 focus:outline-hidden disabled:pointer-events-none dark:text-white dark:hover:bg-white/10 dark:focus:bg-white/10 hs-carousel-disabled:opacity-50"
             onClick={(event) => {
               event.stopPropagation();
               event.preventDefault();

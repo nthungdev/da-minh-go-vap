@@ -23,7 +23,10 @@
     "allPosts": "Các bài viết",
     "latest": "Tin Mới",
     "related": "Các bài liên quan",
-    "tags": "Thẻ"
+    "tags": "Thẻ",
+    "tableOfContents": "Mục lục",
+    "expandTableOfContents": "Mở rộng mục lục",
+    "collapseTableOfContents": "Thu gọn mục lục"
   },
   "search": {
     "label": "Tìm kiếm",

@@ -1,6 +1,6 @@
 "use client";
 
-import { HTMLAttributes, useEffect, useRef, useState } from "react";
+import { type HTMLAttributes, useEffect, useRef, useState } from "react";
 import { FiAlertCircle, FiCheck, FiCopy } from "react-icons/fi";
 import { cn } from "@/utils/common";
 
