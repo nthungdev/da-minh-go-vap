@@ -1,7 +1,14 @@
 "use client";
 
 import MDEditor from "@uiw/react-md-editor";
-import { forwardRef, useImperativeHandle, useState } from "react";
+import {
+  forwardRef,
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from "react";
 import rehypeSanitize from "rehype-sanitize";
 
 interface MarkdownEditorProps {
@@ -11,6 +18,8 @@ interface MarkdownEditorProps {
 }
 
 export interface MarkdownEditorHandle {
+  /** Current markdown text value in the editor. */
+  getValue: () => string;
   /** Current selection range and text in the editor textarea. */
   getSelection: () => { start: number; end: number; text: string };
   /** Replaces `[start, end)` with `text`, then focuses the editor with the caret after the insertion. */
@@ -20,27 +29,42 @@ export interface MarkdownEditorHandle {
 const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
   function MarkdownEditor({ value, setValue, id }, ref) {
     const [internalValue, setInternalValue] = useState(value || "");
+    const internalValueRef = useRef(internalValue);
 
-    function onChange(value?: string) {
-      if (value === undefined) return;
-      setInternalValue(value);
-      setValue(value);
-    }
+    useEffect(() => {
+      const next = value || "";
+      internalValueRef.current = next;
+      setInternalValue(next);
+    }, [value]);
+
+    const onChange = useCallback(
+      (nextValue?: string) => {
+        if (nextValue === undefined) return;
+        internalValueRef.current = nextValue;
+        setInternalValue(nextValue);
+        setValue(nextValue);
+      },
+      [setValue],
+    );
 
     useImperativeHandle(ref, () => {
       const getTextarea = () =>
         document.getElementById(id) as HTMLTextAreaElement | null;
 
       return {
+        getValue() {
+          return internalValueRef.current;
+        },
         getSelection() {
+          const current = internalValueRef.current;
           const textarea = getTextarea();
-          const start = textarea?.selectionStart ?? internalValue.length;
+          const start = textarea?.selectionStart ?? current.length;
           const end = textarea?.selectionEnd ?? start;
-          return { start, end, text: internalValue.slice(start, end) };
+          return { start, end, text: current.slice(start, end) };
         },
         replaceRange(start, end, text) {
-          const nextValue =
-            internalValue.slice(0, start) + text + internalValue.slice(end);
+          const current = internalValueRef.current;
+          const nextValue = current.slice(0, start) + text + current.slice(end);
           onChange(nextValue);
 
           const caret = start + text.length;
@@ -53,7 +77,7 @@ const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
           });
         },
       };
-    });
+    }, [id, onChange]);
 
     return (
       <div className="container">

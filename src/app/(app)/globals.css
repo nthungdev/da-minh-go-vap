@@ -216,6 +216,41 @@
   h3 {
     @apply text-xl;
   }
+
+  sup,
+  a[data-footnote-ref] {
+    @apply scroll-mt-24;
+  }
+
+  a[data-footnote-ref] {
+    @apply text-primary-700 px-0.5 font-medium no-underline hover:underline;
+  }
+
+  section[data-footnotes] {
+    @apply mt-8 border-t border-gray-200 pt-6 text-sm text-gray-700;
+  }
+
+  section[data-footnotes] ol {
+    @apply list-decimal space-y-2 pl-5;
+  }
+
+  section[data-footnotes] li,
+  [id^="user-content-fn-"] {
+    @apply scroll-mt-24 rounded-md px-2 py-1 transition-colors;
+  }
+
+  section[data-footnotes] li:target,
+  [id^="user-content-fn-"]:target {
+    @apply bg-primary-50 ring-primary-300 ring-1;
+  }
+
+  section[data-footnotes] li > p {
+    @apply my-1 first:mt-0 last:mb-0;
+  }
+
+  a[data-footnote-backref] {
+    @apply text-primary-700 ml-1 no-underline hover:underline;
+  }
 }
 
 @layer utilities {

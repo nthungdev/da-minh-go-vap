@@ -3,6 +3,7 @@
 import { FieldDescription, FieldLabel, useField } from "@payloadcms/ui";
 import type { CodeFieldClientComponent } from "payload";
 import { useRef } from "react";
+import FootnoteHelper from "@/payload/fields/markdown/footnote-helper";
 import KeywordTooltipHelper from "@/payload/fields/markdown/KeywordTooltipHelper";
 import MarkdownEditor, {
   type MarkdownEditorHandle,
@@ -25,6 +26,9 @@ const MarkdownField: CodeFieldClientComponent = ({ path, field }) => {
         htmlFor={id}
       />
       {showKeywordHelper && <KeywordTooltipHelper editorRef={editorRef} />}
+      <div style={{ marginBottom: "8px" }}>
+        <FootnoteHelper editorRef={editorRef} />
+      </div>
       <MarkdownEditor
         ref={editorRef}
         id={id}
