@@ -9,6 +9,7 @@ const DEFAULT_CACHE_TAGS = [
   "footer",
   "siteSettings",
   "hiddenTags",
+  "searchTags",
 ];
 
 export async function POST(req: Request) {

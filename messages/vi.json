@@ -30,9 +30,26 @@
   },
   "search": {
     "label": "Tìm kiếm",
-    "placeholder": "Tìm kiếm bài viết...",
+    "kicker": "Thư viện bài viết · Đa Minh Gò Vấp",
+    "placeholder": "Nhập tiêu đề hoặc chủ đề bạn quan tâm…",
+    "clear": "Xóa từ khóa",
     "empty": "Không tìm thấy bài viết nào.",
-    "error": "Không thể tìm kiếm lúc này. Vui lòng thử lại."
+    "emptyHint": "Thử gõ từ khóa ngắn hơn, không dấu, hoặc chọn thẻ khác.",
+    "error": "Không thể tìm kiếm lúc này. Vui lòng thử lại.",
+    "errorTitle": "Kết nối tìm kiếm bị gián đoạn",
+    "retry": "Thử lại",
+    "recentSearches": "Tìm kiếm gần đây",
+    "clearRecent": "Xóa lịch sử",
+    "idlePrompt": "Nhập từ khóa hoặc chọn một thẻ phía trên để bắt đầu tìm kiếm.",
+    "resultsCount": "Tìm thấy {count} bài viết cho \"{query}\"",
+    "resultsCountByTag": "Tìm thấy {count} bài viết trong \"{tag}\"",
+    "resultsCountWithTag": "Tìm thấy {count} bài viết cho \"{query}\" trong \"{tag}\"",
+    "allTopics": "Tất cả",
+    "hintNavigate": "Di chuyển",
+    "hintOpen": "Mở bài",
+    "hintClose": "Đóng",
+    "hintDiacritics": "Hỗ trợ tìm không dấu",
+    "articleFallback": "Bài viết"
   },
   "notFound": {
     "title": "Không Tìm Thấy",
