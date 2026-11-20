@@ -15,64 +15,15 @@ import {
 import { useLocale } from "next-intl";
 import Markdown, { type Components } from "react-markdown";
 import rehypeRaw from "rehype-raw";
-import rehypeSanitize, { defaultSchema } from "rehype-sanitize";
+import rehypeSanitize from "rehype-sanitize";
 import remarkGfm from "remark-gfm";
 import KeywordTooltip from "@/components/keyword-tooltip";
 import { transformUrl } from "@/utils/cloudflare";
 import { cn } from "@/utils/common";
+import { markdownSanitizeSchema } from "@/utils/markdown-sanitize";
 import { preserveMarkdownWhitespace } from "@/utils/markdown-whitespace";
 
 export { preserveMarkdownWhitespace };
-
-const sanitizeSchema = {
-  ...defaultSchema,
-  tagNames: [
-    ...new Set([
-      ...(defaultSchema.tagNames ?? []),
-      "keyword",
-      "section",
-      "sup",
-      "ol",
-      "li",
-      "a",
-      "h2",
-    ]),
-  ],
-  attributes: {
-    ...defaultSchema.attributes,
-    i: [...(defaultSchema.attributes?.i ?? []), "className"],
-    section: [
-      ...(defaultSchema.attributes?.section ?? []),
-      "dataFootnotes",
-      "className",
-    ],
-    h2: [...(defaultSchema.attributes?.h2 ?? []), "id", "className"],
-    ol: [...(defaultSchema.attributes?.ol ?? []), "className"],
-    li: [...(defaultSchema.attributes?.li ?? []), "id", "className"],
-    sup: [...(defaultSchema.attributes?.sup ?? []), "className"],
-    a: [
-      ...(defaultSchema.attributes?.a ?? []),
-      "href",
-      "id",
-      "className",
-      "dataFootnoteRef",
-      "dataFootnoteBackref",
-      "ariaDescribedBy",
-      "ariaLabel",
-    ],
-    keyword: [
-      "dataTitle",
-      "dataDescription",
-      "dataImage",
-      "dataImageUrl",
-      "dataHref",
-      "title",
-      "description",
-      "image",
-      "href",
-    ],
-  },
-};
 
 const FA_ICON_MAP: Record<string, LucideIcon> = {
   "fa-earth-asia": Globe,
@@ -238,7 +189,7 @@ function AppMarkdownContent({
       <Markdown
         {...props}
         remarkPlugins={[remarkGfm]}
-        rehypePlugins={[rehypeRaw, [rehypeSanitize, sanitizeSchema]]}
+        rehypePlugins={[rehypeRaw, [rehypeSanitize, markdownSanitizeSchema]]}
         components={components}
       >
         {content}

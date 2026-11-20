@@ -1,9 +1,16 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import { createElement } from "react";
+import { renderToStaticMarkup } from "react-dom/server";
+import Markdown from "react-markdown";
+import rehypeRaw from "rehype-raw";
+import rehypeSanitize from "rehype-sanitize";
+import remarkGfm from "remark-gfm";
 import {
   getNextFootnoteNumber,
   insertFootnoteMarkup,
 } from "../src/payload/fields/markdown/footnote-markup.ts";
+import { markdownSanitizeSchema } from "../src/utils/markdown-sanitize.ts";
 import { preserveMarkdownWhitespace } from "../src/utils/markdown-whitespace.ts";
 
 test("preserveMarkdownWhitespace preserves single-line footnote definitions", () => {
@@ -101,4 +108,41 @@ test("insertFootnoteMarkup inserts [^n] at cursor and appends [^n]:  at bottom w
     trailingNewline.nextValue,
     "Line ending with newline.[^1]\n\n[^1]: ",
   );
+});
+
+test("rendered footnotes have matching href=#id targets without double clobber prefix", () => {
+  const input = preserveMarkdownWhitespace(
+    [
+      "First paragraph[^1] and second paragraph[^2].",
+      "",
+      "[^1]: First footnote.",
+      "[^2]: Second footnote.",
+    ].join("\n"),
+  );
+
+  const html = renderToStaticMarkup(
+    createElement(
+      Markdown,
+      {
+        remarkPlugins: [remarkGfm],
+        rehypePlugins: [rehypeRaw, [rehypeSanitize, markdownSanitizeSchema]],
+      },
+      input,
+    ),
+  );
+
+  assert.equal(html.includes("user-content-user-content-"), false);
+
+  const ids = new Set(
+    Array.from(html.matchAll(/\bid="([^"]+)"/g), (m) => m[1]),
+  );
+  const hashRefs = Array.from(html.matchAll(/\bhref="#([^"]+)"/g), (m) => m[1]);
+
+  assert.ok(hashRefs.length >= 4, "expected forward and back footnote links");
+  for (const targetId of hashRefs) {
+    assert.ok(
+      ids.has(targetId),
+      `expected href="#${targetId}" to match an element id in rendered HTML`,
+    );
+  }
 });
