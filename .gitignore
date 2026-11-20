@@ -23,6 +23,7 @@ certificates
 .DS_Store
 *.pem
 backups
+.eslintcache
 .gitignore
 
 # debug
