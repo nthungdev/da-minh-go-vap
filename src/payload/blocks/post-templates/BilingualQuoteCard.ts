@@ -1,5 +1,5 @@
+import type { Block } from "payload";
 import { authorField } from "@/payload/fields";
-import { Block } from "payload";
 
 const BilingualQuoteCardBlock: Block = {
   slug: "bilingualQuoteCard",

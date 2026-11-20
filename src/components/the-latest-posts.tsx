@@ -1,18 +1,18 @@
 "use client";
 
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import Image from "next/image";
+import Link from "next/link";
+import { useLocale, useTranslations } from "next-intl";
+import { useId, useState } from "react";
 import { fetchAllPosts } from "@/actions/post";
 import AppCarousel from "@/components/app-carousel";
 import PostList from "@/components/post-list";
 import Spinner from "@/components/spinner";
-import { AppPost } from "@/definitions";
+import type { AppPost } from "@/definitions";
 import { getDataOrUndefined } from "@/payload/utils/data";
 import { transformUrl } from "@/utils/cloudflare";
 import { cn } from "@/utils/common";
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { useLocale, useTranslations } from "next-intl";
-import Image from "next/image";
-import Link from "next/link";
-import { useId, useState } from "react";
 
 const TRANSITION_DURATION = 8000;
 
@@ -86,10 +86,10 @@ export default function TheLatestPosts({
 
               return (
                 <div
-                  key={index}
+                  key={post.slug}
                   className="hs-carousel-slide relative size-full shrink-0"
                 >
-                  {thumbnail && thumbnail.url ? (
+                  {thumbnail?.url ? (
                     <Image
                       unoptimized
                       className="object-cover"

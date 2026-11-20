@@ -1,6 +1,6 @@
+import { redirect } from "next/navigation";
 import { applyRouteLocale, type LocaleParams } from "@/i18n/server";
 import { isValidNextUrl } from "@/utils/url";
-import { redirect } from "next/navigation";
 
 export default async function AuthBasicPage(props: {
   params: Promise<LocaleParams>;

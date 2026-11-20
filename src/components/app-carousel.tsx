@@ -1,9 +1,9 @@
 "use client";
 
-import { Children, HTMLAttributes } from "react";
+import { useTranslations } from "next-intl";
+import { Children, type HTMLAttributes } from "react";
 import { useCarousel } from "@/hooks/use-carousel";
 import { cn } from "@/utils/common";
-import { useTranslations } from "next-intl";
 
 interface AppCarouselProps extends HTMLAttributes<HTMLElement> {
   id: string;

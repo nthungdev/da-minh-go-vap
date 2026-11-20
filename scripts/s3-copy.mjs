@@ -26,11 +26,11 @@ import path from "node:path";
 import readline from "node:readline";
 import { fileURLToPath } from "node:url";
 import {
-  S3Client,
-  ListObjectsV2Command,
-  GetObjectCommand,
-  PutObjectCommand,
   CopyObjectCommand,
+  GetObjectCommand,
+  ListObjectsV2Command,
+  PutObjectCommand,
+  S3Client,
 } from "@aws-sdk/client-s3";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -83,7 +83,7 @@ function formatBytes(bytes) {
   const k = 1024;
   const sizes = ["B", "KB", "MB", "GB", "TB"];
   const i = Math.floor(Math.log(bytes) / Math.log(k));
-  return `${parseFloat((bytes / Math.pow(k, i)).toFixed(2))} ${sizes[i]}`;
+  return `${parseFloat((bytes / k ** i).toFixed(2))} ${sizes[i]}`;
 }
 
 function formatDuration(ms) {
@@ -222,6 +222,32 @@ Examples:
 `);
 }
 
+const COPY_VALUE_FLAGS = {
+  "--from": "fromEnv",
+  "--to": "toEnv",
+  "--from-env-file": "fromEnvFile",
+  "--to-env-file": "toEnvFile",
+  "--from-bucket": "fromBucket",
+  "--to-bucket": "toBucket",
+  "-p": "prefix",
+  "--prefix": "prefix",
+  "--target-prefix": "targetPrefix",
+  "-c": "concurrency",
+  "--concurrency": "concurrency",
+};
+
+const COPY_BOOLEAN_FLAGS = {
+  "--dry-run": "dryRun",
+  "-f": "force",
+  "--force": "force",
+  "-y": "yes",
+  "--yes": "yes",
+};
+
+function setCopyOption(options, key, value) {
+  options[key] = key === "concurrency" ? parseInt(value, 10) || 10 : value;
+}
+
 function parseArgs() {
   const args = process.argv.slice(2);
   const options = {
@@ -245,34 +271,24 @@ function parseArgs() {
     if (arg === "-h" || arg === "--help") {
       printHelp();
       process.exit(0);
-    } else if (arg === "--from") {
-      options.fromEnv = args[++i];
-    } else if (arg.startsWith("--from=")) {
-      options.fromEnv = arg.split("=")[1];
-    } else if (arg === "--to") {
-      options.toEnv = args[++i];
-    } else if (arg.startsWith("--to=")) {
-      options.toEnv = arg.split("=")[1];
-    } else if (arg === "--from-env-file") {
-      options.fromEnvFile = args[++i];
-    } else if (arg === "--to-env-file") {
-      options.toEnvFile = args[++i];
-    } else if (arg === "--from-bucket") {
-      options.fromBucket = args[++i];
-    } else if (arg === "--to-bucket") {
-      options.toBucket = args[++i];
-    } else if (arg === "-p" || arg === "--prefix") {
-      options.prefix = args[++i];
-    } else if (arg === "--target-prefix") {
-      options.targetPrefix = args[++i];
-    } else if (arg === "-c" || arg === "--concurrency") {
-      options.concurrency = parseInt(args[++i], 10) || 10;
-    } else if (arg === "--dry-run") {
-      options.dryRun = true;
-    } else if (arg === "-f" || arg === "--force") {
-      options.force = true;
-    } else if (arg === "-y" || arg === "--yes") {
-      options.yes = true;
+    }
+
+    if (arg in COPY_BOOLEAN_FLAGS) {
+      options[COPY_BOOLEAN_FLAGS[arg]] = true;
+      continue;
+    }
+
+    if (arg in COPY_VALUE_FLAGS) {
+      setCopyOption(options, COPY_VALUE_FLAGS[arg], args[++i]);
+      continue;
+    }
+
+    const eqIndex = arg.indexOf("=");
+    if (eqIndex !== -1) {
+      const flag = arg.slice(0, eqIndex);
+      if (flag in COPY_VALUE_FLAGS) {
+        setCopyOption(options, COPY_VALUE_FLAGS[flag], arg.slice(eqIndex + 1));
+      }
     }
   }
 
@@ -288,37 +304,58 @@ async function streamToBuffer(stream) {
   });
 }
 
-async function main() {
-  const options = parseArgs();
+function resolveCopySideConfig(explicitBucket, env, role) {
+  const bucket = explicitBucket || env.S3_BUCKET || env.R2_BUCKET;
+  if (!bucket) {
+    console.error(`❌ Error: ${role.label} S3 bucket is not specified.`);
+    console.error(`Use ${role.usageHint}.`);
+    process.exit(1);
+  }
 
-  // Load Source Configuration
+  const accessKeyId =
+    env.S3_ACCESS_KEY_ID || env.R2_ACCESS_KEY_ID || env.AWS_ACCESS_KEY_ID;
+  const secretAccessKey =
+    env.S3_SECRET || env.S3_SECRET_ACCESS_KEY || env.R2_SECRET_ACCESS_KEY;
+
+  if (!(accessKeyId && secretAccessKey)) {
+    console.error(`❌ Error: ${role.label} S3 credentials missing.`);
+    process.exit(1);
+  }
+
+  const endpoint = normalizeEndpoint(
+    env.S3_ENDPOINT || env.R2_ENDPOINT || env.AWS_ENDPOINT_URL_S3,
+    bucket,
+  );
+  const client = new S3Client({
+    region: env.S3_REGION || "auto",
+    endpoint: endpoint || undefined,
+    credentials: { accessKeyId, secretAccessKey },
+  });
+
+  return { bucket, endpoint, accessKeyId, client };
+}
+
+function resolveCopySetup(options) {
   const fromFileEnv = loadEnvConfig(options.fromEnv, options.fromEnvFile);
   const fromEnv = { ...process.env, ...fromFileEnv };
 
-  // Load Destination Configuration
+  // Default to source credentials if only --to-bucket is passed
   const toFileEnv =
     options.toEnv || options.toEnvFile
       ? loadEnvConfig(options.toEnv, options.toEnvFile)
-      : fromFileEnv; // default to same credentials if only to-bucket is passed
+      : fromFileEnv;
   const toEnv = { ...process.env, ...toFileEnv };
 
-  const srcBucket =
-    options.fromBucket || fromEnv.S3_BUCKET || fromEnv.R2_BUCKET;
-  const destBucket = options.toBucket || toEnv.S3_BUCKET || toEnv.R2_BUCKET;
+  const source = resolveCopySideConfig(options.fromBucket, fromEnv, {
+    label: "Source",
+    usageHint: "--from <env> or --from-bucket <name>",
+  });
+  const dest = resolveCopySideConfig(options.toBucket, toEnv, {
+    label: "Destination",
+    usageHint: "--to <env> or --to-bucket <name>",
+  });
 
-  if (!srcBucket) {
-    console.error("❌ Error: Source S3 bucket is not specified.");
-    console.error("Use --from <env> or --from-bucket <name>.");
-    process.exit(1);
-  }
-
-  if (!destBucket) {
-    console.error("❌ Error: Destination S3 bucket is not specified.");
-    console.error("Use --to <env> or --to-bucket <name>.");
-    process.exit(1);
-  }
-
-  if (srcBucket === destBucket && !options.targetPrefix) {
+  if (source.bucket === dest.bucket && !options.targetPrefix) {
     console.error("❌ Error: Source and destination buckets are identical.");
     console.error(
       "Specify different buckets or use --target-prefix to avoid overwriting.",
@@ -326,145 +363,53 @@ async function main() {
     process.exit(1);
   }
 
-  const srcEndpoint = normalizeEndpoint(
-    fromEnv.S3_ENDPOINT || fromEnv.R2_ENDPOINT || fromEnv.AWS_ENDPOINT_URL_S3,
-    srcBucket,
-  );
-  const destEndpoint = normalizeEndpoint(
-    toEnv.S3_ENDPOINT || toEnv.R2_ENDPOINT || toEnv.AWS_ENDPOINT_URL_S3,
-    destBucket,
-  );
+  return {
+    source,
+    dest,
+    canAttemptServerSideCopy:
+      source.endpoint === dest.endpoint &&
+      source.accessKeyId === dest.accessKeyId,
+  };
+}
 
-  const srcAccessKey =
-    fromEnv.S3_ACCESS_KEY_ID ||
-    fromEnv.R2_ACCESS_KEY_ID ||
-    fromEnv.AWS_ACCESS_KEY_ID;
-  const srcSecret =
-    fromEnv.S3_SECRET ||
-    fromEnv.S3_SECRET_ACCESS_KEY ||
-    fromEnv.R2_SECRET_ACCESS_KEY;
-
-  const destAccessKey =
-    toEnv.S3_ACCESS_KEY_ID || toEnv.R2_ACCESS_KEY_ID || toEnv.AWS_ACCESS_KEY_ID;
-  const destSecret =
-    toEnv.S3_SECRET || toEnv.S3_SECRET_ACCESS_KEY || toEnv.R2_SECRET_ACCESS_KEY;
-
-  if (!srcAccessKey || !srcSecret) {
-    console.error("❌ Error: Source S3 credentials missing.");
-    process.exit(1);
-  }
-
-  if (!destAccessKey || !destSecret) {
-    console.error("❌ Error: Destination S3 credentials missing.");
-    process.exit(1);
-  }
-
-  const srcClient = new S3Client({
-    region: fromEnv.S3_REGION || "auto",
-    endpoint: srcEndpoint || undefined,
-    credentials: {
-      accessKeyId: srcAccessKey,
-      secretAccessKey: srcSecret,
-    },
-  });
-
-  const destClient = new S3Client({
-    region: toEnv.S3_REGION || "auto",
-    endpoint: destEndpoint || undefined,
-    credentials: {
-      accessKeyId: destAccessKey,
-      secretAccessKey: destSecret,
-    },
-  });
-
-  // Check if same endpoint & account (server-side copy candidate)
-  const canAttemptServerSideCopy =
-    srcEndpoint === destEndpoint && srcAccessKey === destAccessKey;
-
-  console.log(`\n========================================`);
-  console.log(`🚀 Starting S3 Bucket-to-Bucket Copy`);
-  console.log(`========================================`);
-  console.log(`📤 Source Bucket:      ${srcBucket}`);
-  console.log(`🌐 Source Endpoint:    ${srcEndpoint || "AWS Default"}`);
-  console.log(`📥 Target Bucket:      ${destBucket}`);
-  console.log(`🌐 Target Endpoint:    ${destEndpoint || "AWS Default"}`);
-  console.log(
-    `⚡ Mode:               ${canAttemptServerSideCopy ? "Server-side (Fastest) with Stream Fallback" : "Direct In-Memory Streaming"}`,
-  );
-  if (options.prefix) {
-    console.log(`🔍 Prefix:             ${options.prefix}`);
-  }
-  if (options.targetPrefix) {
-    console.log(`🏷️  Target Prefix:      ${options.targetPrefix}`);
-  }
-  console.log(`🔄 Concurrency:        ${options.concurrency}`);
-  if (options.dryRun) {
-    console.log(`🔍 Dry Run:            YES (No files will be modified)`);
-  }
-  console.log(`========================================\n`);
-
-  // Step 1: List objects in source bucket
-  console.log(`⏳ Listing objects from source bucket '${srcBucket}'...`);
+async function listSourceObjects(srcClient, srcBucket, prefix) {
   const srcObjects = [];
-  let continuationToken = undefined;
+  let continuationToken;
 
   do {
-    const listCmd = new ListObjectsV2Command({
-      Bucket: srcBucket,
-      Prefix: options.prefix || undefined,
-      ContinuationToken: continuationToken,
-    });
-    const res = await srcClient.send(listCmd);
-    if (res.Contents) {
-      for (const item of res.Contents) {
-        if (!item.Key.endsWith("/")) {
-          srcObjects.push(item);
-        }
+    const res = await srcClient.send(
+      new ListObjectsV2Command({
+        Bucket: srcBucket,
+        Prefix: prefix || undefined,
+        ContinuationToken: continuationToken,
+      }),
+    );
+    for (const item of res.Contents ?? []) {
+      if (!item.Key.endsWith("/")) {
+        srcObjects.push(item);
       }
     }
     continuationToken = res.NextContinuationToken;
   } while (continuationToken);
 
-  if (srcObjects.length === 0) {
-    console.log(`⚠️ No objects found in source bucket '${srcBucket}'.`);
-    return;
-  }
+  return srcObjects;
+}
 
-  const totalBytes = srcObjects.reduce((acc, o) => acc + (o.Size || 0), 0);
-  console.log(
-    `📦 Found ${srcObjects.length} objects in source (Total: ${formatBytes(totalBytes)})`,
-  );
-
-  // Safety confirmation check
-  if (!options.yes && !options.dryRun) {
-    const confirmed = await confirmPrompt(
-      `⚠️ Confirm copying ${srcObjects.length} objects (${formatBytes(totalBytes)}) from '${srcBucket}' to '${destBucket}'?`,
-    );
-    if (!confirmed) {
-      console.log("Operation cancelled by user.");
-      process.exit(0);
-    }
-  }
-
-  // Step 2: Query destination bucket for existing objects
-  console.log(
-    `⏳ Querying destination bucket '${destBucket}' for existing keys...`,
-  );
+async function listDestinationKeySizes(destClient, destBucket, prefix) {
   const destExistingKeys = new Map();
-  continuationToken = undefined;
+  let continuationToken;
 
   try {
     do {
-      const listCmd = new ListObjectsV2Command({
-        Bucket: destBucket,
-        Prefix: options.targetPrefix || options.prefix || undefined,
-        ContinuationToken: continuationToken,
-      });
-      const res = await destClient.send(listCmd);
-      if (res.Contents) {
-        for (const item of res.Contents) {
-          destExistingKeys.set(item.Key, item.Size || 0);
-        }
+      const res = await destClient.send(
+        new ListObjectsV2Command({
+          Bucket: destBucket,
+          Prefix: prefix || undefined,
+          ContinuationToken: continuationToken,
+        }),
+      );
+      for (const item of res.Contents ?? []) {
+        destExistingKeys.set(item.Key, item.Size || 0);
       }
       continuationToken = res.NextContinuationToken;
     } while (continuationToken);
@@ -477,13 +422,70 @@ async function main() {
     );
   }
 
-  // Step 3: Copy objects concurrently
-  const startTime = Date.now();
-  let completedCount = 0;
-  let copiedCount = 0;
-  let skippedCount = 0;
-  let failedCount = 0;
-  let copiedBytes = 0;
+  return destExistingKeys;
+}
+
+async function tryServerSideCopy({
+  destClient,
+  srcBucket,
+  destBucket,
+  srcKey,
+  destKey,
+}) {
+  try {
+    await destClient.send(
+      new CopyObjectCommand({
+        Bucket: destBucket,
+        Key: destKey,
+        CopySource: `${srcBucket}/${encodeURIComponent(srcKey)}`,
+        ContentType: getContentType(srcKey),
+      }),
+    );
+    return true;
+  } catch {
+    // Server-side copy might not be permitted; fallback to streaming
+    return false;
+  }
+}
+
+async function streamCopyObject({
+  srcClient,
+  destClient,
+  srcBucket,
+  destBucket,
+  srcKey,
+  destKey,
+}) {
+  const getRes = await srcClient.send(
+    new GetObjectCommand({ Bucket: srcBucket, Key: srcKey }),
+  );
+  const bodyBuffer = await streamToBuffer(getRes.Body);
+
+  await destClient.send(
+    new PutObjectCommand({
+      Bucket: destBucket,
+      Key: destKey,
+      Body: bodyBuffer,
+      ContentType: getRes.ContentType || getContentType(srcKey),
+    }),
+  );
+}
+
+async function copyObjectsConcurrently({
+  source,
+  dest,
+  srcObjects,
+  destExistingKeys,
+  canAttemptServerSideCopy,
+  options,
+}) {
+  const stats = {
+    completedCount: 0,
+    copiedCount: 0,
+    skippedCount: 0,
+    failedCount: 0,
+    copiedBytes: 0,
+  };
 
   async function copyObject(item) {
     const srcKey = item.Key;
@@ -492,76 +494,58 @@ async function main() {
       : srcKey;
 
     try {
-      // Check if file exists in destination with identical size
-      if (!options.force && destExistingKeys.has(destKey)) {
-        if (destExistingKeys.get(destKey) === item.Size) {
-          skippedCount++;
-          completedCount++;
-          return;
-        }
-      }
-
-      if (options.dryRun) {
-        copiedCount++;
-        copiedBytes += item.Size || 0;
-        completedCount++;
+      if (
+        !options.force &&
+        destExistingKeys.has(destKey) &&
+        destExistingKeys.get(destKey) === item.Size
+      ) {
+        stats.skippedCount++;
+        stats.completedCount++;
         return;
       }
 
-      let copiedSuccessfully = false;
-
-      // Strategy 1: Server-side S3 Copy (if on same endpoint/account)
-      if (canAttemptServerSideCopy) {
-        try {
-          const copyCmd = new CopyObjectCommand({
-            Bucket: destBucket,
-            Key: destKey,
-            CopySource: `${srcBucket}/${encodeURIComponent(srcKey)}`,
-            ContentType: getContentType(srcKey),
-          });
-          await destClient.send(copyCmd);
-          copiedSuccessfully = true;
-        } catch (serverSideErr) {
-          // Server-side copy might not be permitted; fallback to streaming
-        }
+      if (options.dryRun) {
+        stats.copiedCount++;
+        stats.copiedBytes += item.Size || 0;
+        stats.completedCount++;
+        return;
       }
 
-      // Strategy 2: Direct in-memory streaming fallback
-      if (!copiedSuccessfully) {
-        const getCmd = new GetObjectCommand({
-          Bucket: srcBucket,
-          Key: srcKey,
-        });
-        const getRes = await srcClient.send(getCmd);
-        const bodyBuffer = await streamToBuffer(getRes.Body);
+      const transferParams = {
+        srcClient: source.client,
+        destClient: dest.client,
+        srcBucket: source.bucket,
+        destBucket: dest.bucket,
+        srcKey,
+        destKey,
+      };
+      const copiedServerSide =
+        canAttemptServerSideCopy && (await tryServerSideCopy(transferParams));
 
-        const putCmd = new PutObjectCommand({
-          Bucket: destBucket,
-          Key: destKey,
-          Body: bodyBuffer,
-          ContentType: getRes.ContentType || getContentType(srcKey),
-        });
-        await destClient.send(putCmd);
+      if (!copiedServerSide) {
+        await streamCopyObject(transferParams);
       }
 
-      copiedCount++;
-      copiedBytes += item.Size || 0;
-      completedCount++;
+      stats.copiedCount++;
+      stats.copiedBytes += item.Size || 0;
+      stats.completedCount++;
 
-      const percent = ((completedCount / srcObjects.length) * 100).toFixed(1);
+      const percent = (
+        (stats.completedCount / srcObjects.length) *
+        100
+      ).toFixed(1);
       process.stdout.write(
-        `\r⏳ [${completedCount}/${srcObjects.length}] (${percent}%) - ${path.basename(destKey).slice(0, 40)}`,
+        `\r⏳ [${stats.completedCount}/${srcObjects.length}] (${percent}%) - ${path.basename(destKey).slice(0, 40)}`,
       );
     } catch (err) {
-      failedCount++;
-      completedCount++;
+      stats.failedCount++;
+      stats.completedCount++;
       console.error(
         `\n❌ Failed copying '${srcKey}' -> '${destKey}': ${err.message}`,
       );
     }
   }
 
-  // Worker pool queue
   const concurrency = Math.max(1, options.concurrency);
   let queueIndex = 0;
 
@@ -578,14 +562,47 @@ async function main() {
   );
   await Promise.all(workers);
 
-  const duration = Date.now() - startTime;
-  process.stdout.write("\r" + " ".repeat(80) + "\r");
+  return stats;
+}
 
+function printCopyHeader({ source, dest, canAttemptServerSideCopy, options }) {
+  console.log(`\n========================================`);
+  console.log(`🚀 Starting S3 Bucket-to-Bucket Copy`);
+  console.log(`========================================`);
+  console.log(`📤 Source Bucket:      ${source.bucket}`);
+  console.log(`🌐 Source Endpoint:    ${source.endpoint || "AWS Default"}`);
+  console.log(`📥 Target Bucket:      ${dest.bucket}`);
+  console.log(`🌐 Target Endpoint:    ${dest.endpoint || "AWS Default"}`);
+  console.log(
+    `⚡ Mode:               ${canAttemptServerSideCopy ? "Server-side (Fastest) with Stream Fallback" : "Direct In-Memory Streaming"}`,
+  );
+  if (options.prefix) {
+    console.log(`🔍 Prefix:             ${options.prefix}`);
+  }
+  if (options.targetPrefix) {
+    console.log(`🏷️  Target Prefix:      ${options.targetPrefix}`);
+  }
+  console.log(`🔄 Concurrency:        ${options.concurrency}`);
+  if (options.dryRun) {
+    console.log(`🔍 Dry Run:            YES (No files will be modified)`);
+  }
+  console.log(`========================================\n`);
+}
+
+function printCopySummary({
+  duration,
+  copiedCount,
+  skippedCount,
+  failedCount,
+  copiedBytes,
+  destBucket,
+  dryRun,
+}) {
   console.log(`\n========================================`);
   console.log(`✅ Copy Completed in ${formatDuration(duration)}`);
   console.log(`========================================`);
   console.log(
-    `📤 Copied:     ${copiedCount} files (${formatBytes(copiedBytes)})${options.dryRun ? " [DRY RUN]" : ""}`,
+    `📤 Copied:     ${copiedCount} files (${formatBytes(copiedBytes)})${dryRun ? " [DRY RUN]" : ""}`,
   );
   if (skippedCount > 0) {
     console.log(
@@ -597,6 +614,77 @@ async function main() {
   }
   console.log(`🪣  Destination: ${destBucket}`);
   console.log(`========================================\n`);
+}
+
+async function main() {
+  const options = parseArgs();
+  const { source, dest, canAttemptServerSideCopy } = resolveCopySetup(options);
+
+  printCopyHeader({ source, dest, canAttemptServerSideCopy, options });
+
+  // Step 1: List objects in source bucket
+  console.log(`⏳ Listing objects from source bucket '${source.bucket}'...`);
+  const srcObjects = await listSourceObjects(
+    source.client,
+    source.bucket,
+    options.prefix,
+  );
+
+  if (srcObjects.length === 0) {
+    console.log(`⚠️ No objects found in source bucket '${source.bucket}'.`);
+    return;
+  }
+
+  const totalBytes = srcObjects.reduce((acc, o) => acc + (o.Size || 0), 0);
+  console.log(
+    `📦 Found ${srcObjects.length} objects in source (Total: ${formatBytes(totalBytes)})`,
+  );
+
+  // Safety confirmation check
+  if (!(options.yes || options.dryRun)) {
+    const confirmed = await confirmPrompt(
+      `⚠️ Confirm copying ${srcObjects.length} objects (${formatBytes(totalBytes)}) from '${source.bucket}' to '${dest.bucket}'?`,
+    );
+    if (!confirmed) {
+      console.log("Operation cancelled by user.");
+      process.exit(0);
+    }
+  }
+
+  // Step 2: Query destination bucket for existing objects
+  console.log(
+    `⏳ Querying destination bucket '${dest.bucket}' for existing keys...`,
+  );
+  const destExistingKeys = await listDestinationKeySizes(
+    dest.client,
+    dest.bucket,
+    options.targetPrefix || options.prefix,
+  );
+
+  // Step 3: Copy objects concurrently
+  const startTime = Date.now();
+  const { copiedCount, skippedCount, failedCount, copiedBytes } =
+    await copyObjectsConcurrently({
+      source,
+      dest,
+      srcObjects,
+      destExistingKeys,
+      canAttemptServerSideCopy,
+      options,
+    });
+
+  const duration = Date.now() - startTime;
+  process.stdout.write(`\r${" ".repeat(80)}\r`);
+
+  printCopySummary({
+    duration,
+    copiedCount,
+    skippedCount,
+    failedCount,
+    copiedBytes,
+    destBucket: dest.bucket,
+    dryRun: options.dryRun,
+  });
 
   if (failedCount > 0) {
     process.exit(1);

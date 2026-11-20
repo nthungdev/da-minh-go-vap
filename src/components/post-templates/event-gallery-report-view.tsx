@@ -1,10 +1,10 @@
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import AppMarkdown from "@/components/app-markdown";
 import LightboxModal from "@/components/post-templates/shared/lightbox-modal";
-import { EventGalleryReportBlock, Media } from "@/payload-types";
+import type { EventGalleryReportBlock, Media } from "@/payload-types";
 import { transformUrl } from "@/utils/cloudflare";
 import { cn } from "@/utils/common";
-import { useTranslations } from "next-intl";
 
 interface Props {
   block: EventGalleryReportBlock;

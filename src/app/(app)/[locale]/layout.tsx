@@ -1,16 +1,16 @@
+import localFont from "next/font/local";
 import PrelineScriptWrapper from "@/components/preline-script-wrapper";
 import ReactQueryProvider from "@/components/providers/react-query-provider";
 import ScrollToTopButton from "@/components/scroll-to-top-button";
-import TheNavbar from "@/components/the-navbar";
 import TheFooter from "@/components/the-footer";
-import { getSiteSettings } from "@/payload/utils/site-settings-server";
-import { getServerOrigin } from "@/utils/url";
+import TheNavbar from "@/components/the-navbar";
 import { locales } from "@/i18n/config";
 import { applyRouteLocale, type LocaleParams } from "@/i18n/server";
-import localFont from "next/font/local";
+import { getSiteSettings } from "@/payload/utils/site-settings-server";
 import { cn } from "@/utils/common";
+import { getServerOrigin } from "@/utils/url";
 import "../globals.css";
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 
 // Keep production builds independent of Google Fonts response formats.

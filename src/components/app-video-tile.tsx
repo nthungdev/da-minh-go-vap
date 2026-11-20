@@ -1,7 +1,7 @@
-import { ElementType } from "react";
-import Link from "next/link";
 import Image from "next/image";
+import Link from "next/link";
 import { useTranslations } from "next-intl";
+import type { ElementType } from "react";
 
 interface VideoTileProps {
   videoUrl: string;

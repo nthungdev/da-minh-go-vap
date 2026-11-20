@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { FaArrowUp } from "react-icons/fa";
 import { useTranslations } from "next-intl";
+import { useEffect, useState } from "react";
+import { FaArrowUp } from "react-icons/fa";
 
 export default function ScrollToTopButton() {
   const t = useTranslations("common");

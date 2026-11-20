@@ -1,9 +1,9 @@
-import { AppPost } from "@/definitions";
+import Image from "next/image";
+import Link from "next/link";
+import type { AppPost } from "@/definitions";
 import { getDataOrUndefined } from "@/payload/utils/data";
 import { transformUrl } from "@/utils/cloudflare";
 import { cn } from "@/utils/common";
-import Image from "next/image";
-import Link from "next/link";
 
 interface PostListProps extends React.HTMLAttributes<HTMLUListElement> {
   posts: AppPost[];
@@ -28,7 +28,7 @@ export default function PostList({
 
         return (
           <li
-            key={index}
+            key={post.slug}
             className={cn(
               "border-b-2 border-gray-200 pt-2 pb-2 first:pt-0 last:border-0 hover:cursor-pointer",
               index === activeIndex && "bg-gray-200",
@@ -42,7 +42,7 @@ export default function PostList({
               className="flex flex-row items-start gap-x-3"
             >
               <div className="relative aspect-video w-32 md:w-40 lg:w-28">
-                {thumbnail && thumbnail.url && (
+                {thumbnail?.url && (
                   <Image
                     unoptimized
                     className="object-cover"

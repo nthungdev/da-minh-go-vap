@@ -1,7 +1,7 @@
+import { getTranslations } from "next-intl/server";
 import AppGridHeader from "@/components/app-grid-header";
 import AppPage from "@/components/app-page";
 import AppPostGridPaginated from "@/components/app-post-grid-async-paginated";
-import { getTranslations } from "next-intl/server";
 import { applyRouteLocale, type LocaleParams } from "@/i18n/server";
 
 interface SearchParams {

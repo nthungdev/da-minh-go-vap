@@ -1,7 +1,7 @@
-import AppMarkdown from "@/components/app-markdown";
-import { GospelReflectionSplitBlock } from "@/payload-types";
-import { cn } from "@/utils/common";
 import { useTranslations } from "next-intl";
+import AppMarkdown from "@/components/app-markdown";
+import type { GospelReflectionSplitBlock } from "@/payload-types";
+import { cn } from "@/utils/common";
 
 interface Props {
   block: GospelReflectionSplitBlock;

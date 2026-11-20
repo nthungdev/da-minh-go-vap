@@ -1,6 +1,6 @@
+import type { Block } from "payload";
 import { markdownField } from "@/payload/fields";
 import { validateOptionalHttpUrl } from "@/utils/safe-url";
-import { Block } from "payload";
 
 const NewsArticleFeaturedBlock: Block = {
   slug: "newsArticleFeatured",

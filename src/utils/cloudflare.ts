@@ -3,6 +3,104 @@ const CONFIGURED_MEDIA_CDN_URL = process.env.NEXT_PUBLIC_MEDIA_CDN_URL;
 /** Path Payload uses to stream uploaded files from storage through the app server. */
 const PAYLOAD_MEDIA_FILE_PATH = "/api/media/file/";
 
+const DEFAULT_CDN_BASE = "https://cdn.dongdaminhgovap.org";
+const DEFAULT_CDN_HOST = "cdn.dongdaminhgovap.org";
+
+function isPassthroughUrl(trimmedUrl: string): boolean {
+  if (trimmedUrl.startsWith("data:") || trimmedUrl.startsWith("blob:")) {
+    return true;
+  }
+  const urlWithoutQuery = trimmedUrl.split(/[?#]/)[0] ?? "";
+  return urlWithoutQuery.toLowerCase().endsWith(".svg");
+}
+
+function resolveCdnOrigin(): { cdnBase: string; cdnHost: string } {
+  const configuredBase = (
+    process.env.NEXT_PUBLIC_CDN_URL ||
+    process.env.NEXT_PUBLIC_MEDIA_CDN_URL ||
+    DEFAULT_CDN_BASE
+  ).replace(/\/+$/, "");
+
+  try {
+    return {
+      cdnBase: configuredBase,
+      cdnHost: new URL(configuredBase).host.toLowerCase(),
+    };
+  } catch {
+    return { cdnBase: DEFAULT_CDN_BASE, cdnHost: DEFAULT_CDN_HOST };
+  }
+}
+
+function extractRelativePath(
+  trimmedUrl: string,
+  cdnHost: string,
+): string | null {
+  const isAbsolute = /^(?:[a-z]+:)?\/\//i.test(trimmedUrl);
+  if (!isAbsolute) {
+    return trimmedUrl;
+  }
+
+  try {
+    const parsed = new URL(
+      trimmedUrl.startsWith("//") ? `https:${trimmedUrl}` : trimmedUrl,
+    );
+    if (parsed.host.toLowerCase() !== cdnHost) {
+      // External non-CDN URL: pass through safely without mangling
+      return null;
+    }
+    return parsed.pathname + parsed.search + parsed.hash;
+  } catch {
+    return null;
+  }
+}
+
+function normalizeTransformPath(
+  relativePath: string,
+): { cleanPath: string; suffix: string } | null {
+  const suffixIndex = relativePath.search(/[?#]/);
+  let pathname =
+    suffixIndex === -1 ? relativePath : relativePath.slice(0, suffixIndex);
+  const suffix = suffixIndex === -1 ? "" : relativePath.slice(suffixIndex);
+
+  // Strip existing Cloudflare transform prefix if already present
+  // e.g. /cdn-cgi/image/width=100,onerror=redirect/media/pic.jpg -> /media/pic.jpg
+  const cdnCgiMatch = pathname.match(/^\/?cdn-cgi\/image\/[^/]+(\/.*)$/);
+  if (cdnCgiMatch?.[1]) {
+    pathname = cdnCgiMatch[1];
+  }
+
+  // Strip Payload media proxy prefix so proxied URLs map to the same CDN key
+  if (pathname.startsWith(PAYLOAD_MEDIA_FILE_PATH)) {
+    pathname = pathname.slice(PAYLOAD_MEDIA_FILE_PATH.length);
+  }
+
+  const cleanPath = pathname.replace(/^\/+/, "");
+  if (!cleanPath) {
+    return null;
+  }
+
+  return { cleanPath, suffix };
+}
+
+function buildTransformOptionsString(
+  options: Record<string, string | number>,
+): string {
+  const optionsMap: Record<string, string | number> = {
+    format: "auto",
+    quality: "85",
+    onerror: "redirect",
+    ...options,
+  };
+
+  return Object.entries(optionsMap)
+    .filter(
+      ([, value]) =>
+        value !== undefined && value !== null && String(value).trim() !== "",
+    )
+    .map(([key, value]) => `${key}=${value}`)
+    .join(",");
+}
+
 /**
  * Transforms a Payload media URL or pathname into an optimized Cloudflare Image Resizing URL.
  * Ref: https://developers.cloudflare.com/images/transform-images/transform-via-url
@@ -24,93 +122,23 @@ export function transformUrl(
     return "";
   }
 
-  // Pass through data URIs and blob URIs safely without mangling
-  if (trimmedUrl.startsWith("data:") || trimmedUrl.startsWith("blob:")) {
+  if (isPassthroughUrl(trimmedUrl)) {
     return trimmedUrl;
   }
 
-  // Pass through SVGs safely without mangling
-  const urlWithoutQuery = trimmedUrl.split(/[?#]/)[0] ?? "";
-  if (urlWithoutQuery.toLowerCase().endsWith(".svg")) {
+  const { cdnBase, cdnHost } = resolveCdnOrigin();
+  const relativePath = extractRelativePath(trimmedUrl, cdnHost);
+  if (relativePath === null) {
     return trimmedUrl;
   }
 
-  let cdnBase = (
-    process.env.NEXT_PUBLIC_CDN_URL ||
-    process.env.NEXT_PUBLIC_MEDIA_CDN_URL ||
-    "https://cdn.dongdaminhgovap.org"
-  ).replace(/\/+$/, "");
-
-  let cdnHost = "cdn.dongdaminhgovap.org";
-  try {
-    cdnHost = new URL(cdnBase).host.toLowerCase();
-  } catch {
-    // Fallback if cdnBase is malformed
-    cdnBase = "https://cdn.dongdaminhgovap.org";
-    cdnHost = "cdn.dongdaminhgovap.org";
-  }
-
-  let relativePath = trimmedUrl;
-
-  // Check if URL is an absolute URL or protocol-relative URL
-  const isAbsolute = /^(?:[a-z]+:)?\/\//i.test(trimmedUrl);
-  if (isAbsolute) {
-    try {
-      const parsed = new URL(
-        trimmedUrl.startsWith("//") ? `https:${trimmedUrl}` : trimmedUrl,
-      );
-      if (parsed.host.toLowerCase() !== cdnHost) {
-        // External non-CDN URL: pass through safely without mangling
-        return trimmedUrl;
-      }
-      // Same CDN host: retain full pathname (+ query and hash if present)
-      relativePath = parsed.pathname + parsed.search + parsed.hash;
-    } catch {
-      // In case URL parsing fails for an absolute URL, return as-is
-      return trimmedUrl;
-    }
-  }
-
-  // Separate pathname from query/hash so regexes and prefix checks don't match query params
-  const suffixIndex = relativePath.search(/[?#]/);
-  let pathname =
-    suffixIndex === -1 ? relativePath : relativePath.slice(0, suffixIndex);
-  const suffix = suffixIndex === -1 ? "" : relativePath.slice(suffixIndex);
-
-  // Strip existing Cloudflare transform prefix if already present
-  // e.g. /cdn-cgi/image/width=100,onerror=redirect/media/pic.jpg -> /media/pic.jpg
-  const cdnCgiMatch = pathname.match(/^\/?cdn-cgi\/image\/[^/]+(\/.*)$/);
-  if (cdnCgiMatch && cdnCgiMatch[1]) {
-    pathname = cdnCgiMatch[1];
-  }
-
-  // Strip Payload media proxy prefix so proxied URLs map to the same CDN key
-  if (pathname.startsWith(PAYLOAD_MEDIA_FILE_PATH)) {
-    pathname = pathname.slice(PAYLOAD_MEDIA_FILE_PATH.length);
-  }
-
-  // Retain full relative pathname without leading slashes for URL concatenation
-  const cleanPath = pathname.replace(/^\/+/, "");
-  if (!cleanPath) {
+  const normalized = normalizeTransformPath(relativePath);
+  if (!normalized) {
     return "";
   }
 
-  const optionsMap: Record<string, string | number> = {
-    format: "auto",
-    quality: "85",
-    onerror: "redirect",
-    ...options,
-  };
-
-  const optionsString = Object.entries(optionsMap)
-    .filter(
-      ([, value]) =>
-        value !== undefined && value !== null && String(value).trim() !== "",
-    )
-    .map(([key, value]) => `${key}=${value}`)
-    .join(",");
-
-  return `${cdnBase}/cdn-cgi/image/${optionsString}/${cleanPath}${suffix}`;
+  const optionsString = buildTransformOptionsString(options);
+  return `${cdnBase}/cdn-cgi/image/${optionsString}/${normalized.cleanPath}${normalized.suffix}`;
 }
 
 /**

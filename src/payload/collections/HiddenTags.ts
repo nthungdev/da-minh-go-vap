@@ -1,6 +1,6 @@
+import type { CollectionConfig } from "payload";
 import { onlyRoles } from "@/payload/utils/access-control";
 import { revalidatePath } from "@/payload/utils/data";
-import { CollectionConfig } from "payload";
 
 const HiddenTags: CollectionConfig = {
   slug: "hiddenTags",

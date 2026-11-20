@@ -1,13 +1,14 @@
 "use client";
 
-import React, { ChangeEvent } from "react";
+import { useTranslations } from "next-intl";
+import type React from "react";
+import type { ChangeEvent } from "react";
+import AppPostTabContentAsync from "@/components/app-post-tab-content-async";
+import type { Page } from "@/payload-types";
+import { cn } from "@/utils/common";
+import { makePostsPath } from "@/utils/post";
 import AppPostGrid from "./app-post-grid";
 import AppSelectBasic from "./app-select-basic";
-import { cn } from "@/utils/common";
-import { Page } from "@/payload-types";
-import AppPostTabContentAsync from "@/components/app-post-tab-content-async";
-import { makePostsPath } from "@/utils/post";
-import { useTranslations } from "next-intl";
 
 /** id should be provided when there are multiple AppPostTabGrid components on the same page */
 interface AppPostTabGridAsyncProps
@@ -55,7 +56,7 @@ export default function AppPostTabGridAsync(props: AppPostTabGridAsyncProps) {
 
     if (selectedGroup) {
       const controls = document.querySelectorAll<HTMLButtonElement>(
-        `#${id} nav button`,
+        `#${id} [role="tablist"] button`,
       );
       const control = controls[postGroupsData.indexOf(selectedGroup)];
 
@@ -81,7 +82,7 @@ export default function AppPostTabGridAsync(props: AppPostTabGridAsyncProps) {
           ]}
           onChange={handleSelectChange}
         />
-        <nav
+        <div
           className="group hidden flex-row-reverse justify-end lg:flex"
           aria-label={t("navigation.postGroups")}
           role="tablist"
@@ -89,7 +90,7 @@ export default function AppPostTabGridAsync(props: AppPostTabGridAsyncProps) {
         >
           {postGroupsDataReversed.map(({ title }, index) => (
             <button
-              key={`${id}-control-${index}`}
+              key={`${id}-control-${title}`}
               type="button"
               className={cn(
                 "peer border-secondary-400 bg-primary-4 relative -mr-12 inline-flex items-center justify-center gap-x-2 rounded-full border-[6px] px-12 py-1 text-center text-xl font-bold text-nowrap text-white transition disabled:pointer-events-none disabled:opacity-50",
@@ -107,14 +108,14 @@ export default function AppPostTabGridAsync(props: AppPostTabGridAsyncProps) {
               {title}
             </button>
           ))}
-        </nav>
+        </div>
       </div>
 
       <div>
         {postGroupsDataReversed.map(
           ({ title, hiddenTags, viewMoreButton }, index) => (
             <div
-              key={`${id}-content-${index}`}
+              key={`${id}-content-${title}`}
               id={`${id}-content-${index}`}
               className={
                 index === postGroupsDataReversed.length - 1 ? "" : "hidden"

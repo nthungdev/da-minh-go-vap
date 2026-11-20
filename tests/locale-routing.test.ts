@@ -2,11 +2,11 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import test from "node:test";
 import {
+  buildLocaleRewrites,
   isLocalizedPath,
   localizePath,
   localizePathForAllLocales,
   matchInternalPrefix,
-  buildLocaleRewrites,
   parseRouteSegment,
 } from "../src/i18n/routing.ts";
 

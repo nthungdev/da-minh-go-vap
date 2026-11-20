@@ -1,13 +1,13 @@
-import { HTMLAttributes } from "react";
 import Image from "next/image";
-import { Media } from "@/payload-types";
-import { getDataOrUndefined } from "@/payload/utils/data";
+import { getLocale } from "next-intl/server";
+import type { HTMLAttributes } from "react";
 import AppBanners from "@/components/app-banners";
 import AppPageContent from "@/components/app-page/app-page-content";
-import { getLocale } from "next-intl/server";
+import type { Locale } from "@/i18n/config";
+import { getDataOrUndefined } from "@/payload/utils/data";
+import type { Media } from "@/payload-types";
 import { transformUrl } from "@/utils/cloudflare";
 import { getNavBarGlobal } from "@/utils/menu";
-import { Locale } from "@/i18n/config";
 
 interface AppPageProps extends HTMLAttributes<HTMLDivElement> {
   banners?: Media[];
