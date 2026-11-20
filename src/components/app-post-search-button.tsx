@@ -138,7 +138,7 @@ export default function AppPostSearchButton({ id }: { id?: string }) {
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogTrigger
-        className="ring-primary relative flex flex-row items-center space-x-2 rounded-full border bg-white p-2 hover:cursor-pointer hover:ring-2"
+        className="relative flex flex-row items-center space-x-2 rounded-full border bg-white p-2 ring-primary hover:cursor-pointer hover:ring-2"
         aria-label={t("search.label")}
       >
         <Image
@@ -174,7 +174,7 @@ export default function AppPostSearchButton({ id }: { id?: string }) {
               </div>
               <input
                 id={inputId}
-                className="focus:border-secondary focus:ring-secondary block w-full rounded-lg border-gray-200 py-3 ps-10 pe-4 text-sm disabled:pointer-events-none disabled:opacity-50"
+                className="block w-full rounded-lg border-gray-200 py-3 ps-10 pe-4 text-sm focus:border-secondary focus:ring-secondary disabled:pointer-events-none disabled:opacity-50"
                 type="text"
                 value={state.query}
                 autoFocus
@@ -192,7 +192,7 @@ export default function AppPostSearchButton({ id }: { id?: string }) {
           {state.status === "loading" && (
             <div className="py-4 text-center">
               <div
-                className="text-primary inline-block size-4 animate-spin rounded-full border-[3px] border-current border-t-transparent"
+                className="inline-block size-4 animate-spin rounded-full border-[3px] border-current border-t-transparent text-primary"
                 role="status"
                 aria-label={t("common.loading")}
               >

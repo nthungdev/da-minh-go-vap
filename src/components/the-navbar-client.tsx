@@ -110,7 +110,7 @@ function DesktopNavItem({
           }
           nativeButton={!item.absoluteHref}
           aria-label={item.name || item.icon || "Menu"}
-          className="hover:text-primary-700 data-[state=open]:text-primary-700 focus:text-primary-700 data-open:text-primary-700 data-popup-open:text-primary-700 flex items-center gap-1.5 transition-colors hover:bg-white focus:bg-white data-open:bg-white data-popup-open:bg-white data-[state=open]:bg-white"
+          className="flex items-center gap-1.5 transition-colors hover:bg-white hover:text-primary-700 focus:bg-white focus:text-primary-700 data-popup-open:bg-white data-popup-open:text-primary-700 data-[state=open]:bg-white data-[state=open]:text-primary-700 data-open:bg-white data-open:text-primary-700"
         >
           <MenuIcon icon={item.icon} name={item.name} size={5} />
           {label}
@@ -136,9 +136,9 @@ function DesktopNavItem({
               aria-label={item.name || item.icon || "Link"}
               className={cn(
                 navigationMenuTriggerStyle(),
-                "hover:text-primary-700 focus:text-primary-700 flex items-center gap-1.5 text-gray-50 transition-colors hover:bg-white focus:bg-white",
+                "flex items-center gap-1.5 text-gray-50 transition-colors hover:bg-white hover:text-primary-700 focus:bg-white focus:text-primary-700",
                 pathname === item.absoluteHref &&
-                  "text-primary-700 bg-white font-bold",
+                  "bg-white font-bold text-primary-700",
               )}
             />
           }
@@ -191,7 +191,7 @@ function MobileSubLink({
         onClick={onNavigate}
         className={cn(
           linkClassName,
-          pathname === href && "text-primary-600 font-semibold",
+          pathname === href && "font-semibold text-primary-600",
         )}
       >
         <MenuIcon icon={icon} name={name} size={iconSize} />
@@ -251,7 +251,7 @@ function MobileSubContent({
                 href={pillar.headerBanner.absoluteHref}
                 onClick={onNavigate}
                 className={cn(
-                  "hover:text-primary-600 block text-base font-bold uppercase transition-colors",
+                  "block text-base font-bold uppercase transition-colors hover:text-primary-600",
                   pathname === pillar.headerBanner.absoluteHref
                     ? "text-primary-600"
                     : "text-gray-800",
@@ -349,7 +349,7 @@ function MobileNavLabel({
         onClick={onNavigate}
         aria-label={item.name || item.icon || fallbackAriaLabel}
         className={cn(
-          "hover:text-primary-600 flex items-center gap-2 px-2 py-3 text-base font-medium text-gray-800 transition-colors",
+          "flex items-center gap-2 px-2 py-3 text-base font-medium text-gray-800 transition-colors hover:text-primary-600",
           className,
           pathname === item.absoluteHref && "text-primary-600",
         )}
@@ -394,7 +394,7 @@ function MobileNavItem({
               className="flex-1"
               fallbackAriaLabel="Menu"
             />
-            <AccordionTrigger className="hover:text-primary-600 w-10 shrink-0 justify-center p-2 text-gray-500 hover:no-underline" />
+            <AccordionTrigger className="w-10 shrink-0 justify-center p-2 text-gray-500 hover:text-primary-600 hover:no-underline" />
           </div>
           <AccordionContent className="pb-3 pl-4">
             <ul className="flex flex-col gap-2 border-l-2 border-gray-100 pl-4">

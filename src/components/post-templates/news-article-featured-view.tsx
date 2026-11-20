@@ -57,7 +57,7 @@ function NewsArticleFooter({
               href={sourceUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="focus-visible:ring-chill-700 rounded hover:underline focus:outline-none focus-visible:ring-2"
+              className="rounded hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-chill-700"
             >
               {sourceName || sourceUrl}
               <span className="sr-only"> {t("common.openInNewTab")}</span>
@@ -95,7 +95,7 @@ export default function NewsArticleFeaturedView({ block }: Props) {
     ALIGNMENT_CLASSES[imageAlignment ?? "left"] ?? ALIGNMENT_CLASSES.left;
 
   return (
-    <article className="font-noto-serif flow-root text-lg leading-[1.8] text-[#003f44] md:text-[1.45rem]">
+    <article className="flow-root font-noto-serif text-lg leading-[1.8] text-[#003f44] md:text-[1.45rem]">
       {imageMedia?.url && (
         <figure
           className={cn(
@@ -133,7 +133,7 @@ export default function NewsArticleFeaturedView({ block }: Props) {
         </figure>
       )}
 
-      <AppMarkdown className="prose prose-p:mt-0 prose-p:mb-[15px] prose-p:text-justify font-noto-serif max-w-none text-[1em] leading-[1.8] text-[#003f44]">
+      <AppMarkdown className="prose prose-p:mt-0 prose-p:mb-[15px] prose-p:text-justify max-w-none font-noto-serif text-[1em] leading-[1.8] text-[#003f44]">
         {content}
       </AppMarkdown>
 

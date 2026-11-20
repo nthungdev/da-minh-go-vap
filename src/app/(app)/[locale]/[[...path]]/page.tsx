@@ -93,7 +93,7 @@ export default async function Page(props: Props) {
             </section>
           )}
           {!!page?.aside?.length && (
-            <aside className="bg-primary-1 hidden w-56 lg:w-64 xl:block">
+            <aside className="hidden w-56 bg-primary-1 lg:w-64 xl:block">
               <BlocksRenderer blocks={page.aside} />
             </aside>
           )}

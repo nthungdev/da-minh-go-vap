@@ -32,6 +32,12 @@
       "tailwindDirectives": true
     }
   },
+  "tailwind": {
+    "stylesheet": "./src/app/(app)/globals.css",
+    "attributes": ["className", "class", "theme"],
+    "mergeFunctions": ["cn", "clsx", "twMerge", "createTheme"],
+    "variantFunctions": ["cva"]
+  },
   "linter": {
     "enabled": true,
     "domains": {
@@ -75,6 +81,9 @@
       },
       "a11y": {
         "noSvgWithoutTitle": "off"
+      },
+      "nursery": {
+        "useTailwindSortedClasses": "error"
       }
     }
   },

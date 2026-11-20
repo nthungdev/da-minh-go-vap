@@ -107,11 +107,11 @@ export default function PostTableOfContents({
               isOpen ? t("collapseTableOfContents") : t("expandTableOfContents")
             }
             onClick={() => setIsOpen((prev) => !prev)}
-            className="hover:bg-primary-50/60 focus-visible:ring-primary-600 flex w-full cursor-pointer items-center justify-between gap-3 rounded-xl px-4 py-3 text-left transition-colors focus-visible:ring-2 focus-visible:outline-none"
+            className="flex w-full cursor-pointer items-center justify-between gap-3 rounded-xl px-4 py-3 text-left transition-colors hover:bg-primary-50/60 focus-visible:ring-2 focus-visible:ring-primary-600 focus-visible:outline-none"
           >
             <span className="flex items-center gap-2 text-base font-semibold text-gray-900">
               <List
-                className="text-primary-700 size-4 shrink-0"
+                className="size-4 shrink-0 text-primary-700"
                 aria-hidden="true"
               />
               <span>{t("tableOfContents")}</span>
@@ -140,7 +140,7 @@ export default function PostTableOfContents({
                       href={`#${item.id}`}
                       onClick={(event) => handleLinkClick(event, item.id)}
                       className={cn(
-                        "hover:text-primary-700 focus-visible:ring-primary-600 block rounded py-0.5 transition-colors hover:underline focus-visible:ring-2 focus-visible:outline-none",
+                        "block rounded py-0.5 transition-colors hover:text-primary-700 hover:underline focus-visible:ring-2 focus-visible:ring-primary-600 focus-visible:outline-none",
                         item.level === 2
                           ? "font-medium text-gray-800"
                           : "text-gray-600",

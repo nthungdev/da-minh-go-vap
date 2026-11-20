@@ -38,18 +38,18 @@ export default async function ShareToolbar({
       <div className={cn("mt-1 flex flex-row gap-2")}>
         <CopyButton
           text={shareUrl}
-          className="hover:border-primary cursor-pointer rounded-full border p-2"
+          className="cursor-pointer rounded-full border p-2 hover:border-primary"
         />
         <Link
           href={facebookHref}
           target="_blank"
-          className="hover:border-primary cursor-pointer rounded-full border p-2 text-[#1877F2]"
+          className="cursor-pointer rounded-full border p-2 text-[#1877F2] hover:border-primary"
         >
           <RiFacebookFill />
         </Link>
         <Link
           href={viberHref}
-          className="hover:border-primary rounded-full border p-2 text-[#7360f2]"
+          className="rounded-full border p-2 text-[#7360f2] hover:border-primary"
         >
           <FaViber />
         </Link>

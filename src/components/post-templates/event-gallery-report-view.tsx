@@ -105,12 +105,12 @@ export default function EventGalleryReportView({ block }: Props) {
   return (
     <article className="mx-auto max-w-6xl">
       <header className="mb-8 text-center">
-        <h2 className="text-secondary text-[28px] leading-tight font-bold md:text-4xl lg:text-[42px]">
+        <h2 className="text-[28px] leading-tight font-bold text-secondary md:text-4xl lg:text-[42px]">
           {eventTitle}
         </h2>
         {eventSubtitle && (
           <div className="mt-4 rounded-xl bg-slate-50 px-4 py-5 shadow-[0_2px_8px_rgba(0,0,0,0.06)] md:p-6">
-            <p className="text-primary-800 text-justify text-lg leading-normal font-semibold italic md:text-2xl">
+            <p className="text-justify text-lg leading-normal font-semibold text-primary-800 italic md:text-2xl">
               {eventSubtitle}
             </p>
           </div>

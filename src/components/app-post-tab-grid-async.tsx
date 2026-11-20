@@ -93,9 +93,9 @@ export default function AppPostTabGridAsync(props: AppPostTabGridAsyncProps) {
               key={`${id}-control-${title}`}
               type="button"
               className={cn(
-                "peer border-secondary-400 bg-primary-4 relative -mr-12 inline-flex items-center justify-center gap-x-2 rounded-full border-[6px] px-12 py-1 text-center text-xl font-bold text-nowrap text-white transition disabled:pointer-events-none disabled:opacity-50",
-                "hs-tab-active:bg-primary-700 hs-tab-active:border-secondary-500 hs-tab-active:z-10",
-                "hover:shadow-neon hover:border-secondary-300 hover:z-20",
+                "peer relative -mr-12 inline-flex items-center justify-center gap-x-2 rounded-full border-[6px] border-secondary-400 bg-primary-4 px-12 py-1 text-center text-xl font-bold text-nowrap text-white transition disabled:pointer-events-none disabled:opacity-50",
+                "hs-tab-active:z-10 hs-tab-active:border-secondary-500 hs-tab-active:bg-primary-700",
+                "hover:z-20 hover:border-secondary-300 hover:shadow-neon",
                 "focus:outline-hidden",
                 index === postGroupsData.length - 1 && "active",
               )}

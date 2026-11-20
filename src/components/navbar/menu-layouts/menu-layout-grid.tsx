@@ -43,7 +43,7 @@ export default function MenuLayoutGrid({
             <div className="flex flex-1 shrink-0 items-center justify-between gap-x-2">
               <div className="flex-1">
                 <div className="flex w-full items-center justify-between gap-2 text-left">
-                  <span className="group-hover:text-primary-700 text-left text-lg leading-snug font-bold text-gray-900">
+                  <span className="text-left text-lg leading-snug font-bold text-gray-900 group-hover:text-primary-700">
                     {child.name}
                   </span>
                 </div>
@@ -56,7 +56,7 @@ export default function MenuLayoutGrid({
               </div>
 
               {child.absoluteHref && (
-                <ChevronRight className="group-hover:text-primary-600 size-4 shrink-0 text-gray-400 transition-all group-hover:translate-x-0.5" />
+                <ChevronRight className="size-4 shrink-0 text-gray-400 transition-all group-hover:translate-x-0.5 group-hover:text-primary-600" />
               )}
             </div>
           </div>
@@ -74,7 +74,7 @@ export default function MenuLayoutGrid({
                     className={cn(
                       "group flex w-full items-center justify-between gap-x-2 rounded-md p-2.5 text-left transition-colors outline-none select-none",
                       "hover:bg-gray-100 focus:bg-gray-100",
-                      isActive && "text-primary-700 bg-gray-100",
+                      isActive && "bg-gray-100 text-primary-700",
                     )}
                   />
                 }
@@ -97,9 +97,9 @@ export default function MenuLayoutGrid({
                       key={subChildKey}
                       href={subChild.absoluteHref}
                       className={cn(
-                        "hover:text-primary-700 flex items-center gap-1.5 rounded-md bg-gray-100 px-2 py-0.5 text-left text-base text-gray-700 transition-colors hover:bg-gray-200",
+                        "flex items-center gap-1.5 rounded-md bg-gray-100 px-2 py-0.5 text-left text-base text-gray-700 transition-colors hover:bg-gray-200 hover:text-primary-700",
                         pathname === subChild.absoluteHref &&
-                          "text-primary-700 bg-gray-200 font-medium",
+                          "bg-gray-200 font-medium text-primary-700",
                       )}
                     >
                       {subChild.icon && (

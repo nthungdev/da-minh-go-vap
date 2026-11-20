@@ -17,11 +17,11 @@ export default function AppGridHeader({
       )}
       {...props}
     >
-      <div className="bg-primary-800 h-[2px] flex-1"></div>
-      <span className="text-primary-800 text-base font-bold uppercase @md:text-2xl">
+      <div className="h-[2px] flex-1 bg-primary-800"></div>
+      <span className="text-base font-bold text-primary-800 uppercase @md:text-2xl">
         {text}
       </span>
-      <div className="bg-primary-800 h-[2px] flex-1"></div>
+      <div className="h-[2px] flex-1 bg-primary-800"></div>
     </div>
   );
 }
