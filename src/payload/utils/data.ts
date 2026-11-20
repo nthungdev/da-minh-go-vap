@@ -6,6 +6,7 @@ const DEFAULT_CACHE_TAGS = [
   "footer",
   "siteSettings",
   "hiddenTags",
+  "searchTags",
 ] as const;
 
 export function isDataValid<T extends object>(

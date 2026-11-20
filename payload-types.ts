@@ -68,6 +68,7 @@ export interface Config {
   blocks: {};
   collections: {
     hiddenTags: HiddenTag;
+    searchTags: SearchTag;
     media: Media;
     pages: Page;
     posts: Post;
@@ -81,6 +82,7 @@ export interface Config {
   collectionsJoins: {};
   collectionsSelect: {
     hiddenTags: HiddenTagsSelect<false> | HiddenTagsSelect<true>;
+    searchTags: SearchTagsSelect<false> | SearchTagsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
     posts: PostsSelect<false> | PostsSelect<true>;
@@ -142,6 +144,22 @@ export interface HiddenTag {
   label: string;
   tag: string;
   isPublic?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "searchTags".
+ */
+export interface SearchTag {
+  id: string;
+  tag: string | HiddenTag;
+  /**
+   * Tên hiển thị trên thanh tìm kiếm (để trống sẽ dùng tên gốc của thẻ).
+   */
+  label?: string | null;
+  order?: number | null;
+  enabled?: boolean | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -1309,6 +1327,10 @@ export interface PayloadLockedDocument {
         value: string | HiddenTag;
       } | null)
     | ({
+        relationTo: 'searchTags';
+        value: string | SearchTag;
+      } | null)
+    | ({
         relationTo: 'media';
         value: string | Media;
       } | null)
@@ -1378,6 +1400,18 @@ export interface HiddenTagsSelect<T extends boolean = true> {
   label?: T;
   tag?: T;
   isPublic?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "searchTags_select".
+ */
+export interface SearchTagsSelect<T extends boolean = true> {
+  tag?: T;
+  label?: T;
+  order?: T;
+  enabled?: T;
   updatedAt?: T;
   createdAt?: T;
 }

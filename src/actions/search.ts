@@ -2,7 +2,7 @@
 
 import config from "@payload-config";
 import Fuse from "fuse.js";
-import { getPayload } from "payload";
+import { getPayload, type Where } from "payload";
 import type { AppPost } from "@/definitions";
 import { defaultLocale, type Locale } from "@/i18n/config";
 import type { Post } from "@/payload-types";
@@ -38,22 +38,62 @@ function normalizeVietnamese(text: string): string {
 }
 
 /**
- * Searches published posts by title matching the search query for the given locale.
+ * Searches published posts by title and/or hiddenTag ID for the given locale.
  * Uses Payload Local API with access control enforcement (`overrideAccess: false`),
  * fast per-token `like` filtering first, and diacritic-insensitive Fuse.js fuzzy
  * fallback/ranking so unaccented Vietnamese queries and minor typos still match.
  *
  * @param query - The user search string.
- * @param options - Optional locale setting (defaults to defaultLocale).
+ * @param options - Optional locale and `tagId` filter.
  * @returns Ranked array of matching post search results.
  */
 export const searchPosts = async (
   query: string,
-  { locale }: { locale?: Locale } = {},
+  { locale, tagId }: { locale?: Locale; tagId?: string } = {},
 ): Promise<PostSearchResult[]> => {
   const trimmed = query?.trim() ?? "";
-  if (!trimmed) {
+  const activeTagId = tagId?.trim() || undefined;
+  if (!(trimmed || activeTagId)) {
     return [];
+  }
+
+  const targetLocale = locale ?? defaultLocale;
+  const payload = await getPayload({ config });
+  const nowIso = new Date().toISOString();
+
+  const baseConditions: Where[] = [
+    {
+      publishedAt: {
+        less_than: nowIso,
+      },
+    },
+  ];
+  if (activeTagId) {
+    baseConditions.push({
+      hiddenTags: {
+        in: [activeTagId],
+      },
+    });
+  }
+
+  // Tag-only filter: return latest published posts with the selected tag
+  if (!trimmed) {
+    const tagResult = await payload.find({
+      collection: "posts",
+      overrideAccess: false,
+      depth: 1,
+      select: POST_SEARCH_SELECT,
+      where: {
+        and: baseConditions,
+      },
+      sort: "-publishedAt",
+      limit: 20,
+      locale: targetLocale,
+    });
+
+    return tagResult.docs.map((doc) => ({
+      item: postToCardAppPost(rewriteMediaUrls(doc as Post)),
+    }));
   }
 
   const normalized = trimmed.replace(/\s+/g, " ");
@@ -61,10 +101,6 @@ export const searchPosts = async (
   if (tokens.length === 0) {
     return [];
   }
-
-  const targetLocale = locale ?? defaultLocale;
-  const payload = await getPayload({ config });
-  const nowIso = new Date().toISOString();
 
   // Fast path: DB-level per-token case-insensitive substring match
   const tokenConditions = tokens.map((token) => ({
@@ -79,14 +115,7 @@ export const searchPosts = async (
     depth: 1,
     select: POST_SEARCH_SELECT,
     where: {
-      and: [
-        {
-          publishedAt: {
-            less_than: nowIso,
-          },
-        },
-        ...tokenConditions,
-      ],
+      and: [...baseConditions, ...tokenConditions],
     },
     sort: "-publishedAt",
     limit: 100,
@@ -104,9 +133,7 @@ export const searchPosts = async (
           depth: 1,
           select: POST_SEARCH_SELECT,
           where: {
-            publishedAt: {
-              less_than: nowIso,
-            },
+            and: baseConditions,
           },
           sort: "-publishedAt",
           limit: 500,
