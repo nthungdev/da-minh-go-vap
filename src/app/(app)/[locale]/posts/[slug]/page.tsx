@@ -1,28 +1,29 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import { fetchPostBySlug } from "@/actions/post";
+import AppMarkdown from "@/components/app-markdown";
+import AppPage from "@/components/app-page";
+import AppPostGridPaginated from "@/components/app-post-grid-async-paginated";
+import VideoIframe from "@/components/app-video-iframe";
+import BlocksRenderer from "@/components/blocks-renderer";
+import PostTableOfContents from "@/components/post-table-of-contents";
+import PostTemplateRenderer from "@/components/post-templates";
+import PostViewTracker from "@/components/post-view-tracker";
+import { PublicTagList } from "@/components/public-tag-list";
+import RefreshRouteOnSave from "@/components/refresh-route-on-save";
+import ShareToolbar from "@/components/share-toolbar";
+import type { BlockType } from "@/definitions";
 import {
   applyRouteLocale,
-  requireSiteAuth,
   type LocaleParams,
+  requireSiteAuth,
 } from "@/i18n/server";
-import RefreshRouteOnSave from "@/components/refresh-route-on-save";
-import VideoIframe from "@/components/app-video-iframe";
-import AppPostGridPaginated from "@/components/app-post-grid-async-paginated";
-import AppPage from "@/components/app-page";
-import AppMarkdown from "@/components/app-markdown";
-import PostTemplateRenderer from "@/components/post-templates";
-import BlocksRenderer from "@/components/blocks-renderer";
-import { BlockType } from "@/definitions";
-import { fetchPostBySlug } from "@/actions/post";
 import { getDataOrUndefined } from "@/payload/utils/data";
-import ShareToolbar from "@/components/share-toolbar";
+import { transformUrl } from "@/utils/cloudflare";
 import { formatDate } from "@/utils/date";
 import { getPublicHiddenTags } from "@/utils/post";
-import { PublicTagList } from "@/components/public-tag-list";
-import PostViewTracker from "@/components/post-view-tracker";
 import { getServerOrigin } from "@/utils/url";
-import { transformUrl } from "@/utils/cloudflare";
 
 const relatedPostsLimit = 12;
 
@@ -68,6 +69,28 @@ export function generateStaticParams(): Awaited<Props["params"]>[] {
   return [];
 }
 
+function renderArticleContent(
+  post: NonNullable<Awaited<ReturnType<typeof fetchPostBySlug>>>,
+) {
+  if (post.contentMode === "template" && post.template?.[0]) {
+    return (
+      <div data-post-template={post.template[0].blockType}>
+        <PostTemplateRenderer block={post.template[0]} />
+      </div>
+    );
+  }
+
+  if (post.contentMode === "blocks" && post.contentBlocks?.length) {
+    return <BlocksRenderer blocks={post.contentBlocks as BlockType[]} />;
+  }
+
+  if ((post.contentMode === "markdown" || !post.contentMode) && post.body) {
+    return <AppMarkdown>{post.body}</AppMarkdown>;
+  }
+
+  return null;
+}
+
 export default async function Page(props: Props) {
   const [params, origin] = await Promise.all([props.params, getServerOrigin()]);
   const locale = applyRouteLocale(params.locale);
@@ -90,6 +113,7 @@ export default async function Page(props: Props) {
   const publishedAt = formatDate(post.publishedAt);
 
   const postHref = `${origin}/posts/${post.slug}`;
+  const articleContent = renderArticleContent(post);
 
   return (
     <AppPage>
@@ -110,17 +134,11 @@ export default async function Page(props: Props) {
         </div>
       )}
 
-      {post.contentMode === "template" && post.template?.[0] ? (
-        <div className="mt-8" data-post-template={post.template[0].blockType}>
-          <PostTemplateRenderer block={post.template[0]} />
-        </div>
-      ) : post.contentMode === "blocks" && post.contentBlocks?.length ? (
-        <div className="mt-8">
-          <BlocksRenderer blocks={post.contentBlocks as BlockType[]} />
-        </div>
-      ) : post.contentMode === "markdown" || !post.contentMode ? (
-        <AppMarkdown className="mt-8">{post.body}</AppMarkdown>
-      ) : null}
+      {articleContent && (
+        <PostTableOfContents enabled={Boolean(post.showTableOfContents)}>
+          {articleContent}
+        </PostTableOfContents>
+      )}
 
       {publicTags.length > 0 && (
         <PublicTagList className="mt-6" tags={publicTags} />

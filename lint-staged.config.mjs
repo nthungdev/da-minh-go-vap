@@ -1,6 +1,7 @@
 const lintStagedConfig = {
-  "*.{js,ts,jsx,tsx,json}": "eslint --cache --fix",
-  "*.{js,ts,jsx,tsx,css,md,json,yaml,yml}": "prettier --write",
+  "*.{js,mjs,cjs,ts,jsx,tsx,css,json}":
+    "biome check --write --no-errors-on-unmatched",
+  "*.{md,mdx,yaml,yml}": "prettier --write",
   "*.{ts,tsx}": () => "tsc --noEmit",
 };
 

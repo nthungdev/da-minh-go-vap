@@ -1,8 +1,8 @@
 "use server";
 
-import { Locale, locales } from "@/i18n/config";
-import { hasLocale } from "next-intl";
 import { cookies } from "next/headers";
+import { hasLocale } from "next-intl";
+import { type Locale, locales } from "@/i18n/config";
 
 export async function setLocale(locale: Locale) {
   // Server actions are public endpoints; the type annotation is not enforced at runtime.

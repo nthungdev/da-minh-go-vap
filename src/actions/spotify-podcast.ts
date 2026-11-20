@@ -6,7 +6,10 @@ import { getPayload } from "payload";
 export async function fetchSpotifyPodcasts({
   page = 1,
   limit = 10,
-}: { page?: number; limit?: number } = {}) {
+}: {
+  page?: number;
+  limit?: number;
+} = {}) {
   const payload = await getPayload({ config });
   const query = await payload.find({
     collection: "spotifyPodcasts",
@@ -16,7 +19,7 @@ export async function fetchSpotifyPodcasts({
   });
   return {
     podcasts: query.docs,
-    page: query.page!,
+    page: query.page ?? page,
     totalPages: query.totalPages,
     hasMore: query.hasNextPage,
   };

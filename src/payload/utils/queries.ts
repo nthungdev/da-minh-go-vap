@@ -1,10 +1,10 @@
 // import "server-only";
 
-import { getPayload } from "payload";
 import config from "@payload-config";
-import { Locale } from "next-intl";
-import { cache } from "react";
 import { unstable_cache } from "next/cache";
+import type { Locale } from "next-intl";
+import { getPayload } from "payload";
+import { cache } from "react";
 import { rewriteMediaUrls } from "@/utils/cloudflare";
 
 const getPageByPathCached = unstable_cache(

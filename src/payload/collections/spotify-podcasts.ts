@@ -1,5 +1,5 @@
+import type { CollectionConfig } from "payload";
 import { onlyRoles } from "@/payload/utils/access-control";
-import { CollectionConfig } from "payload";
 
 const SpotifyPodcasts: CollectionConfig = {
   slug: "spotifyPodcasts",

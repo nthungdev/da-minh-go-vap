@@ -1,18 +1,18 @@
-import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { getRequestOrigin } from "@/utils/url";
+import { NextResponse } from "next/server";
 import {
+  isLocalizedPath,
   LOCALE_COOKIE,
+  matchInternalPrefix,
   PUBLIC_PAGE_CACHE_CONTROL,
   SITE_AUTH_COOKIE,
-  isLocalizedPath,
-  matchInternalPrefix,
 } from "@/i18n/routing";
+import { getRequestOrigin } from "@/utils/url";
 
 const AUTH_USER = process.env.AUTH_USER;
 const AUTH_PASSWORD = process.env.AUTH_PASSWORD;
 
-if (!AUTH_USER || !AUTH_PASSWORD) {
+if (!(AUTH_USER && AUTH_PASSWORD)) {
   throw new Error("Missing BASIC_AUTH_USER or BASIC_AUTH_PASSWORD");
 }
 
@@ -98,8 +98,7 @@ function basicAuthCheck(request: NextRequest): BasicAuthResult {
   const authHeader = request.headers.get("authorization");
 
   // Expected format: "Basic base64encoded(user:pass)"
-  const expectedAuth =
-    "Basic " + Buffer.from(`${AUTH_USER}:${AUTH_PASSWORD}`).toString("base64");
+  const expectedAuth = `Basic ${Buffer.from(`${AUTH_USER}:${AUTH_PASSWORD}`).toString("base64")}`;
 
   const passBasicAuth = authHeader === expectedAuth;
   const isAuthBasicRoute = pathname.startsWith("/auth/basic");

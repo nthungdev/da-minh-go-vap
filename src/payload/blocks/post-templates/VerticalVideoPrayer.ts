@@ -1,9 +1,9 @@
+import type { Block } from "payload";
 import {
   markdownField,
   scriptureGroupField,
   videoGroupField,
 } from "@/payload/fields";
-import { Block } from "payload";
 
 const VerticalVideoPrayerBlock: Block = {
   slug: "verticalVideoPrayer",

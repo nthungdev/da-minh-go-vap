@@ -1,14 +1,14 @@
+import type { Metadata, ResolvingMetadata } from "next";
+import { notFound } from "next/navigation";
 import AppPage from "@/components/app-page";
 import BlocksRenderer from "@/components/blocks-renderer";
-import { notFound } from "next/navigation";
+import RefreshRouteOnSave from "@/components/refresh-route-on-save";
 import {
   applyRouteLocale,
-  requireSiteAuth,
   type LocaleParams,
+  requireSiteAuth,
 } from "@/i18n/server";
 import { getPageByPath } from "@/payload/utils/queries";
-import RefreshRouteOnSave from "@/components/refresh-route-on-save";
-import { Metadata, ResolvingMetadata } from "next";
 
 type Props = {
   // path must be an array of strings 🤷
@@ -22,7 +22,7 @@ export async function generateMetadata(
   const parentMetadata = await parent;
   const params = await props.params;
   const locale = applyRouteLocale(params.locale);
-  const path = "/" + (params.path || []).join("/");
+  const path = `/${(params.path || []).join("/")}`;
   const page = await getPageByPath(path, locale);
 
   return {
@@ -54,7 +54,7 @@ export function generateStaticParams(): Pick<
 export default async function Page(props: Props) {
   const params = await props.params;
   const locale = applyRouteLocale(params.locale);
-  const path = "/" + (params.path || []).join("/");
+  const path = `/${(params.path || []).join("/")}`;
   const page = await getPageByPath(path, locale);
   if (!page) {
     console.info("Page not found for path:", path);
@@ -71,10 +71,7 @@ export default async function Page(props: Props) {
   }
 
   const banners =
-    (page.banners &&
-      page.banners.every((b) => typeof b === "object") &&
-      page.banners) ||
-    [];
+    (page.banners?.every((b) => typeof b === "object") && page.banners) || [];
 
   return (
     <AppPage
@@ -96,7 +93,7 @@ export default async function Page(props: Props) {
             </section>
           )}
           {!!page?.aside?.length && (
-            <aside className="bg-primary-1 hidden w-56 lg:w-64 xl:block">
+            <aside className="hidden w-56 bg-primary-1 lg:w-64 xl:block">
               <BlocksRenderer blocks={page.aside} />
             </aside>
           )}

@@ -1,6 +1,6 @@
 "use client";
 
-import { HTMLProps, useEffect } from "react";
+import { type HTMLProps, useEffect } from "react";
 import { cn } from "@/utils/common";
 
 interface AppAccordionToggle {
@@ -20,16 +20,17 @@ function AppAccordionToggle(props: AppAccordionToggle) {
 
   return (
     <button
+      type="button"
       className={cn(
-        "hs-accordion-toggle hs-accordion-active:hover:text-gray-50 inline-flex w-full items-center gap-x-3 rounded-lg px-2 py-3 text-start font-semibold text-gray-800 hover:text-gray-50 focus:outline-hidden disabled:pointer-events-none disabled:opacity-50",
+        "hs-accordion-toggle inline-flex w-full items-center gap-x-3 rounded-lg px-2 py-3 text-start font-semibold text-gray-800 hover:text-gray-50 focus:outline-hidden disabled:pointer-events-none disabled:opacity-50 hs-accordion-active:hover:text-gray-50",
         colorVariants[colorLevel],
-        "hs-accordion-active:text-gray-800 hover:bg-primary-800",
+        "hover:bg-primary-800 hs-accordion-active:text-gray-800",
       )}
       aria-expanded={false}
       aria-controls={controlId}
     >
       <svg
-        className="hs-accordion-active:hidden block size-4"
+        className="block size-4 hs-accordion-active:hidden"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"
@@ -43,7 +44,7 @@ function AppAccordionToggle(props: AppAccordionToggle) {
         <path d="m6 9 6 6 6-6"></path>
       </svg>
       <svg
-        className="hs-accordion-active:block hidden size-4"
+        className="hidden size-4 hs-accordion-active:block"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"
@@ -72,10 +73,9 @@ function AppAccordionContent(props: AppAccordionContentProps) {
   const { id, labeledById, body, children } = props;
 
   return (
-    <div
+    <section
       id={id}
-      className={`hs-accordion-content w-full overflow-hidden transition-[height] duration-300`}
-      role="region"
+      className="hs-accordion-content w-full overflow-hidden transition-[height] duration-300"
       aria-labelledby={labeledById}
       style={{ height: "0px" }}
     >
@@ -83,7 +83,7 @@ function AppAccordionContent(props: AppAccordionContentProps) {
         {body}
         {children}
       </div>
-    </div>
+    </section>
   );
 }
 
@@ -135,39 +135,64 @@ function AppAccordionItem(props: AppAccordionItemProps) {
   const { id, children } = props;
 
   return (
-    <div className={`hs-accordion bg-primary-50 rounded-lg`} id={id}>
+    <div className={`hs-accordion rounded-lg bg-primary-50`} id={id}>
       {children}
     </div>
   );
 }
 
-const defaultItemRender = (alwaysOpen?: boolean, level: number = 0) =>
-  function AppAccordionItemDefault(item: AppAccordionItem, index: number) {
-    const loopedLevel = level % 3;
+interface AppAccordionDefaultItemProps {
+  item: AppAccordionItem;
+  index: number;
+  alwaysOpen?: boolean;
+  level: number;
+}
 
+function AppAccordionDefaultItem({
+  item,
+  index,
+  alwaysOpen,
+  level,
+}: AppAccordionDefaultItemProps) {
+  const loopedLevel = level % 3;
+
+  return (
+    <AppAccordion.Item id={`${item.title}-item-${index}`}>
+      <AppAccordion.Toggle
+        controlId={`${item.title}-content-${index}`}
+        title={item.title}
+        colorLevel={level}
+      />
+      <AppAccordion.Content
+        id={`${item.title}-content-${index}`}
+        labeledById={`${item.title}-item-${index}`}
+        body={item.body}
+      >
+        {item.items && (
+          <AppAccordion.Root
+            items={item.items}
+            itemRender={defaultItemRender(alwaysOpen, loopedLevel + 1)}
+            alwaysOpen={alwaysOpen}
+          />
+        )}
+      </AppAccordion.Content>
+    </AppAccordion.Item>
+  );
+}
+
+function defaultItemRender(alwaysOpen?: boolean, level: number = 0) {
+  return function renderAccordionItem(item: AppAccordionItem, index: number) {
     return (
-      <AppAccordion.Item key={index} id={`${item.title}-item-${index}`}>
-        <AppAccordion.Toggle
-          controlId={`${item.title}-content-${index}`}
-          title={item.title}
-          colorLevel={level}
-        />
-        <AppAccordion.Content
-          id={`${item.title}-content-${index}`}
-          labeledById={`${item.title}-item-${index}`}
-          body={item.body}
-        >
-          {item.items && (
-            <AppAccordion.Root
-              items={item.items}
-              itemRender={defaultItemRender(alwaysOpen, loopedLevel + 1)}
-              alwaysOpen={alwaysOpen}
-            />
-          )}
-        </AppAccordion.Content>
-      </AppAccordion.Item>
+      <AppAccordionDefaultItem
+        key={`${item.title}-${index}`}
+        item={item}
+        index={index}
+        alwaysOpen={alwaysOpen}
+        level={level}
+      />
     );
   };
+}
 
 const AppAccordion = {
   Root: AppAccordionRoot,

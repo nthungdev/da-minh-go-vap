@@ -1,11 +1,11 @@
 "use client";
 
-import PostGroupTabsPanel from "@/components/post-group-tabs/panel";
-import PostGroupTabsSelect from "@/components/post-group-tabs/select";
-import { Page } from "@/payload-types";
-import { AppPost } from "@/definitions";
 import { useTranslations } from "next-intl";
 import { useId, useState } from "react";
+import PostGroupTabsPanel from "@/components/post-group-tabs/panel";
+import PostGroupTabsSelect from "@/components/post-group-tabs/select";
+import type { AppPost } from "@/definitions";
+import type { Page } from "@/payload-types";
 import { cn } from "@/utils/common";
 
 interface PostGroupTabsProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -61,7 +61,7 @@ function PostGroupTabs({
     <div className={cn(className)} id={id} {...props}>
       <div
         className={
-          "bg-primary flex flex-row items-center justify-between gap-x-8 rounded-t-md px-2 py-1.5 text-white md:px-6 lg:items-start"
+          "flex flex-row items-center justify-between gap-x-8 rounded-t-md bg-primary px-2 py-1.5 text-white md:px-6 lg:items-start"
         }
       >
         <div className="text-xl font-bold">{title}</div>
@@ -72,51 +72,55 @@ function PostGroupTabs({
           options={postGroups.map((group) => ({ value: group.title }))}
           onChange={setCurrentIndex}
         />
-        <ol
+        <div
           role="tablist"
           aria-label={t("navigation.selectPostGroup")}
           className="hidden flex-1 flex-row flex-wrap justify-end gap-x-2 gap-y-1 pt-1 pb-1 lg:flex"
         >
-          {postGroups.map((g, index) => (
-            <li
-              key={index}
-              onClick={() => setCurrentIndex(index)}
-              className={cn("flex flex-row gap-x-3 px-1")}
-              role="tab"
-              aria-selected={currentIndex === index}
-              aria-controls={`group-${id}-${index}`}
-              id={`tab-${id}-${index}`}
-              tabIndex={currentIndex === index ? 0 : -1}
-            >
-              {index !== 0 && <div className="border-l"></div>}
-              <span
-                className={cn(
-                  "text-gray-100 transition-transform hover:scale-x-105 hover:cursor-pointer hover:text-white",
-                  currentIndex === index && "font-bold text-white",
-                )}
-              >
-                {g.title}
-              </span>
-            </li>
-          ))}
-        </ol>
+          {postGroups.map((g, index) => {
+            const groupKey = `${g.title}-${g.hiddenTags.join(",")}`;
+            return (
+              <div key={groupKey} className="flex flex-row gap-x-3 px-1">
+                {index !== 0 && <div className="border-l" />}
+                <button
+                  type="button"
+                  onClick={() => setCurrentIndex(index)}
+                  role="tab"
+                  aria-selected={currentIndex === index}
+                  aria-controls={`group-${id}-${index}`}
+                  id={`tab-${id}-${index}`}
+                  tabIndex={currentIndex === index ? 0 : -1}
+                  className={cn(
+                    "text-gray-100 transition-transform hover:scale-x-105 hover:cursor-pointer hover:text-white",
+                    currentIndex === index && "font-bold text-white",
+                  )}
+                >
+                  {g.title}
+                </button>
+              </div>
+            );
+          })}
+        </div>
       </div>
 
       <div>
-        {postGroups.map((g, index) => (
-          <PostGroupTabsPanel
-            key={index}
-            id={`group-${id}-${index}`}
-            hiddenTags={g.hiddenTags}
-            title={g.title}
-            initialPosts={index === 0 ? initialPosts : undefined}
-            viewMoreButton={g.viewMoreButton}
-            role="tabpanel"
-            tab-index="0"
-            aria-labelledby={`tab-${id}-${index}`}
-            hidden={currentIndex !== index}
-          />
-        ))}
+        {postGroups.map((g, index) => {
+          const groupKey = `${g.title}-${g.hiddenTags.join(",")}`;
+          return (
+            <PostGroupTabsPanel
+              key={groupKey}
+              id={`group-${id}-${index}`}
+              hiddenTags={g.hiddenTags}
+              title={g.title}
+              initialPosts={index === 0 ? initialPosts : undefined}
+              viewMoreButton={g.viewMoreButton}
+              role="tabpanel"
+              tab-index="0"
+              aria-labelledby={`tab-${id}-${index}`}
+              hidden={currentIndex !== index}
+            />
+          );
+        })}
       </div>
     </div>
   );

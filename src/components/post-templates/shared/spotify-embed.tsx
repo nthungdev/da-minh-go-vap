@@ -1,6 +1,6 @@
+import { useTranslations } from "next-intl";
 import { cn } from "@/utils/common";
 import { toSpotifyEmbedUrl } from "@/utils/spotify";
-import { useTranslations } from "next-intl";
 
 interface SpotifyEmbedProps {
   url?: string | null;

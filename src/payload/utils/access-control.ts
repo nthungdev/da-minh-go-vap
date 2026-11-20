@@ -1,5 +1,5 @@
-import { Post, User } from "@/payload-types";
-import { AccessArgs, AccessResult, PayloadRequest } from "payload";
+import type { AccessArgs, AccessResult, PayloadRequest } from "payload";
+import type { Post, User } from "@/payload-types";
 
 export function onlyRoles(
   allowedRoles: User["role"][],

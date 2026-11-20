@@ -1,10 +1,10 @@
 import "server-only";
 import config from "@payload-config";
-import { getPayload } from "payload";
 import { unstable_cache } from "next/cache";
+import { getPayload } from "payload";
 import { cache } from "react";
-import { defaultLocale, Locale } from "@/i18n/config";
-import { CategoryPostItem, stripMedia } from "@/utils/menu";
+import { defaultLocale, type Locale } from "@/i18n/config";
+import { type CategoryPostItem, stripMedia } from "@/utils/menu";
 import { makePostPath } from "@/utils/post";
 import { PUBLISHED_CONTENT_REVALIDATE_SECONDS } from "@/utils/published-content-cache";
 import { getCategoryPostsKey } from "@/utils/streaming";

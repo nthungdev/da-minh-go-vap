@@ -8,7 +8,7 @@ const CLOSING_QUOTE = /["“”„«»]\s*$/;
  * that belongs to an inner quotation survives.
  */
 export function stripWrappingQuotes(text: string): string {
-  if (!OPENING_QUOTE.test(text) || !CLOSING_QUOTE.test(text)) {
+  if (!(OPENING_QUOTE.test(text) && CLOSING_QUOTE.test(text))) {
     return text.trim();
   }
   return text.replace(OPENING_QUOTE, "").replace(CLOSING_QUOTE, "").trim();

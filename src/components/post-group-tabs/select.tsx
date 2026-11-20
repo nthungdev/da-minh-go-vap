@@ -1,9 +1,9 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 import { cn } from "@/utils/common";
-import { useTranslations } from "next-intl";
 
 interface PostGroupTabsSelectOption {
   value: string;
@@ -72,37 +72,30 @@ export default function PostGroupTabsSelect(props: PostGroupTabsSelectProps) {
       </button>
 
       {isOpen && (
-        <ul
+        <div
           id={menuId}
           className="absolute end-0 top-full z-10 mt-2 min-w-44 rounded-md bg-white p-2 text-black shadow-2xl/20"
           role="menu"
           aria-labelledby={id}
         >
           {options.map((option, index) => (
-            <li
-              key={index}
+            <button
+              key={option.value}
+              type="button"
               role="menuitem"
-              tabIndex={0}
               className={cn(
-                "block cursor-pointer rounded-sm px-2 py-1 hover:bg-gray-100",
+                "block w-full cursor-pointer rounded-sm px-2 py-1 text-left hover:bg-gray-100",
                 index === activeIndex && "font-bold",
               )}
               onClick={() => {
                 onChange?.(index);
                 setIsOpen(false);
               }}
-              onKeyDown={(event) => {
-                if (event.key === "Enter" || event.key === " ") {
-                  event.preventDefault();
-                  onChange?.(index);
-                  setIsOpen(false);
-                }
-              }}
             >
               {option.value}
-            </li>
+            </button>
           ))}
-        </ul>
+        </div>
       )}
     </div>
   );

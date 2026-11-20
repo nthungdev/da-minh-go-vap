@@ -18,8 +18,8 @@ export default function Loading() {
       >
         <div className="mx-auto h-8 w-1/2 bg-gray-200" />
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-          {Array.from({ length: 4 }, (_, index) => (
-            <div key={index} className="aspect-video bg-gray-200" />
+          {["card-1", "card-2", "card-3", "card-4"].map((id) => (
+            <div key={id} className="aspect-video bg-gray-200" />
           ))}
         </div>
         <div className="space-y-3">

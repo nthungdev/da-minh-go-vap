@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { ComponentType, useEffect, useState } from "react";
+import { type ComponentType, useEffect, useState } from "react";
 
 interface LivePreviewProps {
   refresh: () => void;
@@ -24,7 +24,7 @@ export default function RefreshRouteOnSave() {
     });
   }, []);
 
-  if (!serverURL || !LivePreview) {
+  if (!(serverURL && LivePreview)) {
     return null;
   }
 

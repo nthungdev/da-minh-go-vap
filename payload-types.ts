@@ -306,10 +306,15 @@ export interface Page {
             blockType: 'timelineBlock';
           }
         | {
+            title?: string | null;
             videos: {
               title: string;
               type: 'youtube' | 'facebook';
               url: string;
+              /**
+               * Set this when a YouTube Short is entered as a bare ID.
+               */
+              isShort?: boolean | null;
               id?: string | null;
             }[];
             id?: string | null;
@@ -480,10 +485,15 @@ export interface Page {
             blockType: 'timelineBlock';
           }
         | {
+            title?: string | null;
             videos: {
               title: string;
               type: 'youtube' | 'facebook';
               url: string;
+              /**
+               * Set this when a YouTube Short is entered as a bare ID.
+               */
+              isShort?: boolean | null;
               id?: string | null;
             }[];
             id?: string | null;
@@ -624,6 +634,10 @@ export interface Post {
   id: string;
   title: string;
   hideTitle?: boolean | null;
+  /**
+   * Tự động tạo mục lục từ các tiêu đề H2, H3 trong nội dung bài viết.
+   */
+  showTableOfContents?: boolean | null;
   hiddenTags: (string | HiddenTag)[];
   thumbnail: string | Media;
   videos?:
@@ -1211,6 +1225,9 @@ export interface VideoGridBlock {
     title: string;
     type: 'youtube' | 'facebook';
     url: string;
+    /**
+     * Set this when a YouTube Short is entered as a bare ID.
+     */
     isShort?: boolean | null;
     id?: string | null;
   }[];
@@ -1704,6 +1721,7 @@ export interface LinksBlockSelect<T extends boolean = true> {
 export interface PostsSelect<T extends boolean = true> {
   title?: T;
   hideTitle?: T;
+  showTableOfContents?: T;
   hiddenTags?: T;
   thumbnail?: T;
   videos?:

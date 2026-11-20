@@ -12,9 +12,9 @@ Please refer directly to [AGENTS.md](file:///Users/hung/Dev/da-minh-go-vap/AGENT
 
 - **Dev server**: `pnpm dev`
 - **Type check**: `pnpm check-types`
-- **Lint**: `pnpm lint`
-- **Lint & format fix**: `pnpm lint:fix`
-- **Prettier check/fix**: `pnpm prettier` / `pnpm prettier:fix`
+- **Lint**: `pnpm lint` (Biome: JS/TS/JSX/TSX/JSON/CSS — lint, format, imports, Tailwind classes)
+- **Lint & format fix**: `pnpm lint:fix` (Biome + Prettier for Markdown/YAML)
+- **Prettier check/fix**: `pnpm prettier` / `pnpm prettier:fix` (Markdown & YAML only)
 - **Build**: `pnpm build`
 - **Payload types generation**: `pnpm generate`
 

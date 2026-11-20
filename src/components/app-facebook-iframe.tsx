@@ -3,12 +3,15 @@ import { cn } from "@/utils/common";
 export default function FacebookIframe({
   videoId,
   className,
+  title = "Facebook video player",
 }: {
   videoId: string;
   className?: string;
+  title?: string;
 }) {
   return (
     <iframe
+      title={title}
       className={cn(
         "aspect-video w-full overflow-hidden border-none",
         className,
