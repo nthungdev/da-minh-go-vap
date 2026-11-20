@@ -220,14 +220,12 @@ interface AppMarkdownProps {
   locale?: string;
 }
 
-export default function AppMarkdown({
+function AppMarkdownContent({
   children,
   className,
-  locale,
+  resolvedLocale,
   ...props
-}: AppMarkdownProps) {
-  const activeLocale = useLocale();
-  const resolvedLocale = locale ?? activeLocale;
+}: Omit<AppMarkdownProps, "locale"> & { resolvedLocale: string }) {
   const footnoteHeading = resolvedLocale === "en" ? "Footnotes" : "Chú thích";
   const components = createMarkdownComponents(footnoteHeading);
   const content =
@@ -247,4 +245,16 @@ export default function AppMarkdown({
       </Markdown>
     </div>
   );
+}
+
+function AppMarkdownWithLocale(props: Omit<AppMarkdownProps, "locale">) {
+  const activeLocale = useLocale();
+  return <AppMarkdownContent {...props} resolvedLocale={activeLocale} />;
+}
+
+export default function AppMarkdown({ locale, ...props }: AppMarkdownProps) {
+  if (locale) {
+    return <AppMarkdownContent {...props} resolvedLocale={locale} />;
+  }
+  return <AppMarkdownWithLocale {...props} />;
 }
