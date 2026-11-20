@@ -92,6 +92,17 @@ export default async function Page(props: Props) {
 
   const postHref = `${origin}/posts/${post.slug}`;
 
+  const articleContent =
+    post.contentMode === "template" && post.template?.[0] ? (
+      <div data-post-template={post.template[0].blockType}>
+        <PostTemplateRenderer block={post.template[0]} />
+      </div>
+    ) : post.contentMode === "blocks" && post.contentBlocks?.length ? (
+      <BlocksRenderer blocks={post.contentBlocks as BlockType[]} />
+    ) : (post.contentMode === "markdown" || !post.contentMode) && post.body ? (
+      <AppMarkdown>{post.body}</AppMarkdown>
+    ) : null;
+
   return (
     <AppPage>
       <RefreshRouteOnSave />
@@ -111,17 +122,11 @@ export default async function Page(props: Props) {
         </div>
       )}
 
-      <PostTableOfContents enabled={Boolean(post.showTableOfContents)}>
-        {post.contentMode === "template" && post.template?.[0] ? (
-          <div data-post-template={post.template[0].blockType}>
-            <PostTemplateRenderer block={post.template[0]} />
-          </div>
-        ) : post.contentMode === "blocks" && post.contentBlocks?.length ? (
-          <BlocksRenderer blocks={post.contentBlocks as BlockType[]} />
-        ) : post.contentMode === "markdown" || !post.contentMode ? (
-          <AppMarkdown>{post.body}</AppMarkdown>
-        ) : null}
-      </PostTableOfContents>
+      {articleContent && (
+        <PostTableOfContents enabled={Boolean(post.showTableOfContents)}>
+          {articleContent}
+        </PostTableOfContents>
+      )}
 
       {publicTags.length > 0 && (
         <PublicTagList className="mt-6" tags={publicTags} />

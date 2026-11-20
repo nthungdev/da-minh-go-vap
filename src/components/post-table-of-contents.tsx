@@ -15,6 +15,16 @@ interface PostTableOfContentsProps {
   children: React.ReactNode;
 }
 
+function areTocItemsEqual(a: TocItem[], b: TocItem[]): boolean {
+  if (a.length !== b.length) return false;
+  return a.every(
+    (item, index) =>
+      item.id === b[index]?.id &&
+      item.text === b[index]?.text &&
+      item.level === b[index]?.level,
+  );
+}
+
 /**
  * Wraps the rendered article body, extracts `h2`/`h3` headings from the DOM when enabled,
  * and displays an inline collapsible Table of Contents above the article content.
@@ -42,7 +52,9 @@ export default function PostTableOfContents({
 
     const syncHeadings = () => {
       const extracted = extractTableOfContents(container);
-      setItems(extracted);
+      setItems((prev) =>
+        areTocItemsEqual(prev, extracted) ? prev : extracted,
+      );
 
       if (!hasScrolledInitialHashRef.current && window.location.hash) {
         const targetId = decodeURIComponent(window.location.hash.slice(1));
