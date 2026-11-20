@@ -55,7 +55,6 @@ const FA_ICON_MAP: Record<string, LucideIcon> = {
 
 const markdownComponents: Components = {
   // `node` is the hast element; omit it so it is not serialized into the page payload.
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   img({ node, src, alt, width, height, loading, decoding, ...imgProps }) {
     const resolvedSrc =
       typeof src === "string" && src.includes("/api/media/file/")
@@ -63,7 +62,6 @@ const markdownComponents: Components = {
         : src;
 
     return (
-      // eslint-disable-next-line @next/next/no-img-element
       // biome-ignore lint/performance/noImgElement: markdown renders arbitrary external image URLs
       <img
         {...imgProps}

@@ -184,7 +184,6 @@ export default function KeywordTooltipHelper({
                   <span className={styles.previewLabel}>Xem trước</span>
                   <div className={styles.preview} aria-live="polite">
                     {form.image.trim() && (
-                      // eslint-disable-next-line @next/next/no-img-element -- admin preview of an arbitrary URL
                       // biome-ignore lint/performance/noImgElement: admin preview of an arbitrary URL
                       <img
                         src={form.image.trim()}

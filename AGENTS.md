@@ -23,8 +23,8 @@ Always use `pnpm` to run package scripts:
 | --------------------------- | ------------------------------------ | ----------------------------------------------------- |
 | **Development**             | `pnpm dev`                           | Starts Next.js dev server with Turbopack              |
 | **Type Check**              | `pnpm check-types`                   | Validates TypeScript types (`tsc --noemit`)           |
-| **Lint**                    | `pnpm lint`                          | Runs ESLint across the codebase                       |
-| **Lint & Fix**              | `pnpm lint:fix`                      | Runs ESLint auto-fix and Prettier formatting          |
+| **Lint**                    | `pnpm lint`                          | Runs Biome check across the codebase                  |
+| **Lint & Fix**              | `pnpm lint:fix`                      | Runs Prettier formatting and Biome check `--write`    |
 | **Prettier Check**          | `pnpm prettier`                      | Checks code formatting                                |
 | **Prettier Fix**            | `pnpm prettier:fix`                  | Formats all files with Prettier                       |
 | **Production Build**        | `pnpm build`                         | Generates the Next.js production build                |
@@ -40,7 +40,7 @@ Always use `pnpm` to run package scripts:
 
 Whenever you make changes, verify and format the codebase before submitting or committing:
 
-1. Run `pnpm lint:fix` (or `pnpm lint` and `pnpm prettier:fix`).
+1. Run `pnpm lint:fix` (runs Prettier and Biome `check --write`), or check with `pnpm lint` and `pnpm prettier`.
 2. Run `pnpm check-types` to ensure zero TypeScript errors.
 3. Fix any reported warnings or errors before marking tasks as complete.
 

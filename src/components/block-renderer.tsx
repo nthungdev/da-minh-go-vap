@@ -225,7 +225,6 @@ const BlockRenderer = async ({ block }: { block: BlockType }) => {
   if (!Component) return null;
   const propsMapper = mapBlockToProps[block.blockType];
   const props = await propsMapper(block as never);
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
   return <Component {...props} />;
 };
