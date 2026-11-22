@@ -148,17 +148,20 @@ test("rendered footnotes have matching href=#id targets without double clobber p
 
 test("raw HTML style blocks and class attributes render intact", () => {
   const html = renderMarkdown(
-    [
-      '<section class="vocation-invite" aria-labelledby="invite-title">',
-      "  <style>",
-      "    .card{color:red}",
-      "  </style>",
-      '  <h2 id="invite-title">Title</h2>',
-      '  <div class="card">Body</div>',
-      "</section>",
-    ].join("\n"),
+    preserveMarkdownWhitespace(
+      [
+        '<section class="vocation-invite" aria-labelledby="invite-title">',
+        "  <style>",
+        "    .card{color:red}",
+        "  </style>",
+        '  <h2 id="invite-title">Title</h2>',
+        '  <div class="card">Body</div>',
+        "</section>",
+      ].join("\n"),
+    ),
   );
 
+  assert.doesNotMatch(html, /\u00A0/);
   assert.match(
     html,
     /<section class="vocation-invite" aria-labelledby="invite-title">/,
@@ -166,4 +169,81 @@ test("raw HTML style blocks and class attributes render intact", () => {
   assert.match(html, /<style>\s*\.card\{color:red\}\s*<\/style>/);
   assert.match(html, /<h2 id="invite-title">/);
   assert.match(html, /<div class="card">Body<\/div>/);
+});
+
+test("preserveMarkdownWhitespace leaves indented CSS in a top-level style block untouched", () => {
+  const input = [
+    "<style>",
+    "  .card {",
+    "    color: red;",
+    "",
+    "  }",
+    "</style>",
+    "",
+    "  Indented paragraph after the style block.",
+  ].join("\n");
+
+  const expected = [
+    "<style>",
+    "  .card {",
+    "    color: red;",
+    "",
+    "  }",
+    "</style>",
+    "",
+    "\u00A0\u00A0Indented paragraph after the style block.",
+  ].join("\n");
+
+  assert.equal(preserveMarkdownWhitespace(input), expected);
+});
+
+test("preserveMarkdownWhitespace leaves block-level HTML untouched until a blank line", () => {
+  const input = [
+    '<div class="grid">',
+    '  <div class="item">One</div>',
+    '  <div class="item">Two</div>',
+    "</div>",
+    "",
+    "  Indented paragraph.",
+  ].join("\n");
+
+  const expected = [
+    '<div class="grid">',
+    '  <div class="item">One</div>',
+    '  <div class="item">Two</div>',
+    "</div>",
+    "",
+    "\u00A0\u00A0Indented paragraph.",
+  ].join("\n");
+
+  assert.equal(preserveMarkdownWhitespace(input), expected);
+});
+
+test("preserveMarkdownWhitespace handles single-line style blocks and comments", () => {
+  const input = [
+    "<style>.a{color:red}</style>",
+    "  Indented paragraph.",
+    "<!-- note",
+    "  still a comment -->",
+    "  Indented paragraph.",
+  ].join("\n");
+
+  const expected = [
+    "<style>.a{color:red}</style>",
+    "\u00A0\u00A0Indented paragraph.",
+    "<!-- note",
+    "  still a comment -->",
+    "\u00A0\u00A0Indented paragraph.",
+  ].join("\n");
+
+  assert.equal(preserveMarkdownWhitespace(input), expected);
+});
+
+test("preserveMarkdownWhitespace does not treat a lone inline tag inside a paragraph as an HTML block", () => {
+  const input = ["Paragraph text", "<span>", "  continued"].join("\n");
+  const expected = ["Paragraph text", "<span>", "\u00A0\u00A0continued"].join(
+    "\n",
+  );
+
+  assert.equal(preserveMarkdownWhitespace(input), expected);
 });

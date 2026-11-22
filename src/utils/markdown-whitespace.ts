@@ -36,8 +36,50 @@ function isIndentedBlockSyntax(spaces: string, rest: string): boolean {
   );
 }
 
+// CommonMark HTML block start conditions 1-7 (spec section 4.6).
+const HTML_BLOCK_BLOCK_TAGS =
+  "address|article|aside|base|basefont|blockquote|body|caption|center|col|colgroup|dd|details|dialog|dir|div|dl|dt|fieldset|figcaption|figure|footer|form|frame|frameset|h[1-6]|head|header|hr|html|iframe|legend|li|link|main|menu|menuitem|nav|noframes|ol|optgroup|option|p|param|search|section|summary|table|tbody|td|tfoot|th|thead|title|tr|track|ul";
+const HTML_ATTRIBUTE =
+  "\\s+[A-Za-z_:][\\w.:-]*(?:\\s*=\\s*(?:[^\\s\"'=<>`]+|'[^']*'|\"[^\"]*\"))?";
+
+interface HtmlBlockRule {
+  start: RegExp;
+  /** Closing pattern; `null` means the block ends at the next blank line. */
+  end: RegExp | null;
+  canInterruptParagraph: boolean;
+}
+
+const HTML_BLOCK_RULES: HtmlBlockRule[] = [
+  {
+    start: /^<(?:script|pre|style|textarea)(?:\s|>|$)/i,
+    end: /<\/(?:script|pre|style|textarea)>/i,
+    canInterruptParagraph: true,
+  },
+  { start: /^<!--/, end: /-->/, canInterruptParagraph: true },
+  { start: /^<\?/, end: /\?>/, canInterruptParagraph: true },
+  { start: /^<![A-Za-z]/, end: />/, canInterruptParagraph: true },
+  { start: /^<!\[CDATA\[/, end: /\]\]>/, canInterruptParagraph: true },
+  {
+    start: new RegExp(`^</?(?:${HTML_BLOCK_BLOCK_TAGS})(?:\\s|/?>|$)`, "i"),
+    end: null,
+    canInterruptParagraph: true,
+  },
+  {
+    start: new RegExp(
+      `^(?:<(?!(?:script|style|pre|textarea)\\b)[A-Za-z][A-Za-z0-9-]*(?:${HTML_ATTRIBUTE})*\\s*/?>|</[A-Za-z][A-Za-z0-9-]*\\s*>)\\s*$`,
+      "i",
+    ),
+    end: null,
+    canInterruptParagraph: false,
+  },
+];
+
 interface MarkdownWhitespaceState {
   activeFence: { char: string; length: number } | null;
+  /** Open raw HTML block whose lines must pass through untouched. */
+  activeHtmlBlock: HtmlBlockRule | null;
+  /** Whether the previous line could be continued as a paragraph. */
+  inParagraph: boolean;
   listContentOffset: number | null;
   sawBlankLineInList: boolean;
   inFootnoteDefinition: boolean;
@@ -95,6 +137,41 @@ function tryOpenFence(
     char: openMarker[0] ?? "`",
     length: openMarker.length,
   };
+  return true;
+}
+
+function continueHtmlBlock(line: string, state: MarkdownWhitespaceState): void {
+  const block = state.activeHtmlBlock;
+  if (!block) return;
+  if (block.end ? block.end.test(line) : !line.trim()) {
+    state.activeHtmlBlock = null;
+  }
+}
+
+/**
+ * Opens a raw HTML block when the line meets a CommonMark start condition.
+ * Raw HTML (notably `<style>` CSS) must keep its ASCII whitespace: U+00A0 is
+ * not whitespace in CSS, so converting indentation breaks selectors and
+ * declarations.
+ */
+function tryOpenHtmlBlock(
+  line: string,
+  trimmed: string,
+  state: MarkdownWhitespaceState,
+): boolean {
+  const indent = getIndentWidth(line.slice(0, line.length - trimmed.length));
+  if (indent > 3) return false;
+
+  const rule = HTML_BLOCK_RULES.find(
+    (candidate) =>
+      candidate.start.test(trimmed) &&
+      (candidate.canInterruptParagraph || !state.inParagraph),
+  );
+  if (!rule) return false;
+
+  // Types 1-5 may close on the opening line; types 6-7 close at a blank line.
+  const closesOnSameLine = rule.end?.test(trimmed) ?? false;
+  state.activeHtmlBlock = closesOnSameLine ? null : rule;
   return true;
 }
 
@@ -179,6 +256,16 @@ function processMarkdownLine(
   line: string,
   state: MarkdownWhitespaceState,
 ): string {
+  const transformed = transformMarkdownLine(line, state);
+  state.inParagraph =
+    line.trim() !== "" && !state.activeFence && !state.activeHtmlBlock;
+  return transformed;
+}
+
+function transformMarkdownLine(
+  line: string,
+  state: MarkdownWhitespaceState,
+): string {
   const trimmed = line.trimStart();
 
   if (state.activeFence) {
@@ -186,7 +273,16 @@ function processMarkdownLine(
     return line;
   }
 
+  if (state.activeHtmlBlock) {
+    continueHtmlBlock(line, state);
+    return line;
+  }
+
   if (tryOpenFence(line, trimmed, state)) {
+    return line;
+  }
+
+  if (tryOpenHtmlBlock(line, trimmed, state)) {
     return line;
   }
 
@@ -236,7 +332,8 @@ function processMarkdownLine(
  * In standard CommonMark, lines with 4 spaces or tabs become code blocks,
  * and 1-3 spaces at the start of a paragraph are stripped. Converting leading
  * indentation on non-list, non-footnote lines to non-breaking spaces preserves
- * visual formatting while maintaining normal text semantics.
+ * visual formatting while maintaining normal text semantics. Fenced code and
+ * raw HTML blocks pass through unchanged.
  *
  * @param content - Raw markdown text input
  * @returns Preprocessed markdown with preserved paragraph indentation
@@ -246,6 +343,8 @@ export function preserveMarkdownWhitespace(content: string): string {
 
   const state: MarkdownWhitespaceState = {
     activeFence: null,
+    activeHtmlBlock: null,
+    inParagraph: false,
     listContentOffset: null,
     sawBlankLineInList: false,
     inFootnoteDefinition: false,
