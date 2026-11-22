@@ -10,6 +10,11 @@ import PaginationPanel from "@/components/pagination-panel";
 import type { AppPost } from "@/definitions";
 import type { Locale } from "@/i18n/config";
 import { cn } from "@/utils/common";
+import {
+  buildPaginatedPostsInitialData,
+  type PaginatedPostsData,
+  shouldHidePagination,
+} from "@/utils/post-pagination";
 import AppPostGridSkeleton from "./app-post-grid-skeleton";
 
 const DEFAULT_PAGE_SIZE = 12;
@@ -19,6 +24,7 @@ type BasePostGridPaginatedProps = {
   className?: string;
   skipSlug?: string;
   posts?: AppPost[];
+  initialData?: PaginatedPostsData;
   /**
    * If true (default), synchronizes the current page with URL search params (e.g. ?page=2).
    */
@@ -122,6 +128,7 @@ function AppPostGridPaginatedContent(props: AppPostGridPaginatedProps) {
   const {
     pageSize = DEFAULT_PAGE_SIZE,
     posts: initialPosts,
+    initialData,
     hiddenTags,
     publicTag,
     skipSlug,
@@ -177,26 +184,22 @@ function AppPostGridPaginatedContent(props: AppPostGridPaginatedProps) {
     pageSize,
   });
 
-  const hasInitialData =
-    Boolean(initialPosts && initialPosts.length > 0) && page === 1;
+  const queryInitialData = buildPaginatedPostsInitialData({
+    page,
+    initialData,
+    posts: initialPosts,
+  });
 
   const { data, error, isError, isPending, isFetched, isFetching } = useQuery({
     ...queryOptions,
     placeholderData: keepPreviousData,
-    initialData:
-      hasInitialData && initialPosts
-        ? {
-            posts: initialPosts,
-            hasMore: false,
-            totalPages: 1,
-            page: 1,
-          }
-        : undefined,
+    initialData: queryInitialData,
   });
 
   const posts = data?.posts ?? [];
   const hasMore = data?.hasMore ?? false;
-  const hidePagination = !hasMore && page === 1;
+  const totalPages = data?.totalPages ?? 1;
+  const hidePagination = shouldHidePagination({ hasMore, totalPages, page });
   const isInitialLoading = !isFetched && isPending;
 
   return (

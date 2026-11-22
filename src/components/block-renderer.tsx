@@ -16,6 +16,7 @@ import TheLatestPosts from "@/components/the-latest-posts";
 import VideoGrid from "@/components/video-grid";
 import type { AppPost, BlockType } from "@/definitions";
 import type { Locale } from "@/i18n/config";
+import type { PaginatedPostsData } from "@/utils/post-pagination";
 
 function NotImplementedBlock() {
   return <div>Not Implemented</div>;
@@ -115,15 +116,14 @@ const mapBlockToProps: BlockToPropsMap = {
       .filter((tag) => typeof tag !== "string")
       .map((tag) => tag.tag);
     const limit = block.limit || 4;
-    let posts: AppPost[] | undefined;
+    let initialData: PaginatedPostsData | undefined;
     if (hiddenTags.length > 0) {
       try {
         const locale = (await getLocale()) as Locale;
-        const result = await fetchPostsByHiddenTags(hiddenTags, {
+        initialData = await fetchPostsByHiddenTags(hiddenTags, {
           limit,
           locale,
         });
-        posts = result.posts;
       } catch (error) {
         console.error("Failed to preload post group on server:", error);
       }
@@ -135,8 +135,7 @@ const mapBlockToProps: BlockToPropsMap = {
       hidePostTitles: block.hidePostTitles,
       hiddenTags,
       type: block.displayType,
-      posts,
-      initialPosts: posts,
+      initialData,
     };
   },
   quoteBlock: (block) => ({
