@@ -80,6 +80,12 @@ interface MarkdownWhitespaceState {
   activeFence: { char: string; length: number } | null;
   /** Open raw HTML block whose lines must pass through untouched. */
   activeHtmlBlock: HtmlBlockRule | null;
+  /** Inside a multi-line HTML open tag (e.g. `<a\n  href="...">`) awaiting `>`. */
+  inHtmlOpenTag: boolean;
+  /** Active quote delimiter while scanning inside a multi-line HTML open tag. */
+  htmlTagQuote: '"' | "'" | null;
+  /** Whether the current multi-line open tag started standalone (not in a paragraph). */
+  htmlTagStandalone: boolean;
   /** Whether the previous line could be continued as a paragraph. */
   inParagraph: boolean;
   listContentOffset: number | null;
@@ -230,6 +236,161 @@ function tryOpenHtmlBlock(
   return true;
 }
 
+function resetHtmlOpenTagState(state: MarkdownWhitespaceState): void {
+  state.inHtmlOpenTag = false;
+  state.htmlTagQuote = null;
+  state.htmlTagStandalone = false;
+}
+
+const HTML_OPEN_TAG_START = /^<([A-Za-z][A-Za-z0-9-]*)(?=[\s/>]|$)/;
+
+type HtmlOpenTagScanResult =
+  | { status: "closed"; nextIndex: number }
+  | { status: "aborted"; nextIndex: number }
+  | { status: "unclosed"; quote: '"' | "'" | null };
+
+/**
+ * Scans forward from inside an open HTML tag starting at `startIndex`.
+ * Distinguishes a normal `>` close from an abort on an unquoted `<`, or an
+ * unclosed tag at end of line (with any active quote delimiter).
+ */
+function scanInsideHtmlOpenTag(
+  text: string,
+  startIndex: number,
+  initialQuote: '"' | "'" | null,
+): HtmlOpenTagScanResult {
+  let quote = initialQuote;
+  for (let i = startIndex; i < text.length; i++) {
+    const ch = text[i];
+    if (quote) {
+      if (ch === quote) quote = null;
+      continue;
+    }
+    if (ch === '"' || ch === "'") {
+      quote = ch;
+    } else if (ch === ">") {
+      return { status: "closed", nextIndex: i + 1 };
+    } else if (ch === "<") {
+      // Unquoted `<` is invalid inside an HTML open tag; abort this candidate.
+      return { status: "aborted", nextIndex: i };
+    }
+  }
+  return { status: "unclosed", quote };
+}
+
+function skipInlineCodeSpan(text: string, startIndex: number): number {
+  let tickLen = 0;
+  while (
+    startIndex + tickLen < text.length &&
+    text[startIndex + tickLen] === "`"
+  ) {
+    tickLen++;
+  }
+  const closeIdx = text.indexOf("`".repeat(tickLen), startIndex + tickLen);
+  return closeIdx === -1 ? startIndex + tickLen : closeIdx + tickLen;
+}
+
+function tryScanOpenTagAt(
+  text: string,
+  index: number,
+): HtmlOpenTagScanResult | null {
+  const tagMatch = text.slice(index).match(HTML_OPEN_TAG_START);
+  if (!tagMatch) return null;
+
+  const afterName = index + tagMatch[0].length;
+  // Avoid treating bare `x<y` math at EOL as an open tag.
+  const isBareAtEol = afterName === text.length;
+  const prevChar = index > 0 ? (text[index - 1] ?? "") : "";
+  if (isBareAtEol && index > 0 && !/[\s(>[{]/.test(prevChar)) {
+    return null;
+  }
+  return scanInsideHtmlOpenTag(text, afterName, null);
+}
+
+/**
+ * Reports whether `text` (from `startIndex`) ends inside an unclosed HTML open
+ * tag (e.g. `<a class="card"` or `See <a\n  href="..."`), skipping inline
+ * backtick code spans.
+ */
+function findTrailingUnclosedHtmlOpenTag(
+  text: string,
+  startIndex = 0,
+): { unclosed: boolean; quote: '"' | "'" | null } {
+  let i = startIndex;
+  while (i < text.length) {
+    const ch = text[i];
+    if (ch === "`") {
+      i = skipInlineCodeSpan(text, i);
+      continue;
+    }
+    if (ch === "<") {
+      const scan = tryScanOpenTagAt(text, i);
+      if (scan) {
+        if (scan.status === "unclosed") {
+          return { unclosed: true, quote: scan.quote };
+        }
+        i = scan.nextIndex;
+        continue;
+      }
+    }
+    i++;
+  }
+  return { unclosed: false, quote: null };
+}
+
+/**
+ * Opens standalone multi-line HTML open-tag tracking when a line (with <= 3
+ * leading spaces and not continuing a paragraph) begins with an HTML open tag
+ * whose closing `>` is on a later line (e.g. `<a class="card"\n   href="...">`).
+ */
+function tryOpenStandaloneHtmlTag(
+  line: string,
+  trimmed: string,
+  state: MarkdownWhitespaceState,
+): boolean {
+  if (state.inParagraph) return false;
+  const indent = getIndentWidth(line.slice(0, line.length - trimmed.length));
+  if (indent > 3) return false;
+
+  const tagMatch = trimmed.match(HTML_OPEN_TAG_START);
+  if (!tagMatch) return false;
+
+  const scan = scanInsideHtmlOpenTag(trimmed, tagMatch[0].length, null);
+  if (scan.status !== "unclosed") return false;
+
+  state.inHtmlOpenTag = true;
+  state.htmlTagQuote = scan.quote;
+  state.htmlTagStandalone = true;
+  return true;
+}
+
+function continueHtmlOpenTag(
+  line: string,
+  state: MarkdownWhitespaceState,
+): void {
+  const scan = scanInsideHtmlOpenTag(line, 0, state.htmlTagQuote);
+  if (scan.status === "unclosed") {
+    state.htmlTagQuote = scan.quote;
+    return;
+  }
+
+  const trailing = line.slice(scan.nextIndex);
+  const reopened = findTrailingUnclosedHtmlOpenTag(trailing);
+  if (reopened.unclosed) {
+    state.inHtmlOpenTag = true;
+    state.htmlTagQuote = reopened.quote;
+    state.htmlTagStandalone = false;
+    return;
+  }
+
+  const closedStandalone =
+    scan.status === "closed" &&
+    state.htmlTagStandalone &&
+    trailing.trim() === "";
+  resetHtmlOpenTagState(state);
+  state.inParagraph = !closedStandalone;
+}
+
 function transformBlockquoteLine(line: string): string | null {
   // Check for blockquote prefix (e.g. "> " or ">> "), consuming at most one space per marker
   // so additional leading indentation in `rest` is preserved.
@@ -307,48 +468,83 @@ function transformIndentedLine(
   return `${convertLeadingSpacesToNbsp(spaces)}${rest}`;
 }
 
-function processMarkdownLine(
+function trackTrailingOpenTag(
   line: string,
   state: MarkdownWhitespaceState,
-): string {
-  const transformed = transformMarkdownLine(line, state);
-  state.inParagraph =
-    line.trim() !== "" && !state.activeFence && !state.activeHtmlBlock;
-  return transformed;
+): void {
+  const trailing = findTrailingUnclosedHtmlOpenTag(line);
+  if (trailing.unclosed) {
+    state.inHtmlOpenTag = true;
+    state.htmlTagQuote = trailing.quote;
+    state.htmlTagStandalone = false;
+  }
 }
 
-function transformMarkdownLine(
+function handleBlankLine(state: MarkdownWhitespaceState): void {
+  if (state.listContentOffset !== null) {
+    state.sawBlankLineInList = true;
+  }
+  if (state.inFootnoteDefinition) {
+    state.sawBlankLineInFootnote = true;
+  }
+  state.inParagraph = false;
+}
+
+function tryHandlePassthroughLine(
+  line: string,
+  trimmed: string,
+  state: MarkdownWhitespaceState,
+): boolean {
+  if (state.activeFence) {
+    tryCloseFence(trimmed, state);
+    state.inParagraph = false;
+    return true;
+  }
+  if (state.activeHtmlBlock) {
+    continueHtmlBlock(line, state);
+    state.inParagraph = false;
+    if (!state.activeHtmlBlock && line.trim()) {
+      trackTrailingOpenTag(line, state);
+    }
+    return true;
+  }
+  if (state.inHtmlOpenTag) {
+    if (line.trim()) {
+      continueHtmlOpenTag(line, state);
+      return true;
+    }
+    // A blank line ends inline HTML in CommonMark.
+    resetHtmlOpenTagState(state);
+  }
+  if (tryOpenFence(line, trimmed, state)) {
+    state.inParagraph = false;
+    return true;
+  }
+  if (tryOpenHtmlBlock(line, trimmed, state)) {
+    state.inParagraph = false;
+    if (!state.activeHtmlBlock) {
+      trackTrailingOpenTag(line, state);
+    }
+    return true;
+  }
+  if (!line.trim()) {
+    handleBlankLine(state);
+    return true;
+  }
+  if (tryOpenStandaloneHtmlTag(line, trimmed, state)) {
+    state.inParagraph = false;
+    return true;
+  }
+  return false;
+}
+
+function processMarkdownLine(
   line: string,
   state: MarkdownWhitespaceState,
 ): string {
   const trimmed = line.trimStart();
 
-  if (state.activeFence) {
-    tryCloseFence(trimmed, state);
-    return line;
-  }
-
-  if (state.activeHtmlBlock) {
-    continueHtmlBlock(line, state);
-    return line;
-  }
-
-  if (tryOpenFence(line, trimmed, state)) {
-    return line;
-  }
-
-  if (tryOpenHtmlBlock(line, trimmed, state)) {
-    return line;
-  }
-
-  // Do not transform empty or whitespace-only lines
-  if (!line.trim()) {
-    if (state.listContentOffset !== null) {
-      state.sawBlankLineInList = true;
-    }
-    if (state.inFootnoteDefinition) {
-      state.sawBlankLineInFootnote = true;
-    }
+  if (tryHandlePassthroughLine(line, trimmed, state)) {
     return line;
   }
 
@@ -356,6 +552,8 @@ function transformMarkdownLine(
     state.inFootnoteDefinition = true;
     state.sawBlankLineInFootnote = false;
     resetListState(state);
+    state.inParagraph = true;
+    trackTrailingOpenTag(line, state);
     return line;
   }
 
@@ -363,20 +561,29 @@ function transformMarkdownLine(
   if (blockquoteLine !== null) {
     resetListState(state);
     resetFootnoteState(state);
+    state.inParagraph = true;
+    trackTrailingOpenTag(line, state);
     return blockquoteLine;
   }
 
   if (handleListLine(line, state)) {
+    state.inParagraph = true;
+    trackTrailingOpenTag(line, state);
     return line;
   }
 
   const indentedLine = transformIndentedLine(line, state);
   if (indentedLine !== null) {
+    const leadingSpaces = line.slice(0, line.length - trimmed.length);
+    state.inParagraph = !isIndentedBlockSyntax(leadingSpaces, trimmed);
+    trackTrailingOpenTag(line, state);
     return indentedLine;
   }
 
   resetListState(state);
   resetFootnoteState(state);
+  state.inParagraph = !isIndentedBlockSyntax("", trimmed);
+  trackTrailingOpenTag(line, state);
   return line;
 }
 
@@ -387,8 +594,8 @@ function transformMarkdownLine(
  * In standard CommonMark, lines with 4 spaces or tabs become code blocks,
  * and 1-3 spaces at the start of a paragraph are stripped. Converting leading
  * indentation on non-list, non-footnote lines to non-breaking spaces preserves
- * visual formatting while maintaining normal text semantics. Fenced code and
- * raw HTML blocks pass through unchanged.
+ * visual formatting while maintaining normal text semantics. Fenced code,
+ * raw HTML blocks, and multi-line HTML open tags pass through unchanged.
  *
  * @param content - Raw markdown text input
  * @returns Preprocessed markdown with preserved paragraph indentation
@@ -399,6 +606,9 @@ export function preserveMarkdownWhitespace(content: string): string {
   const state: MarkdownWhitespaceState = {
     activeFence: null,
     activeHtmlBlock: null,
+    inHtmlOpenTag: false,
+    htmlTagQuote: null,
+    htmlTagStandalone: false,
     inParagraph: false,
     listContentOffset: null,
     sawBlankLineInList: false,
