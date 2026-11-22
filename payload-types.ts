@@ -268,6 +268,10 @@ export interface Page {
               enableViewMoreButton: boolean;
             };
             displayType: 'grid' | 'list';
+            /**
+             * Hiển thị phân trang ngay trong lưới bài viết (chỉ áp dụng cho dạng Grid, dùng Limit làm số bài mỗi trang và ưu tiên hơn nút Xem tiếp).
+             */
+            enablePagination?: boolean | null;
             id?: string | null;
             blockName?: string | null;
             blockType: 'postGroupBlock';
@@ -447,6 +451,10 @@ export interface Page {
               enableViewMoreButton: boolean;
             };
             displayType: 'grid' | 'list';
+            /**
+             * Hiển thị phân trang ngay trong lưới bài viết (chỉ áp dụng cho dạng Grid, dùng Limit làm số bài mỗi trang và ưu tiên hơn nút Xem tiếp).
+             */
+            enablePagination?: boolean | null;
             id?: string | null;
             blockName?: string | null;
             blockType: 'postGroupBlock';
@@ -581,6 +589,10 @@ export interface Page {
               enableViewMoreButton: boolean;
             };
             displayType: 'grid' | 'list';
+            /**
+             * Hiển thị phân trang ngay trong lưới bài viết (chỉ áp dụng cho dạng Grid, dùng Limit làm số bài mỗi trang và ưu tiên hơn nút Xem tiếp).
+             */
+            enablePagination?: boolean | null;
             id?: string | null;
             blockName?: string | null;
             blockType: 'postGroupBlock';
@@ -1119,6 +1131,10 @@ export interface PostGroupBlock {
     enableViewMoreButton: boolean;
   };
   displayType: 'grid' | 'list';
+  /**
+   * Hiển thị phân trang ngay trong lưới bài viết (chỉ áp dụng cho dạng Grid, dùng Limit làm số bài mỗi trang và ưu tiên hơn nút Xem tiếp).
+   */
+  enablePagination?: boolean | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'postGroupBlock';
@@ -1596,6 +1612,7 @@ export interface PostGroupBlockSelect<T extends boolean = true> {
         enableViewMoreButton?: T;
       };
   displayType?: T;
+  enablePagination?: T;
   id?: T;
   blockName?: T;
 }

@@ -16,7 +16,10 @@ import TheLatestPosts from "@/components/the-latest-posts";
 import VideoGrid from "@/components/video-grid";
 import type { AppPost, BlockType } from "@/definitions";
 import type { Locale } from "@/i18n/config";
-import type { PaginatedPostsData } from "@/utils/post-pagination";
+import {
+  type PaginatedPostsData,
+  resolvePostGroupLimit,
+} from "@/utils/post-pagination";
 
 function NotImplementedBlock() {
   return <div>Not Implemented</div>;
@@ -115,7 +118,12 @@ const mapBlockToProps: BlockToPropsMap = {
     const hiddenTags = block.hiddenTags
       .filter((tag) => typeof tag !== "string")
       .map((tag) => tag.tag);
-    const limit = block.limit || 4;
+    const enablePagination = Boolean(block.enablePagination);
+    const limit = resolvePostGroupLimit({
+      limit: block.limit,
+      enablePagination,
+      displayType: block.displayType,
+    });
     let initialData: PaginatedPostsData | undefined;
     if (hiddenTags.length > 0) {
       try {
@@ -132,6 +140,7 @@ const mapBlockToProps: BlockToPropsMap = {
       title: block.title,
       limit,
       hasMore: block.viewMoreButton.enableViewMoreButton,
+      enablePagination,
       hidePostTitles: block.hidePostTitles,
       hiddenTags,
       type: block.displayType,

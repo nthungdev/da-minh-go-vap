@@ -25,6 +25,7 @@ type BasePostGridPaginatedProps = {
   skipSlug?: string;
   posts?: AppPost[];
   initialData?: PaginatedPostsData;
+  hidePostTitles?: boolean;
   /**
    * If true (default), synchronizes the current page with URL search params (e.g. ?page=2).
    */
@@ -129,6 +130,7 @@ function AppPostGridPaginatedContent(props: AppPostGridPaginatedProps) {
     pageSize = DEFAULT_PAGE_SIZE,
     posts: initialPosts,
     initialData,
+    hidePostTitles,
     hiddenTags,
     publicTag,
     skipSlug,
@@ -215,7 +217,7 @@ function AppPostGridPaginatedContent(props: AppPostGridPaginatedProps) {
         ) : isError ? (
           <p className="text-red-500">Error: {error.message}</p>
         ) : (
-          <AppPostGrid posts={posts} />
+          <AppPostGrid hidePostTitles={hidePostTitles} posts={posts} />
         )}
       </div>
 
