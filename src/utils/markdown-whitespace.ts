@@ -244,16 +244,21 @@ function resetHtmlOpenTagState(state: MarkdownWhitespaceState): void {
 
 const HTML_OPEN_TAG_START = /^<([A-Za-z][A-Za-z0-9-]*)(?=[\s/>]|$)/;
 
+type HtmlOpenTagScanResult =
+  | { status: "closed"; nextIndex: number }
+  | { status: "aborted"; nextIndex: number }
+  | { status: "unclosed"; quote: '"' | "'" | null };
+
 /**
  * Scans forward from inside an open HTML tag starting at `startIndex`.
- * Returns the index immediately after the closing `>`, or `null` if the tag
- * remains unclosed at end of line (returning the active quote delimiter if any).
+ * Distinguishes a normal `>` close from an abort on an unquoted `<`, or an
+ * unclosed tag at end of line (with any active quote delimiter).
  */
 function scanInsideHtmlOpenTag(
   text: string,
   startIndex: number,
   initialQuote: '"' | "'" | null,
-): { closedAt: number | null; quote: '"' | "'" | null } {
+): HtmlOpenTagScanResult {
   let quote = initialQuote;
   for (let i = startIndex; i < text.length; i++) {
     const ch = text[i];
@@ -264,13 +269,13 @@ function scanInsideHtmlOpenTag(
     if (ch === '"' || ch === "'") {
       quote = ch;
     } else if (ch === ">") {
-      return { closedAt: i + 1, quote: null };
+      return { status: "closed", nextIndex: i + 1 };
     } else if (ch === "<") {
       // Unquoted `<` is invalid inside an HTML open tag; abort this candidate.
-      return { closedAt: i, quote: null };
+      return { status: "aborted", nextIndex: i };
     }
   }
-  return { closedAt: null, quote };
+  return { status: "unclosed", quote };
 }
 
 function skipInlineCodeSpan(text: string, startIndex: number): number {
@@ -288,7 +293,7 @@ function skipInlineCodeSpan(text: string, startIndex: number): number {
 function tryScanOpenTagAt(
   text: string,
   index: number,
-): { closedAt: number | null; quote: '"' | "'" | null } | null {
+): HtmlOpenTagScanResult | null {
   const tagMatch = text.slice(index).match(HTML_OPEN_TAG_START);
   if (!tagMatch) return null;
 
@@ -321,10 +326,10 @@ function findTrailingUnclosedHtmlOpenTag(
     if (ch === "<") {
       const scan = tryScanOpenTagAt(text, i);
       if (scan) {
-        if (scan.closedAt === null) {
+        if (scan.status === "unclosed") {
           return { unclosed: true, quote: scan.quote };
         }
-        i = scan.closedAt;
+        i = scan.nextIndex;
         continue;
       }
     }
@@ -351,7 +356,7 @@ function tryOpenStandaloneHtmlTag(
   if (!tagMatch) return false;
 
   const scan = scanInsideHtmlOpenTag(trimmed, tagMatch[0].length, null);
-  if (scan.closedAt !== null) return false;
+  if (scan.status !== "unclosed") return false;
 
   state.inHtmlOpenTag = true;
   state.htmlTagQuote = scan.quote;
@@ -364,12 +369,12 @@ function continueHtmlOpenTag(
   state: MarkdownWhitespaceState,
 ): void {
   const scan = scanInsideHtmlOpenTag(line, 0, state.htmlTagQuote);
-  if (scan.closedAt === null) {
+  if (scan.status === "unclosed") {
     state.htmlTagQuote = scan.quote;
     return;
   }
 
-  const trailing = line.slice(scan.closedAt);
+  const trailing = line.slice(scan.nextIndex);
   const reopened = findTrailingUnclosedHtmlOpenTag(trailing);
   if (reopened.unclosed) {
     state.inHtmlOpenTag = true;
@@ -378,7 +383,10 @@ function continueHtmlOpenTag(
     return;
   }
 
-  const closedStandalone = state.htmlTagStandalone && trailing.trim() === "";
+  const closedStandalone =
+    scan.status === "closed" &&
+    state.htmlTagStandalone &&
+    trailing.trim() === "";
   resetHtmlOpenTagState(state);
   state.inParagraph = !closedStandalone;
 }
@@ -495,6 +503,9 @@ function tryHandlePassthroughLine(
   if (state.activeHtmlBlock) {
     continueHtmlBlock(line, state);
     state.inParagraph = false;
+    if (!state.activeHtmlBlock && line.trim()) {
+      trackTrailingOpenTag(line, state);
+    }
     return true;
   }
   if (state.inHtmlOpenTag) {
@@ -505,11 +516,15 @@ function tryHandlePassthroughLine(
     // A blank line ends inline HTML in CommonMark.
     resetHtmlOpenTagState(state);
   }
-  if (
-    tryOpenFence(line, trimmed, state) ||
-    tryOpenHtmlBlock(line, trimmed, state)
-  ) {
+  if (tryOpenFence(line, trimmed, state)) {
     state.inParagraph = false;
+    return true;
+  }
+  if (tryOpenHtmlBlock(line, trimmed, state)) {
+    state.inParagraph = false;
+    if (!state.activeHtmlBlock) {
+      trackTrailingOpenTag(line, state);
+    }
     return true;
   }
   if (!line.trim()) {

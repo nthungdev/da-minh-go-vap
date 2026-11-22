@@ -464,3 +464,32 @@ test("inline code spans and math comparisons do not trigger multi-line HTML open
 
   assert.equal(preserveMarkdownWhitespace(input), expected);
 });
+
+test("multi-line open tags opened on the same line as an HTML block close stay raw", () => {
+  const input = [
+    "<style>.a{color:red}</style><a",
+    '  href="https://example.com"',
+    '  class="card">Link</a>',
+    "",
+    "<!-- note",
+    '  end --><a class="x"',
+    '  href="https://example.com">Ok</a>',
+  ].join("\n");
+
+  assert.equal(preserveMarkdownWhitespace(input), input);
+});
+
+test("aborted multi-line open tag on stray < resets standalone state", () => {
+  const input = ['<a class="card"', "  stray <", "<span>", "  indented"].join(
+    "\n",
+  );
+
+  const expected = [
+    '<a class="card"',
+    "  stray <",
+    "<span>",
+    "\u00A0\u00A0indented",
+  ].join("\n");
+
+  assert.equal(preserveMarkdownWhitespace(input), expected);
+});
