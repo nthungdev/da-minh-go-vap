@@ -276,3 +276,57 @@ test("style nested in a section keeps CSS split by blank lines inside the style 
   assert.doesNotMatch(html, /<p>[^<]*\.card/);
   assert.match(html, /<div class="card">Body<\/div>/);
 });
+
+test("style opened on the same line as a block tag stays raw across blank lines", () => {
+  for (const opener of [
+    '<section class="x"><style>',
+    "<div>",
+    "<div><p>ok</p><style>",
+  ]) {
+    const isRaw = opener.endsWith("<style>");
+    const lines = isRaw
+      ? [
+          opener,
+          "  .a{",
+          "    color:red;",
+          "  }",
+          "",
+          "    .b{",
+          "      color:blue;",
+          "    }",
+          "  </style>",
+          "</section>",
+        ]
+      : [
+          opener,
+          "  <style>",
+          "  .a{color:red}",
+          "",
+          "    .b{",
+          "      color:blue;",
+          "    }",
+          "  </style>",
+          "</div>",
+        ];
+    const html = renderMarkdown(preserveMarkdownWhitespace(lines.join("\n")));
+    assert.doesNotMatch(html, /\u00A0/, opener);
+    assert.match(
+      html,
+      /<style>[^<]*\.b\{[^<]*color:blue;[^<]*<\/style>/,
+      opener,
+    );
+  }
+});
+
+test("preserveMarkdownWhitespace stays raw when a line closes one style and opens another", () => {
+  const input = [
+    "<style>",
+    "  .a{}",
+    "</style><style>",
+    "  .b{}",
+    "",
+    "  .c{}",
+    "</style>",
+  ].join("\n");
+  assert.equal(preserveMarkdownWhitespace(input), input);
+});

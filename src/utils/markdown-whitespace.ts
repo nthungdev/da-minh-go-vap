@@ -142,6 +142,21 @@ function tryOpenFence(
   return true;
 }
 
+const RAW_TEXT_TAG = /<(\/?)(?:script|pre|style|textarea)(?=[\s/>]|$)/gi;
+
+/**
+ * Reports whether a raw-text element is still open at the end of `text`,
+ * scanning every opening and closing `<style>`, `<script>`, `<pre>` or
+ * `<textarea>` tag on the line, not just one at the start.
+ */
+function endsInsideRawTextElement(text: string, startsOpen = false): boolean {
+  let open = startsOpen;
+  for (const match of text.matchAll(RAW_TEXT_TAG)) {
+    open = match[1] !== "/";
+  }
+  return open;
+}
+
 /**
  * Enters raw-text mode when a `<style>`, `<script>`, `<pre>` or `<textarea>`
  * opens without closing on the same line, at any indentation or nesting.
@@ -154,19 +169,19 @@ function tryOpenRawTextElement(
   state: MarkdownWhitespaceState,
 ): boolean {
   if (!RAW_TEXT_RULE.start.test(trimmed)) return false;
-  state.activeHtmlBlock = RAW_TEXT_RULE.end?.test(trimmed)
-    ? null
-    : RAW_TEXT_RULE;
+  state.activeHtmlBlock = endsInsideRawTextElement(trimmed)
+    ? RAW_TEXT_RULE
+    : null;
   return true;
 }
 
-function continueHtmlBlock(
-  line: string,
-  trimmed: string,
-  state: MarkdownWhitespaceState,
-): void {
+function continueHtmlBlock(line: string, state: MarkdownWhitespaceState): void {
   const block = state.activeHtmlBlock;
   if (!block) return;
+  if (block === RAW_TEXT_RULE) {
+    if (!endsInsideRawTextElement(line, true)) state.activeHtmlBlock = null;
+    return;
+  }
   if (block.end) {
     if (block.end.test(line)) state.activeHtmlBlock = null;
     return;
@@ -176,9 +191,7 @@ function continueHtmlBlock(
     return;
   }
   // A raw-text element nested in a block-level HTML block (e.g. <section><style>).
-  if (tryOpenRawTextElement(trimmed, state) && !state.activeHtmlBlock) {
-    state.activeHtmlBlock = block;
-  }
+  if (endsInsideRawTextElement(line)) state.activeHtmlBlock = RAW_TEXT_RULE;
 }
 
 /**
@@ -204,9 +217,16 @@ function tryOpenHtmlBlock(
   );
   if (!rule) return false;
 
-  // Types 2-5 may close on the opening line; types 6-7 close at a blank line.
-  const closesOnSameLine = rule.end?.test(trimmed) ?? false;
-  state.activeHtmlBlock = closesOnSameLine ? null : rule;
+  if (rule.end) {
+    // Types 2-5 may close on the opening line.
+    state.activeHtmlBlock = rule.end.test(trimmed) ? null : rule;
+  } else {
+    // Types 6-7 close at a blank line unless they open a raw-text element
+    // (e.g. `<section><style>`), which stays raw until its closing tag.
+    state.activeHtmlBlock = endsInsideRawTextElement(trimmed)
+      ? RAW_TEXT_RULE
+      : rule;
+  }
   return true;
 }
 
@@ -309,7 +329,7 @@ function transformMarkdownLine(
   }
 
   if (state.activeHtmlBlock) {
-    continueHtmlBlock(line, trimmed, state);
+    continueHtmlBlock(line, state);
     return line;
   }
 
