@@ -1,7 +1,13 @@
 "use client";
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { type RefObject, Suspense, useCallback, useRef } from "react";
+import {
+  type RefObject,
+  Suspense,
+  useCallback,
+  useEffect,
+  useRef,
+} from "react";
 import PaginationPanel from "@/components/pagination-panel";
 import { cn } from "@/utils/common";
 import {
@@ -141,6 +147,7 @@ function VideoGridContent({
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const containerRef = useRef<HTMLElement>(null);
+  const pendingScrollRef = useRef(false);
 
   const safePageSize = normalizeVideoPageSize(pageSize);
   const totalPages = Math.ceil(videos.length / safePageSize);
@@ -154,8 +161,15 @@ function VideoGridContent({
     safePageSize,
   );
 
+  useEffect(() => {
+    if (activePage < 1 || !pendingScrollRef.current) return;
+    pendingScrollRef.current = false;
+    scrollContainerIntoViewIfAboveFold(containerRef.current);
+  }, [activePage]);
+
   const handlePageChange = useCallback(
     (newPage: number) => {
+      pendingScrollRef.current = true;
       const params = new URLSearchParams(searchParams?.toString() ?? "");
       if (newPage <= 1) {
         params.delete(queryParamName);
@@ -166,8 +180,6 @@ function VideoGridContent({
       router.push(queryString ? `${pathname}?${queryString}` : pathname, {
         scroll: false,
       });
-
-      scrollContainerIntoViewIfAboveFold(containerRef.current);
     },
     [searchParams, queryParamName, pathname, router],
   );
