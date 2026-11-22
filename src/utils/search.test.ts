@@ -9,7 +9,7 @@ import {
   parseRecentSearches,
   resolveSearchTagOptions,
   splitHighlightSegments,
-} from "../src/utils/search.ts";
+} from "./search.ts";
 
 test("normalizeVietnamese strips diacritics and maps đ/Đ", () => {
   assert.equal(normalizeVietnamese("Đa Minh Gò Vấp"), "da minh go vap");

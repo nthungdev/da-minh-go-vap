@@ -4,7 +4,7 @@ import {
   extractHeadingsFromElements,
   type HeadingElementLike,
   slugifyHeading,
-} from "../src/utils/table-of-contents.ts";
+} from "./table-of-contents.ts";
 
 function createHeading(
   tagName: string,

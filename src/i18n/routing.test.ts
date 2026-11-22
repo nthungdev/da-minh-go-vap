@@ -8,7 +8,7 @@ import {
   localizePathForAllLocales,
   matchInternalPrefix,
   parseRouteSegment,
-} from "../src/i18n/routing.ts";
+} from "./routing.ts";
 
 /** Simulates Next's first-match rewrite resolution for one request. */
 function rewrite(pathname: string, cookies: Record<string, string> = {}) {
@@ -171,7 +171,10 @@ const PUBLIC_ROUTE_FILES = [
 
 for (const file of PUBLIC_ROUTE_FILES) {
   test(`${file} renders statically per locale`, () => {
-    const source = readFileSync(new URL(`../${file}`, import.meta.url), "utf8");
+    const source = readFileSync(
+      new URL(`../../${file}`, import.meta.url),
+      "utf8",
+    );
     assert.match(source, /export const revalidate = 60;/);
     assert.match(source, /applyRouteLocale\(/);
     // getLocale() without setRequestLocale, and the auth guard's old
@@ -181,10 +184,7 @@ for (const file of PUBLIC_ROUTE_FILES) {
 }
 
 test("next-intl request config does not read cookies", () => {
-  const source = readFileSync(
-    new URL("../src/i18n/request.ts", import.meta.url),
-    "utf8",
-  );
+  const source = readFileSync(new URL("./request.ts", import.meta.url), "utf8");
   assert.doesNotMatch(source, /next\/headers/);
   assert.match(source, /requestLocale/);
 });
@@ -195,7 +195,7 @@ test("next-intl request config does not read cookies", () => {
  */
 function middlewareMatcher(): RegExp {
   const source = readFileSync(
-    new URL("../src/middleware.ts", import.meta.url),
+    new URL("../middleware.ts", import.meta.url),
     "utf8",
   );
   const literal = /source:\s*("(?:[^"\\]|\\.)*")/.exec(source)?.[1];
@@ -247,7 +247,7 @@ test("middleware skips API, admin and static files", () => {
 // M5: the prefix redirect must not take its host from forwarded headers.
 test("prefix redirect is built from nextUrl", () => {
   const source = readFileSync(
-    new URL("../src/middleware.ts", import.meta.url),
+    new URL("../middleware.ts", import.meta.url),
     "utf8",
   );
   const redirectBlock = source.slice(

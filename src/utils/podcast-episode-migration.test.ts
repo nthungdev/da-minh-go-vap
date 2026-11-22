@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { createPodcastEpisodePageMigrator } from "../src/utils/podcast-episode-migration.ts";
+import { createPodcastEpisodePageMigrator } from "./podcast-episode-migration.ts";
 
 const sourceEpisodes = [
   {

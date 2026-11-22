@@ -5,7 +5,7 @@ import test from "node:test";
 type Messages = { [key: string]: string | Messages };
 
 function load(locale: string): Messages {
-  const url = new URL(`../messages/${locale}.json`, import.meta.url);
+  const url = new URL(`../../messages/${locale}.json`, import.meta.url);
   return JSON.parse(readFileSync(url, "utf8"));
 }
 

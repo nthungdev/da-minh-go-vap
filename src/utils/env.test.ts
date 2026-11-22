@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-const { validateEnvironment } = await import("../src/utils/env.ts");
+const { validateEnvironment } = await import("./env.ts");
 
 const VALID_ENV: NodeJS.ProcessEnv = {
   NODE_ENV: "test",

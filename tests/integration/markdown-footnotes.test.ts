@@ -8,8 +8,8 @@ import remarkGfm from "remark-gfm";
 import {
   getNextFootnoteNumber,
   insertFootnoteMarkup,
-} from "../src/payload/fields/markdown/footnote-markup.ts";
-import { preserveMarkdownWhitespace } from "../src/utils/markdown-whitespace.ts";
+} from "../../src/payload/fields/markdown/footnote-markup.ts";
+import { preserveMarkdownWhitespace } from "../../src/utils/markdown-whitespace.ts";
 
 test("preserveMarkdownWhitespace preserves single-line footnote definitions", () => {
   const input = [
