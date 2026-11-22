@@ -45,8 +45,8 @@ For interactive hover/focus cards in Markdown content, see [docs/keyword-tooltip
 
 ## Verification
 
-Run the footnote unit tests:
+Run the footnote tests:
 
 ```bash
-pnpm run test:markdown-footnotes
+node --test tests/integration/markdown-footnotes.test.ts
 ```

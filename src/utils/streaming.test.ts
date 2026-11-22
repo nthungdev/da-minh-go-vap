@@ -4,7 +4,7 @@ import {
   EAGER_BLOCK_COUNT,
   getCategoryPostsKey,
   shouldStreamBlock,
-} from "../src/utils/streaming.ts";
+} from "./streaming.ts";
 
 test("the first block of a section always renders eagerly", () => {
   assert.equal(EAGER_BLOCK_COUNT, 1);

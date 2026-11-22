@@ -38,6 +38,9 @@ jobs:
       - name: Run type check
         run: pnpm check-types
 
+      - name: Run tests
+        run: pnpm test
+
       - name: Run Biome and Prettier
         run: |
           hasError=false

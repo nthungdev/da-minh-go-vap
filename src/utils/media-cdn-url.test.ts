@@ -3,7 +3,7 @@ import test from "node:test";
 
 process.env.NEXT_PUBLIC_MEDIA_CDN_URL = "https://cdn.example.test";
 const { rewriteMediaUrls, toCdnMediaUrl, transformUrl } = await import(
-  "../src/utils/cloudflare.ts"
+  "./cloudflare.ts"
 );
 
 const PROXY_PATH = "/api/media/file/";
@@ -104,9 +104,10 @@ test("toCdnMediaUrl keeps Payload URLs when the CDN env var is unset", async () 
   delete process.env.NEXT_PUBLIC_MEDIA_CDN_URL;
   try {
     // Query string forces a fresh module evaluation with the env var unset.
-    const specifier = "../src/utils/cloudflare.ts?no-cdn-env";
-    const unconfigured: typeof import("../src/utils/cloudflare.ts") =
-      await import(specifier);
+    const specifier = "./cloudflare.ts?no-cdn-env";
+    const unconfigured: typeof import("./cloudflare.ts") = await import(
+      specifier
+    );
     assert.equal(
       unconfigured.toCdnMediaUrl("/api/media/file/banner.webp"),
       "/api/media/file/banner.webp",

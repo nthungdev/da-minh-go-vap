@@ -19,18 +19,19 @@ Welcome to the **Đa Minh Gò Vấp** project codebase. This document outlines t
 
 Always use `pnpm` to run package scripts:
 
-| Action                      | Command                              | Description                                                                        |
-| --------------------------- | ------------------------------------ | ---------------------------------------------------------------------------------- |
-| **Development**             | `pnpm dev`                           | Starts Next.js dev server with Turbopack                                           |
-| **Type Check**              | `pnpm check-types`                   | Validates TypeScript types (`tsc --noemit`)                                        |
-| **Lint**                    | `pnpm lint`                          | Runs Biome check (JS/TS/JSX/TSX/JSON/CSS: lint, format, imports, Tailwind classes) |
-| **Lint & Fix**              | `pnpm lint:fix`                      | Runs Biome `check --write` and Prettier fix (Markdown/YAML)                        |
-| **Prettier Check**          | `pnpm prettier`                      | Checks Markdown & YAML formatting with Prettier                                    |
-| **Prettier Fix**            | `pnpm prettier:fix`                  | Formats Markdown & YAML files with Prettier                                        |
-| **Production Build**        | `pnpm build`                         | Generates the Next.js production build                                             |
-| **Payload Generate**        | `pnpm generate`                      | Regenerates Payload types and import map                                           |
-| **Local Database**          | `pnpm db:up` / `pnpm db:down`        | Starts/stops MongoDB dev container via Docker Compose                              |
-| **Database Backup/Restore** | `pnpm db:backup` / `pnpm db:restore` | Runs database backup and restore shell scripts                                     |
+| Action                      | Command                              | Description                                                                             |
+| --------------------------- | ------------------------------------ | --------------------------------------------------------------------------------------- |
+| **Development**             | `pnpm dev`                           | Starts Next.js dev server with Turbopack                                                |
+| **Type Check**              | `pnpm check-types`                   | Validates TypeScript types (`tsc --noemit`)                                             |
+| **Tests**                   | `pnpm test` / `pnpm test:watch`      | Runs unit (`src/**/*.test.ts`) and integration (`tests/integration/**/*.test.ts`) tests |
+| **Lint**                    | `pnpm lint`                          | Runs Biome check (JS/TS/JSX/TSX/JSON/CSS: lint, format, imports, Tailwind classes)      |
+| **Lint & Fix**              | `pnpm lint:fix`                      | Runs Biome `check --write` and Prettier fix (Markdown/YAML)                             |
+| **Prettier Check**          | `pnpm prettier`                      | Checks Markdown & YAML formatting with Prettier                                         |
+| **Prettier Fix**            | `pnpm prettier:fix`                  | Formats Markdown & YAML files with Prettier                                             |
+| **Production Build**        | `pnpm build`                         | Generates the Next.js production build                                                  |
+| **Payload Generate**        | `pnpm generate`                      | Regenerates Payload types and import map                                                |
+| **Local Database**          | `pnpm db:up` / `pnpm db:down`        | Starts/stops MongoDB dev container via Docker Compose                                   |
+| **Database Backup/Restore** | `pnpm db:backup` / `pnpm db:restore` | Runs database backup and restore shell scripts                                          |
 
 ---
 

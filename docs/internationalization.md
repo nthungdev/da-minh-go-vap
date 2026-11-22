@@ -61,8 +61,8 @@ change every URL and the redirect rules in `src/middleware.ts`.
   `t("presenter", { name })`) instead of concatenating strings, so each
   language controls word order.
 - `i18n.d.ts` types messages from `messages/vi.json`, so a key used in code but
-  missing from `vi.json` fails `pnpm check-types`. `pnpm test:messages`
-  (`tests/messages.test.ts`) catches what the compiler cannot: keys present in
+  missing from `vi.json` fails `pnpm check-types`. `pnpm test`
+  (`tests/integration/messages.test.ts`) catches what the compiler cannot: keys present in
   only one file, mismatched placeholders, and empty strings.
 - The site name ("Hội Dòng Đa Minh Gò Vấp") is a proper noun and stays
   untranslated in both locales.
@@ -72,7 +72,7 @@ change every URL and the redirect rules in `src/middleware.ts`.
 1. Add the key to `messages/vi.json` and `messages/en.json` under the
    namespace of the feature.
 2. Read it with the API that matches the component type (below).
-3. Run `pnpm test:messages` and `pnpm check-types`.
+3. Run `pnpm test` and `pnpm check-types`.
 4. Switch locales with the locale switcher and check both renderings.
 
 ## Usage
