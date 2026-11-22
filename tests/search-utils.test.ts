@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import {
   addRecentSearch,
+  buildPostSearchConditions,
   formatSearchPostDate,
   getPostPrimaryCategoryLabel,
   normalizeVietnamese,
@@ -140,5 +141,30 @@ test("resolveSearchTagOptions normalizes populated tags and skips invalid refs",
   assert.deepEqual(result, [
     { id: "st-1", tagId: "ht-1", label: "Suy niệm" },
     { id: "st-2", tagId: "ht-2", label: "Tin hội dòng" },
+  ]);
+});
+
+test("buildPostSearchConditions excludes requireHttpBasicAuth posts without tagId", () => {
+  const nowIso = "2026-11-21T00:00:00.000Z";
+  assert.deepEqual(buildPostSearchConditions({ nowIso }), [
+    { publishedAt: { less_than: nowIso } },
+    { requireHttpBasicAuth: { not_equals: true } },
+  ]);
+});
+
+test("buildPostSearchConditions excludes requireHttpBasicAuth posts with tagId and ignores blank tagId", () => {
+  const nowIso = "2026-11-21T00:00:00.000Z";
+  assert.deepEqual(
+    buildPostSearchConditions({ nowIso, tagId: "  tag-123  " }),
+    [
+      { publishedAt: { less_than: nowIso } },
+      { requireHttpBasicAuth: { not_equals: true } },
+      { hiddenTags: { in: ["tag-123"] } },
+    ],
+  );
+
+  assert.deepEqual(buildPostSearchConditions({ nowIso, tagId: "   " }), [
+    { publishedAt: { less_than: nowIso } },
+    { requireHttpBasicAuth: { not_equals: true } },
   ]);
 });

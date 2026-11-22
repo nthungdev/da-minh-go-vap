@@ -2,12 +2,13 @@
 
 import config from "@payload-config";
 import Fuse from "fuse.js";
-import { getPayload, type Where } from "payload";
+import { getPayload } from "payload";
 import type { AppPost } from "@/definitions";
 import { defaultLocale, type Locale } from "@/i18n/config";
 import type { Post } from "@/payload-types";
 import { rewriteMediaUrls } from "@/utils/cloudflare";
 import { postToCardAppPost } from "@/utils/post";
+import { buildPostSearchConditions } from "@/utils/search";
 
 export interface PostSearchResult {
   item: AppPost;
@@ -60,21 +61,10 @@ export const searchPosts = async (
   const targetLocale = locale ?? defaultLocale;
   const payload = await getPayload({ config });
   const nowIso = new Date().toISOString();
-
-  const baseConditions: Where[] = [
-    {
-      publishedAt: {
-        less_than: nowIso,
-      },
-    },
-  ];
-  if (activeTagId) {
-    baseConditions.push({
-      hiddenTags: {
-        in: [activeTagId],
-      },
-    });
-  }
+  const baseConditions = buildPostSearchConditions({
+    nowIso,
+    tagId: activeTagId,
+  });
 
   // Tag-only filter: return latest published posts with the selected tag
   if (!trimmed) {

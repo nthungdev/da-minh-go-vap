@@ -1,3 +1,5 @@
+import type { Where } from "payload";
+
 export interface HighlightSegment {
   text: string;
   highlighted: boolean;
@@ -283,4 +285,43 @@ export function addRecentSearch(
   );
 
   return [trimmed, ...filtered].slice(0, maxItems);
+}
+
+/**
+ * Builds the base Payload `Where` conditions for post search queries,
+ * restricting results to published posts that do not require HTTP basic auth.
+ *
+ * @param options - Current ISO timestamp and optional `tagId` filter.
+ * @returns Array of Payload `Where` clauses to combine with `and`.
+ */
+export function buildPostSearchConditions({
+  nowIso = new Date().toISOString(),
+  tagId,
+}: {
+  nowIso?: string;
+  tagId?: string;
+} = {}): Where[] {
+  const conditions: Where[] = [
+    {
+      publishedAt: {
+        less_than: nowIso,
+      },
+    },
+    {
+      requireHttpBasicAuth: {
+        not_equals: true,
+      },
+    },
+  ];
+
+  const activeTagId = tagId?.trim();
+  if (activeTagId) {
+    conditions.push({
+      hiddenTags: {
+        in: [activeTagId],
+      },
+    });
+  }
+
+  return conditions;
 }

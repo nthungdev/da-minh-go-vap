@@ -44,6 +44,9 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
     title: post?.seo?.title,
     description: post?.seo?.description,
     keywords: post?.seo?.keywords,
+    ...(post?.requireHttpBasicAuth
+      ? { robots: { index: false, follow: false } }
+      : {}),
     openGraph: {
       url,
       title: post?.seo?.title || undefined,

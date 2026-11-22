@@ -29,6 +29,9 @@ export async function generateMetadata(
     title: page?.seo?.title,
     description: page?.seo?.description,
     keywords: page?.seo?.keywords,
+    ...(page?.requireHttpBasicAuth
+      ? { robots: { index: false, follow: false } }
+      : {}),
     openGraph: {
       title: page?.seo?.title ?? undefined,
       description: page?.seo?.description ?? undefined,
