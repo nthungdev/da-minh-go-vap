@@ -84,17 +84,26 @@ function createMarkdownComponents(footnoteHeading: string): Components {
       }
       return <link href={href} {...linkProps} />;
     },
-    i({ className, children, ...iconProps }) {
+    i({ node: _node, className, children, ...iconProps }) {
       if (typeof className === "string" && className.includes("fa-")) {
         const tokens = className.split(/\s+/);
         const matchedKey = tokens.find((token) => token in FA_ICON_MAP);
         const IconComponent = matchedKey ? FA_ICON_MAP[matchedKey] : CircleDot;
         if (IconComponent) {
           return (
-            <IconComponent
+            <i
+              {...iconProps}
+              className={cn(
+                "inline-flex items-center justify-center",
+                className,
+              )}
               aria-hidden="true"
-              className="inline-block size-[1em] align-[-0.125em]"
-            />
+            >
+              <IconComponent
+                aria-hidden="true"
+                className="inline-block size-[1em]"
+              />
+            </i>
           );
         }
       }
