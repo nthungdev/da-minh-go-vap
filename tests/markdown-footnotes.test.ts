@@ -330,3 +330,137 @@ test("preserveMarkdownWhitespace stays raw when a line closes one style and open
   ].join("\n");
   assert.equal(preserveMarkdownWhitespace(input), input);
 });
+
+test("multi-line HTML open tags render as real elements without NBSP corruption", () => {
+  const imageCard = [
+    '<a class="image-link-card"',
+    '   href="https://dongdaminhgovap.org/bantin/tinnoibo"',
+    '   target="_blank"',
+    '   rel="noopener noreferrer"',
+    '   aria-label="Thông tin nội bộ Hội dòng">',
+    '  <div class="image-link-wrapper">',
+    '    <img src="https://example.com/card.jpg" alt="Card" />',
+    "  </div>",
+    "</a>",
+  ].join("\n");
+
+  const preprocessedCard = preserveMarkdownWhitespace(imageCard);
+  assert.equal(preprocessedCard, imageCard);
+
+  const cardHtml = renderMarkdown(preprocessedCard);
+  assert.doesNotMatch(cardHtml, /\u00A0/);
+  assert.doesNotMatch(cardHtml, /&lt;a/);
+  assert.match(
+    cardHtml,
+    /<a class="image-link-card" href="https:\/\/dongdaminhgovap\.org\/bantin\/tinnoibo"/,
+  );
+  assert.match(cardHtml, /<div class="image-link-wrapper">/);
+});
+
+test("multi-line indented HTML tags after comments render intact (diamond-menu)", () => {
+  const input = [
+    '<div class="diamond-menu">',
+    "",
+    "  <!-- PODCAST -->",
+    '  <a href="https://dongdaminhgovap.org/vanhoa/audio"',
+    '     target="_blank"',
+    '     rel="noopener noreferrer"',
+    '     class="diamond-item"',
+    '     aria-label="Podcast">',
+    '   <div class="diamond-icon-wrap">icon</div>',
+    '   <div class="diamond-text-box">PODCAST</div>',
+    "  </a>",
+    "</div>",
+  ].join("\n");
+
+  const preprocessed = preserveMarkdownWhitespace(input);
+  assert.equal(preprocessed, input);
+
+  const html = renderMarkdown(preprocessed);
+  assert.doesNotMatch(html, /\u00A0/);
+  assert.doesNotMatch(html, /&lt;a/);
+  assert.match(
+    html,
+    /<a href="https:\/\/dongdaminhgovap\.org\/vanhoa\/audio"[^>]*class="diamond-item"/,
+  );
+});
+
+test("single-line HTML comments do not prevent following type-7 HTML blocks (icon-link-bar, vm-card)", () => {
+  const input = [
+    '<section class="icon-link-bar">',
+    "  <style>.icon-link-bar { display: flex; }</style>",
+    "",
+    "  <!-- Item 1 -->",
+    '  <a href="https://dongdaminhgovap.org/linhdao" target="_blank">',
+    '    <div class="icon-circle">icon</div>',
+    "    <span>TÂM TÌNH</span>",
+    "  </a>",
+    "",
+    "  <!-- Item 2 -->",
+    '  <a class="vm-card" href="#img2">',
+    '    <div class="vm-card__body">Body</div>',
+    "  </a>",
+    "</section>",
+  ].join("\n");
+
+  const preprocessed = preserveMarkdownWhitespace(input);
+  assert.equal(preprocessed, input);
+
+  const html = renderMarkdown(preprocessed);
+  assert.doesNotMatch(html, /\u00A0/);
+  assert.doesNotMatch(html, /<p>/);
+  assert.match(
+    html,
+    /<a href="https:\/\/dongdaminhgovap\.org\/linhdao" target="_blank">\s*<div class="icon-circle">icon<\/div>\s*<span>TÂM TÌNH<\/span>\s*<\/a>/,
+  );
+  assert.match(
+    html,
+    /<a class="vm-card" href="#img2">\s*<div class="vm-card__body">Body<\/div>\s*<\/a>/,
+  );
+});
+
+test("multi-line inline HTML tags inside paragraphs preserve attributes without affecting later indented prose", () => {
+  const input = [
+    'See <a title="a > b"',
+    '  href="https://example.com"',
+    '  target="_blank">link</a>.',
+    "",
+    "  Indented paragraph after.",
+  ].join("\n");
+
+  const expected = [
+    'See <a title="a > b"',
+    '  href="https://example.com"',
+    '  target="_blank">link</a>.',
+    "",
+    "\u00A0\u00A0Indented paragraph after.",
+  ].join("\n");
+
+  assert.equal(preserveMarkdownWhitespace(input), expected);
+
+  const html = renderMarkdown(expected);
+  assert.match(
+    html,
+    /<p>See <a title="a &gt; b" href="https:\/\/example\.com" target="_blank">link<\/a>\.<\/p>/,
+  );
+});
+
+test("inline code spans and math comparisons do not trigger multi-line HTML open tag mode", () => {
+  const input = [
+    'Use `<a href="https://example.com"` in docs.',
+    "  Indented line after code span.",
+    "",
+    "When x<y",
+    "  Indented line after math.",
+  ].join("\n");
+
+  const expected = [
+    'Use `<a href="https://example.com"` in docs.',
+    "\u00A0\u00A0Indented line after code span.",
+    "",
+    "When x<y",
+    "\u00A0\u00A0Indented line after math.",
+  ].join("\n");
+
+  assert.equal(preserveMarkdownWhitespace(input), expected);
+});
