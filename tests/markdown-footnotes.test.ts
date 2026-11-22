@@ -247,3 +247,32 @@ test("preserveMarkdownWhitespace does not treat a lone inline tag inside a parag
 
   assert.equal(preserveMarkdownWhitespace(input), expected);
 });
+
+test("style nested in a section keeps CSS split by blank lines inside the style element", () => {
+  const html = renderMarkdown(
+    preserveMarkdownWhitespace(
+      [
+        '<section class="vocation-invite">',
+        "  <style>",
+        "    :root{",
+        "      --bg:#faf9f6;",
+        "    }",
+        "",
+        "    .card{",
+        "      border-radius:20px;",
+        "    }",
+        "  </style>",
+        '  <div class="card">Body</div>',
+        "</section>",
+      ].join("\n"),
+    ),
+  );
+
+  assert.doesNotMatch(html, / /);
+  assert.match(
+    html,
+    /<style>[^<]*\.card\{[^<]*border-radius:20px;[^<]*<\/style>/,
+  );
+  assert.doesNotMatch(html, /<p>[^<]*\.card/);
+  assert.match(html, /<div class="card">Body<\/div>/);
+});

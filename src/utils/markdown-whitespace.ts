@@ -49,12 +49,14 @@ interface HtmlBlockRule {
   canInterruptParagraph: boolean;
 }
 
+const RAW_TEXT_RULE: HtmlBlockRule = {
+  start: /^<(?:script|pre|style|textarea)(?:\s|>|$)/i,
+  end: /<\/(?:script|pre|style|textarea)>/i,
+  canInterruptParagraph: true,
+};
+
 const HTML_BLOCK_RULES: HtmlBlockRule[] = [
-  {
-    start: /^<(?:script|pre|style|textarea)(?:\s|>|$)/i,
-    end: /<\/(?:script|pre|style|textarea)>/i,
-    canInterruptParagraph: true,
-  },
+  RAW_TEXT_RULE,
   { start: /^<!--/, end: /-->/, canInterruptParagraph: true },
   { start: /^<\?/, end: /\?>/, canInterruptParagraph: true },
   { start: /^<![A-Za-z]/, end: />/, canInterruptParagraph: true },
@@ -140,11 +142,42 @@ function tryOpenFence(
   return true;
 }
 
-function continueHtmlBlock(line: string, state: MarkdownWhitespaceState): void {
+/**
+ * Enters raw-text mode when a `<style>`, `<script>`, `<pre>` or `<textarea>`
+ * opens without closing on the same line, at any indentation or nesting.
+ * Every line up to the closing tag then passes through untouched, even across
+ * blank lines: rehype-raw folds that text back into the element, so CSS split
+ * by blank lines still applies.
+ */
+function tryOpenRawTextElement(
+  trimmed: string,
+  state: MarkdownWhitespaceState,
+): boolean {
+  if (!RAW_TEXT_RULE.start.test(trimmed)) return false;
+  state.activeHtmlBlock = RAW_TEXT_RULE.end?.test(trimmed)
+    ? null
+    : RAW_TEXT_RULE;
+  return true;
+}
+
+function continueHtmlBlock(
+  line: string,
+  trimmed: string,
+  state: MarkdownWhitespaceState,
+): void {
   const block = state.activeHtmlBlock;
   if (!block) return;
-  if (block.end ? block.end.test(line) : !line.trim()) {
+  if (block.end) {
+    if (block.end.test(line)) state.activeHtmlBlock = null;
+    return;
+  }
+  if (!line.trim()) {
     state.activeHtmlBlock = null;
+    return;
+  }
+  // A raw-text element nested in a block-level HTML block (e.g. <section><style>).
+  if (tryOpenRawTextElement(trimmed, state) && !state.activeHtmlBlock) {
+    state.activeHtmlBlock = block;
   }
 }
 
@@ -159,6 +192,8 @@ function tryOpenHtmlBlock(
   trimmed: string,
   state: MarkdownWhitespaceState,
 ): boolean {
+  if (tryOpenRawTextElement(trimmed, state)) return true;
+
   const indent = getIndentWidth(line.slice(0, line.length - trimmed.length));
   if (indent > 3) return false;
 
@@ -169,7 +204,7 @@ function tryOpenHtmlBlock(
   );
   if (!rule) return false;
 
-  // Types 1-5 may close on the opening line; types 6-7 close at a blank line.
+  // Types 2-5 may close on the opening line; types 6-7 close at a blank line.
   const closesOnSameLine = rule.end?.test(trimmed) ?? false;
   state.activeHtmlBlock = closesOnSameLine ? null : rule;
   return true;
@@ -274,7 +309,7 @@ function transformMarkdownLine(
   }
 
   if (state.activeHtmlBlock) {
-    continueHtmlBlock(line, state);
+    continueHtmlBlock(line, trimmed, state);
     return line;
   }
 
