@@ -1,99 +1,63 @@
+"use client";
+
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { type RefObject, Suspense, useCallback, useRef } from "react";
+import PaginationPanel from "@/components/pagination-panel";
 import { cn } from "@/utils/common";
+import {
+  DEFAULT_VIDEO_PAGE_SIZE,
+  extractYoutubeId,
+  isYoutubeShort,
+  normalizeVideoPageSize,
+  paginateVideos,
+  resolveVideoPage,
+  type VideoItem,
+} from "@/utils/video-grid";
 
-const YOUTUBE_ID_PATTERN = /^[a-zA-Z0-9_-]{11}$/;
-
-function parseHttpUrl(input: string): URL | null {
-  try {
-    const url = new URL(input.includes("://") ? input : `https://${input}`);
-    return url.protocol === "http:" || url.protocol === "https:" ? url : null;
-  } catch {
-    return null;
-  }
-}
-
-export interface VideoItem {
-  id?: string | null;
-  title: string;
-  type: "youtube" | "facebook";
-  url: string;
-  isShort?: boolean | null;
-}
+export { extractYoutubeId, isYoutubeShort, type VideoItem };
 
 export interface VideoGridProps {
   title?: string;
   videos?: VideoItem[];
+  pageSize?: number;
+  queryParamName?: string;
   className?: string;
 }
 
-/**
- * Extracts a YouTube video ID from various YouTube URL formats
- * including watch, embed, shorts, youtu.be, or raw video IDs.
- *
- * @param urlOrId - The YouTube URL or raw video ID
- * @returns The parsed YouTube video ID or an empty string for invalid input
- */
-export function extractYoutubeId(urlOrId: string): string {
-  if (!urlOrId) return "";
+interface VideoGridBodyProps {
+  title?: string;
+  videos: VideoItem[];
+  totalPages: number;
+  activePage: number;
+  className?: string;
+  containerRef?: RefObject<HTMLElement | null>;
+  onPageChange?: (page: number) => void;
+}
 
-  const trimmedInput = urlOrId.trim();
-  if (YOUTUBE_ID_PATTERN.test(trimmedInput)) return trimmedInput;
-
-  const url = parseHttpUrl(trimmedInput);
-  if (!url) return "";
-
-  const hostname = url.hostname.toLowerCase();
-  const isShortDomain = hostname === "youtu.be";
-  const isYoutubeDomain =
-    hostname === "youtube.com" || hostname.endsWith(".youtube.com");
-  let candidate = "";
-
-  if (isShortDomain) {
-    candidate = url.pathname.split("/").filter(Boolean)[0] ?? "";
-  } else if (isYoutubeDomain && url.pathname === "/watch") {
-    candidate = url.searchParams.get("v") ?? "";
-  } else if (isYoutubeDomain) {
-    const pathMatch = url.pathname.match(/^\/(?:shorts|embed)\/([^/]+)\/?$/);
-    candidate = pathMatch?.[1] ?? "";
+function scrollContainerIntoViewIfAboveFold(
+  container: HTMLElement | null,
+): void {
+  if (!container) return;
+  const rect = container.getBoundingClientRect();
+  if (rect.top < 0) {
+    container.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
   }
-
-  return YOUTUBE_ID_PATTERN.test(candidate) ? candidate : "";
 }
 
-/**
- * Determines whether a given video URL corresponds to a YouTube Short.
- *
- * @param url - Video URL string
- * @param explicitlyShort - Whether the CMS marks a bare ID as a Short
- * @returns True if the URL or CMS field identifies a Short
- */
-export function isYoutubeShort(url: string, explicitlyShort = false): boolean {
-  if (explicitlyShort) return true;
-
-  const parsedUrl = parseHttpUrl(url);
-  if (!parsedUrl) return false;
-
-  const hostname = parsedUrl.hostname.toLowerCase();
-  const isYoutubeDomain =
-    hostname === "youtube.com" || hostname.endsWith(".youtube.com");
-
-  return isYoutubeDomain && /^\/shorts\/[^/]+\/?$/.test(parsedUrl.pathname);
-}
-
-/**
- * Renders a responsive grid of embedded videos, supporting YouTube Shorts,
- * standard YouTube videos, and Facebook embeds.
- */
-export default function VideoGrid({
+function VideoGridBody({
   title,
-  videos = [],
+  videos,
+  totalPages,
+  activePage,
   className,
-}: VideoGridProps) {
-  if (!videos || videos.length === 0) {
-    return null;
-  }
-
+  containerRef,
+  onPageChange,
+}: VideoGridBodyProps) {
   return (
-    <section className={cn("my-8 w-full", className)}>
+    <section ref={containerRef} className={cn("my-8 w-full", className)}>
       {title && (
         <h2 className="mb-6 text-2xl font-bold tracking-tight text-gray-900 md:text-3xl">
           {title}
@@ -144,7 +108,7 @@ export default function VideoGrid({
 
               {video.title && (
                 <div className="flex flex-1 flex-col p-3">
-                  <h3 className="line-clamp-2 text-sm font-medium text-gray-900 group-hover:text-primary-600">
+                  <h3 className="line-clamp-2 text-center text-sm font-medium text-gray-900 group-hover:text-primary-600">
                     {video.title}
                   </h3>
                 </div>
@@ -153,6 +117,100 @@ export default function VideoGrid({
           );
         })}
       </div>
+
+      {totalPages > 1 && (
+        <PaginationPanel
+          className="mt-6 md:mt-8"
+          totalPages={totalPages}
+          page={activePage}
+          onPageChange={onPageChange}
+        />
+      )}
     </section>
+  );
+}
+
+function VideoGridContent({
+  title,
+  videos = [],
+  pageSize = DEFAULT_VIDEO_PAGE_SIZE,
+  queryParamName = "page",
+  className,
+}: VideoGridProps) {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const containerRef = useRef<HTMLElement>(null);
+
+  const safePageSize = normalizeVideoPageSize(pageSize);
+  const totalPages = Math.ceil(videos.length / safePageSize);
+  const activePage = resolveVideoPage(
+    searchParams?.get(queryParamName),
+    totalPages,
+  );
+  const { items: visibleVideos } = paginateVideos(
+    videos,
+    activePage,
+    safePageSize,
+  );
+
+  const handlePageChange = useCallback(
+    (newPage: number) => {
+      const params = new URLSearchParams(searchParams?.toString() ?? "");
+      if (newPage <= 1) {
+        params.delete(queryParamName);
+      } else {
+        params.set(queryParamName, newPage.toString());
+      }
+      const queryString = params.toString();
+      router.push(queryString ? `${pathname}?${queryString}` : pathname, {
+        scroll: false,
+      });
+
+      scrollContainerIntoViewIfAboveFold(containerRef.current);
+    },
+    [searchParams, queryParamName, pathname, router],
+  );
+
+  return (
+    <VideoGridBody
+      title={title}
+      videos={visibleVideos}
+      totalPages={totalPages}
+      activePage={activePage}
+      className={className}
+      containerRef={containerRef}
+      onPageChange={handlePageChange}
+    />
+  );
+}
+
+/**
+ * Renders a responsive, paginated grid of embedded videos, supporting
+ * YouTube Shorts, standard YouTube videos, and Facebook embeds.
+ */
+export default function VideoGrid(props: VideoGridProps) {
+  const { title, videos = [], pageSize, className } = props;
+
+  if (!videos || videos.length === 0) {
+    return null;
+  }
+
+  const fallbackPage = paginateVideos(videos, 1, pageSize);
+
+  return (
+    <Suspense
+      fallback={
+        <VideoGridBody
+          title={title}
+          videos={fallbackPage.items}
+          totalPages={fallbackPage.totalPages}
+          activePage={1}
+          className={className}
+        />
+      }
+    >
+      <VideoGridContent {...props} />
+    </Suspense>
   );
 }
