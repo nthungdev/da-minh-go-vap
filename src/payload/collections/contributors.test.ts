@@ -333,6 +333,7 @@ for (const kind of ["afterChange", "afterDelete"] as const) {
   test(`${kind} revalidation queries posts by contributors.person`, async (t) => {
     const findCalls: Record<string, unknown>[] = [];
     const revalidated: string[] = [];
+    const sentTags: string[][] = [];
     const previousSecret = process.env.REVALIDATION_SECRET;
     process.env.REVALIDATION_SECRET = "test-secret";
     t.after(() => {
@@ -343,7 +344,9 @@ for (const kind of ["afterChange", "afterDelete"] as const) {
       globalThis,
       "fetch",
       async (_url: string, init: RequestInit) => {
-        revalidated.push(JSON.parse(String(init.body)).path);
+        const body = JSON.parse(String(init.body));
+        revalidated.push(body.path);
+        sentTags.push(body.tags);
         return new Response(null, { status: 200 });
       },
     );
@@ -363,6 +366,10 @@ for (const kind of ["afterChange", "afterDelete"] as const) {
       "contributors.person": { in: ["c1"] },
     });
     assert.deepEqual(revalidated.sort(), ["/", "/posts/bai-viet"]);
+    for (const tags of sentTags) {
+      assert.ok(tags.includes("posts"), "sends the posts tag");
+      assert.ok(tags.includes("contributors"), "sends the contributors tag");
+    }
   });
 
   test(`${kind} revalidation swallows and logs lookup errors`, async () => {
@@ -418,6 +425,7 @@ test("posts contributors rows have a required person relationship", () => {
   assert.equal(getStringProperty(person, "type"), "relationship");
   assert.equal(getStringProperty(person, "relationTo"), "contributors");
   assert.ok(isTrue(person, "required"), "person is required");
+  assert.ok(isTrue(person, "index"), "person is indexed");
 });
 
 test("posts contributors rows have a required role select defaulting to author", () => {
