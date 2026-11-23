@@ -11,7 +11,12 @@ import {
   publishedAtField,
   videoSourceFields,
 } from "@/payload/fields";
-import { onlyRoles, postsReadAccess } from "@/payload/utils/access-control";
+import {
+  onlyRoles,
+  postsDeleteAccess,
+  postsReadAccess,
+  stampCreatedBy,
+} from "@/payload/utils/access-control";
 import { buildPostPreviewUrl } from "@/payload/utils/config";
 import { revalidatePath, slugify } from "@/payload/utils/data";
 import type { Post } from "@/payload-types";
@@ -32,8 +37,8 @@ const Posts: CollectionConfig = {
   access: {
     read: postsReadAccess,
     create: onlyRoles(["admin", "manager", "editor", "author"]),
-    update: onlyRoles(["admin", "manager", "editor"]),
-    delete: onlyRoles(["admin", "manager"]),
+    update: onlyRoles(["admin", "manager", "editor", "author"]),
+    delete: postsDeleteAccess,
   },
   admin: {
     useAsTitle: "title",
@@ -277,10 +282,32 @@ const Posts: CollectionConfig = {
             description: "Cần mật khẩu để truy cập bài viết này.",
           },
         },
+        {
+          name: "createdBy",
+          type: "relationship",
+          relationTo: "users",
+          index: true,
+          label: {
+            en: "Created By",
+            vi: "Người tạo",
+          },
+          access: {
+            // Prevent non-admins from spoofing or reassigning post ownership
+            create: onlyRoles(["admin"]),
+            update: onlyRoles(["admin"]),
+          },
+          hooks: {
+            beforeDuplicate: [({ req }) => req.user?.id],
+          },
+          admin: {
+            description: "Tự động gán theo tài khoản tạo bài viết.",
+          },
+        },
       ],
     },
   ],
   hooks: {
+    beforeChange: [stampCreatedBy],
     afterChange: [revalidatePost],
   },
 };
