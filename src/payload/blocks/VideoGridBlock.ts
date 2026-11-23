@@ -14,6 +14,16 @@ const VideoGridBlock: Block = {
       localized: true,
     },
     {
+      name: "pageSize",
+      type: "number",
+      label: "Số video mỗi trang",
+      defaultValue: 8,
+      min: 1,
+      admin: {
+        description: "Số lượng video hiển thị trên một trang (mặc định: 8).",
+      },
+    },
+    {
       name: "videos",
       type: "array",
       required: true,

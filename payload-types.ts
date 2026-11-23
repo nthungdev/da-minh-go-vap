@@ -329,6 +329,10 @@ export interface Page {
           }
         | {
             title?: string | null;
+            /**
+             * Số lượng video hiển thị trên một trang (mặc định: 8).
+             */
+            pageSize?: number | null;
             videos: {
               title: string;
               type: 'youtube' | 'facebook';
@@ -512,6 +516,10 @@ export interface Page {
           }
         | {
             title?: string | null;
+            /**
+             * Số lượng video hiển thị trên một trang (mặc định: 8).
+             */
+            pageSize?: number | null;
             videos: {
               title: string;
               type: 'youtube' | 'facebook';
@@ -1259,6 +1267,10 @@ export interface TimelineBlock {
  */
 export interface VideoGridBlock {
   title?: string | null;
+  /**
+   * Số lượng video hiển thị trên một trang (mặc định: 8).
+   */
+  pageSize?: number | null;
   videos: {
     title: string;
     type: 'youtube' | 'facebook';
@@ -1697,6 +1709,7 @@ export interface TimelineBlockSelect<T extends boolean = true> {
  */
 export interface VideoGridBlockSelect<T extends boolean = true> {
   title?: T;
+  pageSize?: T;
   videos?:
     | T
     | {
