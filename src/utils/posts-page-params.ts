@@ -1,13 +1,16 @@
 /** Matches a 24-hex-character MongoDB ObjectId. */
 export const OBJECT_ID_REGEX = /^[a-f\d]{24}$/i;
 
+/** A query value as Next.js delivers it: repeated keys arrive as arrays. */
+type SearchParamValue = string | string[] | undefined;
+
 export type PostsPageSearchParams = {
   /** hidden tags, comma-separated */
-  ht?: string;
+  ht?: SearchParamValue;
   /** title */
-  ti?: string;
+  ti?: SearchParamValue;
   /** contributor id */
-  c?: string;
+  c?: SearchParamValue;
 };
 
 export type PostsPageParams = {
@@ -20,20 +23,31 @@ export type PostsPageParams = {
   invalid: boolean;
 };
 
+function firstValue(value: SearchParamValue): string | undefined {
+  return Array.isArray(value) ? value[0] : value;
+}
+
 /** Parses and validates the `/posts` query string. */
 export function parsePostsPageParams({
   ht,
   ti,
   c,
 }: PostsPageSearchParams): PostsPageParams {
-  const hiddenTags = ht ? decodeURIComponent(ht).split(",") : [];
-  const title = ti ? decodeURIComponent(ti) : undefined;
+  const htValue = firstValue(ht);
+  const tiValue = firstValue(ti);
+  const hiddenTags = htValue ? decodeURIComponent(htValue).split(",") : [];
+  const title = tiValue ? decodeURIComponent(tiValue) : undefined;
 
   if (c === undefined) {
     return { hiddenTags, title, invalid: false };
   }
+  // A repeated `c` is ambiguous; 404 rather than pick one
+  if (typeof c !== "string") {
+    return { hiddenTags, title, invalid: true };
+  }
 
-  const contributorId = c.trim();
+  // Lowercase so every casing shares one canonical URL and cache entry
+  const contributorId = c.trim().toLowerCase();
   if (!OBJECT_ID_REGEX.test(contributorId)) {
     return { hiddenTags, title, invalid: true };
   }

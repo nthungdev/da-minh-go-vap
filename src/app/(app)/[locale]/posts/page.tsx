@@ -32,9 +32,7 @@ async function resolveContributorName(
   if (params.invalid) notFound();
   if (!params.contributorId) return undefined;
 
-  const contributor = await getContributorById(params.contributorId, {
-    locale,
-  });
+  const contributor = await getContributorById(params.contributorId, locale);
   if (!contributor) notFound();
   return getContributorDisplayName(contributor) || undefined;
 }

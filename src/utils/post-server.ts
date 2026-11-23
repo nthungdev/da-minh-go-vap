@@ -466,8 +466,9 @@ const getContributorByIdCached = unstable_cache(
  * Returns a contributor's localized name fields, or null if the id is malformed or unknown.
  */
 export const getContributorById = cache(
-  async (id: string, { locale }: { locale?: Locale } = {}) => {
+  // Primitive args only: React `cache` compares arguments by identity
+  async (id: string, locale: Locale = defaultLocale) => {
     if (!OBJECT_ID_REGEX.test(id)) return null;
-    return getContributorByIdCached(id, locale ?? defaultLocale);
+    return getContributorByIdCached(id, locale);
   },
 );

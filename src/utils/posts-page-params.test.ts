@@ -16,8 +16,8 @@ test("parsePostsPageParams keeps a valid contributor id", () => {
   });
   assert.equal(parsePostsPageParams({ c: ` ${id} ` }).contributorId, id);
   assert.equal(
-    parsePostsPageParams({ c: id.toUpperCase() }).contributorId,
-    id.toUpperCase(),
+    parsePostsPageParams({ c: ` ${id.toUpperCase()} ` }).contributorId,
+    id,
   );
 });
 
@@ -62,12 +62,15 @@ test("resolvePostsPageTitle prefers ti, then the contributor name, then the defa
   assert.equal(resolvePostsPageTitle({}, undefined, "Bài viết"), "Bài viết");
 });
 
-test("parsePostsPageParams treats a repeated c (string[]) as invalid instead of throwing", {
-  todo: "source bug: c.trim is not a function on ?c=a&c=b",
-}, () => {
+test("parsePostsPageParams treats a repeated c (string[]) as invalid instead of throwing", () => {
   // Next.js passes `?c=a&c=b` as an array; it must 404, not crash with a 500
-  const c = [id, id] as unknown as string;
-  const params = parsePostsPageParams({ c });
+  const params = parsePostsPageParams({ c: [id, id] });
   assert.equal(params.invalid, true);
   assert.equal(params.contributorId, undefined);
+});
+
+test("parsePostsPageParams uses the first value of a repeated ht or ti", () => {
+  const params = parsePostsPageParams({ ht: ["a,b", "c"], ti: ["T1", "T2"] });
+  assert.deepEqual(params.hiddenTags, ["a", "b"]);
+  assert.equal(params.title, "T1");
 });
