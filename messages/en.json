@@ -20,6 +20,7 @@
   },
   "posts": {
     "title": "Posts",
+    "byContributor": "Posts by {name}",
     "allPosts": "Posts",
     "latest": "Latest Posts",
     "related": "Related posts",
