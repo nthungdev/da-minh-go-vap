@@ -409,7 +409,10 @@ const queryPostsByContributorCached = unstable_cache(
     return rewriteMediaUrls(normalizeCardPostsResult(query));
   },
   ["query-posts-by-contributor"],
-  { tags: ["posts"], revalidate: PUBLISHED_CONTENT_REVALIDATE_SECONDS },
+  {
+    tags: ["posts", "contributors"],
+    revalidate: PUBLISHED_CONTENT_REVALIDATE_SECONDS,
+  },
 );
 
 /**
