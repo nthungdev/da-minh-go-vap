@@ -61,3 +61,13 @@ test("resolvePostsPageTitle prefers ti, then the contributor name, then the defa
   assert.equal(resolvePostsPageTitle({}, "Lm. A", "Bài viết"), "Lm. A");
   assert.equal(resolvePostsPageTitle({}, undefined, "Bài viết"), "Bài viết");
 });
+
+test("parsePostsPageParams treats a repeated c (string[]) as invalid instead of throwing", {
+  todo: "source bug: c.trim is not a function on ?c=a&c=b",
+}, () => {
+  // Next.js passes `?c=a&c=b` as an array; it must 404, not crash with a 500
+  const c = [id, id] as unknown as string;
+  const params = parsePostsPageParams({ c });
+  assert.equal(params.invalid, true);
+  assert.equal(params.contributorId, undefined);
+});
