@@ -74,3 +74,10 @@ test("parsePostsPageParams uses the first value of a repeated ht or ti", () => {
   assert.deepEqual(params.hiddenTags, ["a", "b"]);
   assert.equal(params.title, "T1");
 });
+
+test("parsePostsPageParams keeps malformed percent sequences instead of throwing", () => {
+  const params = parsePostsPageParams({ ti: "100%", ht: "a%E0%A4%A,b" });
+  assert.equal(params.title, "100%");
+  assert.deepEqual(params.hiddenTags, ["a%E0%A4%A", "b"]);
+  assert.equal(params.invalid, false);
+});

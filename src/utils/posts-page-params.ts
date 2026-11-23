@@ -27,6 +27,18 @@ function firstValue(value: SearchParamValue): string | undefined {
   return Array.isArray(value) ? value[0] : value;
 }
 
+/**
+ * Decodes a (possibly double-encoded) value; a malformed escape such as a
+ * literal `%` would throw `URIError`, so keep the value as-is instead.
+ */
+function safeDecode(value: string): string {
+  try {
+    return decodeURIComponent(value);
+  } catch {
+    return value;
+  }
+}
+
 /** Parses and validates the `/posts` query string. */
 export function parsePostsPageParams({
   ht,
@@ -35,8 +47,8 @@ export function parsePostsPageParams({
 }: PostsPageSearchParams): PostsPageParams {
   const htValue = firstValue(ht);
   const tiValue = firstValue(ti);
-  const hiddenTags = htValue ? decodeURIComponent(htValue).split(",") : [];
-  const title = tiValue ? decodeURIComponent(tiValue) : undefined;
+  const hiddenTags = htValue ? safeDecode(htValue).split(",") : [];
+  const title = tiValue ? safeDecode(tiValue) : undefined;
 
   if (c === undefined) {
     return { hiddenTags, title, invalid: false };
