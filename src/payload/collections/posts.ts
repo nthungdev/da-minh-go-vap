@@ -211,6 +211,16 @@ const Posts: CollectionConfig = {
                 description: "Chỉ điền 2-3 câu",
               },
             },
+            {
+              name: "authors",
+              type: "relationship",
+              relationTo: "authors",
+              hasMany: true,
+              label: {
+                en: "Authors",
+                vi: "Tác giả",
+              },
+            },
           ],
         },
         {

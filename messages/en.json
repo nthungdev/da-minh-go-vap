@@ -26,7 +26,9 @@
     "tags": "Tags",
     "tableOfContents": "Table of Contents",
     "expandTableOfContents": "Expand table of contents",
-    "collapseTableOfContents": "Collapse table of contents"
+    "collapseTableOfContents": "Collapse table of contents",
+    "author": "Author",
+    "authors": "Authors"
   },
   "search": {
     "label": "Search",

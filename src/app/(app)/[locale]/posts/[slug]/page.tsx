@@ -23,6 +23,10 @@ import { getDataOrUndefined } from "@/payload/utils/data";
 import { transformUrl } from "@/utils/cloudflare";
 import { formatDate } from "@/utils/date";
 import { getPublicHiddenTags } from "@/utils/post";
+import {
+  formatPostAuthorNames,
+  getPostAuthorNames,
+} from "@/utils/post-authors";
 import { getServerOrigin } from "@/utils/url";
 
 const relatedPostsLimit = 12;
@@ -39,6 +43,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 
   const url = `${origin}/posts/${post?.slug}`;
   const thumbnail = getDataOrUndefined(post?.thumbnail);
+  const authorNames = getPostAuthorNames(post?.authors);
 
   return {
     title: post?.seo?.title,
@@ -52,6 +57,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
       title: post?.seo?.title || undefined,
       description: post?.seo?.description || undefined,
       type: "article",
+      authors: authorNames.length > 0 ? authorNames : undefined,
       images: thumbnail?.url
         ? [
             {
@@ -70,6 +76,29 @@ export const revalidate = 60;
 // thousands of times.
 export function generateStaticParams(): Awaited<Props["params"]>[] {
   return [];
+}
+
+/** Builds a minimal schema.org Article JSON-LD carrying the post's authors. */
+function buildArticleJsonLd(
+  post: NonNullable<Awaited<ReturnType<typeof fetchPostBySlug>>>,
+  url: string,
+  authorNames: string[],
+) {
+  const thumbnail = getDataOrUndefined(post.thumbnail);
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: post.title,
+    url,
+    datePublished: post.publishedAt.toISOString(),
+    image: thumbnail?.url ? [transformUrl(thumbnail.url)] : undefined,
+    author: authorNames.map((name) => ({ "@type": "Person", name })),
+  };
+}
+
+/** Serializes JSON-LD for an inline script, escaping `<` so content can't close the tag. */
+function serializeJsonLd(data: unknown) {
+  return JSON.stringify(data).replace(/</g, "\\u003c");
 }
 
 function renderArticleContent(
@@ -117,10 +146,22 @@ export default async function Page(props: Props) {
 
   const postHref = `${origin}/posts/${post.slug}`;
   const articleContent = renderArticleContent(post);
+  const authorNames = getPostAuthorNames(post.authors);
 
   return (
     <AppPage>
       <RefreshRouteOnSave />
+      {authorNames.length > 0 && (
+        <script
+          type="application/ld+json"
+          // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD must be inlined; `<` is escaped
+          dangerouslySetInnerHTML={{
+            __html: serializeJsonLd(
+              buildArticleJsonLd(post, postHref, authorNames),
+            ),
+          }}
+        />
+      )}
       <PostViewTracker slug={post.slug} title={post.title} />
 
       {!post.hideTitle && (
@@ -141,6 +182,13 @@ export default async function Page(props: Props) {
         <PostTableOfContents enabled={Boolean(post.showTableOfContents)}>
           {articleContent}
         </PostTableOfContents>
+      )}
+
+      {authorNames.length > 0 && (
+        <p className="mt-6 text-gray-700">
+          {authorNames.length > 1 ? t("authors") : t("author")}:{" "}
+          {formatPostAuthorNames(authorNames, locale)}
+        </p>
       )}
 
       {publicTags.length > 0 && (

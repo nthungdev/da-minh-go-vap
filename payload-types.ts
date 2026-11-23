@@ -739,6 +739,7 @@ export interface Post {
    * Chỉ điền 2-3 câu
    */
   shortBody?: string | null;
+  authors?: (string | Author)[] | null;
   seo?: {
     /**
      * Dùng chung với tiêu đề của mục Nội Dung
@@ -1289,6 +1290,20 @@ export interface VideoGridBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "authors".
+ */
+export interface Author {
+  id: string;
+  name: string;
+  /**
+   * Ví dụ: Lm., Tu sĩ
+   */
+  honorific?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
@@ -1329,20 +1344,6 @@ export interface SpotifyPodcast {
    * Ví dụ với Spotify, URL là https://open.spotify.com/episode/1234ABCD thì Audio ID là 1234ABCD.
    */
   spotifyId: string;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "authors".
- */
-export interface Author {
-  id: string;
-  name: string;
-  /**
-   * Ví dụ: Lm., Tu sĩ
-   */
-  honorific?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -1859,6 +1860,7 @@ export interface PostsSelect<T extends boolean = true> {
       };
   body?: T;
   shortBody?: T;
+  authors?: T;
   seo?:
     | T
     | {

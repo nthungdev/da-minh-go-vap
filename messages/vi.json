@@ -26,7 +26,9 @@
     "tags": "Thẻ",
     "tableOfContents": "Mục lục",
     "expandTableOfContents": "Mở rộng mục lục",
-    "collapseTableOfContents": "Thu gọn mục lục"
+    "collapseTableOfContents": "Thu gọn mục lục",
+    "author": "Tác giả",
+    "authors": "Tác giả"
   },
   "search": {
     "label": "Tìm kiếm",
