@@ -41,7 +41,7 @@ registerHooks({
   },
 });
 
-const { default: Contributors } = (await import("./Contributors.ts")) as {
+const { default: Contributors } = (await import("./contributors.ts")) as {
   default: CollectionConfig;
 };
 const { contributorRoles } = await import("@/utils/post-contributors");
