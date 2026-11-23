@@ -6,6 +6,10 @@ import { fetchPostsByHiddenTags } from "@/actions/post";
 import AppGridHeader from "@/components/app-grid-header";
 import AppPostGrid from "@/components/app-post-grid";
 import type { AppPost } from "@/definitions";
+import {
+  buildPostGroupInitialData,
+  type PaginatedPostsData,
+} from "@/utils/post-pagination";
 import AppPostGridSkeleton from "./app-post-grid-skeleton";
 import AppViewMoreLink from "./app-view-more-link";
 
@@ -14,6 +18,7 @@ interface AppPostGridProps {
   limit: number;
   title: string;
   posts?: AppPost[];
+  initialData?: PaginatedPostsData;
   showViewMore?: boolean;
   hidePostTitles?: boolean;
   className?: string;
@@ -24,9 +29,14 @@ export default function AppPostGridAsync({
   limit,
   title,
   posts: initialPosts,
+  initialData,
   showViewMore,
   hidePostTitles,
 }: AppPostGridProps) {
+  const queryInitialData = buildPostGroupInitialData({
+    initialData,
+    posts: initialPosts,
+  });
   const locale = useLocale();
   const { data, error, isPending, isLoading } = useQuery({
     queryKey: ["fetchPostsByHiddenTags", hiddenTags, locale, limit],
@@ -35,22 +45,17 @@ export default function AppPostGridAsync({
         locale,
         limit,
       }),
-    initialData: initialPosts
-      ? {
-          posts: initialPosts,
-          hasMore: false,
-          page: 1,
-          totalPages: 1,
-        }
-      : undefined,
+    initialData: queryInitialData,
   });
 
-  if ((isPending || isLoading) && !initialPosts?.length)
+  const hasInitialPosts = Boolean(queryInitialData?.posts.length);
+
+  if ((isPending || isLoading) && !hasInitialPosts)
     return <AppPostGridSkeleton count={limit} />;
 
-  if (error && !initialPosts?.length) return <p>Error: {error.message}</p>;
+  if (error && !hasInitialPosts) return <p>Error: {error.message}</p>;
 
-  const posts = data?.posts ?? initialPosts ?? [];
+  const posts = data?.posts ?? queryInitialData?.posts ?? [];
   const hasMore = data?.hasMore ?? false;
   const jointHiddenTags = hiddenTags.join(",");
   const viewMoreHref = `/posts?ht=${encodeURIComponent(jointHiddenTags)}&ti=${encodeURIComponent(title)}`;

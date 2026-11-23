@@ -58,7 +58,15 @@ export default async function PublicTagPage(props: Props) {
   return (
     <AppPage className="space-y-8">
       <AppGridHeader text={data.tag.label} />
-      <AppPostGridPaginated publicTag={decodedTag} posts={data.posts} />
+      <AppPostGridPaginated
+        publicTag={decodedTag}
+        initialData={{
+          posts: data.posts,
+          hasMore: data.hasMore,
+          page: data.page,
+          totalPages: data.totalPages,
+        }}
+      />
     </AppPage>
   );
 }
