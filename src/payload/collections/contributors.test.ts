@@ -289,6 +289,29 @@ test("slug hook leaves the value alone when no usable name exists", async () => 
   assert.equal(countCalls.length, 0);
 });
 
+test("slug validate rejects an empty slug from an unslugifiable name", async () => {
+  const field = Contributors.fields.find(
+    (f): f is Extract<Field, { type: "text" }> =>
+      f.type === "text" && f.name === "slug",
+  );
+  assert.ok(field?.validate, "slug validate is defined");
+  const validate = field.validate as (value: unknown) => unknown;
+
+  const { req } = makeSlugReq();
+  const generated = await runSlugHook({
+    value: undefined,
+    data: { name: "???" },
+    req,
+  });
+  const message = "Không thể tạo slug từ tên này, vui lòng nhập slug";
+  assert.equal(validate(generated), message);
+  assert.equal(validate(""), message);
+  assert.equal(validate("   "), message);
+  assert.equal(validate(null), message);
+  assert.equal(validate("giuse"), true);
+  assert.equal(validate("Bad Slug"), "Invalid slug");
+});
+
 test("slug beforeDuplicate appends a random suffix", () => {
   const hook = getSlugHook("beforeDuplicate");
   const call = (value: unknown) =>

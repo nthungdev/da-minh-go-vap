@@ -63,7 +63,7 @@ const Contributors: CollectionConfig = {
       required: true,
       unique: true,
       index: true,
-      validate: validateSlug,
+      validate: validateContributorSlug,
       admin: {
         position: "sidebar",
         description:
@@ -80,6 +80,14 @@ const Contributors: CollectionConfig = {
     afterDelete: [revalidateContributorPosts],
   },
 };
+
+const emptySlugMessage = "Không thể tạo slug từ tên này, vui lòng nhập slug";
+
+/** Rejects empty slugs (a custom `validate` replaces Payload's `required` check). */
+function validateContributorSlug(value: string | null | undefined) {
+  if (!value?.trim()) return emptySlugMessage;
+  return validateSlug(value);
+}
 
 function randomSlugSuffix() {
   return Math.random().toString(36).slice(-4);
