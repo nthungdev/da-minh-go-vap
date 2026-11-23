@@ -61,6 +61,7 @@ const Authors: CollectionConfig = {
 };
 
 const postCacheTags = ["posts", "navBar", "pages"];
+const revalidationBatchSize = 10;
 
 /**
  * Revalidates the home page and every post page that bylines this author.
@@ -72,23 +73,32 @@ async function revalidateAuthorPosts({
 }: Parameters<
   CollectionAfterChangeHook<Author> | CollectionAfterDeleteHook<Author>
 >[0]) {
-  const posts = await req.payload.find({
-    collection: "posts",
-    where: { authors: { in: [doc.id] } },
-    select: { slug: true },
-    depth: 0,
-    pagination: false,
-    overrideAccess: true,
-    req,
-  });
+  // The author is already saved; a revalidation failure must not fail the request.
+  try {
+    const posts = await req.payload.find({
+      collection: "posts",
+      where: { authors: { in: [doc.id] } },
+      select: { slug: true },
+      depth: 0,
+      pagination: false,
+      overrideAccess: true,
+      req,
+    });
 
-  const postPaths = posts.docs
-    .filter((post) => Boolean(post.slug))
-    .map((post) => `/posts/${post.slug}`);
+    const postPaths = posts.docs
+      .filter((post) => Boolean(post.slug))
+      .map((post) => `/posts/${post.slug}`);
+    const paths = ["/", ...postPaths];
 
-  await Promise.all(
-    ["/", ...postPaths].map((path) => revalidatePath(path, postCacheTags)),
-  );
+    for (let i = 0; i < paths.length; i += revalidationBatchSize) {
+      const batch = paths.slice(i, i + revalidationBatchSize);
+      await Promise.all(
+        batch.map((path) => revalidatePath(path, postCacheTags)),
+      );
+    }
+  } catch (err) {
+    req.payload.logger.error({ err, msg: "Failed to revalidate author posts" });
+  }
 }
 
 export default Authors;
