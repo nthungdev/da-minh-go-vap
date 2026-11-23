@@ -3,6 +3,7 @@ import fs from "node:fs";
 import * as nodeModule from "node:module";
 import path from "node:path";
 import test, { after } from "node:test";
+import { fileURLToPath, pathToFileURL } from "node:url";
 import tailwindcss from "@tailwindcss/postcss";
 import postcss, { type Rule } from "postcss";
 import { type ComponentType, createElement } from "react";
@@ -70,7 +71,7 @@ const hookHandle = registerHooks({
         specifier.slice(2),
       );
       if (resolved) {
-        return nextResolve(new URL(`file://${resolved}`).href, context);
+        return nextResolve(pathToFileURL(resolved).href, context);
       }
     }
 
@@ -79,10 +80,10 @@ const hookHandle = registerHooks({
       context.parentURL?.startsWith("file://") &&
       !context.parentURL.includes("/node_modules/")
     ) {
-      const parentDir = path.dirname(new URL(context.parentURL).pathname);
+      const parentDir = path.dirname(fileURLToPath(context.parentURL));
       const resolved = resolveWorkspaceTarget(parentDir, specifier);
       if (resolved) {
-        return nextResolve(new URL(`file://${resolved}`).href, context);
+        return nextResolve(pathToFileURL(resolved).href, context);
       }
     }
 
@@ -115,7 +116,7 @@ const hookHandle = registerHooks({
     }
 
     if (url.endsWith(".tsx")) {
-      const filePath = new URL(url).pathname;
+      const filePath = fileURLToPath(url);
       const source = fs.readFileSync(filePath, "utf8");
       const transpiled = ts.transpileModule(source, {
         compilerOptions: {
@@ -150,8 +151,57 @@ function renderAppMarkdown(content: string): string {
   );
 }
 
-function normalizeSelector(selector: string): string {
-  return selector.replace(/\s+/g, " ").trim();
+interface ResolvedMarkdownRule {
+  selectors: string[];
+  declarations: Record<string, string>;
+}
+
+/** Splits a CSS selector list on top-level commas, ignoring commas inside parentheses. */
+function splitTopLevelSelectors(selector: string): string[] {
+  const parts: string[] = [];
+  let depth = 0;
+  let current = "";
+  for (const ch of selector) {
+    if (ch === "(") depth += 1;
+    else if (ch === ")" && depth > 0) depth -= 1;
+
+    if (ch === "," && depth === 0) {
+      const trimmed = current.replace(/\s+/g, " ").trim();
+      if (trimmed) parts.push(trimmed);
+      current = "";
+    } else {
+      current += ch;
+    }
+  }
+  const tail = current.replace(/\s+/g, " ").trim();
+  if (tail) parts.push(tail);
+  return parts;
+}
+
+function combineSelectorPair(parentSel: string, branch: string): string {
+  if (!parentSel) return branch;
+  if (branch.includes("&")) return branch.replace(/&/g, parentSel);
+  return `${parentSel} ${branch}`;
+}
+
+/** Resolves a nested CSS rule's selector list relative to its `.markdown` parent chain. */
+function resolveNestedSelectors(rule: Rule): string[] {
+  const chain: string[] = [];
+  let cursor: Rule | undefined = rule;
+  while (cursor) {
+    chain.unshift(cursor.selector);
+    cursor =
+      cursor.parent?.type === "rule" ? (cursor.parent as Rule) : undefined;
+  }
+
+  let active = [""];
+  for (const rawSelector of chain) {
+    const branches = splitTopLevelSelectors(rawSelector);
+    active = active.flatMap((parentSel) =>
+      branches.map((branch) => combineSelectorPair(parentSel, branch)),
+    );
+  }
+  return active;
 }
 
 function getDeclarations(rule: Rule): Record<string, string> {
@@ -167,8 +217,7 @@ function getDeclarations(rule: Rule): Record<string, string> {
 
 async function compileGlobalsCss(): Promise<{
   themeVars: Record<string, string>;
-  markdownRule: Rule;
-  nestedRules: Rule[];
+  markdownRules: ResolvedMarkdownRule[];
 }> {
   const sourceCss = fs.readFileSync(GLOBALS_CSS_PATH, "utf8");
   const result = await postcss([tailwindcss()]).process(sourceCss, {
@@ -177,102 +226,172 @@ async function compileGlobalsCss(): Promise<{
   const root = postcss.parse(result.css);
 
   const themeVars: Record<string, string> = {};
-  let markdownRule: Rule | undefined;
+  const markdownRules: ResolvedMarkdownRule[] = [];
 
   root.walkRules((rule) => {
     if (rule.selector === ":root, :host" || rule.selector === ":root") {
       Object.assign(themeVars, getDeclarations(rule));
     }
     if (rule.selector === ".markdown") {
-      markdownRule = rule;
+      rule.walkRules((child) => {
+        markdownRules.push({
+          selectors: resolveNestedSelectors(child),
+          declarations: getDeclarations(child),
+        });
+      });
     }
   });
 
-  assert.ok(markdownRule, "expected compiled CSS to contain .markdown rule");
+  assert.ok(
+    markdownRules.length > 0,
+    "expected compiled CSS to contain nested .markdown rules",
+  );
 
-  const nestedRules: Rule[] = [];
-  markdownRule.walkRules((child) => {
-    nestedRules.push(child);
-  });
-
-  return { themeVars, markdownRule, nestedRules };
+  return { themeVars, markdownRules };
 }
 
-function findNestedRule(nestedRules: Rule[], expectedSelector: string): Rule {
-  const target = normalizeSelector(expectedSelector);
-  const match = nestedRules.find(
-    (rule) => normalizeSelector(rule.selector) === target,
+function findRuleMatching(
+  rules: ResolvedMarkdownRule[],
+  predicate: (
+    selectors: string[],
+    declarations: Record<string, string>,
+  ) => boolean,
+  label: string,
+): ResolvedMarkdownRule {
+  const match = rules.find((entry) =>
+    predicate(entry.selectors, entry.declarations),
   );
-  assert.ok(match, `expected compiled .markdown rule for selector "${target}"`);
+  assert.ok(match, `expected compiled .markdown rule for ${label}`);
   return match;
 }
 
 const compiledCssPromise = compileGlobalsCss();
 
+test("all compiled .markdown nested selectors remain scoped under .markdown", async () => {
+  const { markdownRules } = await compiledCssPromise;
+  for (const entry of markdownRules) {
+    for (const selector of entry.selectors) {
+      assert.ok(
+        /^(?:\.markdown(?:$|[.:[\s>+~])|:where\(\.markdown\b)/.test(selector),
+        `expected selector "${selector}" to stay scoped under .markdown`,
+      );
+    }
+  }
+});
+
 test("compiled CSS styles .markdown h1 and h2 with non-prose scoping and footnote exclusion", async () => {
-  const { themeVars, nestedRules } = await compiledCssPromise;
+  const { themeVars, markdownRules } = await compiledCssPromise;
 
   assert.equal(themeVars["--color-secondary"], "#ea580c");
   assert.equal(themeVars["--color-chill-700"], "#008596");
   assert.equal(themeVars["--color-primary"], "var(--color-chill-700)");
 
-  const headingMarginRule = findNestedRule(
-    nestedRules,
-    "&:where(:not(.prose)) :where( h1, h2:not(#footnote-label, #user-content-footnote-label), h3, h4, h5, h6 )",
+  const headingMarginRule = findRuleMatching(
+    markdownRules,
+    (selectors, decls) =>
+      Boolean(decls["margin-top"] && decls["margin-bottom"]) &&
+      selectors.some(
+        (s) =>
+          s.includes(".markdown:where(:not(.prose))") &&
+          s.includes("h1") &&
+          s.includes("#footnote-label") &&
+          s.includes("#user-content-footnote-label"),
+      ),
+    "non-prose heading margins excluding footnote labels",
   );
-  const headingMarginDecls = getDeclarations(headingMarginRule);
-  assert.ok(headingMarginDecls["margin-top"]);
-  assert.ok(headingMarginDecls["margin-bottom"]);
+  assert.ok(headingMarginRule.declarations["margin-top"]);
+  assert.ok(headingMarginRule.declarations["margin-bottom"]);
 
-  const h1Rule = findNestedRule(
-    nestedRules,
-    "&:where(:not(.prose)) :where(h1)",
+  const h1Rule = findRuleMatching(
+    markdownRules,
+    (selectors, decls) =>
+      decls.color === "var(--color-secondary)" &&
+      selectors.some(
+        (s) => s.includes(".markdown:where(:not(.prose))") && /\bh1\b/.test(s),
+      ),
+    "non-prose h1 color and size",
   );
-  const h1Decls = getDeclarations(h1Rule);
-  assert.equal(h1Decls.color, "var(--color-secondary)");
-  assert.equal(h1Decls["font-size"], "var(--text-3xl)");
+  assert.equal(h1Rule.declarations.color, "var(--color-secondary)");
+  assert.equal(h1Rule.declarations["font-size"], "var(--text-3xl)");
 
-  const h2Rule = findNestedRule(
-    nestedRules,
-    "&:where(:not(.prose)) :where(h2:not(#footnote-label, #user-content-footnote-label))",
+  const h2Rule = findRuleMatching(
+    markdownRules,
+    (selectors, decls) =>
+      decls.color === "var(--color-primary)" &&
+      selectors.some(
+        (s) =>
+          s.includes(".markdown:where(:not(.prose))") &&
+          /\bh2\b/.test(s) &&
+          s.includes("#footnote-label") &&
+          s.includes("#user-content-footnote-label"),
+      ),
+    "non-prose h2 color and size excluding footnote labels",
   );
-  const h2Decls = getDeclarations(h2Rule);
-  assert.equal(h2Decls.color, "var(--color-primary)");
-  assert.equal(h2Decls["font-size"], "var(--text-2xl)");
+  assert.equal(h2Rule.declarations.color, "var(--color-primary)");
+  assert.equal(h2Rule.declarations["font-size"], "var(--text-2xl)");
 });
 
 test("compiled CSS styles .markdown non-prose blockquote, blockquote.quote, and footer", async () => {
-  const { themeVars, nestedRules } = await compiledCssPromise;
+  const { themeVars, markdownRules } = await compiledCssPromise;
 
   assert.equal(themeVars["--text-sm"], "0.875rem");
   assert.ok(themeVars["--radius"]);
 
-  const quoteRule = findNestedRule(
-    nestedRules,
-    "&:where(:not(.prose)) :where(blockquote), :where(blockquote).quote",
+  const quoteRule = findRuleMatching(
+    markdownRules,
+    (selectors, decls) =>
+      decls["background-color"] === "#eefcfc" &&
+      selectors.some(
+        (s) =>
+          s.includes(".markdown:where(:not(.prose))") &&
+          s.includes("blockquote"),
+      ) &&
+      selectors.some(
+        (s) =>
+          s.startsWith(".markdown ") &&
+          s.includes("blockquote") &&
+          s.includes(".quote"),
+      ),
+    "non-prose blockquote and .markdown .quote card styles",
   );
-  const quoteDecls = getDeclarations(quoteRule);
-  assert.equal(quoteDecls["background-color"], "#eefcfc");
-  assert.equal(quoteDecls["border-color"], "#5bbac0");
-  assert.equal(quoteDecls["border-left-width"], "4px");
-  assert.equal(quoteDecls["border-radius"], "var(--radius)");
-  assert.equal(quoteDecls.color, "#007a8b");
-  assert.equal(quoteDecls["font-style"], "italic");
+  assert.equal(quoteRule.declarations["background-color"], "#eefcfc");
+  assert.equal(quoteRule.declarations["border-color"], "#5bbac0");
+  assert.equal(quoteRule.declarations["border-left-width"], "4px");
+  assert.equal(quoteRule.declarations["border-radius"], "var(--radius)");
+  assert.equal(quoteRule.declarations.color, "#007a8b");
+  assert.equal(quoteRule.declarations["font-style"], "italic");
 
-  const quotePseudoRule = findNestedRule(
-    nestedRules,
-    ":where(blockquote).quote :where(p:first-of-type)::before, :where(blockquote).quote :where(p:last-of-type)::after",
+  const quotePseudoRule = findRuleMatching(
+    markdownRules,
+    (selectors, decls) =>
+      decls.content === "none" &&
+      selectors.some((s) => s.includes(".quote") && s.includes("::before")) &&
+      selectors.some((s) => s.includes(".quote") && s.includes("::after")),
+    ".quote decorative pseudo-element reset",
   );
-  assert.equal(getDeclarations(quotePseudoRule).content, "none");
+  assert.equal(quotePseudoRule.declarations.content, "none");
 
-  const footerRule = findNestedRule(
-    nestedRules,
-    "&:where(:not(.prose)) :where(blockquote footer), :where(blockquote).quote :where(footer)",
+  const footerRule = findRuleMatching(
+    markdownRules,
+    (selectors, decls) =>
+      decls["text-align"] === "right" &&
+      selectors.some(
+        (s) =>
+          s.includes(".markdown:where(:not(.prose))") &&
+          s.includes("blockquote") &&
+          s.includes("footer"),
+      ) &&
+      selectors.some(
+        (s) =>
+          s.startsWith(".markdown ") &&
+          s.includes(".quote") &&
+          s.includes("footer"),
+      ),
+    "blockquote and .quote footer attribution alignment",
   );
-  const footerDecls = getDeclarations(footerRule);
-  assert.equal(footerDecls["text-align"], "right");
-  assert.equal(footerDecls["font-size"], "var(--text-sm)");
-  assert.ok(footerDecls["margin-top"]);
+  assert.equal(footerRule.declarations["text-align"], "right");
+  assert.equal(footerRule.declarations["font-size"], "var(--text-sm)");
+  assert.ok(footerRule.declarations["margin-top"]);
 });
 
 test("AppMarkdown renders h1, h2, and standard markdown blockquote inside .markdown", () => {
