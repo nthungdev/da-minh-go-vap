@@ -6,10 +6,12 @@ import { getPayload, type PaginatedDocs, type Where } from "payload";
 import { cache } from "react";
 import type { AppPost } from "@/definitions";
 import { defaultLocale, type Locale } from "@/i18n/config";
-import type { Post } from "@/payload-types";
+import type { Contributor, Post } from "@/payload-types";
 import { rewriteMediaUrls } from "@/utils/cloudflare";
 import { postToAppPost } from "@/utils/post";
+import { OBJECT_ID_REGEX } from "@/utils/posts-page-params";
 import { PUBLISHED_CONTENT_REVALIDATE_SECONDS } from "@/utils/published-content-cache";
+import { buildPostSearchConditions } from "@/utils/search";
 
 interface GetOptions {
   limit?: number;
@@ -29,8 +31,6 @@ const POST_CARD_SELECT = {
   thumbnail: true,
   hiddenTags: true,
 } as const;
-
-const OBJECT_ID_REGEX = /^[a-f\d]{24}$/i;
 
 function normalizeCardPostsResult(
   query: PaginatedDocs<Partial<Post>>,
@@ -379,5 +379,95 @@ export const queryPostsByPublicTag = cache(
       locale ?? defaultLocale,
       includeBody ?? false,
     );
+  },
+);
+
+const queryPostsByContributorCached = unstable_cache(
+  async (
+    contributorId: string,
+    limit: number,
+    page: number,
+    skipSlug: string | undefined,
+    locale: Locale,
+  ) => {
+    const payload = await getPayload({ config });
+    const conditions = buildPostSearchConditions({ contributorId });
+    if (skipSlug) {
+      conditions.push({ slug: { not_equals: skipSlug } });
+    }
+
+    const query = await payload.find({
+      collection: "posts",
+      depth: 1,
+      select: POST_CARD_SELECT,
+      where: { and: conditions },
+      sort: "-publishedAt",
+      limit,
+      page,
+      locale,
+    });
+    return rewriteMediaUrls(normalizeCardPostsResult(query));
+  },
+  ["query-posts-by-contributor"],
+  { tags: ["posts"], revalidate: PUBLISHED_CONTENT_REVALIDATE_SECONDS },
+);
+
+/**
+ * Queries published, non-basic-auth posts crediting a contributor in any role, newest first.
+ */
+export async function queryPostsByContributor(
+  contributorId: string,
+  { limit, page, skipSlug, locale }: Omit<GetOptions, "includeBody"> = {},
+) {
+  if (!OBJECT_ID_REGEX.test(contributorId)) {
+    return createEmptyPostsQuery({ limit, page });
+  }
+
+  return queryPostsByContributorCached(
+    contributorId,
+    limit ?? 10,
+    page ?? 1,
+    skipSlug,
+    locale ?? defaultLocale,
+  );
+}
+
+const getContributorByIdCached = unstable_cache(
+  async (
+    id: string,
+    locale: Locale,
+  ): Promise<Pick<Contributor, "id" | "name" | "honorific"> | null> => {
+    const payload = await getPayload({ config });
+    const query = await payload.find({
+      collection: "contributors",
+      where: { id: { equals: id } },
+      select: { name: true, honorific: true },
+      depth: 0,
+      limit: 1,
+      pagination: false,
+      locale,
+    });
+    const contributor = query.docs[0];
+    if (!contributor) return null;
+    return {
+      id: contributor.id,
+      name: contributor.name,
+      honorific: contributor.honorific,
+    };
+  },
+  ["contributor-by-id"],
+  {
+    tags: ["posts", "contributors"],
+    revalidate: PUBLISHED_CONTENT_REVALIDATE_SECONDS,
+  },
+);
+
+/**
+ * Returns a contributor's localized name fields, or null if the id is malformed or unknown.
+ */
+export const getContributorById = cache(
+  async (id: string, { locale }: { locale?: Locale } = {}) => {
+    if (!OBJECT_ID_REGEX.test(id)) return null;
+    return getContributorByIdCached(id, locale ?? defaultLocale);
   },
 );

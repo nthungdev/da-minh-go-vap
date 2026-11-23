@@ -168,3 +168,33 @@ test("buildPostSearchConditions excludes requireHttpBasicAuth posts with tagId a
     { requireHttpBasicAuth: { not_equals: true } },
   ]);
 });
+
+test("buildPostSearchConditions adds a contributors.person condition", () => {
+  const nowIso = "2026-01-01T00:00:00.000Z";
+  const conditions = buildPostSearchConditions({
+    nowIso,
+    contributorId: " c1 ",
+  });
+  assert.deepEqual(conditions, [
+    { publishedAt: { less_than: nowIso } },
+    { requireHttpBasicAuth: { not_equals: true } },
+    { "contributors.person": { equals: "c1" } },
+  ]);
+});
+
+test("buildPostSearchConditions ignores a blank contributorId and combines with tagId", () => {
+  const nowIso = "2026-01-01T00:00:00.000Z";
+  assert.equal(
+    buildPostSearchConditions({ nowIso, contributorId: "   " }).length,
+    2,
+  );
+  assert.deepEqual(
+    buildPostSearchConditions({ nowIso, tagId: "t1", contributorId: "c1" }),
+    [
+      { publishedAt: { less_than: nowIso } },
+      { requireHttpBasicAuth: { not_equals: true } },
+      { hiddenTags: { in: ["t1"] } },
+      { "contributors.person": { equals: "c1" } },
+    ],
+  );
+});

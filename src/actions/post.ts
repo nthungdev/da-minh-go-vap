@@ -66,6 +66,33 @@ export const fetchPostsByHiddenTags = async (
 };
 
 /**
+ * Fetches a page of posts crediting a contributor, in the same shape as `fetchPostsByHiddenTags`.
+ */
+export const fetchPostsByContributor = async (
+  contributorId: string,
+  {
+    limit,
+    skipSlug,
+    page = 1,
+    locale,
+  }: Parameters<typeof postUtils.queryPostsByContributor>[1] = {},
+) => {
+  const query = await postUtils.queryPostsByContributor(contributorId, {
+    limit,
+    page,
+    skipSlug,
+    locale,
+  });
+
+  return {
+    posts: query.docs.map(postToCardAppPost),
+    hasMore: query.hasNextPage,
+    page: query.page ?? page,
+    totalPages: query.totalPages,
+  };
+};
+
+/**
  * Fetches the public hidden tag document for a tag value.
  */
 export const fetchPublicTagByTag = async (tag: string) => {

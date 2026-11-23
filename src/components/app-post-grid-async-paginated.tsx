@@ -4,7 +4,11 @@ import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useLocale } from "next-intl";
 import { Suspense, useCallback, useRef, useState } from "react";
-import { fetchPostsByHiddenTags, fetchPostsByPublicTag } from "@/actions/post";
+import {
+  fetchPostsByContributor,
+  fetchPostsByHiddenTags,
+  fetchPostsByPublicTag,
+} from "@/actions/post";
 import AppPostGrid from "@/components/app-post-grid";
 import PaginationPanel from "@/components/pagination-panel";
 import type { AppPost } from "@/definitions";
@@ -41,10 +45,17 @@ type AppPostGridPaginatedProps = BasePostGridPaginatedProps &
     | {
         hiddenTags: string[];
         publicTag?: never;
+        contributorId?: never;
       }
     | {
         hiddenTags?: never;
         publicTag: string;
+        contributorId?: never;
+      }
+    | {
+        hiddenTags?: never;
+        publicTag?: never;
+        contributorId: string;
       }
   );
 
@@ -63,12 +74,41 @@ function resolveActivePage(
 function buildPostGridQueryOptions(params: {
   publicTag?: string;
   hiddenTags?: string[];
+  contributorId?: string;
   page: number;
   locale: Locale;
   skipSlug?: string;
   pageSize: number;
 }) {
-  const { publicTag, hiddenTags, page, locale, skipSlug, pageSize } = params;
+  const {
+    publicTag,
+    hiddenTags,
+    contributorId,
+    page,
+    locale,
+    skipSlug,
+    pageSize,
+  } = params;
+
+  if (contributorId !== undefined) {
+    return {
+      queryKey: [
+        "fetchPostsByContributor",
+        contributorId,
+        page,
+        locale,
+        skipSlug,
+        pageSize,
+      ],
+      queryFn: () =>
+        fetchPostsByContributor(contributorId, {
+          limit: pageSize,
+          page,
+          skipSlug,
+          locale,
+        }),
+    };
+  }
 
   if (publicTag === undefined) {
     return {
@@ -133,6 +173,7 @@ function AppPostGridPaginatedContent(props: AppPostGridPaginatedProps) {
     hidePostTitles,
     hiddenTags,
     publicTag,
+    contributorId,
     skipSlug,
     className,
     syncWithQueryParam = true,
@@ -180,6 +221,7 @@ function AppPostGridPaginatedContent(props: AppPostGridPaginatedProps) {
   const queryOptions = buildPostGridQueryOptions({
     publicTag,
     hiddenTags,
+    contributorId,
     page,
     locale,
     skipSlug,

@@ -291,15 +291,17 @@ export function addRecentSearch(
  * Builds the base Payload `Where` conditions for post search queries,
  * restricting results to published posts that do not require HTTP basic auth.
  *
- * @param options - Current ISO timestamp and optional `tagId` filter.
+ * @param options - Current ISO timestamp and optional `tagId` / `contributorId` filters.
  * @returns Array of Payload `Where` clauses to combine with `and`.
  */
 export function buildPostSearchConditions({
   nowIso = new Date().toISOString(),
   tagId,
+  contributorId,
 }: {
   nowIso?: string;
   tagId?: string;
+  contributorId?: string;
 } = {}): Where[] {
   const conditions: Where[] = [
     {
@@ -319,6 +321,16 @@ export function buildPostSearchConditions({
     conditions.push({
       hiddenTags: {
         in: [activeTagId],
+      },
+    });
+  }
+
+  const activeContributorId = contributorId?.trim();
+  if (activeContributorId) {
+    // Matches any `contributors` array row, whatever the role
+    conditions.push({
+      "contributors.person": {
+        equals: activeContributorId,
       },
     });
   }
