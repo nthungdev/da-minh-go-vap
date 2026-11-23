@@ -199,22 +199,46 @@
 @utility markdown {
   @apply leading-6;
 
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
+  &:where(:not(.prose))
+    :where(
+      h1,
+      h2:not(#footnote-label, #user-content-footnote-label),
+      h3,
+      h4,
+      h5,
+      h6
+    ) {
     @apply mt-4 mb-1;
   }
-  h1 {
-    @apply text-3xl;
+  &:where(:not(.prose)) :where(h1) {
+    @apply text-secondary text-3xl;
   }
-  h2 {
-    @apply text-2xl;
+  &:where(:not(.prose))
+    :where(h2:not(#footnote-label, #user-content-footnote-label)) {
+    @apply text-primary text-2xl;
   }
-  h3 {
+  &:where(:not(.prose)) :where(h3) {
     @apply text-xl;
+  }
+
+  &:where(:not(.prose)) :where(blockquote),
+  :where(blockquote).quote {
+    @apply my-4 rounded-lg border-l-4 border-[#5bbac0] bg-[#eefcfc] px-4 py-3.5 leading-relaxed font-normal text-[#007a8b] italic;
+  }
+
+  &:where(:not(.prose)) :where(blockquote p),
+  :where(blockquote).quote :where(p) {
+    @apply my-2 first:mt-0 last:mb-0;
+  }
+
+  :where(blockquote).quote :where(p:first-of-type)::before,
+  :where(blockquote).quote :where(p:last-of-type)::after {
+    content: none;
+  }
+
+  &:where(:not(.prose)) :where(blockquote footer),
+  :where(blockquote).quote :where(footer) {
+    @apply mt-2 text-right text-sm;
   }
 
   sup,
