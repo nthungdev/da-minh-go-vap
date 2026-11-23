@@ -2,14 +2,20 @@ import { Suspense } from "react";
 import BlockRenderer from "@/components/block-renderer";
 import PostGroupSkeleton from "@/components/post-group-skeleton";
 import type { BlockType } from "@/definitions";
+import { resolvePostGroupLimit } from "@/utils/post-pagination";
 import { shouldStreamBlock } from "@/utils/streaming";
 
 function BlockFallback({ block }: { block: BlockType }) {
   if (block.blockType !== "postGroupBlock") return null;
+  const limit = resolvePostGroupLimit({
+    limit: block.limit,
+    enablePagination: block.enablePagination,
+    displayType: block.displayType,
+  });
   return (
     <PostGroupSkeleton
       type={block.displayType}
-      limit={block.limit || 4}
+      limit={limit}
       title={block.title}
       hidePostTitles={block.hidePostTitles}
     />

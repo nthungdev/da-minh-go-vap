@@ -5,6 +5,8 @@ import {
   buildPaginatedPostsInitialData,
   buildPostGroupInitialData,
   type PaginatedPostsData,
+  resolvePostGroupLimit,
+  resolvePostGroupRenderConfig,
   shouldHidePagination,
 } from "./post-pagination.ts";
 
@@ -163,6 +165,172 @@ describe("shouldHidePagination", () => {
     assert.equal(
       shouldHidePagination({ hasMore: false, totalPages: 1, page: 2 }),
       false,
+    );
+  });
+});
+
+describe("resolvePostGroupLimit", () => {
+  it("preserves explicit positive limits regardless of pagination", () => {
+    assert.equal(
+      resolvePostGroupLimit({
+        limit: 8,
+        enablePagination: true,
+        displayType: "grid",
+      }),
+      8,
+    );
+    assert.equal(
+      resolvePostGroupLimit({
+        limit: 6,
+        enablePagination: false,
+        displayType: "grid",
+      }),
+      6,
+    );
+    assert.equal(
+      resolvePostGroupLimit({
+        limit: 10,
+        enablePagination: true,
+        displayType: "list",
+      }),
+      10,
+    );
+  });
+
+  it("defaults to 12 when pagination is enabled on grid and limit is unset", () => {
+    assert.equal(
+      resolvePostGroupLimit({
+        limit: undefined,
+        enablePagination: true,
+        displayType: "grid",
+      }),
+      12,
+    );
+    assert.equal(
+      resolvePostGroupLimit({
+        limit: null,
+        enablePagination: true,
+        displayType: "grid",
+      }),
+      12,
+    );
+    assert.equal(
+      resolvePostGroupLimit({
+        limit: 0,
+        enablePagination: true,
+        displayType: "grid",
+      }),
+      12,
+    );
+  });
+
+  it("defaults to 4 when pagination is disabled or displayType is list", () => {
+    assert.equal(
+      resolvePostGroupLimit({
+        limit: undefined,
+        enablePagination: false,
+        displayType: "grid",
+      }),
+      4,
+    );
+    assert.equal(
+      resolvePostGroupLimit({
+        limit: undefined,
+        enablePagination: true,
+        displayType: "list",
+      }),
+      4,
+    );
+  });
+});
+
+describe("resolvePostGroupRenderConfig", () => {
+  it("selects paginated-grid, uses limit (or 12 default), and suppresses Xem tiếp when enablePagination is true on grid", () => {
+    assert.deepEqual(
+      resolvePostGroupRenderConfig({
+        type: "grid",
+        limit: 9,
+        enablePagination: true,
+        hasMore: true,
+      }),
+      {
+        mode: "paginated-grid",
+        pageSize: 9,
+        showViewMore: false,
+      },
+    );
+
+    assert.deepEqual(
+      resolvePostGroupRenderConfig({
+        type: "grid",
+        limit: undefined,
+        enablePagination: true,
+        hasMore: true,
+      }),
+      {
+        mode: "paginated-grid",
+        pageSize: 12,
+        showViewMore: false,
+      },
+    );
+  });
+
+  it("preserves non-paginated grid and Xem tiếp behavior when enablePagination is false or unset", () => {
+    assert.deepEqual(
+      resolvePostGroupRenderConfig({
+        type: "grid",
+        limit: 4,
+        enablePagination: false,
+        hasMore: true,
+      }),
+      {
+        mode: "grid",
+        pageSize: 4,
+        showViewMore: true,
+      },
+    );
+
+    assert.deepEqual(
+      resolvePostGroupRenderConfig({
+        type: "grid",
+        limit: undefined,
+        hasMore: false,
+      }),
+      {
+        mode: "grid",
+        pageSize: 4,
+        showViewMore: false,
+      },
+    );
+  });
+
+  it("ignores enablePagination when displayType is list", () => {
+    assert.deepEqual(
+      resolvePostGroupRenderConfig({
+        type: "list",
+        limit: 5,
+        enablePagination: true,
+        hasMore: true,
+      }),
+      {
+        mode: "list",
+        pageSize: 5,
+        showViewMore: false,
+      },
+    );
+
+    assert.deepEqual(
+      resolvePostGroupRenderConfig({
+        type: "list",
+        limit: undefined,
+        enablePagination: true,
+        hasMore: true,
+      }),
+      {
+        mode: "list",
+        pageSize: 4,
+        showViewMore: false,
+      },
     );
   });
 });

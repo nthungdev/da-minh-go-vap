@@ -74,3 +74,85 @@ export function shouldHidePagination(params: {
   const { hasMore, totalPages, page } = params;
   return !hasMore && totalPages <= 1 && page === 1;
 }
+
+export const DEFAULT_POST_GROUP_LIMIT = 4;
+export const DEFAULT_PAGINATED_POST_GROUP_LIMIT = 12;
+
+export type PostGroupRenderMode =
+  | "paginated-grid"
+  | "grid"
+  | "list"
+  | "unknown";
+
+export interface PostGroupRenderConfig {
+  mode: PostGroupRenderMode;
+  pageSize: number;
+  showViewMore: boolean;
+}
+
+/**
+ * Resolves the effective post limit for a `PostGroupBlock`.
+ * Preserves an explicit positive `limit`, otherwise defaults to `12` for
+ * paginated grids and `4` for non-paginated groups.
+ */
+export function resolvePostGroupLimit(params: {
+  limit?: number | null;
+  enablePagination?: boolean | null;
+  displayType?: "grid" | "list";
+}): number {
+  const { limit, enablePagination, displayType } = params;
+  if (typeof limit === "number" && limit > 0) {
+    return limit;
+  }
+  const isPaginatedGrid =
+    Boolean(enablePagination) &&
+    (displayType === undefined || displayType === "grid");
+  return isPaginatedGrid
+    ? DEFAULT_PAGINATED_POST_GROUP_LIMIT
+    : DEFAULT_POST_GROUP_LIMIT;
+}
+
+/**
+ * Resolves the rendering mode, effective page size, and "Xem tiếp" precedence
+ * for `PostGroup`. Inline pagination applies only to `grid` display and
+ * suppresses `showViewMore` when active.
+ */
+export function resolvePostGroupRenderConfig(params: {
+  type: "grid" | "list";
+  limit?: number | null;
+  enablePagination?: boolean | null;
+  hasMore?: boolean | null;
+}): PostGroupRenderConfig {
+  const { type, limit, enablePagination, hasMore } = params;
+
+  if (type === "list") {
+    return {
+      mode: "list",
+      pageSize: resolvePostGroupLimit({
+        limit,
+        enablePagination: false,
+        displayType: "list",
+      }),
+      showViewMore: false,
+    };
+  }
+
+  if (type === "grid") {
+    const isPaginated = Boolean(enablePagination);
+    return {
+      mode: isPaginated ? "paginated-grid" : "grid",
+      pageSize: resolvePostGroupLimit({
+        limit,
+        enablePagination: isPaginated,
+        displayType: "grid",
+      }),
+      showViewMore: isPaginated ? false : Boolean(hasMore),
+    };
+  }
+
+  return {
+    mode: "unknown",
+    pageSize: DEFAULT_POST_GROUP_LIMIT,
+    showViewMore: false,
+  };
+}

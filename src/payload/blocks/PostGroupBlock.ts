@@ -67,6 +67,17 @@ const PostGroupBlock: Block = {
         },
       ],
     },
+    {
+      name: "enablePagination",
+      label: "Bật phân trang (Inline Pagination)",
+      type: "checkbox",
+      defaultValue: false,
+      admin: {
+        condition: (_data, siblingData) => siblingData?.displayType === "grid",
+        description:
+          "Hiển thị phân trang ngay trong lưới bài viết (chỉ áp dụng cho dạng Grid, dùng Limit làm số bài mỗi trang và ưu tiên hơn nút Xem tiếp).",
+      },
+    },
   ],
 };
 
