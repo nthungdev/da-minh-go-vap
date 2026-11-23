@@ -27,8 +27,36 @@
     "tableOfContents": "Table of Contents",
     "expandTableOfContents": "Expand table of contents",
     "collapseTableOfContents": "Collapse table of contents",
-    "author": "Author",
-    "authors": "Authors"
+    "contributorRoles": {
+      "author": {
+        "one": "Author",
+        "other": "Authors"
+      },
+      "translator": {
+        "one": "Translator",
+        "other": "Translators"
+      },
+      "narrator": {
+        "one": "Narrator",
+        "other": "Narrators"
+      },
+      "editor": {
+        "one": "Editor",
+        "other": "Editors"
+      },
+      "presenter": {
+        "one": "Presenter",
+        "other": "Presenters"
+      },
+      "producer": {
+        "one": "Producer",
+        "other": "Producers"
+      },
+      "photographer": {
+        "one": "Photographer",
+        "other": "Photographers"
+      }
+    }
   },
   "search": {
     "label": "Search",

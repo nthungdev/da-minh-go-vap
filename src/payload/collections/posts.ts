@@ -20,7 +20,26 @@ import {
 import { buildPostPreviewUrl } from "@/payload/utils/config";
 import { revalidatePath, slugify } from "@/payload/utils/data";
 import type { Post } from "@/payload-types";
+import { contributorRoles } from "@/utils/post-contributors";
 import { validateSlug } from "@/utils/slug";
+
+const contributorRoleLabels: Record<
+  (typeof contributorRoles)[number],
+  { en: string; vi: string }
+> = {
+  author: { en: "Author", vi: "Tác giả" },
+  translator: { en: "Translator", vi: "Chuyển ngữ" },
+  narrator: { en: "Narrator", vi: "Giọng đọc" },
+  editor: { en: "Editor", vi: "Biên tập" },
+  presenter: { en: "Presenter", vi: "Trình bày" },
+  producer: { en: "Producer", vi: "Thực hiện" },
+  photographer: { en: "Photographer", vi: "Hình ảnh" },
+};
+
+const contributorRoleOptions = contributorRoles.map((role) => ({
+  value: role,
+  label: contributorRoleLabels[role],
+}));
 
 const Posts: CollectionConfig = {
   slug: "posts",
@@ -212,14 +231,50 @@ const Posts: CollectionConfig = {
               },
             },
             {
-              name: "authors",
-              type: "relationship",
-              relationTo: "authors",
-              hasMany: true,
+              name: "contributors",
+              type: "array",
               label: {
-                en: "Authors",
-                vi: "Tác giả",
+                en: "Contributors",
+                vi: "Người đóng góp",
               },
+              labels: {
+                singular: {
+                  en: "Contributor",
+                  vi: "Người đóng góp",
+                },
+                plural: {
+                  en: "Contributors",
+                  vi: "Người đóng góp",
+                },
+              },
+              fields: [
+                {
+                  type: "row",
+                  fields: [
+                    {
+                      name: "person",
+                      type: "relationship",
+                      relationTo: "contributors",
+                      required: true,
+                      label: {
+                        en: "Person",
+                        vi: "Người",
+                      },
+                    },
+                    {
+                      name: "role",
+                      type: "select",
+                      required: true,
+                      defaultValue: "author",
+                      options: contributorRoleOptions,
+                      label: {
+                        en: "Role",
+                        vi: "Vai trò",
+                      },
+                    },
+                  ],
+                },
+              ],
             },
           ],
         },

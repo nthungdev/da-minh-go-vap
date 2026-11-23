@@ -24,9 +24,11 @@ import { transformUrl } from "@/utils/cloudflare";
 import { formatDate } from "@/utils/date";
 import { getPublicHiddenTags } from "@/utils/post";
 import {
-  formatPostAuthorNames,
-  getPostAuthorNames,
-} from "@/utils/post-authors";
+  type ContributorRoleGroup,
+  formatContributorNames,
+  getContributorNames,
+  groupPostContributors,
+} from "@/utils/post-contributors";
 import { getServerOrigin } from "@/utils/url";
 
 const relatedPostsLimit = 12;
@@ -43,7 +45,10 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 
   const url = `${origin}/posts/${post?.slug}`;
   const thumbnail = getDataOrUndefined(post?.thumbnail);
-  const authorNames = getPostAuthorNames(post?.authors);
+  const authorNames = getContributorNames(
+    groupPostContributors(post?.contributors),
+    "author",
+  );
 
   return {
     title: post?.seo?.title,
@@ -78,13 +83,23 @@ export function generateStaticParams(): Awaited<Props["params"]>[] {
   return [];
 }
 
-/** Builds a minimal schema.org Article JSON-LD carrying the post's authors. */
+function toPersons(names: string[]) {
+  return names.length > 0
+    ? names.map((name) => ({ "@type": "Person", name }))
+    : undefined;
+}
+
+/** Builds a minimal schema.org Article JSON-LD crediting the post's contributors by role. */
 function buildArticleJsonLd(
   post: NonNullable<Awaited<ReturnType<typeof fetchPostBySlug>>>,
   url: string,
-  authorNames: string[],
+  groups: ContributorRoleGroup[],
 ) {
   const thumbnail = getDataOrUndefined(post.thumbnail);
+  // schema.org only has `author` and `translator`; other roles become `contributor`
+  const otherNames = groups
+    .filter((group) => group.role !== "author" && group.role !== "translator")
+    .flatMap((group) => group.names);
   return {
     "@context": "https://schema.org",
     "@type": "Article",
@@ -92,7 +107,9 @@ function buildArticleJsonLd(
     url,
     datePublished: post.publishedAt.toISOString(),
     image: thumbnail?.url ? [transformUrl(thumbnail.url)] : undefined,
-    author: authorNames.map((name) => ({ "@type": "Person", name })),
+    author: toPersons(getContributorNames(groups, "author")),
+    translator: toPersons(getContributorNames(groups, "translator")),
+    contributor: toPersons(otherNames),
   };
 }
 
@@ -146,18 +163,18 @@ export default async function Page(props: Props) {
 
   const postHref = `${origin}/posts/${post.slug}`;
   const articleContent = renderArticleContent(post);
-  const authorNames = getPostAuthorNames(post.authors);
+  const contributorGroups = groupPostContributors(post.contributors);
 
   return (
     <AppPage>
       <RefreshRouteOnSave />
-      {authorNames.length > 0 && (
+      {contributorGroups.length > 0 && (
         <script
           type="application/ld+json"
           // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD must be inlined; `<` is escaped
           dangerouslySetInnerHTML={{
             __html: serializeJsonLd(
-              buildArticleJsonLd(post, postHref, authorNames),
+              buildArticleJsonLd(post, postHref, contributorGroups),
             ),
           }}
         />
@@ -184,11 +201,17 @@ export default async function Page(props: Props) {
         </PostTableOfContents>
       )}
 
-      {authorNames.length > 0 && (
-        <p className="mt-6 text-gray-700">
-          {authorNames.length > 1 ? t("authors") : t("author")}:{" "}
-          {formatPostAuthorNames(authorNames, locale)}
-        </p>
+      {contributorGroups.length > 0 && (
+        <div className="mt-6 space-y-1 text-gray-700">
+          {contributorGroups.map(({ role, names }) => (
+            <p key={role}>
+              {t(
+                `contributorRoles.${role}.${names.length > 1 ? "other" : "one"}`,
+              )}
+              : {formatContributorNames(names, locale)}
+            </p>
+          ))}
+        </div>
       )}
 
       {publicTags.length > 0 && (

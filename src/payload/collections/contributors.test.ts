@@ -35,7 +35,7 @@ registerHooks({
   },
 });
 
-const { default: Authors } = (await import("./Authors.ts")) as {
+const { default: Contributors } = (await import("./Contributors.ts")) as {
   default: CollectionConfig;
 };
 
@@ -46,7 +46,7 @@ function makeArgs(
 }
 
 function getAccess(operation: "read" | "create" | "update" | "delete"): Access {
-  const access = Authors.access?.[operation];
+  const access = Contributors.access?.[operation];
   assert.equal(typeof access, "function", `${operation} access is defined`);
   return access as Access;
 }
@@ -54,25 +54,25 @@ function getAccess(operation: "read" | "create" | "update" | "delete"): Access {
 const editorRoles = ["admin", "manager", "editor", "author"] as const;
 const writeOperations = ["create", "update", "delete"] as const;
 
-test("Authors collection uses the authors slug", () => {
-  assert.equal(Authors.slug, "authors");
+test("Contributors collection uses the contributors slug", () => {
+  assert.equal(Contributors.slug, "contributors");
 });
 
-test("Authors read access is public", () => {
+test("Contributors read access is public", () => {
   const read = getAccess("read");
   assert.equal(read(makeArgs()), true);
   assert.equal(read(makeArgs({ id: "u1", role: "author" })), true);
 });
 
 for (const operation of writeOperations) {
-  test(`Authors ${operation} access allows content roles`, () => {
+  test(`Contributors ${operation} access allows content roles`, () => {
     const check = getAccess(operation);
     for (const role of editorRoles) {
       assert.equal(check(makeArgs({ id: `u-${role}`, role })), true, role);
     }
   });
 
-  test(`Authors ${operation} access denies anonymous and unknown roles`, () => {
+  test(`Contributors ${operation} access denies anonymous and unknown roles`, () => {
     const check = getAccess(operation);
     assert.equal(check(makeArgs()), false);
     assert.equal(check(makeArgs({ id: "u-x", role: "viewer" })), false);
@@ -81,7 +81,7 @@ for (const operation of writeOperations) {
 }
 
 /**
- * posts.ts pulls in TSX blocks that plain node cannot load, so the `authors`
+ * posts.ts pulls in TSX blocks that plain node cannot load, so the `contributors`
  * field is checked from the parsed source of the "Nội Dung" tab instead.
  */
 function getContentTabFields(): ts.ObjectLiteralExpression[] {
@@ -129,30 +129,10 @@ function getStringProperty(object: ts.ObjectLiteralExpression, name: string) {
   return value && ts.isStringLiteral(value) ? value.text : undefined;
 }
 
-test('posts authors field is the last field of the "Nội Dung" tab', () => {
+test('posts contributors field is the last field of the "Nội Dung" tab', () => {
   const fields = getContentTabFields();
   const last = fields.at(-1);
   assert.ok(last);
-  assert.equal(getStringProperty(last, "name"), "authors");
-  assert.equal(
-    fields.filter((field) => getStringProperty(field, "name") === "authors")
-      .length,
-    1,
-  );
-});
-
-test("posts authors field is an optional hasMany relationship to authors", () => {
-  const field = getContentTabFields().find(
-    (candidate) => getStringProperty(candidate, "name") === "authors",
-  );
-  assert.ok(field);
-  assert.equal(getStringProperty(field, "type"), "relationship");
-  assert.equal(getStringProperty(field, "relationTo"), "authors");
-  assert.equal(getProperty(field, "hasMany")?.kind, ts.SyntaxKind.TrueKeyword);
-
-  const required = getProperty(field, "required");
-  assert.ok(
-    required === undefined || required.kind === ts.SyntaxKind.FalseKeyword,
-    "authors is not required",
-  );
+  assert.equal(getStringProperty(last, "name"), "contributors");
+  assert.equal(getStringProperty(last, "type"), "array");
 });

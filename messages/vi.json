@@ -27,8 +27,36 @@
     "tableOfContents": "Mục lục",
     "expandTableOfContents": "Mở rộng mục lục",
     "collapseTableOfContents": "Thu gọn mục lục",
-    "author": "Tác giả",
-    "authors": "Tác giả"
+    "contributorRoles": {
+      "author": {
+        "one": "Tác giả",
+        "other": "Tác giả"
+      },
+      "translator": {
+        "one": "Chuyển ngữ",
+        "other": "Chuyển ngữ"
+      },
+      "narrator": {
+        "one": "Giọng đọc",
+        "other": "Giọng đọc"
+      },
+      "editor": {
+        "one": "Biên tập",
+        "other": "Biên tập"
+      },
+      "presenter": {
+        "one": "Trình bày",
+        "other": "Trình bày"
+      },
+      "producer": {
+        "one": "Thực hiện",
+        "other": "Thực hiện"
+      },
+      "photographer": {
+        "one": "Hình ảnh",
+        "other": "Hình ảnh"
+      }
+    }
   },
   "search": {
     "label": "Tìm kiếm",
