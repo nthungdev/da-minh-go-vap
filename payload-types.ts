@@ -74,6 +74,7 @@ export interface Config {
     posts: Post;
     users: User;
     spotifyPodcasts: SpotifyPodcast;
+    authors: Author;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -88,6 +89,7 @@ export interface Config {
     posts: PostsSelect<false> | PostsSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     spotifyPodcasts: SpotifyPodcastsSelect<false> | SpotifyPodcastsSelect<true>;
+    authors: AuthorsSelect<false> | AuthorsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -1332,6 +1334,20 @@ export interface SpotifyPodcast {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "authors".
+ */
+export interface Author {
+  id: string;
+  name: string;
+  /**
+   * Ví dụ: Lm., Tu sĩ
+   */
+  honorific?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -1381,6 +1397,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'spotifyPodcasts';
         value: string | SpotifyPodcast;
+      } | null)
+    | ({
+        relationTo: 'authors';
+        value: string | Author;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -2145,6 +2165,16 @@ export interface UsersSelect<T extends boolean = true> {
 export interface SpotifyPodcastsSelect<T extends boolean = true> {
   label?: T;
   spotifyId?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "authors_select".
+ */
+export interface AuthorsSelect<T extends boolean = true> {
+  name?: T;
+  honorific?: T;
   updatedAt?: T;
   createdAt?: T;
 }

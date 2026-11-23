@@ -9,6 +9,7 @@ import { vi } from "@payloadcms/translations/languages/vi";
 import { buildConfig, type Payload } from "payload";
 import sharp from "sharp";
 import { defaultLocale, localeLabels, locales } from "@/i18n/config";
+import Authors from "@/payload/collections/Authors";
 import HiddenTags from "@/payload/collections/HiddenTags";
 import Media from "@/payload/collections/Media";
 import Pages from "@/payload/collections/pages";
@@ -54,6 +55,7 @@ export default buildConfig({
     Posts,
     Users,
     SpotifyPodcasts,
+    Authors,
   ],
   globals: [NavBar, Footer, SiteSettings],
   i18n: {
