@@ -737,6 +737,10 @@ export interface Post {
    * Cần mật khẩu để truy cập bài viết này.
    */
   requireHttpBasicAuth?: boolean | null;
+  /**
+   * Tự động gán theo tài khoản tạo bài viết.
+   */
+  createdBy?: (string | null) | User;
   updatedAt: string;
   createdAt: string;
 }
@@ -1815,6 +1819,7 @@ export interface PostsSelect<T extends boolean = true> {
   slug?: T;
   publishedAt?: T;
   requireHttpBasicAuth?: T;
+  createdBy?: T;
   updatedAt?: T;
   createdAt?: T;
 }

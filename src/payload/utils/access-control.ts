@@ -1,4 +1,9 @@
-import type { AccessArgs, AccessResult, PayloadRequest } from "payload";
+import type {
+  AccessArgs,
+  AccessResult,
+  CollectionBeforeChangeHook,
+  PayloadRequest,
+} from "payload";
 import type { Post, User } from "@/payload-types";
 
 export function onlyRoles(
@@ -56,3 +61,41 @@ export function postsReadAccess({ req }: AccessArgs<Post>): AccessResult {
     ],
   };
 }
+
+/**
+ * Grants post deletion to admins and managers for all posts,
+ * and restricts authors to deleting only posts they created.
+ */
+export function postsDeleteAccess({ req }: AccessArgs<Post>): AccessResult {
+  if (!req.user) return false;
+  if (req.user.role === "admin" || req.user.role === "manager") return true;
+  if (req.user.role === "author") {
+    return {
+      createdBy: {
+        equals: req.user.id,
+      },
+    };
+  }
+  return false;
+}
+
+/**
+ * Stamps `createdBy` with the authenticated user on document creation.
+ * Admins may explicitly assign `createdBy` on create; other roles always default to themselves.
+ */
+export const stampCreatedBy: CollectionBeforeChangeHook = ({
+  data,
+  operation,
+  req,
+}) => {
+  if (operation !== "create" || !req.user) {
+    return data;
+  }
+  if (req.user.role === "admin" && data?.createdBy) {
+    return data;
+  }
+  return {
+    ...data,
+    createdBy: req.user.id,
+  };
+};
