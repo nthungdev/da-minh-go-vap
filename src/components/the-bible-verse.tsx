@@ -28,7 +28,7 @@ export default function TheBibleVerse({
     <div className="space-y-1 py-2" {...containerProps}>
       <blockquote
         className={cn(
-          "relative mx-auto flex max-w-max flex-col items-center justify-center rounded-full border-2 border-secondary bg-white px-10 pt-3 pb-2 text-primary-800 shadow-neon transition-shadow motion-reduce:transition-none md:px-20",
+          "relative mx-auto flex max-w-max flex-col items-center justify-center rounded-2xl border border-secondary/35 bg-surface-warm px-6 py-4 text-primary-800 shadow-sm transition-shadow motion-reduce:transition-none md:px-12",
           className,
         )}
       >
