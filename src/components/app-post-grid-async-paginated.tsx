@@ -10,6 +10,7 @@ import {
   fetchPostsByPublicTag,
 } from "@/actions/post";
 import AppPostGrid from "@/components/app-post-grid";
+import { PostQueryFeedback } from "@/components/app-post-grid-async";
 import PaginationPanel from "@/components/pagination-panel";
 import type { AppPost } from "@/definitions";
 import type { Locale } from "@/i18n/config";
@@ -156,7 +157,9 @@ function scrollContainerIntoViewIfAboveFold(
   const rect = container.getBoundingClientRect();
   if (rect.top < 0) {
     container.scrollIntoView({
-      behavior: "smooth",
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? "instant"
+        : "smooth",
       block: "start",
     });
   }
@@ -234,11 +237,13 @@ function AppPostGridPaginatedContent(props: AppPostGridPaginatedProps) {
     posts: initialPosts,
   });
 
-  const { data, error, isError, isPending, isFetched, isFetching } = useQuery({
-    ...queryOptions,
-    placeholderData: keepPreviousData,
-    initialData: queryInitialData,
-  });
+  const { data, isError, isPending, isFetched, isFetching, refetch } = useQuery(
+    {
+      ...queryOptions,
+      placeholderData: keepPreviousData,
+      initialData: queryInitialData,
+    },
+  );
 
   const posts = data?.posts ?? [];
   const hasMore = data?.hasMore ?? false;
@@ -250,14 +255,16 @@ function AppPostGridPaginatedContent(props: AppPostGridPaginatedProps) {
     <div ref={containerRef} className={cn("space-y-2", className)}>
       <div
         className={cn(
-          "min-h-[320px] transition-opacity duration-200",
+          "min-h-[320px] transition-opacity duration-200 motion-reduce:transition-none",
           isFetching && "opacity-60",
         )}
       >
         {isInitialLoading ? (
           <AppPostGridSkeleton count={pageSize} />
         ) : isError ? (
-          <p className="text-red-500">Error: {error.message}</p>
+          <PostQueryFeedback onRetry={() => void refetch()} />
+        ) : posts.length === 0 ? (
+          <PostQueryFeedback showBrowseAll />
         ) : (
           <AppPostGrid hidePostTitles={hidePostTitles} posts={posts} />
         )}

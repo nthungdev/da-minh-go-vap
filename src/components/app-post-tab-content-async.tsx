@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useLocale } from "next-intl";
 import type React from "react";
 import { fetchPostsByHiddenTags } from "@/actions/post";
+import { PostQueryFeedback } from "@/components/app-post-grid-async";
 import AppViewMoreLink from "@/components/app-view-more-link";
 import Spinner from "@/components/spinner";
 import { getDataOrUndefined } from "@/payload/utils/data";
@@ -34,7 +35,7 @@ export default function AppPostTabContentAsync({
   ...props
 }: AppPostTabContentAsyncProps) {
   const locale = useLocale();
-  const { isPending, error, data } = useQuery({
+  const { isPending, isError, data, refetch } = useQuery({
     queryKey: ["app-post-tab-content", ...hiddenTags, locale],
     queryFn: () =>
       fetchPostsByHiddenTags(hiddenTags, { limit: POST_COUNT, locale }),
@@ -42,15 +43,26 @@ export default function AppPostTabContentAsync({
 
   if (isPending) {
     return (
-      <div className="flex aspect-video items-center justify-center">
-        <Spinner />
+      <div
+        className={cn(
+          "flex aspect-video items-center justify-center",
+          className,
+        )}
+        {...props}
+      >
+        <Spinner className="motion-reduce:animate-none" />
       </div>
     );
   }
 
-  if (error) {
-    // TODO prettier error
-    return <div>Error</div>;
+  if (isError || data.posts.length === 0) {
+    return (
+      <div className={className} {...props}>
+        <PostQueryFeedback
+          onRetry={isError ? () => void refetch() : undefined}
+        />
+      </div>
+    );
   }
 
   const DataComponent = component ?? AppPostGrid;
