@@ -150,6 +150,31 @@
   --color-secondary-950: #431407;
   --color-secondary: var(--color-secondary-700);
 
+  /* Editorial surfaces, callouts, and ink tokens */
+  --color-surface-warm: #faf8f5;
+  --color-surface-paper: #fcfcfa;
+  --color-surface-paper-alt: #fdfdfc;
+  --color-surface-header: #f9f9f7;
+  --color-surface-subtle: #fbfbfe;
+  --color-surface-tint: #f8fbfb;
+  --color-border-warm: #e8e2d8;
+  --color-callout-bg: #eefcfc;
+  --color-callout-bg-alt: #e8fbfb;
+  --color-callout-border: #5bbac0;
+  --color-callout-accent: #00a5a8;
+  --color-callout-text: #007a8b;
+  --color-highlight-bg: #d8f6f6;
+  --color-highlight-text: #007777;
+  --color-ink: #0b1220;
+  --color-ink-body: #2c2c2c;
+  --color-ink-strong: #333333;
+  --color-ink-muted: #444444;
+  --color-editorial-teal: #003f44;
+  --color-editorial-teal-deep: #0b2730;
+  --color-editorial-quote: #004f4f;
+  --color-editorial-mark: #008b8b;
+  --color-editorial-grad-end: #32c7c7;
+
   --ring-color-50: #fff7ed;
   --ring-color-100: #ffedd5;
   --ring-color-200: #fed7aa;
