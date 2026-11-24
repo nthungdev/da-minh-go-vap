@@ -155,6 +155,25 @@ function formatResultsSummary(
   return t("search.resultsCount", { count, query });
 }
 
+function getResultsListbox(
+  state: SearchState,
+  id: string,
+  selectedIndex: number,
+) {
+  const loaded = state.status === "loaded" ? state : undefined;
+  const results = loaded?.results ?? [];
+
+  return {
+    results,
+    submittedQuery: loaded?.submittedQuery ?? "",
+    hasNoMatches: loaded?.results.length === 0,
+    hasResults: results.length > 0,
+    activeOptionId: results[selectedIndex]
+      ? `${id}-option-${selectedIndex}`
+      : undefined,
+  };
+}
+
 export default function AppPostSearchButton({
   id,
   searchTags = [],
@@ -410,40 +429,39 @@ export default function AppPostSearchButton({
     void executeSearch(trimmed, selectedTagId);
   };
 
+  const listboxId = `${id ?? "search-results"}-listbox`;
+  const { results, submittedQuery, hasNoMatches, hasResults, activeOptionId } =
+    getResultsListbox(state, listboxId, selectedIndex);
+
   const handleInputKeyDown: KeyboardEventHandler<HTMLInputElement> = (
     event,
   ) => {
-    if (state.status !== "loaded" || state.results.length === 0) {
+    if (!hasResults) {
       return;
     }
 
     if (event.key === "ArrowDown") {
       event.preventDefault();
-      setSelectedIndex((prev) => (prev + 1) % state.results.length);
+      setSelectedIndex((prev) => (prev + 1) % results.length);
     } else if (event.key === "ArrowUp") {
       event.preventDefault();
-      setSelectedIndex(
-        (prev) => (prev - 1 + state.results.length) % state.results.length,
-      );
+      setSelectedIndex((prev) => (prev - 1 + results.length) % results.length);
     }
   };
 
-  const inputId = id ? `${id}-input` : "search-input";
-  const labelId = id ? `${id}-label` : "search-input-label";
+  const inputId = `${id ?? "search"}-input`;
   const isAllActive = selectedTagId === null;
-  const submittedTagLabel =
-    (state.status === "loaded" || state.status === "error") &&
-    state.submittedTagId
-      ? (tagLabelById.get(state.submittedTagId) ?? null)
-      : null;
+  const submittedTagId =
+    "submittedTagId" in state ? state.submittedTagId : null;
+  const submittedTagLabel = tagLabelById.get(submittedTagId ?? "") ?? null;
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogTrigger
         ref={triggerRef}
         className={cn(
-          "relative flex flex-row items-center space-x-2 rounded-full border bg-white p-2 text-stone-600 ring-primary transition-shadow hover:cursor-pointer hover:ring-2 motion-reduce:transition-none",
-          "focus-visible:ring-2 focus-visible:ring-primary-700 focus-visible:outline-none",
+          "inline-flex min-h-11 min-w-11 items-center justify-center rounded-full border bg-white p-2 text-stone-600 ring-primary transition-shadow hover:cursor-pointer hover:ring-2 motion-reduce:transition-none sm:min-h-9 sm:min-w-9",
+          "focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none",
         )}
         aria-label={t("search.label")}
       >
@@ -486,7 +504,7 @@ export default function AppPostSearchButton({
               onSubmit={handleFormSubmit}
               className="flex items-center gap-3 border-b-2 border-primary-700 pb-2.5"
             >
-              <label id={labelId} htmlFor={inputId} className="sr-only">
+              <label htmlFor={inputId} className="sr-only">
                 {t("search.label")}
               </label>
               <Search
@@ -497,6 +515,11 @@ export default function AppPostSearchButton({
                 ref={inputRef}
                 id={inputId}
                 type="search"
+                role="combobox"
+                aria-autocomplete="list"
+                aria-expanded={hasResults}
+                aria-controls={listboxId}
+                aria-activedescendant={activeOptionId}
                 enterKeyHint="search"
                 autoFocus
                 autoComplete="off"
@@ -585,43 +608,47 @@ export default function AppPostSearchButton({
             />
           )}
 
-          {state.status === "loaded" && state.results.length === 0 && (
+          {hasNoMatches && (
             <SearchEmptyState
-              query={state.submittedQuery}
+              query={submittedQuery}
               tagLabel={submittedTagLabel}
               onClear={handleClearAll}
             />
           )}
 
-          {state.status === "loaded" && state.results.length > 0 && (
-            <div>
-              <div className="pt-1 pb-1 text-xs font-bold text-stone-500">
-                {formatResultsSummary(
-                  t,
-                  state.results.length,
-                  state.submittedQuery,
-                  submittedTagLabel,
-                )}
-              </div>
-              <div role="listbox" aria-label={t("search.label")}>
-                {state.results.map((post, index) => (
-                  <SearchResultCard
-                    key={post.slug}
-                    post={post}
-                    query={state.submittedQuery}
-                    locale={locale}
-                    isSelected={index === selectedIndex}
-                    fallbackLabel={t("search.articleFallback")}
-                    onMouseEnter={() => setSelectedIndex(index)}
-                    onSelect={() => {
-                      persistRecentSearch(state.submittedQuery);
-                      handleClose();
-                    }}
-                  />
-                ))}
-              </div>
+          {hasResults && (
+            <div className="pt-1 pb-1 text-xs font-bold text-stone-500">
+              {formatResultsSummary(
+                t,
+                results.length,
+                submittedQuery,
+                submittedTagLabel,
+              )}
             </div>
           )}
+          <div
+            id={listboxId}
+            role="listbox"
+            aria-label={t("search.label")}
+            hidden={!hasResults}
+          >
+            {results.map((post, index) => (
+              <SearchResultCard
+                key={post.slug}
+                id={`${listboxId}-option-${index}`}
+                post={post}
+                query={submittedQuery}
+                locale={locale}
+                isSelected={index === selectedIndex}
+                fallbackLabel={t("search.articleFallback")}
+                onMouseEnter={() => setSelectedIndex(index)}
+                onSelect={() => {
+                  persistRecentSearch(submittedQuery);
+                  handleClose();
+                }}
+              />
+            ))}
+          </div>
         </div>
 
         {/* Keyboard Hints Footer */}
