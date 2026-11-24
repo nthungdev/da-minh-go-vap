@@ -6,7 +6,9 @@ import Markdown from "react-markdown";
 import type { Locale } from "@/i18n/config";
 import { getFooter } from "@/payload/utils/queries";
 import { transformUrl } from "@/utils/cloudflare";
-import { cn } from "@/utils/common";
+
+const footerLinkClassName =
+  "inline-block rounded-sm py-1 underline-offset-4 transition-colors hover:underline focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none";
 
 export default async function TheFooter() {
   const locale = (await getLocale()) as Locale;
@@ -31,65 +33,54 @@ export default async function TheFooter() {
     4,
   );
 
-  const hasGraphic = Boolean(
-    footer.topFooterDecorativeGraphic &&
-      typeof footer.topFooterDecorativeGraphic !== "string" &&
-      typeof footer.topFooterDecorativeGraphic.url === "string",
-  );
+  const graphic = footer.topFooterDecorativeGraphic;
 
   return (
-    <footer className="relative">
-      {hasGraphic &&
-        typeof footer.topFooterDecorativeGraphic !== "string" &&
-        typeof footer.topFooterDecorativeGraphic?.url === "string" && (
-          <Image
-            unoptimized
-            src={transformUrl(footer.topFooterDecorativeGraphic.url, {
-              width: "1200",
-              quality: "80",
-            })}
-            alt=""
-            className="pointer-events-none z-0 w-full select-none"
-            height={229}
-            width={991}
-            sizes="100vw"
-            loading="lazy"
-          />
-        )}
-
-      <div
-        className={cn(
-          "3xl:text-xl flex flex-col gap-8 bg-primary p-4 text-left text-white md:flex-row",
-          hasGraphic &&
-            "sm:absolute sm:bottom-0 sm:left-0 sm:max-w-7xl sm:bg-transparent sm:text-[0.9vw]",
-        )}
-      >
-        <Contact
-          name={footer.contact.name}
-          phone={footer.contact.phone}
-          email={footer.contact.email}
-          address={footer.contact.address}
-          marketingEmail={footer.contact.marketingEmail}
+    <footer>
+      {graphic && typeof graphic !== "string" && graphic.url && (
+        <Image
+          unoptimized
+          src={transformUrl(graphic.url, { width: "1200", quality: "80" })}
+          alt=""
+          className="pointer-events-none -mb-px w-full select-none"
+          height={229}
+          width={991}
+          sizes="100vw"
+          loading="lazy"
         />
+      )}
 
-        {chunkedExternalLinks.length > 0 && (
-          <div className="flex flex-col gap-x-4 md:flex-row">
-            {chunkedExternalLinks.map((chunk) => {
-              const chunkKey = chunk
-                .map((link) => link.id || link.url)
-                .join("|");
-              return (
-                <div key={chunkKey} className="flex flex-col justify-end">
-                  {chunk.map((link) => (
-                    <div key={link.id || `${link.name}-${link.url}`}>
-                      <Link href={link.url}>{link.name}</Link>
-                    </div>
-                  ))}
-                </div>
-              );
-            })}
-          </div>
-        )}
+      <div className="bg-primary text-sm text-white md:text-base">
+        <div className="mx-auto flex max-w-7xl flex-col gap-8 px-4 py-8 [overflow-wrap:anywhere] sm:px-6 md:flex-row lg:px-8">
+          <Contact
+            name={footer.contact.name}
+            phone={footer.contact.phone}
+            email={footer.contact.email}
+            address={footer.contact.address}
+            marketingEmail={footer.contact.marketingEmail}
+          />
+
+          {chunkedExternalLinks.length > 0 && (
+            <div className="flex flex-col gap-x-4 md:flex-row">
+              {chunkedExternalLinks.map((chunk) => {
+                const chunkKey = chunk
+                  .map((link) => link.id || link.url)
+                  .join("|");
+                return (
+                  <div key={chunkKey} className="flex flex-col">
+                    {chunk.map((link) => (
+                      <div key={link.id || `${link.name}-${link.url}`}>
+                        <Link href={link.url} className={footerLinkClassName}>
+                          {link.name}
+                        </Link>
+                      </div>
+                    ))}
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </div>
       </div>
     </footer>
   );
@@ -113,18 +104,34 @@ function Contact({
   return (
     <div>
       <p className="mb-1 font-bold">{name}</p>
-      <Markdown>{address}</Markdown>
+      <Markdown
+        components={{
+          a: ({ node: _node, ...props }) => (
+            <a {...props} className={footerLinkClassName} />
+          ),
+        }}
+      >
+        {address}
+      </Markdown>
       <p>
-        {t("phoneLabel")}: <a href={`tel:${phone}`}>{phone}</a>
+        {t("phoneLabel")}:{" "}
+        <a href={`tel:${phone}`} className={footerLinkClassName}>
+          {phone}
+        </a>
       </p>
       <p>
-        {t("emailLabel")}: <a href={`mailto:${email}`}>{email}</a>
+        {t("emailLabel")}:{" "}
+        <a href={`mailto:${email}`} className={footerLinkClassName}>
+          {email}
+        </a>
       </p>
 
       {marketingEmail && (
         <p>
           {t("marketingEmailLabel")}:{" "}
-          <a href={`mailto:${marketingEmail}`}>{marketingEmail}</a>
+          <a href={`mailto:${marketingEmail}`} className={footerLinkClassName}>
+            {marketingEmail}
+          </a>
         </p>
       )}
     </div>
