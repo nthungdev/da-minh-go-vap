@@ -9,6 +9,7 @@ import KidsBibleStoryView from "./kids-bible-story-view";
 import NewsArticleFeaturedView from "./news-article-featured-view";
 import ParableLifeLessonView from "./parable-life-lesson-view";
 import SaintBiographyView from "./saint-biography-view";
+import TributeProfileView from "./tribute-profile-view";
 import VerticalVideoPrayerView from "./vertical-video-prayer-view";
 
 export type PostTemplateBlock = NonNullable<Post["template"]>[number];
@@ -43,6 +44,8 @@ export default function PostTemplateRenderer({
       return <BilingualQuoteCardView block={block} />;
     case "dominicanSpirituality":
       return <DominicanSpiritualityView block={block} />;
+    case "tributeProfile":
+      return <TributeProfileView block={block} />;
     default:
       return null;
   }
