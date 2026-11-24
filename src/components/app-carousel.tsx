@@ -1,5 +1,6 @@
 "use client";
 
+import { Pause, Play } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Children, type HTMLAttributes } from "react";
 import { useCarousel } from "@/hooks/use-carousel";
@@ -20,8 +21,16 @@ export default function AppCarousel({
   ...props
 }: AppCarouselProps) {
   const t = useTranslations("common");
-  const childrenCount = Children.count(children);
-  const { currentIndex, next, prev, getContainerProps } = useCarousel({
+  const slides = Children.toArray(children);
+  const childrenCount = slides.length;
+  const {
+    currentIndex,
+    next,
+    prev,
+    getContainerProps,
+    isUserPaused,
+    toggleUserPause,
+  } = useCarousel({
     count: childrenCount,
     durations,
     onTransition,
@@ -36,10 +45,14 @@ export default function AppCarousel({
     >
       <div className="hs-carousel relative h-full w-full overflow-hidden bg-white">
         <div
-          className="hs-carousel-body pointer-events-none absolute inset-0 flex flex-nowrap transition-transform duration-700 [&>.hs-carousel-slide]:size-full [&>.hs-carousel-slide]:shrink-0"
+          className="hs-carousel-body absolute inset-0 flex flex-nowrap transition-transform duration-700 motion-reduce:transition-none"
           style={{ transform: `translateX(-${currentIndex * 100}%)` }}
         >
-          {children}
+          {Children.map(slides, (slide, index) => (
+            <div className="size-full shrink-0" inert={currentIndex !== index}>
+              {slide}
+            </div>
+          ))}
         </div>
       </div>
 
@@ -47,12 +60,8 @@ export default function AppCarousel({
         <>
           <button
             type="button"
-            className="hs-carousel-prev group absolute inset-y-0 start-0 inline-flex h-full w-11.5 items-center justify-center text-gray-800 hover:bg-gray-800/10 focus:bg-gray-800/10 focus:outline-hidden disabled:pointer-events-none dark:text-white dark:hover:bg-white/10 dark:focus:bg-white/10 hs-carousel-disabled:opacity-50"
-            onClick={(event) => {
-              event.stopPropagation();
-              event.preventDefault();
-              prev();
-            }}
+            className="hs-carousel-prev group absolute inset-y-0 start-0 inline-flex h-full w-11.5 items-center justify-center text-gray-800 hover:bg-gray-800/10 focus:bg-gray-800/10 focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none focus-visible:ring-inset disabled:pointer-events-none dark:text-white dark:hover:bg-white/10 dark:focus:bg-white/10 hs-carousel-disabled:opacity-50"
+            onClick={prev}
           >
             <span
               className="text-2xl group-hover:text-white"
@@ -77,12 +86,8 @@ export default function AppCarousel({
           </button>
           <button
             type="button"
-            className="hs-carousel-next hover:text-whit group absolute inset-y-0 end-0 inline-flex h-full w-11.5 items-center justify-center text-gray-800 hover:bg-gray-800/10 focus:bg-gray-800/10 focus:outline-hidden disabled:pointer-events-none dark:text-white dark:hover:bg-white/10 dark:focus:bg-white/10 hs-carousel-disabled:opacity-50"
-            onClick={(event) => {
-              event.stopPropagation();
-              event.preventDefault();
-              next();
-            }}
+            className="hs-carousel-next group absolute inset-y-0 end-0 inline-flex h-full w-11.5 items-center justify-center text-gray-800 hover:bg-gray-800/10 hover:text-white focus:bg-gray-800/10 focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none focus-visible:ring-inset disabled:pointer-events-none dark:text-white dark:hover:bg-white/10 dark:focus:bg-white/10 hs-carousel-disabled:opacity-50"
+            onClick={next}
           >
             <span className="sr-only">{t("next")}</span>
             <span
@@ -105,10 +110,41 @@ export default function AppCarousel({
               </svg>
             </span>
           </button>
+          <CarouselPlaybackButton
+            className="absolute end-2 bottom-2"
+            isUserPaused={isUserPaused}
+            onToggle={toggleUserPause}
+          />
         </>
       )}
-
-      <div className="hs-carousel-pagination absolute start-0 end-0 bottom-3 flex justify-center space-x-2"></div>
     </div>
+  );
+}
+
+export function CarouselPlaybackButton({
+  className,
+  isUserPaused,
+  onToggle,
+}: {
+  className?: string;
+  isUserPaused: boolean;
+  onToggle: () => void;
+}) {
+  const t = useTranslations("common");
+  const Icon = isUserPaused ? Play : Pause;
+
+  return (
+    <button
+      type="button"
+      className={cn(
+        "inline-flex min-h-10 min-w-10 items-center justify-center rounded-md bg-primary-950/90 text-white hover:bg-primary-950 focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none focus-visible:ring-inset",
+        className,
+      )}
+      aria-label={isUserPaused ? t("playSlideshow") : t("pauseSlideshow")}
+      aria-pressed={isUserPaused}
+      onClick={onToggle}
+    >
+      <Icon aria-hidden="true" className="size-4" />
+    </button>
   );
 }

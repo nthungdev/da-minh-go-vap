@@ -1,5 +1,6 @@
 "use client";
 
+import { CarouselPlaybackButton } from "@/components/app-carousel";
 import { useCarousel } from "@/hooks/use-carousel";
 import { cn } from "@/utils/common";
 
@@ -14,19 +15,20 @@ export default function TheBibleVerse({
   verses,
   className,
 }: TheBibleVerseProps) {
-  const { currentIndex, containerProps } = useCarousel({
-    count: verses.length,
-    durations: 5000,
-  });
+  const { currentIndex, containerProps, isUserPaused, toggleUserPause } =
+    useCarousel({
+      count: verses.length,
+      durations: 5000,
+    });
 
   const currentVerse = verses[currentIndex];
   if (!currentVerse) return null;
 
   return (
-    <div className="py-2" {...containerProps}>
+    <div className="space-y-1 py-2" {...containerProps}>
       <blockquote
         className={cn(
-          "relative mx-auto flex max-w-max flex-col items-center justify-center rounded-full border-2 border-secondary bg-white px-10 pt-3 pb-2 text-primary shadow-neon transition-shadow md:px-20",
+          "relative mx-auto flex max-w-max flex-col items-center justify-center rounded-full border-2 border-secondary bg-white px-10 pt-3 pb-2 text-primary-800 shadow-neon transition-shadow motion-reduce:transition-none md:px-20",
           className,
         )}
       >
@@ -35,6 +37,14 @@ export default function TheBibleVerse({
           {currentVerse.reference}
         </cite>
       </blockquote>
+      {verses.length > 1 && (
+        <div className="flex justify-center">
+          <CarouselPlaybackButton
+            isUserPaused={isUserPaused}
+            onToggle={toggleUserPause}
+          />
+        </div>
+      )}
     </div>
   );
 }
