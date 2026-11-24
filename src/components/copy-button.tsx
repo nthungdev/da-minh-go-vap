@@ -1,6 +1,7 @@
 "use client";
 
 import { AlertCircle, Check, Copy } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { type HTMLAttributes, useEffect, useRef, useState } from "react";
 import { cn } from "@/utils/common";
 
@@ -14,10 +15,14 @@ interface CopyButtonProps extends HTMLAttributes<HTMLButtonElement> {
 }
 
 export default function CopyButton({ className, text }: CopyButtonProps) {
+  const t = useTranslations("shareToolbar");
   const [state, setState] = useState<CopyState>("idle");
   const pending = useRef(false);
   const generation = useRef(0);
   const isCopied = state === "copied";
+  const label = t(
+    state === "error" ? "copyFailed" : isCopied ? "copied" : "copyLink",
+  );
 
   useEffect(
     () => () => {
@@ -51,14 +56,8 @@ export default function CopyButton({ className, text }: CopyButtonProps) {
     <button
       type="button"
       aria-busy={state === "copying"}
-      aria-label={
-        state === "error"
-          ? "Copy failed. Try again"
-          : isCopied
-            ? "Copied"
-            : "Copy message"
-      }
-      title={state === "error" ? "Copy failed. Try again" : undefined}
+      aria-label={label}
+      title={label}
       className={cn(className, isCopied && "pointer-events-none")}
       onClick={handleCopy}
     >

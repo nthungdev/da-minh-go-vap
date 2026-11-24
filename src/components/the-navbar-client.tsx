@@ -537,9 +537,9 @@ export default function TheNavbarClient({
               </div>
             ) : null}
             <span className="text-base leading-tight font-bold">
-              Hội Dòng
+              {t("brandLine1")}
               <br />
-              Đa Minh Gò Vấp
+              {t("brandLine2")}
             </span>
           </div>
 
@@ -620,9 +620,9 @@ export default function TheNavbarClient({
                     </div>
                   ) : null}
                   <span className="text-lg leading-tight font-bold">
-                    Hội Dòng
+                    {t("brandLine1")}
                     <br />
-                    Đa Minh Gò Vấp
+                    {t("brandLine2")}
                   </span>
                 </Link>
               </SheetTitle>
