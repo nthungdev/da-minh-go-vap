@@ -7,6 +7,9 @@ import CopyButton from "@/components/copy-button";
 import type { Locale } from "@/i18n/config";
 import { cn } from "@/utils/common";
 
+const shareControlClassName =
+  "inline-flex min-h-11 min-w-11 items-center justify-center rounded-full border border-gray-300 transition-colors hover:border-primary-800 focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 focus-visible:outline-none";
+
 function buildFacebookShareUrl(url: string) {
   const params = new URLSearchParams();
   params.append("u", url);
@@ -38,20 +41,23 @@ export default async function ShareToolbar({
       <div className={cn("mt-1 flex flex-row gap-2")}>
         <CopyButton
           text={shareUrl}
-          className="cursor-pointer rounded-full border p-2 hover:border-primary"
+          className={cn(shareControlClassName, "cursor-pointer")}
         />
         <Link
           href={facebookHref}
           target="_blank"
-          className="cursor-pointer rounded-full border p-2 text-[#1877F2] hover:border-primary"
+          rel="noopener noreferrer"
+          aria-label={t("shareFacebook")}
+          className={cn(shareControlClassName, "text-[#1877F2]")}
         >
-          <RiFacebookFill />
+          <RiFacebookFill aria-hidden="true" />
         </Link>
         <Link
           href={viberHref}
-          className="rounded-full border p-2 text-[#7360f2] hover:border-primary"
+          aria-label={t("shareViber")}
+          className={cn(shareControlClassName, "text-[#7360f2]")}
         >
-          <FaViber />
+          <FaViber aria-hidden="true" />
         </Link>
       </div>
     </div>
