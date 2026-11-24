@@ -8,7 +8,7 @@ const SKELETON_ROWS = [0, 1, 2];
 
 export function SearchSkeletonList() {
   return (
-    <div className="divide-y divide-[#e8e2d8]" aria-hidden="true">
+    <div className="divide-y divide-border-warm" aria-hidden="true">
       {SKELETON_ROWS.map((row) => (
         <div key={row} className="flex gap-3.5 py-4 sm:gap-4">
           <div className="aspect-video w-28 shrink-0 animate-pulse rounded-[10px] bg-stone-200/80 motion-reduce:animate-none sm:w-32" />
@@ -75,7 +75,7 @@ export function SearchIdleState({
               type="button"
               onClick={() => onPickQuery(item)}
               className={cn(
-                "inline-flex items-center gap-1.5 rounded-full border border-[#e8e2d8] bg-white px-3 py-1.5 text-xs font-semibold text-stone-700 transition-colors motion-reduce:transition-none",
+                "inline-flex items-center gap-1.5 rounded-full border border-border-warm bg-white px-3 py-1.5 text-xs font-semibold text-stone-700 transition-colors motion-reduce:transition-none",
                 "hover:border-primary-700 hover:text-primary-800",
                 "focus-visible:ring-2 focus-visible:ring-primary-700 focus-visible:outline-none",
               )}
@@ -112,7 +112,7 @@ export function SearchEmptyState({
 
   return (
     <div className="flex flex-col items-center justify-center px-4 py-10 text-center">
-      <div className="mb-3 flex size-11 items-center justify-center rounded-full border border-[#e8e2d8] bg-primary-50 text-primary-700">
+      <div className="mb-3 flex size-11 items-center justify-center rounded-full border border-border-warm bg-primary-50 text-primary-700">
         <Search className="size-5" aria-hidden="true" />
       </div>
       <p className="font-lora text-base font-semibold text-stone-900">
@@ -132,7 +132,7 @@ export function SearchEmptyState({
         type="button"
         onClick={onClear}
         className={cn(
-          "mt-4 rounded-full border border-[#e8e2d8] bg-white px-4 py-1.5 text-xs font-bold text-stone-700 transition-colors motion-reduce:transition-none",
+          "mt-4 rounded-full border border-border-warm bg-white px-4 py-1.5 text-xs font-bold text-stone-700 transition-colors motion-reduce:transition-none",
           "hover:border-primary-700 hover:text-primary-800",
           "focus-visible:ring-2 focus-visible:ring-primary-700 focus-visible:outline-none",
         )}
