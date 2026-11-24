@@ -145,16 +145,16 @@ function DesktopNavItem({
     return (
       <NavigationMenuItem>
         <NavigationMenuLink
+          className={cn(
+            navigationMenuTriggerStyle(),
+            "flex items-center gap-1.5 text-gray-50 transition-colors hover:bg-white hover:text-primary-700 focus:bg-white focus:text-primary-700 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-1 focus-visible:ring-offset-primary-800 focus-visible:outline-none",
+            pathname === item.absoluteHref &&
+              "bg-white font-bold text-primary-700",
+          )}
           render={
             <Link
               href={item.absoluteHref}
               aria-label={item.name || item.icon || "Link"}
-              className={cn(
-                navigationMenuTriggerStyle(),
-                "flex items-center gap-1.5 text-gray-50 transition-colors hover:bg-white hover:text-primary-700 focus:bg-white focus:text-primary-700 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-1 focus-visible:ring-offset-primary-800 focus-visible:outline-none",
-                pathname === item.absoluteHref &&
-                  "bg-white font-bold text-primary-700",
-              )}
             />
           }
         >
@@ -470,7 +470,7 @@ function MobileNavItem({
               aria-label={t("toggleSection", {
                 name: item.name || item.icon || "",
               })}
-              className="min-h-11 min-w-11 shrink-0 items-center justify-center p-2 text-gray-500 hover:text-primary-600 hover:no-underline focus-visible:ring-2 focus-visible:ring-primary-700 focus-visible:outline-none"
+              className="min-h-11 min-w-11 shrink-0 items-center justify-center p-2 text-gray-500 hover:text-primary-600 hover:no-underline focus-visible:ring-2 focus-visible:ring-primary-700 focus-visible:outline-none **:data-[slot=accordion-trigger-icon]:ml-0"
             />
           </div>
           <AccordionContent className="pb-3 pl-4">

@@ -97,15 +97,11 @@ function PillarColumn({
       {/* Pillar Banner Card */}
       {banner.absoluteHref ? (
         <NavigationMenuLink
-          render={
-            <Link
-              href={banner.absoluteHref}
-              className={cn(
-                "group relative block h-28 w-full overflow-hidden rounded-md bg-gray-900 transition-colors focus-visible:ring-2 focus-visible:ring-primary-700 focus-visible:outline-none",
-                isBannerActive && "ring-2 ring-primary-600",
-              )}
-            />
-          }
+          className={cn(
+            "group relative block h-28 w-full overflow-hidden rounded-md bg-gray-900 transition-colors focus-visible:ring-2 focus-visible:ring-primary-700 focus-visible:outline-none",
+            isBannerActive && "ring-2 ring-primary-600",
+          )}
+          render={<Link href={banner.absoluteHref} />}
         >
           {bannerCard}
         </NavigationMenuLink>
