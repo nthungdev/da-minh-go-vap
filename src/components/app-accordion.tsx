@@ -144,14 +144,14 @@ interface AppAccordionDefaultProps {
 function AppAccordionDefault({
   id,
   items,
-  alwaysOpen,
+  alwaysOpen = true,
 }: AppAccordionDefaultProps) {
   return (
     <AppAccordionRoot
       id={id}
       itemRender={defaultItemRender(alwaysOpen)}
       items={items}
-      alwaysOpen={alwaysOpen ?? true}
+      alwaysOpen={alwaysOpen}
     />
   );
 }
