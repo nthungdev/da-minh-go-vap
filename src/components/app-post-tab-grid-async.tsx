@@ -117,6 +117,8 @@ export default function AppPostTabGridAsync(props: AppPostTabGridAsyncProps) {
             hidden={activeIndex !== index}
             role="tabpanel"
             aria-labelledby={`${tabsId}-control-${index}`}
+            // biome-ignore lint/a11y/noNoninteractiveTabindex: Loading and empty panels need a keyboard focus target.
+            tabIndex={0}
           >
             <AppPostTabContentAsync
               component={ContentComponent}

@@ -83,6 +83,8 @@ export default function AppCardTabs({ tabs }: AppCardTabsProps) {
           id={`${id}-panel-${index}`}
           role="tabpanel"
           aria-labelledby={`${id}-tab-${index}`}
+          // biome-ignore lint/a11y/noNoninteractiveTabindex: Tab panels can contain text without another focus target.
+          tabIndex={0}
           hidden={activeTab !== index}
           className="relative rounded-tr-lg rounded-b-lg border border-gray-200 bg-primary-50 p-4 focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:outline-none dark:border-neutral-700"
         >
