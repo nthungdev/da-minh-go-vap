@@ -1,5 +1,4 @@
 import localFont from "next/font/local";
-import PrelineScriptWrapper from "@/components/preline-script-wrapper";
 import ReactQueryProvider from "@/components/providers/react-query-provider";
 import ScrollToTopButton from "@/components/scroll-to-top-button";
 import TheFooter from "@/components/the-footer";
@@ -116,7 +115,6 @@ export default async function RootLayout({ children, params }: LayoutProps) {
           >
             {t("skipToContent")}
           </a>
-          <PrelineScriptWrapper />
           <ScrollToTopButton />
           <TheNavbar className="sticky top-0 z-50 w-full" />
           <div className="flex-1">
