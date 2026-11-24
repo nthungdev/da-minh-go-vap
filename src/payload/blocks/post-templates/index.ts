@@ -8,6 +8,7 @@ import KidsBibleStoryBlock from "./KidsBibleStory";
 import NewsArticleFeaturedBlock from "./NewsArticleFeatured";
 import ParableLifeLessonBlock from "./ParableLifeLesson";
 import SaintBiographyBlock from "./SaintBiography";
+import TributeProfileBlock from "./TributeProfile";
 import VerticalVideoPrayerBlock from "./VerticalVideoPrayer";
 
 export const postTemplates = [
@@ -22,6 +23,7 @@ export const postTemplates = [
   ParableLifeLessonBlock,
   BilingualQuoteCardBlock,
   DominicanSpiritualityBlock,
+  TributeProfileBlock,
 ];
 
 export {
@@ -35,5 +37,6 @@ export {
   NewsArticleFeaturedBlock,
   ParableLifeLessonBlock,
   SaintBiographyBlock,
+  TributeProfileBlock,
   VerticalVideoPrayerBlock,
 };

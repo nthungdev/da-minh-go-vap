@@ -708,6 +708,7 @@ export interface Post {
         | ParableLifeLessonBlock
         | BilingualQuoteCardBlock
         | DominicanSpiritualityBlock
+        | TributeProfileBlock
       )[]
     | null;
   /**
@@ -1026,6 +1027,34 @@ export interface DominicanSpiritualityBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'dominicanSpirituality';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TributeProfileBlock".
+ */
+export interface TributeProfileBlock {
+  fullName: string;
+  subtitle?: string | null;
+  portrait: string | Media;
+  summaryFacts?:
+    | {
+        label: string;
+        value: string;
+        id?: string | null;
+      }[]
+    | null;
+  biographyHeading?: string | null;
+  biography: string;
+  sources?:
+    | {
+        label: string;
+        url?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'tributeProfile';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1846,6 +1875,7 @@ export interface PostsSelect<T extends boolean = true> {
         parableLifeLesson?: T | ParableLifeLessonBlockSelect<T>;
         bilingualQuoteCard?: T | BilingualQuoteCardBlockSelect<T>;
         dominicanSpirituality?: T | DominicanSpiritualityBlockSelect<T>;
+        tributeProfile?: T | TributeProfileBlockSelect<T>;
       };
   contentBlocks?:
     | T
@@ -2148,6 +2178,33 @@ export interface DominicanSpiritualityBlockSelect<T extends boolean = true> {
   closingPrayer?: T;
   author?: T;
   authorAffiliation?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TributeProfileBlock_select".
+ */
+export interface TributeProfileBlockSelect<T extends boolean = true> {
+  fullName?: T;
+  subtitle?: T;
+  portrait?: T;
+  summaryFacts?:
+    | T
+    | {
+        label?: T;
+        value?: T;
+        id?: T;
+      };
+  biographyHeading?: T;
+  biography?: T;
+  sources?:
+    | T
+    | {
+        label?: T;
+        url?: T;
+        id?: T;
+      };
   id?: T;
   blockName?: T;
 }

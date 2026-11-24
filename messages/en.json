@@ -106,6 +106,7 @@
     "translator": "Translator",
     "audioReader": "Narrator",
     "source": "Source",
+    "tributeBiography": "Biography",
     "reflectionAuthor": "Reflection",
     "producer": "Produced by",
     "presenter": "Presented by: {name}",
