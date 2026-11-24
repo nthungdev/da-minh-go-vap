@@ -1,8 +1,8 @@
 "use client";
 
+import { ArrowUp } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
-import { FaArrowUp } from "react-icons/fa";
 
 export default function ScrollToTopButton() {
   const t = useTranslations("common");
@@ -38,7 +38,7 @@ export default function ScrollToTopButton() {
       onClick={scrollToTop}
       className="fixed right-6 bottom-6 z-20 inline-flex size-11 items-center justify-center rounded-full border border-gray-200 bg-white/95 text-primary-800 shadow-lg transition-colors hover:bg-primary-800 hover:text-white focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 focus-visible:outline-none motion-reduce:transition-none"
     >
-      <FaArrowUp className="size-4" aria-hidden="true" />
+      <ArrowUp className="size-4" aria-hidden="true" />
     </button>
   );
 }

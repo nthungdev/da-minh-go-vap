@@ -1,7 +1,7 @@
 "use client";
 
+import { AlertCircle, Check, Copy } from "lucide-react";
 import { type HTMLAttributes, useEffect, useRef, useState } from "react";
-import { FiAlertCircle, FiCheck, FiCopy } from "react-icons/fi";
 import { cn } from "@/utils/common";
 
 /** In milliseconds */
@@ -63,11 +63,11 @@ export default function CopyButton({ className, text }: CopyButtonProps) {
       onClick={handleCopy}
     >
       {isCopied ? (
-        <FiCheck aria-hidden="true" />
+        <Check className="size-4" aria-hidden="true" />
       ) : state === "error" ? (
-        <FiAlertCircle aria-hidden="true" className="text-red-500" />
+        <AlertCircle className="size-4 text-red-500" aria-hidden="true" />
       ) : (
-        <FiCopy aria-hidden="true" />
+        <Copy className="size-4" aria-hidden="true" />
       )}
     </button>
   );
