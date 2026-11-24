@@ -147,7 +147,7 @@ async function autoGenerateSlug({
   return taken.totalDocs > 0 ? `${base}-${randomSlugSuffix()}` : base;
 }
 
-const postCacheTags = ["posts", "navBar", "pages"];
+const postCacheTags = ["posts", "navBar", "pages", "contributors"];
 const revalidationBatchSize = 10;
 
 /**

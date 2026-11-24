@@ -20,6 +20,7 @@
   },
   "posts": {
     "title": "Bài viết",
+    "byContributor": "Bài viết của {name}",
     "allPosts": "Các bài viết",
     "latest": "Tin Mới",
     "related": "Các bài liên quan",

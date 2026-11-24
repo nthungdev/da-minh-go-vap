@@ -73,6 +73,11 @@ export function makePostsPath(hiddenTags: string[], title: string) {
   return `/posts?ht=${encodeURIComponent(jointHiddenTags)}&ti=${encodeURIComponent(title)}`;
 }
 
+/** Path of the `/posts` listing filtered to one contributor's posts. */
+export function makeContributorPostsPath(contributorId: string) {
+  return `/posts?c=${encodeURIComponent(contributorId)}`;
+}
+
 export function makePublicTagPath(tag: string) {
   return `/posts/tags/${encodeURIComponent(tag)}`;
 }

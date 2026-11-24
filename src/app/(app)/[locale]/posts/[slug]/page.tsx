@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { fetchPostBySlug } from "@/actions/post";
@@ -22,10 +23,12 @@ import {
 import { getDataOrUndefined } from "@/payload/utils/data";
 import { transformUrl } from "@/utils/cloudflare";
 import { formatDate } from "@/utils/date";
-import { getPublicHiddenTags } from "@/utils/post";
+import { getPublicHiddenTags, makeContributorPostsPath } from "@/utils/post";
 import {
+  type ContributorCredit,
   type ContributorRoleGroup,
-  formatContributorNames,
+  formatContributorListParts,
+  getContributorCredits,
   getContributorNames,
   groupPostContributors,
 } from "@/utils/post-contributors";
@@ -83,23 +86,27 @@ export function generateStaticParams(): Awaited<Props["params"]>[] {
   return [];
 }
 
-function toPersons(names: string[]) {
-  return names.length > 0
-    ? names.map((name) => ({ "@type": "Person", name }))
-    : undefined;
+function toPersons(people: ContributorCredit[], origin: string) {
+  if (people.length === 0) return undefined;
+  return people.map(({ id, name }) => ({
+    "@type": "Person",
+    name,
+    url: id ? `${origin}${makeContributorPostsPath(id)}` : undefined,
+  }));
 }
 
 /** Builds a minimal schema.org Article JSON-LD crediting the post's contributors by role. */
 function buildArticleJsonLd(
   post: NonNullable<Awaited<ReturnType<typeof fetchPostBySlug>>>,
   url: string,
+  origin: string,
   groups: ContributorRoleGroup[],
 ) {
   const thumbnail = getDataOrUndefined(post.thumbnail);
   // schema.org only has `author` and `translator`; other roles become `contributor`
-  const otherNames = groups
+  const otherPeople = groups
     .filter((group) => group.role !== "author" && group.role !== "translator")
-    .flatMap((group) => group.names);
+    .flatMap((group) => group.people);
   return {
     "@context": "https://schema.org",
     "@type": "Article",
@@ -107,10 +114,29 @@ function buildArticleJsonLd(
     url,
     datePublished: post.publishedAt.toISOString(),
     image: thumbnail?.url ? [transformUrl(thumbnail.url)] : undefined,
-    author: toPersons(getContributorNames(groups, "author")),
-    translator: toPersons(getContributorNames(groups, "translator")),
-    contributor: toPersons(otherNames),
+    author: toPersons(getContributorCredits(groups, "author"), origin),
+    translator: toPersons(getContributorCredits(groups, "translator"), origin),
+    contributor: toPersons(otherPeople, origin),
   };
+}
+
+/** Renders people as a locale-joined list where each name links to their posts. */
+function renderContributorLinks(people: ContributorCredit[], locale: string) {
+  return formatContributorListParts(people, locale).map((part, index) => {
+    if (part.type === "literal") return part.value;
+    const { id, name } = part.person;
+    if (!id) return name;
+    return (
+      <Link
+        // biome-ignore lint/suspicious/noArrayIndexKey: one person may appear twice in a role
+        key={`${id}-${index}`}
+        href={makeContributorPostsPath(id)}
+        className="rounded-sm font-medium text-primary-700 transition-colors hover:text-primary-900 focus-visible:ring-2 focus-visible:ring-primary-600 focus-visible:outline-none motion-reduce:transition-none"
+      >
+        {name}
+      </Link>
+    );
+  });
 }
 
 /** Serializes JSON-LD for an inline script, escaping `<` so content can't close the tag. */
@@ -174,7 +200,7 @@ export default async function Page(props: Props) {
           // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD must be inlined; `<` is escaped
           dangerouslySetInnerHTML={{
             __html: serializeJsonLd(
-              buildArticleJsonLd(post, postHref, contributorGroups),
+              buildArticleJsonLd(post, postHref, origin, contributorGroups),
             ),
           }}
         />
@@ -203,12 +229,12 @@ export default async function Page(props: Props) {
 
       {contributorGroups.length > 0 && (
         <div className="mt-6 space-y-1 text-gray-700">
-          {contributorGroups.map(({ role, names }) => (
+          {contributorGroups.map(({ role, people }) => (
             <p key={role}>
               {t(
-                `contributorRoles.${role}.${names.length > 1 ? "other" : "one"}`,
+                `contributorRoles.${role}.${people.length > 1 ? "other" : "one"}`,
               )}
-              : {formatContributorNames(names, locale)}
+              : {renderContributorLinks(people, locale)}
             </p>
           ))}
         </div>

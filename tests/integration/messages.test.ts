@@ -50,3 +50,19 @@ test("no message is empty", () => {
     assert.notEqual(message.trim(), "", key);
   }
 });
+
+test("contributor listing and role messages exist in vi and en", () => {
+  const keys = [
+    "posts.byContributor",
+    "posts.contributorRoles.author.one",
+    "posts.contributorRoles.translator.one",
+    "posts.contributorRoles.narrator.one",
+    "posts.contributorRoles.editor.one",
+    "posts.contributorRoles.presenter.one",
+  ];
+  for (const key of keys) {
+    assert.ok(vi.get(key), `vi ${key}`);
+    assert.ok(en.get(key), `en ${key}`);
+  }
+  assert.deepEqual(placeholders(vi.get("posts.byContributor") ?? ""), ["name"]);
+});

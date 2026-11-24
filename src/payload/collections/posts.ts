@@ -256,6 +256,8 @@ const Posts: CollectionConfig = {
                       type: "relationship",
                       relationTo: "contributors",
                       required: true,
+                      // Multikey index for `/posts?c=<id>` lookups on `contributors.person`
+                      index: true,
                       label: {
                         en: "Person",
                         vi: "Người",
