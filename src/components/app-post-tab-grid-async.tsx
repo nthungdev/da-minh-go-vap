@@ -36,8 +36,9 @@ export default function AppPostTabGridAsync(props: AppPostTabGridAsyncProps) {
     new Set(postGroups.flatMap((group) => group.hiddenTags)),
   );
 
-  const postGroupsData = [
+  const rawGroups = [
     {
+      scope: "all",
       title: t("common.all"),
       hiddenTags: allUniqueHiddenTags,
       limit: 6,
@@ -46,8 +47,20 @@ export default function AppPostTabGridAsync(props: AppPostTabGridAsyncProps) {
         relativeUrl: makePostsPath(allUniqueHiddenTags, t("posts.allPosts")),
       },
     },
-    ...postGroups,
+    ...postGroups.map((group) => ({ scope: "group", ...group })),
   ];
+
+  // Disambiguate duplicate group titles/tags so option, tab, and panel keys stay unique
+  const keyCounts = new Map<string, number>();
+  const postGroupsData = rawGroups.map((group) => {
+    const baseKey = `${group.scope}-${group.title}-${group.hiddenTags.join(",")}`;
+    const occurrence = (keyCounts.get(baseKey) ?? 0) + 1;
+    keyCounts.set(baseKey, occurrence);
+    return {
+      ...group,
+      groupKey: occurrence === 1 ? baseKey : `${baseKey}-${occurrence}`,
+    };
+  });
   const activeIndex = selectedIndex < postGroupsData.length ? selectedIndex : 0;
 
   return (
@@ -59,8 +72,8 @@ export default function AppPostTabGridAsync(props: AppPostTabGridAsyncProps) {
           value={activeIndex}
           onChange={(event) => setSelectedIndex(Number(event.target.value))}
         >
-          {postGroupsData.map(({ title, hiddenTags }, index) => (
-            <option key={`${title}-${hiddenTags.join(",")}`} value={index}>
+          {postGroupsData.map(({ groupKey, title }, index) => (
+            <option key={groupKey} value={index}>
               {title}
             </option>
           ))}
@@ -71,9 +84,9 @@ export default function AppPostTabGridAsync(props: AppPostTabGridAsyncProps) {
           role="tablist"
           aria-orientation="horizontal"
         >
-          {postGroupsData.map(({ title, hiddenTags }, index) => (
+          {postGroupsData.map(({ groupKey, title }, index) => (
             <button
-              key={`${title}-${hiddenTags.join(",")}`}
+              key={groupKey}
               type="button"
               ref={(button) => {
                 tabRefs.current[index] = button;
@@ -110,24 +123,26 @@ export default function AppPostTabGridAsync(props: AppPostTabGridAsyncProps) {
       </div>
 
       <div>
-        {postGroupsData.map(({ title, hiddenTags, viewMoreButton }, index) => (
-          <div
-            key={`${title}-${hiddenTags.join(",")}`}
-            id={`${tabsId}-content-${index}`}
-            hidden={activeIndex !== index}
-            role="tabpanel"
-            aria-labelledby={`${tabsId}-control-${index}`}
-            // biome-ignore lint/a11y/noNoninteractiveTabindex: Loading and empty panels need a keyboard focus target.
-            tabIndex={0}
-          >
-            <AppPostTabContentAsync
-              component={ContentComponent}
-              title={title}
-              viewMoreButton={viewMoreButton}
-              hiddenTags={hiddenTags}
-            />
-          </div>
-        ))}
+        {postGroupsData.map(
+          ({ groupKey, title, hiddenTags, viewMoreButton }, index) => (
+            <div
+              key={groupKey}
+              id={`${tabsId}-content-${index}`}
+              hidden={activeIndex !== index}
+              role="tabpanel"
+              aria-labelledby={`${tabsId}-control-${index}`}
+              // biome-ignore lint/a11y/noNoninteractiveTabindex: Loading and empty panels need a keyboard focus target.
+              tabIndex={0}
+            >
+              <AppPostTabContentAsync
+                component={ContentComponent}
+                title={title}
+                viewMoreButton={viewMoreButton}
+                hiddenTags={hiddenTags}
+              />
+            </div>
+          ),
+        )}
       </div>
     </div>
   );
