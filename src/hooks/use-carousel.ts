@@ -166,10 +166,9 @@ export function useCarousel({
     onMouseEnter: () => setIsHovered(true),
     onMouseLeave: () => setIsHovered(false),
     onFocus: () => setHasFocus(true),
-    onBlur: (event: React.FocusEvent<HTMLElement>) => {
-      if (!event.currentTarget.contains(event.relatedTarget)) {
-        setHasFocus(false);
-      }
+    onBlur: (event?: React.FocusEvent<HTMLElement>) => {
+      if (event?.currentTarget.contains(event.relatedTarget)) return;
+      setHasFocus(false);
     },
   };
 
