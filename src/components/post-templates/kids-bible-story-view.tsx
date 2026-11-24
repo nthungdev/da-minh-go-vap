@@ -6,6 +6,7 @@ import { stripWrappingQuotes } from "@/utils/quote";
 
 interface Props {
   block: KidsBibleStoryBlock;
+  isTitleHidden?: boolean;
 }
 
 const PRESENTER_SEPARATOR = /\s*(?:·|\n)\s*/;
@@ -13,7 +14,8 @@ const PRESENTER_SEPARATOR = /\s*(?:·|\n)\s*/;
 const BLUE_SQUARE =
   "rounded-[3px] bg-gradient-to-br from-blue-600 to-cyan-500 shadow-[0_6px_14px_rgba(37,99,235,0.25)]";
 
-export default function KidsBibleStoryView({ block }: Props) {
+export default function KidsBibleStoryView({ block, isTitleHidden }: Props) {
+  const Heading = isTitleHidden ? "h1" : "h2";
   const t = useTranslations("postTemplates");
   const {
     episodeLabel,
@@ -37,9 +39,14 @@ export default function KidsBibleStoryView({ block }: Props) {
           {episodeLabel}
         </p>
       )}
-      <h2 className="mt-3.5 mb-2 text-[22px] leading-tight font-extrabold tracking-tight md:text-[32px]">
+      <Heading
+        className={cn(
+          "mt-3.5 mb-2 leading-tight font-bold tracking-tight",
+          isTitleHidden ? "text-2xl sm:text-3xl" : "text-xl sm:text-2xl",
+        )}
+      >
         {title}
-      </h2>
+      </Heading>
       <p className="mb-3.5 text-[15px] text-gray-500">{subtitle}</p>
 
       <div className="rounded-xl border border-gray-200 p-4 text-base md:p-[18px] md:text-xl">

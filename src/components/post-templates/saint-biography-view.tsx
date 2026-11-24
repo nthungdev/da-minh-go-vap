@@ -3,15 +3,20 @@ import { useTranslations } from "next-intl";
 import AppMarkdown from "@/components/app-markdown";
 import type { Media, SaintBiographyBlock } from "@/payload-types";
 import { transformUrl } from "@/utils/cloudflare";
+import { cn } from "@/utils/common";
 
 interface Props {
   block: SaintBiographyBlock;
+  isTitleHidden?: boolean;
 }
 
 const SECTION_HEADING =
-  "text-secondary mt-8 mb-5 text-2xl leading-snug md:text-[27px]";
+  "mt-8 mb-5 text-lg leading-snug font-bold text-secondary-700 sm:text-xl";
 
-export default function SaintBiographyView({ block }: Props) {
+export default function SaintBiographyView({ block, isTitleHidden }: Props) {
+  const Heading = isTitleHidden ? "h1" : "h2";
+  const SectionHeading = isTitleHidden ? "h2" : "h3";
+  const VirtueHeading = isTitleHidden ? "h3" : "h4";
   const t = useTranslations("postTemplates");
   const {
     saintName,
@@ -47,9 +52,14 @@ export default function SaintBiographyView({ block }: Props) {
         )}
 
         <div className="flex-1">
-          <h2 className="mb-3 text-[28px] leading-tight text-secondary md:text-4xl">
+          <Heading
+            className={cn(
+              "mb-3 leading-tight font-bold text-secondary-700",
+              isTitleHidden ? "text-2xl sm:text-3xl" : "text-xl sm:text-2xl",
+            )}
+          >
             {saintName}
-          </h2>
+          </Heading>
           <p className="text-[19px] leading-relaxed text-primary-800 md:text-xl">
             {saintTitle}
             <br />
@@ -60,14 +70,16 @@ export default function SaintBiographyView({ block }: Props) {
 
       {timeline && timeline.length > 0 && (
         <section>
-          <h3 className={SECTION_HEADING}>1. {t("saintLife")}</h3>
+          <SectionHeading className={SECTION_HEADING}>
+            1. {t("saintLife")}
+          </SectionHeading>
           <ol className="relative space-y-6 pl-7 before:absolute before:top-0 before:left-2.5 before:h-full before:w-1 before:rounded before:bg-primary-700 md:pl-8 md:before:left-3">
             {timeline.map((item, index) => (
               <li
                 key={item.id ?? index}
                 className="relative pl-4 before:absolute before:top-1.5 before:-left-6 before:size-4 before:rounded-full before:border-[3px] before:border-primary-700 before:bg-white md:before:-left-[26px]"
               >
-                <p className="mb-1 text-[19px] leading-normal font-bold text-primary-700 md:text-xl">
+                <p className="mb-1 text-[19px] leading-normal font-bold text-primary-800 md:text-xl">
                   {item.periodOrYear}
                 </p>
                 <p className="leading-[1.9] md:text-justify md:leading-[1.7]">
@@ -81,16 +93,18 @@ export default function SaintBiographyView({ block }: Props) {
 
       {virtues && virtues.length > 0 && (
         <section>
-          <h3 className={SECTION_HEADING}>2. {t("saintVirtues")}</h3>
+          <SectionHeading className={SECTION_HEADING}>
+            2. {t("saintVirtues")}
+          </SectionHeading>
           <div className="space-y-6">
             {virtues.map((virtue, idx) => (
               <div
                 key={virtue.id ?? idx}
                 className="rounded-xl bg-slate-50 p-5 md:p-6"
               >
-                <h4 className="mb-4 text-[21px] leading-normal font-bold text-primary-700 md:text-[22px]">
+                <VirtueHeading className="mb-4 text-base leading-normal font-bold text-primary-800 sm:text-lg">
                   ✦ {virtue.title}
-                </h4>
+                </VirtueHeading>
                 <AppMarkdown className="space-y-[18px] md:text-justify [&_p]:leading-[1.9] md:[&_p]:leading-[1.7]">
                   {virtue.body}
                 </AppMarkdown>
@@ -102,7 +116,9 @@ export default function SaintBiographyView({ block }: Props) {
 
       {prayer && (
         <section>
-          <h3 className={SECTION_HEADING}>3. {t("saintPrayer")}</h3>
+          <SectionHeading className={SECTION_HEADING}>
+            3. {t("saintPrayer")}
+          </SectionHeading>
           <AppMarkdown className="space-y-3 rounded-lg border-l-4 border-red-500 bg-rose-50 p-5 italic md:p-[22px] [&_p]:leading-[1.8]">
             {prayer}
           </AppMarkdown>

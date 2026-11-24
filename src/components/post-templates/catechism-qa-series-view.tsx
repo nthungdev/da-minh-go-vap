@@ -1,18 +1,27 @@
 import AppMarkdown from "@/components/app-markdown";
 import type { CatechismQASeriesBlock } from "@/payload-types";
+import { cn } from "@/utils/common";
 
 interface Props {
   block: CatechismQASeriesBlock;
+  isTitleHidden?: boolean;
 }
 
-export default function CatechismQASeriesView({ block }: Props) {
+export default function CatechismQASeriesView({ block, isTitleHidden }: Props) {
+  const Heading = isTitleHidden ? "h1" : "h2";
+  const SectionHeading = isTitleHidden ? "h2" : "h3";
   const { title, introduction, items, credits } = block;
 
   return (
     <article className="mx-auto max-w-5xl rounded-xl bg-white px-4 py-5 shadow-[0_4px_16px_rgba(0,0,0,0.06)] md:px-6">
-      <h2 className="mb-2 text-[22px] font-bold text-secondary uppercase md:text-[28px]">
+      <Heading
+        className={cn(
+          "mb-2 font-bold text-secondary-700 uppercase",
+          isTitleHidden ? "text-2xl sm:text-3xl" : "text-xl sm:text-2xl",
+        )}
+      >
         {title}
-      </h2>
+      </Heading>
       <AppMarkdown className="mb-5 space-y-3 border-l-4 border-orange-500 pl-3 text-justify text-[17px] leading-relaxed text-primary-800 md:text-xl">
         {introduction}
       </AppMarkdown>
@@ -32,9 +41,9 @@ export default function CatechismQASeriesView({ block }: Props) {
               </div>
             )}
             <div className="min-w-0 flex-1">
-              <h3 className="text-lg font-bold text-[#0b2730] md:text-xl">
+              <SectionHeading className="text-lg font-bold text-[#0b2730] md:text-xl">
                 {item.title}
-              </h3>
+              </SectionHeading>
               <AppMarkdown className="text-justify text-[17px] leading-[1.75] text-gray-700 md:text-[19px] [&_p]:mt-1.5">
                 {item.body}
               </AppMarkdown>

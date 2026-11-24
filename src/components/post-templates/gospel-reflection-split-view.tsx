@@ -5,12 +5,18 @@ import { cn } from "@/utils/common";
 
 interface Props {
   block: GospelReflectionSplitBlock;
+  isTitleHidden?: boolean;
 }
 
 const PLAIN_BLOCKQUOTE =
   "prose-blockquote:m-0 prose-blockquote:border-s-0 prose-blockquote:p-0 prose-blockquote:ps-0 prose-blockquote:font-normal prose-blockquote:not-italic prose-blockquote:text-inherit [&_blockquote_p]:before:content-none [&_blockquote_p]:after:content-none";
 
-export default function GospelReflectionSplitView({ block }: Props) {
+export default function GospelReflectionSplitView({
+  block,
+  isTitleHidden,
+}: Props) {
+  const Heading = isTitleHidden ? "h1" : "h2";
+  const SectionHeading = isTitleHidden ? "h2" : "h3";
   const t = useTranslations("postTemplates");
   const {
     liturgyDate,
@@ -32,9 +38,14 @@ export default function GospelReflectionSplitView({ block }: Props) {
         <span className="text-[0.9em] text-gray-500">{liturgyWeek}</span>
       </header>
 
-      <h2 className="mt-2 mb-4 text-[1.5em] leading-tight font-bold text-orange-600">
+      <Heading
+        className={cn(
+          "mt-2 mb-4 leading-tight font-bold text-secondary-700",
+          isTitleHidden ? "text-2xl sm:text-3xl" : "text-xl sm:text-2xl",
+        )}
+      >
         {t("gospelReflectionHeading")}
-      </h2>
+      </Heading>
 
       <div className="grid gap-5 min-[900px]:grid-cols-[minmax(0,1fr)_320px]">
         <section className="min-w-0">
@@ -58,9 +69,9 @@ export default function GospelReflectionSplitView({ block }: Props) {
           className="relative order-first rounded-[14px] bg-gradient-to-b from-white to-[#e6f9f9] py-4 pr-4 pl-5 shadow-[0_4px_14px_rgba(0,133,150,0.08)] before:absolute before:inset-y-0 before:left-0 before:w-1 before:rounded before:bg-gradient-to-b before:from-[#008596] before:to-[#32c7c7] min-[900px]:order-none"
         >
           <div className="min-[900px]:sticky min-[900px]:top-24">
-            <h3 className="mb-2 text-[1.05em] font-bold text-orange-700">
+            <SectionHeading className="mb-2 text-[1.05em] font-bold text-orange-700">
               {t("gospelWithPassage", { passage: gospel.passage })}
-            </h3>
+            </SectionHeading>
 
             <AppMarkdown
               className={cn(

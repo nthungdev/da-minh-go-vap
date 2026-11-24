@@ -16,34 +16,52 @@ export type PostTemplateBlock = NonNullable<Post["template"]>[number];
 
 interface PostTemplateRendererProps {
   block: PostTemplateBlock;
+  isTitleHidden?: boolean;
 }
 
 export default function PostTemplateRenderer({
   block,
+  isTitleHidden,
 }: PostTemplateRendererProps) {
   switch (block.blockType) {
     case "gospelReflectionSplit":
-      return <GospelReflectionSplitView block={block} />;
+      return (
+        <GospelReflectionSplitView
+          block={block}
+          isTitleHidden={isTitleHidden}
+        />
+      );
     case "gospelReflectionCard":
-      return <GospelReflectionCardView block={block} />;
+      return (
+        <GospelReflectionCardView block={block} isTitleHidden={isTitleHidden} />
+      );
     case "saintBiography":
-      return <SaintBiographyView block={block} />;
+      return <SaintBiographyView block={block} isTitleHidden={isTitleHidden} />;
     case "verticalVideoPrayer":
       return <VerticalVideoPrayerView block={block} />;
     case "newsArticleFeatured":
       return <NewsArticleFeaturedView block={block} />;
     case "eventGalleryReport":
-      return <EventGalleryReportView block={block} />;
+      return (
+        <EventGalleryReportView block={block} isTitleHidden={isTitleHidden} />
+      );
     case "catechismQASeries":
-      return <CatechismQASeriesView block={block} />;
+      return (
+        <CatechismQASeriesView block={block} isTitleHidden={isTitleHidden} />
+      );
     case "kidsBibleStory":
-      return <KidsBibleStoryView block={block} />;
+      return <KidsBibleStoryView block={block} isTitleHidden={isTitleHidden} />;
     case "parableLifeLesson":
       return <ParableLifeLessonView block={block} />;
     case "bilingualQuoteCard":
       return <BilingualQuoteCardView block={block} />;
     case "dominicanSpirituality":
-      return <DominicanSpiritualityView block={block} />;
+      return (
+        <DominicanSpiritualityView
+          block={block}
+          isTitleHidden={isTitleHidden}
+        />
+      );
     case "tributeProfile":
       return <TributeProfileView block={block} />;
     default:

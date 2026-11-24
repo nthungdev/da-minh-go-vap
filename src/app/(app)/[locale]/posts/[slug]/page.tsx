@@ -150,7 +150,10 @@ function renderArticleContent(
   if (post.contentMode === "template" && post.template?.[0]) {
     return (
       <div data-post-template={post.template[0].blockType}>
-        <PostTemplateRenderer block={post.template[0]} />
+        <PostTemplateRenderer
+          block={post.template[0]}
+          isTitleHidden={Boolean(post.hideTitle)}
+        />
       </div>
     );
   }
@@ -208,7 +211,9 @@ export default async function Page(props: Props) {
       <PostViewTracker slug={post.slug} title={post.title} />
 
       {!post.hideTitle && (
-        <h1 className="text-3xl font-semibold">{post.title}</h1>
+        <h1 className="text-2xl leading-tight font-bold text-gray-900 sm:text-3xl lg:text-4xl">
+          {post.title}
+        </h1>
       )}
 
       <p className="text-sm text-gray-500">{publishedAt}</p>

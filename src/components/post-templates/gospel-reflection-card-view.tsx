@@ -5,12 +5,18 @@ import AppMarkdown from "@/components/app-markdown";
 import SpotifyEmbed from "@/components/post-templates/shared/spotify-embed";
 import type { GospelReflectionCardBlock, Media } from "@/payload-types";
 import { transformUrl } from "@/utils/cloudflare";
+import { cn } from "@/utils/common";
 
 interface Props {
   block: GospelReflectionCardBlock;
+  isTitleHidden?: boolean;
 }
 
-export default function GospelReflectionCardView({ block }: Props) {
+export default function GospelReflectionCardView({
+  block,
+  isTitleHidden,
+}: Props) {
+  const Heading = isTitleHidden ? "h1" : "h2";
   const t = useTranslations("postTemplates");
   const {
     liturgyMeta,
@@ -30,7 +36,7 @@ export default function GospelReflectionCardView({ block }: Props) {
     : t("viewGospel");
 
   return (
-    <article className="rounded-[18px] border border-[#008596]/12 bg-gradient-to-b from-white to-[#fbfbfe] p-4 font-[system-ui,-apple-system,'Segoe_UI',Roboto,Arial,sans-serif] text-base text-slate-900 shadow-[0_6px_20px_rgba(18,25,40,0.08)] sm:p-[26px] md:text-xl xl:text-2xl">
+    <article className="rounded-[18px] border border-[#008596]/12 bg-gradient-to-b from-white to-[#fbfbfe] p-4 font-[system-ui,-apple-system,'Segoe_UI',Roboto,Arial,sans-serif] text-base text-slate-900 shadow-[0_6px_20px_rgba(18,25,40,0.08)] sm:p-[26px] sm:text-lg">
       <div className="relative mb-2.5 flex flex-wrap items-center gap-3.5 empty:hidden">
         {liturgyMeta && (
           <span className="rounded-[10px] bg-gradient-to-r from-[#008596]/12 to-[#008596]/6 px-3 py-2 text-[0.95em] leading-snug font-semibold text-chill-800">
@@ -59,9 +65,14 @@ export default function GospelReflectionCardView({ block }: Props) {
       <SpotifyEmbed url={spotifyUrl} />
 
       {headline && (
-        <h2 className="mt-1.5 mb-3.5 text-center text-[1.45em] leading-[1.2] font-medium text-orange-600">
+        <Heading
+          className={cn(
+            "mt-1.5 mb-3.5 text-center leading-tight font-bold text-secondary-700",
+            isTitleHidden ? "text-2xl sm:text-3xl" : "text-xl sm:text-2xl",
+          )}
+        >
           {headline}
-        </h2>
+        </Heading>
       )}
 
       <div className="flow-root text-[0.98em] leading-[1.68]">
