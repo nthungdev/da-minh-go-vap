@@ -188,7 +188,7 @@ export default async function Page(props: Props) {
     .map((tag) => tag.tag);
   const publicTags = getPublicHiddenTags(post.hiddenTags);
 
-  const publishedAt = formatDate(post.publishedAt);
+  const publishedAt = formatDate(post.publishedAt, locale);
 
   const postHref = `${origin}/posts/${post.slug}`;
   const articleContent = renderArticleContent(post);

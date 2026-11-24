@@ -14,6 +14,7 @@ import { getDataOrUndefined } from "@/payload/utils/data";
 import type { Page } from "@/payload-types";
 import { transformUrl } from "@/utils/cloudflare";
 import { cn } from "@/utils/common";
+import { formatShortDate } from "@/utils/date";
 import { makePostsPath } from "@/utils/post";
 
 const POST_COUNT = 6;
@@ -88,7 +89,7 @@ export default function PostGroupTabsPanel({
   const page = getDataOrUndefined<Page>(viewMoreButton?.relativeUrl);
   const viewMoreHref = page ? page.path : makePostsPath(hiddenTags, title);
   const firstPostThumbnail = getDataOrUndefined(firstPost.thumbnail);
-  const firstPostDate = firstPost.publishedAt.toLocaleDateString("vi-VN");
+  const firstPostDate = formatShortDate(firstPost.publishedAt, locale);
   const firstPostHref = `/posts/${firstPost.slug}`;
 
   return (

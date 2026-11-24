@@ -1,8 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useLocale } from "next-intl";
 import type { AppPost } from "@/definitions";
 import { transformUrl } from "@/utils/cloudflare";
 import { cn } from "@/utils/common";
+import { formatShortDate } from "@/utils/date";
 
 interface AppPostCardProps {
   post: AppPost;
@@ -12,6 +14,7 @@ interface AppPostCardProps {
 
 export default function AppPostCard(props: AppPostCardProps) {
   const { post, className, showDate } = props;
+  const locale = useLocale();
 
   return (
     <Link
@@ -41,7 +44,7 @@ export default function AppPostCard(props: AppPostCardProps) {
         </span>
         {showDate && (
           <span className="line-clamp-1 text-xs text-gray-500">
-            {post.publishedAt.toLocaleDateString("vi-VN")}
+            {formatShortDate(post.publishedAt, locale)}
           </span>
         )}
       </div>
