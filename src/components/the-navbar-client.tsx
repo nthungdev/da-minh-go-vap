@@ -41,6 +41,7 @@ import {
 
 export interface MenuIconProps {
   icon?: string | null;
+  decorative?: boolean;
   name?: string | null;
   size?: number | "sm" | "md";
   className?: string;
@@ -50,11 +51,18 @@ export interface MenuIconProps {
  * Renders an optimized menu icon badge for navigation items.
  *
  * @param icon - Menu icon identifier.
+ * @param decorative - Whether nearby text supplies the accessible label.
  * @param name - Accessible label / alt text for the icon.
  * @param size - Icon display size (4 / "sm" for small, 5 / "md" for default).
  * @param className - Additional Tailwind CSS classes.
  */
-export function MenuIcon({ icon, name, size = 5, className }: MenuIconProps) {
+export function MenuIcon({
+  icon,
+  name,
+  decorative = false,
+  size = 5,
+  className,
+}: MenuIconProps) {
   if (!icon) return null;
 
   const src = getMenuIconSrc(icon);
@@ -73,7 +81,8 @@ export function MenuIcon({ icon, name, size = 5, className }: MenuIconProps) {
       <Image
         unoptimized
         src={src}
-        alt={name || icon}
+        alt={decorative ? "" : name || icon}
+        aria-hidden={decorative || undefined}
         fill
         className="rounded-full object-contain"
       />
@@ -111,9 +120,14 @@ function DesktopNavItem({
           }
           nativeButton={!item.absoluteHref}
           aria-label={item.name || item.icon || "Menu"}
-          className="flex items-center gap-1.5 transition-colors hover:bg-white hover:text-primary-700 focus:bg-white focus:text-primary-700 data-popup-open:bg-white data-popup-open:text-primary-700 data-[state=open]:bg-white data-[state=open]:text-primary-700 data-open:bg-white data-open:text-primary-700"
+          className="flex items-center gap-1.5 transition-colors hover:bg-white hover:text-primary-700 focus:bg-white focus:text-primary-700 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-1 focus-visible:ring-offset-primary-800 focus-visible:outline-none data-popup-open:bg-white data-popup-open:text-primary-700 data-[state=open]:bg-white data-[state=open]:text-primary-700 data-open:bg-white data-open:text-primary-700"
         >
-          <MenuIcon icon={item.icon} name={item.name} size={5} />
+          <MenuIcon
+            icon={item.icon}
+            name={item.name}
+            decorative={Boolean(item.name)}
+            size={5}
+          />
           {label}
         </NavigationMenuTrigger>
         <NavigationMenuContent className="rounded-xl border-none text-gray-900 shadow-lg">
@@ -137,14 +151,19 @@ function DesktopNavItem({
               aria-label={item.name || item.icon || "Link"}
               className={cn(
                 navigationMenuTriggerStyle(),
-                "flex items-center gap-1.5 text-gray-50 transition-colors hover:bg-white hover:text-primary-700 focus:bg-white focus:text-primary-700",
+                "flex items-center gap-1.5 text-gray-50 transition-colors hover:bg-white hover:text-primary-700 focus:bg-white focus:text-primary-700 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-1 focus-visible:ring-offset-primary-800 focus-visible:outline-none",
                 pathname === item.absoluteHref &&
                   "bg-white font-bold text-primary-700",
               )}
             />
           }
         >
-          <MenuIcon icon={item.icon} name={item.name} size={5} />
+          <MenuIcon
+            icon={item.icon}
+            name={item.name}
+            decorative={Boolean(item.name)}
+            size={5}
+          />
           {label}
         </NavigationMenuLink>
       </NavigationMenuItem>
@@ -159,7 +178,12 @@ function DesktopNavItem({
           "flex cursor-default items-center gap-1.5 bg-transparent text-gray-50 select-none",
         )}
       >
-        <MenuIcon icon={item.icon} name={item.name} size={5} />
+        <MenuIcon
+          icon={item.icon}
+          name={item.name}
+          decorative={Boolean(item.name)}
+          size={5}
+        />
         {label}
       </span>
     </NavigationMenuItem>
@@ -195,7 +219,12 @@ function MobileSubLink({
           pathname === href && "font-semibold text-primary-600",
         )}
       >
-        <MenuIcon icon={icon} name={name} size={iconSize} />
+        <MenuIcon
+          icon={icon}
+          name={name}
+          decorative={Boolean(name)}
+          size={iconSize}
+        />
         <span>{name}</span>
       </Link>
     );
@@ -203,7 +232,12 @@ function MobileSubLink({
 
   return (
     <span className={staticClassName}>
-      <MenuIcon icon={icon} name={name} size={iconSize} />
+      <MenuIcon
+        icon={icon}
+        name={name}
+        decorative={Boolean(name)}
+        size={iconSize}
+      />
       <span>{name}</span>
     </span>
   );
@@ -368,7 +402,12 @@ function MobileNavLabel({
 }) {
   const content = (
     <>
-      <MenuIcon icon={item.icon} name={item.name} size={5} />
+      <MenuIcon
+        icon={item.icon}
+        name={item.name}
+        decorative={Boolean(item.name)}
+        size={5}
+      />
       {item.name ? <span>{item.name}</span> : null}
     </>
   );
@@ -413,6 +452,8 @@ function MobileNavItem({
   pathname: string;
   onNavigate: () => void;
 }) {
+  const t = useTranslations("navigation");
+
   if (hasSubContent(item)) {
     return (
       <div className="border-b border-gray-100 last:border-0">
@@ -425,7 +466,12 @@ function MobileNavItem({
               className="flex-1"
               fallbackAriaLabel="Menu"
             />
-            <AccordionTrigger className="w-10 shrink-0 justify-center p-2 text-gray-500 hover:text-primary-600 hover:no-underline" />
+            <AccordionTrigger
+              aria-label={t("toggleSection", {
+                name: item.name || item.icon || "",
+              })}
+              className="min-h-11 min-w-11 shrink-0 items-center justify-center p-2 text-gray-500 hover:text-primary-600 hover:no-underline focus-visible:ring-2 focus-visible:ring-primary-700 focus-visible:outline-none"
+            />
           </div>
           <AccordionContent className="pb-3 pl-4">
             <ul className="flex flex-col gap-2 border-l-2 border-gray-100 pl-4">
@@ -548,8 +594,8 @@ export default function TheNavbarClient({
         />
         <LocaleSwitcher />
         <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
-          <SheetTrigger className="-mr-2 p-2 text-gray-50 hover:text-gray-200 focus:outline-none">
-            <Menu className="h-6 w-6" />
+          <SheetTrigger className="-mr-2 inline-flex min-h-11 min-w-11 items-center justify-center rounded-md text-gray-50 hover:bg-white/10 hover:text-white focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none">
+            <Menu className="h-6 w-6" aria-hidden="true" />
             <span className="sr-only">{t("toggleMenu")}</span>
           </SheetTrigger>
           <SheetContent

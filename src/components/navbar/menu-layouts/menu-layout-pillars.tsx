@@ -32,7 +32,7 @@ const GRID_COLS_BY_COUNT: Record<number, string> = {
 };
 const DEFAULT_GRID_COLS = "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4";
 
-function MenuLinkIcon({ icon, name }: { icon: MenuIconType; name: string }) {
+function MenuLinkIcon({ icon }: { icon: MenuIconType }) {
   if (!icon) {
     return null;
   }
@@ -42,7 +42,8 @@ function MenuLinkIcon({ icon, name }: { icon: MenuIconType; name: string }) {
       <Image
         unoptimized
         src={getMenuIconSrc(icon)}
-        alt={name || icon}
+        alt=""
+        aria-hidden="true"
         fill
         className="rounded-full object-contain"
       />
@@ -100,7 +101,7 @@ function PillarColumn({
             <Link
               href={banner.absoluteHref}
               className={cn(
-                "group relative block h-28 w-full overflow-hidden rounded-md bg-gray-900 transition-colors focus:outline-none",
+                "group relative block h-28 w-full overflow-hidden rounded-md bg-gray-900 transition-colors focus-visible:ring-2 focus-visible:ring-primary-700 focus-visible:outline-none",
                 isBannerActive && "ring-2 ring-primary-600",
               )}
             />
@@ -135,12 +136,12 @@ function PillarColumn({
                     )}
                     render={<Link href={link.absoluteHref} />}
                   >
-                    <MenuLinkIcon icon={link.icon} name={link.name} />
+                    <MenuLinkIcon icon={link.icon} />
                     <span>{link.name}</span>
                   </NavigationMenuLink>
                 ) : (
                   <div className="flex w-full items-center gap-1.5 rounded-md bg-gray-100 px-3 py-1.5 text-left text-base text-gray-600 select-none">
-                    <MenuLinkIcon icon={link.icon} name={link.name} />
+                    <MenuLinkIcon icon={link.icon} />
                     <span>{link.name}</span>
                   </div>
                 )}
@@ -189,7 +190,7 @@ function PillarBottomBar({
                 />
               }
             >
-              <MenuLinkIcon icon={link.icon} name={link.name} />
+              <MenuLinkIcon icon={link.icon} />
               <span>{link.name}</span>
             </NavigationMenuLink>
           ) : (
@@ -197,7 +198,7 @@ function PillarBottomBar({
               key={linkKey}
               className="flex items-center gap-1.5 rounded-md bg-gray-100 px-2.5 py-1 text-left text-base text-gray-600 select-none"
             >
-              <MenuLinkIcon icon={link.icon} name={link.name} />
+              <MenuLinkIcon icon={link.icon} />
               <span>{link.name}</span>
             </span>
           );

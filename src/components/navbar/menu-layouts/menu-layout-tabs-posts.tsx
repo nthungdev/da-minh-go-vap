@@ -53,7 +53,8 @@ export default function MenuLayoutTabsPosts({
                     <Image
                       unoptimized
                       src={getMenuIconSrc(cat.icon)}
-                      alt={cat.name || cat.icon}
+                      alt=""
+                      aria-hidden="true"
                       fill
                       className="rounded-full object-contain"
                     />
@@ -68,7 +69,7 @@ export default function MenuLayoutTabsPosts({
           );
 
           const tabClassName = cn(
-            "group flex w-full items-center justify-between rounded-md px-3 py-2 text-left text-base transition-colors outline-none select-none",
+            "group flex w-full items-center justify-between rounded-md px-3 py-2 text-left text-base transition-colors select-none focus-visible:ring-2 focus-visible:ring-primary-700 focus-visible:outline-none",
             "hover:bg-gray-200 hover:text-primary-700 focus:bg-gray-200 focus:text-primary-700",
             isSelected
               ? "bg-gray-200 font-semibold text-primary-700"
@@ -84,6 +85,7 @@ export default function MenuLayoutTabsPosts({
               render={
                 <Link
                   href={cat.absoluteHref}
+                  onFocus={() => setActiveTabIndex(idx)}
                   onMouseEnter={() => setActiveTabIndex(idx)}
                 />
               }
@@ -94,6 +96,8 @@ export default function MenuLayoutTabsPosts({
             <button
               key={categoryKey}
               type="button"
+              onFocus={() => setActiveTabIndex(idx)}
+              onClick={() => setActiveTabIndex(idx)}
               onMouseEnter={() => setActiveTabIndex(idx)}
               className={tabClassName}
             >
