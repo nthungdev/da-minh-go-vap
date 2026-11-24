@@ -9,10 +9,21 @@
     "scrollToTop": "Lên đầu trang",
     "openInNewTab": "(mở trong tab mới)",
     "readMore": "Xem thêm",
-    "thumbnailAlt": "Ảnh bìa: {title}"
+    "thumbnailAlt": "Ảnh bìa: {title}",
+    "skipToContent": "Chuyển đến nội dung chính",
+    "retry": "Thử lại",
+    "pauseSlideshow": "Tạm dừng trình chiếu",
+    "playSlideshow": "Tiếp tục trình chiếu",
+    "firstPage": "Trang đầu",
+    "previousPage": "Trang trước",
+    "nextPage": "Trang tiếp",
+    "lastPage": "Trang cuối",
+    "pagination": "Phân trang",
+    "pageNumber": "Trang {page}"
   },
   "navigation": {
     "toggleMenu": "Mở/đóng menu",
+    "toggleSection": "Mở/đóng mục {name}",
     "menu": "Menu",
     "postGroups": "Nhóm bài viết",
     "selectPostGroup": "Chọn nhóm bài viết",
@@ -28,6 +39,11 @@
     "tableOfContents": "Mục lục",
     "expandTableOfContents": "Mở rộng mục lục",
     "collapseTableOfContents": "Thu gọn mục lục",
+    "emptyTitle": "Chưa có bài viết nào",
+    "emptyDescription": "Hiện chưa có bài viết phù hợp với mục này.",
+    "errorTitle": "Không thể tải bài viết",
+    "errorDescription": "Đã xảy ra lỗi khi tải dữ liệu. Vui lòng thử lại.",
+    "browseAll": "Xem tất cả bài viết",
     "contributorRoles": {
       "author": {
         "one": "Tác giả",
@@ -93,7 +109,16 @@
     "marketingEmailLabel": "Ban truyền thông"
   },
   "shareToolbar": {
-    "title": "Chia sẻ"
+    "title": "Chia sẻ",
+    "copyLink": "Sao chép liên kết",
+    "shareFacebook": "Chia sẻ lên Facebook",
+    "shareViber": "Chia sẻ qua Viber"
+  },
+  "errorBoundary": {
+    "title": "Đã xảy ra lỗi",
+    "description": "Rất tiếc, trang này không thể hiển thị lúc này. Vui lòng thử lại hoặc quay về trang chủ.",
+    "retry": "Thử lại",
+    "backHome": "Về Trang Chủ"
   },
   "lightbox": {
     "zoom": "Phóng to ảnh",
