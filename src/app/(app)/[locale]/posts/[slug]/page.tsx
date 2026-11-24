@@ -131,7 +131,7 @@ function renderContributorLinks(people: ContributorCredit[], locale: string) {
         // biome-ignore lint/suspicious/noArrayIndexKey: one person may appear twice in a role
         key={`${id}-${index}`}
         href={makeContributorPostsPath(id)}
-        className="underline-offset-2 hover:underline focus-visible:underline"
+        className="rounded-sm font-medium text-primary-700 transition-colors hover:text-primary-900 focus-visible:ring-2 focus-visible:ring-primary-600 focus-visible:outline-none motion-reduce:transition-none"
       >
         {name}
       </Link>
