@@ -12,6 +12,7 @@ import { getServerOrigin } from "@/utils/url";
 import "../globals.css";
 import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
+import { getTranslations } from "next-intl/server";
 
 // Keep production builds independent of Google Fonts response formats.
 const nunito = localFont({
@@ -93,17 +94,29 @@ export async function generateMetadata({
 
 export default async function RootLayout({ children, params }: LayoutProps) {
   const locale = applyRouteLocale((await params).locale);
+  const t = await getTranslations({ locale, namespace: "common" });
 
   return (
     <html
       lang={locale}
-      className={cn(nunito.className, notoSerif.variable, lora.variable)}
+      className={cn(
+        nunito.className,
+        nunito.variable,
+        notoSerif.variable,
+        lora.variable,
+      )}
     >
-      <PrelineScriptWrapper />
       <body
         className={cn("relative flex min-h-screen w-full flex-col bg-white")}
       >
         <NextIntlClientProvider>
+          <a
+            href="#main-content"
+            className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:rounded-lg focus:bg-primary focus:px-4 focus:py-2.5 focus:text-sm focus:font-semibold focus:text-white focus:shadow-lg focus:ring-2 focus:ring-white focus:outline-none"
+          >
+            {t("skipToContent")}
+          </a>
+          <PrelineScriptWrapper />
           <ScrollToTopButton />
           <TheNavbar className="sticky top-0 z-50 w-full" />
           <div className="flex-1">
