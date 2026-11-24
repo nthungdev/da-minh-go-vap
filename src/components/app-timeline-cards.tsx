@@ -22,6 +22,8 @@ export default function AppTimelineCards({
   cards,
   title,
 }: AppTimelineCardsProps) {
+  const CardHeading = title ? "h3" : "h2";
+
   return (
     <div className={cn("space-y-12", className)}>
       {title && (
@@ -29,52 +31,17 @@ export default function AppTimelineCards({
       )}
 
       <ol className="flex flex-col">
-        {cards.map((card, index) => (
-          <li
-            key={`${card.title}-${card.url ?? ""}`}
-            className={cn(
-              "flex",
-              index % 2 === 0 ? "flex-row" : "md:flex-row-reverse",
-            )}
-          >
-            <div className="order-last flex-1 md:order-0">
-              <Link
-                href={card.url || "#"}
-                className="my-2 block space-y-2 rounded-lg hover:ring-2"
-              >
-                <div className="relative aspect-video w-full">
-                  {typeof card.thumbnail !== "string" &&
-                    typeof card.thumbnail.url === "string" && (
-                      <Image
-                        unoptimized
-                        src={transformUrl(card.thumbnail.url, { width: "600" })}
-                        alt={card.thumbnail.alt}
-                        className="w-full rounded-lg object-cover"
-                        fill
-                        sizes="(max-width: 640px) 100vw, 50vw"
-                      />
-                    )}
-                </div>
-                <h2 className="px-2 pb-1 text-center text-xl font-semibold">
-                  {card.title}
-                </h2>
-              </Link>
-            </div>
-
-            <div className="relative px-2">
-              <div
-                className={cn(
-                  "absolute top-0 right-0 left-0 mx-auto h-full w-1 bg-primary",
-                  index === 0 && "rounded-t-full",
-                  index === cards.length - 1 && "rounded-b-full",
-                )}
-              ></div>
-              <div className="relative mt-2 h-8 w-8 rounded-full bg-red-300">
+        {cards.map((card, index) => {
+          const url = card.url?.trim();
+          const isReversed = index % 2 !== 0;
+          const cardContent = (
+            <>
+              <div className="relative aspect-video w-full">
                 {typeof card.thumbnail !== "string" &&
                   typeof card.thumbnail.url === "string" && (
                     <Image
                       unoptimized
-                      src={transformUrl(card.thumbnail.url)}
+                      src={transformUrl(card.thumbnail.url, { width: "600" })}
                       alt={card.thumbnail.alt}
                       className="w-full rounded-lg object-cover"
                       fill
@@ -82,15 +49,72 @@ export default function AppTimelineCards({
                     />
                   )}
               </div>
-            </div>
+              <CardHeading className="px-2 pb-1 text-center text-xl font-semibold">
+                {card.title}
+              </CardHeading>
+            </>
+          );
 
-            <div className="hidden flex-1 py-2 md:block">
+          return (
+            <li
+              key={`${card.title}-${card.url ?? ""}`}
+              className="grid grid-cols-[auto_minmax(0,1fr)] md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)]"
+            >
+              <div
+                className={cn(
+                  "col-start-2 row-start-1",
+                  isReversed ? "md:col-start-3" : "md:col-start-1",
+                )}
+              >
+                {url ? (
+                  <Link
+                    href={url}
+                    className="my-2 block space-y-2 rounded-lg hover:ring-2 focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:outline-none"
+                  >
+                    {cardContent}
+                  </Link>
+                ) : (
+                  <div className="my-2 space-y-2 rounded-lg">{cardContent}</div>
+                )}
+              </div>
+
+              <div className="relative col-start-1 row-start-1 row-end-3 px-2 md:col-start-2 md:row-end-2">
+                <div
+                  className={cn(
+                    "absolute top-0 right-0 left-0 mx-auto h-full w-1 bg-primary",
+                    index === 0 && "rounded-t-full",
+                    index === cards.length - 1 && "rounded-b-full",
+                  )}
+                ></div>
+                <div className="relative mt-2 h-8 w-8 rounded-full bg-primary-200">
+                  {typeof card.thumbnail !== "string" &&
+                    typeof card.thumbnail.url === "string" && (
+                      <Image
+                        unoptimized
+                        src={transformUrl(card.thumbnail.url)}
+                        alt=""
+                        aria-hidden="true"
+                        className="w-full rounded-lg object-cover"
+                        fill
+                        sizes="(max-width: 640px) 100vw, 50vw"
+                      />
+                    )}
+                </div>
+              </div>
+
               {card.description && (
-                <AppMarkdown>{card.description}</AppMarkdown>
+                <div
+                  className={cn(
+                    "col-start-2 row-start-2 px-2 pb-2 text-sm text-gray-700 md:row-start-1 md:px-0 md:py-2 md:text-base md:text-inherit",
+                    isReversed ? "md:col-start-1" : "md:col-start-3",
+                  )}
+                >
+                  <AppMarkdown>{card.description}</AppMarkdown>
+                </div>
               )}
-            </div>
-          </li>
-        ))}
+            </li>
+          );
+        })}
       </ol>
     </div>
   );
