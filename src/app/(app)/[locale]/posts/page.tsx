@@ -76,7 +76,7 @@ export default async function AppPostsPage(props: Props) {
 
   return (
     <AppPage className="space-y-8">
-      <AppGridHeader text={title} />
+      <AppGridHeader text={title} as="h1" />
       {params.contributorId ? (
         <AppPostGridPaginated contributorId={params.contributorId} />
       ) : (
