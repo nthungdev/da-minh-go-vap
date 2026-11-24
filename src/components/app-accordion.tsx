@@ -22,7 +22,7 @@ function AppAccordionToggle(props: AppAccordionToggle) {
     <button
       type="button"
       className={cn(
-        "hs-accordion-toggle inline-flex w-full items-center gap-x-3 rounded-lg px-2 py-3 text-start font-semibold text-gray-800 hover:text-gray-50 focus:outline-hidden disabled:pointer-events-none disabled:opacity-50 hs-accordion-active:hover:text-gray-50",
+        "hs-accordion-toggle inline-flex w-full items-center gap-x-3 rounded-lg px-2 py-3 text-start font-semibold text-gray-800 hover:text-gray-50 focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 hs-accordion-active:hover:text-gray-50",
         colorVariants[colorLevel],
         "hover:bg-primary-800 hs-accordion-active:text-gray-800",
       )}

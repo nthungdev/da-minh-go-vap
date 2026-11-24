@@ -1,7 +1,8 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { useId, useState } from "react";
+import { useId, useRef, useState } from "react";
+import { getTabIndexForKey } from "@/components/app-card-tabs";
 import PostGroupTabsPanel from "@/components/post-group-tabs/panel";
 import PostGroupTabsSelect from "@/components/post-group-tabs/select";
 import type { AppPost } from "@/definitions";
@@ -53,20 +54,24 @@ function PostGroupTabs({
     ...groups,
   ];
 
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const currentGroup = postGroups[currentIndex];
-  if (!currentGroup) return null;
+  const [selectedIndex, setCurrentIndex] = useState(0);
+  const currentIndex = selectedIndex < postGroups.length ? selectedIndex : 0;
+  const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
   return (
     <div className={cn(className)} id={id} {...props}>
       <div
         className={
-          "flex flex-row items-center justify-between gap-x-8 rounded-t-md bg-primary px-2 py-1.5 text-white md:px-6 lg:items-start"
+          "flex flex-row items-center justify-between gap-x-8 rounded-t-md bg-primary-800 px-2 py-1.5 text-white md:px-6 lg:items-start"
         }
       >
-        <div className="text-xl font-bold">{title}</div>
+        {title && (
+          <h2 id={`${fallbackId}-heading`} className="text-xl font-bold">
+            {title}
+          </h2>
+        )}
         <PostGroupTabsSelect
-          id={`${id}-select`}
+          id={`${fallbackId}-select`}
           className="lg:hidden"
           activeIndex={currentIndex}
           options={postGroups.map((group) => ({ value: group.title }))}
@@ -74,7 +79,8 @@ function PostGroupTabs({
         />
         <div
           role="tablist"
-          aria-label={t("navigation.selectPostGroup")}
+          aria-labelledby={title ? `${fallbackId}-heading` : undefined}
+          aria-label={title ? undefined : t("navigation.selectPostGroup")}
           className="hidden flex-1 flex-row flex-wrap justify-end gap-x-2 gap-y-1 pt-1 pb-1 lg:flex"
         >
           {postGroups.map((g, index) => {
@@ -84,14 +90,28 @@ function PostGroupTabs({
                 {index !== 0 && <div className="border-l" />}
                 <button
                   type="button"
+                  ref={(button) => {
+                    tabRefs.current[index] = button;
+                  }}
                   onClick={() => setCurrentIndex(index)}
+                  onKeyDown={(event) => {
+                    const nextIndex = getTabIndexForKey(
+                      event.key,
+                      index,
+                      postGroups.length,
+                    );
+                    if (nextIndex === undefined) return;
+                    event.preventDefault();
+                    setCurrentIndex(nextIndex);
+                    tabRefs.current[nextIndex]?.focus();
+                  }}
                   role="tab"
                   aria-selected={currentIndex === index}
-                  aria-controls={`group-${id}-${index}`}
-                  id={`tab-${id}-${index}`}
+                  aria-controls={`group-${fallbackId}-${index}`}
+                  id={`tab-${fallbackId}-${index}`}
                   tabIndex={currentIndex === index ? 0 : -1}
                   className={cn(
-                    "text-gray-100 transition-transform hover:scale-x-105 hover:cursor-pointer hover:text-white",
+                    "rounded-sm px-1 text-gray-100 transition-transform hover:cursor-pointer hover:text-white focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none motion-safe:hover:scale-x-105 motion-reduce:transition-none",
                     currentIndex === index && "font-bold text-white",
                   )}
                 >
@@ -109,14 +129,14 @@ function PostGroupTabs({
           return (
             <PostGroupTabsPanel
               key={groupKey}
-              id={`group-${id}-${index}`}
+              id={`group-${fallbackId}-${index}`}
               hiddenTags={g.hiddenTags}
               title={g.title}
               initialPosts={index === 0 ? initialPosts : undefined}
               viewMoreButton={g.viewMoreButton}
               role="tabpanel"
-              tab-index="0"
-              aria-labelledby={`tab-${id}-${index}`}
+              tabIndex={0}
+              aria-labelledby={`tab-${fallbackId}-${index}`}
               hidden={currentIndex !== index}
             />
           );

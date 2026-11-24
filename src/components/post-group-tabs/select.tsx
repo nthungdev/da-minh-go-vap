@@ -1,102 +1,68 @@
 "use client";
 
+import { Menu } from "@base-ui/react/menu";
+import { ChevronDown } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useEffect, useRef, useState } from "react";
-import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 import { cn } from "@/utils/common";
-
-interface PostGroupTabsSelectOption {
-  value: string;
-}
 
 interface PostGroupTabsSelectProps {
   id: string;
   className?: string;
-  options: PostGroupTabsSelectOption[];
+  options: { value: string }[];
   activeIndex?: number;
   onChange?: (index: number) => void;
 }
 
-export default function PostGroupTabsSelect(props: PostGroupTabsSelectProps) {
-  const { id, className, activeIndex, options, onChange } = props;
+export default function PostGroupTabsSelect({
+  id,
+  className,
+  activeIndex = 0,
+  options,
+  onChange,
+}: PostGroupTabsSelectProps) {
   const t = useTranslations("navigation");
-  const [isOpen, setIsOpen] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const triggerRef = useRef<HTMLButtonElement>(null);
-  const menuId = `${id}-menu`;
-
-  useEffect(() => {
-    if (!isOpen) return;
-
-    const handlePointerDown = (event: PointerEvent) => {
-      if (
-        containerRef.current &&
-        !containerRef.current.contains(event.target as Node)
-      ) {
-        setIsOpen(false);
-      }
-    };
-
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        setIsOpen(false);
-        triggerRef.current?.focus();
-      }
-    };
-
-    document.addEventListener("pointerdown", handlePointerDown);
-    document.addEventListener("keydown", handleKeyDown);
-    return () => {
-      document.removeEventListener("pointerdown", handlePointerDown);
-      document.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [isOpen]);
 
   return (
-    <div
-      ref={containerRef}
-      id={id}
-      className={cn("relative inline-flex", className)}
-    >
-      <button
-        ref={triggerRef}
-        type="button"
-        className="inline-flex cursor-pointer items-center justify-center gap-x-2 p-1"
-        aria-haspopup="menu"
-        aria-expanded={isOpen}
-        aria-controls={menuId}
-        aria-label={t("menu")}
-        onClick={() => setIsOpen((prev) => !prev)}
+    <Menu.Root modal={false}>
+      <Menu.Trigger
+        id={id}
+        className={cn(
+          "group inline-flex min-h-11 items-center gap-1.5 rounded-md border border-white/30 bg-white/10 px-3 py-1.5 text-sm font-semibold text-white hover:bg-white/20 focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none",
+          className,
+        )}
+        aria-labelledby={`${id}-label ${id}-value`}
       >
-        {isOpen ? <MdKeyboardArrowUp /> : <MdKeyboardArrowDown />}
-      </button>
-
-      {isOpen && (
-        <div
-          id={menuId}
-          className="absolute end-0 top-full z-10 mt-2 min-w-44 rounded-md bg-white p-2 text-black shadow-2xl/20"
-          role="menu"
-          aria-labelledby={id}
+        <span id={`${id}-label`} className="sr-only">
+          {t("selectPostGroup")}
+        </span>
+        <span id={`${id}-value`}>{options[activeIndex]?.value}</span>
+        <ChevronDown
+          aria-hidden="true"
+          className="size-4 shrink-0 group-data-popup-open:rotate-180"
+        />
+      </Menu.Trigger>
+      <Menu.Portal>
+        <Menu.Positioner
+          align="end"
+          sideOffset={8}
+          className="z-50 max-w-(--available-width) lg:hidden"
         >
-          {options.map((option, index) => (
-            <button
-              key={option.value}
-              type="button"
-              role="menuitem"
-              className={cn(
-                "block w-full cursor-pointer rounded-sm px-2 py-1 text-left hover:bg-gray-100",
-                index === activeIndex && "font-bold",
-              )}
-              onClick={() => {
-                onChange?.(index);
-                setIsOpen(false);
-              }}
-            >
-              {option.value}
-            </button>
-          ))}
-        </div>
-      )}
-    </div>
+          <Menu.Popup className="max-h-(--available-height) min-w-44 overflow-auto rounded-md bg-white p-2 text-black shadow-2xl/20">
+            <Menu.RadioGroup value={activeIndex} onValueChange={onChange}>
+              {options.map((option, index) => (
+                <Menu.RadioItem
+                  key={option.value}
+                  value={index}
+                  closeOnClick
+                  className="flex min-h-10 cursor-pointer items-center rounded-sm px-2 py-1 text-start focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:outline-none data-highlighted:bg-gray-100 data-checked:font-bold"
+                >
+                  {option.value}
+                </Menu.RadioItem>
+              ))}
+            </Menu.RadioGroup>
+          </Menu.Popup>
+        </Menu.Positioner>
+      </Menu.Portal>
+    </Menu.Root>
   );
 }
