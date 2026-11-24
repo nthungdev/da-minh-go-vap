@@ -244,7 +244,7 @@
 
   &:where(:not(.prose)) :where(blockquote),
   & :where(blockquote).quote {
-    @apply my-4 rounded-lg border-l-4 border-[#5bbac0] bg-[#eefcfc] px-4 py-3.5 leading-relaxed font-normal text-[#007a8b] italic;
+    @apply my-4 rounded-lg border-l-4 border-callout-border bg-callout-bg px-4 py-3.5 leading-relaxed font-normal text-callout-text italic;
   }
 
   &:where(:not(.prose)) :where(blockquote p),
