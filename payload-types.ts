@@ -74,6 +74,7 @@ export interface Config {
     posts: Post;
     users: User;
     spotifyPodcasts: SpotifyPodcast;
+    contributors: Contributor;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -88,6 +89,7 @@ export interface Config {
     posts: PostsSelect<false> | PostsSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     spotifyPodcasts: SpotifyPodcastsSelect<false> | SpotifyPodcastsSelect<true>;
+    contributors: ContributorsSelect<false> | ContributorsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -737,6 +739,13 @@ export interface Post {
    * Chỉ điền 2-3 câu
    */
   shortBody?: string | null;
+  contributors?:
+    | {
+        person: string | Contributor;
+        role: 'author' | 'translator' | 'narrator' | 'editor' | 'presenter' | 'producer' | 'photographer';
+        id?: string | null;
+      }[]
+    | null;
   seo?: {
     /**
      * Dùng chung với tiêu đề của mục Nội Dung
@@ -1287,6 +1296,24 @@ export interface VideoGridBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contributors".
+ */
+export interface Contributor {
+  id: string;
+  name: string;
+  /**
+   * Ví dụ: Lm., Tu sĩ
+   */
+  honorific?: string | null;
+  /**
+   * Tự tạo từ tên nếu để trống. Chỉ dùng chữ thường (a-z), số (0-9) và dấu gạch ngang (-)
+   */
+  slug: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
@@ -1381,6 +1408,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'spotifyPodcasts';
         value: string | SpotifyPodcast;
+      } | null)
+    | ({
+        relationTo: 'contributors';
+        value: string | Contributor;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -1839,6 +1870,13 @@ export interface PostsSelect<T extends boolean = true> {
       };
   body?: T;
   shortBody?: T;
+  contributors?:
+    | T
+    | {
+        person?: T;
+        role?: T;
+        id?: T;
+      };
   seo?:
     | T
     | {
@@ -2145,6 +2183,17 @@ export interface UsersSelect<T extends boolean = true> {
 export interface SpotifyPodcastsSelect<T extends boolean = true> {
   label?: T;
   spotifyId?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contributors_select".
+ */
+export interface ContributorsSelect<T extends boolean = true> {
+  name?: T;
+  honorific?: T;
+  slug?: T;
   updatedAt?: T;
   createdAt?: T;
 }

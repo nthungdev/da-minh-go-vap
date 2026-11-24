@@ -23,6 +23,12 @@ import { getDataOrUndefined } from "@/payload/utils/data";
 import { transformUrl } from "@/utils/cloudflare";
 import { formatDate } from "@/utils/date";
 import { getPublicHiddenTags } from "@/utils/post";
+import {
+  type ContributorRoleGroup,
+  formatContributorNames,
+  getContributorNames,
+  groupPostContributors,
+} from "@/utils/post-contributors";
 import { getServerOrigin } from "@/utils/url";
 
 const relatedPostsLimit = 12;
@@ -39,6 +45,10 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 
   const url = `${origin}/posts/${post?.slug}`;
   const thumbnail = getDataOrUndefined(post?.thumbnail);
+  const authorNames = getContributorNames(
+    groupPostContributors(post?.contributors),
+    "author",
+  );
 
   return {
     title: post?.seo?.title,
@@ -52,6 +62,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
       title: post?.seo?.title || undefined,
       description: post?.seo?.description || undefined,
       type: "article",
+      authors: authorNames.length > 0 ? authorNames : undefined,
       images: thumbnail?.url
         ? [
             {
@@ -70,6 +81,41 @@ export const revalidate = 60;
 // thousands of times.
 export function generateStaticParams(): Awaited<Props["params"]>[] {
   return [];
+}
+
+function toPersons(names: string[]) {
+  return names.length > 0
+    ? names.map((name) => ({ "@type": "Person", name }))
+    : undefined;
+}
+
+/** Builds a minimal schema.org Article JSON-LD crediting the post's contributors by role. */
+function buildArticleJsonLd(
+  post: NonNullable<Awaited<ReturnType<typeof fetchPostBySlug>>>,
+  url: string,
+  groups: ContributorRoleGroup[],
+) {
+  const thumbnail = getDataOrUndefined(post.thumbnail);
+  // schema.org only has `author` and `translator`; other roles become `contributor`
+  const otherNames = groups
+    .filter((group) => group.role !== "author" && group.role !== "translator")
+    .flatMap((group) => group.names);
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: post.title,
+    url,
+    datePublished: post.publishedAt.toISOString(),
+    image: thumbnail?.url ? [transformUrl(thumbnail.url)] : undefined,
+    author: toPersons(getContributorNames(groups, "author")),
+    translator: toPersons(getContributorNames(groups, "translator")),
+    contributor: toPersons(otherNames),
+  };
+}
+
+/** Serializes JSON-LD for an inline script, escaping `<` so content can't close the tag. */
+function serializeJsonLd(data: unknown) {
+  return JSON.stringify(data).replace(/</g, "\\u003c");
 }
 
 function renderArticleContent(
@@ -117,10 +163,22 @@ export default async function Page(props: Props) {
 
   const postHref = `${origin}/posts/${post.slug}`;
   const articleContent = renderArticleContent(post);
+  const contributorGroups = groupPostContributors(post.contributors);
 
   return (
     <AppPage>
       <RefreshRouteOnSave />
+      {contributorGroups.length > 0 && (
+        <script
+          type="application/ld+json"
+          // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD must be inlined; `<` is escaped
+          dangerouslySetInnerHTML={{
+            __html: serializeJsonLd(
+              buildArticleJsonLd(post, postHref, contributorGroups),
+            ),
+          }}
+        />
+      )}
       <PostViewTracker slug={post.slug} title={post.title} />
 
       {!post.hideTitle && (
@@ -141,6 +199,19 @@ export default async function Page(props: Props) {
         <PostTableOfContents enabled={Boolean(post.showTableOfContents)}>
           {articleContent}
         </PostTableOfContents>
+      )}
+
+      {contributorGroups.length > 0 && (
+        <div className="mt-6 space-y-1 text-gray-700">
+          {contributorGroups.map(({ role, names }) => (
+            <p key={role}>
+              {t(
+                `contributorRoles.${role}.${names.length > 1 ? "other" : "one"}`,
+              )}
+              : {formatContributorNames(names, locale)}
+            </p>
+          ))}
+        </div>
       )}
 
       {publicTags.length > 0 && (
