@@ -55,7 +55,7 @@ function AppAccordionContent({
           {...panelProps}
           className={cn(
             panelProps.className,
-            "text-base duration-300 motion-reduce:animate-none motion-reduce:transition-none",
+            "text-base duration-300 motion-reduce:animate-none! motion-reduce:transition-none",
           )}
         />
       )}
