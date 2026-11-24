@@ -15,7 +15,7 @@ const MARKDOWN_CLASS_NAME = [
   "[&_h4]:mt-6 [&_h4]:text-base [&_h4]:font-bold [&_h4]:text-primary-800 sm:[&_h4]:text-lg",
   "[&_ul]:mb-4 [&_ul]:ml-6 [&_ul]:list-none [&_ul_ul]:mb-0",
   "[&_li>p]:mb-0 [&_li>p]:text-left",
-  "[&_blockquote]:my-6 [&_blockquote]:rounded-lg [&_blockquote]:border-l-4 [&_blockquote]:border-[#00a5a8] [&_blockquote]:bg-[#e8fbfb] [&_blockquote]:pl-4 [&_blockquote]:text-[#444] [&_blockquote]:italic",
+  "[&_blockquote]:my-6 [&_blockquote]:rounded-lg [&_blockquote]:border-l-4 [&_blockquote]:border-callout-accent [&_blockquote]:bg-callout-bg-alt [&_blockquote]:pl-4 [&_blockquote]:text-ink-muted [&_blockquote]:italic",
 ].join(" ");
 
 const HEADING_CLASS_NAME =
@@ -39,7 +39,7 @@ export default function DominicanSpiritualityView({
   } = block;
 
   return (
-    <article className="w-full rounded-3xl bg-white p-5 text-base leading-[1.8] text-[#333] shadow-[0_4px_12px_rgba(0,0,0,0.08)] sm:p-8 sm:text-lg">
+    <article className="w-full rounded-3xl bg-white p-5 text-base leading-[1.8] text-ink-strong shadow-[0_4px_12px_rgba(0,0,0,0.08)] sm:p-8 sm:text-lg">
       <header>
         <Heading
           className={cn(
@@ -64,7 +64,7 @@ export default function DominicanSpiritualityView({
           </SectionHeading>
           <AppMarkdown className={MARKDOWN_CLASS_NAME}>{p.content}</AppMarkdown>
           {p.highlightQuote && (
-            <blockquote className="my-6 rounded-lg border-l-4 border-[#00a5a8] bg-[#e8fbfb] py-2 pr-4 pl-4 text-[#444] italic">
+            <blockquote className="my-6 rounded-lg border-l-4 border-callout-accent bg-callout-bg-alt py-2 pr-4 pl-4 text-ink-muted italic">
               “{stripWrappingQuotes(p.highlightQuote)}”
             </blockquote>
           )}
