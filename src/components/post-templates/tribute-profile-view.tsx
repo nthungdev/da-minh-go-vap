@@ -26,9 +26,12 @@ export default function TributeProfileView({
   } = block;
   const portraitMedia: Media | null =
     typeof portrait === "object" ? portrait : null;
-  const facts = (summaryFacts ?? []).filter(
-    ({ label, value }) => label && normalizeFactLabel(label) && value?.trim(),
-  );
+  const facts = (summaryFacts ?? []).flatMap((fact, index) => {
+    const label = fact.label ? normalizeFactLabel(fact.label) : "";
+    const value = fact.value?.trim() ?? "";
+    if (!(label && value)) return [];
+    return [{ id: fact.id ?? String(index), label, value }];
+  });
   const resolvedSources = resolveTributeSources(sources);
 
   return (
@@ -58,10 +61,10 @@ export default function TributeProfileView({
           )}
           {facts.length > 0 && (
             <dl className="mt-4 space-y-2 rounded-r-lg border-l-4 border-primary-700 bg-slate-50 px-5 py-4 text-[15px] leading-relaxed md:text-base">
-              {facts.map((fact, index) => (
-                <div key={fact.id ?? index}>
+              {facts.map((fact) => (
+                <div key={fact.id}>
                   <dt className="inline font-semibold text-slate-900">
-                    {normalizeFactLabel(fact.label)}:{" "}
+                    {fact.label}:{" "}
                   </dt>
                   <dd className="inline text-slate-700">{fact.value}</dd>
                 </div>
