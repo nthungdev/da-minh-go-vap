@@ -25,15 +25,17 @@ export default function TheBibleVerse({
   if (!currentVerse) return null;
 
   return (
-    <div className="space-y-1 py-2" {...containerProps}>
+    <div className="space-y-2 py-2" {...containerProps}>
       <blockquote
         className={cn(
-          "relative mx-auto flex max-w-max flex-col items-center justify-center rounded-full border-2 border-secondary bg-white px-10 pt-3 pb-2 text-primary-800 shadow-neon transition-shadow motion-reduce:transition-none md:px-20",
+          "relative mx-auto flex max-w-full flex-col items-center justify-center rounded-2xl border-2 border-secondary bg-surface px-6 py-3 text-primary shadow-neon transition-shadow motion-reduce:transition-none sm:max-w-max sm:rounded-pill sm:px-12 md:px-16",
           className,
         )}
       >
-        <p className="text-center text-xl font-bold">{currentVerse.verse}</p>
-        <cite className="block w-full text-right text-xs font-semibold not-italic">
+        <p className="text-center font-serif text-lg font-bold text-balance sm:text-xl">
+          {currentVerse.verse}
+        </p>
+        <cite className="mt-1 block w-full text-right text-xs font-semibold text-foreground-muted not-italic">
           {currentVerse.reference}
         </cite>
       </blockquote>

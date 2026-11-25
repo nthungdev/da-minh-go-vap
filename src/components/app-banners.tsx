@@ -32,10 +32,11 @@ export default function AppBanners(props: AppBannersProps) {
 
   const handleLoadedMetadata =
     (index: number) => (event: React.SyntheticEvent<HTMLVideoElement>) => {
-      setDurations([
-        ...durations.slice(0, index),
-        event.currentTarget.duration * 1000,
-        ...durations.slice(index + 1),
+      const durationMs = event.currentTarget.duration * 1000;
+      setDurations((prev) => [
+        ...prev.slice(0, index),
+        durationMs,
+        ...prev.slice(index + 1),
       ]);
     };
 
@@ -50,7 +51,7 @@ export default function AppBanners(props: AppBannersProps) {
         if (!url) return null;
 
         return (
-          <div key={item.id} className="relative size-full">
+          <div key={item.id} className="relative size-full bg-surface-muted">
             {isVideoUrl(url) ? (
               <AppBannerVideo
                 className="size-full object-cover"

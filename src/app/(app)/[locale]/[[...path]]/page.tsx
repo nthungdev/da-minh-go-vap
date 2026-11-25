@@ -83,20 +83,20 @@ export default async function Page(props: Props) {
     >
       <RefreshRouteOnSave />
       <h1 className="sr-only">{page.title}</h1>
-      <div className="space-y-4 lg:space-y-8">
+      <div className="flex flex-col gap-gutter lg:gap-section-sm">
         {!!page.beforeMain?.length && (
-          <section>
+          <section className="min-w-0">
             <BlocksRenderer blocks={page.beforeMain} />
           </section>
         )}
-        <div className="flex flex-col gap-6 xl:flex-row xl:items-start xl:gap-x-4">
+        <div className="flex flex-col gap-gutter xl:flex-row xl:items-start">
           {!!page.main?.length && (
             <section className="min-w-0 flex-1">
               <BlocksRenderer blocks={page.main} />
             </section>
           )}
           {!!page?.aside?.length && (
-            <aside className="w-full rounded-lg bg-primary-1 p-2 xl:w-64 xl:shrink-0">
+            <aside className="w-full rounded-xl border border-border-subtle bg-accent p-card-sm shadow-xs xl:w-64 xl:shrink-0">
               <BlocksRenderer blocks={page.aside} />
             </aside>
           )}

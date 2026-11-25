@@ -93,13 +93,20 @@ export default function PostGroupTabsPanel({
   const firstPostHref = `/posts/${firstPost.slug}`;
 
   return (
-    <div className={cn(className)} hidden={hidden} {...props}>
-      <div className="flex flex-col gap-x-4 gap-y-4 lg:flex-row lg:p-3">
+    <div
+      className={cn(
+        "focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none focus-visible:ring-inset",
+        className,
+      )}
+      hidden={hidden}
+      {...props}
+    >
+      <div className="flex flex-col gap-gutter p-card-sm lg:flex-row lg:p-card">
         <Link
           href={firstPostHref}
-          className="block space-y-2 focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none lg:w-3/5"
+          className="group block space-y-2 rounded-xl focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none lg:w-3/5"
         >
-          <div className="relative aspect-video w-full overflow-hidden">
+          <div className="relative aspect-video w-full overflow-hidden rounded-lg bg-surface-muted">
             {firstPostThumbnail?.url ? (
               <Image
                 unoptimized
@@ -111,19 +118,23 @@ export default function PostGroupTabsPanel({
                 fill
               />
             ) : (
-              <div className="size-full bg-gray-300"></div>
+              <div className="size-full bg-surface-muted" />
             )}
           </div>
-          <div className="text-sm font-semibold text-gray-600">
+          <div className="text-xs font-semibold text-foreground-muted sm:text-sm">
             {firstPostDate}
           </div>
-          <div className="text-lg font-bold">{firstPost.title}</div>
-          <p className="line-clamp-3">{firstPost.shortBody}</p>
+          <div className="text-lg font-bold text-foreground transition-colors group-hover:text-primary motion-reduce:transition-none">
+            {firstPost.title}
+          </div>
+          <p className="line-clamp-3 text-sm leading-relaxed text-foreground-muted">
+            {firstPost.shortBody}
+          </p>
         </Link>
         <PostList className="lg:flex-1" posts={otherPosts} effectOnHover />
       </div>
       {!!viewMoreButton?.enable && (
-        <div className="flex flex-row justify-end">
+        <div className="flex flex-row justify-end border-t border-border-subtle px-card-sm py-2 lg:px-card">
           <AppViewMoreLink href={viewMoreHref} />
         </div>
       )}
@@ -142,27 +153,27 @@ function PostGroupTabPanelSkeleton({
   return (
     <div className={cn("motion-safe:animate-pulse", className)} {...props}>
       <span className="sr-only">{t("loading")}</span>
-      <div className="flex flex-col gap-x-4 lg:flex-row lg:p-3">
-        <div className="block space-y-2 gap-y-2 lg:w-3/5">
-          <div className="relative aspect-video w-full bg-gray-200"></div>
-          <div className="h-6 bg-gray-200 text-sm font-semibold"></div>
-          <div className="h-6 bg-gray-200 text-lg font-bold"></div>
-          <p className="line-clamp-3 h-20 bg-gray-200"></p>
+      <div className="flex flex-col gap-gutter p-card-sm lg:flex-row lg:p-card">
+        <div className="block space-y-2 lg:w-3/5">
+          <div className="relative aspect-video w-full rounded-lg bg-surface-muted" />
+          <div className="h-5 w-24 rounded-sm bg-surface-muted" />
+          <div className="h-6 w-4/5 rounded-sm bg-surface-muted" />
+          <div className="h-20 rounded-md bg-surface-muted" />
         </div>
-        <div className="flex-1 space-y-2">
+        <div className="flex-1 space-y-2.5">
           {SKELETON_LIST_KEYS.map((skeletonKey) => (
             <div
               key={skeletonKey}
-              className="flex w-full flex-row gap-x-3 bg-gray-200"
+              className="flex w-full flex-row gap-x-3 rounded-lg bg-surface-muted/60 p-1"
             >
-              <div className="aspect-video w-32 bg-gray-200 md:w-40 lg:w-28"></div>
-              <div className="flex-1 bg-gray-200"></div>
+              <div className="aspect-video w-32 rounded-md bg-surface-muted md:w-40 lg:w-28" />
+              <div className="flex-1 rounded-md bg-surface-muted" />
             </div>
           ))}
         </div>
       </div>
       {viewMoreButtonEnable && (
-        <div className="mx-3 flex h-8 bg-gray-200"></div>
+        <div className="mx-card-sm mb-3 flex h-8 rounded-md bg-surface-muted lg:mx-card" />
       )}
     </div>
   );

@@ -16,7 +16,7 @@ export default function AppPageContent({
       id="main-content"
       tabIndex={-1}
       className={cn(
-        "mx-auto w-full max-w-7xl scroll-mt-16 px-4 py-8 focus:outline-none",
+        "mx-auto w-full max-w-7xl scroll-mt-16 px-4 py-section-sm focus:outline-none sm:px-6 lg:px-8",
         pathname !== "/" && "pt-16",
         className,
       )}
