@@ -44,6 +44,7 @@ function MenuLinkIcon({ icon }: { icon: MenuIconType }) {
         src={getMenuIconSrc(icon)}
         alt=""
         aria-hidden="true"
+        sizes="16px"
         fill
         className="rounded-pill object-contain"
       />
@@ -69,8 +70,9 @@ function PillarColumn({
         <Image
           src={transformUrl(banner.image.url)}
           alt={banner.image.alt || banner.title}
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 300px"
           fill
-          className="object-cover transition-transform duration-300 group-hover:scale-105"
+          className="object-cover transition-transform duration-200 group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
         />
       )}
       <div className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/40 to-transparent" />
@@ -80,7 +82,10 @@ function PillarColumn({
             {banner.title}
           </div>
           {banner.absoluteHref && (
-            <ChevronRight className="size-4 shrink-0 text-white/80 transition-transform group-hover:translate-x-0.5 group-hover:text-white" />
+            <ChevronRight
+              aria-hidden="true"
+              className="size-4 shrink-0 text-white/80 transition-transform duration-150 group-hover:translate-x-0.5 group-hover:text-white motion-reduce:transition-none motion-reduce:group-hover:translate-x-0"
+            />
           )}
         </div>
         {banner.subtitle && (
@@ -98,10 +103,15 @@ function PillarColumn({
       {banner.absoluteHref ? (
         <NavigationMenuLink
           className={cn(
-            "group relative block h-28 w-full overflow-hidden rounded-md bg-ink transition-colors focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none",
+            "group relative block h-28 w-full overflow-hidden rounded-md bg-ink p-0 transition-opacity duration-150 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none active:opacity-90 motion-reduce:transition-none",
             isBannerActive && "ring-2 ring-ring",
           )}
-          render={<Link href={banner.absoluteHref} />}
+          render={
+            <Link
+              href={banner.absoluteHref}
+              aria-current={isBannerActive ? "page" : undefined}
+            />
+          }
         >
           {bannerCard}
         </NavigationMenuLink>
@@ -125,12 +135,17 @@ function PillarColumn({
                 {link.absoluteHref ? (
                   <NavigationMenuLink
                     className={cn(
-                      "flex w-full items-center gap-1.5 rounded-md bg-surface-muted px-3 py-1.5 text-left text-sm text-foreground transition-colors select-none",
-                      "hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none",
+                      "flex w-full items-center gap-1.5 rounded-md bg-surface-muted px-3 py-1.5 text-left text-sm text-foreground transition-colors duration-150 select-none motion-reduce:transition-none",
+                      "hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none focus-visible:ring-inset active:bg-accent/80",
                       isLinkActive &&
                         "bg-accent font-medium text-accent-foreground",
                     )}
-                    render={<Link href={link.absoluteHref} />}
+                    render={
+                      <Link
+                        href={link.absoluteHref}
+                        aria-current={isLinkActive ? "page" : undefined}
+                      />
+                    }
                   >
                     <MenuLinkIcon icon={link.icon} />
                     <span>{link.name}</span>
@@ -177,9 +192,10 @@ function PillarBottomBar({
               render={
                 <Link
                   href={link.absoluteHref}
+                  aria-current={isBottomLinkActive ? "page" : undefined}
                   className={cn(
-                    "flex items-center gap-1.5 rounded-md bg-surface-muted px-2.5 py-1 text-left text-sm text-foreground transition-colors select-none",
-                    "hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none",
+                    "flex items-center gap-1.5 rounded-md bg-surface-muted px-2.5 py-1 text-left text-sm text-foreground transition-colors duration-150 select-none motion-reduce:transition-none",
+                    "hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none focus-visible:ring-inset active:bg-accent/80",
                     isBottomLinkActive &&
                       "bg-accent font-medium text-accent-foreground",
                   )}

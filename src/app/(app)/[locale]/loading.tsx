@@ -13,7 +13,7 @@ export default function Loading() {
     <div className="min-h-svh w-full" role="status" aria-busy="true">
       <span className="sr-only">{t("loading")}</span>
       <div
-        className="mx-auto w-full max-w-7xl space-y-8 px-4 pt-16 pb-8 motion-safe:animate-pulse"
+        className="mx-auto w-full max-w-7xl space-y-8 px-4 pt-16 pb-8 motion-safe:animate-pulse motion-reduce:animate-none"
         aria-hidden="true"
       >
         <div className="mx-auto h-8 w-1/2 bg-gray-200" />

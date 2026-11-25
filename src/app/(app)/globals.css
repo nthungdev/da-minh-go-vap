@@ -501,6 +501,22 @@
   }
 }
 
+/* Unlayered so reduced-motion overrides utility animations and transitions without !important. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms;
+    animation-iteration-count: 1;
+    transition-duration: 0.01ms;
+    scroll-behavior: auto;
+  }
+}
+
 /*
  * ============================================================================
  * 5. Utilities & Markdown Prose

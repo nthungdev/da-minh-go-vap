@@ -460,8 +460,8 @@ export default function AppPostSearchButton({
       <DialogTrigger
         ref={triggerRef}
         className={cn(
-          "inline-flex min-h-11 min-w-11 items-center justify-center rounded-full border bg-white p-2 text-stone-600 ring-primary transition-shadow hover:cursor-pointer hover:ring-2 motion-reduce:transition-none sm:min-h-9 sm:min-w-9",
-          "focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none",
+          "inline-flex min-h-11 min-w-11 shrink-0 items-center justify-center rounded-full border bg-white p-2 text-stone-600 ring-primary transition-all duration-150 hover:cursor-pointer hover:bg-stone-50 hover:ring-2 active:bg-stone-100 motion-reduce:transition-none sm:min-h-9 sm:min-w-9",
+          "focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary-800 focus-visible:outline-none",
         )}
         aria-label={t("search.label")}
       >
@@ -491,8 +491,8 @@ export default function AppPostSearchButton({
               onClick={handleClose}
               aria-label={t("common.close")}
               className={cn(
-                "inline-flex size-8 items-center justify-center rounded-lg text-stone-500 transition-colors hover:bg-stone-100 hover:text-stone-900 motion-reduce:transition-none",
-                "focus-visible:ring-2 focus-visible:ring-primary-700 focus-visible:outline-none",
+                "inline-flex size-8 items-center justify-center rounded-lg text-stone-500 transition-colors duration-150 hover:cursor-pointer hover:bg-stone-100 hover:text-stone-900 active:bg-stone-200 motion-reduce:transition-none",
+                "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none",
               )}
             >
               <X className="size-4.5" aria-hidden="true" />
@@ -527,7 +527,7 @@ export default function AppPostSearchButton({
                 placeholder={t("search.placeholder")}
                 onChange={handleInputChange}
                 onKeyDown={handleInputKeyDown}
-                className="flex-1 border-0 bg-transparent p-0 font-lora text-lg text-stone-900 placeholder:text-stone-400 placeholder:italic focus:ring-0 focus:outline-none sm:text-xl [&::-webkit-search-cancel-button]:appearance-none [&::-webkit-search-decoration]:appearance-none"
+                className="min-w-0 flex-1 rounded-sm border-0 bg-transparent p-0 font-lora text-lg text-stone-900 placeholder:text-stone-400 placeholder:italic focus:ring-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 sm:text-xl [&::-webkit-search-cancel-button]:appearance-none [&::-webkit-search-decoration]:appearance-none"
               />
               {state.query.length > 0 && (
                 <button
@@ -535,8 +535,8 @@ export default function AppPostSearchButton({
                   onClick={handleClearQuery}
                   aria-label={t("search.clear")}
                   className={cn(
-                    "inline-flex size-6 shrink-0 items-center justify-center rounded-full bg-stone-200/75 text-stone-600 transition-colors hover:bg-stone-300/80 hover:text-stone-900 motion-reduce:transition-none",
-                    "focus-visible:ring-2 focus-visible:ring-primary-700 focus-visible:outline-none",
+                    "inline-flex size-6 shrink-0 items-center justify-center rounded-full bg-stone-200/75 text-stone-600 transition-colors duration-150 hover:cursor-pointer hover:bg-stone-300/80 hover:text-stone-900 active:bg-stone-300 motion-reduce:transition-none",
+                    "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none",
                   )}
                 >
                   <X className="size-3.5" aria-hidden="true" />
@@ -547,16 +547,17 @@ export default function AppPostSearchButton({
 
           {/* Tag Quick-Filter Pills */}
           {searchTags.length > 0 && (
-            <div className="flex gap-1.5 overflow-x-auto pt-3 pb-0.5">
+            <div className="flex gap-1.5 overflow-x-auto px-0.5 pt-3 pb-1">
               <button
                 type="button"
+                aria-pressed={isAllActive}
                 onClick={() => handleSelectTag(null)}
                 className={cn(
-                  "rounded-full border px-3 py-1 text-xs font-bold whitespace-nowrap transition-colors motion-reduce:transition-none",
-                  "focus-visible:ring-2 focus-visible:ring-primary-700 focus-visible:outline-none",
+                  "rounded-full border px-3 py-1 text-xs font-bold whitespace-nowrap transition-colors duration-150 hover:cursor-pointer motion-reduce:transition-none",
+                  "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1 focus-visible:outline-none",
                   isAllActive
-                    ? "border-primary-700 bg-primary-700 text-white"
-                    : "border-border-warm bg-surface-warm text-stone-600 hover:border-primary-700 hover:text-primary-800",
+                    ? "border-primary-700 bg-primary-700 text-white active:bg-primary-900"
+                    : "border-border-warm bg-surface-warm text-stone-600 hover:border-primary-700 hover:text-primary-800 active:bg-stone-100",
                 )}
               >
                 {t("search.allTopics")}
@@ -567,13 +568,14 @@ export default function AppPostSearchButton({
                   <button
                     key={tag.id}
                     type="button"
+                    aria-pressed={isActive}
                     onClick={() => handleSelectTag(tag.tagId)}
                     className={cn(
-                      "rounded-full border px-3 py-1 text-xs font-bold whitespace-nowrap transition-colors motion-reduce:transition-none",
-                      "focus-visible:ring-2 focus-visible:ring-primary-700 focus-visible:outline-none",
+                      "rounded-full border px-3 py-1 text-xs font-bold whitespace-nowrap transition-colors duration-150 hover:cursor-pointer motion-reduce:transition-none",
+                      "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1 focus-visible:outline-none",
                       isActive
-                        ? "border-primary-700 bg-primary-700 text-white"
-                        : "border-border-warm bg-surface-warm text-stone-600 hover:border-primary-700 hover:text-primary-800",
+                        ? "border-primary-700 bg-primary-700 text-white active:bg-primary-900"
+                        : "border-border-warm bg-surface-warm text-stone-600 hover:border-primary-700 hover:text-primary-800 active:bg-stone-100",
                     )}
                   >
                     {tag.label}
