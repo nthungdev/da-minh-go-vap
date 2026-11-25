@@ -93,12 +93,12 @@ export default function AppTimelineCards({
                     typeof card.thumbnail.url === "string" && (
                       <Image
                         unoptimized
-                        src={transformUrl(card.thumbnail.url)}
+                        src={transformUrl(card.thumbnail.url, { width: "64" })}
                         alt=""
                         aria-hidden="true"
                         className="w-full rounded-full object-cover"
                         fill
-                        sizes="(max-width: 640px) 100vw, 50vw"
+                        sizes="32px"
                       />
                     )}
                 </div>
