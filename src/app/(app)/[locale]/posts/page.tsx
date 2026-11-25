@@ -75,7 +75,7 @@ export default async function AppPostsPage(props: Props) {
   const title = resolvePostsPageTitle(params, contributorName, t("title"));
 
   return (
-    <AppPage className="space-y-8">
+    <AppPage className="min-h-screen space-y-8">
       <AppGridHeader text={title} as="h1" />
       {params.contributorId ? (
         <AppPostGridPaginated contributorId={params.contributorId} />

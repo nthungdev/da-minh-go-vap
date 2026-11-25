@@ -32,7 +32,7 @@ export default function PostList({
 
         return (
           <li
-            key={post.slug}
+            key={post.id || post.slug}
             className={cn(
               "border-b border-border pt-2 pb-2 first:pt-0 last:border-0",
               index === activeIndex && "rounded-xl bg-surface-muted",

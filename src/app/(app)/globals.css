@@ -527,7 +527,11 @@
 }
 
 @utility markdown {
-  @apply leading-6;
+  @apply max-w-full min-w-0 overflow-x-clip leading-6;
+
+  & :where(label, figure, picture) {
+    max-width: 100%;
+  }
 
   &:where(:not(.prose))
     :where(

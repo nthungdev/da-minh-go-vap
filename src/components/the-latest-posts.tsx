@@ -86,7 +86,7 @@ export default function TheLatestPosts({
 
               return (
                 <Link
-                  key={post.slug}
+                  key={post.id || post.slug}
                   href={`/posts/${post.slug}`}
                   aria-label={post.title}
                   className="relative block size-full focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none focus-visible:ring-inset"

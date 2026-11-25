@@ -104,7 +104,7 @@ export default function AppCarouselFade<T>({
             </span>
           </button>
           <CarouselPlaybackButton
-            className="absolute end-2 bottom-2"
+            className="absolute end-2 bottom-2 z-20"
             isUserPaused={isUserPaused}
             onToggle={toggleUserPause}
           />
