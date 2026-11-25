@@ -63,6 +63,14 @@ function resolveVar(
   return raw.trim();
 }
 
+function hasThemeSelector(selector: string, targets: string[]): boolean {
+  const parts = selector
+    .split(",")
+    .map((part) => part.trim())
+    .filter(Boolean);
+  return parts.some((part) => targets.includes(part));
+}
+
 async function compileTokenTables(): Promise<{
   rawCss: string;
   lightVars: Record<string, string>;
@@ -78,12 +86,11 @@ async function compileTokenTables(): Promise<{
   const darkVars: Record<string, string> = {};
 
   root.walkRules((rule) => {
-    const target =
-      rule.selector === ":root, :host" || rule.selector === ":root"
-        ? lightVars
-        : rule.selector === ".dark"
-          ? darkVars
-          : null;
+    const target = hasThemeSelector(rule.selector, [":root", ":host"])
+      ? lightVars
+      : hasThemeSelector(rule.selector, [".dark"])
+        ? darkVars
+        : null;
     if (!target) return;
 
     rule.walkDecls((decl) => {
@@ -92,6 +99,15 @@ async function compileTokenTables(): Promise<{
       }
     });
   });
+
+  assert.ok(
+    Object.keys(lightVars).length > 0,
+    "expected compiled CSS to contain :root token declarations",
+  );
+  assert.ok(
+    Object.keys(darkVars).length > 0,
+    "expected compiled CSS to contain .dark token declarations",
+  );
 
   return { rawCss: result.css, lightVars, darkVars };
 }
@@ -209,6 +225,11 @@ test("light theme semantic color pairings satisfy WCAG AA contrast", async () =>
       "status-info-foreground on status-info",
       "--status-info-foreground",
       "--status-info",
+    ],
+    [
+      "callout-text on callout-bg",
+      "--color-callout-text",
+      "--color-callout-bg",
     ],
   ];
 
