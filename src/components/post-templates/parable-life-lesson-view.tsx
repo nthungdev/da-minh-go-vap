@@ -14,8 +14,8 @@ export default function ParableLifeLessonView({ block }: Props) {
   const sourceUrl = toSafeHttpUrl(source?.url);
 
   return (
-    <article className="mx-auto w-full max-w-[1052px] text-slate-600 md:py-6">
-      <div className="relative overflow-hidden rounded-[22px] border border-slate-200 bg-white px-[22px] py-7 shadow-[0_8px_20px_rgba(15,23,42,0.05)] md:rounded-[28px] md:p-10 md:shadow-[0_15px_40px_rgba(15,23,42,0.06)]">
+    <article className="mx-auto w-full max-w-[1052px] text-foreground-muted md:py-6">
+      <div className="relative overflow-hidden rounded-3xl border border-border bg-surface p-card-sm shadow-sm md:rounded-4xl md:p-10 md:shadow-md">
         <div
           aria-hidden="true"
           className="absolute inset-x-0 top-0 h-1.5 bg-linear-to-r from-callout-accent via-editorial-grad-end to-primary-2"
@@ -30,21 +30,21 @@ export default function ParableLifeLessonView({ block }: Props) {
               return (
                 <figure
                   key={itemKey}
-                  className="relative my-10 rounded-[26px] border border-callout-accent/20 bg-linear-to-br from-callout-bg-alt to-white px-5 pt-[34px] pb-[26px] md:px-[30px] md:py-[38px]"
+                  className="relative my-10 rounded-4xl border border-callout-border/40 bg-linear-to-br from-callout-bg-alt to-surface px-5 pt-9 pb-7 md:px-8 md:py-10"
                 >
                   <span
                     aria-hidden="true"
-                    className="absolute -top-[18px] left-7 flex size-14 items-center justify-center rounded-full bg-linear-to-br from-callout-accent to-editorial-grad-end text-2xl shadow-[0_10px_25px] shadow-callout-accent/28"
+                    className="absolute -top-4 left-7 flex size-14 items-center justify-center rounded-pill bg-linear-to-br from-callout-accent to-editorial-grad-end text-2xl shadow-md"
                   >
                     ❤️
                   </span>
                   {item.verse && (
-                    <blockquote className="text-center text-lg leading-[1.8] font-bold text-primary-800 md:text-[1.35rem]">
+                    <blockquote className="text-center text-lg leading-[1.8] font-bold text-primary md:text-2xl">
                       “{stripWrappingQuotes(item.verse)}”
                     </blockquote>
                   )}
                   {item.reference && (
-                    <figcaption className="mt-[22px] text-center text-[0.92rem] font-bold tracking-[0.5px] text-primary-800 uppercase">
+                    <figcaption className="mt-5 text-center text-sm font-bold tracking-wide text-primary uppercase">
                       {item.reference}
                     </figcaption>
                   )}
@@ -56,7 +56,7 @@ export default function ParableLifeLessonView({ block }: Props) {
               return (
                 <aside
                   key={itemKey}
-                  className="mt-[30px] flex gap-1.5 rounded-2xl border-l-4 border-callout-accent bg-callout-bg-alt px-6 py-[22px] leading-[1.9] text-primary-800"
+                  className="mt-7 flex gap-1.5 rounded-2xl border-l-4 border-callout-accent bg-callout-bg-alt px-6 py-5 leading-[1.9] text-callout-text"
                 >
                   <span aria-hidden="true">❤️</span>
                   <AppMarkdown className="leading-[1.9] [&_p+p]:mt-4">
@@ -69,7 +69,7 @@ export default function ParableLifeLessonView({ block }: Props) {
             return (
               <AppMarkdown
                 key={itemKey}
-                className="text-[1.06rem] leading-[1.9] hyphens-auto md:text-justify [&_p+p]:mt-6 [&_strong]:font-bold [&_strong]:text-primary-800"
+                className="text-base leading-[1.9] hyphens-auto text-foreground md:text-justify md:text-lg [&_p+p]:mt-6 [&_strong]:font-bold [&_strong]:text-primary"
               >
                 {item.content}
               </AppMarkdown>
@@ -78,10 +78,10 @@ export default function ParableLifeLessonView({ block }: Props) {
         </div>
 
         {(translator || source?.name) && (
-          <footer className="mt-10 border-t border-slate-200 pt-6 text-right text-[0.95rem] leading-[1.9] text-slate-500 italic">
+          <footer className="mt-10 border-t border-border pt-6 text-right text-sm leading-[1.9] text-foreground-muted italic">
             {translator && (
               <p>
-                <strong className="font-bold text-primary-800">
+                <strong className="font-bold text-primary">
                   {t("translator")}:
                 </strong>{" "}
                 {translator}
@@ -89,7 +89,7 @@ export default function ParableLifeLessonView({ block }: Props) {
             )}
             {source?.name && (
               <p>
-                <strong className="font-bold text-primary-800">
+                <strong className="font-bold text-primary">
                   {t("source")}:
                 </strong>{" "}
                 {sourceUrl ? (
@@ -97,7 +97,7 @@ export default function ParableLifeLessonView({ block }: Props) {
                     href={sourceUrl}
                     target="_blank"
                     rel="noopener noreferrer nofollow"
-                    className="rounded-sm hover:underline focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:outline-none"
+                    className="rounded-sm text-primary hover:underline focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none"
                   >
                     {source.name}
                   </a>

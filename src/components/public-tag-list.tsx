@@ -16,12 +16,14 @@ export function PublicTagList({
       className={cn("mt-6 flex flex-wrap items-center gap-2", className)}
       {...props}
     >
-      <span className="text-sm font-medium text-gray-600">{t("tags")}</span>
+      <span className="text-sm font-medium text-foreground-muted">
+        {t("tags")}
+      </span>
       {tags.map((tag) => (
         <Link
           key={tag.id}
           href={makePublicTagPath(tag.tag)}
-          className="rounded-full border border-secondary-700 bg-secondary-700 px-3 py-1.5 text-sm font-medium text-white transition-colors hover:bg-secondary-800 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none motion-reduce:transition-none"
+          className="rounded-pill border border-secondary bg-secondary px-3 py-1.5 text-sm font-medium text-secondary-foreground transition-colors hover:bg-secondary-800 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none motion-reduce:transition-none"
         >
           {tag.label}
         </Link>

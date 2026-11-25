@@ -65,7 +65,7 @@ export default function AppPostGridAsync({
   const shouldShowViewMore = showViewMore && hasMore;
 
   return (
-    <div className="space-y-2">
+    <div className="space-y-stack">
       <AppGridHeader text={title} />
       {posts.length > 0 ? (
         <AppPostGrid hidePostTitles={hidePostTitles} posts={posts} />
@@ -90,17 +90,22 @@ export function PostQueryFeedback({
 }) {
   const t = useTranslations();
   const actionClass =
-    "inline-flex min-h-10 items-center rounded-md bg-primary-800 px-4 py-2 text-sm font-semibold text-white hover:bg-primary-900 focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 focus-visible:outline-none";
+    "inline-flex min-h-10 items-center rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary-900 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none motion-reduce:transition-none";
 
   return (
     <div
       role={onRetry ? "alert" : undefined}
-      className="space-y-3 rounded-md border border-gray-200 bg-white p-4 text-center"
+      className={cn(
+        "space-y-3 rounded-xl border p-card text-center shadow-sm",
+        onRetry
+          ? "border-error-border bg-error-subtle"
+          : "border-border bg-surface",
+      )}
     >
       <div
         className={cn(
           "flex items-center justify-center gap-2 font-semibold",
-          onRetry ? "text-red-700" : "text-gray-900",
+          onRetry ? "text-error" : "text-foreground",
         )}
       >
         {onRetry && (
@@ -108,7 +113,7 @@ export function PostQueryFeedback({
         )}
         <p>{t(onRetry ? "posts.errorTitle" : "posts.emptyTitle")}</p>
       </div>
-      <p className="text-sm text-gray-700">
+      <p className="text-sm text-foreground-muted">
         {t(onRetry ? "posts.errorDescription" : "posts.emptyDescription")}
       </p>
       {onRetry && (

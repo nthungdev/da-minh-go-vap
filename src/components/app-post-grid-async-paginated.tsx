@@ -252,7 +252,7 @@ function AppPostGridPaginatedContent(props: AppPostGridPaginatedProps) {
   const isInitialLoading = !isFetched && isPending;
 
   return (
-    <div ref={containerRef} className={cn("space-y-2", className)}>
+    <div ref={containerRef} className={cn("space-y-stack", className)}>
       <div
         className={cn(
           "min-h-[320px] transition-opacity duration-200 motion-reduce:transition-none",

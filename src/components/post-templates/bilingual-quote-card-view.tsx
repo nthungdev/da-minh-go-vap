@@ -21,7 +21,7 @@ function QuoteColumn({ quote, caption, className }: QuoteColumnProps) {
         className,
       )}
     >
-      <blockquote className="relative rounded-md border-2 border-gray-300 bg-white px-6 py-8 text-center text-2xl leading-[1.9] text-editorial-quote shadow-[inset_0_0_8px_rgba(0,0,0,0.05)] md:px-8 md:py-12 md:text-[1.9rem]">
+      <blockquote className="relative rounded-lg border-2 border-border-warm bg-surface px-6 py-8 text-center text-2xl leading-[1.9] text-editorial-quote shadow-inset md:px-8 md:py-12 md:text-3xl">
         <span
           aria-hidden="true"
           className="absolute -top-6 left-2.5 text-7xl leading-[1.9] text-editorial-mark opacity-30"
@@ -36,7 +36,7 @@ function QuoteColumn({ quote, caption, className }: QuoteColumnProps) {
           ”
         </span>
       </blockquote>
-      <figcaption className="mt-4 text-center text-[0.9rem] text-gray-600">
+      <figcaption className="mt-4 text-center text-sm text-foreground-muted">
         {caption}
       </figcaption>
     </figure>
@@ -48,8 +48,8 @@ export default function BilingualQuoteCardView({ block }: Props) {
   const { author, source, original, translation } = block;
 
   return (
-    <article className="w-full overflow-hidden rounded-lg border border-gray-300 bg-white font-lora text-ink-body shadow-[0_2px_8px_rgba(0,0,0,0.08)]">
-      <header className="border-b border-gray-300 bg-surface-header px-6 py-4 text-right text-[0.95rem] italic">
+    <article className="w-full overflow-hidden rounded-xl border border-border-warm bg-surface font-lora text-ink-body shadow-sm">
+      <header className="border-b border-border-warm bg-surface-header px-6 py-4 text-right text-sm italic">
         <p>
           {t("author")}: {author}
         </p>
@@ -64,7 +64,7 @@ export default function BilingualQuoteCardView({ block }: Props) {
         <QuoteColumn
           quote={original.quote}
           caption={original.caption || original.language}
-          className="border-b border-gray-100 bg-surface-paper-alt md:border-b-0"
+          className="border-b border-border-subtle bg-surface-paper-alt md:border-b-0"
         />
         <QuoteColumn
           quote={translation.quote}

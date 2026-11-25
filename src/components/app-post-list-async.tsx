@@ -57,7 +57,7 @@ export default function AppPostListAsync({
           {SKELETON_ROWS.map((row) => (
             <div
               key={row}
-              className="h-14 rounded-sm bg-gray-200 motion-safe:animate-pulse"
+              className="h-14 rounded-md bg-surface-muted motion-safe:animate-pulse"
             />
           ))}
         </div>
@@ -66,7 +66,7 @@ export default function AppPostListAsync({
       ) : resolvedPosts.length === 0 ? (
         <PostQueryFeedback />
       ) : (
-        <ul className="relative flex flex-col gap-2 rounded-xs p-2">
+        <ul className="relative flex flex-col gap-2 rounded-lg p-2">
           {resolvedPosts.map((post) => (
             <li className="block w-full" key={post.slug}>
               <ItemComponent post={post} className="h-14 text-sm" />

@@ -29,7 +29,7 @@ export default function AppPostGridSix({
   return (
     <ul
       className={cn(
-        "relative grid grid-flow-row grid-cols-1 gap-4 md:aspect-video md:grid-cols-3",
+        "relative grid grid-flow-row grid-cols-1 gap-stack md:aspect-video md:grid-cols-3",
         className,
       )}
     >
@@ -38,15 +38,15 @@ export default function AppPostGridSix({
         <li
           key={post.slug}
           className={cn(
-            "relative block w-full min-w-0 overflow-hidden border bg-white focus-within:ring-2 focus-within:ring-primary-800 hover:ring-3 md:aspect-video md:border-transparent",
+            "relative block w-full min-w-0 overflow-hidden rounded-xl border border-border bg-surface shadow-sm focus-within:ring-2 focus-within:ring-ring hover:ring-2 hover:ring-primary md:aspect-video md:border-transparent",
             cellClasses[index],
           )}
         >
           <Link
             href={`/posts/${post.slug}`}
-            className="relative block h-full w-full overflow-hidden hover:ring-2 focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:outline-none"
+            className="relative block h-full w-full overflow-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none"
           >
-            <div className="relative aspect-video bg-gray-50">
+            <div className="relative aspect-video bg-surface-muted">
               {typeof post.thumbnail !== "string" &&
                 typeof post.thumbnail?.url === "string" && (
                   <Image
@@ -59,11 +59,11 @@ export default function AppPostGridSix({
                   />
                 )}
             </div>
-            <div className="space-y-2 p-2 md:hidden">
-              <h2 className="block truncate text-center text-xl">
+            <div className="space-y-2 p-card-sm text-foreground md:hidden">
+              <h2 className="block truncate text-center text-xl font-semibold">
                 {post.title}
               </h2>
-              <span className="block w-full text-center">
+              <span className="block w-full text-center text-sm font-medium text-primary">
                 {t("viewMore")}...
               </span>
             </div>

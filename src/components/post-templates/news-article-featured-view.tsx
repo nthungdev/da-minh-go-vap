@@ -38,26 +38,34 @@ function NewsArticleFooter({
   }
 
   return (
-    <footer className="clear-both mt-[25px] text-right text-base italic">
+    <footer className="clear-both mt-6 text-right text-base text-foreground-muted italic">
       {translator && (
         <p>
-          <strong>{t("postTemplates.translator")}:</strong> {translator}
+          <strong className="text-foreground">
+            {t("postTemplates.translator")}:
+          </strong>{" "}
+          {translator}
         </p>
       )}
       {audioReader && (
         <p>
-          <strong>{t("postTemplates.audioReader")}:</strong> {audioReader}
+          <strong className="text-foreground">
+            {t("postTemplates.audioReader")}:
+          </strong>{" "}
+          {audioReader}
         </p>
       )}
       {(sourceName || sourceUrl) && (
         <p>
-          <strong>{t("postTemplates.source")}:</strong>{" "}
+          <strong className="text-foreground">
+            {t("postTemplates.source")}:
+          </strong>{" "}
           {sourceUrl ? (
             <a
               href={sourceUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-chill-700"
+              className="rounded-sm text-primary hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
             >
               {sourceName || sourceUrl}
               <span className="sr-only"> {t("common.openInNewTab")}</span>
@@ -111,7 +119,7 @@ export default function NewsArticleFeaturedView({ block }: Props) {
             height={imageMedia.height}
             className="rounded-xl"
           >
-            <div className="relative aspect-[3/2] w-full cursor-zoom-in overflow-hidden rounded-xl shadow-[0_4px_14px_rgba(0,0,0,0.18)]">
+            <div className="relative aspect-[3/2] w-full cursor-zoom-in overflow-hidden rounded-xl bg-surface-muted shadow-md">
               <Image
                 src={transformUrl(imageMedia.url, {
                   width: "800",
@@ -126,7 +134,7 @@ export default function NewsArticleFeaturedView({ block }: Props) {
           </LightboxModal>
 
           {imageCaption && (
-            <figcaption className="mt-1.5 text-center text-[0.9rem] leading-normal text-gray-500">
+            <figcaption className="mt-1.5 text-center text-sm leading-normal text-foreground-muted">
               {imageCaption}
             </figcaption>
           )}

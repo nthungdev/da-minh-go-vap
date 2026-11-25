@@ -35,7 +35,7 @@ export default function TributeProfileView({
   const resolvedSources = resolveTributeSources(sources);
 
   return (
-    <article className="bg-white">
+    <article className="bg-surface">
       <header className="flex flex-col gap-6 md:flex-row md:items-start md:gap-8">
         {portraitMedia?.url && (
           <Image
@@ -47,26 +47,26 @@ export default function TributeProfileView({
             width={240}
             height={320}
             alt={portraitMedia.alt || fullName}
-            className="mx-auto aspect-[3/4] w-48 shrink-0 rounded-xl object-cover shadow-sm sm:w-56 md:mx-0 md:w-60"
+            className="mx-auto aspect-[3/4] w-48 shrink-0 rounded-xl bg-surface-muted object-cover shadow-sm sm:w-56 md:mx-0 md:w-60"
           />
         )}
         <div className="min-w-0 flex-1 [overflow-wrap:anywhere]">
-          <h2 className="text-2xl leading-tight font-semibold text-slate-900 md:text-3xl">
+          <h2 className="text-2xl leading-tight font-semibold text-foreground md:text-3xl">
             {fullName}
           </h2>
           {subtitle?.trim() && (
-            <p className="mt-1.5 text-base text-slate-600 italic md:text-lg">
+            <p className="mt-1.5 text-base text-foreground-muted italic md:text-lg">
               {subtitle}
             </p>
           )}
           {facts.length > 0 && (
-            <dl className="mt-4 space-y-2 rounded-r-lg border-l-4 border-primary-700 bg-slate-50 px-5 py-4 text-[15px] leading-relaxed md:text-base">
+            <dl className="mt-4 space-y-2 rounded-r-lg border-l-4 border-primary bg-surface-muted px-5 py-4 text-sm leading-relaxed md:text-base">
               {facts.map((fact) => (
                 <div key={fact.id}>
-                  <dt className="inline font-semibold text-slate-900">
+                  <dt className="inline font-semibold text-foreground">
                     {fact.label}:{" "}
                   </dt>
-                  <dd className="inline text-slate-700">{fact.value}</dd>
+                  <dd className="inline text-foreground-muted">{fact.value}</dd>
                 </div>
               ))}
             </dl>
@@ -75,20 +75,20 @@ export default function TributeProfileView({
       </header>
 
       <section className="mt-8">
-        <h3 className="mb-3 text-lg font-bold text-slate-900 md:text-xl">
+        <h3 className="mb-3 text-lg font-bold text-foreground md:text-xl">
           {resolveBiographyHeading(biographyHeading, t("tributeBiography"))}
         </h3>
-        <AppMarkdown className="space-y-4 leading-[1.8] text-slate-800 md:text-justify [&_h1]:text-base md:[&_h1]:text-lg [&_h2]:text-base md:[&_h2]:text-lg [&_h3]:text-base">
+        <AppMarkdown className="space-y-4 leading-[1.8] text-foreground md:text-justify [&_h1]:text-base md:[&_h1]:text-lg [&_h2]:text-base md:[&_h2]:text-lg [&_h3]:text-base">
           {biography}
         </AppMarkdown>
       </section>
 
       {resolvedSources.length > 0 && (
-        <section className="mt-8 border-t border-slate-200 pt-5">
-          <h3 className="mb-2.5 text-base font-semibold text-slate-700">
+        <section className="mt-8 border-t border-border pt-5">
+          <h3 className="mb-2.5 text-base font-semibold text-foreground">
             {t("source")}
           </h3>
-          <ul className="list-disc space-y-1.5 pl-5 text-sm leading-relaxed text-slate-700 md:text-[15px]">
+          <ul className="list-disc space-y-1.5 pl-5 text-sm leading-relaxed text-foreground-muted md:text-base">
             {resolvedSources.map((source) => (
               <li key={source.id} className="[overflow-wrap:anywhere]">
                 {source.href ? (
@@ -96,7 +96,7 @@ export default function TributeProfileView({
                     href={source.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="rounded-sm text-primary-800 underline decoration-primary-800/50 underline-offset-2 transition-colors hover:text-primary-900 hover:decoration-primary-900 focus-visible:ring-2 focus-visible:ring-primary-700 focus-visible:outline-none motion-reduce:transition-none"
+                    className="rounded-sm text-primary underline decoration-primary/50 underline-offset-2 transition-colors hover:text-primary-900 hover:decoration-primary-900 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none motion-reduce:transition-none"
                   >
                     {source.label}
                   </a>

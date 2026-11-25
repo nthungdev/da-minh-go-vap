@@ -20,11 +20,11 @@ export default function AppPostCard(props: AppPostCardProps) {
     <Link
       href={`/posts/${post.slug}`}
       className={cn(
-        "flex h-full w-full flex-col gap-x-2 overflow-hidden border border-transparent text-base hover:bg-gray-50 focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none lg:flex-row",
+        "flex h-full w-full flex-col gap-x-2 overflow-hidden rounded-lg border border-transparent bg-surface text-base transition-colors hover:border-border hover:bg-surface-muted focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none motion-reduce:transition-none lg:flex-row",
         className,
       )}
     >
-      <div className="relative aspect-video overflow-hidden lg:h-full lg:w-auto">
+      <div className="relative aspect-video overflow-hidden bg-surface-muted lg:h-full lg:w-auto">
         {typeof post.thumbnail !== "string" &&
           typeof post.thumbnail.url === "string" && (
             <Image
@@ -42,11 +42,11 @@ export default function AppPostCard(props: AppPostCardProps) {
           )}
       </div>
       <div className="flex flex-1 flex-col justify-between gap-y-1 overflow-hidden px-1.5 py-1 md:py-1.5 lg:px-0 lg:py-1.5">
-        <span className="line-clamp-2 text-sm font-semibold text-gray-900 lg:line-clamp-2">
+        <span className="line-clamp-2 text-sm font-semibold text-foreground lg:line-clamp-2">
           {post.title}
         </span>
         {showDate && (
-          <span className="line-clamp-1 text-xs text-gray-500">
+          <span className="line-clamp-1 text-xs text-foreground-muted">
             {formatShortDate(post.publishedAt, locale)}
           </span>
         )}

@@ -16,12 +16,12 @@ export default function AppPostListItem(props: AppPostListItemProps) {
     <Link
       href={`/posts/${post.slug}`}
       className={cn(
-        "app-post-list-item @container block h-full w-full",
+        "app-post-list-item @container block h-full w-full rounded-lg focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none",
         className,
       )}
     >
-      <div className="flex aspect-[3.5] h-full w-full flex-row gap-x-2 overflow-hidden hover:cursor-pointer hover:ring-2">
-        <div className="relative aspect-video h-full w-auto overflow-hidden bg-gray-300">
+      <div className="flex aspect-[3.5] h-full w-full flex-row gap-x-2 overflow-hidden rounded-lg bg-surface transition-colors hover:cursor-pointer hover:bg-surface-muted hover:ring-2 hover:ring-ring motion-reduce:transition-none">
+        <div className="relative aspect-video h-full w-auto overflow-hidden bg-surface-muted">
           {typeof post.thumbnail !== "string" &&
             typeof post.thumbnail?.url === "string" && (
               <Image
@@ -35,7 +35,7 @@ export default function AppPostListItem(props: AppPostListItemProps) {
             )}
         </div>
         <div className="flex flex-1 flex-col justify-between overflow-hidden py-2">
-          <span className="line-clamp-2 text-base text-gray-900">
+          <span className="line-clamp-2 text-base text-foreground">
             {post.title}
           </span>
         </div>
