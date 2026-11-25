@@ -15,7 +15,7 @@ export default function AppSectionHeader({
   return (
     <HeadingTag
       className={cn(
-        "rounded-lg bg-primary px-4 py-2.5 text-center font-semibold text-primary-foreground shadow-xs",
+        "rounded-lg bg-primary px-4 py-2.5 text-center font-semibold break-words text-primary-foreground shadow-xs",
         className,
       )}
       {...props}

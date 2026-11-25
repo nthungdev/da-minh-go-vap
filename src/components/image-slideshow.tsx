@@ -38,11 +38,10 @@ export default function ImageSlideshow({
           <div key={slide.id} className="relative size-full shrink-0">
             <Image
               unoptimized
-              className="h-full w-full object-cover"
+              className="object-cover"
               src={transformUrl(slide.url)}
               alt={slide.alt}
-              width={0}
-              height={0}
+              fill
               loading={index === 0 ? "eager" : "lazy"}
               sizes="(max-width: 640px) 100vw, 20vw"
             />

@@ -44,6 +44,8 @@ export default function AppPostTabContentAsync({
   if (isPending) {
     return (
       <div
+        role="status"
+        aria-busy="true"
         className={cn(
           "flex aspect-video items-center justify-center",
           className,

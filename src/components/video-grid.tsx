@@ -47,7 +47,9 @@ function scrollContainerIntoViewIfAboveFold(
   const rect = container.getBoundingClientRect();
   if (rect.top < 0) {
     container.scrollIntoView({
-      behavior: "smooth",
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? "instant"
+        : "smooth",
       block: "start",
     });
   }
@@ -84,7 +86,7 @@ function VideoGridBody({
           return (
             <div
               key={video.id || `${video.url}-${index}`}
-              className="group flex flex-col overflow-hidden rounded-xl border border-border bg-surface shadow-sm transition hover:border-primary/40 hover:shadow-md motion-reduce:transition-none"
+              className="group flex min-w-0 flex-col overflow-hidden rounded-xl border border-border bg-surface shadow-sm transition-[box-shadow,border-color] duration-200 hover:border-primary/40 hover:shadow-md motion-reduce:transition-none"
             >
               <div
                 className={cn(
@@ -116,8 +118,8 @@ function VideoGridBody({
               </div>
 
               {video.title && (
-                <div className="flex flex-1 flex-col p-card-sm">
-                  <h3 className="line-clamp-2 text-center text-sm font-medium text-foreground transition-colors group-hover:text-primary motion-reduce:transition-none">
+                <div className="flex min-w-0 flex-1 flex-col p-card-sm">
+                  <h3 className="line-clamp-2 text-center text-sm font-medium break-words text-foreground transition-colors duration-200 group-hover:text-primary motion-reduce:transition-none">
                     {video.title}
                   </h3>
                 </div>

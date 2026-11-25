@@ -20,11 +20,11 @@ export default function AppPostCard(props: AppPostCardProps) {
     <Link
       href={`/posts/${post.slug}`}
       className={cn(
-        "flex h-full w-full flex-col gap-x-2 overflow-hidden rounded-xl border border-transparent bg-surface text-base transition-colors hover:border-border hover:bg-surface-muted focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none motion-reduce:transition-none lg:flex-row",
+        "group flex h-full w-full min-w-0 flex-col gap-x-2 overflow-hidden rounded-xl border border-transparent bg-surface text-base transition-colors duration-200 hover:border-border hover:bg-surface-muted focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none active:bg-accent motion-reduce:transition-none lg:flex-row",
         className,
       )}
     >
-      <div className="relative aspect-video overflow-hidden rounded-xl bg-surface-muted lg:h-full lg:w-auto">
+      <div className="relative aspect-video shrink-0 overflow-hidden rounded-xl bg-surface-muted lg:h-full lg:w-auto">
         {typeof post.thumbnail !== "string" &&
           typeof post.thumbnail.url === "string" && (
             <Image
@@ -41,8 +41,8 @@ export default function AppPostCard(props: AppPostCardProps) {
             />
           )}
       </div>
-      <div className="flex flex-1 flex-col justify-between gap-y-1 overflow-hidden px-1.5 py-1 md:py-1.5 lg:px-0 lg:py-1.5">
-        <span className="line-clamp-2 text-sm font-semibold text-foreground lg:line-clamp-2">
+      <div className="flex min-w-0 flex-1 flex-col justify-between gap-y-1 overflow-hidden px-1.5 py-1 md:py-1.5 lg:px-0 lg:py-1.5">
+        <span className="line-clamp-2 text-sm font-semibold break-words text-foreground transition-colors duration-200 group-hover:text-primary motion-reduce:transition-none lg:line-clamp-2">
           {post.title}
         </span>
         {showDate && (

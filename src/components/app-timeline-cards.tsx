@@ -49,7 +49,7 @@ export default function AppTimelineCards({
                     />
                   )}
               </div>
-              <CardHeading className="px-2 pb-1 text-center text-xl font-semibold text-foreground">
+              <CardHeading className="px-2 pb-1 text-center text-xl font-semibold break-words text-foreground transition-colors duration-200 group-hover:text-primary motion-reduce:transition-none">
                 {card.title}
               </CardHeading>
             </>
@@ -62,19 +62,19 @@ export default function AppTimelineCards({
             >
               <div
                 className={cn(
-                  "col-start-2 row-start-1",
+                  "col-start-2 row-start-1 min-w-0",
                   isReversed ? "md:col-start-3" : "md:col-start-1",
                 )}
               >
                 {url ? (
                   <Link
                     href={url}
-                    className="my-2 block space-y-2 rounded-xl border border-border bg-surface p-2 shadow-sm transition hover:border-primary hover:shadow-md focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none motion-reduce:transition-none"
+                    className="group my-2 block min-w-0 space-y-2 rounded-xl border border-border bg-surface p-2 shadow-sm transition-[box-shadow,border-color] duration-200 hover:border-primary hover:shadow-md focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none active:shadow-xs motion-reduce:transition-none"
                   >
                     {cardContent}
                   </Link>
                 ) : (
-                  <div className="my-2 space-y-2 rounded-xl border border-border bg-surface p-2 shadow-sm">
+                  <div className="my-2 min-w-0 space-y-2 rounded-xl border border-border bg-surface p-2 shadow-sm">
                     {cardContent}
                   </div>
                 )}
@@ -107,7 +107,7 @@ export default function AppTimelineCards({
               {card.description && (
                 <div
                   className={cn(
-                    "col-start-2 row-start-2 px-2 pb-2 text-sm text-foreground-muted md:row-start-1 md:px-3 md:py-2 md:text-base md:text-foreground",
+                    "col-start-2 row-start-2 min-w-0 px-2 pb-2 text-sm break-words text-foreground-muted md:row-start-1 md:px-3 md:py-2 md:text-base md:text-foreground",
                     isReversed ? "md:col-start-1" : "md:col-start-3",
                   )}
                 >

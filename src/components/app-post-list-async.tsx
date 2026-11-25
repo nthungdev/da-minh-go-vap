@@ -12,8 +12,6 @@ import {
   type PaginatedPostsData,
 } from "@/utils/post-pagination";
 
-const SKELETON_ROWS = ["row-one", "row-two", "row-three", "row-four"];
-
 interface AppPostListAsyncProps {
   hiddenTags: string[];
   limit: number;
@@ -43,6 +41,10 @@ export default function AppPostListAsync({
   });
 
   const resolvedPosts = data?.posts ?? [];
+  const skeletonRows = Array.from(
+    { length: Math.max(1, limit) },
+    (_, index) => `row-${index}`,
+  );
 
   return (
     <div className="@container">
@@ -52,9 +54,9 @@ export default function AppPostListAsync({
         </AppSectionHeader>
       )}
       {isPending ? (
-        <div role="status" className="space-y-2 p-2">
+        <div role="status" aria-busy="true" className="space-y-2 p-2">
           <span className="sr-only">{t("loading")}</span>
-          {SKELETON_ROWS.map((row) => (
+          {skeletonRows.map((row) => (
             <div
               key={row}
               className="h-14 rounded-md bg-surface-muted motion-safe:animate-pulse"
@@ -68,7 +70,7 @@ export default function AppPostListAsync({
       ) : (
         <ul className="relative flex flex-col gap-2 rounded-lg p-2">
           {resolvedPosts.map((post) => (
-            <li className="block w-full" key={post.slug}>
+            <li className="block w-full min-w-0" key={post.slug}>
               <ItemComponent post={post} className="h-14 text-sm" />
             </li>
           ))}

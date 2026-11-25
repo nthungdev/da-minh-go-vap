@@ -38,15 +38,15 @@ export default function AppPostGridSix({
         <li
           key={post.slug}
           className={cn(
-            "relative block w-full min-w-0 overflow-hidden rounded-2xl border border-border bg-surface shadow-sm focus-within:ring-2 focus-within:ring-ring hover:ring-2 hover:ring-primary md:aspect-video md:border-transparent",
+            "relative block w-full min-w-0 overflow-hidden rounded-2xl border border-border bg-surface shadow-sm transition-shadow duration-200 focus-within:ring-2 focus-within:ring-ring hover:shadow-md hover:ring-2 hover:ring-primary motion-reduce:transition-none md:aspect-video md:border-transparent",
             cellClasses[index],
           )}
         >
           <Link
             href={`/posts/${post.slug}`}
-            className="relative block h-full w-full overflow-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none"
+            className="group relative block h-full w-full overflow-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none focus-visible:ring-inset"
           >
-            <div className="relative aspect-video bg-surface-muted">
+            <div className="relative aspect-video overflow-hidden bg-surface-muted">
               {typeof post.thumbnail !== "string" &&
                 typeof post.thumbnail?.url === "string" && (
                   <Image
@@ -54,13 +54,13 @@ export default function AppPostGridSix({
                     className="object-cover"
                     src={transformUrl(post.thumbnail.url)}
                     fill
-                    sizes="100%"
+                    sizes="(max-width: 768px) 100vw, 33vw"
                     alt={t("thumbnailAlt", { title: post.title })}
                   />
                 )}
             </div>
-            <div className="space-y-2 p-card-sm text-foreground md:hidden">
-              <h2 className="block truncate text-center text-xl font-semibold">
+            <div className="min-w-0 space-y-2 p-card-sm text-foreground md:hidden">
+              <h2 className="block truncate text-center text-xl font-semibold transition-colors duration-200 group-hover:text-primary motion-reduce:transition-none">
                 {post.title}
               </h2>
               <span className="block w-full text-center text-sm font-medium text-primary">
@@ -68,10 +68,10 @@ export default function AppPostGridSix({
               </span>
             </div>
 
-            <div className="group absolute top-0 left-0 hidden size-full hover:cursor-pointer md:block">
-              <div className="absolute bottom-0 left-0 w-full translate-y-full bg-linear-to-b from-transparent via-primary-900/85 to-primary-950/95 transition-transform group-hover:translate-y-0 motion-reduce:transition-none md:h-20 lg:h-24"></div>
+            <div className="absolute top-0 left-0 hidden size-full hover:cursor-pointer md:block">
+              <div className="absolute bottom-0 left-0 w-full translate-y-full bg-linear-to-b from-transparent via-primary-900/85 to-primary-950/95 transition-transform duration-200 group-hover:translate-y-0 motion-reduce:transform-none motion-reduce:transition-none md:h-20 lg:h-24"></div>
               <div className="absolute bottom-0 left-0 w-full bg-primary-950/85 p-3">
-                <span className="line-clamp-2 text-white md:text-sm lg:text-lg">
+                <span className="line-clamp-2 break-words text-white md:text-sm lg:text-lg">
                   {post.title}
                 </span>
               </div>

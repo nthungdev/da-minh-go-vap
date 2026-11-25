@@ -16,12 +16,12 @@ export default function AppPostListItem(props: AppPostListItemProps) {
     <Link
       href={`/posts/${post.slug}`}
       className={cn(
-        "app-post-list-item @container block h-full w-full rounded-xl focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none",
+        "app-post-list-item group @container block h-full w-full min-w-0 rounded-xl focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none",
         className,
       )}
     >
-      <div className="flex aspect-[3.5] h-full w-full flex-row gap-x-2 overflow-hidden rounded-xl bg-surface transition-colors hover:cursor-pointer hover:bg-surface-muted hover:ring-2 hover:ring-ring motion-reduce:transition-none">
-        <div className="relative aspect-video h-full w-auto overflow-hidden rounded-lg bg-surface-muted">
+      <div className="flex aspect-[3.5] h-full w-full flex-row gap-x-2 overflow-hidden rounded-xl bg-surface transition-colors duration-200 hover:cursor-pointer hover:bg-surface-muted hover:ring-2 hover:ring-ring active:bg-accent motion-reduce:transition-none">
+        <div className="relative aspect-video h-full w-auto shrink-0 overflow-hidden rounded-lg bg-surface-muted">
           {typeof post.thumbnail !== "string" &&
             typeof post.thumbnail?.url === "string" && (
               <Image
@@ -34,8 +34,8 @@ export default function AppPostListItem(props: AppPostListItemProps) {
               />
             )}
         </div>
-        <div className="flex flex-1 flex-col justify-between overflow-hidden py-2">
-          <span className="line-clamp-2 text-base text-foreground">
+        <div className="flex min-w-0 flex-1 flex-col justify-between overflow-hidden py-2">
+          <span className="line-clamp-2 text-base break-words text-foreground transition-colors duration-200 group-hover:text-primary motion-reduce:transition-none">
             {post.title}
           </span>
         </div>

@@ -35,7 +35,7 @@ export default function ImageLinkList({
               target="_blank"
               rel="noopener noreferrer"
               href={link.url}
-              className="relative block aspect-[4] w-full overflow-hidden rounded-lg border border-border-subtle bg-surface-muted transition hover:border-primary hover:shadow-sm focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none motion-reduce:transition-none"
+              className="relative block aspect-[4] w-full overflow-hidden rounded-lg border border-border-subtle bg-surface-muted transition-[box-shadow,border-color] duration-200 hover:border-primary hover:shadow-sm focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none active:shadow-none motion-reduce:transition-none"
             >
               {isDataValid(link.image) && link.image.url && (
                 <Image

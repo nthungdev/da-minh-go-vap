@@ -39,7 +39,7 @@ export default function SpotifyPodcastList({
             src={`https://open.spotify.com/embed/episode/${episode.spotifyId}?utm_source=generator`}
             width="100%"
             height="152"
-            className="w-full rounded-xl border border-border bg-surface-muted shadow-sm"
+            className="block h-[152px] w-full rounded-xl border border-border bg-surface-muted shadow-sm"
             allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
             loading="lazy"
           />

@@ -71,7 +71,7 @@ function PostGroupTabs({
         {title && (
           <h2
             id={`${fallbackId}-heading`}
-            className="text-lg font-bold tracking-tight sm:text-xl"
+            className="min-w-0 text-lg font-bold tracking-tight break-words sm:text-xl"
           >
             {title}
           </h2>
@@ -125,7 +125,7 @@ function PostGroupTabs({
                   id={`tab-${fallbackId}-${index}`}
                   tabIndex={currentIndex === index ? 0 : -1}
                   className={cn(
-                    "rounded-md px-2.5 py-1 text-sm font-medium text-primary-foreground/85 transition-colors hover:cursor-pointer hover:bg-primary-foreground/10 hover:text-primary-foreground focus-visible:ring-2 focus-visible:ring-primary-foreground focus-visible:outline-none motion-reduce:transition-none",
+                    "rounded-md px-2.5 py-1 text-sm font-medium text-primary-foreground/85 transition-colors duration-200 hover:cursor-pointer hover:bg-primary-foreground/10 hover:text-primary-foreground focus-visible:ring-2 focus-visible:ring-primary-foreground focus-visible:ring-offset-2 focus-visible:ring-offset-primary focus-visible:outline-none active:bg-primary-foreground/20 motion-reduce:transition-none",
                     currentIndex === index &&
                       "bg-primary-foreground/15 font-bold text-primary-foreground",
                   )}

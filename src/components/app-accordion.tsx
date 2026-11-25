@@ -28,7 +28,7 @@ function AppAccordionToggle({
     <AccordionTrigger
       {...(controlId ? { "aria-controls": controlId } : {})}
       className={cn(
-        "items-center justify-start gap-x-3 rounded-none px-4 py-3 text-base font-semibold transition-colors hover:bg-primary hover:text-primary-foreground hover:no-underline focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none focus-visible:ring-inset **:data-[slot=accordion-trigger-icon]:order-first **:data-[slot=accordion-trigger-icon]:ml-0 **:data-[slot=accordion-trigger-icon]:text-current motion-reduce:transition-none",
+        "min-w-0 cursor-pointer items-center justify-start gap-x-3 rounded-none px-4 py-3 text-left text-base font-semibold break-words transition-colors duration-200 hover:bg-primary hover:text-primary-foreground hover:no-underline focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none focus-visible:ring-inset active:bg-primary-900 **:data-[slot=accordion-trigger-icon]:order-first **:data-[slot=accordion-trigger-icon]:ml-0 **:data-[slot=accordion-trigger-icon]:text-current motion-reduce:transition-none",
         headerColors[colorLevel % headerColors.length],
       )}
     >
@@ -53,13 +53,13 @@ function AppAccordionContent({
       id={id}
       {...(labeledById ? { "aria-labelledby": labeledById } : {})}
       keepMounted
-      className="space-y-4 border-t border-border-subtle p-card-sm text-foreground"
+      className="min-w-0 space-y-4 border-t border-border-subtle p-card-sm break-words text-foreground"
       render={(panelProps) => (
         <div
           {...panelProps}
           className={cn(
             panelProps.className,
-            "text-base duration-300 motion-reduce:animate-none! motion-reduce:transition-none",
+            "text-base duration-200 motion-reduce:animate-none! motion-reduce:transition-none",
           )}
         />
       )}

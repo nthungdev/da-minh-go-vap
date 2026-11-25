@@ -60,25 +60,25 @@ export default function AppCarousel({
         <>
           <button
             type="button"
-            className="group absolute inset-y-0 start-0 inline-flex h-full w-11.5 items-center justify-center text-gray-800 hover:bg-gray-800/10 focus:bg-gray-800/10 focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none focus-visible:ring-inset disabled:pointer-events-none dark:text-white dark:hover:bg-white/10 dark:focus:bg-white/10"
+            aria-label={t("previous")}
+            className="group absolute inset-y-0 start-0 inline-flex h-full w-11.5 cursor-pointer items-center justify-center text-gray-800 transition-colors duration-200 hover:bg-gray-800/15 focus:bg-gray-800/10 focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none focus-visible:ring-inset active:bg-gray-800/25 disabled:pointer-events-none motion-reduce:transition-none dark:text-white dark:hover:bg-white/15 dark:focus:bg-white/10 dark:active:bg-white/25"
             onClick={prev}
           >
             <span
-              className="text-2xl group-hover:text-white"
+              className="text-2xl transition-colors duration-200 group-hover:text-white motion-reduce:transition-none"
               aria-hidden="true"
             >
               <ChevronLeft className="size-5 shrink-0" />
             </span>
-            <span className="sr-only">{t("previous")}</span>
           </button>
           <button
             type="button"
-            className="group absolute inset-y-0 end-0 inline-flex h-full w-11.5 items-center justify-center text-gray-800 hover:bg-gray-800/10 hover:text-white focus:bg-gray-800/10 focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none focus-visible:ring-inset disabled:pointer-events-none dark:text-white dark:hover:bg-white/10 dark:focus:bg-white/10"
+            aria-label={t("next")}
+            className="group absolute inset-y-0 end-0 inline-flex h-full w-11.5 cursor-pointer items-center justify-center text-gray-800 transition-colors duration-200 hover:bg-gray-800/15 hover:text-white focus:bg-gray-800/10 focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none focus-visible:ring-inset active:bg-gray-800/25 disabled:pointer-events-none motion-reduce:transition-none dark:text-white dark:hover:bg-white/15 dark:focus:bg-white/10 dark:active:bg-white/25"
             onClick={next}
           >
-            <span className="sr-only">{t("next")}</span>
             <span
-              className="text-2xl group-hover:text-white"
+              className="text-2xl transition-colors duration-200 group-hover:text-white motion-reduce:transition-none"
               aria-hidden="true"
             >
               <ChevronRight className="size-5 shrink-0" />
@@ -111,7 +111,7 @@ export function CarouselPlaybackButton({
     <button
       type="button"
       className={cn(
-        "inline-flex min-h-10 min-w-10 items-center justify-center rounded-md bg-primary-950/90 text-white hover:bg-primary-950 focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none focus-visible:ring-inset",
+        "inline-flex min-h-10 min-w-10 cursor-pointer items-center justify-center rounded-md bg-primary-950/90 text-white transition-colors duration-200 hover:bg-primary-950 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none active:bg-primary-900 motion-reduce:transition-none",
         className,
       )}
       aria-label={isUserPaused ? t("playSlideshow") : t("pauseSlideshow")}

@@ -27,7 +27,7 @@ export default function PostGroupTabsSelect({
       <Menu.Trigger
         id={id}
         className={cn(
-          "group inline-flex min-h-11 items-center gap-1.5 rounded-md border border-primary-foreground/30 bg-primary-foreground/10 px-3 py-1.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary-foreground/20 focus-visible:ring-2 focus-visible:ring-primary-foreground focus-visible:outline-none motion-reduce:transition-none",
+          "group inline-flex min-h-11 shrink-0 cursor-pointer items-center gap-1.5 rounded-md border border-primary-foreground/30 bg-primary-foreground/10 px-3 py-1.5 text-sm font-semibold text-primary-foreground transition-colors duration-200 hover:bg-primary-foreground/20 focus-visible:ring-2 focus-visible:ring-primary-foreground focus-visible:ring-offset-2 focus-visible:ring-offset-primary focus-visible:outline-none active:bg-primary-foreground/25 motion-reduce:transition-none",
           className,
         )}
         aria-labelledby={`${id}-label ${id}-value`}
@@ -35,10 +35,12 @@ export default function PostGroupTabsSelect({
         <span id={`${id}-label`} className="sr-only">
           {t("selectPostGroup")}
         </span>
-        <span id={`${id}-value`}>{options[activeIndex]?.value}</span>
+        <span id={`${id}-value`} className="max-w-[45vw] truncate">
+          {options[activeIndex]?.value}
+        </span>
         <ChevronDown
           aria-hidden="true"
-          className="size-4 shrink-0 transition-transform group-data-popup-open:rotate-180 motion-reduce:transition-none"
+          className="size-4 shrink-0 transition-transform duration-200 group-data-popup-open:rotate-180 motion-reduce:transform-none motion-reduce:transition-none"
         />
       </Menu.Trigger>
       <Menu.Portal>
@@ -54,7 +56,7 @@ export default function PostGroupTabsSelect({
                   key={option.value}
                   value={index}
                   closeOnClick
-                  className="flex min-h-10 cursor-pointer items-center rounded-md px-3 py-1.5 text-start text-sm transition-colors focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none data-highlighted:bg-accent data-highlighted:text-accent-foreground motion-reduce:transition-none data-checked:font-bold"
+                  className="flex min-h-10 cursor-pointer items-center rounded-md px-3 py-1.5 text-start text-sm transition-colors duration-150 focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none active:bg-accent/80 data-highlighted:bg-accent data-highlighted:text-accent-foreground motion-reduce:transition-none data-checked:font-bold"
                 >
                   {option.value}
                 </Menu.RadioItem>
