@@ -22,11 +22,11 @@ export default async function TheNavbar(
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 w-full bg-primary-800/95 text-gray-50 shadow-sm",
+        "sticky top-0 z-50 w-full border-b border-primary-foreground/10 bg-primary/95 text-primary-foreground shadow-sm backdrop-blur-xs",
         props.className,
       )}
     >
-      <div className="mx-auto flex h-16 items-center justify-between px-4 sm:px-6 lg:justify-center lg:px-8">
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:justify-center lg:px-8">
         <TheNavbarClient
           menu={menu}
           logo={logo}

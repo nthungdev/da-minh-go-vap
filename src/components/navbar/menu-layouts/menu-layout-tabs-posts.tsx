@@ -36,9 +36,9 @@ export default function MenuLayoutTabsPosts({
   const activeCategory = categories[activeTabIndex] || categories[0];
 
   return (
-    <div className="flex w-[380px] gap-2 p-2 sm:w-[600px] md:w-[820px] lg:w-[1040px] xl:w-[1200px]">
+    <div className="flex w-[380px] max-w-[calc(100vw-2rem)] gap-3 p-card-sm sm:w-[600px] md:w-[820px] lg:w-[1040px] xl:w-[1200px]">
       {/* Left Sidebar Category Tabs */}
-      <div className="flex w-48 shrink-0 flex-col gap-1 border-r border-gray-100 pr-2 sm:w-56">
+      <div className="flex w-48 shrink-0 flex-col gap-1 border-r border-border-subtle pr-3 sm:w-56">
         {categories.map((cat, idx) => {
           const isSelected = activeTabIndex === idx;
           const isRouteActive = cat.absoluteHref
@@ -49,32 +49,31 @@ export default function MenuLayoutTabsPosts({
             <>
               <div className="flex items-center gap-2 truncate">
                 {cat.icon && (
-                  <span className="relative inline-block size-4 shrink-0 overflow-hidden rounded-full bg-white">
+                  <span className="relative inline-block size-4 shrink-0 overflow-hidden rounded-pill bg-surface">
                     <Image
                       unoptimized
                       src={getMenuIconSrc(cat.icon)}
                       alt=""
                       aria-hidden="true"
                       fill
-                      className="rounded-full object-contain"
+                      className="rounded-pill object-contain"
                     />
                   </span>
                 )}
                 <span className="truncate">{cat.name}</span>
               </div>
               {cat.absoluteHref && (
-                <ChevronRight className="size-4 shrink-0 text-gray-400 transition-all group-hover:translate-x-0.5 group-hover:text-primary-600" />
+                <ChevronRight className="size-4 shrink-0 text-foreground-muted transition-all group-hover:translate-x-0.5 group-hover:text-primary" />
               )}
             </>
           );
 
           const tabClassName = cn(
-            "group flex w-full items-center justify-between rounded-md px-3 py-2 text-left text-base transition-colors select-none focus-visible:ring-2 focus-visible:ring-primary-700 focus-visible:outline-none",
-            "hover:bg-gray-200 hover:text-primary-700 focus:bg-gray-200 focus:text-primary-700",
-            isSelected
-              ? "bg-gray-200 font-semibold text-primary-700"
-              : "text-gray-700 hover:text-primary-700",
-            isRouteActive && "bg-gray-200 font-semibold text-primary-700",
+            "group flex w-full items-center justify-between rounded-md px-3 py-2 text-left text-sm transition-colors select-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none sm:text-base",
+            "hover:bg-surface-muted hover:text-primary focus:bg-surface-muted focus:text-primary",
+            isSelected || isRouteActive
+              ? "bg-accent font-semibold text-accent-foreground"
+              : "text-foreground",
           );
 
           const categoryKey = `${cat.name}-${cat.absoluteHref}`;

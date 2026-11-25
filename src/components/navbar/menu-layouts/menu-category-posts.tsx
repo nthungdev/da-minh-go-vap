@@ -39,7 +39,7 @@ export function MenuCategoryPostsGrid({
 
   if (posts.length === 0) {
     return (
-      <div className="flex h-48 w-full items-center justify-center rounded-md border border-dashed border-gray-200 text-base text-gray-500">
+      <div className="flex h-48 w-full items-center justify-center rounded-xl border border-dashed border-border bg-surface-muted/40 p-card text-base text-foreground-muted">
         {t("emptyCategory")}
       </div>
     );
@@ -60,13 +60,13 @@ export function MenuCategoryPostsGrid({
                 href={postHref}
                 className={cn(
                   "group flex flex-col overflow-hidden rounded-md p-1.5 text-left transition-colors outline-none select-none",
-                  "hover:bg-gray-100 focus:bg-gray-100",
-                  isPostActive && "bg-gray-100",
+                  "hover:bg-surface-muted focus:bg-surface-muted focus-visible:ring-2 focus-visible:ring-ring",
+                  isPostActive && "bg-accent",
                 )}
               />
             }
           >
-            <div className="relative aspect-[16/10] w-full overflow-hidden rounded-md bg-gray-200">
+            <div className="relative aspect-[16/10] w-full overflow-hidden rounded-md bg-surface-muted">
               {post.thumbnail?.url ? (
                 <Image
                   key={post.thumbnail.url}
@@ -77,7 +77,7 @@ export function MenuCategoryPostsGrid({
                   className="object-cover transition-transform duration-300 group-hover:scale-105"
                 />
               ) : (
-                <div className="flex h-full w-full items-center justify-center text-sm text-gray-400">
+                <div className="flex h-full w-full items-center justify-center text-sm text-foreground-muted">
                   No image
                 </div>
               )}
@@ -85,8 +85,8 @@ export function MenuCategoryPostsGrid({
             <div className="px-1 pt-2 pb-0.5">
               <h4
                 className={cn(
-                  "line-clamp-2 text-base leading-snug font-semibold text-gray-900 transition-colors group-hover:text-primary-700",
-                  isPostActive && "text-primary-700",
+                  "line-clamp-2 text-sm leading-snug font-semibold text-foreground transition-colors group-hover:text-primary sm:text-base",
+                  isPostActive && "text-accent-foreground",
                 )}
               >
                 {post.title}
@@ -109,11 +109,11 @@ export function MenuCategoryPostsSkeleton() {
           className="flex flex-col p-1.5 motion-safe:animate-pulse"
           aria-hidden="true"
         >
-          <div className="aspect-[16/10] w-full rounded-md bg-gray-200" />
+          <div className="aspect-[16/10] w-full rounded-md bg-surface-muted" />
           {/* flex-col stops margin collapse: two 22px lines (leading-snug base) */}
           <div className="flex flex-col px-1 pt-2 pb-0.5">
-            <div className="my-[3px] h-4 w-full rounded-sm bg-gray-200" />
-            <div className="my-[3px] h-4 w-2/3 rounded-sm bg-gray-200" />
+            <div className="my-[3px] h-4 w-full rounded-sm bg-surface-muted" />
+            <div className="my-[3px] h-4 w-2/3 rounded-sm bg-surface-muted" />
           </div>
         </div>
       ))}

@@ -20,7 +20,7 @@ export default function MenuLayoutGrid({
   }
 
   return (
-    <ul className="grid w-[400px] gap-2 p-2 sm:w-[540px] md:w-[720px] md:grid-cols-2 lg:w-[960px] lg:grid-cols-3">
+    <ul className="grid w-[400px] max-w-[calc(100vw-2rem)] gap-3 p-card-sm sm:w-[540px] md:w-[720px] md:grid-cols-2 lg:w-[960px] lg:grid-cols-3">
       {item.children.map((child) => {
         const childKey = `${child.name}-${child.absoluteHref}`;
         const isActive = child.absoluteHref
@@ -28,7 +28,7 @@ export default function MenuLayoutGrid({
           : false;
 
         const headerContent = (
-          <div className="flex w-full items-center gap-x-2">
+          <div className="flex w-full items-center gap-x-2.5">
             {child.icon && (
               <span className="relative inline-block size-9 shrink-0 overflow-hidden">
                 <Image
@@ -43,20 +43,25 @@ export default function MenuLayoutGrid({
             <div className="flex flex-1 shrink-0 items-center justify-between gap-x-2">
               <div className="flex-1">
                 <div className="flex w-full items-center justify-between gap-2 text-left">
-                  <span className="text-left text-lg leading-snug font-bold text-gray-900 group-hover:text-primary-700">
+                  <span
+                    className={cn(
+                      "text-left text-base leading-snug font-bold text-foreground transition-colors group-hover:text-primary sm:text-lg",
+                      isActive && "text-accent-foreground",
+                    )}
+                  >
                     {child.name}
                   </span>
                 </div>
 
                 {child.description && (
-                  <p className="mt-1 line-clamp-2 w-full text-left text-sm leading-relaxed text-gray-600">
+                  <p className="mt-1 line-clamp-2 w-full text-left text-sm leading-relaxed text-foreground-muted">
                     {child.description}
                   </p>
                 )}
               </div>
 
               {child.absoluteHref && (
-                <ChevronRight className="size-4 shrink-0 text-gray-400 transition-all group-hover:translate-x-0.5 group-hover:text-primary-600" />
+                <ChevronRight className="size-4 shrink-0 text-foreground-muted transition-all group-hover:translate-x-0.5 group-hover:text-primary" />
               )}
             </div>
           </div>
@@ -73,8 +78,8 @@ export default function MenuLayoutGrid({
                     href={child.absoluteHref}
                     className={cn(
                       "group flex w-full items-center justify-between gap-x-2 rounded-md p-2.5 text-left transition-colors outline-none select-none",
-                      "hover:bg-gray-100 focus:bg-gray-100",
-                      isActive && "bg-gray-100 text-primary-700",
+                      "hover:bg-surface-muted focus:bg-surface-muted focus-visible:ring-2 focus-visible:ring-ring",
+                      isActive && "bg-accent text-accent-foreground",
                     )}
                   />
                 }
@@ -89,7 +94,7 @@ export default function MenuLayoutGrid({
 
             {/* Sub-items if any */}
             {child.children && child.children.length > 0 && (
-              <div className="mt-1.5 flex w-full flex-wrap justify-start gap-1.5 border-t border-gray-100 pt-2.5 text-left">
+              <div className="mt-1.5 flex w-full flex-wrap justify-start gap-1.5 border-t border-border-subtle pt-2.5 text-left">
                 {child.children.map((subChild) => {
                   const subChildKey = `${subChild.name}-${subChild.absoluteHref}`;
                   return subChild.absoluteHref ? (
@@ -97,19 +102,19 @@ export default function MenuLayoutGrid({
                       key={subChildKey}
                       href={subChild.absoluteHref}
                       className={cn(
-                        "flex items-center gap-1.5 rounded-md bg-gray-100 px-2 py-0.5 text-left text-base text-gray-700 transition-colors hover:bg-gray-200 hover:text-primary-700",
+                        "flex items-center gap-1.5 rounded-md bg-surface-muted px-2.5 py-1 text-left text-sm text-foreground transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none",
                         pathname === subChild.absoluteHref &&
-                          "bg-gray-200 font-medium text-primary-700",
+                          "bg-accent font-medium text-accent-foreground",
                       )}
                     >
                       {subChild.icon && (
-                        <span className="relative inline-block size-4 shrink-0 overflow-hidden rounded-full bg-white">
+                        <span className="relative inline-block size-4 shrink-0 overflow-hidden rounded-pill bg-surface">
                           <Image
                             unoptimized
                             src={getMenuIconSrc(subChild.icon)}
                             alt={subChild.name || subChild.icon}
                             fill
-                            className="rounded-full object-contain"
+                            className="rounded-pill object-contain"
                           />
                         </span>
                       )}
@@ -118,16 +123,16 @@ export default function MenuLayoutGrid({
                   ) : (
                     <span
                       key={subChildKey}
-                      className="flex items-center gap-1.5 rounded-md bg-gray-100 px-2 py-0.5 text-left text-base text-gray-600"
+                      className="flex items-center gap-1.5 rounded-md bg-surface-muted px-2.5 py-1 text-left text-sm text-foreground-muted"
                     >
                       {subChild.icon && (
-                        <span className="relative inline-block size-4 shrink-0 overflow-hidden rounded-full bg-white">
+                        <span className="relative inline-block size-4 shrink-0 overflow-hidden rounded-pill bg-surface">
                           <Image
                             unoptimized
                             src={getMenuIconSrc(subChild.icon)}
                             alt={subChild.name || subChild.icon}
                             fill
-                            className="rounded-full object-contain"
+                            className="rounded-pill object-contain"
                           />
                         </span>
                       )}
