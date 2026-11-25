@@ -58,7 +58,11 @@ export default function CopyButton({ className, text }: CopyButtonProps) {
       aria-busy={state === "copying"}
       aria-label={label}
       title={label}
-      className={cn(className, isCopied && "pointer-events-none")}
+      className={cn(
+        "transition-colors duration-150 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none motion-reduce:transition-none",
+        className,
+        isCopied && "pointer-events-none border-success-border text-success",
+      )}
       onClick={handleCopy}
     >
       {isCopied ? (

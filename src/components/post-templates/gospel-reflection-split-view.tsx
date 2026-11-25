@@ -40,7 +40,7 @@ export default function GospelReflectionSplitView({
 
       <Heading
         className={cn(
-          "mt-2 mb-4 leading-tight font-bold text-secondary",
+          "mt-2 mb-4 leading-tight font-bold break-words text-secondary",
           isTitleHidden ? "text-2xl sm:text-3xl" : "text-xl sm:text-2xl",
         )}
       >
@@ -66,7 +66,7 @@ export default function GospelReflectionSplitView({
 
         <aside
           aria-label={t("gospelToday")}
-          className="relative order-first rounded-xl border border-border-subtle bg-linear-to-b from-surface to-callout-bg-alt py-4 pr-4 pl-5 shadow-sm before:absolute before:inset-y-0 before:left-0 before:w-1 before:rounded before:bg-linear-to-b before:from-primary before:to-editorial-grad-end min-[900px]:order-none"
+          className="relative order-first min-w-0 rounded-xl border border-border-subtle bg-linear-to-b from-surface to-callout-bg-alt py-4 pr-4 pl-5 shadow-sm before:absolute before:inset-y-0 before:left-0 before:w-1 before:rounded before:bg-linear-to-b before:from-primary before:to-editorial-grad-end min-[900px]:order-none"
         >
           <div className="min-[900px]:sticky min-[900px]:top-24">
             <SectionHeading className="mb-2 text-[1.05em] font-bold text-secondary">

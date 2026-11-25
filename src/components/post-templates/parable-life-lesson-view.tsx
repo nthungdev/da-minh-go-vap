@@ -56,10 +56,12 @@ export default function ParableLifeLessonView({ block }: Props) {
               return (
                 <aside
                   key={itemKey}
-                  className="mt-7 flex gap-1.5 rounded-2xl border-l-4 border-callout-accent bg-callout-bg-alt px-6 py-5 leading-[1.9] text-callout-text"
+                  className="mt-7 flex gap-1.5 rounded-2xl border-l-4 border-callout-accent bg-callout-bg-alt px-4 py-5 leading-[1.9] text-callout-text sm:px-6"
                 >
-                  <span aria-hidden="true">❤️</span>
-                  <AppMarkdown className="leading-[1.9] [&_p+p]:mt-4">
+                  <span aria-hidden="true" className="shrink-0">
+                    ❤️
+                  </span>
+                  <AppMarkdown className="min-w-0 flex-1 leading-[1.9] [&_p+p]:mt-4">
                     {item.content}
                   </AppMarkdown>
                 </aside>
@@ -78,7 +80,7 @@ export default function ParableLifeLessonView({ block }: Props) {
         </div>
 
         {(translator || source?.name) && (
-          <footer className="mt-10 border-t border-border pt-6 text-right text-sm leading-[1.9] text-foreground-muted italic">
+          <footer className="mt-10 border-t border-border pt-6 text-right text-sm leading-[1.9] [overflow-wrap:anywhere] text-foreground-muted italic">
             {translator && (
               <p>
                 <strong className="font-bold text-primary">
@@ -97,7 +99,7 @@ export default function ParableLifeLessonView({ block }: Props) {
                     href={sourceUrl}
                     target="_blank"
                     rel="noopener noreferrer nofollow"
-                    className="rounded-sm text-primary hover:underline focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none"
+                    className="rounded-sm text-primary transition-colors duration-150 hover:text-primary-900 hover:underline focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none active:text-primary-950 motion-reduce:transition-none"
                   >
                     {source.name}
                   </a>

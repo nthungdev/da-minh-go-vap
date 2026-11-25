@@ -34,16 +34,16 @@ export default function PostList({
           <li
             key={post.slug}
             className={cn(
-              "border-b border-border pt-2 pb-2 first:pt-0 last:border-0 hover:cursor-pointer",
+              "border-b border-border pt-2 pb-2 first:pt-0 last:border-0",
               index === activeIndex && "rounded-xl bg-surface-muted",
               effectOnHover &&
-                "transition-transform ease-in hover:scale-x-[103%] motion-reduce:transition-none motion-reduce:hover:scale-x-100 lg:hover:scale-x-105",
+                "transition-transform duration-200 ease-out hover:translate-x-1 motion-reduce:transform-none motion-reduce:transition-none",
             )}
           >
             <Link
               prefetch={false}
               href={href}
-              className="flex flex-row items-start gap-x-3 rounded-xl focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none"
+              className="group flex flex-row items-start gap-x-3 rounded-xl transition-colors duration-150 hover:text-primary focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none active:opacity-80 motion-reduce:transition-none"
             >
               <div className="relative aspect-video w-32 shrink-0 overflow-hidden rounded-xl bg-surface-muted md:w-40 lg:w-28">
                 {thumbnail?.url && (
@@ -64,7 +64,7 @@ export default function PostList({
                 </div>
                 <div
                   className={cn(
-                    "line-clamp-1 text-base font-bold text-foreground",
+                    "line-clamp-1 text-base font-bold text-foreground transition-colors duration-150 group-hover:text-primary motion-reduce:transition-none",
                     !showShortBody &&
                       post.shortBody &&
                       "line-clamp-2 leading-tight",

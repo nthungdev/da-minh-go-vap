@@ -15,6 +15,13 @@ interface PostTableOfContentsProps {
   children: React.ReactNode;
 }
 
+function getScrollBehavior(): ScrollBehavior {
+  if (typeof window === "undefined") return "auto";
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ? "auto"
+    : "smooth";
+}
+
 function areTocItemsEqual(a: TocItem[], b: TocItem[]): boolean {
   if (a.length !== b.length) return false;
   return a.every(
@@ -62,7 +69,7 @@ export default function PostTableOfContents({
         if (matched) {
           hasScrolledInitialHashRef.current = true;
           document.getElementById(targetId)?.scrollIntoView({
-            behavior: "smooth",
+            behavior: getScrollBehavior(),
             block: "start",
           });
         }
@@ -88,7 +95,7 @@ export default function PostTableOfContents({
     if (!target) return;
 
     event.preventDefault();
-    target.scrollIntoView({ behavior: "smooth", block: "start" });
+    target.scrollIntoView({ behavior: getScrollBehavior(), block: "start" });
     window.history.pushState(null, "", `#${targetId}`);
   };
 
@@ -107,7 +114,7 @@ export default function PostTableOfContents({
               isOpen ? t("collapseTableOfContents") : t("expandTableOfContents")
             }
             onClick={() => setIsOpen((prev) => !prev)}
-            className="flex w-full cursor-pointer items-center justify-between gap-3 rounded-xl px-4 py-3 text-left transition-colors hover:bg-accent/60 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none motion-reduce:transition-none"
+            className="flex w-full cursor-pointer items-center justify-between gap-3 rounded-xl px-4 py-3 text-left transition-colors duration-150 hover:bg-accent/60 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none active:bg-accent motion-reduce:transition-none"
           >
             <span className="flex items-center gap-2 text-base font-semibold text-foreground">
               <List
@@ -140,7 +147,7 @@ export default function PostTableOfContents({
                       href={`#${item.id}`}
                       onClick={(event) => handleLinkClick(event, item.id)}
                       className={cn(
-                        "block rounded-sm py-0.5 transition-colors hover:text-primary hover:underline focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none motion-reduce:transition-none",
+                        "block rounded-sm py-0.5 break-words transition-colors duration-150 hover:text-primary hover:underline focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none active:text-primary-900 motion-reduce:transition-none",
                         item.level === 2
                           ? "font-medium text-foreground"
                           : "text-foreground-muted",

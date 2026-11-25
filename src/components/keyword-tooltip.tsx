@@ -149,7 +149,7 @@ export default function KeywordTooltip({
         ref={triggerRef}
         type="button"
         className={cn(
-          "inline cursor-help rounded-sm border-b border-dashed border-primary-500 bg-transparent p-0 font-medium text-primary-700 transition-colors hover:border-primary-700 hover:text-primary-800 focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:outline-none",
+          "inline cursor-help rounded-sm border-b border-dashed border-primary-500 bg-transparent p-0 font-medium text-primary-700 transition-colors duration-150 hover:border-primary-700 hover:text-primary-800 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none active:text-primary-900 motion-reduce:transition-none",
           className,
         )}
         onPointerEnter={handlePointerEnter}
@@ -205,7 +205,7 @@ export default function KeywordTooltip({
                   src={transformUrl(imageUrl, { width: "320", quality: "85" })}
                   alt={imageAlt || title}
                   fill
-                  className="object-cover transition-transform duration-300 hover:scale-105"
+                  className="object-cover transition-transform duration-200 hover:scale-105 motion-reduce:transform-none motion-reduce:transition-none"
                   sizes="(max-width: 768px) 100vw, 300px"
                 />
               </span>
@@ -224,7 +224,7 @@ export default function KeywordTooltip({
               <span className="mt-1 flex justify-end border-t border-gray-100 pt-1.5">
                 <Link
                   href={href}
-                  className="rounded-sm text-xs font-medium text-primary-600 hover:text-primary-700 hover:underline focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:outline-none"
+                  className="rounded-sm text-xs font-medium text-primary-700 transition-colors duration-150 hover:text-primary-900 hover:underline focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none active:text-primary-950 motion-reduce:transition-none"
                   onClick={(e) => e.stopPropagation()}
                 >
                   {t("readMore")} →

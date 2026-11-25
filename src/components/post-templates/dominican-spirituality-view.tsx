@@ -19,7 +19,7 @@ const MARKDOWN_CLASS_NAME = [
 ].join(" ");
 
 const HEADING_CLASS_NAME =
-  "mt-8 mb-4 text-center leading-tight font-bold text-secondary uppercase";
+  "mt-8 mb-4 text-center leading-tight font-bold break-words text-secondary uppercase";
 
 export default function DominicanSpiritualityView({
   block,
@@ -39,7 +39,7 @@ export default function DominicanSpiritualityView({
   } = block;
 
   return (
-    <article className="w-full rounded-3xl border border-border bg-surface p-card-sm text-base leading-[1.8] text-ink-strong shadow-md sm:p-8 sm:text-lg">
+    <article className="w-full rounded-3xl border border-border bg-surface p-card-sm text-base leading-[1.8] [overflow-wrap:anywhere] text-ink-strong shadow-md sm:p-8 sm:text-lg">
       <header>
         <Heading
           className={cn(

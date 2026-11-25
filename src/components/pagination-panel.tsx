@@ -17,13 +17,13 @@ interface PaginationPanelProps extends HTMLAttributes<HTMLElement> {
 }
 
 const buttonClassName =
-  "inline-flex min-h-11 min-w-11 items-center justify-center rounded-md border px-3 py-1.5 text-sm transition-colors focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none motion-reduce:transition-none sm:min-h-9 sm:min-w-9";
+  "inline-flex min-h-11 min-w-11 cursor-pointer items-center justify-center rounded-md border px-3 py-1.5 text-sm transition-colors duration-150 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none motion-reduce:transition-none sm:min-h-9 sm:min-w-9";
 const inactiveClassName =
-  "border-border bg-surface text-primary hover:border-primary hover:bg-accent";
+  "border-border bg-surface text-primary hover:border-primary hover:bg-accent active:bg-primary-100";
 const arrowClassName = cn(
   buttonClassName,
   inactiveClassName,
-  "disabled:cursor-not-allowed disabled:border-border-subtle disabled:bg-surface-muted disabled:text-foreground-muted/50",
+  "disabled:cursor-not-allowed disabled:border-border-subtle disabled:bg-surface-muted disabled:text-foreground-muted/50 disabled:hover:border-border-subtle disabled:hover:bg-surface-muted disabled:active:bg-surface-muted",
 );
 
 export default function PaginationPanel({

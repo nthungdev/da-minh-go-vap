@@ -96,7 +96,7 @@ export default function TributeProfileView({
                     href={source.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="rounded-sm text-primary underline decoration-primary/50 underline-offset-2 transition-colors hover:text-primary-900 hover:decoration-primary-900 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none motion-reduce:transition-none"
+                    className="rounded-sm text-primary underline decoration-primary/50 underline-offset-2 transition-colors duration-150 hover:text-primary-900 hover:decoration-primary-900 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none active:text-primary-950 motion-reduce:transition-none"
                   >
                     {source.label}
                   </a>

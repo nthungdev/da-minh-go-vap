@@ -131,7 +131,7 @@ function renderContributorLinks(people: ContributorCredit[], locale: string) {
         // biome-ignore lint/suspicious/noArrayIndexKey: one person may appear twice in a role
         key={`${id}-${index}`}
         href={makeContributorPostsPath(id)}
-        className="rounded-sm font-medium text-primary transition-colors hover:text-primary-900 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none motion-reduce:transition-none"
+        className="rounded-sm font-medium text-primary underline-offset-2 transition-colors duration-150 hover:text-primary-900 hover:underline focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none active:text-primary-950 motion-reduce:transition-none"
       >
         {name}
       </Link>
@@ -211,7 +211,7 @@ export default async function Page(props: Props) {
       <PostViewTracker slug={post.slug} title={post.title} />
 
       {!post.hideTitle && (
-        <h1 className="text-2xl leading-tight font-bold text-foreground sm:text-3xl lg:text-4xl">
+        <h1 className="text-2xl leading-tight font-bold break-words text-foreground sm:text-3xl lg:text-4xl">
           {post.title}
         </h1>
       )}
@@ -233,7 +233,7 @@ export default async function Page(props: Props) {
       )}
 
       {contributorGroups.length > 0 && (
-        <div className="mt-6 space-y-1 text-sm text-foreground-muted sm:text-base">
+        <div className="mt-6 space-y-1 text-sm [overflow-wrap:anywhere] text-foreground-muted sm:text-base">
           {contributorGroups.map(({ role, people }) => (
             <p key={role}>
               {t(

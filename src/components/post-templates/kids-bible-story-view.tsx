@@ -33,14 +33,17 @@ export default function KidsBibleStoryView({ block, isTitleHidden }: Props) {
   return (
     <article className="relative mx-auto max-w-5xl overflow-hidden rounded-2xl border border-border bg-surface p-card-sm text-foreground shadow-lg sm:p-card">
       {episodeLabel && (
-        <p className="inline-flex items-center gap-2.5 rounded-pill border border-info-border/30 bg-info-subtle px-3.5 py-2 text-lg font-bold text-info md:text-2xl">
-          <span aria-hidden="true" className={cn("size-2.5", BLUE_SQUARE)} />
+        <p className="inline-flex max-w-full flex-wrap items-center gap-2.5 rounded-pill border border-info-border/30 bg-info-subtle px-3.5 py-2 text-lg font-bold text-info md:text-2xl">
+          <span
+            aria-hidden="true"
+            className={cn("size-2.5 shrink-0", BLUE_SQUARE)}
+          />
           {episodeLabel}
         </p>
       )}
       <Heading
         className={cn(
-          "mt-3.5 mb-2 leading-tight font-bold tracking-tight",
+          "mt-3.5 mb-2 leading-tight font-bold tracking-tight break-words",
           isTitleHidden ? "text-2xl sm:text-3xl" : "text-xl sm:text-2xl",
         )}
       >
