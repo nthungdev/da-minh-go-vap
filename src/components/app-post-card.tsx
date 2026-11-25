@@ -20,7 +20,7 @@ export default function AppPostCard(props: AppPostCardProps) {
     <Link
       href={`/posts/${post.slug}`}
       className={cn(
-        "flex h-full w-full flex-col gap-x-2 overflow-hidden rounded-lg border border-transparent text-base hover:bg-gray-50 focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none lg:flex-row",
+        "flex h-full w-full flex-col gap-x-2 overflow-hidden border border-transparent text-base hover:bg-gray-50 focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none lg:flex-row",
         className,
       )}
     >

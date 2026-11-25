@@ -29,7 +29,7 @@ export default function AppPostGrid({
           <Link
             prefetch={false}
             href={`/posts/${post.slug}`}
-            className="group block size-full overflow-hidden rounded-xl border border-border bg-white shadow-xs transition-shadow hover:shadow-md focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none motion-reduce:transition-none"
+            className="group block size-full overflow-hidden border border-border bg-white shadow-xs transition-shadow hover:shadow-md focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none motion-reduce:transition-none"
           >
             <div className="relative aspect-video">
               {typeof post.thumbnail !== "string" &&

@@ -97,9 +97,9 @@ export default function PostGroupTabsPanel({
       <div className="flex flex-col gap-x-4 gap-y-4 lg:flex-row lg:p-3">
         <Link
           href={firstPostHref}
-          className="block space-y-2 rounded-lg focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none lg:w-3/5"
+          className="block space-y-2 focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none lg:w-3/5"
         >
-          <div className="relative aspect-video w-full overflow-hidden rounded-lg">
+          <div className="relative aspect-video w-full overflow-hidden">
             {firstPostThumbnail?.url ? (
               <Image
                 unoptimized
