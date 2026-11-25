@@ -8,6 +8,7 @@ import { cn } from "@/utils/common";
 
 interface Props {
   block: EventGalleryReportBlock;
+  isTitleHidden?: boolean;
 }
 
 type Section = EventGalleryReportBlock["sections"][number];
@@ -99,15 +100,24 @@ function Narrative({ text }: { text: string }) {
   );
 }
 
-export default function EventGalleryReportView({ block }: Props) {
+export default function EventGalleryReportView({
+  block,
+  isTitleHidden,
+}: Props) {
+  const Heading = isTitleHidden ? "h1" : "h2";
   const { eventTitle, eventSubtitle, sections, credits } = block;
 
   return (
     <article className="mx-auto max-w-6xl">
       <header className="mb-8 text-center">
-        <h2 className="text-[28px] leading-tight font-bold text-secondary md:text-4xl lg:text-[42px]">
+        <Heading
+          className={cn(
+            "leading-tight font-bold text-secondary-700",
+            isTitleHidden ? "text-2xl sm:text-3xl" : "text-xl sm:text-2xl",
+          )}
+        >
           {eventTitle}
-        </h2>
+        </Heading>
         {eventSubtitle && (
           <div className="mt-4 rounded-xl bg-slate-50 px-4 py-5 shadow-[0_2px_8px_rgba(0,0,0,0.06)] md:p-6">
             <p className="text-justify text-lg leading-normal font-semibold text-primary-800 italic md:text-2xl">

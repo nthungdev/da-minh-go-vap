@@ -7,6 +7,8 @@ import {
   useEffect,
   useReducer,
   useRef,
+  useState,
+  useSyncExternalStore,
 } from "react";
 
 export interface CarouselState {
@@ -77,6 +79,22 @@ export interface UseCarouselOptions {
   respectReducedMotion?: boolean;
 }
 
+const reducedMotionQuery = "(prefers-reduced-motion: reduce)";
+
+function subscribeToReducedMotion(onChange: () => void) {
+  const mediaQuery = window.matchMedia(reducedMotionQuery);
+  mediaQuery.addEventListener("change", onChange);
+  return () => mediaQuery.removeEventListener("change", onChange);
+}
+
+function getReducedMotion() {
+  return window.matchMedia(reducedMotionQuery).matches;
+}
+
+function getServerReducedMotion() {
+  return false;
+}
+
 /**
  * Explicit state-machine hook for auto-advancing carousels and rotating items.
  * Handles boundary clamping, timer cleanup, pause-on-hover/focus, and reduced motion.
@@ -91,6 +109,20 @@ export function useCarousel({
     index: 0,
     status: "playing",
   });
+
+  const [userPaused, setUserPaused] = useState<boolean | null>(null);
+  const [isHovered, setIsHovered] = useState(false);
+  const [hasFocus, setHasFocus] = useState(false);
+  const prefersReducedMotion = useSyncExternalStore(
+    subscribeToReducedMotion,
+    getReducedMotion,
+    getServerReducedMotion,
+  );
+  const pauseForReducedMotion = respectReducedMotion && prefersReducedMotion;
+  const isUserPaused = userPaused ?? pauseForReducedMotion;
+  const isPaused =
+    state.status === "paused" || isUserPaused || isHovered || hasFocus;
+  const isPlaying = count > 1 && !isPaused;
 
   const onTransitionRef = useRef(onTransition);
   onTransitionRef.current = onTransition;
@@ -126,21 +158,26 @@ export function useCarousel({
 
   const pause = useCallback(() => dispatch({ type: "PAUSE" }), []);
   const resume = useCallback(() => dispatch({ type: "RESUME" }), []);
+  const toggleUserPause = () => {
+    setUserPaused((paused) => !(paused ?? pauseForReducedMotion));
+  };
+
+  const containerProps = {
+    onMouseEnter: () => setIsHovered(true),
+    onMouseLeave: () => setIsHovered(false),
+    onFocus: () => setHasFocus(true),
+    onBlur: (event?: React.FocusEvent<HTMLElement>) => {
+      if (event?.currentTarget.contains(event.relatedTarget)) return;
+      setHasFocus(false);
+    },
+  };
 
   const currentDuration = Array.isArray(durations)
     ? (durations[state.index] ?? durations[0] ?? 5000)
     : durations;
 
   useEffect(() => {
-    if (count <= 1 || state.status === "paused") return;
-
-    if (
-      respectReducedMotion &&
-      typeof window !== "undefined" &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    ) {
-      return;
-    }
+    if (!isPlaying) return;
 
     const timer = setTimeout(() => {
       const nextIndex = (state.index + 1) % count;
@@ -149,22 +186,20 @@ export function useCarousel({
     }, currentDuration);
 
     return () => clearTimeout(timer);
-  }, [count, currentDuration, respectReducedMotion, state.index, state.status]);
+  }, [count, currentDuration, isPlaying, state.index]);
 
   return {
     currentIndex: state.index,
-    status: state.status,
+    status: isPaused ? ("paused" as const) : ("playing" as const),
+    isUserPaused,
+    isPlaying,
+    toggleUserPause,
     next,
     prev,
     goTo,
     pause,
     resume,
-    containerProps: {
-      onMouseEnter: pause,
-      onMouseLeave: resume,
-      onFocus: pause,
-      onBlur: resume,
-    },
+    containerProps,
     getContainerProps: <T extends HTMLElement>(handlers?: {
       onMouseEnter?: MouseEventHandler<T>;
       onMouseLeave?: MouseEventHandler<T>;
@@ -172,19 +207,19 @@ export function useCarousel({
       onBlur?: FocusEventHandler<T>;
     }) => ({
       onMouseEnter: (event: React.MouseEvent<T>) => {
-        pause();
+        containerProps.onMouseEnter();
         handlers?.onMouseEnter?.(event);
       },
       onMouseLeave: (event: React.MouseEvent<T>) => {
-        resume();
+        containerProps.onMouseLeave();
         handlers?.onMouseLeave?.(event);
       },
       onFocus: (event: React.FocusEvent<T>) => {
-        pause();
+        containerProps.onFocus();
         handlers?.onFocus?.(event);
       },
       onBlur: (event: React.FocusEvent<T>) => {
-        resume();
+        containerProps.onBlur(event);
         handlers?.onBlur?.(event);
       },
     }),

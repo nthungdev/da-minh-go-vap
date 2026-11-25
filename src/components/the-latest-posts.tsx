@@ -7,6 +7,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { useId, useState } from "react";
 import { fetchAllPosts } from "@/actions/post";
 import AppCarousel from "@/components/app-carousel";
+import { PostQueryFeedback } from "@/components/app-post-grid-async";
 import PostList from "@/components/post-list";
 import Spinner from "@/components/spinner";
 import type { AppPost } from "@/definitions";
@@ -34,8 +35,9 @@ export default function TheLatestPosts({
   const [currentIndex, setCurrentIndex] = useState(0);
   const {
     data = initialPosts || [],
-    error,
+    isError,
     isPending,
+    refetch,
   } = useQuery({
     queryKey: ["fetchLatestPosts", locale, postCount],
     queryFn: () => fetchAllPosts({ limit: postCount, locale }),
@@ -44,37 +46,31 @@ export default function TheLatestPosts({
     staleTime: initialPosts ? 60_000 : undefined,
   });
 
-  if (isPending && !data.length)
-    return (
-      <div className="flex aspect-[3/1] items-center justify-center">
-        <Spinner />
-      </div>
-    );
-
-  // If initial or cached data is available, keep showing it even if a background refetch fails
-  if (error && !data?.length) return <p>Error: {error.message}</p>;
-
-  if (!data?.length) {
-    return <div>No post found</div>;
-  }
-
-  const postHref = `/posts/${data[currentIndex]?.slug}`;
+  const heading = (
+    <h2 className="inline-block rounded-md bg-primary-800 px-6 py-1 text-base font-bold text-white uppercase">
+      {t("latest")}
+    </h2>
+  );
 
   return (
     <div className={cn("@container", className)}>
-      <div className="mb-4">
-        <span className="cursor-default rounded-md bg-primary px-6 py-1 font-bold text-white uppercase">
-          {t("latest")}
-        </span>
-      </div>
-      <div
-        className={cn(
-          "flex flex-col gap-x-2 lg:flex-row",
-          postCount === 4 && "lg:h-[320px]",
-          postCount === 5 && "lg:h-[402px]",
-        )}
-      >
-        <Link href={postHref}>
+      <div className="mb-4">{heading}</div>
+      {isPending && data.length === 0 ? (
+        <div className="flex aspect-[3/1] items-center justify-center">
+          <Spinner className="motion-reduce:animate-none" />
+        </div>
+      ) : data.length === 0 ? (
+        <PostQueryFeedback
+          onRetry={isError ? () => void refetch() : undefined}
+        />
+      ) : (
+        <div
+          className={cn(
+            "flex flex-col gap-x-2 lg:flex-row",
+            postCount === 4 && "lg:h-[320px]",
+            postCount === 5 && "lg:h-[402px]",
+          )}
+        >
           <AppCarousel
             id={carouselId}
             className="aspect-video h-full w-auto bg-primary-2"
@@ -85,9 +81,11 @@ export default function TheLatestPosts({
               const thumbnail = getDataOrUndefined(post.thumbnail);
 
               return (
-                <div
+                <Link
                   key={post.slug}
-                  className="hs-carousel-slide relative size-full shrink-0"
+                  href={`/posts/${post.slug}`}
+                  aria-label={post.title}
+                  className="relative block size-full focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:outline-none focus-visible:after:absolute focus-visible:after:inset-0 focus-visible:after:ring-2 focus-visible:after:ring-primary-800 focus-visible:after:ring-inset"
                 >
                   {thumbnail?.url ? (
                     <Image
@@ -107,19 +105,19 @@ export default function TheLatestPosts({
                   ) : (
                     <div className="size-full bg-gray-300"></div>
                   )}
-                </div>
+                </Link>
               );
             })}
           </AppCarousel>
-        </Link>
 
-        <PostList
-          className="flex-1"
-          posts={data}
-          activeIndex={currentIndex}
-          showShortBody
-        />
-      </div>
+          <PostList
+            className="flex-1"
+            posts={data}
+            activeIndex={currentIndex < data.length ? currentIndex : 0}
+            showShortBody
+          />
+        </div>
+      )}
     </div>
   );
 }

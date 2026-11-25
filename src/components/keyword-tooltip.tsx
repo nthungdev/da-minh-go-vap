@@ -3,7 +3,16 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
-import { type ReactNode, useEffect, useRef, useState } from "react";
+import {
+  type FocusEvent,
+  type PointerEvent,
+  type ReactNode,
+  useCallback,
+  useEffect,
+  useId,
+  useRef,
+  useState,
+} from "react";
 import { transformUrl } from "@/utils/cloudflare";
 import { cn } from "@/utils/common";
 
@@ -27,8 +36,7 @@ export interface KeywordTooltipProps {
 }
 
 /**
- * KeywordTooltip renders an interactive hover card when the user hovers over
- * or focuses on a keyword, displaying an image, title, description, and optional link.
+ * Shows an interactive keyword definition on hover, keyboard focus, or activation.
  */
 export default function KeywordTooltip({
   keyword,
@@ -42,90 +50,151 @@ export default function KeywordTooltip({
 }: KeywordTooltipProps) {
   const t = useTranslations("common");
   const [isOpen, setIsOpen] = useState(false);
-  const [position, setPosition] = useState<"top" | "bottom">("top");
-  const triggerRef = useRef<HTMLSpanElement>(null);
-  const cardRef = useRef<HTMLDivElement>(null);
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const [position, setPosition] = useState({ below: false, left: 0, arrow: 0 });
+  const dialogId = useId();
+  const containerRef = useRef<HTMLSpanElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const handleMouseEnter = () => {
-    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+  const clearTimer = useCallback(() => {
+    if (timeoutRef.current !== null) clearTimeout(timeoutRef.current);
+  }, []);
+
+  const updatePosition = useCallback(() => {
+    const rect = containerRef.current?.getBoundingClientRect();
+    if (!rect) return;
+
+    const root = document.documentElement;
+    const rem = Number.parseFloat(getComputedStyle(root).fontSize);
+    const viewportWidth = root.clientWidth;
+    const cardWidth = Math.min(18 * rem, viewportWidth - 2 * rem);
+    const center = rect.left + rect.width / 2;
+    const left = Math.max(
+      rem,
+      Math.min(center - cardWidth / 2, viewportWidth - cardWidth - rem),
+    );
+    setPosition({
+      below: rect.top < 220,
+      left: left - rect.left,
+      arrow: Math.max(rem, Math.min(center - left, cardWidth - rem)),
+    });
+  }, []);
+
+  const scheduleOpen = () => {
+    clearTimer();
     timeoutRef.current = setTimeout(() => {
-      if (triggerRef.current) {
-        const rect = triggerRef.current.getBoundingClientRect();
-        // If trigger is too close to top of viewport, position card below
-        if (rect.top < 220) {
-          setPosition("bottom");
-        } else {
-          setPosition("top");
-        }
-      }
+      updatePosition();
       setIsOpen(true);
     }, 120);
   };
 
-  const handleMouseLeave = () => {
-    if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    timeoutRef.current = setTimeout(() => {
-      setIsOpen(false);
-    }, 150);
+  const handlePointerEnter = (event: PointerEvent<HTMLElement>) => {
+    if (event.pointerType === "mouse") scheduleOpen();
   };
 
-  const handleBlur = (event: React.FocusEvent<HTMLElement>) => {
-    const nextFocusedElement = event.relatedTarget;
-    if (
-      nextFocusedElement instanceof Node &&
-      triggerRef.current?.contains(nextFocusedElement)
-    ) {
-      return;
-    }
-    handleMouseLeave();
+  const handlePointerLeave = (event: PointerEvent<HTMLElement>) => {
+    if (event.pointerType !== "mouse") return;
+    clearTimer();
+    if (containerRef.current?.contains(document.activeElement)) return;
+    timeoutRef.current = setTimeout(() => setIsOpen(false), 150);
+  };
+
+  const handleBlur = (event: FocusEvent<HTMLElement>) => {
+    if (containerRef.current?.contains(event.relatedTarget)) return;
+    clearTimer();
+    setIsOpen(false);
   };
 
   useEffect(() => {
-    return () => {
-      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    return clearTimer;
+  }, [clearTimer]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const dismissOnEscape = (event: KeyboardEvent) => {
+      if (event.key !== "Escape" || event.defaultPrevented) return;
+      event.preventDefault();
+      triggerRef.current?.focus({ preventScroll: true });
+      clearTimer();
+      setIsOpen(false);
     };
-  }, []);
+
+    const dismissOnOutsidePointer = (event: globalThis.PointerEvent) => {
+      if (
+        event.target instanceof Node &&
+        containerRef.current?.contains(event.target)
+      ) {
+        return;
+      }
+      clearTimer();
+      setIsOpen(false);
+    };
+
+    window.addEventListener("keydown", dismissOnEscape);
+    window.addEventListener("pointerdown", dismissOnOutsidePointer);
+    window.addEventListener("resize", updatePosition);
+    return () => {
+      window.removeEventListener("keydown", dismissOnEscape);
+      window.removeEventListener("pointerdown", dismissOnOutsidePointer);
+      window.removeEventListener("resize", updatePosition);
+    };
+  }, [isOpen, clearTimer, updatePosition]);
 
   const triggerContent = children || keyword || title;
 
   return (
-    <span ref={triggerRef} className="relative inline-block">
+    <span ref={containerRef} className="relative inline-block">
       <button
+        ref={triggerRef}
         type="button"
         className={cn(
-          "inline cursor-help border-b border-dashed border-primary-500 bg-transparent p-0 font-medium text-primary-700 transition-colors hover:border-primary-700 hover:text-primary-800",
+          "inline cursor-help rounded-sm border-b border-dashed border-primary-500 bg-transparent p-0 font-medium text-primary-700 transition-colors hover:border-primary-700 hover:text-primary-800 focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:outline-none",
           className,
         )}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        onFocus={handleMouseEnter}
+        onPointerEnter={handlePointerEnter}
+        onPointerLeave={handlePointerLeave}
         onBlur={handleBlur}
+        onFocus={(event) => {
+          if (!event.currentTarget.matches(":focus-visible")) return;
+          clearTimer();
+          updatePosition();
+          setIsOpen(true);
+        }}
+        onClick={() => {
+          clearTimer();
+          if (!isOpen) updatePosition();
+          setIsOpen((previous) => !previous);
+        }}
         aria-haspopup="dialog"
         aria-expanded={isOpen}
+        aria-controls={isOpen ? dialogId : undefined}
       >
         {triggerContent}
       </button>
 
       {isOpen && (
         <span
-          ref={cardRef}
-          role="tooltip"
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
+          id={dialogId}
+          role="dialog"
+          aria-label={title}
+          onPointerEnter={handlePointerEnter}
+          onPointerLeave={handlePointerLeave}
           onBlur={handleBlur}
+          style={{ left: position.left }}
           className={cn(
-            "absolute left-1/2 z-50 w-72 -translate-x-1/2 animate-in rounded-xl border border-gray-200 bg-white p-3.5 shadow-xl transition-all duration-200 zoom-in-95 fade-in",
-            position === "top" ? "bottom-full mb-2" : "top-full mt-2",
+            "absolute z-50 w-72 max-w-[calc(100vw-2rem)] animate-in rounded-xl border border-gray-200 bg-white p-3.5 shadow-xl transition-all duration-200 zoom-in-95 fade-in motion-reduce:animate-none motion-reduce:transition-none",
+            position.below ? "top-full mt-2" : "bottom-full mb-2",
           )}
         >
           {/* Arrow */}
           <span
+            style={{ left: position.arrow }}
             className={cn(
-              "absolute left-1/2 h-2.5 w-2.5 -translate-x-1/2 rotate-45 border-gray-200 bg-white",
-              position === "top"
-                ? "-bottom-1.5 border-r border-b"
-                : "-top-1.5 border-t border-l",
+              "absolute h-2.5 w-2.5 -translate-x-1/2 rotate-45 border-gray-200 bg-white",
+              position.below
+                ? "-top-1.5 border-t border-l"
+                : "-bottom-1.5 border-r border-b",
             )}
           />
 
@@ -155,7 +224,7 @@ export default function KeywordTooltip({
               <span className="mt-1 flex justify-end border-t border-gray-100 pt-1.5">
                 <Link
                   href={href}
-                  className="text-xs font-medium text-primary-600 hover:text-primary-700 hover:underline"
+                  className="rounded-sm text-xs font-medium text-primary-600 hover:text-primary-700 hover:underline focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:outline-none"
                   onClick={(e) => e.stopPropagation()}
                 >
                   {t("readMore")} →

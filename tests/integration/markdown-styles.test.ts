@@ -282,9 +282,10 @@ test("all compiled .markdown nested selectors remain scoped under .markdown", as
 test("compiled CSS styles .markdown h1 and h2 with non-prose scoping and footnote exclusion", async () => {
   const { themeVars, markdownRules } = await compiledCssPromise;
 
-  assert.equal(themeVars["--color-secondary"], "#ea580c");
-  assert.equal(themeVars["--color-chill-700"], "#008596");
-  assert.equal(themeVars["--color-primary"], "var(--color-chill-700)");
+  assert.equal(themeVars["--color-secondary-700"], "#c2410c");
+  assert.equal(themeVars["--color-secondary"], "var(--color-secondary-700)");
+  assert.equal(themeVars["--color-chill-800"], "#0b6f7f");
+  assert.equal(themeVars["--color-primary"], "var(--color-chill-800)");
 
   const headingMarginRule = findRuleMatching(
     markdownRules,

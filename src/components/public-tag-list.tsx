@@ -21,7 +21,7 @@ export function PublicTagList({
         <Link
           key={tag.id}
           href={makePublicTagPath(tag.tag)}
-          className="border:bg-secondary-300 rounded-full border bg-secondary-400 px-3 py-1 text-sm text-white transition hover:bg-secondary-600"
+          className="rounded-full border border-secondary-700 bg-secondary-700 px-3 py-1.5 text-sm font-medium text-white transition-colors hover:bg-secondary-800 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none motion-reduce:transition-none"
         >
           {tag.label}
         </Link>

@@ -2,10 +2,12 @@ import { cn } from "@/utils/common";
 
 interface AppGridHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
   text: string;
+  as?: "h1" | "h2" | "h3";
 }
 
 export default function AppGridHeader({
   text,
+  as: HeadingTag = "h2",
   className,
   ...props
 }: AppGridHeaderProps) {
@@ -17,11 +19,11 @@ export default function AppGridHeader({
       )}
       {...props}
     >
-      <div className="h-[2px] flex-1 bg-primary-800"></div>
-      <span className="text-base font-bold text-primary-800 uppercase @md:text-2xl">
+      <div aria-hidden="true" className="h-[2px] flex-1 bg-primary-800" />
+      <HeadingTag className="text-base font-bold text-primary-800 uppercase @md:text-2xl">
         {text}
-      </span>
-      <div className="h-[2px] flex-1 bg-primary-800"></div>
+      </HeadingTag>
+      <div aria-hidden="true" className="h-[2px] flex-1 bg-primary-800" />
     </div>
   );
 }

@@ -15,6 +15,7 @@ import {
 } from "@/utils/search";
 
 interface SearchResultCardProps {
+  id: string;
   post: AppPost;
   query: string;
   locale: string;
@@ -25,6 +26,7 @@ interface SearchResultCardProps {
 }
 
 export function SearchResultCard({
+  id,
   post,
   query,
   locale,
@@ -62,6 +64,8 @@ export function SearchResultCard({
   return (
     <Link
       ref={cardRef}
+      id={id}
+      tabIndex={-1}
       href={`/posts/${post.slug}`}
       role="option"
       aria-selected={isSelected}

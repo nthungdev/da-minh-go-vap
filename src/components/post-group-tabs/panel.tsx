@@ -3,9 +3,10 @@
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import Link from "next/link";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import type React from "react";
 import { fetchPostsByHiddenTags } from "@/actions/post";
+import { PostQueryFeedback } from "@/components/app-post-grid-async";
 import AppViewMoreLink from "@/components/app-view-more-link";
 import PostList from "@/components/post-list";
 import type { AppPost } from "@/definitions";
@@ -45,7 +46,7 @@ export default function PostGroupTabsPanel({
   ...props
 }: PostGroupTabsPanelProps) {
   const locale = useLocale();
-  const { isPending, error, data } = useQuery({
+  const { isPending, isError, data, refetch } = useQuery({
     queryKey: ["tabbed-post-group-content", ...hiddenTags, locale],
     queryFn: () =>
       fetchPostsByHiddenTags(hiddenTags, { limit: POST_COUNT, locale }),
@@ -63,34 +64,29 @@ export default function PostGroupTabsPanel({
   if (isPending && !initialPosts?.length) {
     return (
       <PostGroupTabPanelSkeleton
-        viewMoreButtonEnable={viewMoreButton?.enable || true}
+        className={className}
+        aria-busy={!hidden}
+        viewMoreButtonEnable={Boolean(viewMoreButton?.enable)}
         hidden={hidden}
         {...props}
       />
     );
   }
 
-  if (error && !initialPosts?.length) {
-    // TODO prettier error
+  const posts = data?.posts ?? initialPosts ?? [];
+  const [firstPost, ...otherPosts] = posts;
+  if (!firstPost) {
     return (
-      <div hidden={hidden} {...props}>
-        Error
+      <div className={className} hidden={hidden} {...props}>
+        <PostQueryFeedback
+          onRetry={isError ? () => void refetch() : undefined}
+        />
       </div>
     );
   }
 
-  const posts = data?.posts ?? initialPosts ?? [];
-  if (!posts.length) return null;
-
   const page = getDataOrUndefined<Page>(viewMoreButton?.relativeUrl);
-
   const viewMoreHref = page ? page.path : makePostsPath(hiddenTags, title);
-
-  const firstPost = posts[0];
-  const otherPosts = posts.slice(1);
-
-  if (!firstPost) return null;
-
   const firstPostThumbnail = getDataOrUndefined(firstPost.thumbnail);
   const firstPostDate = firstPost.publishedAt.toLocaleDateString("vi-VN");
   const firstPostHref = `/posts/${firstPost.slug}`;
@@ -138,8 +134,10 @@ function PostGroupTabPanelSkeleton({
 }: {
   viewMoreButtonEnable: boolean;
 } & React.HTMLAttributes<HTMLDivElement>) {
+  const t = useTranslations("common");
   return (
-    <div className={cn("animate-pulse", className)} {...props}>
+    <div className={cn("motion-safe:animate-pulse", className)} {...props}>
+      <span className="sr-only">{t("loading")}</span>
       <div className="flex flex-col gap-x-4 lg:flex-row lg:p-3">
         <div className="block space-y-2 gap-y-2 lg:w-3/5">
           <div className="relative aspect-video w-full bg-gray-200"></div>

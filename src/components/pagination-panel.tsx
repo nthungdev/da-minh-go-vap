@@ -1,3 +1,6 @@
+"use client";
+
+import { useTranslations } from "next-intl";
 import type { HTMLAttributes } from "react";
 import { IoIosSkipBackward, IoIosSkipForward } from "react-icons/io";
 import {
@@ -6,11 +9,21 @@ import {
 } from "react-icons/md";
 import { cn } from "@/utils/common";
 
-interface PaginationPanelProps extends HTMLAttributes<HTMLDivElement> {
+interface PaginationPanelProps extends HTMLAttributes<HTMLElement> {
   totalPages: number;
   page: number;
   onPageChange?: (page: number) => void;
 }
+
+const buttonClassName =
+  "inline-flex min-h-11 min-w-11 items-center justify-center rounded-md border px-3 py-1.5 text-sm transition-colors focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-1 focus-visible:outline-none sm:min-h-9 sm:min-w-9";
+const inactiveClassName =
+  "border-gray-300 bg-white text-primary-800 hover:border-primary-800 hover:bg-primary-50";
+const arrowClassName = cn(
+  buttonClassName,
+  inactiveClassName,
+  "disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-white disabled:text-gray-400",
+);
 
 export default function PaginationPanel({
   totalPages,
@@ -18,58 +31,75 @@ export default function PaginationPanel({
   className,
   onPageChange,
 }: PaginationPanelProps) {
+  const t = useTranslations("common");
   const allPages = Array(totalPages)
     .fill(null)
     .map((_, index) => index + 1);
   const shownPages = allPages.slice(Math.max(page - 3, 0), page + 2);
 
   return (
-    <div className={cn("flex flex-row justify-center gap-x-1", className)}>
+    <nav
+      aria-label={t("pagination")}
+      className={cn(
+        "flex flex-row flex-wrap items-center justify-center gap-1.5",
+        className,
+      )}
+    >
       <button
         type="button"
-        className="rounded-md border px-3 py-1 text-primary hover:cursor-pointer disabled:text-black disabled:hover:cursor-auto"
-        onClick={() => onPageChange?.(page - 1)}
-        disabled={page <= 1}
-      >
-        <MdOutlineArrowBackIosNew />
-      </button>
-      <button
-        type="button"
-        className="rounded-md border px-3 py-1 text-primary hover:cursor-pointer disabled:text-black disabled:hover:cursor-auto"
+        aria-label={t("firstPage")}
+        className={arrowClassName}
         disabled={page <= 1}
         onClick={() => onPageChange?.(1)}
       >
-        <IoIosSkipBackward />
+        <IoIosSkipBackward aria-hidden="true" />
+      </button>
+      <button
+        type="button"
+        aria-label={t("previousPage")}
+        className={arrowClassName}
+        disabled={page <= 1}
+        onClick={() => onPageChange?.(page - 1)}
+      >
+        <MdOutlineArrowBackIosNew aria-hidden="true" />
       </button>
       {shownPages.map((p) => (
         <button
           key={p}
           type="button"
-          className={
-            "rounded-md border px-3 py-1 text-primary hover:cursor-pointer disabled:text-black disabled:hover:cursor-auto"
-          }
-          disabled={p === page}
-          onClick={() => onPageChange?.(p)}
+          aria-current={p === page ? "page" : undefined}
+          aria-label={t("pageNumber", { page: p })}
+          className={cn(
+            buttonClassName,
+            p === page
+              ? "border-primary-800 bg-primary-800 font-semibold text-white"
+              : inactiveClassName,
+          )}
+          onClick={() => {
+            if (p !== page) onPageChange?.(p);
+          }}
         >
           {p}
         </button>
       ))}
       <button
         type="button"
-        className="rounded-md border px-3 py-1 text-primary hover:cursor-pointer disabled:text-black disabled:hover:cursor-auto"
+        aria-label={t("nextPage")}
+        className={arrowClassName}
         disabled={page >= totalPages}
-        onClick={() => onPageChange?.(totalPages)}
+        onClick={() => onPageChange?.(page + 1)}
       >
-        <IoIosSkipForward />
+        <MdOutlineArrowForwardIos aria-hidden="true" />
       </button>
       <button
         type="button"
-        className="rounded-md border px-3 py-1 text-primary hover:cursor-pointer disabled:text-black disabled:hover:cursor-auto"
-        onClick={() => onPageChange?.(page + 1)}
+        aria-label={t("lastPage")}
+        className={arrowClassName}
         disabled={page >= totalPages}
+        onClick={() => onPageChange?.(totalPages)}
       >
-        <MdOutlineArrowForwardIos />
+        <IoIosSkipForward aria-hidden="true" />
       </button>
-    </div>
+    </nav>
   );
 }

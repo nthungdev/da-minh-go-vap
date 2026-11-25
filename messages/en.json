@@ -9,10 +9,21 @@
     "scrollToTop": "Scroll to top",
     "openInNewTab": "(opens in a new tab)",
     "readMore": "Read more",
-    "thumbnailAlt": "Thumbnail: {title}"
+    "thumbnailAlt": "Thumbnail: {title}",
+    "skipToContent": "Skip to main content",
+    "retry": "Try again",
+    "pauseSlideshow": "Pause slideshow",
+    "playSlideshow": "Play slideshow",
+    "firstPage": "First page",
+    "previousPage": "Previous page",
+    "nextPage": "Next page",
+    "lastPage": "Last page",
+    "pagination": "Pagination",
+    "pageNumber": "Page {page}"
   },
   "navigation": {
     "toggleMenu": "Toggle menu",
+    "toggleSection": "Toggle {name} submenu",
     "menu": "Menu",
     "postGroups": "Post groups",
     "selectPostGroup": "Select post group",
@@ -28,6 +39,11 @@
     "tableOfContents": "Table of Contents",
     "expandTableOfContents": "Expand table of contents",
     "collapseTableOfContents": "Collapse table of contents",
+    "emptyTitle": "No posts found",
+    "emptyDescription": "There are no posts matching this section yet.",
+    "errorTitle": "Unable to load posts",
+    "errorDescription": "Something went wrong while loading posts. Please try again.",
+    "browseAll": "Browse all posts",
     "contributorRoles": {
       "author": {
         "one": "Author",
@@ -93,7 +109,16 @@
     "marketingEmailLabel": "Marketing"
   },
   "shareToolbar": {
-    "title": "Share"
+    "title": "Share",
+    "copyLink": "Copy link",
+    "shareFacebook": "Share on Facebook",
+    "shareViber": "Share on Viber"
+  },
+  "errorBoundary": {
+    "title": "Something went wrong",
+    "description": "Sorry, this page could not be displayed right now. Please try again or return home.",
+    "retry": "Try again",
+    "backHome": "Back to home"
   },
   "lightbox": {
     "zoom": "Enlarge image",

@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import type { HTMLAttributes, ReactNode } from "react";
+import { CarouselPlaybackButton } from "@/components/app-carousel";
 import { useCarousel } from "@/hooks/use-carousel";
 import { cn } from "@/utils/common";
 
@@ -33,7 +34,14 @@ export default function AppCarouselFade<T>({
   ...props
 }: AppCarouselFadeProps<T>) {
   const t = useTranslations("common");
-  const { currentIndex, next, prev, getContainerProps } = useCarousel({
+  const {
+    currentIndex,
+    next,
+    prev,
+    getContainerProps,
+    isUserPaused,
+    toggleUserPause,
+  } = useCarousel({
     count: items.length,
     durations,
     onTransition,
@@ -53,9 +61,12 @@ export default function AppCarouselFade<T>({
         {items.map((item, index) => (
           <li
             key={getCarouselItemKey(item, index)}
+            inert={currentIndex !== index}
             className={cn(
-              "pointer-events-none absolute top-0 left-0 size-full opacity-0 transition-opacity duration-[2s] ease-in-out",
-              currentIndex === index && "opacity-100",
+              "absolute top-0 left-0 size-full transition-opacity duration-[2s] ease-in-out motion-reduce:transition-none",
+              currentIndex === index
+                ? "opacity-100"
+                : "pointer-events-none opacity-0",
             )}
           >
             {render(item, index)}
@@ -67,7 +78,7 @@ export default function AppCarouselFade<T>({
         <>
           <button
             type="button"
-            className="hs-carousel-prev group absolute inset-y-0 start-0 inline-flex h-full w-11.5 items-center justify-center text-gray-800 hover:bg-gray-800/10 focus:bg-gray-800/10 focus:outline-hidden disabled:pointer-events-none dark:text-white dark:hover:bg-white/10 dark:focus:bg-white/10 hs-carousel-disabled:opacity-50"
+            className="hs-carousel-prev group absolute inset-y-0 start-0 inline-flex h-full w-11.5 items-center justify-center text-gray-800 hover:bg-gray-800/10 focus:bg-gray-800/10 focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none focus-visible:ring-inset disabled:pointer-events-none dark:text-white dark:hover:bg-white/10 dark:focus:bg-white/10 hs-carousel-disabled:opacity-50"
             onClick={prev}
           >
             <span
@@ -93,7 +104,7 @@ export default function AppCarouselFade<T>({
           </button>
           <button
             type="button"
-            className="hs-carousel-next hover:text-whit group absolute inset-y-0 end-0 inline-flex h-full w-11.5 items-center justify-center text-gray-800 hover:bg-gray-800/10 focus:bg-gray-800/10 focus:outline-hidden disabled:pointer-events-none dark:text-white dark:hover:bg-white/10 dark:focus:bg-white/10 hs-carousel-disabled:opacity-50"
+            className="hs-carousel-next group absolute inset-y-0 end-0 inline-flex h-full w-11.5 items-center justify-center text-gray-800 hover:bg-gray-800/10 hover:text-white focus:bg-gray-800/10 focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none focus-visible:ring-inset disabled:pointer-events-none dark:text-white dark:hover:bg-white/10 dark:focus:bg-white/10 hs-carousel-disabled:opacity-50"
             onClick={next}
           >
             <span className="sr-only">{t("next")}</span>
@@ -117,10 +128,13 @@ export default function AppCarouselFade<T>({
               </svg>
             </span>
           </button>
+          <CarouselPlaybackButton
+            className="absolute end-2 bottom-2"
+            isUserPaused={isUserPaused}
+            onToggle={toggleUserPause}
+          />
         </>
       )}
-
-      <div className="hs-carousel-pagination absolute start-0 end-0 bottom-3 flex justify-center space-x-2"></div>
     </div>
   );
 }

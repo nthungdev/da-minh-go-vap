@@ -38,13 +38,13 @@ export default function AppPostGridSix({
         <li
           key={post.slug}
           className={cn(
-            "relative block w-full min-w-0 overflow-hidden border bg-white hover:ring-3 md:aspect-video md:border-transparent",
+            "relative block w-full min-w-0 overflow-hidden border bg-white focus-within:ring-2 focus-within:ring-primary-800 hover:ring-3 md:aspect-video md:border-transparent",
             cellClasses[index],
           )}
         >
           <Link
             href={`/posts/${post.slug}`}
-            className="relative block h-full w-full overflow-hidden hover:ring-2"
+            className="relative block h-full w-full overflow-hidden hover:ring-2 focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:outline-none"
           >
             <div className="relative aspect-video bg-gray-50">
               {typeof post.thumbnail !== "string" &&
@@ -59,22 +59,18 @@ export default function AppPostGridSix({
                   />
                 )}
             </div>
-            <div className="space-y-2 p-2">
+            <div className="space-y-2 p-2 md:hidden">
               <h2 className="block truncate text-center text-xl">
                 {post.title}
               </h2>
-              <button type="button" className="block w-full text-center">
+              <span className="block w-full text-center">
                 {t("viewMore")}...
-              </button>
+              </span>
             </div>
 
             <div className="group absolute top-0 left-0 hidden size-full hover:cursor-pointer md:block">
-              {/* static black gradient background */}
-              <div className="bg-opacity-50 absolute bottom-0 left-0 w-full bg-linear-to-b from-transparent from-5% to-primary-800 md:h-20 lg:h-24"></div>
-              {/* slide up secondary color gradient background */}
-              <div className="bg-opacity-50 absolute bottom-0 left-0 w-full translate-y-full bg-linear-to-b from-transparent from-5% via-secondary-400 via-40% to-secondary-400 transition group-hover:translate-y-0 md:h-20 lg:h-24"></div>
-              {/* static post title */}
-              <div className="absolute bottom-0 left-0 w-full p-3">
+              <div className="absolute bottom-0 left-0 w-full translate-y-full bg-linear-to-b from-transparent via-primary-900/85 to-primary-950/95 transition-transform group-hover:translate-y-0 motion-reduce:transition-none md:h-20 lg:h-24"></div>
+              <div className="absolute bottom-0 left-0 w-full bg-primary-950/85 p-3">
                 <span className="line-clamp-2 text-white md:text-sm lg:text-lg">
                   {post.title}
                 </span>

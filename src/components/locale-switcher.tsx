@@ -27,7 +27,7 @@ export default function LocaleSwitcher() {
   return (
     <button
       type="button"
-      className="group relative rounded px-2 py-1 hover:cursor-pointer disabled:pointer-events-none"
+      className="relative inline-flex min-h-11 items-center justify-center rounded-md px-2.5 py-1.5 text-sm font-medium transition-colors hover:cursor-pointer hover:bg-white/15 focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none disabled:pointer-events-none sm:min-h-9"
       onClick={switchLocale}
       disabled={isPending}
       aria-label={`Switch language to ${label}`}
