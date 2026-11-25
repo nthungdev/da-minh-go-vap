@@ -95,7 +95,7 @@ export default function NewsArticleFeaturedView({ block }: Props) {
     ALIGNMENT_CLASSES[imageAlignment ?? "left"] ?? ALIGNMENT_CLASSES.left;
 
   return (
-    <article className="flow-root font-noto-serif text-lg leading-[1.8] text-[#003f44] md:text-[1.45rem]">
+    <article className="flow-root font-noto-serif text-lg leading-[1.8] text-editorial-teal md:text-[1.45rem]">
       {imageMedia?.url && (
         <figure
           className={cn(
@@ -133,7 +133,7 @@ export default function NewsArticleFeaturedView({ block }: Props) {
         </figure>
       )}
 
-      <AppMarkdown className="prose prose-p:mt-0 prose-p:mb-[15px] prose-p:text-justify max-w-none font-noto-serif text-[1em] leading-[1.8] text-[#003f44]">
+      <AppMarkdown className="prose prose-p:mt-0 prose-p:mb-[15px] prose-p:text-justify max-w-none font-noto-serif text-[1em] leading-[1.8] text-editorial-teal">
         {content}
       </AppMarkdown>
 

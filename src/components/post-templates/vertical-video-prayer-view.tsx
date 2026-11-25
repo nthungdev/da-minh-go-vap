@@ -44,7 +44,7 @@ export default function VerticalVideoPrayerView({ block }: Props) {
           {verse && (
             <>
               {" "}
-              <strong className="rounded bg-[#d8f6f6] box-decoration-clone px-1.5 py-0.5 font-semibold text-[#007777]">
+              <strong className="rounded bg-highlight-bg box-decoration-clone px-1.5 py-0.5 font-semibold text-highlight-text">
                 “{verse}”
               </strong>
               {scriptureAnchor?.reference && (

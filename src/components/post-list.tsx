@@ -1,9 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useLocale } from "next-intl";
 import type { AppPost } from "@/definitions";
 import { getDataOrUndefined } from "@/payload/utils/data";
 import { transformUrl } from "@/utils/cloudflare";
 import { cn } from "@/utils/common";
+import { formatShortDate } from "@/utils/date";
 
 interface PostListProps extends React.HTMLAttributes<HTMLUListElement> {
   posts: AppPost[];
@@ -19,11 +21,13 @@ export default function PostList({
   effectOnHover,
   showShortBody,
 }: PostListProps) {
+  const locale = useLocale();
+
   return (
     <ul className={cn("post-list", className)}>
       {posts.map((post, index) => {
         const thumbnail = getDataOrUndefined(post.thumbnail);
-        const date = post.publishedAt.toLocaleDateString("vi-VN");
+        const date = formatShortDate(post.publishedAt, locale);
         const href = `/posts/${post.slug}`;
 
         return (

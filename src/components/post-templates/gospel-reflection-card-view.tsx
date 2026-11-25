@@ -36,10 +36,10 @@ export default function GospelReflectionCardView({
     : t("viewGospel");
 
   return (
-    <article className="rounded-[18px] border border-[#008596]/12 bg-gradient-to-b from-white to-[#fbfbfe] p-4 font-[system-ui,-apple-system,'Segoe_UI',Roboto,Arial,sans-serif] text-base text-slate-900 shadow-[0_6px_20px_rgba(18,25,40,0.08)] sm:p-[26px] sm:text-lg">
+    <article className="rounded-[18px] border border-primary-700/12 bg-gradient-to-b from-white to-surface-subtle p-4 text-base text-slate-900 shadow-[0_6px_20px_rgba(18,25,40,0.08)] sm:p-[26px] sm:text-lg">
       <div className="relative mb-2.5 flex flex-wrap items-center gap-3.5 empty:hidden">
         {liturgyMeta && (
-          <span className="rounded-[10px] bg-gradient-to-r from-[#008596]/12 to-[#008596]/6 px-3 py-2 text-[0.95em] leading-snug font-semibold text-chill-800">
+          <span className="rounded-[10px] bg-gradient-to-r from-primary-700/12 to-primary-700/6 px-3 py-2 text-[0.95em] leading-snug font-semibold text-chill-800">
             {liturgyMeta}
           </span>
         )}
@@ -53,7 +53,7 @@ export default function GospelReflectionCardView({
                 className="size-[1em] transition-transform duration-200 group-open:rotate-180 motion-reduce:transition-none"
               />
             </summary>
-            <div className="fixed inset-x-[5%] bottom-[10%] z-30 max-h-[60vh] overflow-y-auto rounded-xl border border-[#008596]/20 bg-white px-[18px] py-4 text-[0.95em] shadow-[0_8px_20px_rgba(15,23,42,0.12)] sm:absolute sm:inset-x-auto sm:bottom-auto sm:left-0 sm:mt-2 sm:max-h-none sm:w-[min(480px,92vw)] sm:overflow-visible">
+            <div className="fixed inset-x-[5%] bottom-[10%] z-30 max-h-[60vh] overflow-y-auto rounded-xl border border-primary-700/20 bg-white px-[18px] py-4 text-[0.95em] shadow-[0_8px_20px_rgba(15,23,42,0.12)] sm:absolute sm:inset-x-auto sm:bottom-auto sm:left-0 sm:mt-2 sm:max-h-none sm:w-[min(480px,92vw)] sm:overflow-visible">
               <AppMarkdown className="prose prose-p:my-0 prose-p:text-justify prose-blockquote:m-0 prose-blockquote:border-s-0 prose-blockquote:p-0 prose-blockquote:ps-0 prose-blockquote:font-normal prose-blockquote:not-italic prose-blockquote:text-inherit max-w-none text-[1em] leading-[1.68] text-slate-900 [&_blockquote_p]:before:content-none [&_blockquote_p]:after:content-none">
                 {gospel.content}
               </AppMarkdown>
@@ -98,7 +98,7 @@ export default function GospelReflectionCardView({
           </figure>
         )}
 
-        <AppMarkdown className="prose prose-p:my-2.5 prose-p:text-justify prose-li:text-justify max-w-none text-[1em] leading-[1.68] text-[#0b1220]">
+        <AppMarkdown className="prose prose-p:my-2.5 prose-p:text-justify prose-li:text-justify max-w-none text-[1em] leading-[1.68] text-ink">
           {body}
         </AppMarkdown>
       </div>
@@ -120,7 +120,7 @@ export default function GospelReflectionCardView({
 
       <div
         aria-hidden="true"
-        className="mt-[18px] h-1.5 rounded-md bg-gradient-to-r from-[#008596] to-[#32c7c7]"
+        className="mt-[18px] h-1.5 rounded-md bg-gradient-to-r from-primary-700 to-editorial-grad-end"
       />
     </article>
   );

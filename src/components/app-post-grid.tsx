@@ -25,15 +25,11 @@ export default function AppPostGrid({
       )}
     >
       {posts.map((post) => (
-        // min-w-0 to override min-width: min-content that cause post title to not be truncated
-        <li
-          className="block size-full min-w-0 border border-transparent bg-white hover:ring-3"
-          key={post.slug}
-        >
+        <li className="min-w-0" key={post.slug}>
           <Link
             prefetch={false}
             href={`/posts/${post.slug}`}
-            className="block size-full overflow-hidden border border-gray-300"
+            className="group block size-full overflow-hidden border border-border bg-white shadow-xs transition-shadow hover:shadow-md focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none motion-reduce:transition-none"
           >
             <div className="relative aspect-video">
               {typeof post.thumbnail !== "string" &&
@@ -53,8 +49,8 @@ export default function AppPostGrid({
                 )}
             </div>
             {!hidePostTitles && (
-              <div className="line-clamp-3 w-full space-y-2 p-1.5 text-center text-base lg:text-lg">
-                {post.title}
+              <div className="p-3 text-left text-base leading-snug font-semibold text-gray-900 group-hover:text-primary-800">
+                <span className="line-clamp-3">{post.title}</span>
               </div>
             )}
           </Link>

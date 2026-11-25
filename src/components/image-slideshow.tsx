@@ -32,10 +32,7 @@ export default function ImageSlideshow({
             typeof slide.url === "string",
         )
         .map((slide, index) => (
-          <div
-            key={slide.id}
-            className="hs-carousel-slide relative size-full shrink-0"
-          >
+          <div key={slide.id} className="relative size-full shrink-0">
             <Image
               unoptimized
               className="h-full w-full object-cover"

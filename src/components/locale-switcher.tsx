@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useTransition } from "react";
 import { setLocale } from "@/actions/locale";
 import Spinner from "@/components/spinner";
@@ -9,6 +9,7 @@ import { type Locale, localeLabels } from "@/i18n/config";
 import { cn } from "@/utils/common";
 
 export default function LocaleSwitcher() {
+  const t = useTranslations("navigation");
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
   const locale = useLocale();
@@ -30,7 +31,7 @@ export default function LocaleSwitcher() {
       className="relative inline-flex min-h-11 items-center justify-center rounded-md px-2.5 py-1.5 text-sm font-medium transition-colors hover:cursor-pointer hover:bg-white/15 focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none disabled:pointer-events-none sm:min-h-9"
       onClick={switchLocale}
       disabled={isPending}
-      aria-label={`Switch language to ${label}`}
+      aria-label={t("switchLocale", { language: label })}
     >
       <span className={cn(isPending && "opacity-30")}>{label}</span>
       <div

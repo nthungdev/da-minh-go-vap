@@ -1,7 +1,8 @@
 "use client";
 
+import { AlertCircle, Check, Copy } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { type HTMLAttributes, useEffect, useRef, useState } from "react";
-import { FiAlertCircle, FiCheck, FiCopy } from "react-icons/fi";
 import { cn } from "@/utils/common";
 
 /** In milliseconds */
@@ -14,10 +15,14 @@ interface CopyButtonProps extends HTMLAttributes<HTMLButtonElement> {
 }
 
 export default function CopyButton({ className, text }: CopyButtonProps) {
+  const t = useTranslations("shareToolbar");
   const [state, setState] = useState<CopyState>("idle");
   const pending = useRef(false);
   const generation = useRef(0);
   const isCopied = state === "copied";
+  const label = t(
+    state === "error" ? "copyFailed" : isCopied ? "copied" : "copyLink",
+  );
 
   useEffect(
     () => () => {
@@ -51,23 +56,17 @@ export default function CopyButton({ className, text }: CopyButtonProps) {
     <button
       type="button"
       aria-busy={state === "copying"}
-      aria-label={
-        state === "error"
-          ? "Copy failed. Try again"
-          : isCopied
-            ? "Copied"
-            : "Copy message"
-      }
-      title={state === "error" ? "Copy failed. Try again" : undefined}
+      aria-label={label}
+      title={label}
       className={cn(className, isCopied && "pointer-events-none")}
       onClick={handleCopy}
     >
       {isCopied ? (
-        <FiCheck aria-hidden="true" />
+        <Check className="size-4" aria-hidden="true" />
       ) : state === "error" ? (
-        <FiAlertCircle aria-hidden="true" className="text-red-500" />
+        <AlertCircle className="size-4 text-red-500" aria-hidden="true" />
       ) : (
-        <FiCopy aria-hidden="true" />
+        <Copy className="size-4" aria-hidden="true" />
       )}
     </button>
   );

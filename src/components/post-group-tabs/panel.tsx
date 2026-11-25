@@ -14,6 +14,7 @@ import { getDataOrUndefined } from "@/payload/utils/data";
 import type { Page } from "@/payload-types";
 import { transformUrl } from "@/utils/cloudflare";
 import { cn } from "@/utils/common";
+import { formatShortDate } from "@/utils/date";
 import { makePostsPath } from "@/utils/post";
 
 const POST_COUNT = 6;
@@ -88,14 +89,17 @@ export default function PostGroupTabsPanel({
   const page = getDataOrUndefined<Page>(viewMoreButton?.relativeUrl);
   const viewMoreHref = page ? page.path : makePostsPath(hiddenTags, title);
   const firstPostThumbnail = getDataOrUndefined(firstPost.thumbnail);
-  const firstPostDate = firstPost.publishedAt.toLocaleDateString("vi-VN");
+  const firstPostDate = formatShortDate(firstPost.publishedAt, locale);
   const firstPostHref = `/posts/${firstPost.slug}`;
 
   return (
     <div className={cn(className)} hidden={hidden} {...props}>
       <div className="flex flex-col gap-x-4 gap-y-4 lg:flex-row lg:p-3">
-        <Link href={firstPostHref} className="block space-y-2 lg:w-3/5">
-          <div className="relative aspect-video w-full">
+        <Link
+          href={firstPostHref}
+          className="block space-y-2 focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none lg:w-3/5"
+        >
+          <div className="relative aspect-video w-full overflow-hidden">
             {firstPostThumbnail?.url ? (
               <Image
                 unoptimized

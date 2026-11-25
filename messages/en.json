@@ -22,6 +22,9 @@
     "pageNumber": "Page {page}"
   },
   "navigation": {
+    "brandLine1": "Dominican Sisters",
+    "brandLine2": "of Go Vap",
+    "switchLocale": "Switch language to {language}",
     "toggleMenu": "Toggle menu",
     "toggleSection": "Toggle {name} submenu",
     "menu": "Menu",
@@ -111,6 +114,8 @@
   "shareToolbar": {
     "title": "Share",
     "copyLink": "Copy link",
+    "copied": "Copied",
+    "copyFailed": "Copy failed. Try again",
     "shareFacebook": "Share on Facebook",
     "shareViber": "Share on Viber"
   },

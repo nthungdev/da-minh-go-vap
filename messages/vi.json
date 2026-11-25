@@ -22,6 +22,9 @@
     "pageNumber": "Trang {page}"
   },
   "navigation": {
+    "brandLine1": "Hội Dòng",
+    "brandLine2": "Đa Minh Gò Vấp",
+    "switchLocale": "Chuyển sang {language}",
     "toggleMenu": "Mở/đóng menu",
     "toggleSection": "Mở/đóng mục {name}",
     "menu": "Menu",
@@ -111,6 +114,8 @@
   "shareToolbar": {
     "title": "Chia sẻ",
     "copyLink": "Sao chép liên kết",
+    "copied": "Đã sao chép",
+    "copyFailed": "Sao chép thất bại. Thử lại",
     "shareFacebook": "Chia sẻ lên Facebook",
     "shareViber": "Chia sẻ qua Viber"
   },

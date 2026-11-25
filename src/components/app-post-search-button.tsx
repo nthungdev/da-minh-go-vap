@@ -471,7 +471,7 @@ export default function AppPostSearchButton({
       <DialogContent
         showCloseButton={false}
         className={cn(
-          "top-[6vh] left-1/2 flex max-h-[82vh] w-[calc(100vw-1.5rem)] max-w-[680px] -translate-x-1/2 translate-y-0 flex-col gap-0 overflow-hidden rounded-[20px] border border-[#e8e2d8] bg-[#faf8f5] p-0 shadow-[0_28px_64px_-16px_rgba(24,24,27,0.32)] sm:top-[8vh] sm:max-w-[680px]",
+          "top-[6vh] left-1/2 flex max-h-[82vh] w-[calc(100vw-1.5rem)] max-w-[680px] -translate-x-1/2 translate-y-0 flex-col gap-0 overflow-hidden rounded-[20px] border border-border-warm bg-surface-warm p-0 shadow-[0_28px_64px_-16px_rgba(24,24,27,0.32)] sm:top-[8vh] sm:max-w-[680px]",
           "motion-reduce:transition-none",
         )}
       >
@@ -481,7 +481,7 @@ export default function AppPostSearchButton({
         </DialogDescription>
 
         {/* Editorial Header */}
-        <div className="border-b border-[#e8e2d8] bg-white px-5 pt-4 pb-3.5 sm:px-6 sm:pt-5">
+        <div className="border-b border-border-warm bg-white px-5 pt-4 pb-3.5 sm:px-6 sm:pt-5">
           <div className="mb-2.5 flex items-center justify-between gap-2">
             <span className="text-[11px] font-extrabold tracking-[0.1em] text-primary-700 uppercase">
               {t("search.kicker")}
@@ -556,7 +556,7 @@ export default function AppPostSearchButton({
                   "focus-visible:ring-2 focus-visible:ring-primary-700 focus-visible:outline-none",
                   isAllActive
                     ? "border-primary-700 bg-primary-700 text-white"
-                    : "border-[#e8e2d8] bg-[#faf8f5] text-stone-600 hover:border-primary-700 hover:text-primary-800",
+                    : "border-border-warm bg-surface-warm text-stone-600 hover:border-primary-700 hover:text-primary-800",
                 )}
               >
                 {t("search.allTopics")}
@@ -573,7 +573,7 @@ export default function AppPostSearchButton({
                       "focus-visible:ring-2 focus-visible:ring-primary-700 focus-visible:outline-none",
                       isActive
                         ? "border-primary-700 bg-primary-700 text-white"
-                        : "border-[#e8e2d8] bg-[#faf8f5] text-stone-600 hover:border-primary-700 hover:text-primary-800",
+                        : "border-border-warm bg-surface-warm text-stone-600 hover:border-primary-700 hover:text-primary-800",
                     )}
                   >
                     {tag.label}
@@ -652,7 +652,7 @@ export default function AppPostSearchButton({
         </div>
 
         {/* Keyboard Hints Footer */}
-        <div className="hidden items-center justify-between border-t border-[#e8e2d8] bg-white/80 px-6 py-2.5 text-[11.5px] font-medium text-stone-500 sm:flex">
+        <div className="hidden items-center justify-between border-t border-border-warm bg-white/80 px-6 py-2.5 text-[11.5px] font-medium text-stone-500 sm:flex">
           <div className="flex items-center gap-3.5">
             <span className="inline-flex items-center gap-1">
               <kbd className="rounded border border-b-2 border-stone-300 bg-stone-100 px-1.5 py-0.5 font-mono text-[10px] font-bold text-stone-600">

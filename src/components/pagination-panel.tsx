@@ -1,12 +1,13 @@
 "use client";
 
+import {
+  ChevronLeft,
+  ChevronRight,
+  ChevronsLeft,
+  ChevronsRight,
+} from "lucide-react";
 import { useTranslations } from "next-intl";
 import type { HTMLAttributes } from "react";
-import { IoIosSkipBackward, IoIosSkipForward } from "react-icons/io";
-import {
-  MdOutlineArrowBackIosNew,
-  MdOutlineArrowForwardIos,
-} from "react-icons/md";
 import { cn } from "@/utils/common";
 
 interface PaginationPanelProps extends HTMLAttributes<HTMLElement> {
@@ -52,7 +53,7 @@ export default function PaginationPanel({
         disabled={page <= 1}
         onClick={() => onPageChange?.(1)}
       >
-        <IoIosSkipBackward aria-hidden="true" />
+        <ChevronsLeft className="size-4" aria-hidden="true" />
       </button>
       <button
         type="button"
@@ -61,7 +62,7 @@ export default function PaginationPanel({
         disabled={page <= 1}
         onClick={() => onPageChange?.(page - 1)}
       >
-        <MdOutlineArrowBackIosNew aria-hidden="true" />
+        <ChevronLeft className="size-4" aria-hidden="true" />
       </button>
       {shownPages.map((p) => (
         <button
@@ -89,7 +90,7 @@ export default function PaginationPanel({
         disabled={page >= totalPages}
         onClick={() => onPageChange?.(page + 1)}
       >
-        <MdOutlineArrowForwardIos aria-hidden="true" />
+        <ChevronRight className="size-4" aria-hidden="true" />
       </button>
       <button
         type="button"
@@ -98,7 +99,7 @@ export default function PaginationPanel({
         disabled={page >= totalPages}
         onClick={() => onPageChange?.(totalPages)}
       >
-        <IoIosSkipForward aria-hidden="true" />
+        <ChevronsRight className="size-4" aria-hidden="true" />
       </button>
     </nav>
   );

@@ -1,8 +1,6 @@
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import type { HTMLAttributes } from "react";
-import { FaViber } from "react-icons/fa";
-import { RiFacebookFill } from "react-icons/ri";
 import CopyButton from "@/components/copy-button";
 import type { Locale } from "@/i18n/config";
 import { cn } from "@/utils/common";
@@ -50,14 +48,29 @@ export default async function ShareToolbar({
           aria-label={t("shareFacebook")}
           className={cn(shareControlClassName, "text-[#1877F2]")}
         >
-          <RiFacebookFill aria-hidden="true" />
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 24 24"
+            className="size-4 fill-current"
+          >
+            <path d="M14 22v-9h3l.5-3H14V8c0-1 .3-2 2-2h2V3a17 17 0 0 0-2.8-.2C12.3 2.8 10 4.6 10 8v2H7v3h3v9z" />
+          </svg>
         </Link>
         <Link
           href={viberHref}
           aria-label={t("shareViber")}
           className={cn(shareControlClassName, "text-[#7360f2]")}
         >
-          <FaViber aria-hidden="true" />
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 24 24"
+            className="size-4 fill-current"
+          >
+            <path
+              fillRule="evenodd"
+              d="M8 2a6 6 0 0 0-6 6v5a6 6 0 0 0 4 5.7V22l4-3h6a6 6 0 0 0 6-6V8a6 6 0 0 0-6-6zm-.7 5.1 1-.6a1 1 0 0 1 1.3.3l1.3 1.8a1 1 0 0 1-.1 1.3l-.7.7a8 8 0 0 0 2.7 2.7l.7-.7a1 1 0 0 1 1.3-.1l1.8 1.3a1 1 0 0 1 .3 1.3l-.6 1c-.4.7-1.3 1-2 .8a12 12 0 0 1-7.8-7.8c-.2-.8.1-1.6.8-2zm5.6-.9a.6.6 0 0 0 0 1.2 3.7 3.7 0 0 1 3.7 3.7.6.6 0 0 0 1.2 0 4.9 4.9 0 0 0-4.9-4.9zm0 2.2a.6.6 0 0 0 0 1.2 1.5 1.5 0 0 1 1.5 1.5.6.6 0 0 0 1.2 0 2.7 2.7 0 0 0-2.7-2.7z"
+            />
+          </svg>
         </Link>
       </div>
     </div>

@@ -337,11 +337,14 @@ test("compiled CSS styles .markdown non-prose blockquote, blockquote.quote, and 
 
   assert.equal(themeVars["--text-sm"], "0.875rem");
   assert.ok(themeVars["--radius"]);
+  assert.equal(themeVars["--color-callout-bg"], "#eefcfc");
+  assert.equal(themeVars["--color-callout-border"], "#5bbac0");
+  assert.equal(themeVars["--color-callout-text"], "#007a8b");
 
   const quoteRule = findRuleMatching(
     markdownRules,
     (selectors, decls) =>
-      decls["background-color"] === "#eefcfc" &&
+      decls["background-color"] === "var(--color-callout-bg)" &&
       selectors.some(
         (s) =>
           s.includes(".markdown:where(:not(.prose))") &&
@@ -355,11 +358,17 @@ test("compiled CSS styles .markdown non-prose blockquote, blockquote.quote, and 
       ),
     "non-prose blockquote and .markdown .quote card styles",
   );
-  assert.equal(quoteRule.declarations["background-color"], "#eefcfc");
-  assert.equal(quoteRule.declarations["border-color"], "#5bbac0");
+  assert.equal(
+    quoteRule.declarations["background-color"],
+    "var(--color-callout-bg)",
+  );
+  assert.equal(
+    quoteRule.declarations["border-color"],
+    "var(--color-callout-border)",
+  );
   assert.equal(quoteRule.declarations["border-left-width"], "4px");
   assert.equal(quoteRule.declarations["border-radius"], "var(--radius)");
-  assert.equal(quoteRule.declarations.color, "#007a8b");
+  assert.equal(quoteRule.declarations.color, "var(--color-callout-text)");
   assert.equal(quoteRule.declarations["font-style"], "italic");
 
   const quotePseudoRule = findRuleMatching(

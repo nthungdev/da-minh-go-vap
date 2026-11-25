@@ -30,7 +30,7 @@ export default function CatechismQASeriesView({ block, isTitleHidden }: Props) {
         {items.map((item, idx) => (
           <section
             key={item.id ?? idx}
-            className="flex items-start gap-2.5 rounded-lg py-2.5 transition-colors duration-200 hover:bg-[#f8fbfb] motion-reduce:transition-none sm:gap-3.5 sm:p-3.5"
+            className="flex items-start gap-2.5 rounded-lg py-2.5 transition-colors duration-200 hover:bg-surface-tint motion-reduce:transition-none sm:gap-3.5 sm:p-3.5"
           >
             {item.icon && (
               <div
@@ -41,7 +41,7 @@ export default function CatechismQASeriesView({ block, isTitleHidden }: Props) {
               </div>
             )}
             <div className="min-w-0 flex-1">
-              <SectionHeading className="text-lg font-bold text-[#0b2730] md:text-xl">
+              <SectionHeading className="text-lg font-bold text-editorial-teal-deep md:text-xl">
                 {item.title}
               </SectionHeading>
               <AppMarkdown className="text-justify text-[17px] leading-[1.75] text-gray-700 md:text-[19px] [&_p]:mt-1.5">

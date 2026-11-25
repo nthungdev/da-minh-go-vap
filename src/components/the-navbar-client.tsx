@@ -537,16 +537,16 @@ export default function TheNavbarClient({
               </div>
             ) : null}
             <span className="text-base leading-tight font-bold">
-              Hội Dòng
+              {t("brandLine1")}
               <br />
-              Đa Minh Gò Vấp
+              {t("brandLine2")}
             </span>
           </div>
 
           {/* Desktop Logo (overlapping design) */}
           {typeof logo?.url === "string" && (
             <div className="relative z-20 hidden h-16 w-20 self-start lg:block">
-              <div className="absolute top-[20%] left-0 size-20 overflow-auto">
+              <div className="absolute top-[20%] left-0 size-20 overflow-hidden">
                 <Image
                   src={transformUrl(logo.url)}
                   alt={logo.alt || "Logo"}
@@ -620,9 +620,9 @@ export default function TheNavbarClient({
                     </div>
                   ) : null}
                   <span className="text-lg leading-tight font-bold">
-                    Hội Dòng
+                    {t("brandLine1")}
                     <br />
-                    Đa Minh Gò Vấp
+                    {t("brandLine2")}
                   </span>
                 </Link>
               </SheetTitle>
