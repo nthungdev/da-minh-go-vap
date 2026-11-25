@@ -38,7 +38,7 @@ export default function AppPostGridSix({
         <li
           key={post.slug}
           className={cn(
-            "relative block w-full min-w-0 overflow-hidden rounded-xl border border-border bg-surface shadow-sm focus-within:ring-2 focus-within:ring-ring hover:ring-2 hover:ring-primary md:aspect-video md:border-transparent",
+            "relative block w-full min-w-0 overflow-hidden rounded-2xl border border-border bg-surface shadow-sm focus-within:ring-2 focus-within:ring-ring hover:ring-2 hover:ring-primary md:aspect-video md:border-transparent",
             cellClasses[index],
           )}
         >

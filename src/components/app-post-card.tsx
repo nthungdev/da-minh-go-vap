@@ -20,11 +20,11 @@ export default function AppPostCard(props: AppPostCardProps) {
     <Link
       href={`/posts/${post.slug}`}
       className={cn(
-        "flex h-full w-full flex-col gap-x-2 overflow-hidden rounded-lg border border-transparent bg-surface text-base transition-colors hover:border-border hover:bg-surface-muted focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none motion-reduce:transition-none lg:flex-row",
+        "flex h-full w-full flex-col gap-x-2 overflow-hidden rounded-xl border border-transparent bg-surface text-base transition-colors hover:border-border hover:bg-surface-muted focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none motion-reduce:transition-none lg:flex-row",
         className,
       )}
     >
-      <div className="relative aspect-video overflow-hidden bg-surface-muted lg:h-full lg:w-auto">
+      <div className="relative aspect-video overflow-hidden rounded-xl bg-surface-muted lg:h-full lg:w-auto">
         {typeof post.thumbnail !== "string" &&
           typeof post.thumbnail.url === "string" && (
             <Image

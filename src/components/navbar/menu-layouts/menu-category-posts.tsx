@@ -59,14 +59,14 @@ export function MenuCategoryPostsGrid({
               <Link
                 href={postHref}
                 className={cn(
-                  "group flex flex-col overflow-hidden rounded-md p-1.5 text-left transition-colors outline-none select-none",
+                  "group flex flex-col overflow-hidden rounded-xl p-1.5 text-left transition-colors outline-none select-none",
                   "hover:bg-surface-muted focus:bg-surface-muted focus-visible:ring-2 focus-visible:ring-ring",
                   isPostActive && "bg-accent",
                 )}
               />
             }
           >
-            <div className="relative aspect-[16/10] w-full overflow-hidden rounded-md bg-surface-muted">
+            <div className="relative aspect-[16/10] w-full overflow-hidden rounded-lg bg-surface-muted">
               {post.thumbnail?.url ? (
                 <Image
                   key={post.thumbnail.url}
@@ -109,7 +109,7 @@ export function MenuCategoryPostsSkeleton() {
           className="flex flex-col p-1.5 motion-safe:animate-pulse"
           aria-hidden="true"
         >
-          <div className="aspect-[16/10] w-full rounded-md bg-surface-muted" />
+          <div className="aspect-[16/10] w-full rounded-lg bg-surface-muted" />
           {/* flex-col stops margin collapse: two 22px lines (leading-snug base) */}
           <div className="flex flex-col px-1 pt-2 pb-0.5">
             <div className="my-[3px] h-4 w-full rounded-sm bg-surface-muted" />

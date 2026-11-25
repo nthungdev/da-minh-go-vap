@@ -78,7 +78,7 @@ export function SearchResultCard({
           "-mx-3 rounded-xl border-b-transparent bg-white px-3 shadow-[0_2px_10px_rgba(0,0,0,0.04)]",
       )}
     >
-      <div className="relative aspect-video w-28 shrink-0 overflow-hidden rounded-[10px] bg-stone-200 sm:w-32">
+      <div className="relative aspect-video w-28 shrink-0 overflow-hidden rounded-xl bg-surface-muted sm:w-32">
         {thumbnailUrl ? (
           <Image
             unoptimized

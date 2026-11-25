@@ -29,9 +29,9 @@ export default function AppPostGrid({
           <Link
             prefetch={false}
             href={`/posts/${post.slug}`}
-            className="group block size-full overflow-hidden rounded-xl border border-border bg-surface shadow-sm transition-shadow hover:shadow-md focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none motion-reduce:transition-none"
+            className="group block size-full overflow-hidden rounded-2xl border border-border bg-surface shadow-sm transition-shadow hover:shadow-md focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none motion-reduce:transition-none"
           >
-            <div className="relative aspect-video bg-surface-muted">
+            <div className="relative aspect-video overflow-hidden bg-surface-muted">
               {typeof post.thumbnail !== "string" &&
                 typeof post.thumbnail.url === "string" && (
                   <Image

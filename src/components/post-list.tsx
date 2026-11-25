@@ -35,7 +35,7 @@ export default function PostList({
             key={post.slug}
             className={cn(
               "border-b border-border pt-2 pb-2 first:pt-0 last:border-0 hover:cursor-pointer",
-              index === activeIndex && "rounded-lg bg-surface-muted",
+              index === activeIndex && "rounded-xl bg-surface-muted",
               effectOnHover &&
                 "transition-transform ease-in hover:scale-x-[103%] motion-reduce:transition-none motion-reduce:hover:scale-x-100 lg:hover:scale-x-105",
             )}
@@ -43,9 +43,9 @@ export default function PostList({
             <Link
               prefetch={false}
               href={href}
-              className="flex flex-row items-start gap-x-3 rounded-lg focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none"
+              className="flex flex-row items-start gap-x-3 rounded-xl focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none"
             >
-              <div className="relative aspect-video w-32 shrink-0 overflow-hidden rounded-md bg-surface-muted md:w-40 lg:w-28">
+              <div className="relative aspect-video w-32 shrink-0 overflow-hidden rounded-xl bg-surface-muted md:w-40 lg:w-28">
                 {thumbnail?.url && (
                   <Image
                     unoptimized

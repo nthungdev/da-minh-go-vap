@@ -10,10 +10,10 @@ export default function AppPostGridSkeleton({ count }: { count: number }) {
       <ul className="relative grid grid-flow-row gap-stack md:grid-cols-2 md:gap-gutter lg:grid-cols-4">
         {placeholders.map((key) => (
           <li
-            className="block w-full min-w-0 rounded-xl border border-border bg-surface shadow-xs motion-safe:animate-pulse"
+            className="block w-full min-w-0 rounded-2xl border border-border bg-surface shadow-xs motion-safe:animate-pulse"
             key={key}
           >
-            <div className="block overflow-hidden rounded-xl">
+            <div className="block overflow-hidden rounded-2xl">
               <div className="relative aspect-video bg-surface-muted" />
               <div className="space-y-2 p-card-sm">
                 <div className="block h-6 truncate rounded-sm bg-surface-muted" />

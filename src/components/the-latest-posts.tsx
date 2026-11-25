@@ -56,7 +56,7 @@ export default function TheLatestPosts({
     <div className={cn("@container", className)}>
       <div className="mb-4">{heading}</div>
       {isPending && data.length === 0 ? (
-        <div className="flex aspect-[3/1] items-center justify-center rounded-xl border border-border bg-surface-muted">
+        <div className="flex aspect-[3/1] items-center justify-center rounded-2xl border border-border bg-surface-muted">
           <Spinner className="motion-reduce:animate-none" />
         </div>
       ) : data.length === 0 ? (
@@ -73,7 +73,7 @@ export default function TheLatestPosts({
         >
           <AppCarousel
             id={carouselId}
-            className="aspect-video h-full w-full overflow-hidden rounded-xl border border-border bg-surface-muted shadow-sm lg:w-auto"
+            className="aspect-video h-full w-full overflow-hidden rounded-2xl border border-border bg-surface-muted shadow-sm lg:w-auto"
             durations={data.map(() => TRANSITION_DURATION)}
             onTransition={setCurrentIndex}
           >

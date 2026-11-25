@@ -104,9 +104,9 @@ export default function PostGroupTabsPanel({
       <div className="flex flex-col gap-gutter p-card-sm lg:flex-row lg:p-card">
         <Link
           href={firstPostHref}
-          className="group block space-y-2 rounded-xl focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none lg:w-3/5"
+          className="group block space-y-2 rounded-2xl focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none lg:w-3/5"
         >
-          <div className="relative aspect-video w-full overflow-hidden rounded-lg bg-surface-muted">
+          <div className="relative aspect-video w-full overflow-hidden rounded-xl bg-surface-muted">
             {firstPostThumbnail?.url ? (
               <Image
                 unoptimized
@@ -155,7 +155,7 @@ function PostGroupTabPanelSkeleton({
       <span className="sr-only">{t("loading")}</span>
       <div className="flex flex-col gap-gutter p-card-sm lg:flex-row lg:p-card">
         <div className="block space-y-2 lg:w-3/5">
-          <div className="relative aspect-video w-full rounded-lg bg-surface-muted" />
+          <div className="relative aspect-video w-full rounded-xl bg-surface-muted" />
           <div className="h-5 w-24 rounded-sm bg-surface-muted" />
           <div className="h-6 w-4/5 rounded-sm bg-surface-muted" />
           <div className="h-20 rounded-md bg-surface-muted" />
@@ -164,9 +164,9 @@ function PostGroupTabPanelSkeleton({
           {SKELETON_LIST_KEYS.map((skeletonKey) => (
             <div
               key={skeletonKey}
-              className="flex w-full flex-row gap-x-3 rounded-lg bg-surface-muted/60 p-1"
+              className="flex w-full flex-row gap-x-3 rounded-xl bg-surface-muted/60 p-1"
             >
-              <div className="aspect-video w-32 rounded-md bg-surface-muted md:w-40 lg:w-28" />
+              <div className="aspect-video w-32 rounded-xl bg-surface-muted md:w-40 lg:w-28" />
               <div className="flex-1 rounded-md bg-surface-muted" />
             </div>
           ))}
