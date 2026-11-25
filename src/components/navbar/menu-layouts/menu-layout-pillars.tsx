@@ -104,7 +104,7 @@ function PillarColumn({
         <NavigationMenuLink
           className={cn(
             "group relative block h-28 w-full overflow-hidden rounded-md bg-ink p-0 transition-opacity duration-150 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none active:opacity-90 motion-reduce:transition-none",
-            isBannerActive && "ring-2 ring-ring",
+            isBannerActive && "ring-2 ring-ring ring-offset-2",
           )}
           render={
             <Link

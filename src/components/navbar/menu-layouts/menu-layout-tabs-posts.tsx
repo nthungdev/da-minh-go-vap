@@ -3,7 +3,7 @@
 import { ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { type KeyboardEvent, Suspense, useRef, useState } from "react";
+import { type KeyboardEvent, Suspense, useId, useRef, useState } from "react";
 import { NavigationMenuLink } from "@/components/ui/navigation-menu";
 import { getMenuIconSrc } from "@/definitions/menu-icons";
 import { cn } from "@/utils/common";
@@ -28,6 +28,7 @@ export default function MenuLayoutTabsPosts({
 }: MenuLayoutTabsPostsProps) {
   const [activeTabIndex, setActiveTabIndex] = useState(0);
   const tabListRef = useRef<HTMLDivElement>(null);
+  const previewPanelId = useId();
 
   const categories = item.categories || [];
   if (categories.length === 0) {
@@ -120,6 +121,7 @@ export default function MenuLayoutTabsPosts({
                 <Link
                   href={cat.absoluteHref}
                   data-category-tab=""
+                  aria-controls={previewPanelId}
                   aria-current={isRouteActive ? "page" : undefined}
                   onKeyDown={handleTabKeyDown}
                   onFocus={() => setActiveTabIndex(idx)}
@@ -134,6 +136,7 @@ export default function MenuLayoutTabsPosts({
               key={categoryKey}
               type="button"
               data-category-tab=""
+              aria-controls={previewPanelId}
               aria-pressed={isSelected}
               onKeyDown={handleTabKeyDown}
               onFocus={() => setActiveTabIndex(idx)}
@@ -148,7 +151,11 @@ export default function MenuLayoutTabsPosts({
       </div>
 
       {/* Right Content Area: Post Grid (streams in after the navbar shell) */}
-      <div className="flex-1 pl-1">
+      <section
+        id={previewPanelId}
+        aria-label={activeCategory?.name}
+        className="flex-1 pl-1"
+      >
         <Suspense fallback={<MenuCategoryPostsSkeleton />}>
           <MenuCategoryPostsGrid
             postsPromise={categoryPostsPromise}
@@ -156,7 +163,7 @@ export default function MenuLayoutTabsPosts({
             pathname={pathname}
           />
         </Suspense>
-      </div>
+      </section>
     </div>
   );
 }

@@ -80,6 +80,8 @@ export default function LightboxModal({
   const triggerRef = useRef<HTMLButtonElement>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const itemCountRef = useRef(galleryItems.length);
+  itemCountRef.current = galleryItems.length;
 
   const hasNavigation = galleryItems.length > 1;
   const activeItem = galleryItems[activeIndex] ?? galleryItems[0];
@@ -89,15 +91,16 @@ export default function LightboxModal({
     if (!isOpen) return;
 
     const trigger = triggerRef.current;
-    const itemCount = galleryItems.length;
     closeButtonRef.current?.focus();
 
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
+        e.preventDefault();
         setIsOpen(false);
         return;
       }
 
+      const itemCount = itemCountRef.current;
       if (itemCount > 1 && e.key === "ArrowLeft") {
         e.preventDefault();
         setActiveIndex((prev) => (prev - 1 + itemCount) % itemCount);
@@ -124,7 +127,7 @@ export default function LightboxModal({
       document.body.style.overflow = previousOverflow;
       trigger?.focus();
     };
-  }, [isOpen, galleryItems.length]);
+  }, [isOpen]);
 
   const handleOpen = () => {
     setActiveIndex(safeInitialIndex);
