@@ -105,11 +105,11 @@ export default function AppPostTabGridAsync(props: AppPostTabGridAsyncProps) {
                 tabRefs.current[nextIndex]?.focus();
               }}
               className={cn(
-                "peer relative -mr-12 inline-flex items-center justify-center gap-x-2 rounded-pill border-[6px] border-secondary-400 bg-primary-900 px-12 py-1 text-center text-xl font-bold text-nowrap text-white transition disabled:pointer-events-none disabled:opacity-50",
-                "hover:z-20 hover:border-secondary-300 hover:shadow-neon",
+                "peer relative -mr-12 inline-flex items-center justify-center gap-x-2 rounded-pill border-[6px] border-secondary/60 bg-accent px-12 py-1 text-center text-xl font-bold text-nowrap text-accent-foreground transition disabled:pointer-events-none disabled:opacity-50",
+                "hover:z-20 hover:border-secondary hover:shadow-neon",
                 "focus-visible:z-20 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none motion-reduce:transition-none",
                 activeIndex === index &&
-                  "z-10 border-secondary-500 bg-primary text-primary-foreground",
+                  "z-10 border-secondary bg-primary text-primary-foreground",
               )}
               aria-selected={activeIndex === index}
               role="tab"
