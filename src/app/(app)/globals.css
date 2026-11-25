@@ -8,17 +8,67 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/*
+ * ============================================================================
+ * 1. Static Design Tokens (@theme)
+ *    Brand palettes, editorial colors, typography scale, spacing rhythm,
+ *    container widths, and elevation shadows.
+ * ============================================================================
+ */
 @theme {
+  /* Typography scale */
   --text-xxs: 0.625rem;
+  --text-xxs--line-height: 1rem;
+  --text-xs: 0.75rem;
+  --text-xs--line-height: 1.125rem;
+  --text-sm: 0.875rem;
+  --text-sm--line-height: 1.25rem;
+  --text-base: 1rem;
+  --text-base--line-height: 1.5rem;
+  --text-lg: 1.125rem;
+  --text-lg--line-height: 1.75rem;
+  --text-xl: 1.25rem;
+  --text-xl--line-height: 1.75rem;
+  --text-2xl: 1.5rem;
+  --text-2xl--line-height: 2rem;
+  --text-3xl: 1.875rem;
+  --text-3xl--line-height: 2.25rem;
+  --text-4xl: 2.25rem;
+  --text-4xl--line-height: 2.5rem;
+  --text-5xl: 3rem;
+  --text-5xl--line-height: 1.15;
 
+  /* Spacing rhythm (4px base grid) */
+  --spacing: 0.25rem;
+  --spacing-card-sm: 1rem;
+  --spacing-card: 1.5rem;
+  --spacing-stack: 1rem;
+  --spacing-gutter: 1.5rem;
+  --spacing-section-sm: 2rem;
+  --spacing-section: 3.5rem;
+  --spacing-section-lg: 5rem;
+
+  /* Container widths */
+  --container-8xl: 88rem;
+  --container-9xl: 96rem;
+
+  /* Elevation shadows */
+  --shadow-xs: 0 1px 2px 0 rgb(15 23 42 / 0.05);
+  --shadow-sm: 0 2px 8px 0 rgb(15 23 42 / 0.06);
+  --shadow-md:
+    0 4px 16px -2px rgb(15 23 42 / 0.08), 0 2px 6px -2px rgb(15 23 42 / 0.04);
+  --shadow-lg:
+    0 10px 28px -4px rgb(15 23 42 / 0.12), 0 4px 10px -4px rgb(15 23 42 / 0.05);
+  --shadow-xl:
+    0 24px 56px -12px rgb(15 23 42 / 0.24), 0 8px 20px -8px rgb(15 23 42 / 0.08);
+  --shadow-inset: inset 0 0 8px 0 rgb(15 23 42 / 0.06);
+  --shadow-neon:
+    0 0 10px 3px rgba(231, 131, 103, 0.8), 0 0 10px 3px rgba(230, 75, 32, 0.9);
+
+  /* Default focus ring color (5.84:1 on white) */
   --default-ring-color: var(--color-chill-800);
 
-  --background-image-gradient-radial: radial-gradient(var(--tw-gradient-stops));
-  --background-image-gradient-conic: conic-gradient(
-    from 180deg at 50% 50%,
-    var(--tw-gradient-stops)
-  );
-
+  /* Brand primitive palettes */
   --color-chill-1: #daf2f3;
   --color-chill-2: #b9e5e8;
   --color-chill-3: #9dd9de;
@@ -114,13 +164,11 @@
   --color-viola-950: #36212b;
   --color-viola: #b98ea7;
 
+  /* Brand semantic aliases */
   --color-primary-1: #daf2f3;
   --color-primary-2: #b9e5e8;
   --color-primary-3: #9dd9de;
   --color-primary-4: #70c7d0;
-
-  --color-primary: var(--color-chill-800);
-
   --color-primary-50: var(--color-chill-50);
   --color-primary-100: var(--color-chill-100);
   --color-primary-200: var(--color-chill-200);
@@ -132,6 +180,7 @@
   --color-primary-800: var(--color-chill-800);
   --color-primary-900: var(--color-chill-900);
   --color-primary-950: var(--color-chill-950);
+  --color-primary: var(--color-chill-800);
 
   --color-secondary-50: #fff7ed;
   --color-secondary-100: #ffedd5;
@@ -170,49 +219,293 @@
   --color-editorial-quote: #004f4f;
   --color-editorial-mark: #008b8b;
   --color-editorial-grad-end: #32c7c7;
-
-  --ring-color-50: #fff7ed;
-  --ring-color-100: #ffedd5;
-  --ring-color-200: #fed7aa;
-  --ring-color-300: #fdba74;
-  --ring-color-400: #fb923c;
-  --ring-color-500: #f97316;
-  --ring-color-600: #ea580c;
-  --ring-color-700: #c2410c;
-  --ring-color-800: #9a3412;
-  --ring-color-900: #7c2d12;
-  --ring-color-950: #431407;
-  --ring-color: #fdba74;
-
-  --shadow-neon:
-    0 0 10px 3px rgba(231, 131, 103, 0.8), 0 0 10px 3px rgba(230, 75, 32, 0.9);
-
-  --container-8xl: 88rem;
-  --container-9xl: 96rem;
 }
 
 /*
-  The default border color has changed to `currentcolor` in Tailwind CSS v4,
-  so we've added these compatibility styles to make sure everything still
-  looks the same as it did with Tailwind CSS v3.
+ * ============================================================================
+ * 2. Runtime Semantic Tokens (:root light, .dark dark)
+ *    All text pairings meet WCAG AA (>= 4.5:1) and focus/UI borders >= 3.0:1.
+ * ============================================================================
+ */
+:root {
+  /* Surfaces */
+  --background: #ffffff;
+  --surface: #ffffff;
+  --surface-muted: #f4f4f5;
+  --surface-elevated: #ffffff;
+  --card: var(--surface);
+  --popover: var(--surface-elevated);
 
-  If we ever want to remove these styles, we need to add an explicit border
-  color utility to any element that depends on these defaults.
-*/
+  /* Foreground */
+  --foreground: #111827;
+  --foreground-muted: #4b5563;
+  --card-foreground: var(--foreground);
+  --popover-foreground: var(--foreground);
+
+  /* Muted */
+  --muted: #f4f4f5;
+  --muted-foreground: #4b5563;
+
+  /* Borders and focus */
+  --border: #e5e7eb;
+  --border-subtle: #f1f5f9;
+  --border-strong: #6b7280;
+  --input: #d1d5db;
+  --ring: #0b6f7f;
+
+  /* Brand and accent */
+  --primary: #0b6f7f;
+  --primary-foreground: #ffffff;
+  --secondary: #c2410c;
+  --secondary-foreground: #ffffff;
+  --accent: #eafffd;
+  --accent-foreground: #0e5b6b;
+
+  /* Status: success (keppel), warning (secondary), error (red), info (matisse) */
+  --status-success: #275e54;
+  --status-success-foreground: #ffffff;
+  --status-success-subtle: #f3faf7;
+  --status-success-border: #2c7568;
+
+  --status-warning: #9a3412;
+  --status-warning-foreground: #ffffff;
+  --status-warning-subtle: #fff7ed;
+  --status-warning-border: #c2410c;
+
+  --status-error: #b91c1c;
+  --status-error-foreground: #ffffff;
+  --status-error-subtle: #fef2f2;
+  --status-error-border: #dc2626;
+
+  --status-info: #27537d;
+  --status-info-foreground: #ffffff;
+  --status-info-subtle: #f3f7fc;
+  --status-info-border: #2f689d;
+
+  /* Shadcn destructive alias */
+  --destructive: var(--status-error);
+  --destructive-foreground: var(--status-error-foreground);
+
+  /* Border radius base */
+  --radius: 0.625rem;
+
+  /* Charts and sidebar */
+  --chart-1: #0b6f7f;
+  --chart-2: #c2410c;
+  --chart-3: #27537d;
+  --chart-4: #275e54;
+  --chart-5: #6f678e;
+  --sidebar: #f9f9f7;
+  --sidebar-foreground: var(--foreground);
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: var(--primary-foreground);
+  --sidebar-accent: var(--accent);
+  --sidebar-accent-foreground: var(--accent-foreground);
+  --sidebar-border: var(--border);
+  --sidebar-ring: var(--ring);
+}
+
+.dark {
+  /* Surfaces */
+  --background: #0b1220;
+  --surface: #111a2c;
+  --surface-muted: #1e293b;
+  --surface-elevated: #172236;
+  --card: var(--surface);
+  --popover: var(--surface-elevated);
+
+  /* Foreground */
+  --foreground: #f8fafc;
+  --foreground-muted: #cbd5e1;
+  --card-foreground: var(--foreground);
+  --popover-foreground: var(--foreground);
+
+  /* Muted */
+  --muted: #1e293b;
+  --muted-foreground: #cbd5e1;
+
+  /* Borders and focus */
+  --border: #334155;
+  --border-subtle: #1e293b;
+  --border-strong: #94a3b8;
+  --input: #475569;
+  --ring: #70c7d0;
+
+  /* Brand and accent */
+  --primary: #70c7d0;
+  --primary-foreground: #023d4a;
+  --secondary: #fb923c;
+  --secondary-foreground: #431407;
+  --accent: #0e2523;
+  --accent-foreground: #daf2f3;
+
+  /* Status */
+  --status-success: #7ecab6;
+  --status-success-foreground: #0e2523;
+  --status-success-subtle: #0e2523;
+  --status-success-border: #58b09c;
+
+  --status-warning: #fdba74;
+  --status-warning-foreground: #431407;
+  --status-warning-subtle: #431407;
+  --status-warning-border: #fb923c;
+
+  --status-error: #fca5a5;
+  --status-error-foreground: #450a0a;
+  --status-error-subtle: #450a0a;
+  --status-error-border: #f87171;
+
+  --status-info: #9abfdf;
+  --status-info-foreground: #17273a;
+  --status-info-subtle: #17273a;
+  --status-info-border: #639dcd;
+
+  /* Shadcn destructive alias */
+  --destructive: var(--status-error);
+  --destructive-foreground: var(--status-error-foreground);
+
+  /* Charts and sidebar */
+  --chart-1: #70c7d0;
+  --chart-2: #fb923c;
+  --chart-3: #9abfdf;
+  --chart-4: #7ecab6;
+  --chart-5: #dcc5d4;
+  --sidebar: #111a2c;
+  --sidebar-foreground: var(--foreground);
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: var(--primary-foreground);
+  --sidebar-accent: var(--accent);
+  --sidebar-accent-foreground: var(--accent-foreground);
+  --sidebar-border: var(--border);
+  --sidebar-ring: var(--ring);
+}
+
+/*
+ * ============================================================================
+ * 3. Tailwind Inline Token Mapping (@theme inline)
+ *    Exposes runtime CSS variables and font stacks as Tailwind utilities.
+ * ============================================================================
+ */
+@theme inline {
+  /* Fonts */
+  --font-sans: var(--font-nunito), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-sans);
+  --font-serif: var(--next-font-lora), "Times New Roman", serif;
+  --font-lora: var(--next-font-lora), "Times New Roman", serif;
+  --font-noto-serif: var(--next-font-noto-serif), "Times New Roman", serif;
+
+  /* Surface and foreground utilities */
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-surface-elevated: var(--surface-elevated);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-foreground: var(--foreground);
+  --color-foreground-muted: var(--foreground-muted);
+
+  /* Muted utilities */
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+
+  /* Border and focus utilities */
+  --color-border: var(--border);
+  --color-border-subtle: var(--border-subtle);
+  --color-border-strong: var(--border-strong);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Brand and accent utilities */
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
+  /* Status utilities */
+  --color-success: var(--status-success);
+  --color-success-foreground: var(--status-success-foreground);
+  --color-success-subtle: var(--status-success-subtle);
+  --color-success-border: var(--status-success-border);
+
+  --color-warning: var(--status-warning);
+  --color-warning-foreground: var(--status-warning-foreground);
+  --color-warning-subtle: var(--status-warning-subtle);
+  --color-warning-border: var(--status-warning-border);
+
+  --color-error: var(--status-error);
+  --color-error-foreground: var(--status-error-foreground);
+  --color-error-subtle: var(--status-error-subtle);
+  --color-error-border: var(--status-error-border);
+
+  --color-info: var(--status-info);
+  --color-info-foreground: var(--status-info-foreground);
+  --color-info-subtle: var(--status-info-subtle);
+  --color-info-border: var(--status-info-border);
+
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+
+  /* Chart and sidebar utilities */
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Border radius scale */
+  --radius-xs: calc(var(--radius) * 0.4);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+  --radius-pill: 9999px;
+}
+
+/*
+ * ============================================================================
+ * 4. Base Styles
+ * ============================================================================
+ */
 @layer base {
+  /*
+   * Preserve Tailwind v3 default border color behavior when components omit
+   * an explicit border-* color utility.
+   */
   *,
   ::after,
   ::before,
   ::backdrop,
   ::file-selector-button {
-    border-color: var(--color-gray-200, currentcolor);
+    border-color: var(--border, currentcolor);
   }
 
   html {
     @apply font-sans;
   }
+
+  body {
+    @apply bg-background text-foreground;
+  }
 }
 
+/*
+ * ============================================================================
+ * 5. Utilities & Markdown Prose
+ * ============================================================================
+ */
 @utility text-balance {
   text-wrap: balance;
 }
@@ -272,7 +565,7 @@
   }
 
   section[data-footnotes] {
-    @apply mt-8 border-t border-gray-200 pt-6 text-sm text-gray-700;
+    @apply mt-8 border-t border-border pt-6 text-sm text-foreground-muted;
   }
 
   section[data-footnotes] ol {
@@ -296,142 +589,4 @@
   a[data-footnote-backref] {
     @apply text-primary-700 ml-1 no-underline hover:underline;
   }
-}
-
-@layer utilities {
-  :root {
-    --foreground-rgb: 0, 0, 0;
-    --background-start-rgb: 214, 219, 220;
-    --background-end-rgb: 255, 255, 255;
-  }
-
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --foreground-rgb: 255, 255, 255;
-      --background-start-rgb: 0, 0, 0;
-      --background-end-rgb: 0, 0, 0;
-    }
-  }
-
-  body {
-    @apply text-gray-900;
-  }
-
-  /* body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-} */
-}
-
-@theme inline {
-  --font-noto-serif: var(--next-font-noto-serif), "Times New Roman", serif;
-  --font-lora: var(--next-font-lora), "Times New Roman", serif;
-  --font-heading: var(--font-sans);
-  --font-sans: var(--font-nunito), ui-sans-serif, system-ui, sans-serif;
-  --color-sidebar-ring: var(--sidebar-ring);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar: var(--sidebar);
-  --color-chart-5: var(--chart-5);
-  --color-chart-4: var(--chart-4);
-  --color-chart-3: var(--chart-3);
-  --color-chart-2: var(--chart-2);
-  --color-chart-1: var(--chart-1);
-  --color-ring: var(--color-chill-800);
-  --color-input: var(--input);
-  --color-border: var(--border);
-  --color-destructive: var(--destructive);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-accent: var(--accent);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-muted: var(--muted);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-popover: var(--popover);
-  --color-card-foreground: var(--card-foreground);
-  --color-card: var(--card);
-  --color-foreground: var(--foreground);
-  --color-background: var(--background);
-  --radius-sm: calc(var(--radius) * 0.6);
-  --radius-md: calc(var(--radius) * 0.8);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) * 1.4);
-  --radius-2xl: calc(var(--radius) * 1.8);
-  --radius-3xl: calc(var(--radius) * 2.2);
-  --radius-4xl: calc(var(--radius) * 2.6);
-}
-
-:root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: #0b6f7f;
-  --primary-foreground: #ffffff;
-  --secondary: #c2410c;
-  --secondary-foreground: #ffffff;
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: #4b5563;
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: #b91c1c;
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: #0b6f7f;
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
-}
-
-.dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
 }
