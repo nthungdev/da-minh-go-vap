@@ -42,6 +42,15 @@ function requiredWhenAnalyticsEnabled(
     : null;
 }
 
+function requiredWhenBasicAuthEnabled(
+  val: string | undefined,
+  env: NodeJS.ProcessEnv,
+): string | null {
+  return env.BASIC_AUTH_ENABLED === "true" && !val
+    ? "Required when BASIC_AUTH_ENABLED is true"
+    : null;
+}
+
 const REQUIRED_SERVER_VARS: EnvRule[] = [
   {
     name: "PAYLOAD_SECRET",
@@ -87,19 +96,21 @@ const REQUIRED_SERVER_VARS: EnvRule[] = [
       return null;
     },
   },
-  {
-    name: "AUTH_USER",
-    required: true,
-    description: "HTTP Basic Auth username for restricted pages",
-  },
-  {
-    name: "AUTH_PASSWORD",
-    required: true,
-    description: "HTTP Basic Auth password for restricted pages",
-  },
 ];
 
 const CONDITIONAL_VARS: EnvRule[] = [
+  {
+    name: "AUTH_USER",
+    description:
+      "HTTP Basic Auth username for restricted pages (required when BASIC_AUTH_ENABLED is true)",
+    validate: requiredWhenBasicAuthEnabled,
+  },
+  {
+    name: "AUTH_PASSWORD",
+    description:
+      "HTTP Basic Auth password for restricted pages (required when BASIC_AUTH_ENABLED is true)",
+    validate: requiredWhenBasicAuthEnabled,
+  },
   {
     name: "S3_ACCESS_KEY_ID",
     description:

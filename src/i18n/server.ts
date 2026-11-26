@@ -26,6 +26,7 @@ export function applyRouteLocale(segment: string): Locale {
  * middleware chose, so the page stays statically renderable.
  */
 export function requireSiteAuth(segment: string, publicPath: string) {
+  if (process.env.BASIC_AUTH_ENABLED !== "true") return;
   if (parseRouteSegment(segment)?.isSiteAuthorized) return;
   const searchParams = new URLSearchParams({ nextUrl: publicPath });
   redirect(`/auth/basic?${searchParams.toString()}`);
