@@ -76,7 +76,7 @@ function PhotoFigure({
         </div>
       </LightboxModal>
       {photo.caption && (
-        <figcaption className="mt-2 text-center text-sm text-gray-500 italic">
+        <figcaption className="mt-2 text-center text-sm text-foreground-muted italic">
           {photo.caption}
         </figcaption>
       )}
@@ -88,11 +88,11 @@ function Narrative({ text }: { text: string }) {
   return (
     <AppMarkdown
       className={cn(
-        "prose prose-p:my-[0.6em] prose-p:text-justify prose-li:text-justify max-w-none text-[clamp(16px,2vw,25px)] leading-[1.6] text-black",
-        "prose-headings:text-primary-800 prose-headings:font-bold",
-        "prose-a:text-primary-700 prose-a:underline prose-a:underline-offset-2 hover:prose-a:text-primary-900 prose-a:font-medium",
-        "prose-blockquote:border-primary-600 prose-blockquote:text-slate-700 prose-blockquote:font-normal",
-        "prose-ul:list-disc prose-ol:list-decimal prose-li:marker:text-primary-700",
+        "prose prose-p:my-[0.6em] prose-p:text-justify prose-li:text-justify max-w-none text-[clamp(16px,2vw,25px)] leading-[1.6] text-foreground",
+        "prose-headings:text-primary prose-headings:font-bold",
+        "prose-a:text-primary prose-a:underline prose-a:underline-offset-2 hover:prose-a:text-primary-900 prose-a:font-medium",
+        "prose-blockquote:border-callout-border prose-blockquote:text-foreground-muted prose-blockquote:font-normal",
+        "prose-ul:list-disc prose-ol:list-decimal prose-li:marker:text-primary",
       )}
     >
       {text}
@@ -112,22 +112,22 @@ export default function EventGalleryReportView({
       <header className="mb-8 text-center">
         <Heading
           className={cn(
-            "leading-tight font-bold text-secondary-700",
+            "leading-tight font-bold text-secondary",
             isTitleHidden ? "text-2xl sm:text-3xl" : "text-xl sm:text-2xl",
           )}
         >
           {eventTitle}
         </Heading>
         {eventSubtitle && (
-          <div className="mt-4 rounded-xl bg-slate-50 px-4 py-5 shadow-[0_2px_8px_rgba(0,0,0,0.06)] md:p-6">
-            <p className="text-justify text-lg leading-normal font-semibold text-primary-800 italic md:text-2xl">
+          <div className="mt-4 rounded-xl border border-border bg-surface-muted p-card-sm shadow-sm md:p-card">
+            <p className="text-justify text-lg leading-normal font-semibold text-primary italic md:text-2xl">
               {eventSubtitle}
             </p>
           </div>
         )}
       </header>
 
-      <div className="space-y-8 rounded-xl bg-white px-4 py-5 shadow-[0_4px_18px_rgba(0,0,0,0.08)] sm:rounded-2xl md:space-y-10 md:p-10">
+      <div className="space-y-8 rounded-xl border border-border bg-surface p-card-sm shadow-md sm:rounded-2xl md:space-y-10 md:p-10">
         {sections.map((section, idx) => {
           const photos = section.photos ?? [];
           // A side-by-side layout needs text beside the photo; without it, stack.
@@ -176,7 +176,7 @@ export default function EventGalleryReportView({
       </div>
 
       {credits && (
-        <p className="mt-5 text-center text-sm text-gray-500 italic">
+        <p className="mt-5 text-center text-sm text-foreground-muted italic">
           {credits}
         </p>
       )}

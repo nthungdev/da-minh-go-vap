@@ -8,7 +8,7 @@ import { getFooter } from "@/payload/utils/queries";
 import { transformUrl } from "@/utils/cloudflare";
 
 const footerLinkClassName =
-  "inline-block rounded-sm py-1 underline-offset-4 transition-colors hover:underline focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none";
+  "inline-block rounded-sm py-1.5 text-primary-foreground underline-offset-4 transition-colors hover:underline focus-visible:ring-2 focus-visible:ring-primary-foreground focus-visible:ring-offset-2 focus-visible:ring-offset-primary focus-visible:outline-none";
 
 export default async function TheFooter() {
   const locale = (await getLocale()) as Locale;
@@ -50,8 +50,8 @@ export default async function TheFooter() {
         />
       )}
 
-      <div className="bg-primary text-sm text-white md:text-base">
-        <div className="mx-auto flex max-w-7xl flex-col gap-8 px-4 py-8 [overflow-wrap:anywhere] sm:px-6 md:flex-row lg:px-8">
+      <div className="bg-primary text-sm text-primary-foreground md:text-base">
+        <div className="mx-auto flex max-w-7xl flex-col gap-gutter px-4 py-section-sm [overflow-wrap:anywhere] sm:px-6 md:flex-row md:justify-between lg:px-8">
           <Contact
             name={footer.contact.name}
             phone={footer.contact.phone}
@@ -61,13 +61,13 @@ export default async function TheFooter() {
           />
 
           {chunkedExternalLinks.length > 0 && (
-            <div className="flex flex-col gap-x-4 md:flex-row">
+            <div className="flex flex-col gap-stack sm:flex-row sm:gap-gutter">
               {chunkedExternalLinks.map((chunk) => {
                 const chunkKey = chunk
                   .map((link) => link.id || link.url)
                   .join("|");
                 return (
-                  <div key={chunkKey} className="flex flex-col">
+                  <div key={chunkKey} className="flex flex-col gap-0.5">
                     {chunk.map((link) => (
                       <div key={link.id || `${link.name}-${link.url}`}>
                         <Link href={link.url} className={footerLinkClassName}>
@@ -102,8 +102,8 @@ function Contact({
   const t = useTranslations("contact");
 
   return (
-    <div>
-      <p className="mb-1 font-bold">{name}</p>
+    <div className="space-y-1.5">
+      <p className="mb-2 text-base font-bold md:text-lg">{name}</p>
       <Markdown
         components={{
           a: ({ node: _node, ...props }) => (

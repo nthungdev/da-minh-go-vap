@@ -9,7 +9,11 @@ import {
 } from "@/components/ui/accordion";
 import { cn } from "@/utils/common";
 
-const headerColors = ["bg-chill-4", "bg-chill-3", "bg-chill-2"];
+const headerColors = [
+  "bg-accent text-accent-foreground",
+  "bg-surface-muted text-foreground",
+  "bg-surface text-foreground",
+];
 
 function AppAccordionToggle({
   title,
@@ -24,7 +28,7 @@ function AppAccordionToggle({
     <AccordionTrigger
       {...(controlId ? { "aria-controls": controlId } : {})}
       className={cn(
-        "items-center justify-start gap-x-3 px-2 py-3 text-base font-semibold text-gray-900 transition-colors hover:bg-primary-800 hover:text-white hover:no-underline focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:outline-none **:data-[slot=accordion-trigger-icon]:order-first **:data-[slot=accordion-trigger-icon]:ml-0 **:data-[slot=accordion-trigger-icon]:text-current motion-reduce:transition-none",
+        "items-center justify-start gap-x-3 rounded-none px-4 py-3 text-base font-semibold transition-colors hover:bg-primary hover:text-primary-foreground hover:no-underline focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none focus-visible:ring-inset **:data-[slot=accordion-trigger-icon]:order-first **:data-[slot=accordion-trigger-icon]:ml-0 **:data-[slot=accordion-trigger-icon]:text-current motion-reduce:transition-none",
         headerColors[colorLevel % headerColors.length],
       )}
     >
@@ -49,7 +53,7 @@ function AppAccordionContent({
       id={id}
       {...(labeledById ? { "aria-labelledby": labeledById } : {})}
       keepMounted
-      className="space-y-4 p-4"
+      className="space-y-4 border-t border-border-subtle p-card-sm text-foreground"
       render={(panelProps) => (
         <div
           {...panelProps}
@@ -86,7 +90,11 @@ function AppAccordionRoot({
   itemRender,
 }: AppAccordionRootProps) {
   return (
-    <Accordion id={id} className="space-y-4" multiple={alwaysOpen}>
+    <Accordion
+      id={id}
+      className="flex flex-col gap-stack"
+      multiple={alwaysOpen}
+    >
       {items.map(itemRender)}
       {children}
     </Accordion>
@@ -103,7 +111,7 @@ function AppAccordionItem({
   return (
     <AccordionItem
       id={id}
-      className="rounded-lg bg-primary-50 not-last:border-b-0"
+      className="overflow-hidden rounded-xl border border-border bg-surface shadow-xs"
     >
       {children}
     </AccordionItem>

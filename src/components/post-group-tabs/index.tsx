@@ -59,14 +59,20 @@ function PostGroupTabs({
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
   return (
-    <div className={cn(className)} id={id} {...props}>
-      <div
-        className={
-          "flex flex-row items-center justify-between gap-x-8 rounded-t-md bg-primary-800 px-2 py-1.5 text-white md:px-6 lg:items-start"
-        }
-      >
+    <div
+      className={cn(
+        "overflow-hidden rounded-xl border border-border bg-surface shadow-sm",
+        className,
+      )}
+      id={id}
+      {...props}
+    >
+      <div className="flex flex-row items-center justify-between gap-x-4 bg-primary px-4 py-2.5 text-primary-foreground md:px-6 lg:items-center">
         {title && (
-          <h2 id={`${fallbackId}-heading`} className="text-xl font-bold">
+          <h2
+            id={`${fallbackId}-heading`}
+            className="text-lg font-bold tracking-tight sm:text-xl"
+          >
             {title}
           </h2>
         )}
@@ -81,13 +87,21 @@ function PostGroupTabs({
           role="tablist"
           aria-labelledby={title ? `${fallbackId}-heading` : undefined}
           aria-label={title ? undefined : t("navigation.selectPostGroup")}
-          className="hidden flex-1 flex-row flex-wrap justify-end gap-x-2 gap-y-1 pt-1 pb-1 lg:flex"
+          className="hidden flex-1 flex-row flex-wrap items-center justify-end gap-x-2 gap-y-1 lg:flex"
         >
           {postGroups.map((g, index) => {
             const groupKey = `${g.title}-${g.hiddenTags.join(",")}`;
             return (
-              <div key={groupKey} className="flex flex-row gap-x-3 px-1">
-                {index !== 0 && <div className="border-l" />}
+              <div
+                key={groupKey}
+                className="flex flex-row items-center gap-x-2"
+              >
+                {index !== 0 && (
+                  <div
+                    aria-hidden="true"
+                    className="h-4 border-l border-primary-foreground/30"
+                  />
+                )}
                 <button
                   type="button"
                   ref={(button) => {
@@ -111,8 +125,9 @@ function PostGroupTabs({
                   id={`tab-${fallbackId}-${index}`}
                   tabIndex={currentIndex === index ? 0 : -1}
                   className={cn(
-                    "rounded-sm px-1 text-gray-100 transition-transform hover:cursor-pointer hover:text-white focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none motion-safe:hover:scale-x-105 motion-reduce:transition-none",
-                    currentIndex === index && "font-bold text-white",
+                    "rounded-md px-2.5 py-1 text-sm font-medium text-primary-foreground/85 transition-colors hover:cursor-pointer hover:bg-primary-foreground/10 hover:text-primary-foreground focus-visible:ring-2 focus-visible:ring-primary-foreground focus-visible:outline-none motion-reduce:transition-none",
+                    currentIndex === index &&
+                      "bg-primary-foreground/15 font-bold text-primary-foreground",
                   )}
                 >
                   {g.title}

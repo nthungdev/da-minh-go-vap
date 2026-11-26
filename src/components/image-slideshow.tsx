@@ -23,7 +23,10 @@ export default function ImageSlideshow({
     <AppCarousel
       id={id}
       durations={durations}
-      className={cn("aspect-2/3 w-full overflow-hidden", className)}
+      className={cn(
+        "aspect-2/3 w-full overflow-hidden rounded-xl border border-border bg-surface-muted shadow-sm",
+        className,
+      )}
       {...props}
     >
       {slides

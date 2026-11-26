@@ -38,14 +38,14 @@ function MenuLinkIcon({ icon }: { icon: MenuIconType }) {
   }
 
   return (
-    <span className="relative inline-block size-4 shrink-0 overflow-hidden rounded-full bg-white">
+    <span className="relative inline-block size-4 shrink-0 overflow-hidden rounded-pill bg-surface">
       <Image
         unoptimized
         src={getMenuIconSrc(icon)}
         alt=""
         aria-hidden="true"
         fill
-        className="rounded-full object-contain"
+        className="rounded-pill object-contain"
       />
     </span>
   );
@@ -73,18 +73,18 @@ function PillarColumn({
           className="object-cover transition-transform duration-300 group-hover:scale-105"
         />
       )}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/35 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/40 to-transparent" />
       <div className="absolute inset-x-0 bottom-0 p-2.5">
         <div className="flex items-center justify-between gap-1">
           <div className="text-base leading-tight font-bold text-white">
             {banner.title}
           </div>
           {banner.absoluteHref && (
-            <ChevronRight className="size-4 shrink-0 text-white/75 transition-transform group-hover:translate-x-0.5 group-hover:text-white" />
+            <ChevronRight className="size-4 shrink-0 text-white/80 transition-transform group-hover:translate-x-0.5 group-hover:text-white" />
           )}
         </div>
         {banner.subtitle && (
-          <div className="mt-0.5 line-clamp-1 text-sm text-gray-200">
+          <div className="mt-0.5 line-clamp-1 text-sm text-white/85">
             {banner.subtitle}
           </div>
         )}
@@ -98,15 +98,15 @@ function PillarColumn({
       {banner.absoluteHref ? (
         <NavigationMenuLink
           className={cn(
-            "group relative block h-28 w-full overflow-hidden rounded-md bg-gray-900 transition-colors focus-visible:ring-2 focus-visible:ring-primary-700 focus-visible:outline-none",
-            isBannerActive && "ring-2 ring-primary-600",
+            "group relative block h-28 w-full overflow-hidden rounded-md bg-ink transition-colors focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none",
+            isBannerActive && "ring-2 ring-ring",
           )}
           render={<Link href={banner.absoluteHref} />}
         >
           {bannerCard}
         </NavigationMenuLink>
       ) : (
-        <div className="group relative block h-28 w-full overflow-hidden rounded-md bg-gray-900 select-none">
+        <div className="group relative block h-28 w-full overflow-hidden rounded-md bg-ink select-none">
           {bannerCard}
         </div>
       )}
@@ -125,10 +125,10 @@ function PillarColumn({
                 {link.absoluteHref ? (
                   <NavigationMenuLink
                     className={cn(
-                      "flex w-full items-center gap-1.5 rounded-md bg-gray-100 px-3 py-1.5 text-left text-base text-gray-700 transition-colors select-none",
-                      "hover:bg-gray-200 hover:text-primary-700 focus:bg-gray-200 focus:text-primary-700",
+                      "flex w-full items-center gap-1.5 rounded-md bg-surface-muted px-3 py-1.5 text-left text-sm text-foreground transition-colors select-none",
+                      "hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none",
                       isLinkActive &&
-                        "bg-gray-200 font-medium text-primary-700",
+                        "bg-accent font-medium text-accent-foreground",
                     )}
                     render={<Link href={link.absoluteHref} />}
                   >
@@ -136,7 +136,7 @@ function PillarColumn({
                     <span>{link.name}</span>
                   </NavigationMenuLink>
                 ) : (
-                  <div className="flex w-full items-center gap-1.5 rounded-md bg-gray-100 px-3 py-1.5 text-left text-base text-gray-600 select-none">
+                  <div className="flex w-full items-center gap-1.5 rounded-md bg-surface-muted px-3 py-1.5 text-left text-sm text-foreground-muted select-none">
                     <MenuLinkIcon icon={link.icon} />
                     <span>{link.name}</span>
                   </div>
@@ -158,9 +158,9 @@ function PillarBottomBar({
   pathname: string;
 }) {
   return (
-    <div className="mt-2 flex flex-wrap items-center gap-2 border-t border-gray-100 pt-2 text-left">
+    <div className="mt-3 flex flex-wrap items-center gap-2 border-t border-border-subtle pt-2.5 text-left">
       {bottomBar.label && (
-        <span className="text-sm font-bold tracking-wider text-gray-900 uppercase">
+        <span className="text-xs font-bold tracking-wider text-foreground uppercase">
           {bottomBar.label}:
         </span>
       )}
@@ -178,10 +178,10 @@ function PillarBottomBar({
                 <Link
                   href={link.absoluteHref}
                   className={cn(
-                    "flex items-center gap-1.5 rounded-md bg-gray-100 px-2.5 py-1 text-left text-base text-gray-700 transition-colors select-none",
-                    "hover:bg-gray-200 hover:text-primary-700 focus:bg-gray-200 focus:text-primary-700",
+                    "flex items-center gap-1.5 rounded-md bg-surface-muted px-2.5 py-1 text-left text-sm text-foreground transition-colors select-none",
+                    "hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none",
                     isBottomLinkActive &&
-                      "bg-gray-200 font-medium text-primary-700",
+                      "bg-accent font-medium text-accent-foreground",
                   )}
                 />
               }
@@ -192,7 +192,7 @@ function PillarBottomBar({
           ) : (
             <span
               key={linkKey}
-              className="flex items-center gap-1.5 rounded-md bg-gray-100 px-2.5 py-1 text-left text-base text-gray-600 select-none"
+              className="flex items-center gap-1.5 rounded-md bg-surface-muted px-2.5 py-1 text-left text-sm text-foreground-muted select-none"
             >
               <MenuLinkIcon icon={link.icon} />
               <span>{link.name}</span>
@@ -218,9 +218,11 @@ export default function MenuLayoutPillars({
   const gridColsClass = GRID_COLS_BY_COUNT[count] ?? DEFAULT_GRID_COLS;
 
   return (
-    <div className={cn("p-2", containerWidthClass)}>
+    <div
+      className={cn("max-w-[calc(100vw-2rem)] p-card-sm", containerWidthClass)}
+    >
       {/* Pillars Columns Grid */}
-      <div className={cn("grid gap-2", gridColsClass)}>
+      <div className={cn("grid gap-3", gridColsClass)}>
         {item.pillars.map((pillar) => (
           <PillarColumn
             key={`${pillar.headerBanner.title}-${pillar.headerBanner.absoluteHref}`}

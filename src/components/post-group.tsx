@@ -4,6 +4,7 @@ import AppPostGridAsync from "@/components/app-post-grid-async";
 import AppPostGridPaginated from "@/components/app-post-grid-async-paginated";
 import AppPostListAsync from "@/components/app-post-list-async";
 import type { AppPost } from "@/definitions";
+import { cn } from "@/utils/common";
 import {
   type PaginatedPostsData,
   resolvePostGroupRenderConfig,
@@ -33,7 +34,7 @@ export default function PostGroup(props: PostGroupProps) {
 
   if (mode === "paginated-grid") {
     return (
-      <div className="space-y-2">
+      <div className={cn("flex flex-col gap-stack", props.className)}>
         <AppGridHeader text={props.title || ""} />
         <AppPostGridPaginated
           hiddenTags={props.hiddenTags}

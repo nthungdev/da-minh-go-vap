@@ -73,7 +73,7 @@ export function MenuIcon({
   return (
     <span
       className={cn(
-        "relative inline-block shrink-0 overflow-hidden rounded-full bg-white",
+        "relative inline-block shrink-0 overflow-hidden rounded-pill bg-surface",
         sizeClass,
         className,
       )}
@@ -84,7 +84,7 @@ export function MenuIcon({
         alt={decorative ? "" : name || icon}
         aria-hidden={decorative || undefined}
         fill
-        className="rounded-full object-contain"
+        className="rounded-pill object-contain"
       />
     </span>
   );
@@ -120,7 +120,7 @@ function DesktopNavItem({
           }
           nativeButton={!item.absoluteHref}
           aria-label={item.name || item.icon || "Menu"}
-          className="flex items-center gap-1.5 transition-colors hover:bg-white hover:text-primary-700 focus:bg-white focus:text-primary-700 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-1 focus-visible:ring-offset-primary-800 focus-visible:outline-none data-popup-open:bg-white data-popup-open:text-primary-700 data-[state=open]:bg-white data-[state=open]:text-primary-700 data-open:bg-white data-open:text-primary-700"
+          className="flex items-center gap-1.5 text-primary-foreground transition-colors hover:bg-surface hover:text-primary focus:bg-surface focus:text-primary focus-visible:ring-2 focus-visible:ring-primary-foreground focus-visible:ring-offset-1 focus-visible:ring-offset-primary focus-visible:outline-none data-popup-open:bg-surface data-popup-open:text-primary data-[state=open]:bg-surface data-[state=open]:text-primary data-open:bg-surface data-open:text-primary"
         >
           <MenuIcon
             icon={item.icon}
@@ -130,7 +130,7 @@ function DesktopNavItem({
           />
           {label}
         </NavigationMenuTrigger>
-        <NavigationMenuContent className="rounded-xl border-none text-gray-900 shadow-lg">
+        <NavigationMenuContent className="rounded-xl border-none bg-surface-elevated text-foreground shadow-lg">
           <MenuLayoutRenderer
             item={item}
             pathname={pathname}
@@ -147,9 +147,9 @@ function DesktopNavItem({
         <NavigationMenuLink
           className={cn(
             navigationMenuTriggerStyle(),
-            "flex items-center gap-1.5 text-gray-50 transition-colors hover:bg-white hover:text-primary-700 focus:bg-white focus:text-primary-700 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-1 focus-visible:ring-offset-primary-800 focus-visible:outline-none",
+            "flex items-center gap-1.5 text-primary-foreground transition-colors hover:bg-surface hover:text-primary focus:bg-surface focus:text-primary focus-visible:ring-2 focus-visible:ring-primary-foreground focus-visible:ring-offset-1 focus-visible:ring-offset-primary focus-visible:outline-none",
             pathname === item.absoluteHref &&
-              "bg-white font-bold text-primary-700",
+              "bg-surface font-bold text-primary",
           )}
           render={
             <Link
@@ -175,7 +175,7 @@ function DesktopNavItem({
       <span
         className={cn(
           navigationMenuTriggerStyle(),
-          "flex cursor-default items-center gap-1.5 bg-transparent text-gray-50 select-none",
+          "flex cursor-default items-center gap-1.5 bg-transparent text-primary-foreground select-none",
         )}
       >
         <MenuIcon
@@ -215,8 +215,9 @@ function MobileSubLink({
         href={href}
         onClick={onNavigate}
         className={cn(
+          "rounded-md focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none",
           linkClassName,
-          pathname === href && "font-semibold text-primary-600",
+          pathname === href && "font-semibold text-primary",
         )}
       >
         <MenuIcon
@@ -270,16 +271,16 @@ function MobileSubContent({
                 pathname={pathname}
                 onNavigate={onNavigate}
                 linkClassName={cn(
-                  "flex items-center gap-2 py-2 text-base text-gray-700 transition-colors hover:text-primary-600",
+                  "flex items-center gap-2 px-2 py-2 text-base text-foreground transition-colors hover:bg-surface-muted hover:text-primary",
                   hasNestedChildren && "font-semibold",
                 )}
                 staticClassName={cn(
-                  "flex items-center gap-2 py-2 text-base font-medium text-gray-700",
-                  hasNestedChildren && "font-semibold",
+                  "flex items-center gap-2 px-2 py-2 text-base font-medium text-foreground-muted",
+                  hasNestedChildren && "font-semibold text-foreground",
                 )}
               />
               {hasNestedChildren && (
-                <ul className="mt-1 flex flex-col gap-1 border-l-2 border-gray-100 pl-4">
+                <ul className="mt-1 flex flex-col gap-1 border-l-2 border-border-subtle pl-4">
                   {child.children?.map((subChild) => (
                     <li key={`${subChild.name}-${subChild.absoluteHref}`}>
                       <MobileSubLink
@@ -289,8 +290,8 @@ function MobileSubContent({
                         iconSize={4}
                         pathname={pathname}
                         onNavigate={onNavigate}
-                        linkClassName="flex items-center gap-2 py-1.5 text-base text-gray-700 transition-colors hover:text-primary-600"
-                        staticClassName="flex items-center gap-2 py-1.5 text-base text-gray-600"
+                        linkClassName="flex items-center gap-2 px-2 py-1.5 text-base text-foreground transition-colors hover:bg-surface-muted hover:text-primary"
+                        staticClassName="flex items-center gap-2 px-2 py-1.5 text-base text-foreground-muted"
                       />
                     </li>
                   ))}
@@ -316,16 +317,16 @@ function MobileSubContent({
                 href={pillar.headerBanner.absoluteHref}
                 onClick={onNavigate}
                 className={cn(
-                  "block text-base font-bold uppercase transition-colors hover:text-primary-600",
+                  "block rounded-md px-2 py-1 text-base font-bold uppercase transition-colors hover:bg-surface-muted hover:text-primary focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none",
                   pathname === pillar.headerBanner.absoluteHref
-                    ? "text-primary-600"
-                    : "text-gray-800",
+                    ? "text-primary"
+                    : "text-foreground",
                 )}
               >
                 {pillar.headerBanner.title}
               </Link>
             ) : (
-              <span className="text-base font-bold text-gray-700 uppercase">
+              <span className="block px-2 py-1 text-base font-bold text-foreground uppercase">
                 {pillar.headerBanner.title}
               </span>
             )}
@@ -338,8 +339,8 @@ function MobileSubContent({
                   iconSize={4}
                   pathname={pathname}
                   onNavigate={onNavigate}
-                  linkClassName="hover:text-primary-600 flex items-center gap-2 py-1.5 text-base text-gray-700 transition-colors"
-                  staticClassName="flex items-center gap-2 py-1.5 text-base text-gray-600"
+                  linkClassName="flex items-center gap-2 px-2 py-1.5 text-base text-foreground transition-colors hover:bg-surface-muted hover:text-primary"
+                  staticClassName="flex items-center gap-2 px-2 py-1.5 text-base text-foreground-muted"
                 />
               </div>
             ))}
@@ -354,8 +355,8 @@ function MobileSubContent({
               iconSize={4}
               pathname={pathname}
               onNavigate={onNavigate}
-              linkClassName="hover:text-primary-600 flex items-center gap-2 py-1.5 text-base font-medium text-gray-700 transition-colors"
-              staticClassName="flex items-center gap-2 py-1.5 text-base font-medium text-gray-600"
+              linkClassName="flex items-center gap-2 px-2 py-1.5 text-base font-medium text-foreground transition-colors hover:bg-surface-muted hover:text-primary"
+              staticClassName="flex items-center gap-2 px-2 py-1.5 text-base font-medium text-foreground-muted"
             />
           </li>
         ))}
@@ -375,8 +376,8 @@ function MobileSubContent({
               iconSize={4}
               pathname={pathname}
               onNavigate={onNavigate}
-              linkClassName="hover:text-primary-600 flex items-center gap-2 py-2 text-base text-gray-700 transition-colors"
-              staticClassName="flex items-center gap-2 py-2 text-base font-medium text-gray-700"
+              linkClassName="flex items-center gap-2 px-2 py-2 text-base text-foreground transition-colors hover:bg-surface-muted hover:text-primary"
+              staticClassName="flex items-center gap-2 px-2 py-2 text-base font-medium text-foreground-muted"
             />
           </li>
         ))}
@@ -419,9 +420,10 @@ function MobileNavLabel({
         onClick={onNavigate}
         aria-label={item.name || item.icon || fallbackAriaLabel}
         className={cn(
-          "flex items-center gap-2 px-2 py-3 text-base font-medium text-gray-800 transition-colors hover:text-primary-600",
+          "flex min-h-11 items-center gap-2 rounded-md px-2 py-2.5 text-base font-medium text-foreground transition-colors hover:bg-surface-muted hover:text-primary focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none",
           className,
-          pathname === item.absoluteHref && "text-primary-600",
+          pathname === item.absoluteHref &&
+            "bg-accent font-semibold text-accent-foreground",
         )}
       >
         {content}
@@ -432,7 +434,7 @@ function MobileNavLabel({
   return (
     <div
       className={cn(
-        "flex items-center gap-2 px-2 py-3 text-base font-medium text-gray-800",
+        "flex min-h-11 items-center gap-2 px-2 py-2.5 text-base font-medium text-foreground",
         className,
       )}
     >
@@ -456,9 +458,9 @@ function MobileNavItem({
 
   if (hasSubContent(item)) {
     return (
-      <div className="border-b border-gray-100 last:border-0">
+      <div className="border-b border-border-subtle last:border-0">
         <AccordionItem value={itemKey} className="border-none">
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between gap-1">
             <MobileNavLabel
               item={item}
               pathname={pathname}
@@ -470,11 +472,11 @@ function MobileNavItem({
               aria-label={t("toggleSection", {
                 name: item.name || item.icon || "",
               })}
-              className="min-h-11 min-w-11 shrink-0 items-center justify-center p-2 text-gray-500 hover:text-primary-600 hover:no-underline focus-visible:ring-2 focus-visible:ring-primary-700 focus-visible:outline-none **:data-[slot=accordion-trigger-icon]:ml-0"
+              className="min-h-11 min-w-11 shrink-0 items-center justify-center rounded-md p-2 text-foreground-muted hover:bg-surface-muted hover:text-primary hover:no-underline focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none **:data-[slot=accordion-trigger-icon]:ml-0"
             />
           </div>
           <AccordionContent className="pb-3 pl-4">
-            <ul className="flex flex-col gap-2 border-l-2 border-gray-100 pl-4">
+            <ul className="flex flex-col gap-1 border-l-2 border-border-subtle pl-3">
               <MobileSubContent
                 item={item}
                 pathname={pathname}
@@ -488,7 +490,7 @@ function MobileNavItem({
   }
 
   return (
-    <div className="border-b border-gray-100 last:border-0">
+    <div className="border-b border-border-subtle last:border-0">
       <MobileNavLabel
         item={item}
         pathname={pathname}
@@ -523,7 +525,10 @@ export default function TheNavbarClient({
     <>
       <div className="flex items-center justify-center lg:space-x-8">
         {/* Brand & Logo (Desktop & Mobile) */}
-        <Link href="/" className="relative z-20 flex shrink-0 items-center">
+        <Link
+          href="/"
+          className="relative z-20 flex shrink-0 items-center rounded-md focus-visible:ring-2 focus-visible:ring-primary-foreground focus-visible:ring-offset-2 focus-visible:ring-offset-primary focus-visible:outline-none"
+        >
           {/* Mobile Text Brand */}
           <div className="flex items-center gap-2 font-semibold lg:hidden">
             {typeof logo?.url === "string" ? (
@@ -576,7 +581,7 @@ export default function TheNavbarClient({
 
         {/* Right Actions (Desktop) */}
         <div className="hidden items-center space-x-2 lg:flex">
-          <div className="p-1 text-gray-50">
+          <div className="p-1 text-primary-foreground">
             <AppPostSearchButton
               id="desktop-navbar-search"
               searchTags={searchTags}
@@ -587,27 +592,27 @@ export default function TheNavbarClient({
       </div>
 
       {/* Right Actions & Mobile Toggle (Mobile) */}
-      <div className="flex items-center space-x-2 text-gray-50 lg:hidden">
+      <div className="flex items-center space-x-1.5 text-primary-foreground lg:hidden">
         <AppPostSearchButton
           id="mobile-navbar-search"
           searchTags={searchTags}
         />
         <LocaleSwitcher />
         <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
-          <SheetTrigger className="-mr-2 inline-flex min-h-11 min-w-11 items-center justify-center rounded-md text-gray-50 hover:bg-white/10 hover:text-white focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none">
+          <SheetTrigger className="-mr-2 inline-flex min-h-11 min-w-11 items-center justify-center rounded-md text-primary-foreground hover:bg-primary-foreground/15 hover:text-primary-foreground focus-visible:ring-2 focus-visible:ring-primary-foreground focus-visible:outline-none">
             <Menu className="h-6 w-6" aria-hidden="true" />
             <span className="sr-only">{t("toggleMenu")}</span>
           </SheetTrigger>
           <SheetContent
             side="left"
-            className="w-[300px] overflow-y-auto border-r-0 bg-white text-gray-900 sm:w-[350px]"
+            className="w-[300px] max-w-[85vw] overflow-y-auto border-r border-border bg-surface text-foreground sm:w-[350px]"
           >
-            <SheetHeader className="mb-6 border-b pb-4 text-left">
+            <SheetHeader className="mb-4 border-b border-border pb-4 text-left">
               <SheetTitle>
                 <Link
                   href="/"
                   onClick={closeMobileMenu}
-                  className="flex items-center gap-3"
+                  className="flex items-center gap-3 rounded-md focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
                 >
                   {typeof logo?.url === "string" ? (
                     <div className="relative h-12 w-12 shrink-0">
@@ -619,7 +624,7 @@ export default function TheNavbarClient({
                       />
                     </div>
                   ) : null}
-                  <span className="text-lg leading-tight font-bold">
+                  <span className="text-lg leading-tight font-bold text-foreground">
                     {t("brandLine1")}
                     <br />
                     {t("brandLine2")}
@@ -627,7 +632,7 @@ export default function TheNavbarClient({
                 </Link>
               </SheetTitle>
             </SheetHeader>
-            <nav className="flex flex-col gap-2">
+            <nav className="flex flex-col gap-1 px-4 pb-6">
               <Accordion className="w-full">
                 {menu.map((item) => {
                   const itemKey = getMenuItemKey(item);

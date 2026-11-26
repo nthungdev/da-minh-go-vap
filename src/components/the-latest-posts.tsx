@@ -47,7 +47,7 @@ export default function TheLatestPosts({
   });
 
   const heading = (
-    <h2 className="inline-block rounded-md bg-primary-800 px-6 py-1 text-base font-bold text-white uppercase">
+    <h2 className="inline-block rounded-lg bg-primary px-5 py-1.5 text-sm font-bold tracking-wide text-primary-foreground uppercase shadow-xs">
       {t("latest")}
     </h2>
   );
@@ -56,7 +56,7 @@ export default function TheLatestPosts({
     <div className={cn("@container", className)}>
       <div className="mb-4">{heading}</div>
       {isPending && data.length === 0 ? (
-        <div className="flex aspect-[3/1] items-center justify-center">
+        <div className="flex aspect-[3/1] items-center justify-center rounded-2xl border border-border bg-surface-muted">
           <Spinner className="motion-reduce:animate-none" />
         </div>
       ) : data.length === 0 ? (
@@ -66,14 +66,14 @@ export default function TheLatestPosts({
       ) : (
         <div
           className={cn(
-            "flex flex-col gap-x-2 lg:flex-row",
+            "flex flex-col gap-stack lg:flex-row lg:gap-4",
             postCount === 4 && "lg:h-[320px]",
             postCount === 5 && "lg:h-[402px]",
           )}
         >
           <AppCarousel
             id={carouselId}
-            className="aspect-video h-full w-auto bg-primary-2"
+            className="aspect-video h-full w-full overflow-hidden rounded-2xl border border-border bg-surface-muted shadow-sm lg:w-auto"
             durations={data.map(() => TRANSITION_DURATION)}
             onTransition={setCurrentIndex}
           >
@@ -85,7 +85,7 @@ export default function TheLatestPosts({
                   key={post.slug}
                   href={`/posts/${post.slug}`}
                   aria-label={post.title}
-                  className="relative block size-full focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:outline-none focus-visible:after:absolute focus-visible:after:inset-0 focus-visible:after:ring-2 focus-visible:after:ring-primary-800 focus-visible:after:ring-inset"
+                  className="relative block size-full focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none focus-visible:after:absolute focus-visible:after:inset-0 focus-visible:after:ring-2 focus-visible:after:ring-ring focus-visible:after:ring-inset"
                 >
                   {thumbnail?.url ? (
                     <Image
@@ -103,7 +103,7 @@ export default function TheLatestPosts({
                       fill
                     />
                   ) : (
-                    <div className="size-full bg-gray-300"></div>
+                    <div className="size-full bg-surface-muted" />
                   )}
                 </Link>
               );

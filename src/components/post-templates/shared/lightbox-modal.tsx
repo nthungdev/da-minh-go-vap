@@ -68,7 +68,7 @@ export default function LightboxModal({
         aria-label={alt ? t("zoomWithAlt", { alt }) : t("zoom")}
         onClick={() => setIsOpen(true)}
         className={cn(
-          "block w-full cursor-pointer rounded-lg text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500",
+          "block w-full cursor-pointer rounded-lg text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
           className,
         )}
       >
@@ -80,7 +80,7 @@ export default function LightboxModal({
           role="dialog"
           aria-modal="true"
           aria-label={alt || t("view")}
-          className="fixed inset-0 z-50 flex animate-in items-center justify-center bg-black/80 p-4 backdrop-blur-sm duration-200 fade-in motion-reduce:animate-none"
+          className="fixed inset-0 z-50 flex animate-in items-center justify-center bg-ink/85 p-4 backdrop-blur-sm duration-200 fade-in motion-reduce:animate-none"
         >
           <button
             type="button"
@@ -95,7 +95,7 @@ export default function LightboxModal({
             type="button"
             onClick={() => setIsOpen(false)}
             aria-label={t("close")}
-            className="absolute top-4 right-4 z-10 rounded-full bg-white/20 p-2 text-white transition hover:bg-white/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
+            className="absolute top-4 right-4 z-10 rounded-pill bg-white/20 p-2 text-white transition hover:bg-white/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-white motion-reduce:transition-none"
           >
             <X className="size-6" />
           </button>
@@ -107,11 +107,11 @@ export default function LightboxModal({
                 alt={alt}
                 width={width || 1200}
                 height={height || 800}
-                className="h-auto max-h-[80vh] w-auto max-w-full rounded-lg object-contain shadow-2xl"
+                className="h-auto max-h-[80vh] w-auto max-w-full rounded-lg object-contain shadow-xl"
               />
             </div>
             {caption && (
-              <p className="mt-3 max-w-xl text-center text-sm text-gray-200">
+              <p className="mt-3 max-w-xl text-center text-sm text-white/90">
                 {caption}
               </p>
             )}

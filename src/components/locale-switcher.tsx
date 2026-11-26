@@ -28,7 +28,7 @@ export default function LocaleSwitcher() {
   return (
     <button
       type="button"
-      className="relative inline-flex min-h-11 items-center justify-center rounded-md px-2.5 py-1.5 text-sm font-medium transition-colors hover:cursor-pointer hover:bg-white/15 focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none disabled:pointer-events-none sm:min-h-9"
+      className="relative inline-flex min-h-11 items-center justify-center rounded-md px-2.5 py-1.5 text-sm font-medium text-primary-foreground transition-colors hover:cursor-pointer hover:bg-primary-foreground/15 focus-visible:ring-2 focus-visible:ring-primary-foreground focus-visible:ring-offset-1 focus-visible:ring-offset-primary focus-visible:outline-none disabled:pointer-events-none sm:min-h-9"
       onClick={switchLocale}
       disabled={isPending}
       aria-label={t("switchLocale", { language: label })}
@@ -36,12 +36,15 @@ export default function LocaleSwitcher() {
       <span className={cn(isPending && "opacity-30")}>{label}</span>
       <div
         className={cn(
-          "absolute top-0 right-0 bottom-0 left-0 flex size-full items-center justify-center",
+          "absolute inset-0 flex size-full items-center justify-center",
           !isPending && "hidden",
         )}
       >
         <Spinner
-          className={cn("size-4 text-white", isPending ? "block" : "hidden")}
+          className={cn(
+            "size-4 text-primary-foreground",
+            isPending ? "block" : "hidden",
+          )}
         />
       </div>
     </button>

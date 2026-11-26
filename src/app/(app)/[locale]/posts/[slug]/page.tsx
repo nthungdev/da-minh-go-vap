@@ -131,7 +131,7 @@ function renderContributorLinks(people: ContributorCredit[], locale: string) {
         // biome-ignore lint/suspicious/noArrayIndexKey: one person may appear twice in a role
         key={`${id}-${index}`}
         href={makeContributorPostsPath(id)}
-        className="rounded-sm font-medium text-primary-700 transition-colors hover:text-primary-900 focus-visible:ring-2 focus-visible:ring-primary-600 focus-visible:outline-none motion-reduce:transition-none"
+        className="rounded-sm font-medium text-primary transition-colors hover:text-primary-900 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none motion-reduce:transition-none"
       >
         {name}
       </Link>
@@ -211,12 +211,12 @@ export default async function Page(props: Props) {
       <PostViewTracker slug={post.slug} title={post.title} />
 
       {!post.hideTitle && (
-        <h1 className="text-2xl leading-tight font-bold text-gray-900 sm:text-3xl lg:text-4xl">
+        <h1 className="text-2xl leading-tight font-bold text-foreground sm:text-3xl lg:text-4xl">
           {post.title}
         </h1>
       )}
 
-      <p className="text-sm text-gray-500">{publishedAt}</p>
+      <p className="mt-2 text-sm text-foreground-muted">{publishedAt}</p>
 
       <ShareToolbar className="mt-4" shareUrl={postHref} locale={locale} />
 
@@ -233,7 +233,7 @@ export default async function Page(props: Props) {
       )}
 
       {contributorGroups.length > 0 && (
-        <div className="mt-6 space-y-1 text-gray-700">
+        <div className="mt-6 space-y-1 text-sm text-foreground-muted sm:text-base">
           {contributorGroups.map(({ role, people }) => (
             <p key={role}>
               {t(
@@ -249,10 +249,10 @@ export default async function Page(props: Props) {
         <PublicTagList className="mt-6" tags={publicTags} />
       )}
 
-      <hr className="my-4 md:my-8" />
+      <hr className="my-6 border-border md:my-8" />
 
-      <div className="space-y-4">
-        <h2 className="text-2xl">{t("related")}</h2>
+      <div className="space-y-stack">
+        <h2 className="text-2xl font-bold text-foreground">{t("related")}</h2>
         <AppPostGridPaginated
           hiddenTags={hiddenTags}
           skipSlug={post.slug}

@@ -97,7 +97,7 @@ export default function PostTableOfContents({
       {enabled && items.length > 0 && (
         <nav
           aria-label={t("tableOfContents")}
-          className="mb-8 rounded-xl border border-gray-200 bg-gray-50/80 shadow-xs"
+          className="mb-8 rounded-xl border border-border bg-surface-muted/70 shadow-xs"
         >
           <button
             type="button"
@@ -107,11 +107,11 @@ export default function PostTableOfContents({
               isOpen ? t("collapseTableOfContents") : t("expandTableOfContents")
             }
             onClick={() => setIsOpen((prev) => !prev)}
-            className="flex w-full cursor-pointer items-center justify-between gap-3 rounded-xl px-4 py-3 text-left transition-colors hover:bg-primary-50/60 focus-visible:ring-2 focus-visible:ring-primary-600 focus-visible:outline-none"
+            className="flex w-full cursor-pointer items-center justify-between gap-3 rounded-xl px-4 py-3 text-left transition-colors hover:bg-accent/60 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none motion-reduce:transition-none"
           >
-            <span className="flex items-center gap-2 text-base font-semibold text-gray-900">
+            <span className="flex items-center gap-2 text-base font-semibold text-foreground">
               <List
-                className="size-4 shrink-0 text-primary-700"
+                className="size-4 shrink-0 text-primary"
                 aria-hidden="true"
               />
               <span>{t("tableOfContents")}</span>
@@ -119,31 +119,31 @@ export default function PostTableOfContents({
             <ChevronDown
               aria-hidden="true"
               className={cn(
-                "size-4 shrink-0 text-gray-500 transition-transform duration-200",
+                "size-4 shrink-0 text-foreground-muted transition-transform duration-200 motion-reduce:transition-none",
                 isOpen && "rotate-180",
               )}
             />
           </button>
 
           {isOpen && (
-            <div id={panelId} className="border-t border-gray-200 px-4 py-3">
+            <div id={panelId} className="border-t border-border px-4 py-3">
               <ul className="space-y-1.5 text-sm leading-relaxed">
                 {items.map((item) => (
                   <li
                     key={item.id}
                     className={cn(
                       item.level === 3 &&
-                        "ml-4 border-l border-gray-200 pl-3 text-[13px]",
+                        "ml-4 border-l border-border pl-3 text-xs",
                     )}
                   >
                     <a
                       href={`#${item.id}`}
                       onClick={(event) => handleLinkClick(event, item.id)}
                       className={cn(
-                        "block rounded py-0.5 transition-colors hover:text-primary-700 hover:underline focus-visible:ring-2 focus-visible:ring-primary-600 focus-visible:outline-none",
+                        "block rounded-sm py-0.5 transition-colors hover:text-primary hover:underline focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none motion-reduce:transition-none",
                         item.level === 2
-                          ? "font-medium text-gray-800"
-                          : "text-gray-600",
+                          ? "font-medium text-foreground"
+                          : "text-foreground-muted",
                       )}
                     >
                       {item.text}

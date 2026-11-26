@@ -6,17 +6,17 @@ export default function AppPostGridSkeleton({ count }: { count: number }) {
 
   return (
     <div>
-      <div className="mb-4 block h-7 truncate bg-gray-200 text-center text-xl"></div>
-      <ul className="relative grid grid-flow-row gap-4 md:grid-cols-2 lg:grid-cols-4">
+      <div className="mb-4 block h-7 truncate rounded-md bg-surface-muted text-center text-xl motion-safe:animate-pulse" />
+      <ul className="relative grid grid-flow-row gap-stack md:grid-cols-2 md:gap-gutter lg:grid-cols-4">
         {placeholders.map((key) => (
           <li
-            className="block w-full min-w-0 animate-pulse border border-transparent bg-white"
+            className="block w-full min-w-0 rounded-2xl border border-border bg-surface shadow-xs motion-safe:animate-pulse"
             key={key}
           >
-            <div className="block overflow-hidden border">
-              <div className="relative aspect-video bg-gray-200"></div>
-              <div className="space-y-2 p-2">
-                <div className="block h-7 truncate bg-gray-200 text-center text-xl"></div>
+            <div className="block overflow-hidden rounded-2xl">
+              <div className="relative aspect-video bg-surface-muted" />
+              <div className="space-y-2 p-card-sm">
+                <div className="block h-6 truncate rounded-sm bg-surface-muted" />
               </div>
             </div>
           </li>

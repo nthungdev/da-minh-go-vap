@@ -6,7 +6,7 @@ import type { Locale } from "@/i18n/config";
 import { cn } from "@/utils/common";
 
 const shareControlClassName =
-  "inline-flex min-h-11 min-w-11 items-center justify-center rounded-full border border-gray-300 transition-colors hover:border-primary-800 focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:ring-offset-2 focus-visible:outline-none";
+  "inline-flex min-h-11 min-w-11 items-center justify-center rounded-pill border border-border bg-surface text-foreground transition-colors hover:border-primary hover:bg-accent focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none motion-reduce:transition-none";
 
 function buildFacebookShareUrl(url: string) {
   const params = new URLSearchParams();
@@ -35,8 +35,10 @@ export default async function ShareToolbar({
 
   return (
     <div className={className}>
-      <div>{t("title")}</div>
-      <div className={cn("mt-1 flex flex-row gap-2")}>
+      <div className="text-sm font-medium text-foreground-muted">
+        {t("title")}
+      </div>
+      <div className="mt-1.5 flex flex-row gap-2">
         <CopyButton
           text={shareUrl}
           className={cn(shareControlClassName, "cursor-pointer")}

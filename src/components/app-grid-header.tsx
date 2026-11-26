@@ -13,17 +13,14 @@ export default function AppGridHeader({
 }: AppGridHeaderProps) {
   return (
     <div
-      className={cn(
-        "@container flex flex-row items-center gap-x-1.5",
-        className,
-      )}
+      className={cn("@container flex flex-row items-center gap-x-3", className)}
       {...props}
     >
-      <div aria-hidden="true" className="h-[2px] flex-1 bg-primary-800" />
-      <HeadingTag className="text-base font-bold text-primary-800 uppercase @md:text-2xl">
+      <div aria-hidden="true" className="h-[2px] flex-1 bg-primary" />
+      <HeadingTag className="text-center text-base font-bold text-primary uppercase @md:text-2xl">
         {text}
       </HeadingTag>
-      <div aria-hidden="true" className="h-[2px] flex-1 bg-primary-800" />
+      <div aria-hidden="true" className="h-[2px] flex-1 bg-primary" />
     </div>
   );
 }

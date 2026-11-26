@@ -63,14 +63,17 @@ function VideoGridBody({
   onPageChange,
 }: VideoGridBodyProps) {
   return (
-    <section ref={containerRef} className={cn("my-8 w-full", className)}>
+    <section
+      ref={containerRef}
+      className={cn("w-full py-section-sm", className)}
+    >
       {title && (
-        <h2 className="mb-6 text-2xl font-bold tracking-tight text-gray-900 md:text-3xl">
+        <h2 className="mb-6 text-2xl font-bold tracking-tight text-foreground md:text-3xl">
           {title}
         </h2>
       )}
 
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      <div className="grid grid-cols-1 gap-gutter sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {videos.map((video, index) => {
           const isShort =
             video.type === "youtube" &&
@@ -81,11 +84,11 @@ function VideoGridBody({
           return (
             <div
               key={video.id || `${video.url}-${index}`}
-              className="group flex flex-col overflow-hidden rounded-xl border border-gray-100 bg-white shadow-sm transition hover:shadow-md"
+              className="group flex flex-col overflow-hidden rounded-xl border border-border bg-surface shadow-sm transition hover:border-primary/40 hover:shadow-md motion-reduce:transition-none"
             >
               <div
                 className={cn(
-                  "relative w-full overflow-hidden bg-black",
+                  "relative w-full overflow-hidden bg-surface-muted",
                   isShort ? "aspect-[9/16]" : "aspect-video",
                 )}
               >
@@ -113,8 +116,8 @@ function VideoGridBody({
               </div>
 
               {video.title && (
-                <div className="flex flex-1 flex-col p-3">
-                  <h3 className="line-clamp-2 text-center text-sm font-medium text-gray-900 group-hover:text-primary-600">
+                <div className="flex flex-1 flex-col p-card-sm">
+                  <h3 className="line-clamp-2 text-center text-sm font-medium text-foreground transition-colors group-hover:text-primary motion-reduce:transition-none">
                     {video.title}
                   </h3>
                 </div>

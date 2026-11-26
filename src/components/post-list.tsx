@@ -34,18 +34,18 @@ export default function PostList({
           <li
             key={post.slug}
             className={cn(
-              "border-b-2 border-gray-200 pt-2 pb-2 first:pt-0 last:border-0 hover:cursor-pointer",
-              index === activeIndex && "bg-gray-200",
+              "border-b border-border pt-2 pb-2 first:pt-0 last:border-0 hover:cursor-pointer",
+              index === activeIndex && "rounded-xl bg-surface-muted",
               effectOnHover &&
-                "transition-transform ease-in hover:scale-x-[103%] lg:hover:scale-x-105",
+                "transition-transform ease-in hover:scale-x-[103%] motion-reduce:transition-none motion-reduce:hover:scale-x-100 lg:hover:scale-x-105",
             )}
           >
             <Link
               prefetch={false}
               href={href}
-              className="flex flex-row items-start gap-x-3"
+              className="flex flex-row items-start gap-x-3 rounded-xl focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none"
             >
-              <div className="relative aspect-video w-32 md:w-40 lg:w-28">
+              <div className="relative aspect-video w-32 shrink-0 overflow-hidden rounded-xl bg-surface-muted md:w-40 lg:w-28">
                 {thumbnail?.url && (
                   <Image
                     unoptimized
@@ -58,13 +58,13 @@ export default function PostList({
                   />
                 )}
               </div>
-              <div className="flex-1">
-                <div className="text-xs font-semibold text-gray-500">
+              <div className="min-w-0 flex-1">
+                <div className="text-xs font-semibold text-foreground-muted">
                   {date}
                 </div>
                 <div
                   className={cn(
-                    "line-clamp-1 text-base font-bold",
+                    "line-clamp-1 text-base font-bold text-foreground",
                     !showShortBody &&
                       post.shortBody &&
                       "line-clamp-2 leading-tight",
@@ -73,7 +73,7 @@ export default function PostList({
                   {post.title}
                 </div>
                 {showShortBody && post.shortBody && (
-                  <div className="line-clamp-2 leading-tight lg:line-clamp-1">
+                  <div className="line-clamp-2 text-sm leading-tight text-foreground-muted lg:line-clamp-1">
                     {post.shortBody}
                   </div>
                 )}

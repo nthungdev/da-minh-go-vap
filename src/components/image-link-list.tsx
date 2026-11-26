@@ -4,6 +4,7 @@ import AppSectionHeader from "@/components/app-section-header";
 import { isDataValid } from "@/payload/utils/data";
 import type { LinksBlock } from "@/payload-types";
 import { transformUrl } from "@/utils/cloudflare";
+import { cn } from "@/utils/common";
 
 interface ImageLinkListProps extends React.HTMLAttributes<HTMLDivElement> {
   title: string;
@@ -17,15 +18,24 @@ export default function ImageLinkList({
   ...props
 }: ImageLinkListProps) {
   return (
-    <div {...props} className={className}>
-      <AppSectionHeader className="uppercase">{title}</AppSectionHeader>
-      <ul className="space-y-2 p-2">
+    <div
+      {...props}
+      className={cn(
+        "overflow-hidden rounded-xl border border-border bg-surface shadow-sm",
+        className,
+      )}
+    >
+      <AppSectionHeader className="rounded-none text-sm tracking-wide uppercase shadow-none">
+        {title}
+      </AppSectionHeader>
+      <ul className="flex flex-col gap-2.5 p-card-sm">
         {links.map((link) => (
           <li key={link.id ?? link.url}>
             <Link
               target="_blank"
+              rel="noopener noreferrer"
               href={link.url}
-              className="relative block aspect-[4] w-full border border-transparent hover:ring-3"
+              className="relative block aspect-[4] w-full overflow-hidden rounded-lg border border-border-subtle bg-surface-muted transition hover:border-primary hover:shadow-sm focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none motion-reduce:transition-none"
             >
               {isDataValid(link.image) && link.image.url && (
                 <Image

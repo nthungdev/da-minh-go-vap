@@ -64,10 +64,10 @@ export default function AppPostTabGridAsync(props: AppPostTabGridAsyncProps) {
   const activeIndex = selectedIndex < postGroupsData.length ? selectedIndex : 0;
 
   return (
-    <div className={cn("space-y-4", className)} id={id}>
+    <div className={cn("space-y-stack", className)} id={id}>
       <div className="relative">
         <select
-          className="min-h-11 w-full rounded-lg border border-gray-200 bg-white px-3 text-center text-sm focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:outline-none lg:hidden"
+          className="min-h-11 w-full rounded-lg border border-input bg-surface px-3 text-center text-sm text-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none lg:hidden"
           aria-label={t("navigation.selectPostGroup")}
           value={activeIndex}
           onChange={(event) => setSelectedIndex(Number(event.target.value))}
@@ -105,11 +105,11 @@ export default function AppPostTabGridAsync(props: AppPostTabGridAsyncProps) {
                 tabRefs.current[nextIndex]?.focus();
               }}
               className={cn(
-                "peer relative -mr-12 inline-flex items-center justify-center gap-x-2 rounded-full border-[6px] border-secondary-400 bg-primary-900 px-12 py-1 text-center text-xl font-bold text-nowrap text-white transition disabled:pointer-events-none disabled:opacity-50",
-                "hover:z-20 hover:border-secondary-300 hover:shadow-neon",
-                "focus-visible:z-20 focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:outline-none motion-reduce:transition-none",
+                "peer relative -mr-12 inline-flex items-center justify-center gap-x-2 rounded-pill border-[6px] border-secondary/60 bg-accent px-12 py-1 text-center text-xl font-bold text-nowrap text-accent-foreground transition disabled:pointer-events-none disabled:opacity-50",
+                "hover:z-20 hover:border-secondary hover:shadow-neon",
+                "focus-visible:z-20 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none motion-reduce:transition-none",
                 activeIndex === index &&
-                  "z-10 border-secondary-500 bg-primary-800",
+                  "z-10 border-secondary bg-primary text-primary-foreground",
               )}
               aria-selected={activeIndex === index}
               role="tab"
@@ -131,6 +131,7 @@ export default function AppPostTabGridAsync(props: AppPostTabGridAsyncProps) {
               hidden={activeIndex !== index}
               role="tabpanel"
               aria-labelledby={`${tabsId}-control-${index}`}
+              className="rounded-xl focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
               // biome-ignore lint/a11y/noNoninteractiveTabindex: Loading and empty panels need a keyboard focus target.
               tabIndex={0}
             >

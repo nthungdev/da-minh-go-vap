@@ -32,50 +32,46 @@ export default function AppCardTabs({ tabs }: AppCardTabsProps) {
   const activeTab = selectedIndex < tabs.length ? selectedIndex : 0;
 
   return (
-    <div>
-      <div className="dark:border-neutral-700">
-        <div
-          role="tablist"
-          aria-labelledby={tabs
-            .map((_, index) => `${id}-tab-${index}`)
-            .join(" ")}
-          className="flex gap-x-2"
-        >
-          {tabs.map(({ title }, index) => (
-            <button
-              type="button"
-              key={title}
-              ref={(button) => {
-                tabRefs.current[index] = button;
-              }}
-              role="tab"
-              id={`${id}-tab-${index}`}
-              aria-selected={index === activeTab}
-              aria-controls={`${id}-panel-${index}`}
-              tabIndex={index === activeTab ? 0 : -1}
-              className={cn(
-                "-mb-px inline-flex items-center gap-2 rounded-t-lg border px-4 py-3 text-center text-sm font-medium hover:cursor-pointer focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:outline-none",
-                index === activeTab
-                  ? "border-b-transparent bg-primary-800 text-white dark:border-neutral-700 dark:border-b-gray-800 dark:bg-neutral-800"
-                  : "border-neutral-300 bg-gray-50 text-gray-500 hover:text-gray-700 focus:text-gray-700 dark:border-neutral-700 dark:bg-neutral-700 dark:text-neutral-400 dark:hover:text-neutral-300 dark:focus:text-neutral-300",
-              )}
-              onClick={() => setActiveTab(index)}
-              onKeyDown={(event) => {
-                const nextIndex = getTabIndexForKey(
-                  event.key,
-                  index,
-                  tabs.length,
-                );
-                if (nextIndex === undefined) return;
-                event.preventDefault();
-                setActiveTab(nextIndex);
-                tabRefs.current[nextIndex]?.focus();
-              }}
-            >
-              {title}
-            </button>
-          ))}
-        </div>
+    <div className="w-full">
+      <div
+        role="tablist"
+        aria-labelledby={tabs.map((_, index) => `${id}-tab-${index}`).join(" ")}
+        className="flex flex-wrap gap-x-2 gap-y-1.5"
+      >
+        {tabs.map(({ title }, index) => (
+          <button
+            type="button"
+            key={title}
+            ref={(button) => {
+              tabRefs.current[index] = button;
+            }}
+            role="tab"
+            id={`${id}-tab-${index}`}
+            aria-selected={index === activeTab}
+            aria-controls={`${id}-panel-${index}`}
+            tabIndex={index === activeTab ? 0 : -1}
+            className={cn(
+              "-mb-px inline-flex min-h-11 items-center gap-2 rounded-t-lg border px-4 py-2.5 text-center text-sm font-semibold transition-colors hover:cursor-pointer focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none motion-reduce:transition-none",
+              index === activeTab
+                ? "border-primary border-b-transparent bg-primary text-primary-foreground"
+                : "border-border bg-surface-muted text-foreground-muted hover:bg-accent hover:text-accent-foreground",
+            )}
+            onClick={() => setActiveTab(index)}
+            onKeyDown={(event) => {
+              const nextIndex = getTabIndexForKey(
+                event.key,
+                index,
+                tabs.length,
+              );
+              if (nextIndex === undefined) return;
+              event.preventDefault();
+              setActiveTab(nextIndex);
+              tabRefs.current[nextIndex]?.focus();
+            }}
+          >
+            {title}
+          </button>
+        ))}
       </div>
       {tabs.map(({ title, body }, index) => (
         <div
@@ -86,7 +82,7 @@ export default function AppCardTabs({ tabs }: AppCardTabsProps) {
           // biome-ignore lint/a11y/noNoninteractiveTabindex: Tab panels can contain text without another focus target.
           tabIndex={0}
           hidden={activeTab !== index}
-          className="relative rounded-tr-lg rounded-b-lg border border-gray-200 bg-primary-50 p-4 focus-visible:ring-2 focus-visible:ring-primary-800 focus-visible:outline-none dark:border-neutral-700"
+          className="relative rounded-tr-xl rounded-b-xl border border-border bg-surface p-card-sm text-foreground shadow-sm focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none sm:p-card"
         >
           {activeTab === index && body}
         </div>

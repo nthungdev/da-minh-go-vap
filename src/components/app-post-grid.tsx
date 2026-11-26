@@ -20,7 +20,7 @@ export default function AppPostGrid({
   return (
     <ul
       className={cn(
-        "app-post-grid relative grid grid-flow-row gap-4 md:grid-cols-2 lg:grid-cols-4",
+        "app-post-grid relative grid grid-flow-row gap-stack md:grid-cols-2 md:gap-gutter lg:grid-cols-4",
         className,
       )}
     >
@@ -29,9 +29,9 @@ export default function AppPostGrid({
           <Link
             prefetch={false}
             href={`/posts/${post.slug}`}
-            className="group block size-full overflow-hidden border border-border bg-white shadow-xs transition-shadow hover:shadow-md focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none motion-reduce:transition-none"
+            className="group block size-full overflow-hidden rounded-2xl border border-border bg-surface shadow-sm transition-shadow hover:shadow-md focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none motion-reduce:transition-none"
           >
-            <div className="relative aspect-video">
+            <div className="relative aspect-video overflow-hidden bg-surface-muted">
               {typeof post.thumbnail !== "string" &&
                 typeof post.thumbnail.url === "string" && (
                   <Image
@@ -49,7 +49,7 @@ export default function AppPostGrid({
                 )}
             </div>
             {!hidePostTitles && (
-              <div className="p-3 text-left text-base leading-snug font-semibold text-gray-900 group-hover:text-primary-800">
+              <div className="p-card-sm text-left text-base leading-snug font-semibold text-foreground transition-colors group-hover:text-primary motion-reduce:transition-none">
                 <span className="line-clamp-3">{post.title}</span>
               </div>
             )}
