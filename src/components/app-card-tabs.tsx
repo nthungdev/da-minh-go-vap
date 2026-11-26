@@ -51,10 +51,10 @@ export default function AppCardTabs({ tabs }: AppCardTabsProps) {
             aria-controls={`${id}-panel-${index}`}
             tabIndex={index === activeTab ? 0 : -1}
             className={cn(
-              "-mb-px inline-flex min-h-11 items-center gap-2 rounded-t-lg border px-4 py-2.5 text-center text-sm font-semibold transition-colors hover:cursor-pointer focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none motion-reduce:transition-none",
+              "-mb-px inline-flex min-h-11 items-center gap-2 rounded-t-lg border px-4 py-2.5 text-center text-sm font-semibold transition-colors duration-200 hover:cursor-pointer focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none motion-reduce:transition-none",
               index === activeTab
-                ? "border-primary border-b-transparent bg-primary text-primary-foreground"
-                : "border-border bg-surface-muted text-foreground-muted hover:bg-accent hover:text-accent-foreground",
+                ? "border-primary border-b-transparent bg-primary text-primary-foreground active:bg-primary-900"
+                : "border-border bg-surface-muted text-foreground-muted hover:bg-accent hover:text-accent-foreground active:bg-surface",
             )}
             onClick={() => setActiveTab(index)}
             onKeyDown={(event) => {
@@ -82,7 +82,7 @@ export default function AppCardTabs({ tabs }: AppCardTabsProps) {
           // biome-ignore lint/a11y/noNoninteractiveTabindex: Tab panels can contain text without another focus target.
           tabIndex={0}
           hidden={activeTab !== index}
-          className="relative rounded-tr-xl rounded-b-xl border border-border bg-surface p-card-sm text-foreground shadow-sm focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none sm:p-card"
+          className="relative min-w-0 rounded-tr-xl rounded-b-xl border border-border bg-surface p-card-sm break-words text-foreground shadow-sm focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none sm:p-card"
         >
           {activeTab === index && body}
         </div>

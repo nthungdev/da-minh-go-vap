@@ -501,6 +501,22 @@
   }
 }
 
+/* Unlayered so reduced-motion overrides utility animations and transitions without !important. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms;
+    animation-iteration-count: 1;
+    transition-duration: 0.01ms;
+    scroll-behavior: auto;
+  }
+}
+
 /*
  * ============================================================================
  * 5. Utilities & Markdown Prose
@@ -511,7 +527,11 @@
 }
 
 @utility markdown {
-  @apply leading-6;
+  @apply max-w-full min-w-0 overflow-x-clip leading-6;
+
+  & :where(label, figure, picture) {
+    max-width: 100%;
+  }
 
   &:where(:not(.prose))
     :where(

@@ -51,10 +51,10 @@ export default function SaintBiographyView({ block, isTitleHidden }: Props) {
           />
         )}
 
-        <div className="flex-1">
+        <div className="min-w-0 flex-1">
           <Heading
             className={cn(
-              "mb-3 leading-tight font-bold text-secondary",
+              "mb-3 leading-tight font-bold break-words text-secondary",
               isTitleHidden ? "text-2xl sm:text-3xl" : "text-xl sm:text-2xl",
             )}
           >
@@ -132,9 +132,9 @@ export default function SaintBiographyView({ block, isTitleHidden }: Props) {
       )}
 
       {references && (
-        <div className="mt-5 rounded-lg border border-border-subtle bg-surface-muted px-5 py-4 text-sm leading-[1.8] md:text-base">
+        <div className="mt-5 rounded-lg border border-border-subtle bg-surface-muted px-5 py-4 text-sm leading-[1.8] [overflow-wrap:anywhere] md:text-base">
           <p className="font-bold text-primary">{t("references")}:</p>
-          <AppMarkdown className="[&_a]:rounded-sm [&_a]:text-primary [&_a]:hover:underline [&_a]:focus-visible:ring-2 [&_a]:focus-visible:ring-ring [&_a]:focus-visible:ring-offset-2 [&_a]:focus-visible:outline-none">
+          <AppMarkdown className="[&_a]:rounded-sm [&_a]:text-primary [&_a]:transition-colors [&_a]:duration-150 [&_a]:hover:text-primary-900 [&_a]:hover:underline [&_a]:focus-visible:ring-2 [&_a]:focus-visible:ring-ring [&_a]:focus-visible:ring-offset-2 [&_a]:focus-visible:outline-none [&_a]:active:text-primary-950 [&_a]:motion-reduce:transition-none">
             {references}
           </AppMarkdown>
         </div>

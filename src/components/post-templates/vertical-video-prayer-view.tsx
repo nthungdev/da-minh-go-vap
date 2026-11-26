@@ -36,7 +36,7 @@ export default function VerticalVideoPrayerView({ block }: Props) {
         </div>
       </div>
 
-      <div className="flex flex-col justify-start text-justify text-base leading-normal text-foreground md:justify-center">
+      <div className="flex min-w-0 flex-col justify-start text-justify text-base leading-normal text-foreground md:justify-center">
         <div>
           <AppMarkdown className="prose prose-p:my-0 prose-p:text-justify max-w-none text-[1em] leading-normal text-foreground [&>p:last-child]:inline">
             {intentionPrayer}

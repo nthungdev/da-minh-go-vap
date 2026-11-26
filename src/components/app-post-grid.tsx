@@ -29,7 +29,7 @@ export default function AppPostGrid({
           <Link
             prefetch={false}
             href={`/posts/${post.slug}`}
-            className="group block size-full overflow-hidden rounded-2xl border border-border bg-surface shadow-sm transition-shadow hover:shadow-md focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none motion-reduce:transition-none"
+            className="group block size-full overflow-hidden rounded-2xl border border-border bg-surface shadow-sm transition-[box-shadow,border-color] duration-200 hover:border-primary/40 hover:shadow-md focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none active:shadow-xs motion-reduce:transition-none"
           >
             <div className="relative aspect-video overflow-hidden bg-surface-muted">
               {typeof post.thumbnail !== "string" &&
@@ -49,8 +49,8 @@ export default function AppPostGrid({
                 )}
             </div>
             {!hidePostTitles && (
-              <div className="p-card-sm text-left text-base leading-snug font-semibold text-foreground transition-colors group-hover:text-primary motion-reduce:transition-none">
-                <span className="line-clamp-3">{post.title}</span>
+              <div className="p-card-sm text-left text-base leading-snug font-semibold text-foreground transition-colors duration-200 group-hover:text-primary motion-reduce:transition-none">
+                <span className="line-clamp-3 break-words">{post.title}</span>
               </div>
             )}
           </Link>

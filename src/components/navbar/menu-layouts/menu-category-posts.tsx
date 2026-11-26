@@ -58,9 +58,10 @@ export function MenuCategoryPostsGrid({
             render={
               <Link
                 href={postHref}
+                aria-current={isPostActive ? "page" : undefined}
                 className={cn(
-                  "group flex flex-col overflow-hidden rounded-xl p-1.5 text-left transition-colors outline-none select-none",
-                  "hover:bg-surface-muted focus:bg-surface-muted focus-visible:ring-2 focus-visible:ring-ring",
+                  "group flex flex-col overflow-hidden rounded-xl p-1.5 text-left transition-colors duration-150 outline-none select-none motion-reduce:transition-none",
+                  "hover:bg-surface-muted focus:bg-surface-muted focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none focus-visible:ring-inset active:bg-accent/80",
                   isPostActive && "bg-accent",
                 )}
               />
@@ -74,7 +75,7 @@ export function MenuCategoryPostsGrid({
                   alt={post.thumbnail.alt || post.title}
                   fill
                   sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 250px"
-                  className="object-cover transition-transform duration-300 group-hover:scale-105"
+                  className="object-cover transition-transform duration-200 group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
                 />
               ) : (
                 <div className="flex h-full w-full items-center justify-center text-sm text-foreground-muted">
@@ -85,7 +86,7 @@ export function MenuCategoryPostsGrid({
             <div className="px-1 pt-2 pb-0.5">
               <h4
                 className={cn(
-                  "line-clamp-2 text-sm leading-snug font-semibold text-foreground transition-colors group-hover:text-primary sm:text-base",
+                  "line-clamp-2 text-sm leading-snug font-semibold text-foreground transition-colors duration-150 group-hover:text-primary motion-reduce:transition-none sm:text-base",
                   isPostActive && "text-accent-foreground",
                 )}
               >
@@ -106,7 +107,7 @@ export function MenuCategoryPostsSkeleton() {
       {SKELETON_CARD_KEYS.map((skeletonKey) => (
         <div
           key={skeletonKey}
-          className="flex flex-col p-1.5 motion-safe:animate-pulse"
+          className="flex flex-col p-1.5 motion-safe:animate-pulse motion-reduce:animate-none"
           aria-hidden="true"
         >
           <div className="aspect-[16/10] w-full rounded-lg bg-surface-muted" />

@@ -29,13 +29,13 @@ export default function PostGroupSkeleton({
           </AppSectionHeader>
         )}
         <ul
-          className="relative flex flex-col gap-2 rounded-xs p-2"
+          className="relative flex flex-col gap-2 rounded-lg p-2"
           aria-hidden="true"
         >
           {items.map((index) => (
             <li
               key={index}
-              className="block h-14 w-full bg-gray-200 motion-safe:animate-pulse"
+              className="block h-14 w-full rounded-xl bg-surface-muted motion-safe:animate-pulse"
             />
           ))}
         </ul>
@@ -44,26 +44,21 @@ export default function PostGroupSkeleton({
   }
 
   return (
-    <div className="space-y-2" aria-busy="true">
+    <div className="space-y-stack" aria-busy="true">
       <AppGridHeader text={title || ""} />
       <ul
-        className="relative grid grid-flow-row gap-4 md:grid-cols-2 lg:grid-cols-4"
+        className="relative grid grid-flow-row gap-stack md:grid-cols-2 md:gap-gutter lg:grid-cols-4"
         aria-hidden="true"
       >
         {items.map((index) => (
-          <li
-            key={index}
-            className="block w-full min-w-0 border border-transparent bg-white"
-          >
-            <div className="block overflow-hidden border border-gray-300 motion-safe:animate-pulse">
-              <div className="aspect-video bg-gray-200" />
+          <li key={index} className="min-w-0">
+            <div className="block size-full overflow-hidden rounded-2xl border border-border bg-surface shadow-sm motion-safe:animate-pulse">
+              <div className="aspect-video bg-surface-muted" />
               {!hidePostTitles && (
-                // Each bar plus margins equals one title line box (24px base,
-                // 28px lg). Full-width mobile cards usually fit one line;
-                // narrower md+ columns usually wrap to two.
-                <div className="flex flex-col p-1.5">
-                  <div className="mx-auto my-1 h-4 w-11/12 bg-gray-200 lg:h-5" />
-                  <div className="mx-auto my-1 hidden h-4 w-2/3 bg-gray-200 md:block lg:h-5" />
+                // Matches AppPostGrid's p-card-sm text-base leading-snug title block
+                <div className="space-y-1.5 p-card-sm">
+                  <div className="h-[18px] w-11/12 rounded-sm bg-surface-muted" />
+                  <div className="h-[18px] w-2/3 rounded-sm bg-surface-muted" />
                 </div>
               )}
             </div>

@@ -260,7 +260,11 @@ function AppPostGridPaginatedContent(props: AppPostGridPaginatedProps) {
         )}
       >
         {isInitialLoading ? (
-          <AppPostGridSkeleton count={pageSize} />
+          <AppPostGridSkeleton
+            count={pageSize}
+            hidePostTitles={hidePostTitles}
+            showHeader={false}
+          />
         ) : isError ? (
           <PostQueryFeedback onRetry={() => void refetch()} />
         ) : posts.length === 0 ? (
@@ -286,7 +290,11 @@ export default function AppPostGridPaginated(props: AppPostGridPaginatedProps) {
   return (
     <Suspense
       fallback={
-        <AppPostGridSkeleton count={props.pageSize || DEFAULT_PAGE_SIZE} />
+        <AppPostGridSkeleton
+          count={props.pageSize || DEFAULT_PAGE_SIZE}
+          hidePostTitles={props.hidePostTitles}
+          showHeader={false}
+        />
       }
     >
       <AppPostGridPaginatedContent {...props} />

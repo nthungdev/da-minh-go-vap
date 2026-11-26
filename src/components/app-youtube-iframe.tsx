@@ -12,9 +12,10 @@ export default function YoutubeIframe({
   return (
     <iframe
       title={title}
-      className={cn("aspect-video w-full", className)}
+      className={cn("aspect-video w-full border-0", className)}
       src={`https://www.youtube.com/embed/${videoId}`}
       allowFullScreen
+      loading="lazy"
     />
   );
 }

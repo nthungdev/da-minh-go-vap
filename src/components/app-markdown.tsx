@@ -69,6 +69,7 @@ function createMarkdownComponents(footnoteHeading: string): Components {
         // biome-ignore lint/performance/noImgElement: markdown renders arbitrary external image URLs
         <img
           {...imgProps}
+          className={cn("h-auto max-w-full", imgProps.className)}
           src={resolvedSrc}
           alt={alt ?? ""}
           width={width ?? 800}
@@ -76,6 +77,38 @@ function createMarkdownComponents(footnoteHeading: string): Components {
           loading={loading ?? "lazy"}
           decoding={decoding ?? "async"}
         />
+      );
+    },
+    a({ node: _node, className, children, ...linkProps }) {
+      return (
+        <a
+          {...linkProps}
+          className={cn(
+            "rounded-sm transition-colors duration-150 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none motion-reduce:transition-none",
+            className,
+          )}
+        >
+          {children}
+        </a>
+      );
+    },
+    table({ node: _node, className, children, ...tableProps }) {
+      return (
+        <div className="my-4 w-full overflow-x-auto">
+          <table {...tableProps} className={cn("w-full", className)}>
+            {children}
+          </table>
+        </div>
+      );
+    },
+    pre({ node: _node, className, children, ...preProps }) {
+      return (
+        <pre
+          {...preProps}
+          className={cn("max-w-full overflow-x-auto", className)}
+        >
+          {children}
+        </pre>
       );
     },
     link({ href, ...linkProps }) {

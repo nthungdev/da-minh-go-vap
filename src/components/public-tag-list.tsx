@@ -23,7 +23,7 @@ export function PublicTagList({
         <Link
           key={tag.id}
           href={makePublicTagPath(tag.tag)}
-          className="rounded-pill border border-secondary bg-secondary px-3 py-1.5 text-sm font-medium text-secondary-foreground transition-colors hover:bg-secondary-800 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none motion-reduce:transition-none"
+          className="inline-flex max-w-full items-center rounded-pill border border-secondary bg-secondary px-3 py-1.5 text-sm font-medium break-words text-secondary-foreground transition-colors duration-150 hover:border-secondary-800 hover:bg-secondary-800 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none active:border-secondary-900 active:bg-secondary-900 motion-reduce:transition-none"
         >
           {tag.label}
         </Link>

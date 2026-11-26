@@ -5,7 +5,7 @@ import { cn } from "@/utils/common";
 const stateClassName =
   "mx-auto flex w-full max-w-lg flex-col items-center rounded-2xl border border-stone-200 bg-white px-6 py-10 text-center";
 const actionClassName =
-  "mt-6 inline-flex min-h-11 items-center justify-center rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-primary-900 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none motion-reduce:transition-none";
+  "mt-6 inline-flex min-h-11 items-center justify-center rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-white transition-colors duration-150 hover:bg-primary-900 active:bg-primary-950 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none motion-reduce:transition-none";
 
 type EmptyStateProps = {
   title: string;

@@ -46,7 +46,7 @@ export default function GospelReflectionCardView({
 
         {gospel?.content && (
           <details className="group text-sm">
-            <summary className="inline-flex cursor-pointer list-none items-center gap-1 rounded-sm font-semibold text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 [&::-webkit-details-marker]:hidden">
+            <summary className="inline-flex cursor-pointer list-none items-center gap-1 rounded-sm py-1 font-semibold text-primary transition-colors duration-150 hover:text-primary-900 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none active:opacity-80 motion-reduce:transition-none [&::-webkit-details-marker]:hidden">
               <span>{gospelLabel}</span>
               <ChevronDown
                 aria-hidden="true"
@@ -67,7 +67,7 @@ export default function GospelReflectionCardView({
       {headline && (
         <Heading
           className={cn(
-            "mt-1.5 mb-3.5 text-center leading-tight font-bold text-secondary",
+            "mt-1.5 mb-3.5 text-center leading-tight font-bold break-words text-secondary",
             isTitleHidden ? "text-2xl sm:text-3xl" : "text-xl sm:text-2xl",
           )}
         >

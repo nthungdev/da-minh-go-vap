@@ -69,6 +69,7 @@ export function MenuIcon({
   if (!src) return null;
 
   const sizeClass = size === 4 || size === "sm" ? "size-4" : "size-5";
+  const imageSizes = size === 4 || size === "sm" ? "16px" : "20px";
 
   return (
     <span
@@ -84,6 +85,7 @@ export function MenuIcon({
         alt={decorative ? "" : name || icon}
         aria-hidden={decorative || undefined}
         fill
+        sizes={imageSizes}
         className="rounded-pill object-contain"
       />
     </span>
@@ -111,16 +113,28 @@ function DesktopNavItem({
 }) {
   const label = item.name ? <span>{item.name.toUpperCase()}</span> : null;
 
+  const isRouteActive = Boolean(
+    item.absoluteHref && pathname === item.absoluteHref,
+  );
+
   if (hasSubContent(item)) {
     return (
       <NavigationMenuItem>
         <NavigationMenuTrigger
           render={
-            item.absoluteHref ? <Link href={item.absoluteHref} /> : undefined
+            item.absoluteHref ? (
+              <Link
+                href={item.absoluteHref}
+                aria-current={isRouteActive ? "page" : undefined}
+              />
+            ) : undefined
           }
           nativeButton={!item.absoluteHref}
           aria-label={item.name || item.icon || "Menu"}
-          className="flex items-center gap-1.5 text-primary-foreground transition-colors hover:bg-surface hover:text-primary focus:bg-surface focus:text-primary focus-visible:ring-2 focus-visible:ring-primary-foreground focus-visible:ring-offset-1 focus-visible:ring-offset-primary focus-visible:outline-none data-popup-open:bg-surface data-popup-open:text-primary data-[state=open]:bg-surface data-[state=open]:text-primary data-open:bg-surface data-open:text-primary"
+          className={cn(
+            "flex items-center gap-1.5 text-primary-foreground transition-colors duration-150 hover:bg-surface hover:text-primary focus:bg-surface focus:text-primary focus-visible:ring-2 focus-visible:ring-primary-foreground focus-visible:ring-offset-1 focus-visible:ring-offset-primary focus-visible:outline-none active:bg-surface/90 active:text-primary data-popup-open:bg-surface data-popup-open:text-primary data-[state=open]:bg-surface data-[state=open]:text-primary motion-reduce:transition-none data-open:bg-surface data-open:text-primary",
+            isRouteActive && "bg-surface font-bold text-primary",
+          )}
         >
           <MenuIcon
             icon={item.icon}
@@ -147,13 +161,13 @@ function DesktopNavItem({
         <NavigationMenuLink
           className={cn(
             navigationMenuTriggerStyle(),
-            "flex items-center gap-1.5 text-primary-foreground transition-colors hover:bg-surface hover:text-primary focus:bg-surface focus:text-primary focus-visible:ring-2 focus-visible:ring-primary-foreground focus-visible:ring-offset-1 focus-visible:ring-offset-primary focus-visible:outline-none",
-            pathname === item.absoluteHref &&
-              "bg-surface font-bold text-primary",
+            "flex items-center gap-1.5 text-primary-foreground transition-colors duration-150 hover:bg-surface hover:text-primary focus:bg-surface focus:text-primary focus-visible:ring-2 focus-visible:ring-primary-foreground focus-visible:ring-offset-1 focus-visible:ring-offset-primary focus-visible:outline-none active:bg-surface/90 active:text-primary motion-reduce:transition-none",
+            isRouteActive && "bg-surface font-bold text-primary",
           )}
           render={
             <Link
               href={item.absoluteHref}
+              aria-current={isRouteActive ? "page" : undefined}
               aria-label={item.name || item.icon || "Link"}
             />
           }
@@ -210,14 +224,16 @@ function MobileSubLink({
   staticClassName: string;
 }) {
   if (href) {
+    const isActive = pathname === href;
     return (
       <Link
         href={href}
         onClick={onNavigate}
+        aria-current={isActive ? "page" : undefined}
         className={cn(
-          "rounded-md focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none",
+          "rounded-md duration-150 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1 focus-visible:outline-none active:bg-accent/80 active:text-accent-foreground motion-reduce:transition-none",
           linkClassName,
-          pathname === href && "font-semibold text-primary",
+          isActive && "font-semibold text-primary",
         )}
       >
         <MenuIcon
@@ -316,8 +332,13 @@ function MobileSubContent({
               <Link
                 href={pillar.headerBanner.absoluteHref}
                 onClick={onNavigate}
+                aria-current={
+                  pathname === pillar.headerBanner.absoluteHref
+                    ? "page"
+                    : undefined
+                }
                 className={cn(
-                  "block rounded-md px-2 py-1 text-base font-bold uppercase transition-colors hover:bg-surface-muted hover:text-primary focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none",
+                  "block rounded-md px-2 py-1 text-base font-bold uppercase transition-colors duration-150 hover:bg-surface-muted hover:text-primary focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1 focus-visible:outline-none active:bg-accent/80 active:text-accent-foreground motion-reduce:transition-none",
                   pathname === pillar.headerBanner.absoluteHref
                     ? "text-primary"
                     : "text-foreground",
@@ -414,16 +435,17 @@ function MobileNavLabel({
   );
 
   if (item.absoluteHref) {
+    const isActive = pathname === item.absoluteHref;
     return (
       <Link
         href={item.absoluteHref}
         onClick={onNavigate}
+        aria-current={isActive ? "page" : undefined}
         aria-label={item.name || item.icon || fallbackAriaLabel}
         className={cn(
-          "flex min-h-11 items-center gap-2 rounded-md px-2 py-2.5 text-base font-medium text-foreground transition-colors hover:bg-surface-muted hover:text-primary focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none",
+          "flex min-h-11 items-center gap-2 rounded-md px-2 py-2.5 text-base font-medium text-foreground transition-colors duration-150 hover:bg-surface-muted hover:text-primary focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1 focus-visible:outline-none active:bg-accent/80 active:text-accent-foreground motion-reduce:transition-none",
           className,
-          pathname === item.absoluteHref &&
-            "bg-accent font-semibold text-accent-foreground",
+          isActive && "bg-accent font-semibold text-accent-foreground",
         )}
       >
         {content}
@@ -472,7 +494,7 @@ function MobileNavItem({
               aria-label={t("toggleSection", {
                 name: item.name || item.icon || "",
               })}
-              className="min-h-11 min-w-11 shrink-0 items-center justify-center rounded-md p-2 text-foreground-muted hover:bg-surface-muted hover:text-primary hover:no-underline focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none **:data-[slot=accordion-trigger-icon]:ml-0"
+              className="min-h-11 min-w-11 shrink-0 items-center justify-center rounded-md p-2 text-foreground-muted transition-colors duration-150 hover:bg-surface-muted hover:text-primary hover:no-underline focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1 focus-visible:outline-none active:bg-accent/80 **:data-[slot=accordion-trigger-icon]:ml-0 motion-reduce:transition-none"
             />
           </div>
           <AccordionContent className="pb-3 pl-4">
@@ -523,25 +545,26 @@ export default function TheNavbarClient({
 
   return (
     <>
-      <div className="flex items-center justify-center lg:space-x-8">
+      <div className="flex min-w-0 items-center justify-center lg:space-x-8">
         {/* Brand & Logo (Desktop & Mobile) */}
         <Link
           href="/"
-          className="relative z-20 flex shrink-0 items-center rounded-md focus-visible:ring-2 focus-visible:ring-primary-foreground focus-visible:ring-offset-2 focus-visible:ring-offset-primary focus-visible:outline-none"
+          className="relative z-20 flex min-w-0 shrink-0 items-center rounded-md transition-opacity duration-150 hover:opacity-95 focus-visible:ring-2 focus-visible:ring-primary-foreground focus-visible:ring-offset-2 focus-visible:ring-offset-primary focus-visible:outline-none active:opacity-85 motion-reduce:transition-none"
         >
           {/* Mobile Text Brand */}
-          <div className="flex items-center gap-2 font-semibold lg:hidden">
+          <div className="flex min-w-0 items-center gap-2 font-semibold lg:hidden">
             {typeof logo?.url === "string" ? (
-              <div className="relative h-10 w-10">
+              <div className="relative h-10 w-10 shrink-0">
                 <Image
                   src={transformUrl(logo.url)}
                   alt={logo.alt || "Logo"}
+                  sizes="40px"
                   fill
                   className="object-contain"
                 />
               </div>
             ) : null}
-            <span className="text-base leading-tight font-bold">
+            <span className="text-sm leading-tight font-bold sm:text-base">
               {t("brandLine1")}
               <br />
               {t("brandLine2")}
@@ -592,33 +615,34 @@ export default function TheNavbarClient({
       </div>
 
       {/* Right Actions & Mobile Toggle (Mobile) */}
-      <div className="flex items-center space-x-1.5 text-primary-foreground lg:hidden">
+      <div className="flex shrink-0 items-center gap-1 text-primary-foreground sm:gap-1.5 lg:hidden">
         <AppPostSearchButton
           id="mobile-navbar-search"
           searchTags={searchTags}
         />
         <LocaleSwitcher />
         <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
-          <SheetTrigger className="-mr-2 inline-flex min-h-11 min-w-11 items-center justify-center rounded-md text-primary-foreground hover:bg-primary-foreground/15 hover:text-primary-foreground focus-visible:ring-2 focus-visible:ring-primary-foreground focus-visible:outline-none">
+          <SheetTrigger className="-mr-2 inline-flex min-h-11 min-w-11 items-center justify-center rounded-md text-primary-foreground transition-colors duration-150 hover:cursor-pointer hover:bg-primary-foreground/15 hover:text-primary-foreground focus-visible:ring-2 focus-visible:ring-primary-foreground focus-visible:ring-offset-1 focus-visible:ring-offset-primary focus-visible:outline-none active:bg-primary-foreground/25 motion-reduce:transition-none">
             <Menu className="h-6 w-6" aria-hidden="true" />
             <span className="sr-only">{t("toggleMenu")}</span>
           </SheetTrigger>
           <SheetContent
             side="left"
-            className="w-[300px] max-w-[85vw] overflow-y-auto border-r border-border bg-surface text-foreground sm:w-[350px]"
+            className="w-[min(300px,85vw)] overflow-y-auto border-r border-border bg-surface text-foreground sm:w-[350px]"
           >
             <SheetHeader className="mb-4 border-b border-border pb-4 text-left">
               <SheetTitle>
                 <Link
                   href="/"
                   onClick={closeMobileMenu}
-                  className="flex items-center gap-3 rounded-md focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
+                  className="flex items-center gap-3 rounded-md transition-opacity duration-150 hover:opacity-85 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none active:opacity-75 motion-reduce:transition-none"
                 >
                   {typeof logo?.url === "string" ? (
                     <div className="relative h-12 w-12 shrink-0">
                       <Image
                         src={transformUrl(logo.url)}
                         alt={logo.alt || "Logo"}
+                        sizes="48px"
                         fill
                         className="object-contain"
                       />

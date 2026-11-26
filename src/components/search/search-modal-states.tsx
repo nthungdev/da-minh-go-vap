@@ -11,12 +11,12 @@ export function SearchSkeletonList() {
     <div className="divide-y divide-border-warm" aria-hidden="true">
       {SKELETON_ROWS.map((row) => (
         <div key={row} className="flex gap-3.5 py-4 sm:gap-4">
-          <div className="aspect-video w-28 shrink-0 animate-pulse rounded-[10px] bg-stone-200/80 motion-reduce:animate-none sm:w-32" />
+          <div className="aspect-video w-28 shrink-0 animate-pulse rounded-xl bg-stone-200/80 motion-reduce:animate-none sm:w-32" />
           <div className="flex min-w-0 flex-1 flex-col justify-center gap-2">
-            <div className="h-3 w-28 animate-pulse rounded bg-stone-200/80 motion-reduce:animate-none" />
-            <div className="h-4.5 w-4/5 animate-pulse rounded bg-stone-200/90 motion-reduce:animate-none" />
-            <div className="h-3.5 w-full animate-pulse rounded bg-stone-200/70 motion-reduce:animate-none" />
-            <div className="h-3.5 w-2/3 animate-pulse rounded bg-stone-200/70 motion-reduce:animate-none" />
+            <div className="h-3 w-28 animate-pulse rounded-sm bg-stone-200/80 motion-reduce:animate-none" />
+            <div className="h-4.5 w-4/5 animate-pulse rounded-sm bg-stone-200/90 motion-reduce:animate-none" />
+            <div className="h-3.5 w-full animate-pulse rounded-sm bg-stone-200/70 motion-reduce:animate-none" />
+            <div className="h-3.5 w-2/3 animate-pulse rounded-sm bg-stone-200/70 motion-reduce:animate-none" />
           </div>
         </div>
       ))}
@@ -61,8 +61,8 @@ export function SearchIdleState({
             type="button"
             onClick={onClearRecent}
             className={cn(
-              "text-xs font-semibold text-stone-500 transition-colors hover:text-stone-800 motion-reduce:transition-none",
-              "rounded px-1.5 py-0.5 focus-visible:ring-2 focus-visible:ring-primary-700 focus-visible:outline-none",
+              "text-xs font-semibold text-stone-500 transition-colors duration-150 hover:cursor-pointer hover:text-stone-800 active:text-stone-950 motion-reduce:transition-none",
+              "rounded px-1.5 py-0.5 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1 focus-visible:outline-none",
             )}
           >
             {t("clearRecent")}
@@ -75,9 +75,9 @@ export function SearchIdleState({
               type="button"
               onClick={() => onPickQuery(item)}
               className={cn(
-                "inline-flex items-center gap-1.5 rounded-full border border-border-warm bg-white px-3 py-1.5 text-xs font-semibold text-stone-700 transition-colors motion-reduce:transition-none",
-                "hover:border-primary-700 hover:text-primary-800",
-                "focus-visible:ring-2 focus-visible:ring-primary-700 focus-visible:outline-none",
+                "inline-flex items-center gap-1.5 rounded-full border border-border-warm bg-white px-3 py-1.5 text-xs font-semibold text-stone-700 transition-colors duration-150 hover:cursor-pointer motion-reduce:transition-none",
+                "hover:border-primary-700 hover:text-primary-800 active:bg-stone-100",
+                "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1 focus-visible:outline-none",
               )}
             >
               <Clock className="size-3.5 text-stone-400" aria-hidden="true" />
@@ -132,9 +132,9 @@ export function SearchEmptyState({
         type="button"
         onClick={onClear}
         className={cn(
-          "mt-4 rounded-full border border-border-warm bg-white px-4 py-1.5 text-xs font-bold text-stone-700 transition-colors motion-reduce:transition-none",
-          "hover:border-primary-700 hover:text-primary-800",
-          "focus-visible:ring-2 focus-visible:ring-primary-700 focus-visible:outline-none",
+          "mt-4 rounded-full border border-border-warm bg-white px-4 py-1.5 text-xs font-bold text-stone-700 transition-colors duration-150 hover:cursor-pointer motion-reduce:transition-none",
+          "hover:border-primary-700 hover:text-primary-800 active:bg-stone-100",
+          "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none",
         )}
       >
         {t("clear")}
@@ -169,8 +169,8 @@ export function SearchErrorState({ message, onRetry }: SearchErrorStateProps) {
         type="button"
         onClick={onRetry}
         className={cn(
-          "mt-4 rounded-full bg-primary-700 px-4 py-1.5 text-xs font-bold text-white transition-colors hover:bg-primary-800 motion-reduce:transition-none",
-          "focus-visible:ring-2 focus-visible:ring-primary-700 focus-visible:ring-offset-2 focus-visible:outline-none",
+          "mt-4 rounded-full bg-primary-700 px-4 py-1.5 text-xs font-bold text-white transition-colors duration-150 hover:cursor-pointer hover:bg-primary-800 active:bg-primary-900 motion-reduce:transition-none",
+          "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none",
         )}
       >
         {t("retry")}

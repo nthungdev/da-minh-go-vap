@@ -18,6 +18,7 @@ export default function FacebookIframe({
       )}
       src={`https://www.facebook.com/plugins/video.php?href=${decodeURIComponent(`https://www.facebook.com/watch/?v=${videoId}`)}&width=500&show_text=false&height=281&appId`}
       allowFullScreen
+      loading="lazy"
       allow="autoplay; clipboard-write; encrypted-media; web-share"
     />
 

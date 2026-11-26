@@ -52,7 +52,11 @@ export default function AppPostGridAsync({
   });
 
   const posts = data?.posts ?? queryInitialData?.posts ?? [];
-  if (isPending) return <AppPostGridSkeleton count={limit} />;
+  if (isPending) {
+    return (
+      <AppPostGridSkeleton count={limit} hidePostTitles={hidePostTitles} />
+    );
+  }
 
   if (isError && !posts.length) {
     return <PostQueryFeedback onRetry={() => void refetch()} />;
@@ -90,7 +94,7 @@ export function PostQueryFeedback({
 }) {
   const t = useTranslations();
   const actionClass =
-    "inline-flex min-h-10 items-center rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary-900 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none motion-reduce:transition-none";
+    "inline-flex min-h-10 cursor-pointer items-center rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition-colors duration-200 hover:bg-primary-900 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none active:bg-primary-950 motion-reduce:transition-none";
 
   return (
     <div

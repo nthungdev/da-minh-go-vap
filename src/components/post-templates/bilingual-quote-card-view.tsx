@@ -21,7 +21,7 @@ function QuoteColumn({ quote, caption, className }: QuoteColumnProps) {
         className,
       )}
     >
-      <blockquote className="relative rounded-lg border-2 border-border-warm bg-surface px-6 py-8 text-center text-2xl leading-[1.9] text-editorial-quote shadow-inset md:px-8 md:py-12 md:text-3xl">
+      <blockquote className="relative rounded-lg border-2 border-border-warm bg-surface px-5 py-8 text-center text-xl leading-[1.9] [overflow-wrap:anywhere] text-editorial-quote shadow-inset sm:px-6 sm:text-2xl md:px-8 md:py-12 md:text-3xl">
         <span
           aria-hidden="true"
           className="absolute -top-6 left-2.5 text-7xl leading-[1.9] text-editorial-mark opacity-30"
@@ -36,7 +36,7 @@ function QuoteColumn({ quote, caption, className }: QuoteColumnProps) {
           ”
         </span>
       </blockquote>
-      <figcaption className="mt-4 text-center text-sm text-foreground-muted">
+      <figcaption className="mt-4 text-center text-sm [overflow-wrap:anywhere] text-foreground-muted">
         {caption}
       </figcaption>
     </figure>
@@ -49,7 +49,7 @@ export default function BilingualQuoteCardView({ block }: Props) {
 
   return (
     <article className="w-full overflow-hidden rounded-xl border border-border-warm bg-surface font-lora text-ink-body shadow-sm">
-      <header className="border-b border-border-warm bg-surface-header px-6 py-4 text-right text-sm italic">
+      <header className="border-b border-border-warm bg-surface-header px-4 py-4 text-right text-sm [overflow-wrap:anywhere] italic sm:px-6">
         <p>
           {t("author")}: {author}
         </p>

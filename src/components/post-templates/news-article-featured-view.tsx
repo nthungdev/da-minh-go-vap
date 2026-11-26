@@ -38,7 +38,7 @@ function NewsArticleFooter({
   }
 
   return (
-    <footer className="clear-both mt-6 text-right text-base text-foreground-muted italic">
+    <footer className="clear-both mt-6 text-right text-base [overflow-wrap:anywhere] text-foreground-muted italic">
       {translator && (
         <p>
           <strong className="text-foreground">
@@ -65,7 +65,7 @@ function NewsArticleFooter({
               href={sourceUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-sm text-primary hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+              className="rounded-sm text-primary transition-colors duration-150 hover:text-primary-900 hover:underline focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none active:text-primary-950 motion-reduce:transition-none"
             >
               {sourceName || sourceUrl}
               <span className="sr-only"> {t("common.openInNewTab")}</span>
@@ -128,7 +128,7 @@ export default function NewsArticleFeaturedView({ block }: Props) {
                 alt={imageAlt}
                 fill
                 sizes="(min-width: 768px) 320px, 100vw"
-                className="object-cover transition-transform duration-200 hover:scale-[1.03] motion-reduce:transition-none motion-reduce:hover:scale-100"
+                className="object-cover transition-transform duration-200 hover:scale-[1.03] motion-reduce:transform-none motion-reduce:transition-none motion-reduce:hover:scale-100"
               />
             </div>
           </LightboxModal>

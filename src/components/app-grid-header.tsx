@@ -17,7 +17,7 @@ export default function AppGridHeader({
       {...props}
     >
       <div aria-hidden="true" className="h-[2px] flex-1 bg-primary" />
-      <HeadingTag className="text-center text-base font-bold text-primary uppercase @md:text-2xl">
+      <HeadingTag className="min-w-0 text-center text-base font-bold break-words text-primary uppercase @md:text-2xl">
         {text}
       </HeadingTag>
       <div aria-hidden="true" className="h-[2px] flex-1 bg-primary" />

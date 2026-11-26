@@ -28,13 +28,18 @@ export default function LocaleSwitcher() {
   return (
     <button
       type="button"
-      className="relative inline-flex min-h-11 items-center justify-center rounded-md px-2.5 py-1.5 text-sm font-medium text-primary-foreground transition-colors hover:cursor-pointer hover:bg-primary-foreground/15 focus-visible:ring-2 focus-visible:ring-primary-foreground focus-visible:ring-offset-1 focus-visible:ring-offset-primary focus-visible:outline-none disabled:pointer-events-none sm:min-h-9"
+      className="relative inline-flex min-h-11 shrink-0 items-center justify-center rounded-md px-2 py-1.5 text-sm font-medium whitespace-nowrap text-primary-foreground transition-colors duration-150 hover:cursor-pointer hover:bg-primary-foreground/15 focus-visible:ring-2 focus-visible:ring-primary-foreground focus-visible:ring-offset-1 focus-visible:ring-offset-primary focus-visible:outline-none active:bg-primary-foreground/25 disabled:pointer-events-none motion-reduce:transition-none sm:min-h-9 sm:px-2.5"
       onClick={switchLocale}
       disabled={isPending}
+      aria-busy={isPending || undefined}
       aria-label={t("switchLocale", { language: label })}
+      data-current-locale={locale}
     >
-      <span className={cn(isPending && "opacity-30")}>{label}</span>
+      <span lang={nextLocale} className={cn(isPending && "opacity-30")}>
+        {label}
+      </span>
       <div
+        aria-hidden={!isPending}
         className={cn(
           "absolute inset-0 flex size-full items-center justify-center",
           !isPending && "hidden",

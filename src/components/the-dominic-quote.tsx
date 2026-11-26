@@ -22,7 +22,7 @@ export default function TheDominicQuote({ quotes }: TheDominicQuoteProps) {
   return (
     <div className="min-h-32 space-y-1 py-6" {...containerProps}>
       <blockquote>
-        <p className="text-center text-2xl font-semibold">
+        <p className="text-center text-xl font-semibold break-words md:text-2xl">
           {currentQuote.quote}
         </p>
       </blockquote>

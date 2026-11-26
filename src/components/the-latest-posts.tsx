@@ -56,7 +56,11 @@ export default function TheLatestPosts({
     <div className={cn("@container", className)}>
       <div className="mb-4">{heading}</div>
       {isPending && data.length === 0 ? (
-        <div className="flex aspect-[3/1] items-center justify-center rounded-2xl border border-border bg-surface-muted">
+        <div
+          role="status"
+          aria-busy="true"
+          className="flex aspect-[3/1] items-center justify-center rounded-2xl border border-border bg-surface-muted"
+        >
           <Spinner className="motion-reduce:animate-none" />
         </div>
       ) : data.length === 0 ? (
@@ -66,7 +70,7 @@ export default function TheLatestPosts({
       ) : (
         <div
           className={cn(
-            "flex flex-col gap-stack lg:flex-row lg:gap-4",
+            "flex min-w-0 flex-col gap-stack lg:flex-row lg:gap-4",
             postCount === 4 && "lg:h-[320px]",
             postCount === 5 && "lg:h-[402px]",
           )}
@@ -82,10 +86,10 @@ export default function TheLatestPosts({
 
               return (
                 <Link
-                  key={post.slug}
+                  key={post.id || post.slug}
                   href={`/posts/${post.slug}`}
                   aria-label={post.title}
-                  className="relative block size-full focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none focus-visible:after:absolute focus-visible:after:inset-0 focus-visible:after:ring-2 focus-visible:after:ring-ring focus-visible:after:ring-inset"
+                  className="relative block size-full focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none focus-visible:ring-inset"
                 >
                   {thumbnail?.url ? (
                     <Image
@@ -111,7 +115,7 @@ export default function TheLatestPosts({
           </AppCarousel>
 
           <PostList
-            className="flex-1"
+            className="min-w-0 flex-1"
             posts={data}
             activeIndex={currentIndex < data.length ? currentIndex : 0}
             showShortBody

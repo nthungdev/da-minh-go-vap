@@ -34,7 +34,9 @@ export default function MenuLayoutGrid({
                 <Image
                   unoptimized
                   src={getMenuIconSrc(child.icon)}
-                  alt={child.name || child.icon}
+                  alt=""
+                  aria-hidden="true"
+                  sizes="36px"
                   fill
                   className="object-contain"
                 />
@@ -45,7 +47,7 @@ export default function MenuLayoutGrid({
                 <div className="flex w-full items-center justify-between gap-2 text-left">
                   <span
                     className={cn(
-                      "text-left text-base leading-snug font-bold text-foreground transition-colors group-hover:text-primary sm:text-lg",
+                      "text-left text-base leading-snug font-bold text-foreground transition-colors duration-150 group-hover:text-primary motion-reduce:transition-none sm:text-lg",
                       isActive && "text-accent-foreground",
                     )}
                   >
@@ -61,7 +63,10 @@ export default function MenuLayoutGrid({
               </div>
 
               {child.absoluteHref && (
-                <ChevronRight className="size-4 shrink-0 text-foreground-muted transition-all group-hover:translate-x-0.5 group-hover:text-primary" />
+                <ChevronRight
+                  aria-hidden="true"
+                  className="size-4 shrink-0 text-foreground-muted transition-transform duration-150 group-hover:translate-x-0.5 group-hover:text-primary motion-reduce:transition-none motion-reduce:group-hover:translate-x-0"
+                />
               )}
             </div>
           </div>
@@ -76,9 +81,10 @@ export default function MenuLayoutGrid({
                 render={
                   <Link
                     href={child.absoluteHref}
+                    aria-current={isActive ? "page" : undefined}
                     className={cn(
-                      "group flex w-full items-center justify-between gap-x-2 rounded-md p-2.5 text-left transition-colors outline-none select-none",
-                      "hover:bg-surface-muted focus:bg-surface-muted focus-visible:ring-2 focus-visible:ring-ring",
+                      "group flex w-full items-center justify-between gap-x-2 rounded-md p-2.5 text-left transition-colors duration-150 outline-none select-none motion-reduce:transition-none",
+                      "hover:bg-surface-muted focus:bg-surface-muted focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none focus-visible:ring-inset active:bg-accent/80",
                       isActive && "bg-accent text-accent-foreground",
                     )}
                   />
@@ -97,29 +103,39 @@ export default function MenuLayoutGrid({
               <div className="mt-1.5 flex w-full flex-wrap justify-start gap-1.5 border-t border-border-subtle pt-2.5 text-left">
                 {child.children.map((subChild) => {
                   const subChildKey = `${subChild.name}-${subChild.absoluteHref}`;
+                  const isSubActive = Boolean(
+                    subChild.absoluteHref && pathname === subChild.absoluteHref,
+                  );
                   return subChild.absoluteHref ? (
-                    <Link
+                    <NavigationMenuLink
                       key={subChildKey}
-                      href={subChild.absoluteHref}
-                      className={cn(
-                        "flex items-center gap-1.5 rounded-md bg-surface-muted px-2.5 py-1 text-left text-sm text-foreground transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none",
-                        pathname === subChild.absoluteHref &&
-                          "bg-accent font-medium text-accent-foreground",
-                      )}
+                      render={
+                        <Link
+                          href={subChild.absoluteHref}
+                          aria-current={isSubActive ? "page" : undefined}
+                          className={cn(
+                            "flex items-center gap-1.5 rounded-md bg-surface-muted px-2.5 py-1 text-left text-sm text-foreground transition-colors duration-150 hover:bg-accent hover:text-accent-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none focus-visible:ring-inset active:bg-accent/80 motion-reduce:transition-none",
+                            isSubActive &&
+                              "bg-accent font-medium text-accent-foreground",
+                          )}
+                        />
+                      }
                     >
                       {subChild.icon && (
                         <span className="relative inline-block size-4 shrink-0 overflow-hidden rounded-pill bg-surface">
                           <Image
                             unoptimized
                             src={getMenuIconSrc(subChild.icon)}
-                            alt={subChild.name || subChild.icon}
+                            alt=""
+                            aria-hidden="true"
+                            sizes="16px"
                             fill
                             className="rounded-pill object-contain"
                           />
                         </span>
                       )}
                       <span>{subChild.name}</span>
-                    </Link>
+                    </NavigationMenuLink>
                   ) : (
                     <span
                       key={subChildKey}
@@ -130,7 +146,9 @@ export default function MenuLayoutGrid({
                           <Image
                             unoptimized
                             src={getMenuIconSrc(subChild.icon)}
-                            alt={subChild.name || subChild.icon}
+                            alt=""
+                            aria-hidden="true"
+                            sizes="16px"
                             fill
                             className="rounded-pill object-contain"
                           />

@@ -8,7 +8,7 @@ import { getFooter } from "@/payload/utils/queries";
 import { transformUrl } from "@/utils/cloudflare";
 
 const footerLinkClassName =
-  "inline-block rounded-sm py-1.5 text-primary-foreground underline-offset-4 transition-colors hover:underline focus-visible:ring-2 focus-visible:ring-primary-foreground focus-visible:ring-offset-2 focus-visible:ring-offset-primary focus-visible:outline-none";
+  "inline-block rounded-sm py-1.5 text-primary-foreground underline-offset-4 transition-colors duration-150 hover:text-primary-foreground/90 hover:underline focus-visible:ring-2 focus-visible:ring-primary-foreground focus-visible:ring-offset-2 focus-visible:ring-offset-primary focus-visible:outline-none active:text-primary-foreground/75 motion-reduce:transition-none";
 
 export default async function TheFooter() {
   const locale = (await getLocale()) as Locale;
@@ -42,6 +42,7 @@ export default async function TheFooter() {
           unoptimized
           src={transformUrl(graphic.url, { width: "1200", quality: "80" })}
           alt=""
+          aria-hidden="true"
           className="pointer-events-none -mb-px w-full select-none"
           height={229}
           width={991}

@@ -1,7 +1,9 @@
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import AppMarkdown from "@/components/app-markdown";
-import LightboxModal from "@/components/post-templates/shared/lightbox-modal";
+import LightboxModal, {
+  type LightboxItem,
+} from "@/components/post-templates/shared/lightbox-modal";
 import type { EventGalleryReportBlock, Media } from "@/payload-types";
 import { transformUrl } from "@/utils/cloudflare";
 import { cn } from "@/utils/common";
@@ -29,18 +31,25 @@ const PHOTO_SIZES: Record<Section["columns"], string> = {
   "4": "(min-width: 768px) 25vw, 50vw",
 };
 
+function resolvePhotoMedia(photo: Photo): Media | null {
+  return typeof photo.image === "object" && photo.image !== null
+    ? (photo.image as Media)
+    : null;
+}
+
 function PhotoFigure({
   photo,
   sizes = PHOTO_SIZES["2"],
+  galleryItems,
+  galleryIndex,
 }: {
   photo: Photo;
   sizes?: string;
+  galleryItems: LightboxItem[];
+  galleryIndex: number;
 }) {
   const t = useTranslations("postTemplates");
-  const media =
-    typeof photo.image === "object" && photo.image !== null
-      ? (photo.image as Media)
-      : null;
+  const media = resolvePhotoMedia(photo);
   if (!media?.url) return null;
 
   const alt = media.alt || photo.caption || t("eventPhotoAlt");
@@ -54,10 +63,12 @@ function PhotoFigure({
         caption={photo.caption}
         width={media.width}
         height={media.height}
+        items={galleryItems}
+        initialIndex={galleryIndex}
       >
         <div
           className={cn(
-            "overflow-hidden rounded-lg shadow-md",
+            "overflow-hidden rounded-lg bg-surface-muted shadow-md",
             !hasDimensions && "relative aspect-[4/3]",
           )}
         >
@@ -69,7 +80,7 @@ function PhotoFigure({
               ? { width: media.width ?? 0, height: media.height ?? 0 }
               : { fill: true })}
             className={cn(
-              "w-full object-cover transition-transform duration-200 hover:scale-105 motion-reduce:transition-none motion-reduce:hover:scale-100",
+              "w-full object-cover transition-transform duration-200 hover:scale-105 motion-reduce:transform-none motion-reduce:transition-none motion-reduce:hover:scale-100",
               hasDimensions && "h-auto",
             )}
           />
@@ -100,19 +111,126 @@ function Narrative({ text }: { text: string }) {
   );
 }
 
+function getSidePhoto(section: Section): Photo | undefined {
+  const photos = section.photos ?? [];
+  // A side-by-side layout needs text beside the photo; without it, stack.
+  if ((section.layout ?? "stacked") === "stacked" || !section.narrative) {
+    return undefined;
+  }
+  return photos[0];
+}
+
+/** Collects all rendered gallery photos across sections for Lightbox keyboard navigation. */
+function buildGalleryIndex(sections: Section[], fallbackAlt: string) {
+  const galleryItems: LightboxItem[] = [];
+  const photoIndexByKey = new Map<string, number>();
+
+  for (const [sectionIdx, section] of sections.entries()) {
+    const sidePhoto = getSidePhoto(section);
+    const visiblePhotos = sidePhoto ? [sidePhoto] : (section.photos ?? []);
+
+    for (const [photoIdx, photo] of visiblePhotos.entries()) {
+      const media = resolvePhotoMedia(photo);
+      if (!media?.url) continue;
+      const key = `${section.id ?? sectionIdx}-${photo.id ?? photoIdx}`;
+      photoIndexByKey.set(key, galleryItems.length);
+      galleryItems.push({
+        src: media.url,
+        alt: media.alt || photo.caption || fallbackAlt,
+        caption: photo.caption,
+        width: media.width,
+        height: media.height,
+      });
+    }
+  }
+
+  return { galleryItems, photoIndexByKey };
+}
+
+function EventGallerySection({
+  section,
+  sectionIndex,
+  galleryItems,
+  photoIndexByKey,
+}: {
+  section: Section;
+  sectionIndex: number;
+  galleryItems: LightboxItem[];
+  photoIndexByKey: Map<string, number>;
+}) {
+  const photos = section.photos ?? [];
+  const sidePhoto = getSidePhoto(section);
+  const sectionKey = section.id ?? sectionIndex;
+
+  if (sidePhoto) {
+    const sidePhotoKey = `${sectionKey}-${sidePhoto.id ?? 0}`;
+    return (
+      <div className="grid items-center gap-6 md:grid-cols-2 md:gap-8">
+        <div
+          className={cn(
+            "min-w-0",
+            section.layout === "imageRight" && "md:order-2",
+          )}
+        >
+          <PhotoFigure
+            photo={sidePhoto}
+            galleryItems={galleryItems}
+            galleryIndex={photoIndexByKey.get(sidePhotoKey) ?? 0}
+          />
+        </div>
+        <div className="min-w-0">
+          <Narrative text={section.narrative ?? ""} />
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-8">
+      {section.narrative && <Narrative text={section.narrative} />}
+      {photos.length > 0 && (
+        <div
+          className={cn(
+            "grid gap-4 sm:gap-6 md:gap-8",
+            GRID_COLUMNS[section.columns],
+          )}
+        >
+          {photos.map((photo, photoIdx) => {
+            const photoKey = `${sectionKey}-${photo.id ?? photoIdx}`;
+            return (
+              <PhotoFigure
+                key={photo.id ?? photoIdx}
+                photo={photo}
+                sizes={PHOTO_SIZES[section.columns]}
+                galleryItems={galleryItems}
+                galleryIndex={photoIndexByKey.get(photoKey) ?? 0}
+              />
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function EventGalleryReportView({
   block,
   isTitleHidden,
 }: Props) {
+  const t = useTranslations("postTemplates");
   const Heading = isTitleHidden ? "h1" : "h2";
   const { eventTitle, eventSubtitle, sections, credits } = block;
+  const { galleryItems, photoIndexByKey } = buildGalleryIndex(
+    sections,
+    t("eventPhotoAlt"),
+  );
 
   return (
     <article className="mx-auto max-w-6xl">
       <header className="mb-8 text-center">
         <Heading
           className={cn(
-            "leading-tight font-bold text-secondary",
+            "leading-tight font-bold break-words text-secondary",
             isTitleHidden ? "text-2xl sm:text-3xl" : "text-xl sm:text-2xl",
           )}
         >
@@ -128,51 +246,15 @@ export default function EventGalleryReportView({
       </header>
 
       <div className="space-y-8 rounded-xl border border-border bg-surface p-card-sm shadow-md sm:rounded-2xl md:space-y-10 md:p-10">
-        {sections.map((section, idx) => {
-          const photos = section.photos ?? [];
-          // A side-by-side layout needs text beside the photo; without it, stack.
-          const sidePhoto =
-            (section.layout ?? "stacked") === "stacked" || !section.narrative
-              ? undefined
-              : photos[0];
-
-          if (sidePhoto) {
-            return (
-              <div
-                key={section.id ?? idx}
-                className="grid items-center gap-8 md:grid-cols-2"
-              >
-                <div
-                  className={cn(
-                    section.layout === "imageRight" && "md:order-2",
-                  )}
-                >
-                  <PhotoFigure photo={sidePhoto} />
-                </div>
-                <Narrative text={section.narrative ?? ""} />
-              </div>
-            );
-          }
-
-          return (
-            <div key={section.id ?? idx} className="space-y-8">
-              {section.narrative && <Narrative text={section.narrative} />}
-              {photos.length > 0 && (
-                <div
-                  className={cn("grid gap-8", GRID_COLUMNS[section.columns])}
-                >
-                  {photos.map((photo, photoIdx) => (
-                    <PhotoFigure
-                      key={photo.id ?? photoIdx}
-                      photo={photo}
-                      sizes={PHOTO_SIZES[section.columns]}
-                    />
-                  ))}
-                </div>
-              )}
-            </div>
-          );
-        })}
+        {sections.map((section, idx) => (
+          <EventGallerySection
+            key={section.id ?? idx}
+            section={section}
+            sectionIndex={idx}
+            galleryItems={galleryItems}
+            photoIndexByKey={photoIndexByKey}
+          />
+        ))}
       </div>
 
       {credits && (

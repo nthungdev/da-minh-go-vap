@@ -72,10 +72,10 @@ export function SearchResultCard({
       onClick={onSelect}
       onMouseEnter={onMouseEnter}
       className={cn(
-        "group flex gap-3.5 border-b border-border-warm py-4 transition-colors duration-150 last:border-b-0 motion-reduce:transition-none sm:gap-4",
-        "focus-visible:rounded-xl focus-visible:ring-2 focus-visible:ring-primary-700 focus-visible:ring-offset-2 focus-visible:ring-offset-surface-warm focus-visible:outline-none",
+        "group flex gap-3.5 border-b border-border-warm py-4 transition-colors duration-150 last:border-b-0 active:bg-stone-50 motion-reduce:transition-none sm:gap-4",
+        "focus-visible:rounded-xl focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-surface-warm focus-visible:outline-none",
         isSelected &&
-          "-mx-3 rounded-xl border-b-transparent bg-white px-3 shadow-[0_2px_10px_rgba(0,0,0,0.04)]",
+          "-mx-3 rounded-xl border-b-transparent bg-white px-3 shadow-[0_2px_10px_rgba(0,0,0,0.04)] ring-1 ring-ring/30",
       )}
     >
       <div className="relative aspect-video w-28 shrink-0 overflow-hidden rounded-xl bg-surface-muted sm:w-32">

@@ -16,7 +16,7 @@ export default function CatechismQASeriesView({ block, isTitleHidden }: Props) {
     <article className="mx-auto max-w-5xl rounded-xl border border-border bg-surface p-card-sm shadow-md md:p-card">
       <Heading
         className={cn(
-          "mb-2 font-bold text-secondary uppercase",
+          "mb-2 font-bold break-words text-secondary uppercase",
           isTitleHidden ? "text-2xl sm:text-3xl" : "text-xl sm:text-2xl",
         )}
       >
@@ -41,7 +41,7 @@ export default function CatechismQASeriesView({ block, isTitleHidden }: Props) {
               </div>
             )}
             <div className="min-w-0 flex-1">
-              <SectionHeading className="text-lg font-bold text-editorial-teal-deep md:text-xl">
+              <SectionHeading className="text-lg font-bold break-words text-editorial-teal-deep md:text-xl">
                 {item.title}
               </SectionHeading>
               <AppMarkdown className="text-justify text-base leading-[1.75] text-foreground md:text-lg [&_p]:mt-1.5">
