@@ -35,7 +35,7 @@ export default function PostGroupSkeleton({
           {items.map((index) => (
             <li
               key={index}
-              className="block h-14 w-full rounded-md bg-surface-muted motion-safe:animate-pulse"
+              className="block h-14 w-full rounded-xl bg-surface-muted motion-safe:animate-pulse"
             />
           ))}
         </ul>

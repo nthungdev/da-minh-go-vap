@@ -11,12 +11,12 @@ export function SearchSkeletonList() {
     <div className="divide-y divide-border-warm" aria-hidden="true">
       {SKELETON_ROWS.map((row) => (
         <div key={row} className="flex gap-3.5 py-4 sm:gap-4">
-          <div className="aspect-video w-28 shrink-0 animate-pulse rounded-[10px] bg-stone-200/80 motion-reduce:animate-none sm:w-32" />
+          <div className="aspect-video w-28 shrink-0 animate-pulse rounded-xl bg-stone-200/80 motion-reduce:animate-none sm:w-32" />
           <div className="flex min-w-0 flex-1 flex-col justify-center gap-2">
-            <div className="h-3 w-28 animate-pulse rounded bg-stone-200/80 motion-reduce:animate-none" />
-            <div className="h-4.5 w-4/5 animate-pulse rounded bg-stone-200/90 motion-reduce:animate-none" />
-            <div className="h-3.5 w-full animate-pulse rounded bg-stone-200/70 motion-reduce:animate-none" />
-            <div className="h-3.5 w-2/3 animate-pulse rounded bg-stone-200/70 motion-reduce:animate-none" />
+            <div className="h-3 w-28 animate-pulse rounded-sm bg-stone-200/80 motion-reduce:animate-none" />
+            <div className="h-4.5 w-4/5 animate-pulse rounded-sm bg-stone-200/90 motion-reduce:animate-none" />
+            <div className="h-3.5 w-full animate-pulse rounded-sm bg-stone-200/70 motion-reduce:animate-none" />
+            <div className="h-3.5 w-2/3 animate-pulse rounded-sm bg-stone-200/70 motion-reduce:animate-none" />
           </div>
         </div>
       ))}

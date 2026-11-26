@@ -59,7 +59,7 @@ export default function AppPostListAsync({
           {skeletonRows.map((row) => (
             <div
               key={row}
-              className="h-14 rounded-md bg-surface-muted motion-safe:animate-pulse"
+              className="h-14 rounded-xl bg-surface-muted motion-safe:animate-pulse"
             />
           ))}
         </div>
