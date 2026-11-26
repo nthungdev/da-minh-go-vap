@@ -9,12 +9,9 @@ import {
 } from "@/i18n/routing";
 import { getRequestOrigin } from "@/utils/url";
 
+const BASIC_AUTH_ENABLED = process.env.BASIC_AUTH_ENABLED === "true";
 const AUTH_USER = process.env.AUTH_USER;
 const AUTH_PASSWORD = process.env.AUTH_PASSWORD;
-
-if (!(AUTH_USER && AUTH_PASSWORD)) {
-  throw new Error("Missing BASIC_AUTH_USER or BASIC_AUTH_PASSWORD");
-}
 
 const ENFORCE_BASIC_AUTH = false;
 
@@ -89,10 +86,20 @@ export async function middleware(request: NextRequest) {
  * credentials were sent to the auth route, otherwise null
  */
 function basicAuthCheck(request: NextRequest): BasicAuthResult {
+  if (!BASIC_AUTH_ENABLED) {
+    return null;
+  }
+
   const { pathname } = request.nextUrl;
 
   if (pathname.match(/^\/(admin|api)/)) {
     return null;
+  }
+
+  if (!(AUTH_USER && AUTH_PASSWORD)) {
+    return pathname.startsWith("/auth/basic") || ENFORCE_BASIC_AUTH
+      ? "challenge"
+      : null;
   }
 
   const authHeader = request.headers.get("authorization");

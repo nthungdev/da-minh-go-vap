@@ -9,8 +9,6 @@ const VALID_ENV: NodeJS.ProcessEnv = {
   DATABASE_URI: "mongodb://localhost:27017/db",
   PAYLOAD_ADMIN_EMAIL: "admin@example.com",
   PAYLOAD_ADMIN_PASSWORD: "admin",
-  AUTH_USER: "user",
-  AUTH_PASSWORD: "password",
 };
 
 function failingNames(env: NodeJS.ProcessEnv): string[] {
@@ -75,5 +73,31 @@ test("Firebase config is required only when analytics is enabled", () => {
       "NEXT_PUBLIC_FIREBASE_APP_ID",
       "NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID",
     ],
+  );
+});
+
+test("Basic auth credentials are required only when BASIC_AUTH_ENABLED is true", () => {
+  assert.deepEqual(
+    failingNames({
+      ...VALID_ENV,
+      BASIC_AUTH_ENABLED: "false",
+    }),
+    [],
+  );
+  assert.deepEqual(
+    failingNames({
+      ...VALID_ENV,
+      BASIC_AUTH_ENABLED: "true",
+    }),
+    ["AUTH_USER", "AUTH_PASSWORD"],
+  );
+  assert.deepEqual(
+    failingNames({
+      ...VALID_ENV,
+      BASIC_AUTH_ENABLED: "true",
+      AUTH_USER: "user",
+      AUTH_PASSWORD: "password",
+    }),
+    [],
   );
 });
